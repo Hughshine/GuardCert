@@ -382,9 +382,54 @@ def affine_adapter():
     print("Signed affine lowering and runtime range guards compiled against actual Loop and Clight")
 
 
+def counted_adapter():
+    if PROFILE != "core":
+        raise SystemExit("the counted-loop bridge requires the core profile")
+    affine = json.loads((BUILD / "polcert-affine-report.json").read_text())
+    if affine["source_manifest_sha256"] != sha(MANIFEST):
+        raise SystemExit("compile the current affine bridge before its loop extension")
+    report = BUILD / "polcert-loop-report.json"
+    report.unlink(missing_ok=True)
+    baseline = BUILD / "PolCertLoopBaseline.v"
+    baseline.write_text("From compcert.common Require Import Events.\n"
+                        "From compcert.cfrontend Require Import ClightBigstep.\n"
+                        "Print Assumptions ClightBigstep.exec_stmt.\n"
+                        "Print Assumptions ClightBigstep.exec_stmt_steps.\n")
+    baseline_log = BUILD / "polcert-loop-baseline.log"
+    with baseline_log.open("w") as log:
+        subprocess.run(["rocq", "compile", *load_flags(), str(baseline)], cwd=ROOT,
+                       stdout=log, stderr=subprocess.STDOUT, check=True)
+    sources = [ROOT / "theories" / "PolCertCountedClight.v",
+               ROOT / "theories" / "PolCertClightBody.v"]
+    log_path = BUILD / "polcert-loop-build.log"
+    with log_path.open("w") as log:
+        for source in sources:
+            subprocess.run(["rocq", "compile", *load_flags(), str(source)], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+
+    def assumption_names(path):
+        return set(re.findall(r"^([\w.]+)\s*:", path.read_text(), re.MULTILINE)) - {"Axioms", "Warning"}
+
+    inherited = assumption_names(baseline_log)
+    interface = {"I.State.t", "I.t", "I.instr_semantics"}
+    adapted = assumption_names(log_path)
+    if not inherited or adapted != inherited | interface:
+        raise SystemExit(f"unexpected loop bridge assumptions: {sorted(adapted ^ (inherited | interface))}")
+    write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+                        "sources": {str(s.relative_to(ROOT)): sha(s) for s in sources},
+                        "compcert_statement_assumptions": sorted(inherited),
+                        "interface_assumptions": sorted(interface),
+                        "additional_global_axioms": [],
+                        "loop_support": "one counted loop with loop-free structured body",
+                        "instruction_backend": "explicit execution and memory-view certificate",
+                        "body_temporaries": "preserved",
+                        "whole_program_transformation": False})
+    print("Actual Loop iteration, signed Clight loop lowering, and instruction backend compiled")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter"))
+    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter"))
     parser.add_argument("--source", type=Path)
     parser.add_argument("--target", default="polygen/Loop.v")
     parser.add_argument("--clean", action="store_true")
@@ -412,6 +457,8 @@ def main():
         optimizer_adapter()
     elif args.action == "affine-adapter":
         affine_adapter()
+    elif args.action == "counted-adapter":
+        counted_adapter()
     else:
         build(args.target, args.clean)
 

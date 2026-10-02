@@ -55,6 +55,14 @@ Fixpoint analyze (bounds : list interval) (e : L.expr) : option interval :=
 Definition env_within (bounds : list interval) (env : list Z) : Prop :=
   forall n b, nth_error bounds n = Some b -> contains b (nth n env 0).
 
+Lemma env_within_cons b bounds x env : contains b x -> env_within bounds env ->
+  env_within (b :: bounds) (x :: env).
+Proof.
+  intros HEAD TAIL [|n] bound INDEX; cbn in *.
+  - inversion INDEX; subst; exact HEAD.
+  - eapply TAIL; eauto.
+Qed.
+
 Fixpoint affine_safe (e : L.expr) (env : list Z) : Prop :=
   match e with
   | L.Constant z => machine_range z
@@ -156,6 +164,30 @@ Arguments lower_expr_pure e {layout c} _.
 Definition typed_view (layout : list ident) (env : list Z) (le : temp_env) : Prop :=
   forall n id, nth_error layout n = Some id ->
   exists value, le ! id = Some (Vint value) /\ Int.signed value = nth n env 0.
+
+Lemma typed_view_set_fresh layout env le id value :
+  ~ In id layout -> typed_view layout env le ->
+  typed_view layout env (PTree.set id value le).
+Proof.
+  intros FRESH VIEW n parameter INDEX.
+  assert (DISTINCT : parameter <> id).
+  { intro EQ; subst parameter. apply FRESH. eapply nth_error_In; eauto. }
+  destruct (VIEW _ _ INDEX) as [word [LOOKUP SIGNED]].
+  exists word; split; auto. rewrite PTree.gso by exact DISTINCT; exact LOOKUP.
+Qed.
+
+Lemma typed_view_cons layout env le id x :
+  machine_range x -> ~ In id layout -> typed_view layout env le ->
+  typed_view (id :: layout) (x :: env) (PTree.set id (Vint (Int.repr x)) le).
+Proof.
+  intros RANGE FRESH VIEW [|n] parameter INDEX; cbn in INDEX.
+  - inversion INDEX; subst parameter. exists (Int.repr x); split.
+    + apply PTree.gss.
+    + cbn. apply Int.signed_repr; exact RANGE.
+  - assert (TAIL : typed_view layout env (PTree.set id (Vint (Int.repr x)) le)).
+    { apply typed_view_set_fresh; assumption. }
+    exact (TAIL n parameter INDEX).
+Qed.
 
 Lemma affine_safe_range e env : affine_safe e env -> machine_range (L.eval_expr env e).
 Proof. destruct e; cbn [affine_safe L.eval_expr]; tauto. Qed.

@@ -186,3 +186,8 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 执行 `make clean` 后，组合目标 `make check-integration polcert-affine-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。32 个既有核心／Clight 工程文件重新编译，两个 Python 回归、CompCert proof 目标、新驱动提取／构建及两个原生示例通过。随后恢复并以 `--clean` 重编译真实 Loop 的 57 个证明输入，三个原适配器及两个新增仿射桥接文件编译通过。完整日志是 `build/affine-full-integration-check.log`。
 
 新增区间分析例子由 Rocq `vm_compute` 检查，包括正／负系数、最大安全边界、最小负数取负的拒绝、未支持除法和 unknown 在否定下的保持。`build/polcert-affine-report.json` 将桥接定理与实际 `Clight.eval_expr` 比较，二者都只列出相同的四个既有逻辑假设，新增全局公理为空。这里没有原生多面体优化或完整循环 lowering 的验证结论。
+# 单层计数循环及基本指令插件
+
+再次执行 `make clean` 后，组合目标 `make check-integration polcert-loop-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。33 个核心／Clight 工程文件重新编译，既有 Python 与原生回归、编译器构建和 CompCert proof 目标通过；实际 Loop 的 57 个依赖从锁定源码恢复后以 `--clean` 重编译，原适配器、仿射桥接及两个循环／body 文件通过。日志是 `build/loop-full-integration-check.log`。
+
+`build/polcert-loop-report.json` 的假设审计只保留实际 Clight statement 与 big-step→small-step 端点的六个既有假设及 `I.State.t/I.t/I.instr_semantics`。基本指令执行证书是定理参数，新增全局公理为空。循环输入和数学 `Zrange` 对应、空／非空范围、`INT_MAX` 上界、参数布局冲突拒绝和空 body 例子均包含在编译证明中。当前实现仍没有完整程序的多面体优化 simulation。

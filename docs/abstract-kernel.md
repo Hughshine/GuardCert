@@ -64,3 +64,5 @@ v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在�
 目前已接通的真实 Clight 宿主是表达式替换；任意多语句／循环 region、可执行 alias guard 和完整 Loop lowering 仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。
 
 `PolCertAffineClight.v` 和 `PolCertAffineGuard.v` 已补出数学整数与 signed32 的表达式桥接：静态区间检查覆盖常量、变量、加法及常量乘法的每个中间值；实际 Clight 范围 guard 的接受建立输入区间，布尔测试 lowering 保持实际 Loop 的求值。这些定理消费已证明的性质接口，没有向通用核心加入整数语义。详细契约和不支持的运算见 [仿射桥接](polcert-affine-clight.md)。
+
+后续 [计数循环桥接](polcert-clight-loop.md) 已提供一个外层 Loop 与 `Instr/Seq/Guard` body 的 lowering，基本指令由语言插件提供执行与内存 view 证书。循环端点已提升为任意函数／continuation 中的小步执行；这尚不能代替区域替换的完整程序 simulation。嵌套循环、具体内存实例、区域提取及 private temporary 的宿主 frame 仍需补充。

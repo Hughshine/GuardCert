@@ -58,6 +58,15 @@ Proof.
     + reflexivity.
 Qed.
 
+Lemma decision_fragment_run function_entry ge e le m t b :
+  decision_run (Entry ge e le m) t b -> forall yes no trace le' m' out,
+  exec_stmt function_entry ge e le m (if b then yes else no) trace le' m' out ->
+  exec_stmt function_entry ge e le m (tree_statement t yes no) trace le' m' out.
+Proof.
+  intro RUN; induction RUN; intros yes0 no0 trace0 le' m' out LEAF; cbn [tree_statement]; auto.
+  destruct H as [v [EV BOOL]]. eapply exec_Sifthenelse; eauto.
+  destruct b; cbn in *; eauto.
+Qed.
 (** Generated conditions are actual trees, with unknown directed to fallback.
     No trusted boolean-expression compiler or native overflow flag is assumed. *)
 Definition synthesize_tree {A I E}

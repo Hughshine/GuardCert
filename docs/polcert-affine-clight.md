@@ -45,4 +45,4 @@ make polcert-affine-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-drive
 
 该目标复用锁定 CompCert 工具链，恢复并重编译真实 Loop 的 57 个证明依赖及既有适配器，然后编译两个桥接文件。`build/polcert-affine-report.json` 将新增定理的 `Print Assumptions` 与实际 `Clight.eval_expr` 基线比较；二者相同，新增全局公理为空。数学区间分析本身闭合。表达式语义证明继承 CompCert 的四个既有逻辑假设。
 
-当前没有生成完整 `Loop.stmt` 的循环代码，未将此桥接接入提取后的优化器，也未证明多语句区域进入完整 Clight 程序。实际 `Opt_prepared_correct` 已接入的是 [guarded Loop 程序](../adapters/polcert-optimizer/README.md)。后续必须补充指令实现、有限迭代及 private temporary 的状态关系、候选进展和区域上下文模拟。
+后续 [计数循环桥接](polcert-clight-loop.md) 已增加一个外层 Loop 及结构化 body 的 Clight lowering。嵌套循环、具体内存／指令实例、候选进展和完整程序区域 simulation 仍需补充。实际 `Opt_prepared_correct` 已接入的是 [guarded Loop 程序](../adapters/polcert-optimizer/README.md)，尚未进入提取后驱动的多面体优化链。
