@@ -43,7 +43,7 @@
 
 当前整个循环规则接受精确的 `counted_loop` 和 `frontend_counted_loop` AST。原生 `native_zero_trip.c` 已在普通、外层循环和 goto 上下文实际命中四个整个循环入口 guard。八对 signed32 输入包括最大／最小值边界；输出与 GCC 及独立迭代次数一致。零次迭代且 body 指针为 null 时正常返回；有迭代时原 body 仍执行。修改计数器的 body 与 `<=` 比较被拒绝。没有性能结论。
 
-这些循环目前要求 body 保留全部 temporaries，计数器与上界为不同的 signed32 temporaries，步长为 1；不覆盖一般 while、break/continue、local accumulator、常量上界、其他步长或 debug annotations。外围程序可以包含这些语句。
+旧三个实例要求 body 保留全部 temporaries。[新的 Clight 嵌套实例](clight-nested-regions.md) 已改为显式 frame：body 可以修改非受保护 temporaries并包含内层循环，保护外层计数器及边界。它支持完整前端包装与顺序组合，并进入默认提取驱动。计数器与上界仍为不同的 signed32 temporaries，步长为 1；不覆盖一般 while、body 的 break/continue、常量上界、其他步长或 debug annotations。外围程序可以包含这些语句。
 
 这个进展接口也不承担 guard 的安全性证明。源循环零次迭代时，body 没有读取的数据不能被 guard 无条件提前读取；语言适配器必须证明检查域，或通过短路与检查位置避免新增非法访问。可能因回绕而无限运行的原循环还需要回退锁步模拟等机制；它们不属于这个首个严格计数实例。
 

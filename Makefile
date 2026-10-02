@@ -57,7 +57,9 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightRegionProgress.v theories/ClightProgressClassifier.v \
                   theories/ClightAdaptiveRegion.v theories/ClightAdaptiveRegionProof.v \
                   theories/ClightZeroTrip.v theories/ClightFrontendLoopProtocol.v theories/ClightFrontendRegion.v \
-                  theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v
+                  theories/ClightFragmentProgress.v theories/ClightSequenceProgress.v theories/ClightNestedProgress.v \
+                  theories/ClightNestedFrontendProgress.v theories/ClightStructuredProgress.v \
+                  theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done
@@ -90,6 +92,7 @@ native-demo: guarded-compiler
 	python3 scripts/native_signed.py
 	python3 scripts/native_region.py
 	python3 scripts/native_zero_trip.py
+	python3 scripts/native_nested_regions.py
 
 check-integration: native-demo
 

@@ -13,6 +13,7 @@
 - [具体贡献与推进计划](docs/contribution-plan.md)：建议主线、算法与定理、第一批实例和验收标准；补充可执行前提及最优 guard 合成的先例。
 - [框架扩展设计](docs/framework-extension.md)：证据、状态关系、失败协议与不同证明目标；区分设计和已实现能力。
 - [性质运输与状态关系的补充文献](docs/composition-literature.md)：CompCert／Verasco defensive form、开放模块组合及安全插桩的已有覆盖。
+- [CompCert-loop 新增比较](docs/compcert-loop-comparison.md)：2026 年抽象行为接口与结构循环变换接入的直接先例。
 - [研究动机草稿](docs/intro.md)：先描述变换类与研究对象。
 - [Presumption 分类与合成](docs/presumptions.md)：表达能力、编码定理、overflow flag 和死分支 rewrite。
 - [问题定义与证明接口](docs/framework.md)：插件义务、局部到全程序的桥接、CompCert 接入路线。
@@ -32,6 +33,8 @@
 [有限语句区域宿主](docs/clight-statement-regions.md) 将局部条件正确性证书提升到完整 Clight 小步模拟，证明源区域内部每一步的工作量度量严格下降。`encoded_region_rule` 复用同一性质与条件合成接口；冗余赋值实例已进入实际提取驱动，原生例子验证普通、循环和 goto 外围中的快路／回退。出口 memory 已支持双向 `Mem.extends`；它的旧有限宿主保留为独立基线，当前提取入口使用下述进展协议宿主。
 
 [片段内部进展协议](docs/region-protocol.md) 将小步覆盖、下降度量和完成执行的重建交给语言实例。通用核心不解释语言语义；有限片段与严格 signed32 计数循环共用显式模拟索引和整程序宿主。零次迭代时跳过整个循环的规则复用性质合成与 C→Asm 定理。真实 C 前端的循环包装已直接证明；原生例子验证整个循环命中、signed 边界和零次迭代的空指针 barrier。
+
+[直接 Clight 的嵌套区域](docs/clight-nested-regions.md) 进一步将片段进展与 temporary frame 合成，允许内层计数器变化并保护外层控制值。默认编译器已替换真实 C 的整个两层循环；七组输入、五处 guard、公共 liveout、数组写入与 frame 违例均经原生检查。这一步扩展源区域宿主，循环交换仍未实现。
 
 [内存与宿主运输性质](docs/compcert-memory-transport.md) 从不依赖具体语义的双向模拟引理，实例化真实 CompCert 内存、运算、Clight 表达式和完整小步执行。代码及 temps 相同而 memory 双向扩展时，语言实例提供相同观察及后继关系的证书。PolCert 的具体 load/store 桥接已复用这个接口；区域替换宿主已借此连接等价内存出口与完整 C→Asm 定理。
 
@@ -81,7 +84,7 @@
 
 真实 passes 在 `SimplLocals` 后运行：分支版本化允许 guard 接受时进入原 else；表达式版本化允许 guard 接受时运行保持类型和值的候选。后者支持赋值右侧和 return，可提升到二元／单目运算及 cast。四个新实例是 `x/y→x>>1`、`x%y→x&1`（检查 y=2）、`(x+x)/2→x`（检查不回绕）和 `x-x→0`（Truth）。完整程序证明覆盖调用、外部事件、可能发散的循环、switch 和 goto。
 
-当前语句宿主覆盖有限静默区域和严格 signed32 计数循环，尚无任意候选 region 的关系式宿主、完整数组 non-alias 检查、preload 或完整 DSL lowering；真实 Mem 的 load-hoisting 证明尚未接入 Clight。同地址内存表达式 guard 已可执行。独立 `GuardedRegion.v` 模型仍采用总的有限宏转移，两条证明路径的边界见接入说明。
+当前语句宿主覆盖有限静默区域和可嵌套的严格 signed32 计数循环，尚无任意候选 region 的关系式宿主、完整数组 non-alias 检查、preload 或完整 DSL lowering；真实 Mem 的 load-hoisting 证明尚未接入 Clight。同地址内存表达式 guard 已可执行。独立 `GuardedRegion.v` 模型仍采用总的有限宏转移，两条证明路径的边界见接入说明。
 
 ## 运行
 
@@ -99,4 +102,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
 opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
-`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `AdaptiveRegionCompiler.compile_progress_regions`、构建编译器、编译六个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/`、`build/native-rewrites/`、`build/native-alias/` 、`build/native-signed/`、`build/native-region/` 和 `build/native-zero-trip/`。
+`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `AdaptiveRegionCompiler.compile_progress_regions`、构建编译器并运行七组 C 原生套件，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果在 `build/compiler.txt`、`build/synthesized-conditions.json` 和各个 `build/native-*/` 目录，包括 `build/native-nested-regions/`。

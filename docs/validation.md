@@ -351,3 +351,14 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 `legacy_valid_uninhabited` 是闭合定理：锁定旧 `CState.valid` 对不同 block 作不可能的全称要求；旧 wrapped CInstr Loop 在非空声明时没有执行。新只读参数实例保留真实指令语义及 Bernstein 证明，显式采用存在性数组布局和权限，实际分配内存的非空 wrapped 循环执行例子已通过。其具体假设与底层 Bernstein 基线均为五项，无新增全局或指令接口公理。旧上游语义未修改，raw CInstr 原生双写证明不依赖该旧 Compat。
 
 两份新报告为 `build/polcert-optimizer-region-adapter-report.json` 与 `build/polcert-memory-context-adapter-report.json`；其中所有源码 SHA-256 已重新核对。
+
+
+## 2026-10-02：直接 Clight 的可组合嵌套循环进展
+
+执行 `make clean` 后，联合运行 `make check-integration polcert-store-native polcert-optimizer-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。73 个标准证明清理重编译，60 个 memory 与 92 个 optimizer 输入分别恢复并清理编译；七个／两个隔离依赖及十三个／两个实际模块通过。日志为 `build/nested-progress-full-check.log`。
+
+六个新增模块提供 nullable 片段、temporary frame、顺序组合、任意已有 body 协议驱动的严格循环，以及真实前端包装和递归 AST 识别。完整源小步覆盖、下降、完成重建、每一步 frame 与独立于外围 continuation 的入口上界分别证明。默认整程序宿主消费递归识别结果；没有新增全局公理。通用协议仍闭合，语言／宿主假设并集仍只有上游已有的八项，默认完整编译器仍为同一 35 项基线。
+
+七组默认原生套件与可选静态／动态双写套件全部通过。新增 `native-nested-regions` 核对七组输入 rectangle、五处整个外层循环 guard、内层计数器最终值、实际数组写入、零次路径的空指针，以及外层计数器／边界被修改时的拒绝。包括 signed 最大／最小边界，结果与 GCC 和独立预期一致。十五份含源码哈希的 proof 报告已逐项核对；已有实际优化器区域端点仍为两个上游基线的 75 项并集。
+
+这一步扩展源循环区域和证明组合，运行时规则仍是零次迭代跳过；尚未进行循环调度重排、性能测量或原生 PolOpt 调用。
