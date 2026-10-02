@@ -2,6 +2,24 @@
 
 核对日期：2026-10-02。结论是：**有值得试验的候选问题，但“通用 conditional rewrite 框架，局部证明接入 CompCert”本身已有直接先例；当前原型不能据此宣称新颖性。** 本文将已确认的覆盖与我们的研究推断分开。跨领域需求见 [扩展 survey](survey-general.md)，接口调整见 [框架扩展设计](framework-extension.md)。
 
+## 哪个工作最接近
+
+这是按本项目关注点作出的判断，不是论文之间的能力排名。最接近的工作取决于我们要新增哪层：
+
+| 本项目的关注点 | 最直接的对照 | 为什么 |
+| --- | --- | --- |
+| 从建模/变换义务产生、推导、简化并生成运行时条件 | CGO 2017 | 它实际实现了假设处理与入口版本选择，最接近用户提出的需求 |
+| 机械证明动态假设、利用假设的优化及失败恢复 | CoreJIT 2021 | Assume/Anchor、检查安全分析、优化 pass 与整个 JIT 的仿真已经贯通 |
+| 不同片段变换共享验证器并接入 CompCert | Chamois 2023 | 源/目标块关系、不变量与符号重写由通用验证器消费 |
+| 局部 rewrite 插件到全程序的通用定理 | Peek 2016 | 已有直接的 verified peephole 库及上下文提升 |
+| 规则暴露前提、交外部分析消解 | Icing 2019 | compiler/application preconditions 与可扩展 rewrite 接口 |
+
+所以 CoreJIT 是机械化推测机制的重要近邻，但不是前提合成这条线唯一或最直接的近邻。第一阶段若仍是 AOT CompCert 的入口版本化，就不必同时重建其 JIT monitor 和活动栈去优化机制。
+
+CoreJIT §3.3.2 的输入包括 profiler 提出的 guard 表达式与 Anchor 位置。它验证可安全插入检查；§3.3.3 的常量传播利用检查通过后的事实；失败恢复由 metadata 对应回原版本。其“任意谓词”指 IR 可表达的 guard，不是自动编译任意 Rocq 命题。论文并未提供本项目讨论的通用“语义义务 → 前提 AST → 入口投影 → checked machine guard”算法。其全程序定理针对 CoreIR/JIT 执行，原生生成和 Lua 前端在 2021 论文的证明范围外。[CoreJIT §§1、3.1、3.3、4](https://www.o1o.ch/about/assets/courir.pdf)。
+
+还需避免把两篇论文的范围直接相加：FM-JIT 2023 验证 CompCert 原生生成、解释器/原生执行交互和推测指令的编译，但 §1 明确将动态推测插入排除在该论文范围之外，输入可预先包含特化。其 runnable JIT 的 C primitives 也没有对应的实现正确性证明。它推进了 CoreJIT 未覆盖的后端问题，却不是“CoreJIT 全部优化 passes 加原生生成”已经整体机械连接的证据。[FM-JIT 引言限制、§5.5](https://aurele-barriere.github.io/papers/fmjit.pdf)。
+
 ## 最直接的先例
 
 ### CompCert 主线已经有条件化的局部规则
@@ -37,7 +55,7 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 | [AliveInLean，CAV 2019](https://web.ist.utl.pt/nuno.lopes/pubs.php?id=aliveinlean-cav19) | 在 Lean 中验证 LLVM peephole 验证器 | 其保证明确以 SMT 正确消解义务为前提；验证规则与生成安全 guard 是不同任务 |
 | [Icing，CAV 2019](https://cakeml.org/cav19.pdf) | 可扩展 rewrite 库、前提接口、规则组合、HOL4 证明及 CakeML 连接 | §4 的 `cond` 检查被优化表达式上的条件，`assume` 返回外部需消解的命题；不能仅凭名称解释成运行时版本化 |
 | [CoreJIT，POPL 2021](https://www.o1o.ch/about/assets/courir.pdf) | 已验证的 assume 插入、guard 无错误求值分析、去优化、优化组合与 JIT 全程序仿真 | 安全 guard 和恢复本身已做过。应比较我们的语义前提编译接口是否真提供不同能力 |
-| [FM-JIT，POPL 2023](https://aurele-barriere.github.io/papers/fmjit.pdf) | 原生代码生成与效果抽象的精化组合 | 不能把“接 CompCert backend”单独算新意；需报告其原语规格与实现边界 |
+| [FM-JIT，POPL 2023](https://aurele-barriere.github.io/papers/fmjit.pdf) | 原生代码生成、预先插入的推测指令及效果抽象的精化组合 | 动态推测插入不在该论文范围；C primitives 实现未证明。不能把“接 CompCert backend”单独算新意 |
 | [Abstract Execution，JAR 2024](https://link.springer.com/article/10.1007/s10817-023-09692-0) | 对 schematic programs 的关系式证明，应用于重构、成本分析和并行化 | “不限优化的统一变换证明”也已有框架；真正增量应是一个具体可执行算法和定理 |
 
 ## 哪些主张目前不能成立
