@@ -3,7 +3,7 @@ From compcert.cfrontend Require Import Clight Csyntax Csem Cstrategy SimplExpr
   SimplExprproof SimplLocals SimplLocalsproof.
 From compcert.driver Require Import Compiler Complements.
 From Guard Require Import ClightGuard ClightGuardProof ClightNoWrap GuardCompiler
-  ClightCondition ClightTreeRewrite ClightTreeRewriteProof ClightTreeExamples.
+  ClightCondition ClightTreeRewrite ClightTreeRewriteProof ClightTreeExamples ClightSameAddress.
 
 Definition compile_with_trees
   (branches : Clight.expr -> option Clight.expr)
@@ -80,13 +80,13 @@ Qed.
 End TREE_COMPILER.
 
 
-Definition compile_property_rewrites := compile_with_trees select_no_wrap select_tree_common.
+Definition compile_property_rewrites := compile_with_trees select_no_wrap select_memory_rewrites.
 
 Corollary compile_property_rewrites_correct : forall p tp,
   compile_property_rewrites p = OK tp ->
   backward_simulation (Csem.semantics p) (Asm.semantics tp).
 Proof.
-  apply compile_with_trees_correct; auto using select_no_wrap_sound, select_tree_common_sound.
+  apply compile_with_trees_correct; auto using select_no_wrap_sound, select_memory_rewrites_sound.
 Qed.
 
 Corollary compile_property_rewrites_preserves_spec : forall p tp spec,
@@ -94,7 +94,7 @@ Corollary compile_property_rewrites_preserves_spec : forall p tp spec,
   safety_enforcing_specification spec ->
   c_program_satisfies_spec p spec -> asm_program_satisfies_spec tp spec.
 Proof.
-  apply compile_with_trees_preserves_spec; auto using select_no_wrap_sound, select_tree_common_sound.
+  apply compile_with_trees_preserves_spec; auto using select_no_wrap_sound, select_memory_rewrites_sound.
 Qed.
 
 Print Assumptions Compiler.transf_c_program_correct.

@@ -134,10 +134,10 @@ Definition select_tree_common_root (a : expr) : option (decision_tree * expr) :=
   end.
 Definition select_tree_common := select_tree_deep select_tree_common_root.
 
-Theorem select_tree_common_sound : forall a g c,
-  select_tree_common a = Some (g, c) -> ClightTreeRewrite.expression_contract a g c.
+Theorem select_tree_common_root_sound : forall a g c,
+  select_tree_common_root a = Some (g, c) -> ClightTreeRewrite.expression_contract a g c.
 Proof.
-  apply select_tree_deep_sound. intros a g c SEL. unfold select_tree_common_root in SEL.
+  intros a g c SEL. unfold select_tree_common_root in SEL.
   destruct (select_tree_cancel a) as [[t cc]|] eqn:TREE.
   - inversion SEL; subst. eapply select_tree_cancel_sound; eauto.
   - destruct (select_common_root a) as [[gg cc]|] eqn:OLD; try discriminate.
@@ -149,6 +149,10 @@ Proof.
       * inversion OLD; subst; eapply select_divisor_sound; eauto.
       * eapply select_self_sub_sound; eauto.
 Qed.
+
+Theorem select_tree_common_sound : forall a g c,
+  select_tree_common a = Some (g, c) -> ClightTreeRewrite.expression_contract a g c.
+Proof. apply select_tree_deep_sound; exact select_tree_common_root_sound. Qed.
 
 Print Assumptions cancellation_tree_rule.
 Print Assumptions select_tree_common_sound.

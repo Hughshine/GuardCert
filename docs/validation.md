@@ -191,3 +191,8 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 再次执行 `make clean` 后，组合目标 `make check-integration polcert-loop-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。33 个核心／Clight 工程文件重新编译，既有 Python 与原生回归、编译器构建和 CompCert proof 目标通过；实际 Loop 的 57 个依赖从锁定源码恢复后以 `--clean` 重编译，原适配器、仿射桥接及两个循环／body 文件通过。日志是 `build/loop-full-integration-check.log`。
 
 `build/polcert-loop-report.json` 的假设审计只保留实际 Clight statement 与 big-step→small-step 端点的六个既有假设及 `I.State.t/I.t/I.instr_semantics`。基本指令执行证书是定理参数，新增全局公理为空。循环输入和数学 `Zrange` 对应、空／非空范围、`INT_MAX` 上界、参数布局冲突拒绝和空 body 例子均包含在编译证明中。当前实现仍没有完整程序的多面体优化 simulation。
+# 同地址读取的完整程序与原生验证
+
+实际 `TreeCompiler.compile_property_rewrites` 已组合内存性质插件。清理工程输出后首次 `make check-integration` 完成 34 个工程证明、提取与构建、既有两组原生回归；新的 alias 检查输出与 GCC 相同，但检查函数体的脚本误读了原型声明。修正脚本后完整目标再次通过，退出码 0，日志为 `build/alias-final-integration-check.log`。
+
+新增检查覆盖五个相同地址边界、25 个不同地址输入对、空指针前置分支、signed／volatile 排除与赋值目标别名。实际 Clight dump 含四个生成的地址条件树、候选及原表达式回退；锁定 x86_64 汇编的接受路径为一次读取，回退为两次。报告为 `build/native-alias/report.json`。`build/alias-assumptions-report.json` 对比上游与新组合的 C→Asm 端点，35 个假设一致，新增全局公理为空。没有运行时间性能测量。
