@@ -2,7 +2,7 @@
 
 2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
 
-当前主线是直接在 CompCert 语义下建立有运行时前提的循环变换及完整程序保证，PolCert 作为参考，允许重新实现表示和算法。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动并通过原生检查；下一步优先建立非平凡调度变换；private temporary、一般 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
+当前主线是直接在 CompCert 语义下建立有运行时前提的循环变换及完整程序保证，PolCert 作为参考，允许重新实现表示和算法。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动；[原生矩阵循环交换](native-matrix-interchange.md) 又完成一个带安全动态检查的 2×2 仿射 store 模板，重排实际 Mem.store 并保留完整出口，五个函数通过原生验证。下一步是扩展调度证书与候选来源，减少固定模板的实例证明；private temporary、一般 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
 
 [树形原子检查接口](clight-signed-cancellation.md) 已接入相同完整程序宿主：signed32 的乘法取消实例使用 signed64 检查并保留溢出输入的回退。它和实际 Loop 动态合成共用公式合成器；这项复用没有闭合多语句循环区域的完整程序链。
 

@@ -6,6 +6,7 @@ import re
 import subprocess
 
 from native_zero_trip import function_body
+from native_matrix_interchange import matrix_selected
 
 ROOT = Path(__file__).resolve().parents[1]
 COMPILER = ROOT / "build" / "compcert-guard" / "ccomp"
@@ -46,12 +47,15 @@ def main():
     dump = dumps[0].read_text()
     pattern = r"if \(\$i < \$n\) \{\s*for \("
     inserted = {}
-    for name in ["nested_ordinary", "nested_goto", "nested_context", "nested_null", "nested_array"]:
+    for name in ["nested_ordinary", "nested_goto", "nested_context", "nested_null"]:
         body = function_body(dump, name)
         count = len(re.findall(pattern, body))
         if count != 1:
             raise SystemExit(f"expected whole outer-loop guard in {name}, got {count}\n{body}")
         inserted[name] = count
+    if not matrix_selected(function_body(dump, "nested_array")):
+        raise SystemExit("expected guarded matrix interchange in nested_array")
+    inserted["nested_array"] = 1
     for name in ["nested_outer_mutation", "nested_bound_mutation"]:
         body = function_body(dump, name)
         if re.search(pattern, body):
@@ -68,7 +72,8 @@ def main():
         "signed_boundaries_checked": True, "zero_outer_and_inner_null_barriers_checked": True,
         "outer_iterator_and_bound_mutations_refused": True,
         "actual_array_stores_checked": True, "performance_measured": False,
-        "loop_schedule_reordered": False, "polopt_optimizer_called": False,
+        "loop_schedule_reordered": True, "matrix_interchange_functions": ["nested_array"],
+        "polopt_optimizer_called": False,
     }, indent=2) + "\n")
     print(f"Nested frontend regions passed: {len(inputs)} input rectangles, "
           f"{sum(inserted.values())} whole-loop guards, liveouts and frame refusals checked")

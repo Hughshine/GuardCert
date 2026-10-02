@@ -20,7 +20,9 @@ From Guard Require Import SilentRegionProtocol ClightRegionProtocol
   ClightZeroTrip ClightFrontendLoopProtocol ClightFrontendRegion
   ClightFragmentProgress ClightSequenceProgress ClightNestedProgress
   ClightNestedFrontendProgress ClightStructuredProgress ClightNestedProgressExamples
-  AdaptiveRegionCompiler ClightAdaptiveExamples.
+  AdaptiveRegionCompiler ClightAdaptiveExamples CompCertStoreSchedule
+  ClightPositiveCheck ClightLoopExecution ClightLoopSyntax ClightMatrixStore
+  ClightMatrixGuard ClightMatrixLoops ClightMatrixRegion ClightMatrixSelector.
 Goal True. idtac "PROTOCOL_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "PROTOCOL_KERNEL_BEGIN". exact I. Qed.
@@ -48,6 +50,8 @@ Print Assumptions ClightNestedProgress.counted_framed_progress.
 Print Assumptions ClightNestedFrontendProgress.nested_frontend_step_closed.
 Print Assumptions ClightStructuredProgress.structured_progress_supported_sound.
 Print Assumptions ClightNestedProgressExamples.nested_source_has_actual_progress.
+Print Assumptions CompCertStoreSchedule.disjoint_stores_reorder.
+Print Assumptions ClightMatrixSelector.select_matrix_interchange_sound.
 Goal True. idtac "PROTOCOL_COMPILER_BEGIN". exact I. Qed.
 Print Assumptions AdaptiveRegionCompiler.compile_progress_regions_correct.
 Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
@@ -76,7 +80,9 @@ Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
                "ClightZeroTrip", "ClightFrontendLoopProtocol", "ClightFrontendRegion",
                "ClightFragmentProgress", "ClightSequenceProgress", "ClightNestedProgress",
                "ClightNestedFrontendProgress", "ClightStructuredProgress", "ClightNestedProgressExamples",
-               "AdaptiveRegionCompiler", "ClightAdaptiveExamples"]
+               "AdaptiveRegionCompiler", "ClightAdaptiveExamples", "CompCertStoreSchedule",
+               "ClightPositiveCheck", "ClightLoopExecution", "ClightLoopSyntax", "ClightMatrixStore",
+               "ClightMatrixGuard", "ClightMatrixLoops", "ClightMatrixRegion", "ClightMatrixSelector"]
     report = {
         "status": "compiled", "kernel_global_axioms": [],
         "upstream_assumptions": sorted(baseline_names),
@@ -95,7 +101,9 @@ Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
         "nested_frontend_native_execution_report": "build/native-nested-regions/report.json",
         "nested_loop_source_progress": True,
         "body_temporary_write_frame_checked": True,
-        "nested_loop_schedule_reordered": False,
+        "nested_loop_schedule_reordered": True,
+        "nested_loop_schedule_scope": "exact checked affine 2x2 matrix store template",
+        "native_matrix_interchange_report": "build/native-matrix-interchange/report.json",
         "finite_and_counted_instances_share_host": True,
         "zero_trip_body_accesses_required": False,
         "private_temporary_frame_supported": False,

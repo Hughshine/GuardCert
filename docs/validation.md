@@ -361,4 +361,16 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 
 七组默认原生套件与可选静态／动态双写套件全部通过。新增 `native-nested-regions` 核对七组输入 rectangle、五处整个外层循环 guard、内层计数器最终值、实际数组写入、零次路径的空指针，以及外层计数器／边界被修改时的拒绝。包括 signed 最大／最小边界，结果与 GCC 和独立预期一致。十五份含源码哈希的 proof 报告已逐项核对；已有实际优化器区域端点仍为两个上游基线的 75 项并集。
 
-这一步扩展源循环区域和证明组合，运行时规则仍是零次迭代跳过；尚未进行循环调度重排、性能测量或原生 PolOpt 调用。
+此前嵌套进展里程碑只扩展源循环区域和证明组合，当时运行时规则仍是零次迭代跳过，没有循环调度重排、性能测量或原生 PolOpt 调用。
+
+## 2026-10-02：直接 CompCert 的 guarded 矩阵循环交换
+
+新增九个直接 CompCert 证明模块后，执行 `make clean`，联合运行 `make check-integration polcert-store-native polcert-optimizer-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。82 个标准证明清理重编译，60 个 memory 与 92 个 optimizer 输入分别恢复并清理编译；七个／两个隔离依赖及十三个／两个实际模块通过。日志为 `build/matrix-full-check.log`。
+
+`CompCertStoreSchedule` 对真实 `Mem.store` 建立字节不相交重排及完整内存相等，实例化通用 `AbstractSchedule`。`ClightLoopExecution` 提供实际循环的拆解与重建；矩阵规则再证明原循环的行顺序执行与候选列顺序执行，所有退出 temporaries 完全相等。`ClightMatrixGuard` 通过共享条件合成器产生安全短路检查；只在外层起点为 0、边界为 2 时读取内层边界，检查域来自源执行。完整 AST 及 frame 检查绑定实际候选。
+
+八组默认原生套件与可选静态／动态双写套件全部通过。新增矩阵套件核对九组输入、五个实际接受／回退区域、局部／全局数组、外围 goto／循环上下文、未初始化但不被读取的内层边界、完整内存值与循环变量出口，以及不同 RHS、内存依赖和 volatile 的拒绝。输出同时匹配 GCC 与独立预期；实际 Clight dump 确认外层迭代变量变为 j。旧嵌套套件的 `nested_array` 也选择新的矩阵 guard。
+
+`build/matrix-interchange-proof-report.json` 记录通用调度核 closed，实例只继承七项上游假设，完整 C→Asm 仍为与原 CompCert 一致的 35 项。协议／语言／宿主并集为九项，其中新增的是原基线已有的 proof irrelevance。十六份含源码哈希的 proof 报告均已逐项核对，优化器参数化区域端点仍为 75 项基线并集。
+
+范围限于精确的 2×2 普通 signed32 数组 store 模板，未调用 PolOpt，未验证一般 affine schedules 或 tiling，未测量性能。当前检查树会复制回退区域。这一结果证明的是一个真实循环调度变换已经进入实际提取的完整程序编译通路。

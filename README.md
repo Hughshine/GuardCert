@@ -34,7 +34,9 @@
 
 [片段内部进展协议](docs/region-protocol.md) 将小步覆盖、下降度量和完成执行的重建交给语言实例。通用核心不解释语言语义；有限片段与严格 signed32 计数循环共用显式模拟索引和整程序宿主。零次迭代时跳过整个循环的规则复用性质合成与 C→Asm 定理。真实 C 前端的循环包装已直接证明；原生例子验证整个循环命中、signed 边界和零次迭代的空指针 barrier。
 
-[直接 Clight 的嵌套区域](docs/clight-nested-regions.md) 进一步将片段进展与 temporary frame 合成，允许内层计数器变化并保护外层控制值。默认编译器已替换真实 C 的整个两层循环；七组输入、五处 guard、公共 liveout、数组写入与 frame 违例均经原生检查。这一步扩展源区域宿主，循环交换仍未实现。
+[直接 Clight 的嵌套区域](docs/clight-nested-regions.md) 将片段进展与 temporary frame 合成，允许内层计数器变化并保护外层控制值。默认编译器替换真实 C 的整个两层循环；七组输入、五处 guard、公共 liveout、数组写入与 frame 违例经原生检查。
+
+[原生矩阵循环交换](docs/native-matrix-interchange.md) 已进一步接入完整 Csem→Asm：动态检查 `i == 0 && n == 2 && m == 2` 后，将行顺序改成列顺序，否则执行原循环。实际 CompCert 内存重排证书保留完整内存和所有退出 temporaries；条件的读取安全性从源执行推导。五个实际 guard、九组输入、局部／全局数组、外围 goto／循环、未初始化但不被读取的内层边界及拒绝例子均通过原生验证。当前只支持一个 2×2 仿射 store 模板，未调用 PolOpt，未声称性能改善。
 
 [内存与宿主运输性质](docs/compcert-memory-transport.md) 从不依赖具体语义的双向模拟引理，实例化真实 CompCert 内存、运算、Clight 表达式和完整小步执行。代码及 temps 相同而 memory 双向扩展时，语言实例提供相同观察及后继关系的证书。PolCert 的具体 load/store 桥接已复用这个接口；区域替换宿主已借此连接等价内存出口与完整 C→Asm 定理。
 
@@ -102,4 +104,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
 opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
-`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `AdaptiveRegionCompiler.compile_progress_regions`、构建编译器并运行七组 C 原生套件，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果在 `build/compiler.txt`、`build/synthesized-conditions.json` 和各个 `build/native-*/` 目录，包括 `build/native-nested-regions/`。
+`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `AdaptiveRegionCompiler.compile_progress_regions`、构建编译器并运行八组 C 原生套件，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果在 `build/compiler.txt`、`build/synthesized-conditions.json` 和各个 `build/native-*/` 目录，包括 `build/native-nested-regions/` 与 `build/native-matrix-interchange/`。

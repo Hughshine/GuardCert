@@ -14,7 +14,7 @@
 
 默认 `AdaptiveRegionCompiler.compile_progress_regions` 已消费这个识别器，继续使用已有区域宿主、性质编码与条件合成。完整 Csem→Asm 定理覆盖外围调用、事件、循环、switch 和 goto。新增区域仍是静默、无 label、正常出口的结构；卡住的非法访问并不会被进展协议变成合法执行。
 
-当前运行时规则仍是入口比较为假时跳过整个循环。它只读取外层计数器和边界，源执行建立该检查的定义性。不会提前读取只在内层或 body 中需要的数据。候选证书与源进展证书保持分离；这一路径尚未进行循环交换或 tiling。
+基本运行时规则在入口比较为假时跳过整个循环。它只读取外层计数器和边界，源执行建立该检查的定义性。候选证书与源进展证书保持分离；[新的矩阵实例](native-matrix-interchange.md) 复用同一宿主实现带动态检查的 2×2 循环交换，并在外层条件接受后才读取内层边界。一般调度和 tiling 尚未实现。
 
 ## 实际检查
 
@@ -26,4 +26,4 @@
 make check-integration
 ```
 
-原生报告为 `build/native-nested-regions/report.json`，协议及完整程序假设审计为 `build/region-protocol-report.json`。完整编译器端点仍只继承 CompCert 的 35 项基线假设。没有性能测量、原生 PolOpt 调用或循环调度优化结论。
+原生报告为 `build/native-nested-regions/report.json`，协议及完整程序假设审计为 `build/region-protocol-report.json`。其中 `nested_array` 现在选择矩阵交换检查，其余四处仍是零次迭代检查。完整编译器端点仍只继承 CompCert 的 35 项基线假设。没有性能测量或原生 PolOpt 调用；调度变换只覆盖单独文档限定的模板。

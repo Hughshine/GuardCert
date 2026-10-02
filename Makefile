@@ -59,6 +59,9 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightZeroTrip.v theories/ClightFrontendLoopProtocol.v theories/ClightFrontendRegion.v \
                   theories/ClightFragmentProgress.v theories/ClightSequenceProgress.v theories/ClightNestedProgress.v \
                   theories/ClightNestedFrontendProgress.v theories/ClightStructuredProgress.v \
+                  theories/CompCertStoreSchedule.v theories/ClightPositiveCheck.v theories/ClightLoopExecution.v \
+                  theories/ClightLoopSyntax.v theories/ClightMatrixStore.v theories/ClightMatrixGuard.v \
+                  theories/ClightMatrixLoops.v theories/ClightMatrixRegion.v theories/ClightMatrixSelector.v \
                   theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v
 
 compcert-bridge:
@@ -79,6 +82,7 @@ check-compcert: check compcert-proof
 	$(MAKE) compcert-bridge
 	python3 scripts/audit_memory_transport.py
 	python3 scripts/audit_region_protocol.py
+	python3 scripts/audit_matrix_interchange.py
 
 guarded-compiler: check-compcert
 	python3 scripts/audit_compiler.py
@@ -93,6 +97,7 @@ native-demo: guarded-compiler
 	python3 scripts/native_region.py
 	python3 scripts/native_zero_trip.py
 	python3 scripts/native_nested_regions.py
+	python3 scripts/native_matrix_interchange.py
 
 check-integration: native-demo
 

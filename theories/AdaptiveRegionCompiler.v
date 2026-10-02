@@ -6,7 +6,7 @@ From Guard Require Import ClightGuard ClightGuardProof ClightNoWrap GuardCompile
   ClightCondition ClightTreeRewrite ClightTreeRewriteProof ClightTreeExamples ClightSameAddress
   ClightSignedCancel ClightRegionRewrite ClightRegionRewriteProof ClightRedundantSet
   ClightAdaptiveRegion ClightAdaptiveRegionProof ClightRegionProgress ClightProgressClassifier
-  ClightZeroTrip ClightFrontendRegion ClightStructuredProgress.
+  ClightZeroTrip ClightFrontendRegion ClightStructuredProgress ClightMatrixSelector.
 
 Definition compile_with_adaptive_regions
   (supported : Clight.statement -> bool)
@@ -92,17 +92,21 @@ End ADAPTIVE_REGION_COMPILER.
 
 
 Definition select_progress_regions (source : Clight.statement) : option Clight.statement :=
-  match select_loop_zero_trip source with
+  match select_matrix_interchange source with
   | Some target => Some target
-  | None => select_redundant_set source
+  | None => match select_loop_zero_trip source with
+    | Some target => Some target
+    | None => select_redundant_set source end
   end.
 
 Lemma select_progress_regions_sound source target :
   select_progress_regions source = Some target -> region_contract source target.
 Proof.
-  unfold select_progress_regions; destruct (select_loop_zero_trip source) as [selected|] eqn:ZERO.
-  - intro TARGET; inversion TARGET; subst; eapply select_loop_zero_trip_sound; exact ZERO.
-  - apply select_redundant_set_sound.
+  unfold select_progress_regions; destruct (select_matrix_interchange source) as [selected|] eqn:MATRIX.
+  - intro TARGET; inversion TARGET; subst; eapply select_matrix_interchange_sound; exact MATRIX.
+  - destruct (select_loop_zero_trip source) as [selected|] eqn:ZERO.
+    + intro TARGET; inversion TARGET; subst; eapply select_loop_zero_trip_sound; exact ZERO.
+    + apply select_redundant_set_sound.
 Qed.
 
 Definition compile_progress_regions := compile_with_adaptive_regions structured_progress_supported
