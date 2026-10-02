@@ -27,11 +27,24 @@ def copy_source(source, destination):
 def main():
     global WORK
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--store-swap", action="store_true",
+    variant = parser.add_mutually_exclusive_group()
+    variant.add_argument("--store-swap", action="store_true",
                         help="build the optional compiler proved with actual CInstr store commutation")
+    variant.add_argument("--matrix-schedule", action="store_true",
+                         help="build the compiler accepting untrusted GUARDCERT_POINT_ORDER proposals")
     args = parser.parse_args()
-    entrypoint = "PolCertStoreNative.compile" if args.store_swap else "AdaptiveRegionCompiler.compile_progress_regions"
-    import_name = "PolCertStoreNative" if args.store_swap else "AdaptiveRegionCompiler"
+    if args.matrix_schedule:
+        entrypoint, import_name = "ScheduledRegionCompiler.compile_scheduled_regions", "ScheduledRegionCompiler"
+        WORK = ROOT / "build" / "compcert-scheduled"
+        report = json.loads((ROOT / "build" / "scheduled-matrix-proof-report.json").read_text())
+        if (report["status"] != "compiled" or report["additional_global_axioms"]
+                or report["whole_program_theorem"] != "ScheduledRegionCompiler.compile_scheduled_regions_correct"
+                or any(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
+                       for path, expected in report["sources"].items())):
+            raise SystemExit("rebuild and audit the finite scheduling proof before extraction")
+    else:
+        entrypoint = "PolCertStoreNative.compile" if args.store_swap else "AdaptiveRegionCompiler.compile_progress_regions"
+        import_name = "PolCertStoreNative" if args.store_swap else "AdaptiveRegionCompiler"
     if args.store_swap:
         WORK = ROOT / "build" / "compcert-store-swap"
         from polcert_core import select_profile, load_flags, artifact
@@ -91,6 +104,17 @@ def main():
     replacement = (f'({entrypoint} (Camlcoq.intern_string "a") (Camlcoq.intern_string "i") '
                    f'(Camlcoq.intern_string "j") csyntax)' if args.store_swap
                    else f"({entrypoint} csyntax)")
+    if args.matrix_schedule:
+        replacement = """(let raw_order = match Sys.getenv_opt "GUARDCERT_POINT_ORDER" with
+            | None -> "0,2,1,3" | Some value -> String.trim value in
+          let tokens = if raw_order = "" then [] else String.split_on_char ',' raw_order in
+          if List.length tokens > 64 then invalid_arg "too many GuardCert point identifiers";
+          let rec natural n = if n = 0 then Datatypes.O else Datatypes.S (natural (n - 1)) in
+          let point token =
+            let n = int_of_string (String.trim token) in
+            if n < 0 || n > 1024 then invalid_arg "GuardCert point identifier outside parser range";
+            natural n in
+          ScheduledRegionCompiler.compile_scheduled_regions (List.map point tokens) csyntax)"""
     patched = original.replace(needle, replacement)
     driver = WORK / "driver" / "Driver.ml"
     if driver.read_text() != patched:
@@ -128,6 +152,7 @@ def main():
         "array_identifier_input": "frontend identifier for a" if args.store_swap else None,
         "index_identifier_inputs": ["frontend identifier for i", "frontend identifier for j"] if args.store_swap else [],
         "schedule_package_proposer": "PolCertStorePackage.propose_dynamic_package" if args.store_swap else None,
+        "schedule_proposal_input": "GUARDCERT_POINT_ORDER" if args.matrix_schedule else None,
     }, indent=2) + "\n")
     print(f"guarded compiler: {WORK / 'ccomp'}")
 

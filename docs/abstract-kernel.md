@@ -14,6 +14,7 @@
 | 局部变换证书 | 插件证明前提成立时的 refinement 或 preservation，观察关系也由语言或插件提供。 |
 | 入口域与上下文证明 | 宿主证明到达实际插入点时满足 `I`，并证明局部替换兼容其控制流、状态关系和整个程序执行。 |
 | `silent_protocol` 与 `protocol_entry` | 语言提供所有源内部小步的覆盖、状态相关下降度量和完成执行的重建。核心不解释语法或内存，证明内部无限停顿不可能及完成路径的入口结果。 |
+| `scheduling_model` 与独立性检查 | 语言提供指令执行、状态等价、invariant、执行运输和可交换性质；可执行有限顺序检查器只消费指令相等性及独立性 Boolean，实例证明后者可靠。 |
 
 接口没有要求原子前提都是布尔可判定谓词。`Some true` 提供正证据，`Some false` 提供负证据；`None` 只表示不能判定。只证明“接受蕴含性质”的保守检查器可通过 `positive_dimension` 接入，拒绝被编码为 `None`。这样 `not` 无法把保守拒绝变成错误的接受。
 
@@ -28,6 +29,8 @@
 `residualize` 消去由静态证书证明的原子，折叠布尔常量。证书必须在整个入口域上成立。它保持原前提的逻辑性质，不要求保留保守检查器的拒绝行为：已证明的事实可以消去，即使动态检查会返回 unknown。`residual_guard_preservation` 将这一步接到通用编译证明。它目前尚未用于原生编译驱动。
 
 这些核心定理实际经 Rocq 9.2 编译，`Print Assumptions` 为闭合证明。这里的接口义务是定理参数；闭合不表示插件无需证明它们。
+
+`AbstractScheduleChecker.check_schedule` 核对不受信任的有限点顺序，保留源操作的重数，并要求每一次跨越都有实例提供的可交换证据。接受产生 `AbstractSchedule` 交换链；`check_schedule_preserves` 再给出执行与出口关系保持。它不需要解释 alias 或数组地址，也不是一般 affine 域对应检查器。[实际 CompCert 下标实例](schedule-checker.md) 和[外部顺序编译入口](untrusted-point-schedules.md) 已通过相同内核连接真实内存与完整程序。
 
 ## 实际 Clight 与端到端实例
 
@@ -48,7 +51,7 @@ if (x <= 2147483647U) {       /* validity: 检查提供正证据 */
 
 这棵树由通用编译器生成，两个实际表达式及其 lowering 证明由 Clight 实例提供。没有假设 C 可以读一个隐含的 CPU overflow flag。源表达式有定义可推出原子操作数是适当的整数，这是该实例的入口域证明。
 
-`TreeCompiler.compile_property_rewrites` 在 SimplLocals 后使用新宿主，并复用先前四类规则与分支 pass。`compile_property_rewrites_correct` 是实际编译函数从 `Csem` 到 `Asm` 的 backward simulation，`compile_property_rewrites_preserves_spec` 保持排除出错的规格。具体定理不要求源程序全局无溢出。提取后的 Driver 现在调用这一函数，原生测试核对结果、快路／回退边界和生成树的 IR 形状。
+`TreeCompiler.compile_property_rewrites` 在 SimplLocals 后使用表达式宿主，并复用先前四类规则与分支 pass。`compile_property_rewrites_correct` 是实际编译函数从 `Csem` 到 `Asm` 的 backward simulation，`compile_property_rewrites_preserves_spec` 保持排除出错的规格。具体定理不要求源程序全局无溢出。此前提取 Driver 使用这一入口；当前默认入口是 `AdaptiveRegionCompiler.compile_progress_regions`，在同一表达式链前加入区域变换，原生测试继续核对结果、快路／回退边界和生成树的 IR 形状。
 
 这些 CompCert 定理继承上游假设；完整证明端点是形式化 Asm。外部解析、汇编、链接和 libc 的原生运行仍是执行检查。
 
@@ -62,11 +65,15 @@ v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳�
 
 三个接口及真实 `Loop` 的 57 个证明依赖已在当前 CompCert 基础库上从锁定源码恢复并完整重编译。可选命令是 `make polcert-proof`；源码哈希、兼容补丁和准确边界见 [PolCert 适配](../adapters/polcert/README.md)。上游 VPL 保留自身的 monad/oracle 公理；新增适配器定理只依赖声明的 `INSTR` 参数。
 
+后续[实际入口审计](polcert-context-audit.md) 证明锁定旧 `CState.valid` 在非空声明下不可满足。旧 wrapped 语义的条件定理不能单凭这些前提被当作可执行实例。新的显式只读参数实例已有非空真实内存执行见证；当前直接 Clight 矩阵路线不使用该旧状态表示。
+
 v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在源 Loop 终止执行且结果 `State.eq`”。统一并行驱动的目标是 `ParallelLoop`。二者都不能直接用于声称完整 C 程序的优化正确性。需要完成数学 Loop 与固定宽度 Clight 的具体语言桥接、范围与访问条件、候选进展，以及适合 region 的上下文证明。
 
 `PolCertOptimizer.v` 已直接调用真实 `Opt_prepared` 并消费其正确性证明。适配器使用现有 `PolIRs.Loop`；metadata 通过已证明的相等检查核对，失败时返回原 Loop 程序。该入口沿用上游 alarm monad 的成功返回契约。复现与精确边界见 [优化器适配](../adapters/polcert-optimizer/README.md)。
 
 目前已接通的真实 Clight 宿主包括表达式、有限多语句区域及严格计数循环；动态数组双写的调度包已经进入完整程序与提取路径。跨数组 alias 检查和实际 PolOpt 的完整程序链仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。
+
+[直接矩阵路线](native-matrix-interchange.md) 已运行一个 2×2 循环交换及[外部有限顺序的展开候选](untrusted-point-schedules.md)，完整保存实际内存和所有退出 temporaries。动态条件的安全读取域来自源执行，通用检查编译器及调度检查器实际复用。它们是固定源域的端到端原型；没有一般动态 affine 调度、tiling 或性能结论。
 
 `PolCertAffineClight.v` 和 `PolCertAffineGuard.v` 已补出数学整数与 signed32 的表达式桥接：静态区间检查覆盖常量、变量、加法及常量乘法的每个中间值；实际 Clight 范围 guard 的接受建立输入区间，布尔测试 lowering 保持实际 Loop 的求值。这些定理消费已证明的性质接口，没有向通用核心加入整数语义。详细契约和不支持的运算见 [仿射桥接](polcert-affine-clight.md)。
 

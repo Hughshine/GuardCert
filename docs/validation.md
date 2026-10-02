@@ -384,3 +384,13 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 随后针对标准证明的新依赖摘要重编译 memory 与 optimizer 隔离适配层，分别通过七个／两个依赖及十三个／两个实际模块；未改动的 60／92 个冻结输入沿用上一轮清理验证。可选编译器重新提取构建，静态与动态 CInstr 原生套件通过，日志分别为 `build/schedule-checker-memory-adapter.log`、`build/schedule-checker-optimizer-adapter.log` 和 `build/schedule-checker-store-native.log`。十六份含源码哈希的 proof 报告逐项核对一致。
 
 检查器支持任意有限指令序列，但当前原生源识别及候选布局仍限于固定 2×2 模板。没有一般 affine 域证书、自动依赖分析或性能结论。
+
+## 2026-10-02：任意提案的完整程序调度入口
+
+新增 Clight 有限写入编码、提案选择器和参数化编译入口后，执行 `make clean` 与 `make check-integration`，退出码 0。87 个标准证明清理重编译，两个编译器完成提取／构建，八组默认原生套件与新点顺序套件全部通过；日志为 `build/scheduled-full-check.log`。可选 memory／optimizer 适配层重新编译，未变的 60／92 个冻结输入沿用此前清理验证；可选编译器重新构建及静态／动态 CInstr 原生套件通过，日志为 `build/scheduled-memory-adapter.log`、`build/scheduled-optimizer-adapter.log` 与 `build/scheduled-store-native.log`。
+
+`compile_scheduled_regions_correct` 对所有自然数列表提案成立，不要求提案或优化器正确。检查成功先给出真实存储重排，再生成 Clight 常量点写入，并恢复完整循环变量出口。参数化 C→Asm 与规格保持定理的假设均与原 CompCert 的 35 项相同；通用检查核 closed，实例只继承七项已有假设。报告为 `build/scheduled-matrix-proof-report.json`。
+
+新原生套件编译全部 24 个四点排列及七个错误提案；五个实际函数上下文的 Clight dump 中点顺序与提案一致，错误提案没有生成点调度候选。九组矩形输入、完整内存结果及出口变量、局部／全局数组、goto／外围循环、未读内层边界、原循环回退及三类不支持 body 通过，输出匹配 GCC 与独立预期。四个错误或超量解析输入失败。原生报告包含各提案对应的 assembly／output SHA-256 和实际函数字节数。
+
+这轮复制回退的点顺序实现中，`matrix_dynamic` 为 353 字节，被拒绝提案的 zero-trip 路径为 162 字节；五个函数在所有合法顺序下各有一致大小。该对照不是原版无变换 CompCert，也没有运行时间结论。它说明当前条件 lowering 的控制流共享和成本选择值得继续处理。源域仍固定 2×2，不是一般 affine schedule 或任意候选条件推断。

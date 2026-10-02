@@ -93,3 +93,8 @@ refusal edges; control-flow sharing and guard-cost selection remain work to do.
 The next generalization should retain the same property/check/host interfaces
 while replacing the fixed template and four-store certificate with an affine
 domain and order certificate.
+
+The separate [untrusted point-order compiler](untrusted-point-schedules.md)
+already exercises arbitrary certified finite orders and Clight unrolling for
+this four-point source. It keeps the same dimension condition and full-program
+host; it does not remove the fixed source-domain restriction.

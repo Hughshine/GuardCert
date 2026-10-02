@@ -8,7 +8,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRest
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
-        guarded-compiler native-demo check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
+        guarded-compiler scheduled-compiler native-demo native-schedules check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
         polcert-dynamic-proof polcert-nested-proof polcert-memory-proof \
         polcert-optimizer-proof polcert-store-native clean
 all: check
@@ -64,7 +64,8 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightPositiveCheck.v theories/ClightLoopExecution.v \
                   theories/ClightLoopSyntax.v theories/ClightMatrixStore.v theories/ClightMatrixGuard.v \
                   theories/ClightMatrixLoops.v theories/ClightMatrixRegion.v theories/ClightMatrixSelector.v \
-                  theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v
+                  theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v \
+                  theories/ClightIndexedStores.v theories/ClightScheduledMatrix.v theories/ScheduledRegionCompiler.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done
@@ -85,6 +86,7 @@ check-compcert: check compcert-proof
 	python3 scripts/audit_memory_transport.py
 	python3 scripts/audit_region_protocol.py
 	python3 scripts/audit_matrix_interchange.py
+	python3 scripts/audit_scheduled_matrix.py
 
 guarded-compiler: check-compcert
 	python3 scripts/audit_compiler.py
@@ -101,7 +103,14 @@ native-demo: guarded-compiler
 	python3 scripts/native_nested_regions.py
 	python3 scripts/native_matrix_interchange.py
 
-check-integration: native-demo
+scheduled-compiler: check-compcert
+	@python3 scripts/build_compiler.py --matrix-schedule > build/scheduled-native-build.log 2>&1 || \
+	  { cat build/scheduled-native-build.log; exit 1; }
+
+native-schedules: scheduled-compiler
+	python3 scripts/native_scheduled_matrix.py
+
+check-integration: native-demo native-schedules
 
 POLCERT_SOURCE ?=
 POLCERT_SOURCE_ARG = $(if $(POLCERT_SOURCE),--source "$(POLCERT_SOURCE)",)

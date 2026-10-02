@@ -2,6 +2,8 @@
 
 2026-10-02 的设计提案。它来自 [跨领域 survey](survey-general.md) 和 [已有工作对比](research-position.md)。**本文是接口方向，不是新增的 Rocq 定理。** 已证明的接口仍以 [现有框架](framework.md)、[CompCert 接入](compcert-integration.md) 和源码为准。
 
+本文后面的“当前”保留最初设计快照，不能作为最新实现清单。随后已实现共享的条件树 lowering、signed32 widened checks、真实内存／嵌套循环宿主、[guarded 矩阵交换](native-matrix-interchange.md) 和[外部点顺序生成](untrusted-point-schedules.md)。通用核与实例的最新边界见 [abstract-kernel.md](abstract-kernel.md) 和 README；任意候选条件推断、一般 affine 域和其他 judgment family 仍属设计。
+
 ## 分开研究总范围与第一条实现主线
 
 总范围是：在明确前提及可用证据下，将程序片段换成满足指定正确性判断的候选，并把局部判断组合到宿主程序。
@@ -101,4 +103,4 @@
 | 4 | 对照 Chamois/CoreJIT，评估既有 Host/validator 的复用 | 说明新增算法及其必要性，而不只增加另一套上下文证明 |
 | 后续 | 入口推导、证据缓存、恢复、其他 judgment family | 每次扩展增加具体算法、协议与组合证明；不以接口占位算支持 |
 
-应保留当前 19 个证明文件的稳定基线。分支与纯表达式适配器目前各有一份宿主组合证明，尚不能称为所有片段共享一个上下文定理。先把重复的 guard lowering 变成真实算法，再用异质实例检验是否需要更一般的 Host 接口。
+最初的 19 个证明文件是历史基线。分支、纯表达式及语句区域使用不同宿主组合证明，尚不能称为所有片段共享一个上下文定理。共享 guard lowering 已成为实际算法并由异质实例使用；仍应检验扩展状态关系、动态域和检查 effects 时需要哪些新的 Host 义务。

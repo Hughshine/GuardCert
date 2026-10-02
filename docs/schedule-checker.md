@@ -51,5 +51,8 @@ an arbitrary-index Clight code generator: the matrix bridge separately proves
 its small indices and pointer calculations valid. General affine domains,
 correspondence between dynamically sized loop iterations, tiling, and
 dependence analysis still require additional certificates. A future optimizer
-can propose orders without becoming trusted, but the current native proposer
-still selects one fixed matrix template and one candidate loop layout.
+can propose orders without becoming trusted. The default native proposer still
+selects one fixed matrix template and one candidate loop layout; the
+[parameterized scheduling compiler](untrusted-point-schedules.md) also accepts
+external finite point orders and generates certified unrolled candidates for
+the same source domain.
