@@ -65,7 +65,8 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightLoopSyntax.v theories/ClightMatrixStore.v theories/ClightMatrixGuard.v \
                   theories/ClightMatrixLoops.v theories/ClightMatrixRegion.v theories/ClightMatrixSelector.v \
                   theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v \
-                  theories/ClightIndexedStores.v theories/ClightScheduledMatrix.v theories/ScheduledRegionCompiler.v
+                  theories/ClightIndexedStores.v theories/ClightSharedRegion.v \
+                  theories/ClightScheduledMatrix.v theories/ScheduledRegionCompiler.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done

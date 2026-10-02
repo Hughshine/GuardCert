@@ -6,7 +6,7 @@ From Guard Require Import AbstractGuard CompCertMemoryEquivalence AbstractSchedu
   CompCertStoreSchedule CompCertIndexSchedule ClightGuard ClightCondition ClightRegionRule ClightRegionRewrite
   ClightFrontendLoopProtocol ClightFrontendRegion ClightMatrixStore ClightMatrixLoops
   ClightMatrixGuard ClightMatrixRegion ClightMatrixSelector.
-From Guard Require Import ClightIndexedStores.
+From Guard Require Import ClightIndexedStores ClightSharedRegion.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -50,7 +50,7 @@ Definition select_scheduled_matrix order source : option statement :=
   match propose_matrix_description source with
   | Some d => match check_matrix_description source d with
     | Some CERT => match Bool.bool_dec (check_index_schedule row_index_order order) true with
-      | left CHECK => Some (generated_region (scheduled_matrix_rule CERT order CHECK))
+      | left CHECK => Some (shared_generated_region (scheduled_matrix_rule CERT order CHECK))
       | right _ => None end
     | None => None end
   | None => None end.
@@ -61,7 +61,7 @@ Proof.
   unfold select_scheduled_matrix; destruct (propose_matrix_description source) as [d|]; try discriminate.
   destruct (check_matrix_description source d) as [CERT|]; try discriminate.
   destruct (Bool.bool_dec (check_index_schedule row_index_order order) true) as [CHECK|]; try discriminate.
-  intro SELECT; inversion SELECT; subst; apply encoded_region_rule_sound.
+  intro SELECT; inversion SELECT; subst; apply shared_encoded_region_rule_sound.
 Qed.
 
 Example reversed_matrix_schedule_selected : exists target,

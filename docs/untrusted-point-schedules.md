@@ -11,20 +11,17 @@ This instance shares the exact 2x2 source template, full AST checks, temporary
 frame checks, and short-circuit dimension condition of the
 [native loop interchange](native-matrix-interchange.md). It extends the
 candidate side: every checked point order is lowered to an unrolled Clight
-region. For example, the externally proposed order `[3, 1, 2, 0]` generates:
+region. For example, the externally proposed order `[3, 1, 2, 0]` has this
+equivalent C view, with left-to-right short-circuit checking:
 
 ```c
-if (i == 0) {
-  if (n == 2) {
-    if (m == 2) {
-      a[3] = 12;
-      a[1] = 2;
-      a[2] = 11;
-      a[0] = 1;
-      j = 2;
-      i = 2;
-    } else { /* original loop */ }
-  } else { /* original loop */ }
+if (i == 0 && n == 2 && m == 2) {
+  a[3] = 12;
+  a[1] = 2;
+  a[2] = 11;
+  a[0] = 1;
+  j = 2;
+  i = 2;
 } else { /* original loop */ }
 ```
 
@@ -44,6 +41,12 @@ preserves every other temporary. `ClightScheduledMatrix` combines source
 decoding, checked memory reordering, candidate encoding, and the shared
 condition compiler into a `region_contract`. The existing complete-program
 host and CompCert passes then consume that contract.
+
+The actual Clight lowering uses [shared fallback control](shared-fallback.md):
+each refusal leaves a constant switch and reaches one copy of the original
+loop. Acceptance runs the candidate and leaves a surrounding one-shot loop.
+It introduces neither private temporaries nor labels. The normal-exit,
+temporary, memory, and complete-program contracts remain the same.
 
 The optional extracted compiler reads the proposal at compile time:
 

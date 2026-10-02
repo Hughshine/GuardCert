@@ -88,6 +88,8 @@ def main():
                     raise SystemExit(f"missing dynamic guard or exact exit restoration in {name}")
             if not re.search(r"for \(; 1; \$i = \$i \+ 1\).*?for \(; 1; \$j = \$j \+ 1\)", body, re.S):
                 raise SystemExit(f"missing original-loop fallback in {name}")
+            if accepted and len(re.findall(r"for \(; 1; \$i = \$i \+ 1\)", body)) != 1:
+                raise SystemExit(f"fallback was duplicated in {name}")
         for name in REFUSED_BODIES:
             if direct_points(function_body(dump, name)):
                 raise SystemExit(f"unsupported body accepted by schedule {order}: {name}")
@@ -112,6 +114,7 @@ def main():
         "valid_orders_checked": len(orders), "invalid_orders_checked": len(invalid), "cases": results,
         "actual_clight_proposed_store_order_checked": SELECTED,
         "exact_loop_exit_restoration_checked": True, "runtime_acceptance_and_fallback_checked": True,
+        "single_original_loop_fallback_checked": True,
         "gcc_and_independent_behavior_matches": True, "proposal_parser_refusals_checked": 4,
         "unread_inner_bound_goto_enclosing_loop_and_global_array_checked": True,
         "unsupported_bodies_refused": REFUSED_BODIES,

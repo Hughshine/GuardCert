@@ -391,6 +391,16 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 
 `compile_scheduled_regions_correct` 对所有自然数列表提案成立，不要求提案或优化器正确。检查成功先给出真实存储重排，再生成 Clight 常量点写入，并恢复完整循环变量出口。参数化 C→Asm 与规格保持定理的假设均与原 CompCert 的 35 项相同；通用检查核 closed，实例只继承七项已有假设。报告为 `build/scheduled-matrix-proof-report.json`。
 
-新原生套件编译全部 24 个四点排列及七个错误提案；五个实际函数上下文的 Clight dump 中点顺序与提案一致，错误提案没有生成点调度候选。九组矩形输入、完整内存结果及出口变量、局部／全局数组、goto／外围循环、未读内层边界、原循环回退及三类不支持 body 通过，输出匹配 GCC 与独立预期。四个错误或超量解析输入失败。原生报告包含各提案对应的 assembly／output SHA-256 和实际函数字节数。
+新原生套件编译全部 24 个四点排列及七个错误提案；五个实际函数上下文的 Clight dump 中点顺序与提案一致，错误提案没有生成点调度候选。九组矩形输入的数组和与出口变量、局部／全局数组、goto／外围循环、未读内层边界、原循环回退及三类不支持 body 通过，输出匹配 GCC 与独立预期。四个错误或超量解析输入失败。原生报告包含各提案对应的 assembly／output SHA-256 和实际函数字节数。
 
 这轮复制回退的点顺序实现中，`matrix_dynamic` 为 353 字节，被拒绝提案的 zero-trip 路径为 162 字节；五个函数在所有合法顺序下各有一致大小。该对照不是原版无变换 CompCert，也没有运行时间结论。它说明当前条件 lowering 的控制流共享和成本选择值得继续处理。源域仍固定 2×2，不是一般 affine schedule 或任意候选条件推断。
+
+## 2026-10-02：不增加状态的共享回退 lowering
+
+新增 `ClightSharedRegion.v` 并让参数化点顺序入口消费后，执行 `make clean` 与 `make check-integration`，退出码 0。88 个标准证明清理重编译，八组默认套件及点顺序原生套件通过，日志为 `build/shared-fallback-full-check.log`。memory／optimizer 可选适配层重新编译，60／92 个未变冻结输入沿用此前清理验证；可选编译器重新提取构建，静态／动态 CInstr 套件通过。对应日志为 `build/shared-fallback-memory-adapter.log`、`build/shared-fallback-optimizer-adapter.log` 和 `build/shared-fallback-store-native.log`。
+
+共享结构使用实际 Clight `switch`／一次循环区分接受和拒绝：失败跳到唯一源片段，接受运行候选后跳过源片段，两者均正常退出。不引入临时变量或标签，原 `encoded_region_rule` 无需修改局部义务即可复用。实际执行、任意外围 continuation 的区域契约及 label-free 性质均证明；它只继承 CompCert 语言已有的六项假设，矩阵实例并集仍为七项，完整 C→Asm 与规格保持仍为原 35 项基线。
+
+原生套件再次覆盖全部 24 个合法排列、七个错误提案、五个函数上下文及四个 parser 拒绝，并额外要求每个接受区域的 Clight dump 只有一个原外层循环。输出数组和及出口变量仍匹配 GCC 与独立预期；每个点的地址／payload 顺序也在实际 IR 中核对。完整物理内存相等是 Rocq 定理，不把数组和输出检查当作全内存观测。
+
+与已提交 `6b3db97` 的相同 fixture 相比，`matrix_dynamic` 从 353 降至 221 字节；其余四个函数分别为 284→222、258→201、309→240、341→212 字节。所有 24 个合法顺序中每个函数大小相同。比较报告在 `build/shared-fallback-comparison/report.json`，记录两个编译器 SHA-256；没有运行时间或普遍代码体积定理。只有参数化点顺序路径使用新 lowering，其他路径保留原生成方式。十七份 proof 报告的源码哈希逐项核对一致。

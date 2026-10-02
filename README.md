@@ -43,6 +43,8 @@
 
 [不受信任的点顺序入口](docs/untrusted-point-schedules.md) 进一步允许外部提供有限调度，由核对器接受后生成实际 Clight 展开代码并精确恢复循环变量。参数化 C→Asm 定理覆盖任意提案，包括被拒绝的提案；源域仍限于固定 2×2 模板。`make native-schedules` 提取该入口，并验证全部 24 个合法点排列与七个错误提案。
 
+该入口使用[共享回退 lowering](docs/shared-fallback.md)，所有检查失败汇合到同一份原循环，不增加临时变量或标签，并复用原局部证书。五个实际函数的代码体积均减少，例如 `matrix_dynamic` 从 353 降至 221 字节；这是 fixture 的函数字节数，没有速度结论。
+
 [内存与宿主运输性质](docs/compcert-memory-transport.md) 从不依赖具体语义的双向模拟引理，实例化真实 CompCert 内存、运算、Clight 表达式和完整小步执行。代码及 temps 相同而 memory 双向扩展时，语言实例提供相同观察及后继关系的证书。PolCert 的具体 load/store 桥接已复用这个接口；区域替换宿主已借此连接等价内存出口与完整 C→Asm 定理。
 
 可选的 [PolCert 适配](adapters/polcert/README.md) 已在同一工具链上完整重编译真实 `Loop` 的 57 个证明依赖，直接接入 `INSTR` 的 Bernstein 交换性质和 `Loop` 条件片段。`make polcert-proof` 从锁定源码与补丁复现；实际 PolCert 优化器到完整 Clight 循环程序的桥接仍在推进。
