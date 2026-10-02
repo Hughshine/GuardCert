@@ -54,7 +54,9 @@ condition compiler.
 For this template, source execution yields the store order `[0, 1, 2, 3]` and
 candidate execution uses `[0, 2, 1, 3]`. A single certified swap of the middle
 two byte-disjoint stores constructs the new execution with the same complete
-final memory. Both loop iterators end at 2. Every other temporary has the same
+final memory. The compiler now uses the [executable schedule checker](schedule-checker.md)
+to certify that order, rather than supplying a hand-built swap proof. Both loop
+iterators end at 2. Every other temporary has the same
 value, including the loop bounds. The surrounding program resumes from the
 same exit state. Source stores supply the memory permissions, and the
 commutation proof transports them to the new order.

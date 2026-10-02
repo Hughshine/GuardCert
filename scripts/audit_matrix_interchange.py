@@ -8,7 +8,7 @@ from audit_compiler import names
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "build" / "matrix-interchange-assumptions"
-MODULES = ["CompCertStoreSchedule", "ClightPositiveCheck", "ClightLoopExecution",
+MODULES = ["AbstractScheduleChecker", "CompCertStoreSchedule", "CompCertIndexSchedule", "ClightPositiveCheck", "ClightLoopExecution",
            "ClightLoopSyntax", "ClightMatrixStore", "ClightMatrixGuard",
            "ClightMatrixLoops", "ClightMatrixRegion", "ClightMatrixSelector",
            "AdaptiveRegionCompiler"]
@@ -18,14 +18,16 @@ def main():
     WORK.mkdir(parents=True, exist_ok=True)
     source = WORK / "Audit.v"
     source.write_text("""From compcert.driver Require Import Compiler.
-From Guard Require Import AbstractSchedule CompCertStoreSchedule ClightMatrixGuard
+From Guard Require Import AbstractSchedule AbstractScheduleChecker CompCertStoreSchedule CompCertIndexSchedule ClightMatrixGuard
   ClightMatrixLoops ClightMatrixRegion ClightMatrixSelector AdaptiveRegionCompiler.
 Goal True. idtac "MATRIX_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MATRIX_KERNEL_BEGIN". exact I. Qed.
 Print Assumptions AbstractSchedule.certified_schedule_preserves.
+Print Assumptions AbstractScheduleChecker.check_schedule_preserves.
 Goal True. idtac "MATRIX_INSTANCE_BEGIN". exact I. Qed.
 Print Assumptions CompCertStoreSchedule.disjoint_stores_reorder.
+Print Assumptions CompCertIndexSchedule.checked_index_schedule_preserves_actual_memory.
 Print Assumptions ClightMatrixGuard.matrix_guard_primitives.
 Print Assumptions ClightMatrixLoops.matrix_source_decode.
 Print Assumptions ClightMatrixLoops.matrix_target_encode.
@@ -60,6 +62,7 @@ Goal True. idtac "MATRIX_END". exact I. Qed.
         "actual_mem_store_execution": True, "exact_complete_memory_equality": True,
         "exact_complete_temporary_exit": True, "source_justified_conditional_check_domain": True,
         "full_ast_binding_checked": True, "shared_condition_and_schedule_kernel_used": True,
+        "executable_schedule_checker_consumed": True,
         "polcert_or_cinstr_instance_imported": False, "polopt_called": False,
         "sources": {"theories/" + module + ".v": hashlib.sha256(
             (ROOT / "theories" / (module + ".v")).read_bytes()).hexdigest() for module in MODULES},

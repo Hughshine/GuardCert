@@ -374,3 +374,13 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 `build/matrix-interchange-proof-report.json` 记录通用调度核 closed，实例只继承七项上游假设，完整 C→Asm 仍为与原 CompCert 一致的 35 项。协议／语言／宿主并集为九项，其中新增的是原基线已有的 proof irrelevance。十六份含源码哈希的 proof 报告均已逐项核对，优化器参数化区域端点仍为 75 项基线并集。
 
 范围限于精确的 2×2 普通 signed32 数组 store 模板，未调用 PolOpt，未验证一般 affine schedules 或 tiling，未测量性能。当前检查树会复制回退区域。这一结果证明的是一个真实循环调度变换已经进入实际提取的完整程序编译通路。
+
+## 2026-10-02：可执行通用调度检查器进入原生证明链
+
+新增 `AbstractScheduleChecker.v` 与 `CompCertIndexSchedule.v` 后，执行 `make clean` 与 `make check-integration`，退出码 0。84 个标准证明清理重编译，八组默认原生套件通过，日志为 `build/schedule-checker-full-check.log`。独立 Rocq→OCaml 提取的实际检查器运行全部 120 个五指令排列，并覆盖无可交换证据、遗漏／额外／重复操作、重复指令的重数和空序列；报告为 `build/schedule-checker-demo/report.json`。
+
+通用检查器只接收指令相等判定和 Boolean 独立性测试。接受结果构造有限调度证书；语言实例证明独立性测试蕴含可交换性质。两个主定理闭合于全局上下文。CompCert 的下标实例对任意不可变 payload 映射提供真实 store 执行、字节不相交及精确完整内存保持，只有上游已有的 proof irrelevance。实际矩阵识别器运行该检查器，区域规则消费其成功证明，替换原手工交换证书；完整 C→Asm 仍为同一 35 项 CompCert 基线。
+
+随后针对标准证明的新依赖摘要重编译 memory 与 optimizer 隔离适配层，分别通过七个／两个依赖及十三个／两个实际模块；未改动的 60／92 个冻结输入沿用上一轮清理验证。可选编译器重新提取构建，静态与动态 CInstr 原生套件通过，日志分别为 `build/schedule-checker-memory-adapter.log`、`build/schedule-checker-optimizer-adapter.log` 和 `build/schedule-checker-store-native.log`。十六份含源码哈希的 proof 报告逐项核对一致。
+
+检查器支持任意有限指令序列，但当前原生源识别及候选布局仍限于固定 2×2 模板。没有一般 affine 域证书、自动依赖分析或性能结论。

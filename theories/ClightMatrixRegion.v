@@ -3,7 +3,7 @@ From compcert.lib Require Import Maps Integers Coqlib.
 From compcert.common Require Import AST Values Memory Events.
 From compcert.cfrontend Require Import Ctypes Cop Clight ClightBigstep.
 From Guard Require Import AbstractGuard SemanticFacts AbstractSchedule CompCertMemoryEquivalence
-  CompCertStoreSchedule ClightGuard ClightCondition ClightRedundantSet ClightRegionRule ClightRegionRewrite
+  CompCertStoreSchedule CompCertIndexSchedule ClightGuard ClightCondition ClightRedundantSet ClightRegionRule ClightRegionRewrite
   ClightTempFrame ClightStraightLine ClightCountedLoop ClightCountedProtocol ClightZeroTrip
   ClightFrontendLoopProtocol ClightFrontendRegion ClightLoopExecution ClightLoopSyntax
   ClightMatrixStore ClightMatrixGuard ClightMatrixLoops.
@@ -49,7 +49,8 @@ Definition matrix_region_rule array row bound column inner_bound body outer_body
   (RN : row <> bound) (RC : row <> column) (NC : bound <> column)
   (RM : row <> inner_bound) (CM : column <> inner_bound)
   (BODY : flatten_region body = [matrix_store array row column])
-  (OUTER : flatten_region outer_body = [matrix_reset column; frontend_counted_loop column inner_bound body]) :
+  (OUTER : flatten_region outer_body = [matrix_reset column; frontend_counted_loop column inner_bound body])
+  (ORDER : check_index_schedule row_index_order column_index_order = true) :
   encoded_region_rule (frontend_counted_loop row bound outer_body)
     (matrix_interchanged row bound column inner_bound array).
 Proof.
@@ -67,7 +68,7 @@ Proof.
     destruct (@matrix_source_decode (adapter_entry temps) (globalenv p) locals le memory
       array row bound column inner_bound body outer_body le' final RN RC NC RM CM BODY OUTER
       ZERO TWO INNER_TWO RUN) as [block [ARRAY [SCHEDULE EXIT]]].
-    apply matrix_interchange_preserves_actual_memory in SCHEDULE.
+    apply (checked_matrix_interchange_preserves_actual_memory ORDER) in SCHEDULE.
     exists final; split; [rewrite EXIT; eapply matrix_target_encode; eauto|apply memory_equivalent_refl].
 Defined.
 

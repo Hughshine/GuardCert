@@ -2,7 +2,7 @@ From Stdlib Require Import List ZArith.
 From compcert.lib Require Import Coqlib Integers.
 From compcert.common Require Import AST.
 From compcert.cfrontend Require Import Clight.
-From Guard Require Import ClightSyntaxEquality ClightRegionRewrite ClightRegionRule
+From Guard Require Import CompCertIndexSchedule ClightSyntaxEquality ClightRegionRewrite ClightRegionRule
   ClightStraightLine ClightFrontendLoopProtocol ClightFrontendRegion
   ClightMatrixStore ClightMatrixLoops ClightMatrixRegion.
 Import ListNotations.
@@ -46,7 +46,8 @@ Record matrix_certificate source d := MatrixCertificate {
   matrix_distinct_row_column : matrix_row d <> matrix_column d;
   matrix_distinct_bound_column : matrix_bound d <> matrix_column d;
   matrix_distinct_row_inner_bound : matrix_row d <> matrix_inner_bound d;
-  matrix_distinct_column_inner_bound : matrix_column d <> matrix_inner_bound d
+  matrix_distinct_column_inner_bound : matrix_column d <> matrix_inner_bound d;
+  matrix_schedule_bound : check_index_schedule row_index_order column_index_order = true
 }.
 
 Definition check_matrix_description source d : option (matrix_certificate source d).
@@ -62,7 +63,8 @@ Proof.
   destruct (peq (matrix_bound d) (matrix_column d)) as [|NC]; [exact None|].
   destruct (peq (matrix_row d) (matrix_inner_bound d)) as [|RM]; [exact None|].
   destruct (peq (matrix_column d) (matrix_inner_bound d)) as [|CM]; [exact None|].
-  exact (Some (@MatrixCertificate source d SOURCE BODY OUTER RN RC NC RM CM)).
+  destruct (check_index_schedule row_index_order column_index_order) eqn:ORDER; [|exact None].
+  exact (Some (@MatrixCertificate source d SOURCE BODY OUTER RN RC NC RM CM ORDER)).
 Defined.
 
 Definition checked_matrix_rule {source d} (CERT : matrix_certificate source d) :
@@ -73,7 +75,7 @@ Proof.
     (matrix_inner_bound d) (matrix_inner_body d) (matrix_outer_body d)
     (matrix_distinct_row_bound CERT) (matrix_distinct_row_column CERT) (matrix_distinct_bound_column CERT)
     (matrix_distinct_row_inner_bound CERT) (matrix_distinct_column_inner_bound CERT)
-    (matrix_body_bound CERT) (matrix_outer_bound CERT)).
+    (matrix_body_bound CERT) (matrix_outer_bound CERT) (matrix_schedule_bound CERT)).
 Defined.
 
 Definition select_matrix_interchange source : option statement :=

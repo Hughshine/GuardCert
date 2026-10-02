@@ -1,7 +1,7 @@
 ROCQ ?= rocq
 ROCQFLAGS ?=
 SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRestriction.v theories/ResidualGuard.v \
-           theories/AbstractSchedule.v theories/EndpointBridge.v theories/BilateralTransport.v \
+           theories/AbstractSchedule.v theories/AbstractScheduleChecker.v theories/EndpointBridge.v theories/BilateralTransport.v \
            theories/SilentRegionProtocol.v \
            theories/PolCertCompat.v \
            theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
@@ -21,6 +21,7 @@ proof:
 demo:
 	python3 prototype/demo.py
 	python3 prototype/synthesis_demo.py
+	python3 scripts/schedule_checker_demo.py
 
 check: proof demo
 
@@ -59,7 +60,8 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightZeroTrip.v theories/ClightFrontendLoopProtocol.v theories/ClightFrontendRegion.v \
                   theories/ClightFragmentProgress.v theories/ClightSequenceProgress.v theories/ClightNestedProgress.v \
                   theories/ClightNestedFrontendProgress.v theories/ClightStructuredProgress.v \
-                  theories/CompCertStoreSchedule.v theories/ClightPositiveCheck.v theories/ClightLoopExecution.v \
+                  theories/CompCertStoreSchedule.v theories/CompCertIndexSchedule.v \
+                  theories/ClightPositiveCheck.v theories/ClightLoopExecution.v \
                   theories/ClightLoopSyntax.v theories/ClightMatrixStore.v theories/ClightMatrixGuard.v \
                   theories/ClightMatrixLoops.v theories/ClightMatrixRegion.v theories/ClightMatrixSelector.v \
                   theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v

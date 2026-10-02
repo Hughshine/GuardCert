@@ -22,7 +22,8 @@ From Guard Require Import SilentRegionProtocol ClightRegionProtocol
   ClightNestedFrontendProgress ClightStructuredProgress ClightNestedProgressExamples
   AdaptiveRegionCompiler ClightAdaptiveExamples CompCertStoreSchedule
   ClightPositiveCheck ClightLoopExecution ClightLoopSyntax ClightMatrixStore
-  ClightMatrixGuard ClightMatrixLoops ClightMatrixRegion ClightMatrixSelector.
+  ClightMatrixGuard ClightMatrixLoops ClightMatrixRegion ClightMatrixSelector
+  AbstractScheduleChecker CompCertIndexSchedule.
 Goal True. idtac "PROTOCOL_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "PROTOCOL_KERNEL_BEGIN". exact I. Qed.
@@ -82,7 +83,8 @@ Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
                "ClightNestedFrontendProgress", "ClightStructuredProgress", "ClightNestedProgressExamples",
                "AdaptiveRegionCompiler", "ClightAdaptiveExamples", "CompCertStoreSchedule",
                "ClightPositiveCheck", "ClightLoopExecution", "ClightLoopSyntax", "ClightMatrixStore",
-               "ClightMatrixGuard", "ClightMatrixLoops", "ClightMatrixRegion", "ClightMatrixSelector"]
+               "ClightMatrixGuard", "ClightMatrixLoops", "ClightMatrixRegion", "ClightMatrixSelector",
+               "AbstractScheduleChecker", "CompCertIndexSchedule"]
     report = {
         "status": "compiled", "kernel_global_axioms": [],
         "upstream_assumptions": sorted(baseline_names),
