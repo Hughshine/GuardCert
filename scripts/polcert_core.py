@@ -505,10 +505,14 @@ def memory_adapter():
     copies.mkdir(exist_ok=True)
     flags = [*load_flags(), "-Q", str(copies), "GuardPolCert"]
     dependencies = ["PolCertLoopGuard.v", "PolCertAffineClight.v", "PolCertAffineGuard.v",
-                    "PolCertCountedClight.v", "PolCertClightBody.v", "PolCertNestedClight.v"]
-    sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v"]
+                    "PolCertCountedClight.v", "PolCertClightBody.v", "PolCertNestedClight.v",
+                    "PolCertSchedule.v"]
+    sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",
+               "PolCertScheduleRegion.v", "PolCertStoreRegion.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
+    region_report = artifact("region-adapter-report.json")
+    region_report.unlink(missing_ok=True)
 
     def isolate_imports(match):
         words = match.group(1).split()
@@ -538,6 +542,33 @@ def memory_adapter():
     baseline, adapted = assumptions(baseline_part), assumptions(adapted_part)
     if not baseline or not adapted or adapted - baseline:
         raise SystemExit(f"unexpected concrete memory assumptions: {sorted(adapted - baseline)}")
+    region_baseline, region_adapted = contents.split(
+        "GUARDCERT_SCHEDULE_REGION_BASELINE_BEGIN", 1)[1].split(
+        "GUARDCERT_SCHEDULE_REGION_ADAPTER_BEGIN", 1)
+    region_adapted = region_adapted.split("GUARDCERT_SCHEDULE_REGION_ASSUMPTIONS_END", 1)[0]
+    region_baseline, region_adapted = assumptions(region_baseline), assumptions(region_adapted)
+    if not region_baseline or not region_adapted or region_adapted - region_baseline:
+        raise SystemExit(f"unexpected schedule-region assumptions: {sorted(region_adapted - region_baseline)}")
+    write_json(region_report, {
+        "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+        "sources": {"theories/" + n: sha(ROOT / "theories" / n)
+                    for n in ["PolCertSchedule.v", "PolCertScheduleRegion.v", "PolCertStoreRegion.v",
+                              "ClightRegionRewrite.v", "ClightRegionRewriteProof.v", "RegionCompiler.v"]},
+        "upstream_assumptions": sorted(region_baseline), "adapter_assumptions": sorted(region_adapted),
+        "additional_global_axioms": [], "instruction_interface_axioms": [],
+        "theorem": "PolCertScheduleRegion.compile_schedule_regions_correct",
+        "endpoint": "Csem to Asm backward simulation for a proved schedule-package proposer",
+        "local_proof_obligations": ["source Clight execution decodes into actual CInstr schedule",
+                                    "accepted formula establishes NonAlias and scheduling certificate",
+                                    "candidate CInstr schedule encodes into normal Clight execution"],
+        "memory_exit_relation": "mutual Mem.extends",
+        "temps_exit_relation": "exact",
+        "concrete_schedule_packages": 0,
+        "array_constant_store_decoder": "proved for checked ordinary signed32 arrays",
+        "native_driver_integration": False,
+        "polyhedral_optimizer_driver_integration": False,
+        "loop_regions_supported": False,
+    })
     write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
                         "core_proof_files": core["proof_files"],
                         "sources": {"theories/" + n: sha(ROOT / "theories" / n)

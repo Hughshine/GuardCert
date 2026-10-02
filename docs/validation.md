@@ -258,3 +258,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- \
 `ClightRegionRewriteProof.transform_program_correct` 现在使用对齐状态见证和 Clight 路径运输，允许入口、暂停状态和出口保持双向 `Mem.extends`。局部候选和后续上下文可以产生不同的内存记录；最终 temps 仍精确相同。新增正长度路径运输保持模拟进展，内部停顿继续由严格下降度量排除。
 
 更新的 `build/memory-transport-report.json` 审计实际区域模拟和三个运输端点，只继承八项基线假设；`build/compiler-assumptions-report.json` 仍与 CompCert 完整编译器相同，为 35 项。既有规则通过关系自反性适配，因此原生示例验证的是原有变换在新宿主中继续工作，尚不构成真实 PolCert 片段重排的原生实例。内部循环及 private temporary/live frame 仍未覆盖。
+
+## 2026-10-02：CInstr 调度包到完整程序的接口证明
+
+新增 `PolCertScheduleRegion.v` 与常量数组 store 解码／生成证明后，运行 `scripts/polcert_core.py memory-adapter --profile memory`，退出码 0，日志为 `build/schedule-region-adapter-check.log`。适配层七个隔离依赖和五个源文件重新编译；60 个源码输入沿用前一条清理重编译的锁定闭包。这次没有重跑未变更的原生驱动。
+
+`build/polcert-memory-region-adapter-report.json` 单独审计真实 CInstr 实例的 `package_rule`、完整 Clight 模拟和完整 C→Asm 编译端点，假设并集与 CompCert 基线相同，为 35 项，没有抽象 INSTR 接口假设或新增全局公理。解码、条件调度证书及候选生成是调度包必须携带的局部证明字段；没有将它们改为公理。
+
+`constant_store_inv` 和 `constant_store_run` 已覆盖经过边界检查的普通 signed32 数组常量写入，连接实际地址、真实 store 与两侧 Clight 正常执行。当前具体调度包数量仍为 0，原生驱动和真实多面体优化器接入均为 false；完整编译接口证明不能代替具体片段实例和内部循环宿主。详见 [调度包接口](polcert-schedule-regions.md)。
