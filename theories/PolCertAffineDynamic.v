@@ -4,7 +4,7 @@ From compcert.common Require Import AST Values Memory.
 From compcert.cfrontend Require Import Ctypes Cop Clight.
 From polcert.polygen Require Import InstrTy Loop.
 From Guard Require Import AbstractGuard SemanticFacts PolCertLoopGuard PolCertAffineClight ClightCondition
-  ClightPureExpr ClightWideGuard.
+  ClightPureExpr ClightWideGuard ClightDecisionRule.
 Set Implicit Arguments.
 Open Scope Z_scope.
 
@@ -236,7 +236,7 @@ Proof.
 Defined.
 
 Definition dynamic_formula_guard layout (p : formula L.expr) : decision_tree :=
-  compile_condition (dynamic_primitives layout nil) p (Decision true) (Decision false) (Decision false).
+  synthesize_decision_tree (dynamic_primitives layout nil) p.
 
 Lemma dynamic_compile_environment layout env p : forall yes no unknown,
   compile_condition (dynamic_primitives layout nil) p yes no unknown =
@@ -252,15 +252,9 @@ Theorem dynamic_formula_guard_exact layout env p s result : dynamic_domain layou
   (decision_run s (dynamic_formula_guard layout p) result <->
     result = formula_accepts (dynamic_decide layout env) p s).
 Proof.
-  intro DOMAIN. unfold dynamic_formula_guard. rewrite (dynamic_compile_environment layout env p).
-  change (command_run decision_test_language
-    (compile_condition (dynamic_primitives layout env) p
-      (Decision true) (Decision false) (Decision false)) s result <->
-    result = formula_accepts (dynamic_decide layout env) p s).
-  rewrite compile_condition_correct by exact DOMAIN.
-  unfold formula_accepts. destruct (formula_execute (dynamic_decide layout env) p s)
-    as [value|]; [destruct value|]; cbn [selected_command decision_test_language];
-    split; intro RUN; try (inversion RUN; reflexivity); subst; constructor.
+  intro DOMAIN. unfold dynamic_formula_guard, synthesize_decision_tree.
+  rewrite (dynamic_compile_environment layout env p).
+  apply synthesized_decision_tree_correct; exact DOMAIN.
 Qed.
 
 Theorem dynamic_formula_guard_property layout env p s : dynamic_domain layout env s ->

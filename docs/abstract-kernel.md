@@ -32,6 +32,8 @@
 
 `encoded_tree_rule` 将性质维度、实际检查原语、前提公式、类型保持、入口域和局部值保持绑定到源与候选表达式。`encoded_tree_rule_sound` 把这份证书交给 `ClightTreeRewrite` 宿主。宿主允许 return、临时赋值、赋值右侧及严格表达式上下文，证明完整 Clight 程序的 forward simulation，包括调用、循环、switch、label 和 goto。守卫包裹的三个叶子上下文不含 label，因此不会产生绕过检查的入口。
 
+`ClightDecisionRule.v` 进一步提供 `encoded_decision_rule`，允许 validity/value 原语本身是条件树。它使用 `decision_test_language` 与同一个 `compile_condition`，输出相同的宿主契约。[signed32 乘法取消实例](clight-signed-cancellation.md) 已通过这一接口进入真实 C→Asm 编译器；实际 Loop 的动态仿射合成也复用其共享公式编译定理。
+
 具体的 `(x+x)/2 → x` unsigned32 实例使用一侧的 no-overflow 维度，生成：
 
 ```c

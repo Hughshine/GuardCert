@@ -4,6 +4,8 @@
 
 后续执行进展：通用三出口条件编译、静态残余化和真实 Clight 表达式宿主已实现；前两者的接口见 [abstract-kernel.md](abstract-kernel.md)。[同地址内存实例](clight-same-address.md) 已进入实际 C→Asm 编译器；[动态仿射合成](affine-dynamic-synthesis.md) 已证明从选定的不溢出前提直接生成安全检查，不要求人工输入区间。[PolCert 核心适配](../adapters/polcert/README.md) 使用真实 `INSTR/Loop`，[实际优化器](../adapters/polcert-optimizer/README.md) 直接消费 `Opt_prepared` 的端点，[计数循环桥接](polcert-clight-loop.md) 支持一个外层 Loop 及结构化 body。仍需具体内存／指令实例、嵌套循环与 private temporary 的状态关系、候选进展和完整程序区域模拟。下面的首版范围和优先级保留为当时的建议，不能替代这个最新目标。
 
+[树形原子检查接口](clight-signed-cancellation.md) 已接入相同完整程序宿主：signed32 的乘法取消实例使用 signed64 检查并保留溢出输入的回退。它和实际 Loop 动态合成共用公式合成器；这项复用没有闭合多语句循环区域的完整程序链。
+
 ## 建议作为主问题
 
 > 给定原片段和独立候选，在指定的前提域与可用观察下，寻找能安全执行的充分条件，输出可核对的条件正确性证书、实际检查代码及完整程序精化保证。

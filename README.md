@@ -26,6 +26,8 @@
 
 [同地址读取实例](docs/clight-same-address.md) 在这一端到端路径上增加内存性质维度：源 load 建立检查有效性，运行时 `p == q` 允许后端消除重复读取。原生检查覆盖快路、回退、unsigned 边界及 signed／volatile 排除。
 
+[树形原子检查与 signed 取消](docs/clight-signed-cancellation.md) 让一个性质原子由多步骤条件树实现，继续复用同一完整程序宿主。signed32 的 `(x*2)/2 → x` 已进入实际 C→Asm 驱动，使用 signed64 检查而在溢出时保留源式回绕行为。
+
 可选的 [PolCert 适配](adapters/polcert/README.md) 已在同一工具链上完整重编译真实 `Loop` 的 57 个证明依赖，直接接入 `INSTR` 的 Bernstein 交换性质和 `Loop` 条件片段。`make polcert-proof` 从锁定源码与补丁复现；实际 PolCert 优化器到完整 Clight 循环程序的桥接仍在推进。
 
 [实际优化器适配](adapters/polcert-optimizer/README.md) 进一步移植 92 个证明依赖。`PolCertOptimizer.optimize_version` 调用真正的 `Opt_prepared`，检查 metadata 并生成 guarded `Loop.t`，其正确性直接消费上游端点；复现目标为 `make polcert-optimizer-proof`。这是循环 IR 终止执行的精化，还需候选进展、固定宽度 lowering 与 Clight 区域模拟才能获得多面体优化的完整 C→Asm 链。
@@ -60,7 +62,7 @@
 
 真实 passes 在 `SimplLocals` 后运行：分支版本化允许 guard 接受时进入原 else；表达式版本化允许 guard 接受时运行保持类型和值的候选。后者支持赋值右侧和 return，可提升到二元／单目运算及 cast。四个新实例是 `x/y→x>>1`、`x%y→x&1`（检查 y=2）、`(x+x)/2→x`（检查不回绕）和 `x-x→0`（Truth）。完整程序证明覆盖调用、外部事件、可能发散的循环、switch 和 goto。
 
-当前没有任意候选 region 的关系式接口、可执行的内存 guard、preload 或完整 DSL lowering；真实 Mem 的 load-hoisting 证明尚未接入 Clight。独立 `GuardedRegion.v` 模型仍采用总的有限宏转移，两条证明路径的边界见接入说明。
+当前没有任意候选 region 的关系式宿主、完整数组 non-alias 检查、preload 或完整 DSL lowering；真实 Mem 的 load-hoisting 证明尚未接入 Clight。同地址内存表达式 guard 已可执行。独立 `GuardedRegion.v` 模型仍采用总的有限宏转移，两条证明路径的边界见接入说明。
 
 ## 运行
 
@@ -78,4 +80,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
 opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
-`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步提取 `TreeCompiler.compile_property_rewrites`、构建编译器、编译两个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/` 和 `build/native-rewrites/`。
+`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `TreeCompiler.compile_property_rewrites`、构建编译器、编译四个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/`、`build/native-rewrites/`、`build/native-alias/` 和 `build/native-signed/`。

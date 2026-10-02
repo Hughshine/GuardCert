@@ -202,3 +202,9 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 执行 `make clean` 后，组合目标 `make check-integration polcert-loop-proof polcert-dynamic-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。35 个核心／Clight 工程文件重新编译，既有 Python、三个原生回归与驱动提取通过；实际 Loop 的 57 个锁定依赖以 `--clean` 重编译，原适配器、区间桥接、循环／body 桥接以及新的动态合成器均通过。完整日志是 `build/dynamic-full-integration-check.log`。
 
 `build/polcert-dynamic-report.json` 记录新的检查算术与精确性端点：与 Clight 表达式基线相同的四个逻辑假设，新增全局公理为空。Rocq 例子覆盖 `2*x+1` 的接受／拒绝边界、最终值合法但中间步骤溢出的拒绝，以及不支持原子在否定下保持 unknown。检查树和实际表达式求值均有证明；这一合成器当前尚未接到原生编译器，既有单层循环仍使用输入区间方案。
+
+# 树形原子检查的完整程序接入
+
+新增 `ClightDecisionRule.v` 与 `ClightSignedCancel.v` 后，执行 `make clean`，随后 `make check-integration polcert-loop-proof polcert-dynamic-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。37 个工程证明、独立模型、CompCert proof 目标、实际驱动假设审计、提取及四个原生 C 示例均通过；实际 Loop 的 57 个锁定依赖重新恢复并以 `--clean` 编译，全部既有桥接及复用共享树合成器的新版本也通过。日志为 `build/signed-full-integration-check.log`。
+
+新的 signed 原生检查覆盖九个输入、五个实际插入点以及嵌套／局部赋值／goto 上下文；结果对应独立模算术计算及 GCC `-O0 -fwrapv`。`build/native-signed/report.json` 记录五个加宽检查树，源式回退保留 signed32 乘法回绕行为。`build/compiler-assumptions-report.json` 比较实际组合驱动和上游 C→Asm 定理，35 个假设一致，新增全局公理为空。实际 PolCert 多面体驱动尚未进入这个原生入口。

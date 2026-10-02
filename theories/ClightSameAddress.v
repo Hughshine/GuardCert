@@ -206,14 +206,17 @@ Definition select_memory_root a :=
   match select_same_load a with Some rule => Some rule | None => select_tree_common_root a end.
 Definition select_memory_rewrites := select_tree_deep select_memory_root.
 
-Theorem select_memory_rewrites_sound a tree code :
-  select_memory_rewrites a = Some (tree, code) -> ClightTreeRewrite.expression_contract a tree code.
+Theorem select_memory_root_sound a tree code :
+  select_memory_root a = Some (tree, code) -> ClightTreeRewrite.expression_contract a tree code.
 Proof.
-  apply select_tree_deep_sound. intros original test candidate SELECT.
-  unfold select_memory_root in SELECT.
-  destruct (select_same_load original) as [[t c]|] eqn:MEMORY.
+  unfold select_memory_root; intro SELECT.
+  destruct (select_same_load a) as [[t c]|] eqn:MEMORY.
   - inversion SELECT; subst; eapply select_same_load_sound; eauto.
   - eapply select_tree_common_root_sound; eauto.
 Qed.
+
+Theorem select_memory_rewrites_sound a tree code :
+  select_memory_rewrites a = Some (tree, code) -> ClightTreeRewrite.expression_contract a tree code.
+Proof. apply select_tree_deep_sound; exact select_memory_root_sound. Qed.
 
 Print Assumptions same_load_rule_correct.
