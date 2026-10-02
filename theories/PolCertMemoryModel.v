@@ -4,6 +4,7 @@ From compcert.common Require Import AST Values Memory.
 From compcert.cfrontend Require Import Ctypes Csem.
 From polcert.src Require Import Base PolyBase CTy CState.
 From polcert.polygen Require Import InstrTy.
+From Guard Require Import CompCertMemoryEquivalence.
 Import ListNotations.
 Open Scope Z_scope.
 Set Implicit Arguments.
@@ -32,12 +33,7 @@ Lemma memory_eq_load chunk first second block offset value :
   CState.mem_eq first second -> Mem.load chunk first block offset = Some value ->
   Mem.load chunk second block offset = Some value.
 Proof.
-  intros [FORWARD BACKWARD] LOAD.
-  destruct (Mem.load_extends _ _ _ _ _ _ FORWARD LOAD) as [v [LOAD' LESS]].
-  destruct (Mem.load_extends _ _ _ _ _ _ BACKWARD LOAD') as [v' [LOAD'' LESS']].
-  rewrite LOAD in LOAD''; inversion LOAD''; subst v'.
-  assert (value = v) by (inversion LESS; inversion LESS'; subst; auto).
-  subst; exact LOAD'.
+  intros EQ LOAD; exact (@memory_equivalent_load chunk block offset first second value EQ LOAD).
 Qed.
 
 Lemma memory_eq_store chunk first second block offset value first' :
@@ -45,15 +41,7 @@ Lemma memory_eq_store chunk first second block offset value first' :
   exists second', Mem.store chunk second block offset value = Some second' /\
     CState.mem_eq first' second'.
 Proof.
-  intros [FORWARD BACKWARD] STORE.
-  destruct (Mem.store_within_extends chunk first second block offset value first' value
-    FORWARD STORE (Val.lessdef_refl _))
-    as [second' [STORE' EXTEND]].
-  destruct (Mem.store_within_extends chunk second first block offset value second' value
-    BACKWARD STORE' (Val.lessdef_refl _))
-    as [first'' [STORE'' EXTEND']].
-  rewrite STORE in STORE''; inversion STORE''; subst first''.
-  exists second'; split; [exact STORE' | split; assumption].
+  intros EQ STORE; exact (@memory_equivalent_store chunk block offset value first second first' EQ STORE).
 Qed.
 
 Lemma concrete_read_normalize ge locals source memory cell basetype value :

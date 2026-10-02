@@ -1,7 +1,7 @@
 ROCQ ?= rocq
 ROCQFLAGS ?=
 SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGuard.v \
-           theories/AbstractSchedule.v theories/EndpointBridge.v \
+           theories/AbstractSchedule.v theories/EndpointBridge.v theories/BilateralTransport.v \
            theories/PolCertCompat.v \
            theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
@@ -33,13 +33,15 @@ COMPCERT_FLAGS = -R $(COMPCERT_DIR)/lib compcert.lib \
                  -R $(COMPCERT_DIR)/driver compcert.driver \
                  -R $(COMPCERT_DIR)/flocq Flocq
 
-BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/ClightGuard.v \
+BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalence.v \
+                  theories/CompCertOperatorEquivalence.v theories/ClightGuard.v \
                   theories/ClightGuardProof.v theories/ClightEncodedRule.v theories/ClightNoWrap.v \
                   theories/ClightExprRewrite.v theories/ClightExprRewriteProof.v \
                   theories/ClightExprRule.v theories/CommonRewrites.v \
                   theories/CompCertMemoryRule.v \
                   theories/GuardCompiler.v theories/ClightIntegrationExamples.v \
-                  theories/CommonRewriteExamples.v theories/ClightCondition.v theories/ClightPureExpr.v \
+                  theories/CommonRewriteExamples.v theories/ClightCondition.v \
+                  theories/ClightMemoryEquivalence.v theories/ClightMemorySteps.v theories/ClightPureExpr.v \
                   theories/ClightCountedLoop.v theories/ClightTempFrame.v theories/ClightFramedLoop.v \
                   theories/ClightWideGuard.v \
                   theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
@@ -65,6 +67,7 @@ compcert-proof: fetch-compcert
 
 check-compcert: check compcert-proof
 	$(MAKE) compcert-bridge
+	python3 scripts/audit_memory_transport.py
 
 guarded-compiler: check-compcert
 	python3 scripts/audit_compiler.py

@@ -242,3 +242,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- \
 五组原生回归均通过。新增 `native_region.c` 的六个输入覆盖 guard 接受、拒绝、unsigned 回绕，以及普通函数、循环体和 goto 标签后的插入；Clight dump 明确出现三个 guard、对应候选和原始 fallback，变量重合的例子没有注入 guard。结果同时匹配 GCC 和独立 unsigned 算术计算。报告在 `build/native-region/report.json`；未测量性能。
 
 该宿主只替换有限静默源区域，要求正常出口的全部 temps 和 memory 精确一致。内部循环、PolCert 的 private temporary/live frame 和 mutual `Mem.extends` 出口关系尚未进入这一完整程序宿主；实际多面体优化的 C→Asm 链仍未闭合。详见 [语句区域接口](clight-statement-regions.md)。
+
+## 2026-10-02：等价内存的语言实例与宿主运输
+
+新增五个模块后，执行 `make clean`，联合运行 `make check-integration polcert-memory-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。51 个标准工程证明重新编译，五组原生回归通过；具体内存闭包的 60 个锁定 PolCert 输入也重新恢复并清理编译。日志为 `build/memory-transport-integration-check.log`。
+
+随后独立运行新增的 `scripts/audit_memory_transport.py`，退出码 0。`build/memory-transport-report.json` 确认两个抽象运输定理没有全局公理，实际 Clight 小步及有限路径运输只继承八项既有假设，均属于 CompCert 完整编译器基线。编译器端点继续为与上游一致的 35 项；具体数组适配没有新增全局公理。
+
+覆盖范围包括普通和字节访问、bitfield、复制赋值、分配释放、完整表达式及两种函数入口，直到真实 Clight 小步与有限路径。此次只是建立并复用语言提供的性质库；完整程序区域替换的出口仍要求精确内存，尚未升级为双向 `Mem.extends`。详见 [运输接口及边界](compcert-memory-transport.md)。

@@ -12,6 +12,7 @@ theories/SemanticFacts.v
 theories/ResidualGuard.v
 theories/AbstractSchedule.v
 theories/EndpointBridge.v
+theories/BilateralTransport.v
 theories/PolCertCompat.v
 theories/GuardedRegion.v
 theories/CheckedGuard.v
@@ -20,6 +21,8 @@ theories/Presumption.v
 theories/Synthesis.v
 theories/ConditionalRewrite.v
 theories/CompCertArithmetic.v
+theories/CompCertMemoryEquivalence.v
+theories/CompCertOperatorEquivalence.v
 theories/ClightGuard.v
 theories/ClightGuardProof.v
 theories/ClightEncodedRule.v
@@ -33,6 +36,8 @@ theories/GuardCompiler.v
 theories/ClightIntegrationExamples.v
 theories/CommonRewriteExamples.v
 theories/ClightCondition.v
+theories/ClightMemoryEquivalence.v
+theories/ClightMemorySteps.v
 theories/ClightPureExpr.v
 theories/ClightCountedLoop.v
 theories/ClightTempFrame.v
