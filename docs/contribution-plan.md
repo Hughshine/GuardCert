@@ -2,7 +2,7 @@
 
 2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
 
-后续执行进展：通用三出口条件编译、静态残余化和真实 Clight 表达式宿主已实现；前两者的接口见 [abstract-kernel.md](abstract-kernel.md)。[同地址内存实例](clight-same-address.md) 已进入实际 C→Asm 编译器；[动态仿射合成](affine-dynamic-synthesis.md) 已证明从选定的不溢出前提直接生成安全检查，不要求人工输入区间。[PolCert 核心适配](../adapters/polcert/README.md) 使用真实 `INSTR/Loop`，[实际优化器](../adapters/polcert-optimizer/README.md) 直接消费 `Opt_prepared` 的端点，[计数循环桥接](polcert-clight-loop.md) 支持一个外层 Loop 及结构化 body。仍需具体内存／指令实例、嵌套循环与 private temporary 的状态关系、候选进展和完整程序区域模拟。下面的首版范围和优先级保留为当时的建议，不能替代这个最新目标。
+当前主线是直接在 CompCert 语义下建立有运行时前提的循环变换及完整程序保证，PolCert 作为参考，允许重新实现表示和算法。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。下一步优先补直接 Clight 的嵌套源进展与非平凡调度变换；private temporary、一般 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
 
 [树形原子检查接口](clight-signed-cancellation.md) 已接入相同完整程序宿主：signed32 的乘法取消实例使用 signed64 检查并保留溢出输入的回退。它和实际 Loop 动态合成共用公式合成器；这项复用没有闭合多语句循环区域的完整程序链。
 

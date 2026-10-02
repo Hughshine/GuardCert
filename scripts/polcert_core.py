@@ -304,6 +304,8 @@ def optimizer_adapter():
     dependencies = ["PolCertLoopGuard.v", "PolCertLoopProgram.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
+    region_report = artifact("region-adapter-report.json")
+    region_report.unlink(missing_ok=True)
     with artifact("adapter-build.log").open("w") as log:
         for name in dependencies:
             original = ROOT / "theories" / name
@@ -317,6 +319,9 @@ def optimizer_adapter():
                            stdout=log, stderr=subprocess.STDOUT, check=True)
         source = ROOT / "theories" / "PolCertOptimizer.v"
         subprocess.run(["rocq", "compile", *flags, str(source)], cwd=ROOT,
+                       stdout=log, stderr=subprocess.STDOUT, check=True)
+        region_source = ROOT / "theories" / "PolCertOptimizerRegion.v"
+        subprocess.run(["rocq", "compile", *flags, str(region_source)], cwd=ROOT,
                        stdout=log, stderr=subprocess.STDOUT, check=True)
     contents = artifact("adapter-build.log").read_text()
     baseline_part, adapter_part = contents.split("GUARDCERT_OPT_BASELINE_BEGIN", 1)[1].split(
@@ -333,6 +338,38 @@ def optimizer_adapter():
                        "P.Instr.Ty.eqb", "P.Instr.Ty.eqb_eq"}
     if not baseline or not adapted or not added <= metadata_fields:
         raise SystemExit(f"unexpected optimizer adapter assumptions: {sorted(added - metadata_fields)}")
+    optimizer_region_baseline, rest = contents.split(
+        "GUARDCERT_OPT_REGION_OPTIMIZER_BASELINE_BEGIN", 1)[1].split(
+        "GUARDCERT_OPT_REGION_COMPCERT_BASELINE_BEGIN", 1)
+    compiler_region_baseline, region_adapted = rest.split("GUARDCERT_OPT_REGION_ADAPTER_BEGIN", 1)
+    region_adapted = region_adapted.split("GUARDCERT_OPT_REGION_ASSUMPTIONS_END", 1)[0]
+    optimizer_region_baseline = assumption_names(optimizer_region_baseline)
+    compiler_region_baseline = assumption_names(compiler_region_baseline)
+    region_adapted = assumption_names(region_adapted)
+    if (not optimizer_region_baseline or not compiler_region_baseline
+            or region_adapted != optimizer_region_baseline | compiler_region_baseline):
+        raise SystemExit("unexpected optimizer whole-program bridge assumptions")
+    region_sources = ["PolCertOptimizerRegion.v", "EndpointBridge.v", "ClightRegionRule.v",
+                      "ClightRegionProgress.v", "ClightAdaptiveRegion.v", "ClightAdaptiveRegionProof.v",
+                      "ClightFrontendRegion.v", "AdaptiveRegionCompiler.v"]
+    write_json(region_report, {
+        "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+        "core_proof_files": core["proof_files"],
+        "sources": {"theories/" + n: sha(ROOT / "theories" / n) for n in region_sources},
+        "optimizer_baseline_assumptions": sorted(optimizer_region_baseline),
+        "compcert_baseline_assumptions": sorted(compiler_region_baseline),
+        "adapter_assumptions": sorted(region_adapted), "additional_global_axioms": [],
+        "theorem": "PolCertOptimizerRegion.compile_optimizer_result_correct",
+        "endpoint": "Csem to Asm, parameterized by an explicit optimizer loop bridge certificate",
+        "actual_opt_prepared_correct_consumed": True,
+        "generic_endpoint_conversion_consumed": True, "checked_source_ast_binding": True,
+        "language_obligations": ["source progress protocol", "safe check domain",
+                                 "conditional source decoding", "source result uniqueness",
+                                 "conditional candidate progress", "candidate Clight encoding and exit repair",
+                                 "state equivalence implies physical memory equivalence"],
+        "concrete_optimizer_loop_certificate_instantiated": False,
+        "native_optimizer_driver_called": False, "private_temporary_declarations_supported": False,
+    })
     write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
                         "core_proof_files": core["proof_files"],
                         "upstream_endpoint_assumptions": sorted(baseline),
@@ -343,6 +380,7 @@ def optimizer_adapter():
                                     sha(ROOT / "theories" / n)
                                     for n in [*dependencies, "PolCertOptimizer.v"]}})
     print("Guarded versioning consumes the actual Opt_prepared_correct endpoint")
+    print("Actual optimizer endpoint reaches Csem-to-Asm under explicit language bridge obligations")
 
 
 def affine_adapter():
@@ -509,7 +547,9 @@ def memory_adapter():
                     "PolCertSchedule.v"]
     sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",
                "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v",
-               "PolCertDynamicStore.v", "PolCertStorePackage.v", "PolCertStoreNative.v"]
+               "PolCertDynamicStore.v", "PolCertStorePackage.v", "PolCertStoreNative.v",
+               "PolCertCompatibilityAudit.v", "PolCertReadOnlyContext.v", "PolCertCInstrContext.v",
+               "PolCertCInstrContextExamples.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
     region_report = artifact("region-adapter-report.json")
@@ -520,6 +560,8 @@ def memory_adapter():
     dynamic_report.unlink(missing_ok=True)
     package_report = artifact("store-package-report.json")
     package_report.unlink(missing_ok=True)
+    context_report = artifact("context-adapter-report.json")
+    context_report.unlink(missing_ok=True)
 
     def isolate_imports(match):
         words = match.group(1).split()
@@ -549,6 +591,30 @@ def memory_adapter():
     baseline, adapted = assumptions(baseline_part), assumptions(adapted_part)
     if not baseline or not adapted or adapted - baseline:
         raise SystemExit(f"unexpected concrete memory assumptions: {sorted(adapted - baseline)}")
+    context_baseline, context_adapted = contents.split("GUARDCERT_CONTEXT_BASELINE_BEGIN", 1)[1].split(
+        "GUARDCERT_CONTEXT_ADAPTER_BEGIN", 1)
+    context_adapted = context_adapted.split("GUARDCERT_CONTEXT_ASSUMPTIONS_END", 1)[0]
+    context_examples = contents.split("GUARDCERT_CONTEXT_EXAMPLES_BEGIN", 1)[1].split(
+        "GUARDCERT_CONTEXT_EXAMPLES_END", 1)[0]
+    context_baseline = assumptions(context_baseline)
+    context_adapted = assumptions(context_adapted) | assumptions(context_examples)
+    if not context_baseline or context_adapted - context_baseline:
+        raise SystemExit(f"unexpected context-instance assumptions: {sorted(context_adapted - context_baseline)}")
+    write_json(context_report, {
+        "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+        "sources": {"theories/" + n: sha(ROOT / "theories" / n)
+                    for n in ["PolCertCompatibilityAudit.v", "PolCertReadOnlyContext.v",
+                              "PolCertCInstrContext.v", "PolCertCInstrContextExamples.v"]},
+        "upstream_assumptions": sorted(context_baseline), "adapter_assumptions": sorted(context_adapted),
+        "additional_global_axioms": [], "instruction_interface_axioms": [],
+        "legacy_valid_uninhabited_proved": True, "legacy_nonempty_compat_impossible_proved": True,
+        "explicit_new_instruction_model": True, "original_cinstr_execution_retained": True,
+        "parameter_storage": "immutable snapshot of defined Clight temporaries; no physical ghost allocation",
+        "physical_compatibility": "existential block/type witness, decoded array type and writable range",
+        "actual_allocated_wrapped_loop_witness": True, "nonempty_array_metadata_witness": True,
+        "scalar_context_witness": True, "upstream_semantic_definition_modified": False,
+        "native_optimizer_driver_called": False, "whole_program_context_lowering_connected": False,
+    })
     region_baseline, region_adapted = contents.split(
         "GUARDCERT_SCHEDULE_REGION_BASELINE_BEGIN", 1)[1].split(
         "GUARDCERT_SCHEDULE_REGION_ADAPTER_BEGIN", 1)

@@ -336,3 +336,18 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 严格 signed32 的 `<`／`+1` 循环覆盖所有真实源小步、状态相关度量下降和正常完成后的 `exec_stmt` 重建。首个 body 范围为只修改内存的有限结构化语句。零次迭代定理不需要 body 访存合法；边界例子验证负到正的计数距离、递增到 signed32 最大值和排除修改计数器的 body。
 
 现有整程序路径已经消费有限语言实例的协议字段，提取及原生结果通过；严格循环实例尚未进入整程序选择器。内部循环替换仍需显式模拟索引，private temporary/live frame 和实际 PolOpt 进展也未完成。没有把协议的局部终止性质或零次迭代例子当作完整多面体优化链。
+
+
+## 2026-10-02：真实前端整循环宿主与零次迭代
+
+此前 `build/frontend-loop-full-check.log` 的联合清理验证已经通过：67 个标准证明、60 个 memory 输入、七个隔离依赖、九个具体模块及八组原生套件。实际 C 前端的循环包装直接消费进展协议，整个循环在普通、外层循环、goto 和指针 body 上下文被 guard 包装。八组 signed 边界输入与独立计数预期一致，零次迭代的空指针例子成功；修改计数器和非严格条件被拒绝。两个实际编译入口与上游保持相同的 35 项假设。这是零次迭代整循环规则，尚非循环调度优化。
+
+## 2026-10-02：实际优化器区域证书与 CInstr 入口审计
+
+运行 `make polcert-optimizer-proof polcert-memory-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。67 个标准证明重新编译；92 个优化器与 60 个内存输入分别恢复并清理编译；优化器的两个隔离适配依赖及两个实际模块、内存的七个隔离依赖及十三个具体模块通过。日志为 `build/optimizer-context-check.log`。这轮新增内容没有改变提取入口，因此没有重复原生套件。
+
+`PolCertOptimizerRegion.compile_optimizer_result_correct` 直接消费真实 `Opt_prepared_correct`，并经通用端点转换、编码规则与实际区域宿主给出参数化的 Csem→Asm simulation。假设恰好是优化器 42 项与 CompCert 35 项的 75 项并集，没有新增全局公理。源 AST 绑定也已证明。完整循环证书与原生 optimizer 调用尚未实例化。
+
+`legacy_valid_uninhabited` 是闭合定理：锁定旧 `CState.valid` 对不同 block 作不可能的全称要求；旧 wrapped CInstr Loop 在非空声明时没有执行。新只读参数实例保留真实指令语义及 Bernstein 证明，显式采用存在性数组布局和权限，实际分配内存的非空 wrapped 循环执行例子已通过。其具体假设与底层 Bernstein 基线均为五项，无新增全局或指令接口公理。旧上游语义未修改，raw CInstr 原生双写证明不依赖该旧 Compat。
+
+两份新报告为 `build/polcert-optimizer-region-adapter-report.json` 与 `build/polcert-memory-context-adapter-report.json`；其中所有源码 SHA-256 已重新核对。

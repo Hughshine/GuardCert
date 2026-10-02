@@ -30,8 +30,10 @@ runtime guard 为 false 或 unknown 时运行源 body；metadata 不匹配是优
 
 32 份补丁包括核心适配的 23 份和优化器路径额外的 9 份。额外补丁恢复标准库名称、数字 notation scope、Proper instance 可见性、replace 的证明方向与显式关系运输。组合 validator 的未使用转发别名被移除，以避免 Rocq 9.2 的 module-substitution 异常；实际字段直接指向原模块。`PolOpt` 中未使用的 `Convert/CInstr` import 被替换为仍需的 `Csyntax` import。优化器算法和原正确性定理陈述保持不变。
 
-这一步是实际循环 IR 程序的 guarded optimizer，不是完整 C 程序优化。没有移植具体 `CInstr/CState`，没有把数学循环降低为固定宽度 Clight，也没有证明循环区域插入的完整程序模拟。它与已经通过原生检查的标量 C→Asm 路径是两条仍需连接的证明链。
+`PolCertOptimizerRegion.v` 现在提供[端点到完整程序的证书接口](../../docs/polcert-optimizer-regions.md)：实际优化器后向端点、候选进展、源结果唯一性与语言桥接共同建立局部规则，再复用完整 Clight 区域宿主和 Csem→Asm 定理。选择器核对整个源 AST。这个参数化定理已编译，但具体完整循环证书尚未实例化，原生驱动也尚未调用 `Opt_prepared`。
+
+具体 CInstr/Clight 片段桥接在隔离的 memory profile 中另行验证。[入口审计](../../docs/polcert-context-audit.md) 发现旧非空声明的 wrapped CInstr 语义不可执行；新的只读参数实例提供真实分配内存上的执行见证。后续循环主线允许直接使用 CompCert 语义重新实现，而不受必须保留 CInstr 表示的约束。
 
 源 `Loop.semantics` 的 `NonAlias` 等前提仍然存在。Loop 参数 guard 没有消除这些前提，也不能读取内存 alias。未来外层 Clight adapter 必须在接受路径上建立 Loop 入口关系，并在拒绝路径直接执行原 Clight 区域；不能假定 alias 失败时仍可通过同一 Loop wrapped semantics 描述原代码。
 
-上游 VPL 保留 monad、oracle 与经典逻辑等既有假设。构建比较实际端点与新增适配器的 `Print Assumptions`；新增依赖只允许 metadata 相等所需的 `INSTR` 接口字段，不接受新的全局公理。报告为 `build/polcert-optimizer-report.json`、`build/polcert-optimizer-adapter-report.json`；详细日志为对应的 `*-build.log`。
+上游 VPL 保留 monad、oracle 与经典逻辑等既有假设。构建比较实际端点与新增适配器的 `Print Assumptions`；新增依赖只允许 metadata 相等所需的 `INSTR` 接口字段，不接受新的全局公理。新增区域端点的假设恰好是优化器与 CompCert 基线的并集。报告为 `build/polcert-optimizer-report.json`、`build/polcert-optimizer-adapter-report.json` 和 `build/polcert-optimizer-region-adapter-report.json`；详细日志为对应的 `*-build.log`。

@@ -16,7 +16,7 @@
 
 `CInstr.IassignSem` 没有单独执行 Clight 的 C cast，可能把一次未初始化读取的 `Vundef` 写入数组。后端证明成功的整数运算产生 `Vint`，因此接受 `A[i] = B[i] + 1` 等形式；直接 `A[i] = B[i]` 目前返回 `None`，还需一个读取值已定义的证书。这个拒绝也覆盖已初始化的直接拷贝，是明确的保守限制。
 
-当前 `CTy` 解码器拒绝标量 `type_int32s`。本轮未修改这个上游语义，也未声称已打通标量符号参数的 `CInstr.InitEnv`。raw Loop 的操作数环境与 Clight temps 已有独立对应证明；如何接到完整 wrapped program 的入口还须处理。
+当前旧 `CTy` 解码器拒绝标量 `type_int32s`。另一个独立问题是旧 `CState.valid` 不可满足，使非空声明的旧 wrapped Loop 无执行。[入口审计与新实例](polcert-context-audit.md) 给出机械化反证，并定义显式的只读参数快照与存在性数组兼容性；实际分配内存上的 wrapped 执行见证已成立。上游旧语义没有被修改，这个新实例仍需完整源循环与候选桥接。
 
 `CState.NonAlias` 是不同变量位于不同内存块的性质。当前数组后端没有将同块中的 disjoint slices 或任意 pointer 参数编码到这个 state。通用框架允许语言实例提供更精细的 footprint 性质，现有实例尚未实现它。
 

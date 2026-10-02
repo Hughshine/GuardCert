@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是顺序 CompCert 中的行为保持变换，采用入口检查与原片段回退。PolCert 是可能的实例，接口不依赖多面体表示。
+研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是顺序 CompCert 中的行为保持变换，采用入口检查与原片段回退。目标包括直接在 CompCert 语义下提供多面体变换能力；PolCert 是算法和证明的参考，接口不依赖其表示。
 
 以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支、表达式、有限区域与严格计数循环 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
 
@@ -37,7 +37,7 @@
 
 可选的 [PolCert 适配](adapters/polcert/README.md) 已在同一工具链上完整重编译真实 `Loop` 的 57 个证明依赖，直接接入 `INSTR` 的 Bernstein 交换性质和 `Loop` 条件片段。`make polcert-proof` 从锁定源码与补丁复现；实际 PolCert 优化器到完整 Clight 循环程序的桥接仍在推进。
 
-[实际优化器适配](adapters/polcert-optimizer/README.md) 进一步移植 92 个证明依赖。`PolCertOptimizer.optimize_version` 调用真正的 `Opt_prepared`，检查 metadata 并生成 guarded `Loop.t`，其正确性直接消费上游端点；复现目标为 `make polcert-optimizer-proof`。这是循环 IR 终止执行的精化，还需候选进展、固定宽度 lowering 与 Clight 区域模拟才能获得多面体优化的完整 C→Asm 链。
+[实际优化器适配](adapters/polcert-optimizer/README.md) 进一步移植 92 个证明依赖。`PolCertOptimizer.optimize_version` 调用真正的 `Opt_prepared`，检查 metadata 并生成 guarded `Loop.t`，其正确性直接消费上游端点；复现目标为 `make polcert-optimizer-proof`。[优化器区域证书](docs/polcert-optimizer-regions.md) 已将这个端点接到参数化的 Csem→Asm 定理。完整循环的具体证书与原生优化器调用尚未实现。
 
 [signed32 仿射桥接](docs/polcert-affine-clight.md) 已证明实际 Loop 表达式和布尔测试到 Clight 的 lowering，并通过通用性质接口生成输入区间 guard。接受的 guard 建立静态区间证书需要的运行时前提；缺失布局或无效区间保留 unknown。复现目标为 `make polcert-affine-proof`。完整循环与区域 lowering 仍在推进。
 
@@ -46,6 +46,8 @@
 [嵌套循环桥接](docs/polcert-nested-clight.md) 扩展到指定 scratch 深度的多层 Loop，允许内层 scratch 改变并保护参数、外层计数器及声明的 live frame。编译器检查整个 scratch pool 的新鲜性；复现目标为 `make polcert-nested-proof`。翻译另有纯语法接口，正确性证书由语言实例提供。
 
 [具体数组实例](docs/polcert-array-clight.md) 重编译真实 `CInstr/CState/Loop` 的 60 个依赖，将一维 signed32 数组指令和嵌套循环接到 Clight 的真实 load/store 与小步执行。最终端点没有抽象指令执行假设；真实分配／初始化例子证明 `B[0]=7` 时生成代码产生 `A[0]=8`。复现目标为 `make polcert-memory-proof`。标量参数入口、候选进展、tiling 边界运算及完整程序区域模拟仍在推进。
+
+[CInstr 入口审计](docs/polcert-context-audit.md) 证明旧非空声明的 wrapped 语义不可执行，并提供新的显式只读参数实例。真实分配内存上的循环执行见证已通过；旧模型与既有 raw 指令／原生双写实例的边界分别记录。后续循环变换优先直接使用 CompCert 语义。
 
 [真实 CInstr 调度区域接口](docs/polcert-schedule-regions.md) 已将入口检查域、接受后的源解码、条件调度证书和候选生成组合为完整 Csem→Asm 定理，采用与 PolCert 相同的等价内存出口。`PolCertStorePackage.v` 已实例化动态数组双写的具体包族，并进入实际提取入口；这些局部义务均连接真实执行。
 
