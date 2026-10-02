@@ -2,7 +2,8 @@ From Stdlib Require Import Bool List Arith Lia Wellfounded.
 From compcert.lib Require Import Coqlib Maps.
 From compcert.common Require Import AST Linking Values Memory Events Globalenvs Smallstep.
 From compcert.cfrontend Require Import Ctypes Cop Clight ClightBigstep.
-From Guard Require Import ClightGuard ClightGuardProof ClightFiniteRegion ClightRegionRewrite.
+From Guard Require Import ClightGuard ClightGuardProof ClightFiniteRegion ClightRegionRewrite
+  CompCertMemoryEquivalence ClightMemorySteps.
 Local Open Scope nat_scope.
 
 Section CONTINUATIONS.
@@ -164,26 +165,42 @@ Proof.
   intros e m params args m' H; induction H; econstructor; eauto.
 Qed.
 
-Inductive match_states : state -> state -> Prop :=
-| match_state : forall f s ts k tk e le m,
+Inductive aligned_states : state -> state -> Prop :=
+| aligned_state : forall f s ts k tk e le m,
     match_statement s ts -> related_cont select k tk ->
-    match_states (State f s k e le m)
+    aligned_states (State f s k e le m)
       (State (transform_function select f) ts tk e le m)
-| match_pending : forall f source target cur stack k tk e le0 m0 le m,
+| aligned_pending : forall f source target cur stack k tk e le0 m0 le m,
     region_contract source target -> related_cont select k tk ->
     finite_statement cur = true -> Forall (fun s => finite_statement s = true) stack ->
     (cur <> Sskip \/ stack <> nil) ->
     (forall le' m', resumed_execution (adapter_entry temps) tge e cur stack le m le' m' ->
        exec_stmt (adapter_entry temps) tge e le0 m0 source E0 le' m' Out_normal) ->
-    match_states (State f cur (region_cont stack k) e le m)
+    aligned_states (State f cur (region_cont stack k) e le m)
       (State (transform_function select f) target tk e le0 m0)
-| match_callstate : forall fd args k tk m,
+| aligned_callstate : forall fd args k tk m,
     related_cont select k tk ->
-    match_states (Callstate fd args k m)
+    aligned_states (Callstate fd args k m)
       (Callstate (transform_fundef select fd) args tk m)
-| match_returnstate : forall v k tk m,
+| aligned_returnstate : forall v k tk m,
     related_cont select k tk ->
-    match_states (Returnstate v k m) (Returnstate v tk m).
+    aligned_states (Returnstate v k m) (Returnstate v tk m).
+
+(** The local proof may use an aligned memory as a witness.  The actual
+    target memory is related by a language-provided context property. *)
+Definition match_states source target :=
+  exists aligned, aligned_states source aligned /\ memory_related_states aligned target.
+
+Lemma match_states_exact source target :
+  aligned_states source target -> match_states source target.
+Proof. intro MATCH; exists target; split; [exact MATCH | apply memory_related_states_refl]. Qed.
+
+Lemma match_states_transport source target final :
+  match_states source target -> memory_related_states target final -> match_states source final.
+Proof.
+  intros [aligned [MATCH FIRST]] SECOND; exists aligned; split; [exact MATCH |].
+  eapply memory_related_states_trans; eauto.
+Qed.
 
 Lemma eval_expr_preserved : forall e le m a v,
   eval_expr ge e le m a v -> eval_expr tge e le m a v.
@@ -212,12 +229,13 @@ Proof. intros; eapply external_call_symbols_preserved; eauto using senv_preserve
 
 Local Hint Resolve eval_expr_preserved eval_lvalue_preserved exprlist_preserved
   entry_preserved external_preserved : core.
-Local Hint Constructors match_statement match_cases related_cont match_states : core.
+Local Hint Constructors match_statement match_cases related_cont aligned_states : core.
 
 Ltac inv_statement :=
   match goal with H : match_statement _ _ |- _ => inversion H; subst; clear H end.
 Ltac inv_cont :=
   match goal with H : related_cont _ _ _ |- _ => inversion H; subst; clear H end.
+Ltac match_exact := apply match_states_exact; econstructor; eauto.
 Ltac finish_step :=
   eexists; split; [apply plus_one; unfold adapter_step; eauto 8 using step | econstructor; eauto].
 
@@ -260,19 +278,23 @@ Proof.
   destruct (Nat.eq_dec (statement_weight cur') 0) as [ZERO | NONZERO].
   - apply statement_weight_zero in ZERO; subst cur'.
     destruct stack' as [|rest stack'].
-    + exists (State (transform_function select f) Sskip tk e le' m'); split.
-      * right; split; [apply CONTRACT, PREFIX', completed_execution | exact DECREASE].
-      * constructor; auto.
+    + destruct (CONTRACT temps tp e le0 m0 le' m'
+        (PREFIX' _ _ (completed_execution _ _ _ _ _))
+        (transform_function select f) tk) as [target_memory [RUN EQ]].
+      exists (State (transform_function select f) Sskip tk e le' target_memory); split.
+      * right; split; [exact RUN | exact DECREASE].
+      * exists (State (transform_function select f) Sskip tk e le' m'); split;
+          [constructor; auto | constructor; exact EQ].
     + exists (State (transform_function select f) target tk e le0 m0); split.
       * right; split; [apply star_refl | exact DECREASE].
-      * eapply match_pending; eauto. right; discriminate.
+      * apply match_states_exact; eapply aligned_pending; eauto. right; discriminate.
   - exists (State (transform_function select f) target tk e le0 m0); split.
     + right; split; [apply star_refl | exact DECREASE].
-    + eapply match_pending; eauto. left; intro EQ; subst; contradiction.
+    + apply match_states_exact; eapply aligned_pending; eauto. left; intro EQ; subst; contradiction.
 Qed.
 
-Lemma step_simulation : forall s1 t s1',
-  adapter_step temps ge s1 t s1' -> forall s2, match_states s1 s2 ->
+Lemma aligned_step_simulation : forall s1 t s1',
+  adapter_step temps ge s1 t s1' -> forall s2, aligned_states s1 s2 ->
   exists s2',
     (plus (adapter_step temps) tge s2 t s2' \/
      (star (adapter_step temps) tge s2 t s2' /\ state_weight s1' < state_weight s1)) /\
@@ -291,22 +313,22 @@ Proof.
     all: try solve [inv_cont; match goal with H : is_call_cont _ |- _ => contradiction end].
     all: try solve [inv_cont; eexists; split;
       [left; apply plus_one; unfold adapter_step; eauto 8 using step |
-       econstructor; eauto]].
+       match_exact]].
     all: try solve [eexists; split; [left; apply plus_one; unfold adapter_step;
         eauto 8 using step, related_is_call_cont, related_call_cont |
-        econstructor; eauto using related_call_cont]].
+        apply match_states_exact; econstructor; eauto using related_call_cont]].
     + exists (Callstate (transform_fundef select fd) vargs
         (Kcall id (transform_function select f) e le tk) m); split.
       * left; apply plus_one. eapply step_call; eauto.
         -- eapply Genv.find_funct_transf; eauto using program_matches.
         -- rewrite type_of_fundef_preserved; auto.
-      * constructor; auto.
+      * match_exact.
     + eexists; split.
       * left; apply plus_one. eapply step_ifthenelse; eauto.
-      * constructor; auto. destruct b; auto.
+      * apply match_states_exact; constructor; auto. destruct b; auto.
     + eexists; split.
       * left; apply plus_one. eapply step_switch; eauto.
-      * constructor; auto. apply match_seq_cases, match_select_switch; auto.
+      * apply match_states_exact; constructor; auto. apply match_seq_cases, match_select_switch; auto.
     + pose proof (proj1 (find_label_match select) _ _
         (proj1 (transform_statement_matches select SELECT_SOUND) (fn_body f))
         lbl _ _ (related_call_cont select k tk ltac:(assumption))) as LABEL.
@@ -316,17 +338,34 @@ Proof.
         (call_cont tk)) as [[ts' tk']|] eqn:TLABEL;
         simpl in LABEL; try contradiction.
       destruct LABEL as [MS MK].
-      eexists; split; [left; apply plus_one; eapply step_goto; eauto | constructor; auto].
+      eexists; split; [left; apply plus_one; eapply step_goto; eauto | match_exact].
   - inversion STEP; subst.
     + exists (State (transform_function select f)
         (fn_body (transform_function select f)) tk e le m1); split.
       * left; apply plus_one. eapply step_internal_function. apply entry_preserved; auto.
-      * constructor; auto. apply (proj1 (transform_statement_matches select SELECT_SOUND)).
+      * apply match_states_exact; constructor; auto.
+        apply (proj1 (transform_statement_matches select SELECT_SOUND)).
     + eexists; split;
-        [left; apply plus_one; eapply step_external_function; eauto | constructor; auto].
+        [left; apply plus_one; eapply step_external_function; eauto | match_exact].
   - inversion STEP; subst; inv_cont.
     eexists; split; [left; apply plus_one; unfold adapter_step; eauto using step |
-      econstructor; eauto].
+      match_exact].
+Qed.
+
+Lemma step_simulation : forall s1 t s1',
+  adapter_step temps ge s1 t s1' -> forall s2, match_states s1 s2 ->
+  exists s2',
+    (plus (adapter_step temps) tge s2 t s2' \/
+     (star (adapter_step temps) tge s2 t s2' /\ state_weight s1' < state_weight s1)) /\
+    match_states s1' s2'.
+Proof.
+  intros s1 t s1' STEP s2 [aligned [MATCH EQ]].
+  destruct (aligned_step_simulation _ _ _ STEP _ MATCH) as [next [PATH RESULT]].
+  destruct PATH as [PLUS | [STAR DECREASE]].
+  - destruct (plus_memory_transport _ _ _ _ _ PLUS _ EQ) as [final [RUN RELATED]].
+    exists final; split; [left; exact RUN | eapply match_states_transport; eauto].
+  - destruct (star_memory_transport _ _ _ _ _ STAR _ EQ) as [final [RUN RELATED]].
+    exists final; split; [right; split; assumption | eapply match_states_transport; eauto].
 Qed.
 
 Lemma initial_states_simulation : forall s,
@@ -340,7 +379,7 @@ Proof.
       rewrite symbols_preserved; exact H0.
     + eapply (Genv.find_funct_ptr_transf program_matches); exact H1.
     + rewrite type_of_fundef_preserved; auto.
-  - constructor; constructor.
+  - apply match_states_exact; constructor; constructor.
 Qed.
 
 Theorem transform_program_correct :
@@ -350,8 +389,8 @@ Proof.
     (order := ltof state state_weight) (match_states := match_states).
   - exact (proj1 (proj2 senv_preserved)).
   - exact initial_states_simulation.
-  - intros s ts r MATCH FINAL; inversion FINAL; subst;
-      inversion MATCH; subst; inv_cont; constructor.
+  - intros s ts r [aligned [MATCH EQ]] FINAL; inversion FINAL; subst;
+      inversion MATCH; subst; inv_cont; inversion EQ; subst; constructor.
   - apply well_founded_ltof.
   - exact step_simulation.
 Qed.

@@ -40,6 +40,17 @@ Inductive memory_related_states : state -> state -> Prop :=
     memory_equivalent first second ->
     memory_related_states (Returnstate v k first) (Returnstate v k second).
 
+Lemma memory_related_states_refl s : memory_related_states s s.
+Proof. destruct s; constructor; apply memory_equivalent_refl. Qed.
+
+Lemma memory_related_states_trans first middle final :
+  memory_related_states first middle -> memory_related_states middle final ->
+  memory_related_states first final.
+Proof.
+  intros FIRST SECOND; inversion FIRST; subst; inversion SECOND; subst;
+    constructor; eapply memory_equivalent_trans; eauto.
+Qed.
+
 Local Hint Resolve expression_memory_transport lvalue_memory_transport cast_memory_transport
   bool_memory_transport exprlist_memory_transport : core.
 
@@ -83,6 +94,17 @@ Proof.
   - destruct (step_memory_transport _ _ _ _ _ H _ MATCH) as [middle [STEP NEXT]].
     destruct (IHRUN _ NEXT) as [final [REST RESULT]].
     exists final; split; [econstructor; eauto | exact RESULT].
+Qed.
+
+Theorem plus_memory_transport temps ge source trace source' :
+  plus (adapter_step temps) ge source trace source' -> forall target,
+  memory_related_states source target ->
+  exists target', plus (adapter_step temps) ge target trace target' /\ memory_related_states source' target'.
+Proof.
+  intros RUN target MATCH; inversion RUN; subst.
+  destruct (step_memory_transport _ _ _ _ _ H _ MATCH) as [middle [STEP NEXT]].
+  destruct (star_memory_transport _ _ _ _ _ H0 _ NEXT) as [final [REST RESULT]].
+  exists final; split; [econstructor; eauto | exact RESULT].
 Qed.
 
 Print Assumptions step_memory_transport.

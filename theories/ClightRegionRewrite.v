@@ -2,7 +2,7 @@ From Stdlib Require Import Bool List Arith Lia.
 From compcert.lib Require Import Coqlib Maps.
 From compcert.common Require Import AST Values Memory Events Smallstep.
 From compcert.cfrontend Require Import Ctypes Cop Clight ClightBigstep.
-From Guard Require Import ClightGuard ClightCondition ClightFiniteRegion.
+From Guard Require Import ClightGuard ClightCondition ClightFiniteRegion CompCertMemoryEquivalence.
 Local Open Scope nat_scope.
 
 (** The host consumes a local forward certificate.  It does not inspect the
@@ -10,8 +10,10 @@ Local Open Scope nat_scope.
 Definition region_contract (source target : statement) : Prop :=
   forall temps p e le m le' m',
   exec_stmt (adapter_entry temps) (globalenv p) e le m source E0 le' m' Out_normal ->
-  forall f k, star (adapter_step temps) (globalenv p)
-    (State f target k e le m) E0 (State f Sskip k e le' m').
+  forall f k, exists target_memory,
+    star (adapter_step temps) (globalenv p)
+      (State f target k e le m) E0 (State f Sskip k e le' target_memory) /\
+    memory_equivalent m' target_memory.
 
 (** An optimization author supplies conditional local preservation; the
     shared decision compiler and region host handle fallback and composition. *)
@@ -19,7 +21,9 @@ Definition guarded_fragment_contract source guard candidate : Prop :=
   forall temps p e le m le' m',
   exec_stmt (adapter_entry temps) (globalenv p) e le m source E0 le' m' Out_normal ->
   exists b, decision_run (Entry (globalenv p) e le m) guard b /\
-    (b = true -> exec_stmt (adapter_entry temps) (globalenv p) e le m candidate E0 le' m' Out_normal).
+    (b = true -> exists target_memory,
+      exec_stmt (adapter_entry temps) (globalenv p) e le m candidate E0 le' target_memory Out_normal /\
+      memory_equivalent m' target_memory).
 
 Lemma guarded_fragment_region_contract source guard candidate :
   guarded_fragment_contract source guard candidate ->
@@ -27,11 +31,16 @@ Lemma guarded_fragment_region_contract source guard candidate :
 Proof.
   intros CONTRACT temps p e le m le' m' SOURCE f k.
   destruct (CONTRACT temps p e le m le' m' SOURCE) as [b [CHECK CANDIDATE]].
-  assert (RUN : exec_stmt (adapter_entry temps) (globalenv p) e le m
-    (if b then candidate else source) E0 le' m' Out_normal).
-  { destruct b; auto. }
+  assert (RUN : exists target_memory,
+    exec_stmt (adapter_entry temps) (globalenv p) e le m
+      (if b then candidate else source) E0 le' target_memory Out_normal /\
+    memory_equivalent m' target_memory).
+  { destruct b; [apply CANDIDATE; reflexivity |].
+    exists m'; split; [exact SOURCE | apply memory_equivalent_refl]. }
+  destruct RUN as [target_memory [RUN EQ]].
   destruct (exec_stmt_steps (adapter_entry temps) p _ _ _ _ _ _ _ _ RUN f k)
     as [next [STEPS EXIT]]. inversion EXIT; subst next.
+  exists target_memory; split; [|exact EQ].
   eapply star_trans; [eapply decision_dispatch; exact CHECK | exact STEPS | reflexivity].
 Qed.
 

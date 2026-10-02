@@ -15,8 +15,10 @@ PolCert 的 `CState.mem_eq` 使用双向 `Mem.extends`。它保证可观察的�
 
 `ClightMemoryEquivalence.v` 提供真实 Clight 表达式、lvalue、bitfield、内存复制赋值、两种函数入口及条件树的运输性质。结果值、局部环境和 temps 保持精确一致；更新后的内存使用双向关系。
 
-`ClightMemorySteps.v` 的 `memory_related_states` 保持代码、函数、continuation、局部环境与 temps 完全相同，仅放宽 memory。`step_memory_transport` 和 `star_memory_transport` 已覆盖完整 Clight 小步关系，包括函数调用、外部事件、分配释放、循环控制、switch 和 goto。这是具体语言提供的宿主运输性质，不是一个新的程序变换定理。
+`ClightMemorySteps.v` 的 `memory_related_states` 保持代码、函数、continuation、局部环境与 temps 完全相同，仅放宽 memory。`step_memory_transport`、`star_memory_transport` 和 `plus_memory_transport` 已覆盖完整 Clight 小步关系及有限路径，包括函数调用、外部事件、分配释放、循环控制、switch 和 goto。这是具体语言提供的宿主运输性质。
 
 `PolCertMemoryModel.v` 的 load/store 运输现在复用这个通用核及 CompCert 实例，继续使用真实 `CInstr/CState`，没有指令执行 oracle。
 
-下一步要把这一性质用于区域宿主的入口、内部暂停和出口关系。当前 `ClightRegionRewriteProof` 仍要求精确相同的最终 memory 和全部 temps；private temporary/live frame 以及包含循环的源区域还需要独立证明。因此上述运输库不能被称作完整多面体优化已进入 C→Asm。
+`ClightRegionRewriteProof` 已将这一性质用于区域宿主的入口、内部暂停和出口关系。`region_contract` 与 `encoded_region_rule` 现在允许候选产生双向扩展等价的最终 memory；该关系保持到下一次区域、调用和返回，并已组成完整 Csem→Asm 编译定理。现有规则使用等价关系的自反性，继续保留原执行行为。
+
+全部 temps 仍要求精确一致。private temporary/live frame 以及包含循环的源区域还需要独立证明；真实 PolCert 优化器也尚未成为原生编译入口。因此不能据此称完整多面体优化已进入 C→Asm。

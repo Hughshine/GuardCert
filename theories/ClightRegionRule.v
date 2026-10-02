@@ -1,7 +1,7 @@
 From compcert.common Require Import Events.
 From compcert.cfrontend Require Import Clight ClightBigstep.
 From Guard Require Import AbstractGuard SemanticFacts ClightGuard ClightCondition
-  ClightPureExpr ClightDecisionRule ClightRegionRewrite.
+  ClightPureExpr ClightDecisionRule ClightRegionRewrite CompCertMemoryEquivalence.
 Set Implicit Arguments.
 
 (** This is the author-facing interface for a conditional statement rewrite.
@@ -20,7 +20,9 @@ Record encoded_region_rule (source candidate : statement) := EncodedRegionRule {
     exec_stmt (adapter_entry temps) (globalenv p) e le m source E0 le' m' Out_normal ->
     formula_property (atom_property region_rule_dimension) region_rule_formula
       (Entry (globalenv p) e le m) ->
-    exec_stmt (adapter_entry temps) (globalenv p) e le m candidate E0 le' m' Out_normal
+    exists target_memory,
+      exec_stmt (adapter_entry temps) (globalenv p) e le m candidate E0 le' target_memory Out_normal /\
+      memory_equivalent m' target_memory
 }.
 
 Definition generated_region_tree {source candidate} (r : encoded_region_rule source candidate) :=

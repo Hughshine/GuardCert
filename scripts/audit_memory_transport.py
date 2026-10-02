@@ -15,7 +15,7 @@ def main():
     WORK.mkdir(parents=True, exist_ok=True)
     source = WORK / "Audit.v"
     source.write_text("""From compcert.driver Require Import Compiler.
-From Guard Require Import BilateralTransport ClightMemorySteps.
+From Guard Require Import BilateralTransport ClightMemorySteps ClightRegionRewriteProof.
 Goal True. idtac "TRANSPORT_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "TRANSPORT_KERNEL_BEGIN". exact I. Qed.
@@ -24,6 +24,8 @@ Print Assumptions BilateralTransport.observation_mutual_transport.
 Goal True. idtac "TRANSPORT_CLIGHT_BEGIN". exact I. Qed.
 Print Assumptions ClightMemorySteps.step_memory_transport.
 Print Assumptions ClightMemorySteps.star_memory_transport.
+Print Assumptions ClightMemorySteps.plus_memory_transport.
+Print Assumptions ClightRegionRewriteProof.transform_program_correct.
 Goal True. idtac "TRANSPORT_ASSUMPTIONS_END". exact I. Qed.
 """)
     flags = ["-Q", str(ROOT / "theories"), "Guard"]
@@ -42,16 +44,18 @@ Goal True. idtac "TRANSPORT_ASSUMPTIONS_END". exact I. Qed.
     if not baseline_names or not adapted_names or adapted_names - baseline_names:
         raise SystemExit(f"unexpected Clight transport assumptions: {sorted(adapted_names - baseline_names)}")
     sources = ["BilateralTransport", "CompCertMemoryEquivalence", "CompCertOperatorEquivalence",
-               "ClightMemoryEquivalence", "ClightMemorySteps"]
+               "ClightMemoryEquivalence", "ClightMemorySteps", "ClightRegionRewrite",
+               "ClightRegionRewriteProof", "ClightRegionRule"]
     (ROOT / "build" / "memory-transport-report.json").write_text(json.dumps({
         "status": "compiled", "kernel_global_axioms": [],
         "upstream_theorem": "Compiler.transf_c_program_correct",
-        "adapted_theorems": ["ClightMemorySteps.step_memory_transport", "ClightMemorySteps.star_memory_transport"],
+        "adapted_theorems": ["ClightMemorySteps.step_memory_transport", "ClightMemorySteps.star_memory_transport",
+                             "ClightMemorySteps.plus_memory_transport", "ClightRegionRewriteProof.transform_program_correct"],
         "upstream_assumptions": sorted(baseline_names), "adapted_assumptions": sorted(adapted_names),
         "additional_global_axioms": [],
         "sources": {"theories/" + name + ".v": hashlib.sha256(
             (ROOT / "theories" / (name + ".v")).read_bytes()).hexdigest() for name in sources},
-        "region_replacement_exit_relation_upgraded": False,
+        "region_replacement_exit_relation_upgraded": True,
         "private_temporary_frame_supported": False,
     }, indent=2) + "\n")
     print(f"memory transport audited: kernel closed; {len(adapted_names)} inherited Clight assumptions")

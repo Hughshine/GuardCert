@@ -4,7 +4,7 @@ From compcert.common Require Import AST Values Memory Events.
 From compcert.cfrontend Require Import Ctypes Cop Clight ClightBigstep.
 From Guard Require Import AbstractGuard SemanticFacts ClightGuard ClightNoWrap
   ClightCondition ClightPureExpr ClightDecisionRule ClightRegionRewrite ClightRegionRule
-  ClightStraightLine.
+  ClightStraightLine CompCertMemoryEquivalence.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -97,7 +97,7 @@ Proof.
     assert (LOOKUP : (PTree.set result v le) ! x = Some (Vint c)).
     { rewrite PTree.gso by (intro EQ; apply DISTINCT; symmetry; exact EQ); exact SAME. }
     rewrite (PTree.gsident x (PTree.set result v le) LOOKUP).
-    constructor; exact EV.
+    exists m; split; [constructor; exact EV | apply memory_equivalent_refl].
 Defined.
 
 Definition redundant_set_region result x c (DISTINCT : result <> x) :=
