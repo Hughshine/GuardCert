@@ -1,6 +1,6 @@
 # 已有覆盖与候选研究问题
 
-核对日期：2026-10-02。结论是：**有值得试验的候选问题，但“通用 conditional rewrite 框架，局部证明接入 CompCert”本身已有直接先例；当前原型不能据此宣称新颖性。** 本文将已确认的覆盖与我们的研究推断分开。跨领域需求见 [扩展 survey](survey-general.md)，接口调整见 [框架扩展设计](framework-extension.md)。
+核对日期：2026-10-02。结论是：**有值得试验的候选问题，但条件变换、运行时版本选择和局部到全程序组合均已有先例；当前原型不能据此宣称新颖性。** 这些先例并不都提供本项目要的同一种接口或机械保证，应逐层比较。本文将已确认的覆盖与我们的研究推断分开。跨领域需求见 [扩展 survey](survey-general.md)，人工/工具候选见 [候选条件化设计](candidate-conditioning.md)，接口调整见 [框架扩展设计](framework-extension.md)。
 
 ## 哪个工作最接近
 
@@ -8,13 +8,16 @@
 
 | 本项目的关注点 | 最直接的对照 | 为什么 |
 | --- | --- | --- |
+| 给定原/候选，推断成立条件并运行时选择版本 | COVE/cSTOKE 2015 | 从没有变换历史的候选推断条件；§5.5 已实验动态检查与原代码回退，但检查代码手写 |
 | 从建模/变换义务产生、推导、简化并生成运行时条件 | CGO 2017 | 它实际实现了假设处理与入口版本选择，最接近用户提出的需求 |
 | 机械证明动态假设、利用假设的优化及失败恢复 | CoreJIT 2021 | Assume/Anchor、检查安全分析、优化 pass 与整个 JIT 的仿真已经贯通 |
 | 不同片段变换共享验证器并接入 CompCert | Chamois 2023 | 源/目标块关系、不变量与符号重写由通用验证器消费 |
 | 局部 rewrite 插件到全程序的通用定理 | Peek 2016 | 已有直接的 verified peephole 库及上下文提升 |
 | 规则暴露前提、交外部分析消解 | Icing 2019 | compiler/application preconditions 与可扩展 rewrite 接口 |
 
-所以 CoreJIT 是机械化推测机制的重要近邻，但不是前提合成这条线唯一或最直接的近邻。第一阶段若仍是 AOT CompCert 的入口版本化，就不必同时重建其 JIT monitor 和活动栈去优化机制。
+CoreJIT 是机械化推测机制的重要近邻；给定候选后推断成立条件，COVE 更直接。CGO 则最直接对应从已知建模/变换义务出发的假设处理。第一阶段若仍是 AOT CompCert 的入口版本化，就不必同时重建 JIT monitor 和活动栈去优化机制。
+
+CoreJIT 是 passes 与运行机制的已验证实现；Alive2 是给定 LLVM 函数对的翻译验证器，二者不能只按“都验证优化”视为同一种服务。真正以已验证 peephole 验证器为主题的近邻是 AliveInLean。接口对照与证明边界见 [候选条件化设计](candidate-conditioning.md)。
 
 CoreJIT §3.3.2 的输入包括 profiler 提出的 guard 表达式与 Anchor 位置。它验证可安全插入检查；§3.3.3 的常量传播利用检查通过后的事实；失败恢复由 metadata 对应回原版本。其“任意谓词”指 IR 可表达的 guard，不是自动编译任意 Rocq 命题。论文并未提供本项目讨论的通用“语义义务 → 前提 AST → 入口投影 → checked machine guard”算法。其全程序定理针对 CoreIR/JIT 执行，原生生成和 Lua 前端在 2021 论文的证明范围外。[CoreJIT §§1、3.1、3.3、4](https://www.o1o.ch/about/assets/courir.pdf)。
 
@@ -40,6 +43,8 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 
 **对本项目的约束：** 换到 Clight、增加几条算术规则或更新 Rocq 版本，是有用的工程工作，通常不足以作为主要研究贡献。
 
+这个判断不意味着 Peek 已做了我们要的 guard 生成：静态活跃性提供的是上下文观察接口，运行时值域/别名检查解决的是本次执行的语义条件。后者新增检查自身的执行、效果、失败路径和控制流义务；两层可以同时需要。研究应比较这些具体义务和接口的复用，不能因为同样有全程序定理就将两者等同。
+
 ### Chamois：已有更一般的块仿真与验证器
 
 **Formally Verifying Optimizations with Block Simulations，OOPSLA 2023** 已把源/目标 CFG、块入口关系不变量和可扩展重写规则交给通用验证器。当前 Chamois 文档还列出了 BTL 符号执行、内存重写、调度、lazy code、store motion 等接口。局部块、关系不变量、oracle 与全 CFG 的组合也已有很接近的实现。[论文入口](https://doi.org/10.1145/3622799)、[作者海报](https://www-verimag.imag.fr/~boulme/pub/poster_OOPSLA23.pdf)、[当前证明模块索引](https://certicompil.gricad-pages.univ-grenoble-alpes.fr/Chamois-CompCert/)、[oracle 接口](https://certicompil.gricad-pages.univ-grenoble-alpes.fr/Chamois-CompCert/html/ocaml/BTL_BlockOptimizer.html)。
@@ -50,6 +55,8 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 
 | 工作 | 已有覆盖 | 仍需区分的接口问题 |
 | --- | --- | --- |
+| [COVE/cSTOKE，OOPSLA 2015](https://theory.stanford.edu/~aiken/publications/papers/oopsla15a.pdf) | 给定原/候选及测试，推断前提并检查条件正确性；§5.5 运行时回退 | 动态检查代码手写后编译拼接；没有所需的机械化生成/上下文链。部分浮点实例使用 unsafe axioms |
+| [Conditional Equivalence，2010 技术报告](https://www.microsoft.com/en-us/research/publication/conditional-equivalence/) | 程序演化中的条件等价、组合检查及抽象域推断算法 | §5.1 说明抽象不动点推断未实现；partial equivalence 不足以保持终止/发散行为；不是动态 guard 生成系统 |
 | [CGO 2017 Optimistic Loop Optimization](https://pollylabs.org/publications/grosser-2017-Optimistic-Loop-Optimization.pdf) | 统一假设收集、参数空间投影、简化、检查生成；讨论检查自身回绕和参数 preload | 已有算法与系统。候选增量必须落到机械化的算法正确性和真实语义对应 |
 | [ALIVE-INFER，PLDI 2017](https://people.cs.rutgers.edu/~santosh.nagarakatte/papers/pldi2017-alive-infer.pdf) | 自动推断并验证 peephole 规则前提 | 论文的前提主要是编译期规则应用条件；不能直接当作生成的运行时检查证书 |
 | [AliveInLean，CAV 2019](https://web.ist.utl.pt/nuno.lopes/pubs.php?id=aliveinlean-cav19) | 在 Lean 中验证 LLVM peephole 验证器 | 其保证明确以 SMT 正确消解义务为前提；验证规则与生成安全 guard 是不同任务 |
@@ -64,6 +71,7 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 - 首次把局部 rewrite 接到完整程序或经过验证的编译器。
 - 首次用关系不变量、活跃性、内存关系或 oracle 降低证明负担。
 - 首次统一组织乐观假设，或首次证明 guard 插入和去优化。
+- 首次从独立候选推断正确性条件，并用动态检查选择原版本；COVE/cSTOKE 是直接先例。
 - 首次结合静态证据与运行时检查。Hybrid Type Checking、Gradual Program Verification、StaRVOOrS 都是必须比较的先例，见 [扩展 survey](survey-general.md)。
 
 这些内容可以成为本项目的基础设施和实例，但论文需要指出实际新增的算法、适用规则或证明能力。把所有工作都放进一个 `Goal : Prop` record，并没有解决它们的语义与组合问题。
@@ -71,6 +79,8 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 ## 一个较具体的候选问题
 
 > 对一类显式表达前提的片段变换，能否将同一份条件正确性证书分别用于静态应用和运行时应用，并机械证明从语义前提到实际检查代码的转换，包括定义性、检查位置和前提的有效范围？
+
+另一个应保留的入口是：给定人工或工具产生的 S/T，在可检查的条件域中寻找并验证充分条件，随后进入同一条检查生成和组合链。它无需信任候选作者，也不要求作者先说明完整变换历史。这个前端更接近 COVE；现有原型仅覆盖作者提供 Q 之后的部分。第一阶段可先实现后半条公共链，再为受限片段实现条件推断，而不是要求一开始自动处理任意代码。
 
 这是我们的研究提议，**不是已确认的文献空白**。它接近 CGO 2017 的工程算法、CompCert/Chamois 的仿真复用和 CoreJIT 的 guard 安全证明；只有做出比这些工作的直接组合更具体的结果，定位才有说服力。
 

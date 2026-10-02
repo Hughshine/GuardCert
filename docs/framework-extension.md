@@ -8,6 +8,8 @@
 
 第一条主线是顺序 CompCert 中的行为精化：可执行检查成功时运行候选，否则运行原片段。外部轨迹、返回与控制流仍通过 CompCert 的仿真定理组合。重构、检查消除、快速路径和优化都可以是这种主线的实例。
 
+候选来源应与后续证据链解耦：既支持规则作者提供前提和局部证书，也保留人工/工具提供 source/candidate 后，由受限推断器提议并验证条件的入口。第三种入口允许工具提交自己的条件或 guard 供核对。三者在 ConditionalRule 证书之后共享编码、检查生成与 Host 组合；详见 [候选条件化设计](candidate-conditioning.md)。这不是当前已实现的任意候选验证器。
+
 修复与软件更新必须指定哪些行为允许变化；数值近似必须指定误差如何被上下文使用；constant-time 必须考虑执行间的观测。应提供各自的 judgment family 及其组合定理，而非承诺一条普通 backward simulation 定理适用于所有目标。
 
 ## 建议暴露的接口
@@ -16,6 +18,7 @@
 | --- | --- | --- |
 | Host | source/target 语义、允许的片段入口/出口、可用上下文 | 局部到宿主的组合，外部调用、控制出口与进展；优先复用已有仿真/验证器 |
 | ConditionalRule | 原片段、候选、入口语义义务、条件局部证明 | 将规则与实际代码绑定；不凭 profile 假定正确性 |
+| CandidateConditioning | 原片段、独立候选、片段接口、条件域与可选 witness | 提议并验证充分条件及局部证书；不支持时拒绝；与规则入口共享后续链 |
 | PremiseEncoding | 可表达子语言中的 AST、语义 view | 编码与语义义务的对应；未知构造不能静默当作 true |
 | EntryDerivation | 内部义务、循环域、依赖关系或可验证 witness | 入口条件足以建立局部证明的假设；不混同后续 Bool 编译 |
 | Evidence | 静态证明、可信 checker 证书、运行时检查或混合证据 | 证据消费时的可靠性；验证静态简化/残留条件 |
@@ -23,7 +26,7 @@
 | Protocol | 不应用、入口回退、检查点恢复等协议实例 | 候选与失败路径各自满足选择的正确性判断 |
 | StateRelation | entry/live-out/frame、内存对应、私有状态 | 执行与出口的关系保持；不能只比较结果变量 |
 
-这不是要求每个用户重新实现八个模块。第一版应内置 CompCert Host、入口 fallback、checked arithmetic 和固定的 frame relation；普通插件只交代码模式、前提 AST 和条件局部证书。只有新语义种类才需要新增库级证明。
+这不是要求每个用户重新实现所有模块。第一版应内置 CompCert Host、入口 fallback、checked arithmetic 和固定的 frame relation；规则插件交代码模式、前提 AST 和条件局部证书。候选入口则由库中的验证流程承担证书构造，但可以拒绝，且首版限制其支持语法。只有新语义种类才需要新增库级证明。
 
 也不应把所有接口都设为任意 `Prop` 后称为统一框架。可运行检查必须有有限 syntax 和已实现 lowering；一种 Protocol 只有在 Host 与 judgment 上有组合定理时才算支持。
 

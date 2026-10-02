@@ -4,12 +4,17 @@
 
 检索词包括 conditional rewrite、peephole、precondition inference、schematic program transformation、refactoring、hybrid type checking、gradual verification、change contract、repair、dynamic software update、runtime enforcement、representation independence、approximate compilation、query rewrite 与 transactional correctness。优先使用作者论文、官方出版页面和公开源码文档。
 
+同日追加检索 conditional equivalence、conditionally correct superoptimization 与 run-time validation，补足“给定独立候选，再寻找成立域”的谱系。新的接口比较见 [候选条件化设计](candidate-conditioning.md)。
+
 ## 扩展文献表
 
 “核对范围”区分全文中的选定部分、摘要和源码接口。后者不足以支持“该工作完全没有某项能力”的否定结论。未在本项目构建这些外部 artifacts。
 
 | 工作 | 本轮核对范围 | 已有能力及对接口的要求 |
 | --- | --- | --- |
+| Sharma 等，OOPSLA 2015，[Conditionally Correct Superoptimization](https://theory.stanford.edu/~aiken/publications/papers/oopsla15a.pdf)（COVE/cSTOKE） | 全文重点 §§2–3、5.3、5.5 | 独立候选的条件推断与 SMT 验证；动态检查实验手写 C 并编译拼接。比单纯已知规则应用更直接对应人工/机器候选入口；部分浮点实例显式使用 unsafe axioms |
+| Kawaguchi 等，2010，[Conditional Equivalence](https://www.microsoft.com/en-us/research/publication/conditional-equivalence/) | [全文](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/paper-69.pdf) §§4.2–4.4、5.1 | 非优化的程序演化与条件等价。论文推断算法和 prototype 支持要区分；抽象不动点推断未实现，partial equivalence 允许任一版本发散 |
+| Barrett 等，RV 2003，[Run-Time Validation of Speculative Optimizations using CVC](https://theory.stanford.edu/~barrett/pubs/BGZ03.pdf) | 正文引言与生成算法的检索核对 | 根据置换验证义务自动生成运行时测试，考虑恢复；是早于 CGO 的循环变换谱系 |
 | Mullen 等，PLDI 2016，[Verified Peephole Optimizations for CompCert](https://darzu.io/files/pldi2016.pdf)（Peek） | 全文重点 §§3–5；[代码入口](https://github.com/uwplse/peek) | 局部 rewrite 证明与已验证活跃性提升到全程序。需要比较可见状态与死寄存器，不能强制全部状态相等 |
 | Lee、Hur、Lopes，CAV 2019，[AliveInLean](https://web.ist.utl.pt/nuno.lopes/pubs.php?id=aliveinlean-cav19) | 作者摘要、元数据 | 已验证 peephole 验证器；SMT 消解可靠性是明确的保证前提。候选验证与运行时代码生成要分别验收 |
 | Becker 等，CAV 2019，[Icing](https://cakeml.org/cav19.pdf) | 全文重点 §§2、4 | HOL4 中的条件 rewrite 与可扩展浮点语义；区分 compiler precondition 和 application precondition，不能把静态 `cond` 当成运行时 guard |

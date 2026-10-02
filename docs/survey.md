@@ -6,6 +6,8 @@
 
 同日第二轮核对：加入 verified peephole、非优化场景与新颖性分析，见 [跨领域 survey](survey-general.md) 和 [已有覆盖与候选问题](research-position.md)。后者收紧本文的候选定位：通用局部到全程序的连接已有直接先例，增量必须体现在具体前提处理算法及其证明。
 
+同日追加：COVE/cSTOKE（OOPSLA 2015）直接覆盖独立候选的条件推断与动态版本选择；Conditional Equivalence（2010 技术报告）提供程序演化的另一条需求线。CGO 因此是重要起点，并非唯一动机。人工/工具候选、CoreJIT/Alive2 区别和 Peek 的静态接口对照见 [候选条件化设计](candidate-conditioning.md)。
+
 ## 以用户指定的 CGO 2017 论文为主线
 
 用户给出的 ACM DOI `10.5555/3049832.3049864` 对应 **Optimistic Loop Optimization**，作者 Johannes Doerfert、Tobias Grosser、Sebastian Hack，CGO 2017，292–304 页。全文可从[作者提供的 PDF](https://pollylabs.org/publications/grosser-2017-Optimistic-Loop-Optimization.pdf) 阅读；[爱丁堡大学记录](https://www.research.ed.ac.uk/en/publications/optimistic-loop-optimization/)可交叉核对元数据。IEEE DOI 为 `10.1109/CGO.2017.7863748`。
