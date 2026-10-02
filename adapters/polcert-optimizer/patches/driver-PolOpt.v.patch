@@ -1,0 +1,29 @@
+--- a/driver/PolOpt.v
++++ b/driver/PolOpt.v
+@@ -35,8 +35,8 @@
+ Require Import LibTactics.
+ Require Import sflib.
+ 
+-
+-Require Import Convert.
++Require Import Csyntax.
++
+ Require Import ImpureAlarmConfig.
+ Require Import Vpl.Impure.
+ 
+@@ -85,7 +85,6 @@
+ Require Import InstrTy.
+ 
+ Require Import PolIRs.
+-Require Import CInstr.
+ Module PolOpt (PolIRs: POLIRS).
+ 
+ (** loop -> pol -> pol -> loop *)
+@@ -124,7 +123,6 @@
+ Module PrepareCore := PrepareCodegen PolIRs.
+ Module Strengthen := StrengthenDomain PolIRs.
+ Module ValidatorCore := Validator PolIRs.
+-Module Prepare := PrepareCore.
+ (* Definition codegen (pol: Pol.t): result Loop.t := 
+    Okk Loop.dummy. *)
+ 

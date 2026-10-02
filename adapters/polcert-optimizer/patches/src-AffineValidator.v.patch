@@ -1,0 +1,17 @@
+--- a/src/AffineValidator.v
++++ b/src/AffineValidator.v
+@@ -1764,10 +1764,10 @@
+     (access2 & Haccess2 & Haccess2_cell2).
+   eapply Forall_forall in Hnoncollision; [|exact Haccess2].
+   eapply Forall_forall in Hnoncollision; [|exact Haccess1].
+-  eapply cell_neq_proper with (x:=cell1) (x0:=cell2) in Hnoncollision.
+-  - exact Hnoncollision.
+-  - eapply cell_eq_symm. exact Haccess1_cell1.
+-  - eapply cell_eq_symm. exact Haccess2_cell2.
++  apply (proj1 (cell_neq_proper
++    (exact_cell access1 p1) cell1 Haccess1_cell1
++    (exact_cell access2 p2) cell2 Haccess2_cell2)).
++  exact Hnoncollision.
+ Qed.
+ 
+ Lemma no_w_collision_implies_permutability:

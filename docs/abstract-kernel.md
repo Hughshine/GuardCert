@@ -59,4 +59,6 @@ v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳�
 
 v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在源 Loop 终止执行且结果 `State.eq`”。统一并行驱动的目标是 `ParallelLoop`。二者都不能直接用于声称完整 C 程序的优化正确性。需要完成数学 Loop 与固定宽度 Clight 的具体语言桥接、范围与访问条件、候选进展，以及适合 region 的上下文证明。
 
-目前已接通的真实宿主是表达式替换；任意多语句／循环 region、可执行 alias guard、PolCert optimizer 的直接调用和完整 Loop lowering 仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。
+`PolCertOptimizer.v` 已直接调用真实 `Opt_prepared` 并消费其正确性证明。适配器使用现有 `PolIRs.Loop`；metadata 通过已证明的相等检查核对，失败时返回原 Loop 程序。该入口沿用上游 alarm monad 的成功返回契约。复现与精确边界见 [优化器适配](../adapters/polcert-optimizer/README.md)。
+
+目前已接通的真实 Clight 宿主是表达式替换；任意多语句／循环 region、可执行 alias guard 和完整 Loop lowering 仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。

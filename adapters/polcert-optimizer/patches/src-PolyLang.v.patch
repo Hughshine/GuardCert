@@ -1,0 +1,38 @@
+--- a/src/PolyLang.v
++++ b/src/PolyLang.v
+@@ -1546,7 +1546,7 @@
+ Definition scanned to_scan n p m q := to_scan m q && negb (is_eq p q && (n =? m)%nat).
+ Hint Unfold scanned.
+ 
+-Instance scanned_proper : Proper ((eq ==> veq ==> eq) ==> eq ==> veq ==> (eq ==> veq ==> eq)) scanned.
++Global Instance scanned_proper : Proper ((eq ==> veq ==> eq) ==> eq ==> veq ==> (eq ==> veq ==> eq)) scanned.
+ Proof.
+   intros to_scan1 to_scan2 Hto_scan n1 n2 Hn p1 p2 Hp m1 m2 Hm q1 q2 Hq.
+   unfold scanned.
+@@ -1563,7 +1563,7 @@
+   end.
+ 
+ 
+-Instance env_scan_proper : forall prog env dim, Proper (eq ==> veq ==> eq) (env_scan prog env dim).
++Global Instance env_scan_proper : forall prog env dim, Proper (eq ==> veq ==> eq) (env_scan prog env dim).
+ Proof.
+   intros pis env dim n1 n2 Hn p1 p2 Hp. rewrite Hn. unfold env_scan.
+   destruct (nth_error pis n2) as [pi|]; simpl; auto.
+@@ -2275,7 +2275,7 @@
+ Proof.
+   intros Point Item rank prefix facts equiv order items item whole
+     Hequiv Horder Hproper Hprefix Hmember Hnodup Hsorted Hrank_order.
+-  set (is_left := fun point : Point => rank point <? length items).
++  set (is_left := fun point : Point => (rank point <? length items)%nat).
+   set (is_right := fun point : Point => Nat.eqb (length items) (rank point)).
+   exists (filter is_left whole).
+   exists (filter is_right whole).
+@@ -2359,7 +2359,7 @@
+     intros point Hin.
+     specialize (Hrank_bound point Hin).
+     unfold is_left, is_right.
+-    destruct (rank point <? length items) eqn:Hleft;
++    destruct (rank point <? length items)%nat eqn:Hleft;
+       destruct (Nat.eqb (length items) (rank point)) eqn:Hright;
+       simpl; try reflexivity.
+     + apply Nat.ltb_lt in Hleft.

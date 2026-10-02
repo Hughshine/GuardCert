@@ -7,8 +7,12 @@ Set Implicit Arguments.
 (** Loop tests read mathematical iterator parameters. Memory-dependent checks
     require a surrounding language adapter; they cannot be encoded here merely
     by adding a new proposition to a guard formula. *)
-Module PolCertLoopGuard (I : INSTR).
-Module L := Loop I.
+Module Type LOOP_MODEL (I : INSTR).
+Include Loop I.
+End LOOP_MODEL.
+
+Module PolCertLoopGuardFor (I : INSTR) (M : LOOP_MODEL I).
+Module L := M.
 
 Record entry := Entry {
   parameters : list Z;
@@ -195,6 +199,14 @@ Proof.
   destruct (Z.eqb (List.nth 0 (parameters s) 0%Z) 0%Z);
     cbn [selected_command]; tauto.
 Qed.
+
+End PolCertLoopGuardFor.
+
+(** Standalone convenience instance. Clients with an existing Loop module use
+    PolCertLoopGuardFor so Rocq does not create distinct inductive types. *)
+Module PolCertLoopGuard (I : INSTR).
+Module ConcreteLoop := Loop I.
+Include PolCertLoopGuardFor I ConcreteLoop.
 
 Print Assumptions choose_execution.
 Print Assumptions version_preserves.

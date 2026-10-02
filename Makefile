@@ -7,7 +7,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGu
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
-        guarded-compiler native-demo check-integration polcert-proof clean
+        guarded-compiler native-demo check-integration polcert-proof polcert-optimizer-proof clean
 all: check
 
 proof:
@@ -75,6 +75,11 @@ polcert-proof: check-compcert
 	python3 scripts/polcert_core.py restore $(POLCERT_SOURCE_ARG)
 	python3 scripts/polcert_core.py build --clean
 	python3 scripts/polcert_core.py adapter
+
+polcert-optimizer-proof: check-compcert
+	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)
+	python3 scripts/polcert_core.py build --profile optimizer --target driver/PolOptCorrect.v --clean
+	python3 scripts/polcert_core.py optimizer-adapter --profile optimizer
 
 clean:
 	@python3 scripts/clean.py

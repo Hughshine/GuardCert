@@ -272,7 +272,8 @@ def adapter():
                "I.State.eq_refl", "I.State.eq_sym", "I.State.eq_trans",
                "I.instr_semantics_stable_under_state_eq", "I.sema_prsv_nonalias",
                "I.bc_condition_implie_permutbility", "I.Ty.t", "I.ident",
-               "I.Compat", "I.InitEnv"}
+               "I.Compat", "I.InitEnv", "I.ident_eqb", "I.ident_eqb_eq",
+               "I.Ty.eqb", "I.Ty.eqb_eq"}
     if names != allowed:
         raise SystemExit(f"unexpected adapter assumption set: {sorted(names ^ allowed)}")
     write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
@@ -283,9 +284,64 @@ def adapter():
     print("PolCert adapter compiled against the actual INSTR module interface")
 
 
+def optimizer_adapter():
+    if PROFILE != "optimizer":
+        raise SystemExit("the optimizer adapter requires the optimizer profile")
+    core = json.loads(artifact("report.json").read_text())
+    if core["target"] != "driver/PolOptCorrect.v" or core["source_manifest_sha256"] != sha(MANIFEST):
+        raise SystemExit("compile the current optimizer proof closure before its adapter")
+    # Separate logical names keep core-profile .vo files intact. Rocq's library
+    # digests differ even for shared source compiled in these isolated trees.
+    copies = artifact("adapters")
+    copies.mkdir(exist_ok=True)
+    flags = [*load_flags(), "-Q", str(copies), "GuardPolCert"]
+    dependencies = ["PolCertLoopGuard.v", "PolCertLoopProgram.v"]
+    report = artifact("adapter-report.json")
+    report.unlink(missing_ok=True)
+    with artifact("adapter-build.log").open("w") as log:
+        for name in dependencies:
+            original = ROOT / "theories" / name
+            contents = original.read_text().replace(
+                "From Guard Require Import AbstractGuard SemanticFacts PolCertLoopGuard.",
+                "From Guard Require Import AbstractGuard SemanticFacts.\n"
+                "From GuardPolCert Require Import PolCertLoopGuard.")
+            copied = copies / name
+            copied.write_text(contents)
+            subprocess.run(["rocq", "compile", *flags, str(copied)], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+        source = ROOT / "theories" / "PolCertOptimizer.v"
+        subprocess.run(["rocq", "compile", *flags, str(source)], cwd=ROOT,
+                       stdout=log, stderr=subprocess.STDOUT, check=True)
+    contents = artifact("adapter-build.log").read_text()
+    baseline_part, adapter_part = contents.split("GUARDCERT_OPT_BASELINE_BEGIN", 1)[1].split(
+        "GUARDCERT_OPT_ADAPTER_BEGIN", 1)
+    adapter_part = adapter_part.split("GUARDCERT_OPT_ASSUMPTIONS_END", 1)[0]
+
+    def assumption_names(part):
+        return set(re.findall(r"^([\w.]+)\s*:", part, re.MULTILINE)) - {"Axioms", "Warning"}
+
+    baseline = assumption_names(baseline_part)
+    adapted = assumption_names(adapter_part)
+    added = adapted - baseline
+    metadata_fields = {"P.Instr.ident_eqb", "P.Instr.ident_eqb_eq",
+                       "P.Instr.Ty.eqb", "P.Instr.Ty.eqb_eq"}
+    if not baseline or not adapted or not added <= metadata_fields:
+        raise SystemExit(f"unexpected optimizer adapter assumptions: {sorted(added - metadata_fields)}")
+    write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+                        "core_proof_files": core["proof_files"],
+                        "upstream_endpoint_assumptions": sorted(baseline),
+                        "adapter_assumptions": sorted(adapted),
+                        "additional_interface_fields": sorted(added),
+                        "additional_global_axioms": [],
+                        "sources": {str((ROOT / "theories" / n).relative_to(ROOT)):
+                                    sha(ROOT / "theories" / n)
+                                    for n in [*dependencies, "PolCertOptimizer.v"]}})
+    print("Guarded versioning consumes the actual Opt_prepared_correct endpoint")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter"))
+    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter"))
     parser.add_argument("--source", type=Path)
     parser.add_argument("--target", default="polygen/Loop.v")
     parser.add_argument("--clean", action="store_true")
@@ -309,6 +365,8 @@ def main():
         restore(args.source)
     elif args.action == "adapter":
         adapter()
+    elif args.action == "optimizer-adapter":
+        optimizer_adapter()
     else:
         build(args.target, args.clean)
 

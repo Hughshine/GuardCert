@@ -1,13 +1,31 @@
-From Stdlib Require Import List ZArith.
+From Stdlib Require Import List Bool ZArith.
 From Guard Require Import AbstractGuard SemanticFacts PolCertLoopGuard.
 From polcert.polygen Require Import InstrTy Loop.
 Import ListNotations.
 Set Implicit Arguments.
 
+Fixpoint list_equal {A} (equal : A -> A -> bool) (xs ys : list A) : bool :=
+  match xs, ys with
+  | [], [] => true
+  | x :: xs', y :: ys' => equal x y && list_equal equal xs' ys'
+  | _, _ => false
+  end.
+
+Lemma list_equal_correct {A} (equal : A -> A -> bool) :
+  (forall x y, equal x y = true <-> x = y) ->
+  forall xs ys, list_equal equal xs ys = true <-> xs = ys.
+Proof.
+  intro EQ. induction xs as [|x xs IH]; intros [|y ys]; cbn;
+    try (split; intro H; [discriminate | discriminate]); try tauto.
+  rewrite andb_true_iff, EQ, IH. split.
+  - intros [-> ->]; reflexivity.
+  - intro H; inversion H; auto.
+Qed.
+
 (** The program wrapper keeps the real Loop context and variable metadata.
     Entry facts must follow from its actual Compat/NonAlias/InitEnv premises. *)
-Module PolCertLoopProgram (I : INSTR).
-Module G := PolCertLoopGuard I.
+Module PolCertLoopProgramFor (I : INSTR) (M : LOOP_MODEL I).
+Module G := PolCertLoopGuardFor I M.
 Module L := G.L.
 
 Definition body (p : L.t) : L.stmt := fst (fst p).
@@ -36,6 +54,30 @@ Qed.
 Definition same_metadata (source candidate : L.t) : Prop :=
   context source = context candidate /\ variables source = variables candidate.
 
+Definition variable_equal (x y : I.ident * I.Ty.t) : bool :=
+  I.ident_eqb (fst x) (fst y) && I.Ty.eqb (snd x) (snd y).
+
+Lemma variable_equal_correct x y : variable_equal x y = true <-> x = y.
+Proof.
+  destruct x as [xi xt], y as [yi yt]. unfold variable_equal; cbn.
+  rewrite andb_true_iff, I.ident_eqb_eq, I.Ty.eqb_eq. split.
+  - intros [-> ->]; reflexivity.
+  - intro H; inversion H; auto.
+Qed.
+
+Definition metadata_equal (source candidate : L.t) : bool :=
+  list_equal I.ident_eqb (context source) (context candidate) &&
+  list_equal variable_equal (variables source) (variables candidate).
+
+Lemma metadata_equal_correct source candidate :
+  metadata_equal source candidate = true <-> same_metadata source candidate.
+Proof.
+  unfold metadata_equal, same_metadata.
+  rewrite andb_true_iff,
+    (list_equal_correct I.ident_eqb I.ident_eqb_eq),
+    (list_equal_correct variable_equal variable_equal_correct). reflexivity.
+Qed.
+
 Definition version_program {A} (domain : G.entry -> Prop)
   (P : A -> G.entry -> Prop) (atoms : forall a, G.encoded_atom domain (P a))
   (condition : formula A) (source candidate : L.t) : L.t :=
@@ -43,6 +85,14 @@ Definition version_program {A} (domain : G.entry -> Prop)
    context source, variables source).
 
 Arguments version_program {A} domain P atoms condition source candidate.
+
+Definition checked_version {A} (domain : G.entry -> Prop)
+  (P : A -> G.entry -> Prop) (atoms : forall a, G.encoded_atom domain (P a))
+  (condition : formula A) (source candidate : L.t) : L.t :=
+  if metadata_equal source candidate
+  then version_program domain P atoms condition source candidate else source.
+
+Arguments checked_version {A} domain P atoms condition source candidate.
 
 Lemma version_execution {A} (domain : G.entry -> Prop)
   (P : A -> G.entry -> Prop) (atoms : forall a, G.encoded_atom domain (P a))
@@ -158,6 +208,23 @@ Proof.
   eapply version_program_refines_endpoint; eauto using I.State.eq_refl.
 Qed.
 
+Theorem checked_version_refines {A} (domain : G.entry -> Prop)
+  (P : A -> G.entry -> Prop) (atoms : forall a, G.encoded_atom domain (P a))
+  condition source candidate :
+  (forall s, admissible source s -> domain s) ->
+  (forall m result, L.semantics candidate m result ->
+    exists result', L.semantics source m result' /\ I.State.eq result result') ->
+  forall m result,
+  L.semantics (checked_version domain P atoms condition source candidate) m result ->
+  exists result', L.semantics source m result' /\ I.State.eq result result'.
+Proof.
+  intros DOMAIN LOCAL. unfold checked_version.
+  destruct (metadata_equal source candidate) eqn:META.
+  - apply metadata_equal_correct in META.
+    eapply version_program_refines_unconditional; eauto.
+  - intros m result RUN. exists result; split; auto using I.State.eq_refl.
+Qed.
+
 Theorem impossible_program source candidate m result :
   L.semantics (version_program (fun _ => True) G.zero_property G.zero_atom
     G.impossible source candidate) m result <-> L.semantics source m result.
@@ -170,10 +237,18 @@ Proof.
       (G.Entry env m) result)). exact RUN.
 Qed.
 
+End PolCertLoopProgramFor.
+
+Module PolCertLoopProgram (I : INSTR).
+Module ConcreteLoop := Loop I.
+Include PolCertLoopProgramFor I ConcreteLoop.
+
 Print Assumptions semantics_entry.
+Print Assumptions metadata_equal_correct.
 Print Assumptions version_program_preserves.
 Print Assumptions version_program_refines_endpoint.
 Print Assumptions version_program_refines_unconditional.
+Print Assumptions checked_version_refines.
 Print Assumptions impossible_program.
 
 End PolCertLoopProgram.

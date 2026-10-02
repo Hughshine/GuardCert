@@ -2,7 +2,7 @@
 
 2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
 
-后续执行进展：通用三出口条件编译、静态残余化和真实 Clight 表达式宿主已实现；前两者的接口见 [abstract-kernel.md](abstract-kernel.md)。当前持续研究主线进一步朝循环区域推进：[PolCert 核心适配](../adapters/polcert/README.md) 已使用真实 `INSTR/Loop` 完成参数化接入，尚需实际优化器、固定宽度循环 lowering 与完整程序区域模拟。下面的首版范围和优先级保留为当时的建议，不能替代这个最新目标。
+后续执行进展：通用三出口条件编译、静态残余化和真实 Clight 表达式宿主已实现；前两者的接口见 [abstract-kernel.md](abstract-kernel.md)。当前持续研究主线进一步朝循环区域推进：[PolCert 核心适配](../adapters/polcert/README.md) 已使用真实 `INSTR/Loop` 完成参数化接入，[实际优化器](../adapters/polcert-optimizer/README.md) 已直接调用 `Opt_prepared` 并消费其正确性端点。仍需固定宽度循环 lowering、候选进展与完整程序区域模拟。下面的首版范围和优先级保留为当时的建议，不能替代这个最新目标。
 
 ## 建议作为主问题
 

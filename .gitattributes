@@ -1,3 +1,5 @@
 # Locked upstream patches preserve original whitespace for source hash checks.
 adapters/polcert/source.patch -whitespace
 adapters/polcert/patches/*.patch -whitespace
+adapters/polcert-optimizer/source.patch -whitespace
+adapters/polcert-optimizer/patches/*.patch -whitespace

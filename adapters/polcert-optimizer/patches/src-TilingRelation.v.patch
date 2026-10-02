@@ -1,0 +1,11 @@
+--- a/src/TilingRelation.v
++++ b/src/TilingRelation.v
+@@ -2227,7 +2227,7 @@
+         replace (PL.pi_depth after_pi)
+           with
+           (PL.pi_depth before_pi + List.length (stw_links w))%nat
+-          in Hlen_old by exact Hdepth_eq.
++          in Hlen_old by (symmetry; exact Hdepth_eq).
+         replace
+           (List.length env +
+            (PL.pi_depth before_pi + List.length (stw_links w)))%nat

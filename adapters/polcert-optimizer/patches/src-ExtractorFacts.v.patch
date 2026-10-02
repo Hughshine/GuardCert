@@ -1,0 +1,29 @@
+--- a/src/ExtractorFacts.v
++++ b/src/ExtractorFacts.v
+@@ -219,7 +219,7 @@
+         (skipn ks (rev suf0) ++ rev prefix ++ rev envv)).
+     {
+       replace ks with (Datatypes.length (firstn ks (rev suf0))) at 1
+-        by (symmetry; exact Hlenfirst).
++        by exact Hlenfirst.
+       eapply affine_product_lift_affine_list_n_app.
+     }
+     rewrite Hlift_sched in Hts.
+@@ -355,7 +355,7 @@
+       with
+         (affine_product
+            (normalize_affine_list_rev (env_dim + iter_depth)%nat sched_prefix)
+-           (envv ++ prefix) ++ [j] ++ tsuf) in Hheq by exact Hts.
++           (envv ++ prefix) ++ [j] ++ tsuf) in Hheq by (symmetry; exact Hts).
+     assert (
+       nth
+         (Datatypes.length
+@@ -595,7 +595,7 @@
+             with
+               (affine_product
+                  (normalize_affine_list_rev (env_dim + iter_depth)%nat sched_prefix)
+-                 (envv ++ prefix) ++ [i] ++ tsuf) by exact Hts.
++                 (envv ++ prefix) ++ [i] ++ tsuf) by (symmetry; exact Hts).
+           assert (
+             nth
+               (Datatypes.length

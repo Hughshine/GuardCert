@@ -1,0 +1,23 @@
+--- a/src/Validator.v
++++ b/src/Validator.v
+@@ -11,11 +11,6 @@
+ Module ISSCore := ISSValidator PolIRs.
+ Module ParallelCore := ParallelValidator PolIRs.
+ Module TilingCore := TilingValidator PolIRs.
+-
+-Module TilingCheck := TilingCore.TilingCheck.
+-Module TilingPolIRs := TilingCore.TilingPolIRs.
+-Module GeneralValidator := TilingCore.TilingVal.
+-Module TPrepare := TilingCore.TPrepare.
+ 
+ (** Affine-only validator API. *)
+ Definition check_wf_polyinstr := AffineCore.check_wf_polyinstr.
+@@ -107,7 +102,7 @@
+ Definition from_tiling_pprog := TilingCore.from_tiling_pprog.
+ Definition outer_to_tiling_pprog := TilingCore.outer_to_tiling_pprog.
+ Definition check_pprog_tiling_sourceb :=
+-  TilingCheck.check_pprog_tiling_sourceb.
++  TilingCore.TilingCheck.check_pprog_tiling_sourceb.
+ Definition checked_tiling_validate := TilingCore.checked_tiling_validate.
+ Definition checked_tiling_validate_outer := TilingCore.checked_tiling_validate_outer.
+ Definition checked_tiling_validate_poly := TilingCore.checked_tiling_validate_outer.

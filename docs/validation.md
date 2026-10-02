@@ -1,5 +1,17 @@
 # 本轮验证记录
 
+## 2026-10-02：实际 PolOpt_prepared 与 guarded Loop 程序连接
+
+实际 `driver/PolOptCorrect.v` 的 92 文件依赖闭包已迁移到锁定的 CompCert/Rocq 工具链。冻结指定提交、原 v10 工作目录改动及 32 份兼容补丁后，重新恢复全部锁定输入，再执行 `build --clean`，完整重编译成功。日志为 `build/polcert-optimizer-clean-check.log` 与 `build/polcert-optimizer-build.log`。没有修改 sibling 仓库。
+
+`PolCertLoopGuardFor`、`PolCertLoopProgramFor` 接受已有 Loop 模块。`metadata_equal_correct` 核对 metadata，`checked_version_refines` 在失败时保留源程序；核心三适配器重编译与 19 项 INSTR 参数审计通过。
+
+新 `PolCertOptimizer.optimize_version` 直接调用真实 `Core.Opt_prepared`。`optimize_version_correct` 经 Rocq 编译，并直接消费上游 `Opt_prepared_correct`。两个共用适配器以隔离的 `GuardPolCert` 名称重编译，不复用另一 profile 的不兼容 `.vo`。实际端点与新定理的假设名集合经脚本比较，均为相同的 42 项，新增集合为空；详细报告为 `build/polcert-optimizer-adapter-report.json`。
+
+原 97 文件路径因 `PolOpt` 的未使用 import 拉入具体 C 转换器。移除这两处 import 并显式引入仍需的 `Csyntax` 后为 92 文件。额外的九份补丁处理 notation、Proper instance、关系运输与 replace 证明方向；组合 validator 的未使用转发别名引发新版 Rocq module-substitution 异常，改为直接引用原模块后通过。算法与原定理陈述未改变。
+
+已验证的是 alarm monad 成功返回的 guarded Loop IR 程序之终止执行精化，没有候选进展或无报警保证。本轮未提取、运行 PolCert 优化器，未提供数学循环→Clight lowering 或循环区域的完整 C→Asm 模拟。`Loop.semantics` 自身的 NonAlias 前提仍然存在；外围动态检查与原 Clight 回退仍需接通。
+
 ## 2026-10-02：提升到真实 Loop.t 程序语义
 
 新增 `PolCertLoopProgram.v` 经 Rocq 9.2 编译。`version_program_preserves` 保留源程序实际的 `Compat/NonAlias/InitEnv` 前提及 metadata；`version_program_refines_endpoint` 在候选 metadata 对齐时消费真正的 `Loop.semantics` backward endpoint。`impossible_program` 证明恒假条件下任意候选死分支保持 wrapped 程序的终止执行。

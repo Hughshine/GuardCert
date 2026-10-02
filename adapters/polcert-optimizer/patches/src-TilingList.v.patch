@@ -1,0 +1,15 @@
+--- a/src/TilingList.v
++++ b/src/TilingList.v
+@@ -34,10 +34,10 @@
+   }
+   replace
+     (skipn (List.length links) (eval_tile_links [] point params links))
+-    with ([] : list Z) by exact Hskip_links.
++    with ([] : list Z) by (symmetry; exact Hskip_links).
+   replace
+     (List.length links - List.length (eval_tile_links [] point params links))%nat
+-    with 0%nat by exact Hlen_links.
++    with 0%nat by (symmetry; exact Hlen_links).
+   simpl.
+   reflexivity.
+ Qed.

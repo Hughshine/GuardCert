@@ -1,0 +1,19 @@
+--- a/polygen/ASTGen.v
++++ b/polygen/ASTGen.v
+@@ -522,12 +522,10 @@
+ Instance subscan_proper pprog pol pl env d : Proper (eq ==> veq ==> eq) (subscan pprog pol pl env d).
+ Proof.
+   intros n1 n2 Hn p1 p2 Hp. unfold subscan.
+-  (* destruct pprog as ((pis & varctxt) & vars). *)
+-  rewrite Hn, Hp; reflexivity.
+-  (* rewrite Hp at 1. rewrite Hp at 0. reflexivity. 
+-  eapply is_eq_proper in Hp.
+-  simpl.
+-  rewrite Hp. reflexivity. *)
++  rewrite Hn.
++  rewrite (in_poly_proper p1 p2 Hp pol pol eq_refl).
++  rewrite (PolyLang.env_scan_proper pprog env d n2 n2 eq_refl p1 p2 Hp).
++  reflexivity.
+ Qed.
+ 
+ Lemma poly_lex_semantics_make_npis_subscan :

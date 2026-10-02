@@ -1,0 +1,11 @@
+--- a/src/TilingWitness.v
++++ b/src/TilingWitness.v
+@@ -123,7 +123,7 @@
+   unfold tile_link_interval_holds, eval_tile_parent.
+   set (value := eval_affine (tl_expr link) vars params).
+   assert (Hdiv: value = tl_tile_size link * (value / tl_tile_size link) + value mod tl_tile_size link).
+-  { apply Z_div_mod_eq; lia. }
++  { apply Z.div_mod; lia. }
+   assert (Hmod_lo: 0 <= value mod tl_tile_size link).
+   { apply Z.mod_pos_bound; lia. }
+   assert (Hmod_hi: value mod tl_tile_size link < tl_tile_size link).
