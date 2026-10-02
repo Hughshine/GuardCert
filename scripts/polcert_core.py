@@ -509,7 +509,7 @@ def memory_adapter():
                     "PolCertSchedule.v"]
     sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",
                "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v",
-               "PolCertDynamicStore.v", "PolCertStoreNative.v"]
+               "PolCertDynamicStore.v", "PolCertStorePackage.v", "PolCertStoreNative.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
     region_report = artifact("region-adapter-report.json")
@@ -518,6 +518,8 @@ def memory_adapter():
     swap_report.unlink(missing_ok=True)
     dynamic_report = artifact("dynamic-store-report.json")
     dynamic_report.unlink(missing_ok=True)
+    package_report = artifact("store-package-report.json")
+    package_report.unlink(missing_ok=True)
 
     def isolate_imports(match):
         words = match.group(1).split()
@@ -566,6 +568,34 @@ def memory_adapter():
     dynamic_baseline, dynamic_adapted = assumptions(dynamic_baseline), assumptions(dynamic_adapted)
     if not dynamic_baseline or dynamic_adapted != dynamic_baseline:
         raise SystemExit(f"unexpected dynamic store assumptions: {sorted(dynamic_adapted - dynamic_baseline)}")
+    package_baseline, package_adapted = contents.split(
+        "GUARDCERT_STORE_PACKAGE_BASELINE_BEGIN", 1)[1].split("GUARDCERT_STORE_PACKAGE_ADAPTER_BEGIN", 1)
+    package_adapted = package_adapted.split("GUARDCERT_STORE_PACKAGE_ASSUMPTIONS_END", 1)[0]
+    package_baseline, package_adapted = assumptions(package_baseline), assumptions(package_adapted)
+    if not package_baseline or package_adapted != package_baseline:
+        raise SystemExit(f"unexpected store-package assumptions: {sorted(package_adapted - package_baseline)}")
+    write_json(package_report, {
+        "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+        "sources": {"theories/" + n: sha(ROOT / "theories" / n)
+                    for n in ["DomainRestriction.v", "ClightIndexGuard.v", "PolCertDynamicStore.v",
+                              "PolCertStorePackage.v", "PolCertScheduleRegion.v", "PolCertStoreSwap.v",
+                              "PolCertStoreRegion.v", "ClightRegionRule.v", "RegionCompiler.v"]},
+        "upstream_assumptions": sorted(package_baseline), "adapter_assumptions": sorted(package_adapted),
+        "additional_global_axioms": [], "instruction_interface_axioms": [],
+        "theorem": "PolCertStorePackage.compile_packaged_stores_correct",
+        "endpoint": "Csem to Asm through the generic conditional schedule-package interface",
+        "concrete_package_families": 1,
+        "entry_domain": "actual array address and defined signed32 index temporaries",
+        "conditional_decode": "accepted range and distinct-index evidence permits actual CInstr schedule decoding",
+        "conditional_encode": "actual candidate schedule yields real Clight stores and progress",
+        "commutation_proof": "generic certified_schedule_preserves instantiated with actual CInstr Bernstein",
+        "model_environment": "proved single-array projection; entire physical memory remains related",
+        "source_binding": "proved flattening and exact statement-list equality, including type attributes",
+        "guard_synthesis": "existing five-atom index property library, with restricted justified domain",
+        "memory_exit_relation": "mutual Mem.extends", "temps_exit_relation": "exact",
+        "native_execution_checked_by_separate_report": True,
+        "polyhedral_optimizer_driver_integration": False, "loop_regions_supported": False,
+    })
     write_json(dynamic_report, {
         "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
         "sources": {"theories/" + n: sha(ROOT / "theories" / n)
@@ -607,18 +637,19 @@ def memory_adapter():
     write_json(region_report, {
         "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
         "sources": {"theories/" + n: sha(ROOT / "theories" / n)
-                    for n in ["PolCertSchedule.v", "PolCertScheduleRegion.v", "PolCertStoreRegion.v",
+                    for n in ["PolCertSchedule.v", "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStorePackage.v",
                               "ClightRegionRewrite.v", "ClightRegionRewriteProof.v", "RegionCompiler.v"]},
         "upstream_assumptions": sorted(region_baseline), "adapter_assumptions": sorted(region_adapted),
         "additional_global_axioms": [], "instruction_interface_axioms": [],
         "theorem": "PolCertScheduleRegion.compile_schedule_regions_correct",
         "endpoint": "Csem to Asm backward simulation for a proved schedule-package proposer",
-        "local_proof_obligations": ["source Clight execution decodes into actual CInstr schedule",
+        "local_proof_obligations": ["source execution establishes the justified guard domain",
+                                    "accepted adapter assumption permits source Clight decoding into actual CInstr schedule",
                                     "accepted formula establishes NonAlias and scheduling certificate",
-                                    "candidate CInstr schedule encodes into normal Clight execution"],
+                                    "accepted adapter assumption and candidate CInstr schedule encode into normal Clight execution"],
         "memory_exit_relation": "mutual Mem.extends",
         "temps_exit_relation": "exact",
-        "concrete_schedule_packages": 0,
+        "concrete_schedule_packages": 1,
         "array_constant_store_decoder": "proved for checked ordinary signed32 arrays",
         "native_driver_integration": False,
         "polyhedral_optimizer_driver_integration": False,

@@ -20,19 +20,25 @@ Module S := PolCertSchedule I.
 
 Record schedule_bridge (source candidate : statement) := ScheduleBridge {
   bridge_domain : clight_entry -> Prop;
+  bridge_assumption : clight_entry -> Prop;
   bridge_globalenv : Csem.genv;
   bridge_locals : clight_entry -> Csem.env;
   bridge_source : clight_entry -> list S.invocation;
   bridge_candidate : clight_entry -> list S.invocation;
+  bridge_entry_domain : forall temps p e le m le' m',
+    exec_stmt (adapter_entry temps) (globalenv p) e le m source E0 le' m' Out_normal ->
+    bridge_domain (Entry (globalenv p) e le m);
   bridge_decode : forall temps p e le m le' m',
     exec_stmt (adapter_entry temps) (globalenv p) e le m source E0 le' m' Out_normal ->
-    bridge_domain (Entry (globalenv p) e le m) /\ le' = le /\
+    bridge_assumption (Entry (globalenv p) e le m) ->
+    le' = le /\
     exists post,
       schedule_run S.model (bridge_source (Entry (globalenv p) e le m))
         (bridge_globalenv, bridge_locals (Entry (globalenv p) e le m), m) post /\
       concrete_memory_view bridge_globalenv (bridge_locals (Entry (globalenv p) e le m)) post m';
   bridge_encode : forall temps p e le m post,
     bridge_domain (Entry (globalenv p) e le m) ->
+    bridge_assumption (Entry (globalenv p) e le m) ->
     schedule_run S.model (bridge_candidate (Entry (globalenv p) e le m))
       (bridge_globalenv, bridge_locals (Entry (globalenv p) e le m), m) post ->
     exists target_memory,
@@ -41,6 +47,7 @@ Record schedule_bridge (source candidate : statement) := ScheduleBridge {
 }.
 
 Definition bridge_presumption {source candidate} (b : schedule_bridge source candidate) s :=
+  bridge_assumption b s /\
   I.NonAlias (bridge_globalenv b, bridge_locals b s, entry_memory s) /\
   schedule_certificate S.model (bridge_source b s) (bridge_candidate b s).
 
@@ -78,13 +85,14 @@ Proof.
             region_rule_primitives := package_primitives pkg;
             region_rule_formula := package_formula pkg |}.
   - intros temps p e le m le' m' SOURCE.
-    exact (proj1 (bridge_decode (package_bridge pkg) SOURCE)).
+    exact (bridge_entry_domain (package_bridge pkg) SOURCE).
   - intros temps p e le m le' m' SOURCE PROPERTY.
-    destruct (bridge_decode (package_bridge pkg) SOURCE)
-      as [DOMAIN [TEMPS [post [RUN VIEW]]]]. subst le'.
-    destruct (package_presumption pkg _ DOMAIN PROPERTY) as [NONALIAS CERT].
+    pose proof (bridge_entry_domain (package_bridge pkg) SOURCE) as DOMAIN.
+    destruct (package_presumption pkg _ DOMAIN PROPERTY) as [ADAPTER [NONALIAS CERT]].
+    destruct (bridge_decode (package_bridge pkg) SOURCE ADAPTER)
+      as [TEMPS [post [RUN VIEW]]]. subst le'.
     destruct (@S.schedule_correct _ _ CERT _ _ NONALIAS RUN) as [candidate_post [CANDIDATE EQ]].
-    destruct (@bridge_encode _ _ (package_bridge pkg) temps p e le m candidate_post DOMAIN CANDIDATE)
+    destruct (@bridge_encode _ _ (package_bridge pkg) temps p e le m candidate_post DOMAIN ADAPTER CANDIDATE)
       as [target_memory [EXEC VIEW']].
     exists target_memory; split; [exact EXEC | exact (@memory_views_related _ _ _ _ _ _ EQ VIEW VIEW')].
 Defined.

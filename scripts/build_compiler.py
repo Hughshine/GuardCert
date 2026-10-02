@@ -48,6 +48,12 @@ def main():
             for path, expected in dynamic_report["sources"].items()
         ):
             raise SystemExit("rebuild and audit the dynamic store proof before extraction")
+        package_report = json.loads(artifact("store-package-report.json").read_text())
+        if package_report["status"] != "compiled" or any(
+            hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
+            for path, expected in package_report["sources"].items()
+        ):
+            raise SystemExit("rebuild and audit the concrete schedule package before extraction")
         native_report = json.loads((ROOT / "build" / "store-swap-compiler-assumptions-report.json").read_text())
         if (native_report["adapted_theorem"] != "PolCertStoreNative.compile_correct"
                 or native_report["additional_global_axioms"]
@@ -121,6 +127,7 @@ def main():
         "proved_entrypoint": entrypoint,
         "array_identifier_input": "frontend identifier for a" if args.store_swap else None,
         "index_identifier_inputs": ["frontend identifier for i", "frontend identifier for j"] if args.store_swap else [],
+        "schedule_package_proposer": "PolCertStorePackage.propose_dynamic_package" if args.store_swap else None,
     }, indent=2) + "\n")
     print(f"guarded compiler: {WORK / 'ccomp'}")
 

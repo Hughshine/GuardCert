@@ -20,6 +20,7 @@ def main():
     WORK.mkdir(parents=True, exist_ok=True)
     stamp = json.loads((COMPILER.parent / ".guard-build.json").read_text())
     if (stamp["proved_entrypoint"] != "PolCertStoreNative.compile"
+            or stamp.get("schedule_package_proposer") != "PolCertStorePackage.propose_dynamic_package"
             or stamp.get("index_identifier_inputs") != ["frontend identifier for i", "frontend identifier for j"]
             or stamp["compiler_sha256"] != hashlib.sha256(COMPILER.read_bytes()).hexdigest()):
         raise SystemExit("build the audited dynamic store compiler before its native check")
@@ -69,6 +70,7 @@ def main():
     (WORK / "output.txt").write_text(actual)
     (WORK / "report.json").write_text(json.dumps({
         "proved_entrypoint": "PolCertStoreNative.compile",
+        "schedule_package_proposer": stamp["schedule_package_proposer"],
         "compiler_sha256": stamp["compiler_sha256"],
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "inputs": inputs, "actual_guarded_regions": accepted,

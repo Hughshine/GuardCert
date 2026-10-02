@@ -294,3 +294,13 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 原生检查确认普通函数、循环体和 goto 标签后的三个 guard，共十五个实际原子比较；同时检查候选和源片段 fallback。四组下标输入覆盖正序、逆序和两种重合，输出匹配 GCC 与独立计算；不同写入值和 volatile 前端例子保留原代码。首次联合尝试在提取后的 OCaml 模块接口处失败，修正嵌套别名并让静态／动态规则共享一个具体 functor 实例后，以上清理重建通过。没有修改上游来源，没有给未实现的提取公理绑定代码。
 
 这是同一数组内的运行时元素独立性实例，尚未覆盖跨数组 alias、内部循环区域或真实 PolOpt；直接规则已完成，通用调度包的条件解码接口及实例接入继续推进。没有性能测量。
+
+## 2026-10-02：动态实例装入通用条件调度包
+
+拆分通用调度桥接的检查域与适配前提，新增 `PolCertStorePackage.v` 后，执行 `make clean`，联合运行 `make check-integration polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver`，完整通过，退出码 0。54 个标准证明及 60 个锁定 PolCert 输入清理重编译，七个隔离依赖及九个具体模块通过；五组默认原生套件及静态／动态双写套件通过。日志为 `build/store-package-full-integration-check.log`。
+
+`bridge_entry_domain` 由源正常执行建立检查域，`bridge_assumption` 可以在条件接受后才成立；源解码和候选编码都消费该前提。动态包构造真实的两侧执行、NonAlias 投影和调度交换证书，完整物理内存保持双向 Mem.extends。具体包族数量由 0 变为 1，`compile_packaged_stores_correct` 和提取入口继续与 CompCert 基线拥有相同的 35 项假设，没有抽象指令接口公理或新增全局公理。五份具体内存报告的源码哈希均核对一致。
+
+实际 OCaml 入口调用 `NativeStorePackage.select_dynamic_package`，由通用 `select_schedule_region` 和 `package_rule` 生成 guard；没有直接调用旧的动态局部规则选择器。原生报告记录这个 proposer 和编译器哈希。十五个实际原子比较、候选及 source fallback、四组输入输出全部通过；静态双写的三个插入与五个拒绝继续通过。
+
+目前仅支持同一普通 signed32 数组的两个元素，源区域仍不含内部循环且 temps 精确对应。整个 PolOpt 循环调度器、private temporary 和循环区域宿主未完成，也未测量性能。

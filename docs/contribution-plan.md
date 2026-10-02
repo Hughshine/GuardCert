@@ -10,6 +10,8 @@
 
 [具体数组桥接](polcert-array-clight.md) 已使用真实 `CInstr/CState` 和 CompCert load/store，替代抽象基本指令执行假设。[有限语句区域宿主](clight-statement-regions.md) 已完成正常出口、精确 temps 和双向 `Mem.extends` 内存对应的完整 Clight 模拟，并有实际 C→Asm 例子。PolCert 仍需要内部循环区域、private temporary/live frame 和实际优化器的候选进展；有限区域宿主不能被当作这一整条链已完成。
 
+[具体动态调度包](polcert-schedule-regions.md) 已把运行时下标的双写候选装入同一接口并提取运行。该实例推动接口区分检查域和语言适配前提：范围或无溢出前提可以在 guard 接受后才允许源解码。性质库、公式合成、真实 CInstr 调度定理与完整程序宿主在这一路径中实际复用；这仍是工程与机械化进展，尚未建立候选条件推断算法或独立新颖性结论。
+
 ## 建议作为主问题
 
 > 给定原片段和独立候选，在指定的前提域与可用观察下，寻找能安全执行的充分条件，输出可核对的条件正确性证书、实际检查代码及完整程序精化保证。
