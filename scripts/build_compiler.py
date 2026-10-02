@@ -42,6 +42,12 @@ def main():
             for path, expected in report["sources"].items()
         ):
             raise SystemExit("rebuild and audit the concrete store-swap proof before extraction")
+        dynamic_report = json.loads(artifact("dynamic-store-report.json").read_text())
+        if dynamic_report["status"] != "compiled" or any(
+            hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
+            for path, expected in dynamic_report["sources"].items()
+        ):
+            raise SystemExit("rebuild and audit the dynamic store proof before extraction")
         native_report = json.loads((ROOT / "build" / "store-swap-compiler-assumptions-report.json").read_text())
         if (native_report["adapted_theorem"] != "PolCertStoreNative.compile_correct"
                 or native_report["additional_global_axioms"]
@@ -76,7 +82,8 @@ def main():
     needle = "(Compiler.transf_c_program csyntax)"
     if original.count(needle) != 1:
         raise SystemExit("unexpected upstream driver: compiler call is not unique")
-    replacement = (f'({entrypoint} (Camlcoq.intern_string "a") csyntax)' if args.store_swap
+    replacement = (f'({entrypoint} (Camlcoq.intern_string "a") (Camlcoq.intern_string "i") '
+                   f'(Camlcoq.intern_string "j") csyntax)' if args.store_swap
                    else f"({entrypoint} csyntax)")
     patched = original.replace(needle, replacement)
     driver = WORK / "driver" / "Driver.ml"
@@ -113,6 +120,7 @@ def main():
         "compiler_sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
         "proved_entrypoint": entrypoint,
         "array_identifier_input": "frontend identifier for a" if args.store_swap else None,
+        "index_identifier_inputs": ["frontend identifier for i", "frontend identifier for j"] if args.store_swap else [],
     }, indent=2) + "\n")
     print(f"guarded compiler: {WORK / 'ccomp'}")
 

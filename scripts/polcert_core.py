@@ -509,13 +509,15 @@ def memory_adapter():
                     "PolCertSchedule.v"]
     sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",
                "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v",
-               "PolCertStoreNative.v"]
+               "PolCertDynamicStore.v", "PolCertStoreNative.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
     region_report = artifact("region-adapter-report.json")
     region_report.unlink(missing_ok=True)
     swap_report = artifact("store-swap-report.json")
     swap_report.unlink(missing_ok=True)
+    dynamic_report = artifact("dynamic-store-report.json")
+    dynamic_report.unlink(missing_ok=True)
 
     def isolate_imports(match):
         words = match.group(1).split()
@@ -558,6 +560,32 @@ def memory_adapter():
     swap_baseline, swap_adapted = assumptions(swap_baseline), assumptions(swap_adapted)
     if not swap_baseline or swap_adapted != swap_baseline:
         raise SystemExit(f"unexpected concrete store-swap assumptions: {sorted(swap_adapted - swap_baseline)}")
+    dynamic_baseline, dynamic_adapted = contents.split(
+        "GUARDCERT_DYNAMIC_STORE_BASELINE_BEGIN", 1)[1].split("GUARDCERT_DYNAMIC_STORE_ADAPTER_BEGIN", 1)
+    dynamic_adapted = dynamic_adapted.split("GUARDCERT_DYNAMIC_STORE_ASSUMPTIONS_END", 1)[0]
+    dynamic_baseline, dynamic_adapted = assumptions(dynamic_baseline), assumptions(dynamic_adapted)
+    if not dynamic_baseline or dynamic_adapted != dynamic_baseline:
+        raise SystemExit(f"unexpected dynamic store assumptions: {sorted(dynamic_adapted - dynamic_baseline)}")
+    write_json(dynamic_report, {
+        "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+        "sources": {"theories/" + n: sha(ROOT / "theories" / n)
+                    for n in ["ClightIndexGuard.v", "PolCertDynamicStore.v", "PolCertStoreSwap.v",
+                              "PolCertStoreRegion.v", "ClightRegionRule.v", "RegionCompiler.v"]},
+        "upstream_assumptions": sorted(dynamic_baseline), "adapter_assumptions": sorted(dynamic_adapted),
+        "additional_global_axioms": [], "instruction_interface_axioms": [],
+        "theorem": "PolCertDynamicStore.compile_dynamic_pair_correct",
+        "endpoint": "Csem to Asm backward simulation with synthesized bounds and distinct-index guard",
+        "commutation_theorem": "actual CInstr.bc_condition_implie_permutbility",
+        "condition_atoms": ["first index nonnegative", "first index below extent",
+                            "second index nonnegative", "second index below extent", "distinct indices"],
+        "guard_encoding": "exact positive and negative evidence for five atoms; shared formula synthesis",
+        "entry_domain": "defined source execution establishes signed32 temporary values",
+        "logical_environment": "proved NonAlias for one-array projection with empty globals",
+        "memory_exit_relation": "mutual Mem.extends", "temps_exit_relation": "exact",
+        "same_array_only": True, "native_execution_checked_by_separate_report": True,
+        "cross_array_alias_check": False, "polyhedral_optimizer_driver_integration": False,
+        "loop_regions_supported": False,
+    })
     write_json(swap_report, {
         "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
         "sources": {"theories/" + n: sha(ROOT / "theories" / n)

@@ -9,6 +9,7 @@
 -R vendor/CompCert/flocq Flocq
 theories/AbstractGuard.v
 theories/SemanticFacts.v
+theories/DomainRestriction.v
 theories/ResidualGuard.v
 theories/AbstractSchedule.v
 theories/EndpointBridge.v
@@ -40,6 +41,7 @@ theories/ClightCondition.v
 theories/ClightMemoryEquivalence.v
 theories/ClightMemorySteps.v
 theories/ClightPureExpr.v
+theories/ClightIndexGuard.v
 theories/ClightCountedLoop.v
 theories/ClightTempFrame.v
 theories/ClightFramedLoop.v

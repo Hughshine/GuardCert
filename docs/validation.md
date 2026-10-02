@@ -284,3 +284,13 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 新入口 `PolCertStoreNative.compile_correct` 对任意数组标识符给出 Csem→Asm backward simulation。驱动传入前端 `a` 标识符作为普通数据；具体命名接口没有未实现的提取公理。独立假设审计确认原生入口与 CompCert 基线同为相同的 35 项。原生检查验证普通函数、循环体、goto 标签后三个实际交换，并验证五个排除情形；结果匹配 GCC 和独立预期输出。
 
 当前选择器要求恰好两条写入的语法子树，可消费显式语句块的前端结合方式；它不截取任意长序列中的相邻写入。静态独立性条件仍是编译时检查，尚无此实例的动态 alias guard、内部循环区域替换或真实 PolOpt 接入，也未测量性能。
+
+## 2026-10-02：动态下标条件进入同一原生重排驱动
+
+新增 `ClightIndexGuard.v`、`PolCertDynamicStore.v` 和语义无关的域限制接口后，执行 `make clean`，联合运行 `make check-integration polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver`，完整通过，退出码 0。54 个标准证明和 60 个锁定 PolCert 输入清理重编译，七个隔离依赖与八个具体模块通过；五组默认原生回归、静态双写及动态双写套件均通过。最终日志为 `build/dynamic-store-final-integration-check.log`。
+
+动态规则复用性质公式合成，生成两个下标的范围检查及不同下标检查。源执行先建立下标为 Vint 的检查域，接受证据再允许恢复真实 CInstr 执行并调用 Bernstein 定理。新增域限制定理闭合于全局上下文，并证明加强入口域不改变生成的条件代码。动态实例和实际原生入口的完整 C→Asm 假设均与 CompCert 基线相同，为 35 项。
+
+原生检查确认普通函数、循环体和 goto 标签后的三个 guard，共十五个实际原子比较；同时检查候选和源片段 fallback。四组下标输入覆盖正序、逆序和两种重合，输出匹配 GCC 与独立计算；不同写入值和 volatile 前端例子保留原代码。首次联合尝试在提取后的 OCaml 模块接口处失败，修正嵌套别名并让静态／动态规则共享一个具体 functor 实例后，以上清理重建通过。没有修改上游来源，没有给未实现的提取公理绑定代码。
+
+这是同一数组内的运行时元素独立性实例，尚未覆盖跨数组 alias、内部循环区域或真实 PolOpt；直接规则已完成，通用调度包的条件解码接口及实例接入继续推进。没有性能测量。

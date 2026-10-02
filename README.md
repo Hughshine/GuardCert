@@ -49,6 +49,8 @@
 
 [具体 CInstr 双写重排](docs/polcert-store-swap.md) 已用真实 Bernstein 定理证明同一数组的两个不同常量元素写入可以交换，并接到完整 Csem→Asm 定理。检查器验证静态参数和源 AST，真实分配例子构造两端执行。`make polcert-store-native` 还提取独立编译器，检查普通、循环体和 goto 上下文中的三个实际交换及五个排除例子。内部循环区域与真实多面体调度器接入仍未完成。
 
+[动态数组下标实例](docs/polcert-dynamic-stores.md) 从范围及不同下标前提合成实际检查；条件接受后调用真实 CInstr 重排性质，拒绝时保留两条源写入。源执行提供下标定义性，条件正确性与检查编码分别证明，继续复用完整程序区域宿主。
+
 [无人工区间的仿射 guard 合成](docs/affine-dynamic-synthesis.md) 直接从“不溢出”前提与 layout 生成依赖顺序的 signed64 检查树，证明检查精确对应所选 signed32 前提，并经性质接口支持复合公式和 unknown。复现目标为 `make polcert-dynamic-proof`；这一合成器尚未进入原生驱动。
 
 `GuardedRegion.v` 把片段表示为一次返回事件、控制出口和状态的转移。新的插件路径先证明语义义务与 presumption AST 的编码对应，经 `Synthesis.v` 合成为显式短路条件程序，再由通用定理提升到任意外围 CFG 的有限与无限执行。

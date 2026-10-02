@@ -1,6 +1,6 @@
 ROCQ ?= rocq
 ROCQFLAGS ?=
-SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGuard.v \
+SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRestriction.v theories/ResidualGuard.v \
            theories/AbstractSchedule.v theories/EndpointBridge.v theories/BilateralTransport.v \
            theories/PolCertCompat.v \
            theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
@@ -42,6 +42,7 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/GuardCompiler.v theories/ClightIntegrationExamples.v \
                   theories/CommonRewriteExamples.v theories/ClightCondition.v \
                   theories/ClightMemoryEquivalence.v theories/ClightMemorySteps.v theories/ClightPureExpr.v \
+                  theories/ClightIndexGuard.v \
                   theories/ClightCountedLoop.v theories/ClightTempFrame.v theories/ClightFramedLoop.v \
                   theories/ClightWideGuard.v \
                   theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
@@ -113,6 +114,7 @@ polcert-store-native: polcert-memory-proof
 	@python3 scripts/build_compiler.py --store-swap > build/store-swap-native-build.log 2>&1 || \
 	  { cat build/store-swap-native-build.log; exit 1; }
 	python3 scripts/native_store_swap.py
+	python3 scripts/native_dynamic_store.py
 
 polcert-optimizer-proof: check-compcert
 	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)
