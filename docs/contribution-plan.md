@@ -6,6 +6,8 @@
 
 [树形原子检查接口](clight-signed-cancellation.md) 已接入相同完整程序宿主：signed32 的乘法取消实例使用 signed64 检查并保留溢出输入的回退。它和实际 Loop 动态合成共用公式合成器；这项复用没有闭合多语句循环区域的完整程序链。
 
+[递归 Loop 桥接](polcert-nested-clight.md) 已支持指定 scratch 深度的嵌套循环和公共 temporary frame，检查与参数／live 集合以及 scratch 之间的冲突。下一步重点转为具体内存／指令实例、外围 live 与函数声明的宿主证明、tiling 边界运算、候选进展及区域 simulation。
+
 ## 建议作为主问题
 
 > 给定原片段和独立候选，在指定的前提域与可用观察下，寻找能安全执行的充分条件，输出可核对的条件正确性证书、实际检查代码及完整程序精化保证。

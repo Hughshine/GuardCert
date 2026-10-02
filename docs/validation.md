@@ -208,3 +208,9 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 新增 `ClightDecisionRule.v` 与 `ClightSignedCancel.v` 后，执行 `make clean`，随后 `make check-integration polcert-loop-proof polcert-dynamic-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。37 个工程证明、独立模型、CompCert proof 目标、实际驱动假设审计、提取及四个原生 C 示例均通过；实际 Loop 的 57 个锁定依赖重新恢复并以 `--clean` 编译，全部既有桥接及复用共享树合成器的新版本也通过。日志为 `build/signed-full-integration-check.log`。
 
 新的 signed 原生检查覆盖九个输入、五个实际插入点以及嵌套／局部赋值／goto 上下文；结果对应独立模算术计算及 GCC `-O0 -fwrapv`。`build/native-signed/report.json` 记录五个加宽检查树，源式回退保留 signed32 乘法回绕行为。`build/compiler-assumptions-report.json` 比较实际组合驱动和上游 C→Asm 定理，35 个假设一致，新增全局公理为空。实际 PolCert 多面体驱动尚未进入这个原生入口。
+
+# 实际嵌套 Loop、公共 temporary frame 与联合优化器构建
+
+执行 `make clean` 后，组合目标 `make check-integration polcert-nested-proof polcert-dynamic-proof polcert-optimizer-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。39 个工程证明、独立执行模型、上游 proof 目标、实际 C→Asm 假设审计、驱动提取和四组原生回归通过。真实 Loop 的 57 个依赖及真实 `PolOptCorrect` 的 92 个依赖分别恢复到隔离副本并以 `--clean` 重编译；所有原适配器及新的嵌套循环桥接通过。日志为 `build/nested-full-integration-check.log`。
+
+`build/polcert-nested-report.json` 审计递归 lowering 与任意 continuation 中的小步端点，只继承六个 Clight 假设和 `I.State.t/I.t/I.instr_semantics`，新增全局公理为空。两层相关边界循环的实际 AST、live 冲突／重复 scratch／深度不足拒绝由 Rocq 检查。`build/polcert-optimizer-adapter-report.json` 的实际优化器端点继续继承原先 42 个假设，新增全局公理与接口字段均为空。联合成功构建不表示多面体优化已进入原生 C→Asm 驱动。

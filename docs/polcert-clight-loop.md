@@ -18,6 +18,8 @@
 
 初版 body 编译器拒绝内部 `Loop`；因此当前支持一个外层循环及由 `Instr/Seq/Guard` 组成的 body。嵌套循环需要扩展 private temporary 的状态关系。
 
+后续 [嵌套循环桥接](polcert-nested-clight.md) 已提供独立的递归编译器和 live temporary frame，复用这里的基本指令插件。本页描述保留为单层接口的契约；多层接口通过 `make polcert-nested-proof` 验证。
+
 ## 运行时区间与计数器
 
 `compile_single_loop` 使用区间分析给出的下界最小值、上界最大值，推导 body 的 iterator 区间。生成代码的入口先执行通用 range guard；接受建立原参数区间。实际迭代保证下界不大于当前 iterator，当前 iterator 严格小于上界，因此 body 的窄区间有证明支撑。

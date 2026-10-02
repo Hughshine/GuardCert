@@ -12,6 +12,7 @@
 - [从候选到带检查的程序](docs/candidate-conditioning.md)：人工/机器候选、COVE、条件等价，以及与 CoreJIT、Alive2 和 Peek 的区别。
 - [具体贡献与推进计划](docs/contribution-plan.md)：建议主线、算法与定理、第一批实例和验收标准；补充可执行前提及最优 guard 合成的先例。
 - [框架扩展设计](docs/framework-extension.md)：证据、状态关系、失败协议与不同证明目标；区分设计和已实现能力。
+- [性质运输与状态关系的补充文献](docs/composition-literature.md)：CompCert／Verasco defensive form、开放模块组合及安全插桩的已有覆盖。
 - [研究动机草稿](docs/intro.md)：先描述变换类与研究对象。
 - [Presumption 分类与合成](docs/presumptions.md)：表达能力、编码定理、overflow flag 和死分支 rewrite。
 - [问题定义与证明接口](docs/framework.md)：插件义务、局部到全程序的桥接、CompCert 接入路线。
@@ -35,6 +36,8 @@
 [signed32 仿射桥接](docs/polcert-affine-clight.md) 已证明实际 Loop 表达式和布尔测试到 Clight 的 lowering，并通过通用性质接口生成输入区间 guard。接受的 guard 建立静态区间证书需要的运行时前提；缺失布局或无效区间保留 unknown。复现目标为 `make polcert-affine-proof`。完整循环与区域 lowering 仍在推进。
 
 [计数循环桥接](docs/polcert-clight-loop.md) 进一步提供基本指令插件、`Instr/Seq/Guard` 的 body 编译、一个外层 Loop 的 Clight lowering，以及任意 continuation 中的实际小步执行证书。复现目标为 `make polcert-loop-proof`。当前 body 要求保留 temporaries，内部循环尚未支持；多面体优化的完整程序 simulation 仍未闭合。
+
+[嵌套循环桥接](docs/polcert-nested-clight.md) 扩展到指定 scratch 深度的多层 Loop，允许内层 scratch 改变并保护参数、外层计数器及声明的 live frame。编译器检查整个 scratch pool 的新鲜性；复现目标为 `make polcert-nested-proof`。具体内存／指令实例、候选进展、tiling 边界运算及完整程序区域模拟仍在推进。
 
 [无人工区间的仿射 guard 合成](docs/affine-dynamic-synthesis.md) 直接从“不溢出”前提与 layout 生成依赖顺序的 signed64 检查树，证明检查精确对应所选 signed32 前提，并经性质接口支持复合公式和 unknown。复现目标为 `make polcert-dynamic-proof`；这一合成器尚未进入原生驱动。
 

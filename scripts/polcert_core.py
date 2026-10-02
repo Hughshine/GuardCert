@@ -456,9 +456,41 @@ def dynamic_adapter():
     print("Affine safety presumptions synthesize executable guards without proposed intervals")
 
 
+def nested_adapter():
+    if PROFILE != "core":
+        raise SystemExit("nested loop lowering requires the core profile")
+    counted = json.loads((BUILD / "polcert-loop-report.json").read_text())
+    if counted["source_manifest_sha256"] != sha(MANIFEST):
+        raise SystemExit("compile the current instruction backend before nested lowering")
+    report = BUILD / "polcert-nested-report.json"
+    report.unlink(missing_ok=True)
+    source = ROOT / "theories" / "PolCertNestedClight.v"
+    log_path = BUILD / "polcert-nested-build.log"
+    with log_path.open("w") as log:
+        subprocess.run(["rocq", "compile", *load_flags(), str(source)], cwd=ROOT,
+                       stdout=log, stderr=subprocess.STDOUT, check=True)
+    inherited = set(counted["compcert_statement_assumptions"])
+    interface = set(counted["interface_assumptions"])
+    adapted = set(re.findall(r"^([\w.]+)\s*:", log_path.read_text(), re.MULTILINE)) - {"Axioms", "Warning"}
+    if adapted != inherited | interface:
+        raise SystemExit(f"unexpected nested lowering assumptions: {sorted(adapted ^ (inherited | interface))}")
+    write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+                        "sources": {str(source.relative_to(ROOT)): sha(source)},
+                        "compcert_statement_assumptions": sorted(inherited),
+                        "interface_assumptions": sorted(interface),
+                        "additional_global_axioms": [],
+                        "loop_support": "structured nested counted loops, limited by supplied scratch depth",
+                        "instruction_backend": "existing execution and memory-view certificate",
+                        "body_temporaries": "preserve parameters, enclosing counters and declared live frame",
+                        "scratch_freshness": "checked against layout, live frame and all scratch names",
+                        "endpoint": "normal Clight small-step star in arbitrary continuation",
+                        "whole_program_transformation": False})
+    print("Nested actual Loop lowering and checked private temporary frames compiled")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter", "dynamic-adapter"))
+    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter", "dynamic-adapter", "nested-adapter"))
     parser.add_argument("--source", type=Path)
     parser.add_argument("--target", default="polygen/Loop.v")
     parser.add_argument("--clean", action="store_true")
@@ -490,6 +522,8 @@ def main():
         counted_adapter()
     elif args.action == "dynamic-adapter":
         dynamic_adapter()
+    elif args.action == "nested-adapter":
+        nested_adapter()
     else:
         build(args.target, args.clean)
 
