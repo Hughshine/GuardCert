@@ -2,6 +2,7 @@ ROCQ ?= rocq
 ROCQFLAGS ?=
 SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRestriction.v theories/ResidualGuard.v \
            theories/AbstractSchedule.v theories/EndpointBridge.v theories/BilateralTransport.v \
+           theories/SilentRegionProtocol.v \
            theories/PolCertCompat.v \
            theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
@@ -48,7 +49,9 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
                   theories/ClightTreeRule.v theories/ClightDecisionRule.v theories/ClightTreeExamples.v \
                   theories/ClightSameAddress.v theories/ClightSignedCancel.v theories/TreeCompiler.v \
-                  theories/ClightFiniteRegion.v theories/ClightRegionRewrite.v \
+                  theories/ClightFiniteRegion.v theories/ClightRegionProtocol.v \
+                  theories/ClightCountedProtocol.v theories/ClightCountedProtocolExamples.v \
+                  theories/ClightRegionRewrite.v \
                   theories/ClightRegionRewriteProof.v theories/ClightRegionRule.v theories/ClightStraightLine.v \
                   theories/ClightRedundantSet.v theories/RegionCompiler.v
 
@@ -69,6 +72,7 @@ compcert-proof: fetch-compcert
 check-compcert: check compcert-proof
 	$(MAKE) compcert-bridge
 	python3 scripts/audit_memory_transport.py
+	python3 scripts/audit_region_protocol.py
 
 guarded-compiler: check-compcert
 	python3 scripts/audit_compiler.py

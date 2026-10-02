@@ -31,6 +31,8 @@
 
 [有限语句区域宿主](docs/clight-statement-regions.md) 将局部条件正确性证书提升到完整 Clight 小步模拟，证明源区域内部每一步的工作量度量严格下降。`encoded_region_rule` 复用同一性质与条件合成接口；冗余赋值实例已进入实际提取驱动，原生例子验证普通、循环和 goto 外围中的快路／回退。出口 memory 已支持双向 `Mem.extends`；内部循环和 private temporary/live frame 仍待接入。
 
+[片段内部进展协议](docs/region-protocol.md) 将小步覆盖、下降度量和完成执行的重建交给语言实例。通用核心不解释语言语义，当前有限区域整程序宿主已消费这个接口；另有严格 signed32 计数循环实例及零次迭代证明。循环实例尚未接入整程序选择器。
+
 [内存与宿主运输性质](docs/compcert-memory-transport.md) 从不依赖具体语义的双向模拟引理，实例化真实 CompCert 内存、运算、Clight 表达式和完整小步执行。代码及 temps 相同而 memory 双向扩展时，语言实例提供相同观察及后继关系的证书。PolCert 的具体 load/store 桥接已复用这个接口；区域替换宿主已借此连接等价内存出口与完整 C→Asm 定理。
 
 可选的 [PolCert 适配](adapters/polcert/README.md) 已在同一工具链上完整重编译真实 `Loop` 的 57 个证明依赖，直接接入 `INSTR` 的 Bernstein 交换性质和 `Loop` 条件片段。`make polcert-proof` 从锁定源码与补丁复现；实际 PolCert 优化器到完整 Clight 循环程序的桥接仍在推进。

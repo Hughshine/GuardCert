@@ -304,3 +304,13 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 实际 OCaml 入口调用 `NativeStorePackage.select_dynamic_package`，由通用 `select_schedule_region` 和 `package_rule` 生成 guard；没有直接调用旧的动态局部规则选择器。原生报告记录这个 proposer 和编译器哈希。十五个实际原子比较、候选及 source fallback、四组输入输出全部通过；静态双写的三个插入与五个拒绝继续通过。
 
 目前仅支持同一普通 signed32 数组的两个元素，源区域仍不含内部循环且 temps 精确对应。整个 PolOpt 循环调度器、private temporary 和循环区域宿主未完成，也未测量性能。
+
+## 2026-10-02：语言提供内部进展，严格计数循环实例
+
+新增 `SilentRegionProtocol.v`、有限 Clight 实例、严格计数循环实例和边界例子，将实际有限区域宿主的内部推进改为消费通用协议后，执行 `make clean` 并联合运行 `make check-integration polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。58 个标准证明清理重编译，60 个锁定 PolCert 输入重新恢复并清理编译，七个隔离依赖和九个具体模块通过；五组默认套件及静态／动态双写原生套件均通过。日志为 `build/region-protocol-full-integration-check.log`。
+
+`scripts/audit_region_protocol.py` 成为标准检查的一部分。三个通用定理闭合于全局上下文；两个 Clight 实例及当前整程序宿主的假设并集只有 CompCert 基线已有的八项。两个实际编译入口继续与上游拥有相同的 35 项假设，没有新增全局公理。报告 `build/region-protocol-report.json` 保存源码哈希与准确连接边界。
+
+严格 signed32 的 `<`／`+1` 循环覆盖所有真实源小步、状态相关度量下降和正常完成后的 `exec_stmt` 重建。首个 body 范围为只修改内存的有限结构化语句。零次迭代定理不需要 body 访存合法；边界例子验证负到正的计数距离、递增到 signed32 最大值和排除修改计数器的 body。
+
+现有整程序路径已经消费有限语言实例的协议字段，提取及原生结果通过；严格循环实例尚未进入整程序选择器。内部循环替换仍需显式模拟索引，private temporary/live frame 和实际 PolOpt 进展也未完成。没有把协议的局部终止性质或零次迭代例子当作完整多面体优化链。

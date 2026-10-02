@@ -14,6 +14,7 @@ theories/ResidualGuard.v
 theories/AbstractSchedule.v
 theories/EndpointBridge.v
 theories/BilateralTransport.v
+theories/SilentRegionProtocol.v
 theories/PolCertCompat.v
 theories/GuardedRegion.v
 theories/CheckedGuard.v
@@ -55,6 +56,9 @@ theories/ClightSameAddress.v
 theories/ClightSignedCancel.v
 theories/TreeCompiler.v
 theories/ClightFiniteRegion.v
+theories/ClightRegionProtocol.v
+theories/ClightCountedProtocol.v
+theories/ClightCountedProtocolExamples.v
 theories/ClightRegionRewrite.v
 theories/ClightRegionRewriteProof.v
 theories/ClightRegionRule.v

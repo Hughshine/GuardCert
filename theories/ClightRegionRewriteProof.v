@@ -3,7 +3,7 @@ From compcert.lib Require Import Coqlib Maps.
 From compcert.common Require Import AST Linking Values Memory Events Globalenvs Smallstep.
 From compcert.cfrontend Require Import Ctypes Cop Clight ClightBigstep.
 From Guard Require Import ClightGuard ClightGuardProof ClightFiniteRegion ClightRegionRewrite
-  CompCertMemoryEquivalence ClightMemorySteps.
+  CompCertMemoryEquivalence ClightMemorySteps SilentRegionProtocol ClightRegionProtocol.
 Local Open Scope nat_scope.
 
 Section CONTINUATIONS.
@@ -264,11 +264,21 @@ Lemma advance_region : forall f source target cur stack k tk e le0 m0 le m t nex
 Proof.
   intros f source target cur stack k tk e le0 m0 le m t next
     CONTRACT CONT FIN STACK ACTIVE PREFIX STEP.
-  destruct (fragment_step_from_ambient (adapter_entry temps) ge e
-    f cur stack k le m t next FIN STACK ACTIVE STEP)
-    as [cur' [stack' [le' [m' [TRACE [NEXT FS]]]]]]. subst t next.
-  pose proof (fragment_step_decreases ge e _ _ _ _ _ _ _ _ FS f k) as DECREASE.
-  destruct (fragment_step_finite ge e _ _ _ _ _ _ _ _ FS FIN STACK) as [FIN' STACK'].
+  pose (P := @finite_region_protocol (adapter_entry temps) ge e f k).
+  pose (current := @FiniteCursor cur stack le m FIN STACK).
+  assert (NOTDONE : cursor_done P current = None).
+  { change (finite_cursor_done current = None).
+    destruct cur; try reflexivity. destruct stack; [destruct ACTIVE; contradiction | reflexivity]. }
+  destruct (cursor_step_closed P current t next NOTDONE STEP)
+    as [following [TRACE [NEXT FS]]].
+  pose proof (cursor_step_decreases P current following FS) as DECREASE.
+  destruct following as [cur' stack' le' m' FIN' STACK'].
+  change (t = E0) in TRACE.
+  change (next = State f cur' (region_cont stack' k) e le' m') in NEXT.
+  change (fragment_step ge e cur stack le m cur' stack' le' m') in FS.
+  change (state_weight (State f cur' (region_cont stack' k) e le' m') <
+    state_weight (State f cur (region_cont stack k) e le m)) in DECREASE.
+  subst t next.
   apply fragment_step_preserved in FS.
   assert (PREFIX' : forall le2 m2,
     resumed_execution (adapter_entry temps) tge e cur' stack' le' m' le2 m2 ->
