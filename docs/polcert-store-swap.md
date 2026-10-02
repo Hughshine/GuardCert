@@ -19,4 +19,8 @@ a[second] = right;
 
 Rocq 例子检查接受、不独立、越界、源式不匹配及前端结合方式。另一个执行例子真正分配八字节内存，构造源和逆序候选的正常执行，并证明候选的两个元素最终为 7 和 8；内存执行用权限和 load/store 定理，未把符号执行的超时当作正确性。
 
-复现入口为 `make polcert-memory-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`。`build/polcert-memory-store-swap-report.json` 将实例的完整编译端点与 CompCert 基线比较。当前尚未提取、运行该实例的原生编译器，也没有接入真实 `PolOpt` 调度算法或循环区域；这是一条具体基本指令重排链的证明，不代表完整多面体编译链已经闭合。
+`PolCertStoreNative.v` 用具体命名数据接口实例化这一证明，并提供两元素数组、下标 0/1、写入值 7/8 的原生入口。`compile_correct` 对所有数组标识符成立；OCaml 驱动传入前端的 `a` 标识符作为普通数据，没有通过外部代码解释 CInstr 执行。
+
+`make polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver` 重建证明、审计、提取并运行独立的 `build/compcert-store-swap/ccomp`。原生检查确认普通函数、循环体和 goto 标签后的三个实际交换，输出同时符合 GCC 和独立预期结果。五个排除例子覆盖不同写入值、重合下标、不同数组 extent、volatile 以及较长语句序列。当前选择器匹配恰好两条写入的语法子树，接受显式语句块的前端结合方式；它不从任意长序列中截取相邻写入。
+
+`build/polcert-memory-store-swap-report.json` 比较通用实例端点与 CompCert 基线，`build/store-swap-compiler-assumptions-report.json` 单独审计提取入口，`build/native-store-swap/report.json` 记录实际插入和执行。完整编译定理继承与上游相同的 35 个假设。证明报告本身不把原生运行视为已完成；执行报告另行记录。真实 `PolOpt` 调度算法、内部循环区域及 private temporary 仍未接入，这个基本指令重排实例不代表完整多面体编译链已经闭合。

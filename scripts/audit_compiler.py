@@ -1,5 +1,6 @@
 """Compare the actual extracted driver's theorem assumptions with CompCert."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import re
@@ -15,34 +16,48 @@ def names(text):
 
 
 def main():
+    global WORK
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--store-swap", action="store_true",
+                        help="audit the optional concrete CInstr compiler entrypoint")
+    args = parser.parse_args()
+    module = "PolCertStoreNative" if args.store_swap else "RegionCompiler"
+    theorem = "compile_correct" if args.store_swap else "compile_property_regions_correct"
+    if args.store_swap:
+        WORK = ROOT / "build" / "store-swap-compiler-assumptions"
     WORK.mkdir(parents=True, exist_ok=True)
     source = WORK / "Audit.v"
-    source.write_text("""From compcert.driver Require Import Compiler.
-From Guard Require Import RegionCompiler.
+    source.write_text(f"""From compcert.driver Require Import Compiler.
+From Guard Require Import {module}.
 Goal True. idtac "GUARD_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "GUARD_DRIVER_BEGIN". exact I. Qed.
-Print Assumptions RegionCompiler.compile_property_regions_correct.
+Print Assumptions {module}.{theorem}.
 Goal True. idtac "GUARD_ASSUMPTIONS_END". exact I. Qed.
 """)
     flags = ["-Q", str(ROOT / "theories"), "Guard"]
     for name in ("lib", "common", "x86", "x86_64", "backend", "cfrontend", "driver"):
         flags += ["-R", str(UPSTREAM / name), "compcert." + name]
     flags += ["-R", str(UPSTREAM / "flocq"), "Flocq"]
+    if args.store_swap:
+        from polcert_core import select_profile, load_flags, artifact
+        select_profile("memory")
+        flags = [*load_flags(), "-Q", str(artifact("adapters")), "GuardPolCert"]
     result = subprocess.run(["rocq", "compile", *flags, str(source)], cwd=ROOT,
                             check=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     (WORK / "audit.log").write_text(result.stdout)
     baseline, adapted = result.stdout.split("GUARD_BASELINE_BEGIN", 1)[1].split("GUARD_DRIVER_BEGIN", 1)
     adapted = adapted.split("GUARD_ASSUMPTIONS_END", 1)[0]
     upstream_names, driver_names = names(baseline), names(adapted)
-    if not upstream_names or not driver_names or driver_names - upstream_names:
+    if not upstream_names or driver_names != upstream_names:
         raise SystemExit(f"unexpected compiler assumptions: {sorted(driver_names - upstream_names)}")
-    (ROOT / "build" / "compiler-assumptions-report.json").write_text(json.dumps({
+    report = "store-swap-compiler-assumptions-report.json" if args.store_swap else "compiler-assumptions-report.json"
+    (ROOT / "build" / report).write_text(json.dumps({
         "upstream_theorem": "Compiler.transf_c_program_correct",
-        "adapted_theorem": "RegionCompiler.compile_property_regions_correct",
+        "adapted_theorem": f"{module}.{theorem}",
         "upstream_assumptions": sorted(upstream_names), "adapted_assumptions": sorted(driver_names),
         "additional_global_axioms": [],
-        "theorem_source_sha256": hashlib.sha256((ROOT / "theories" / "RegionCompiler.v").read_bytes()).hexdigest(),
+        "theorem_source_sha256": hashlib.sha256((ROOT / "theories" / (module + ".v")).read_bytes()).hexdigest(),
     }, indent=2) + "\n")
     print(f"compiler assumptions audited: {len(driver_names)} inherited, no additional global axioms")
 

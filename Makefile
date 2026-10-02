@@ -9,7 +9,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGu
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
         guarded-compiler native-demo check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
         polcert-dynamic-proof polcert-nested-proof polcert-memory-proof \
-        polcert-optimizer-proof clean
+        polcert-optimizer-proof polcert-store-native clean
 all: check
 
 proof:
@@ -107,6 +107,12 @@ polcert-memory-proof: check-compcert
 	python3 scripts/polcert_core.py restore --profile memory $(POLCERT_SOURCE_ARG)
 	python3 scripts/polcert_core.py build --profile memory --target src/CInstr.v --target polygen/Loop.v --clean
 	python3 scripts/polcert_core.py memory-adapter --profile memory
+
+polcert-store-native: polcert-memory-proof
+	python3 scripts/audit_compiler.py --store-swap
+	@python3 scripts/build_compiler.py --store-swap > build/store-swap-native-build.log 2>&1 || \
+	  { cat build/store-swap-native-build.log; exit 1; }
+	python3 scripts/native_store_swap.py
 
 polcert-optimizer-proof: check-compcert
 	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)

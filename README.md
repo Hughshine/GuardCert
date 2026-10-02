@@ -47,7 +47,7 @@
 
 [真实 CInstr 调度区域接口](docs/polcert-schedule-regions.md) 已将源片段解码、条件调度证书和候选生成组合为完整 Csem→Asm 定理，采用与 PolCert 相同的等价内存出口。插件仍须证明这三个义务；具体数组写入解码已提供，这套调度包接口的具体包仍待构造。
 
-[具体 CInstr 双写重排](docs/polcert-store-swap.md) 已用真实 Bernstein 定理证明同一数组的两个不同常量元素写入可以交换，并接到完整 Csem→Asm 定理。检查器验证静态参数和源 AST，真实分配例子构造两端执行。该实例尚未提取成原生编译器，内部循环与真实多面体调度器接入仍未完成。
+[具体 CInstr 双写重排](docs/polcert-store-swap.md) 已用真实 Bernstein 定理证明同一数组的两个不同常量元素写入可以交换，并接到完整 Csem→Asm 定理。检查器验证静态参数和源 AST，真实分配例子构造两端执行。`make polcert-store-native` 还提取独立编译器，检查普通、循环体和 goto 上下文中的三个实际交换及五个排除例子。内部循环区域与真实多面体调度器接入仍未完成。
 
 [无人工区间的仿射 guard 合成](docs/affine-dynamic-synthesis.md) 直接从“不溢出”前提与 layout 生成依赖顺序的 signed64 检查树，证明检查精确对应所选 signed32 前提，并经性质接口支持复合公式和 unknown。复现目标为 `make polcert-dynamic-proof`；这一合成器尚未进入原生驱动。
 

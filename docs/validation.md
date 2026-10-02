@@ -276,3 +276,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- \
 Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结合方式；另以实际八字节分配及权限证明构造源／候选执行，并证明候选最终的两个元素为 7、8。语法绑定检查本身没有全局公理。
 
 该实例仅处理一个数组的两次普通 signed32 常量写入，使用静态独立性条件；尚未运行提取后的原生重排驱动，也没有接入真实多面体优化器或循环区域。上述五组原生回归属于既有默认驱动，不是新实例的原生验证。泛型调度包的具体包数量仍为 0；新实例直接提供区域证书。
+
+## 2026-10-02：真实 CInstr 双写重排进入原生驱动
+
+新增 `PolCertStoreNative.v`、可选提取入口和原生套件后，执行 `make clean`，联合运行 `make check-integration polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。52 个标准证明与 60 个锁定 PolCert 输入清理重编译；七个隔离适配依赖和七个具体模块均通过。两套驱动分别提取构建，五组默认原生回归和新双写套件都通过。日志为 `build/store-native-integration-check.log`。
+
+新入口 `PolCertStoreNative.compile_correct` 对任意数组标识符给出 Csem→Asm backward simulation。驱动传入前端 `a` 标识符作为普通数据；具体命名接口没有未实现的提取公理。独立假设审计确认原生入口与 CompCert 基线同为相同的 35 项。原生检查验证普通函数、循环体、goto 标签后三个实际交换，并验证五个排除情形；结果匹配 GCC 和独立预期输出。
+
+当前选择器要求恰好两条写入的语法子树，可消费显式语句块的前端结合方式；它不截取任意长序列中的相邻写入。静态独立性条件仍是编译时检查，尚无此实例的动态 alias guard、内部循环区域替换或真实 PolOpt 接入，也未测量性能。

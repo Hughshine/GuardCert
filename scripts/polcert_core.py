@@ -508,7 +508,8 @@ def memory_adapter():
                     "PolCertCountedClight.v", "PolCertClightBody.v", "PolCertNestedClight.v",
                     "PolCertSchedule.v"]
     sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",
-               "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v"]
+               "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v",
+               "PolCertStoreNative.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
     region_report = artifact("region-adapter-report.json")
