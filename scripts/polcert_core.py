@@ -48,6 +48,13 @@ def write_json(path, value):
     Path(path).write_text(json.dumps(value, indent=2) + "\n")
 
 
+def source_diff(before, after, name):
+    lines = difflib.unified_diff(before.splitlines(True), after.splitlines(True),
+                                fromfile="a/" + name, tofile="b/" + name)
+    return "".join(line if line.endswith("\n") else
+                   line + "\n\\ No newline at end of file\n" for line in lines)
+
+
 def load_flags():
     flags = ["-Q", str(ROOT / "theories"), "Guard"]
     for name in ("lib", "common", "x86", "x86_64", "cfrontend", "backend", "driver"):
@@ -97,8 +104,7 @@ def record_patch(name):
         raise SystemExit("upstream source changed since snapshot; take a new snapshot first")
     before = "From Guard Require Import PolCertCompat.\n" + original.read_text()
     after = (WORK / name).read_text()
-    diff = "".join(difflib.unified_diff(before.splitlines(True), after.splitlines(True),
-                                       fromfile="a/" + name, tofile="b/" + name))
+    diff = source_diff(before, after, name)
     patch_root = PATCH_ROOT
     patch_root.mkdir(parents=True, exist_ok=True)
     patch = patch_root / (name.replace("/", "-") + ".patch")
@@ -125,8 +131,7 @@ def freeze(target):
             ["git", "show", manifest["commit"] + ":" + name], cwd=source,
             text=True)
         after = (original_source / name).read_text()
-        diff.extend(difflib.unified_diff(before.splitlines(True), after.splitlines(True),
-                                         fromfile="a/" + name, tofile="b/" + name))
+        diff.append(source_diff(before, after, name))
     SOURCE_PATCH.write_text("".join(diff))
     write_json(LOCK, {
         "repository": "git@github.com:Hughshine/PolCert.git",
@@ -176,8 +181,8 @@ def restore(source):
 
 
 def closure(manifest, target):
-    target_name = str(Path(target))
-    if target_name not in manifest["upstream_hashes"]:
+    targets = target if isinstance(target, list) else [target]
+    if any(str(Path(name)) not in manifest["upstream_hashes"] for name in targets):
         raise SystemExit("proof target is outside the snapshotted source set")
     flags = load_flags()
     files = [str(WORK / name) for name in manifest["upstream_hashes"]]
@@ -187,8 +192,8 @@ def closure(manifest, target):
     artifact("dependency-warnings.txt").write_text(dep.stderr)
     graph = {}
     for line in dep.stdout.splitlines():
-        targets, dependencies = line.split(": ", 1)
-        primary = targets.split()[0]
+        outputs, dependencies = line.split(": ", 1)
+        primary = outputs.split()[0]
         if primary.endswith(".vo"):
             graph[primary] = [x for x in dependencies.split() if x.endswith(".vo")]
     seen, order = set(), []
@@ -207,7 +212,8 @@ def closure(manifest, target):
             visit(dependency)
         order.append(node)
 
-    visit(str(WORK / Path(target).with_suffix(".vo")))
+    for name in targets:
+        visit(str(WORK / Path(name).with_suffix(".vo")))
     write_json(artifact("order.json"), order)
     return flags, graph, order
 
@@ -488,16 +494,79 @@ def nested_adapter():
     print("Nested actual Loop lowering and checked private temporary frames compiled")
 
 
+def memory_adapter():
+    if PROFILE != "memory":
+        raise SystemExit("the concrete array backend requires the memory profile")
+    core = json.loads(artifact("report.json").read_text())
+    if (core["target"] != ["src/CInstr.v", "polygen/Loop.v"]
+            or core["source_manifest_sha256"] != sha(MANIFEST)):
+        raise SystemExit("compile the frozen CInstr/Loop union before its memory adapter")
+    copies = artifact("adapters")
+    copies.mkdir(exist_ok=True)
+    flags = [*load_flags(), "-Q", str(copies), "GuardPolCert"]
+    dependencies = ["PolCertLoopGuard.v", "PolCertAffineClight.v", "PolCertAffineGuard.v",
+                    "PolCertCountedClight.v", "PolCertClightBody.v", "PolCertNestedClight.v"]
+    sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v"]
+    report = artifact("adapter-report.json")
+    report.unlink(missing_ok=True)
+
+    def isolate_imports(match):
+        words = match.group(1).split()
+        own = [word for word in words if word + ".v" in dependencies]
+        guard = [word for word in words if word + ".v" not in dependencies]
+        return (("From Guard Require Import " + " ".join(guard) + ".\n" if guard else "")
+                + ("From GuardPolCert Require Import " + " ".join(own) + "." if own else ""))
+
+    with artifact("adapter-build.log").open("w") as log:
+        for name in dependencies:
+            copied = copies / name
+            copied.write_text(re.sub(r"From Guard Require Import ([\s\w]+)\.", isolate_imports,
+                                    (ROOT / "theories" / name).read_text()))
+            subprocess.run(["rocq", "compile", *flags, str(copied)], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+        for name in sources:
+            subprocess.run(["rocq", "compile", *flags, str(ROOT / "theories" / name)], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+    contents = artifact("adapter-build.log").read_text()
+    baseline_part, adapted_part = contents.split("GUARDCERT_MEMORY_BASELINE_BEGIN", 1)[1].split(
+        "GUARDCERT_MEMORY_ADAPTER_BEGIN", 1)
+    adapted_part = adapted_part.split("GUARDCERT_MEMORY_ASSUMPTIONS_END", 1)[0]
+
+    def assumptions(part):
+        return set(re.findall(r"^([\w.]+)\s*:", part, re.MULTILINE)) - {"Axioms", "Warning"}
+
+    baseline, adapted = assumptions(baseline_part), assumptions(adapted_part)
+    if not baseline or not adapted or adapted - baseline:
+        raise SystemExit(f"unexpected concrete memory assumptions: {sorted(adapted - baseline)}")
+    write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+                        "core_proof_files": core["proof_files"],
+                        "sources": {"theories/" + n: sha(ROOT / "theories" / n)
+                                    for n in [*dependencies, *sources]},
+                        "upstream_assumptions": sorted(baseline),
+                        "adapter_assumptions": sorted(adapted),
+                        "additional_global_axioms": [], "instruction_interface_axioms": [],
+                        "memory_backend": "actual CInstr/CState, mutual Mem.extends, real load/store",
+                        "array_support": "local ordinary signed-32 one-dimensional arrays",
+                        "indices": "constants and instruction operands; checked word/pointer bounds",
+                        "direct_array_copy": "refused without a definedness certificate",
+                        "endpoint": "normal Clight small-step star, concrete memory view and live frame",
+                        "native_driver_integration": False, "whole_program_transformation": False})
+    print("Concrete CInstr arrays and nested loops execute in Clight without an instruction oracle")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter", "dynamic-adapter", "nested-adapter"))
+    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter", "dynamic-adapter", "nested-adapter", "memory-adapter"))
     parser.add_argument("--source", type=Path)
-    parser.add_argument("--target", default="polygen/Loop.v")
+    parser.add_argument("--target", action="append",
+                        help="proof entry point; repeat to freeze/build their union")
     parser.add_argument("--clean", action="store_true")
     parser.add_argument("--file")
-    parser.add_argument("--profile", choices=("core", "optimizer"), default="core",
-                        help="isolate exploratory optimizer inputs and proof artifacts")
+    parser.add_argument("--profile", choices=("core", "optimizer", "memory"), default="core",
+                        help="isolate language, optimizer, and memory proof artifacts")
     args = parser.parse_args()
+    targets = args.target or ["polygen/Loop.v"]
+    args.target = targets[0] if len(targets) == 1 else targets
     select_profile(args.profile)
     BUILD.mkdir(exist_ok=True)
     if args.action == "snapshot":
@@ -524,6 +593,8 @@ def main():
         dynamic_adapter()
     elif args.action == "nested-adapter":
         nested_adapter()
+    elif args.action == "memory-adapter":
+        memory_adapter()
     else:
         build(args.target, args.clean)
 

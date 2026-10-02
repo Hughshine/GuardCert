@@ -1,0 +1,28 @@
+--- a/src/CState.v
++++ b/src/CState.v
+@@ -21,6 +21,8 @@
+ Require Import sflib.
+ 
+ Module CState <: STATE.
++
++    Local Open Scope Z_scope.
+ 
+     Module Ty := CTy.
+     Definition state: Type := (genv * env * mem)%type.
+@@ -1116,12 +1118,12 @@
+   Qed.
+ 
+   Lemma sem_binary_operation_write_cell_invariant:
+-    forall op v1 v2 v' v0 wc ty ty1 ty2 (m1 m2:mem) ge env m1 ge' env' m2,
+-      write_cell wc ty v0 (ge, env, m1) (ge', env', m2) ->
++    forall op v1 v2 v' v0 wc ty ty1 ty2 (m1 m2:mem) ge env m3 ge' env' m4,
++      write_cell wc ty v0 (ge, env, m3) (ge', env', m4) ->
+       sem_binary_operation ge op v1 (CTy.basetype_to_compcert_type ty1) 
+-      v2 (CTy.basetype_to_compcert_type ty2) m1 = Some v' <->
++      v2 (CTy.basetype_to_compcert_type ty2) m3 = Some v' <->
+       sem_binary_operation ge op v1 (CTy.basetype_to_compcert_type ty1) 
+-      v2 (CTy.basetype_to_compcert_type ty2) m2 = Some v'.
++      v2 (CTy.basetype_to_compcert_type ty2) m4 = Some v'.
+   Proof.
+     intros. split; intro.
+     - unfolds CTy.basetype_to_compcert_type. destruct ty1; destruct ty2; simpls.

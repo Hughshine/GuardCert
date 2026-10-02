@@ -1,0 +1,27 @@
+--- a/src/CTy.v
++++ b/src/CTy.v
+@@ -97,7 +97,7 @@
+   Fixpoint base_of_compcert_arrtype (ty: Ctypes.type): option basetype :=
+     match ty with
+     | Tarray ty' _ _ => base_of_compcert_arrtype ty'
+-    | ty => if type_eqb ty type_int32s then Some CTy.int32s else None
++    | ty => if type_eq ty type_int32s then Some CTy.int32s else None
+     end.
+ 
+   Fixpoint collect_compcert_arrtype_bounds (ty: Ctypes.type): option (list Z) :=
+@@ -107,7 +107,7 @@
+       | Some bounds => Some (bounds ++ [bd])
+       | None => None
+       end
+-    | ty => if type_eqb ty type_int32s then Some nil else None
++    | ty => if type_eq ty type_int32s then Some nil else None
+     end.
+ 
+   Definition of_compcert_arrtype (ty: Ctypes.type): option arrtype :=
+@@ -159,4 +159,4 @@
+     simpls. unfold CTy.basetype_size. simpls. trivial.
+   Qed. 
+   
+-End CTy.
+\ No newline at end of file
++End CTy.

@@ -37,7 +37,9 @@
 
 [计数循环桥接](docs/polcert-clight-loop.md) 进一步提供基本指令插件、`Instr/Seq/Guard` 的 body 编译、一个外层 Loop 的 Clight lowering，以及任意 continuation 中的实际小步执行证书。复现目标为 `make polcert-loop-proof`。当前 body 要求保留 temporaries，内部循环尚未支持；多面体优化的完整程序 simulation 仍未闭合。
 
-[嵌套循环桥接](docs/polcert-nested-clight.md) 扩展到指定 scratch 深度的多层 Loop，允许内层 scratch 改变并保护参数、外层计数器及声明的 live frame。编译器检查整个 scratch pool 的新鲜性；复现目标为 `make polcert-nested-proof`。具体内存／指令实例、候选进展、tiling 边界运算及完整程序区域模拟仍在推进。
+[嵌套循环桥接](docs/polcert-nested-clight.md) 扩展到指定 scratch 深度的多层 Loop，允许内层 scratch 改变并保护参数、外层计数器及声明的 live frame。编译器检查整个 scratch pool 的新鲜性；复现目标为 `make polcert-nested-proof`。翻译另有纯语法接口，正确性证书由语言实例提供。
+
+[具体数组实例](docs/polcert-array-clight.md) 重编译真实 `CInstr/CState/Loop` 的 60 个依赖，将一维 signed32 数组指令和嵌套循环接到 Clight 的真实 load/store 与小步执行。最终端点没有抽象指令执行假设；真实分配／初始化例子证明 `B[0]=7` 时生成代码产生 `A[0]=8`。复现目标为 `make polcert-memory-proof`。标量参数入口、候选进展、tiling 边界运算及完整程序区域模拟仍在推进。
 
 [无人工区间的仿射 guard 合成](docs/affine-dynamic-synthesis.md) 直接从“不溢出”前提与 layout 生成依赖顺序的 signed64 检查树，证明检查精确对应所选 signed32 前提，并经性质接口支持复合公式和 unknown。复现目标为 `make polcert-dynamic-proof`；这一合成器尚未进入原生驱动。
 

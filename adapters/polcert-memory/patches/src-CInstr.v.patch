@@ -1,0 +1,97 @@
+--- a/src/CInstr.v
++++ b/src/CInstr.v
+@@ -28,7 +28,14 @@
+ (** A[i][...] = B[j][...] +/-/... *)
+ (* CTy is a self-defined type, as a sugar of CompCert.type *)
+ (* we will convert it to original version for dynamic semantics *)
+-Module CInstr <: INSTR.
++Module Type C_INSTR_NAMES.
++  Parameter ident_to_varname : AST.ident -> varname.
++  Parameter varname_to_ident : varname -> AST.ident.
++  Parameter bind_ident_varname : list (AST.ident * varname) -> list AST.ident.
++  Parameter iterator_to_varname : nat -> varname.
++End C_INSTR_NAMES.
++
++Module CInstr (Names : C_INSTR_NAMES) <: INSTR.
+   Module State := CState.
+   Module Ty := CTy.
+   Definition ident := AST.ident.
+@@ -37,10 +44,29 @@
+   Definition ident_to_openscop_ident (id: ident) := id.
+   Definition openscop_ident_to_ident (id: ident) := id.
+   
+-  Definition ident_to_varname := AST.ident_to_varname.
+-  Definition varname_to_ident := AST.varname_to_ident.
+-  Definition bind_ident_varname := AST.bind_ident_varname.
+-  Definition iterator_to_varname := AST.iterator_to_varname.
++  Definition ident_to_varname := Names.ident_to_varname.
++  Definition varname_to_ident := Names.varname_to_ident.
++  Definition bind_ident_varname := Names.bind_ident_varname.
++  Definition iterator_to_varname := Names.iterator_to_varname.
++
++  Definition unary_operation_eq (a b : unary_operation) : {a = b} + {a <> b}.
++  Proof. decide equality. Defined.
++  Definition binary_operation_eq (a b : binary_operation) : {a = b} + {a <> b}.
++  Proof. decide equality. Defined.
++  Definition unaryop_eq_dec a b := if unary_operation_eq a b then true else false.
++  Definition biop_eq_dec a b := if binary_operation_eq a b then true else false.
++  Definition val_eqb a b := if Val.eq a b then true else false.
++
++  Lemma unaryop_eqb_eq a b : unaryop_eq_dec a b = true <-> a = b.
++  Proof. unfold unaryop_eq_dec; destruct (unary_operation_eq a b); split; congruence. Qed.
++  Lemma biop_eqb_eq a b : biop_eq_dec a b = true <-> a = b.
++  Proof. unfold biop_eq_dec; destruct (binary_operation_eq a b); split; congruence. Qed.
++  Lemma val_eqb_eq a b : val_eqb a b = true <-> a = b.
++  Proof. unfold val_eqb; destruct (Val.eq a b); split; congruence. Qed.
++  Lemma unaryop_eqb_refl a : unaryop_eq_dec a a = true.
++  Proof. apply unaryop_eqb_eq; reflexivity. Qed.
++  Lemma biop_eqb_refl a : biop_eq_dec a a = true.
++  Proof. apply biop_eqb_eq; reflexivity. Qed.
+ 
+   (** may-affine expression for array index *)
+   (** change to all Z, no type (assuming int32s as defaulted when evalutaing to value) *)
+@@ -111,7 +137,7 @@
+     | MAvarz n => 
+         match nth_error names n with
+         | Some name => Some (AfVar name)
+-        | None => Some (AfVar (ident_to_varname (free_ident tt)))
++        | None => None
+                   (* should not be in this case *)
+         end
+     | MAunop Cop.Oneg r => 
+@@ -180,7 +206,7 @@
+     | Evarz n _ => 
+         match nth_error iter_names n with
+         | Some name => Some (ArrAtom (AVar name))
+-        | None => Some (ArrAtom (AVar (ident_to_varname (free_ident tt))))
++        | None => None
+         end
+     | Eaccess a _ => 
+       match access_to_openscop a iter_names with
+@@ -880,7 +906,7 @@
+   Fixpoint expr_eqb (e1 e2: expr) := 
+     match e1, e2 with 
+     | Eval v ty, Eval v' ty' => 
+-      Val.eqb v v' && Ty.basetype_eqb ty ty'
++      val_eqb v v' && Ty.basetype_eqb ty ty'
+     (* | Evar id ty, Evar id' ty' =>  *)
+       (* Pos.eqb id id' && type_eqb ty ty' *)
+     | Evarz n ty, Evarz n' ty' 
+@@ -1034,7 +1060,7 @@
+     induction e as [v ty|n ty|a ty|op e IHe ty|op e1 IHe1 e2 IHe2 ty];
+       simpl.
+     - rewrite andb_true_iff. split.
+-      + apply Val.eqb_eq. reflexivity.
++      + apply val_eqb_eq. reflexivity.
+       + apply Ty.basetype_eqb_eq. reflexivity.
+     - rewrite andb_true_iff. split.
+       + apply Nat.eqb_refl.
+@@ -1065,7 +1091,7 @@
+       intros e'; split; intro Heq.
+     - destruct e'; simpl in Heq; try discriminate.
+       apply andb_true_iff in Heq as [Hval Hty].
+-      apply Val.eqb_eq in Hval.
++      apply val_eqb_eq in Hval.
+       apply Ty.basetype_eqb_eq in Hty.
+       subst. reflexivity.
+     - subst. apply expr_eqb_refl.

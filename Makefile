@@ -8,7 +8,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGu
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
         guarded-compiler native-demo check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
-        polcert-dynamic-proof polcert-nested-proof \
+        polcert-dynamic-proof polcert-nested-proof polcert-memory-proof \
         polcert-optimizer-proof clean
 all: check
 
@@ -95,6 +95,11 @@ polcert-dynamic-proof: polcert-affine-proof
 
 polcert-nested-proof: polcert-loop-proof
 	python3 scripts/polcert_core.py nested-adapter
+
+polcert-memory-proof: check-compcert
+	python3 scripts/polcert_core.py restore --profile memory $(POLCERT_SOURCE_ARG)
+	python3 scripts/polcert_core.py build --profile memory --target src/CInstr.v --target polygen/Loop.v --clean
+	python3 scripts/polcert_core.py memory-adapter --profile memory
 
 polcert-optimizer-proof: check-compcert
 	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)

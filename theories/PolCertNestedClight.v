@@ -51,20 +51,16 @@ Proof.
   rewrite FRAME; auto. apply SUB; eapply nth_error_In; eauto.
 Qed.
 
-Section BACKEND.
-Variable function_entry : genv -> function -> list val -> mem -> env -> temp_env -> mem -> Prop.
-Variable ge : genv.
-Variable locals : env.
-Variable view : I.State.t -> mem -> Prop.
-Variable backend : B.instruction_backend function_entry ge locals view.
+Section LOWERING.
+Variable lower_instruction : I.t -> list expr -> option statement.
 
-Fixpoint compile_nested layout bounds pool (st : L.stmt) : option statement :=
+Fixpoint compile_nested_raw layout bounds pool (st : L.stmt) : option statement :=
   match st with
   | L.Instr i es => match B.compile_operands layout bounds es with
-      Some codes => B.lower_instruction backend i codes | None => None end
-  | L.Seq sts => compile_nested_list layout bounds pool sts
+      Some codes => lower_instruction i codes | None => None end
+  | L.Seq sts => compile_nested_list_raw layout bounds pool sts
   | L.Guard t body => match A.lower_test layout bounds t,
-      compile_nested layout bounds pool body with
+      compile_nested_raw layout bounds pool body with
       Some tree, Some code => Some (tree_statement tree code Sskip) | _, _ => None end
   | L.Loop lower upper body => match pool with
       [] => None
@@ -72,20 +68,32 @@ Fixpoint compile_nested layout bounds pool (st : L.stmt) : option statement :=
       if C.header_fresh layout iterator bound then
         match A.compile_expr layout bounds lower, A.compile_expr layout bounds upper with
         | Some (lo, li), Some (hi, ui) =>
-          match compile_nested (iterator :: layout)
+          match compile_nested_raw (iterator :: layout)
             (A.Interval (A.lower li) (A.upper ui) :: bounds) rest body with
           | Some code => Some (initialized_counted_loop iterator bound lo hi code)
           | None => None end
         | _, _ => None end
       else None end
   end
-with compile_nested_list layout bounds pool (sts : L.stmt_list) : option statement :=
+with compile_nested_list_raw layout bounds pool (sts : L.stmt_list) : option statement :=
   match sts with
   | L.SNil => Some Sskip
-  | L.SCons st rest => match compile_nested layout bounds pool st,
-      compile_nested_list layout bounds pool rest with
+  | L.SCons st rest => match compile_nested_raw layout bounds pool st,
+      compile_nested_list_raw layout bounds pool rest with
       Some code, Some codes => Some (Ssequence code codes) | _, _ => None end
   end.
+
+End LOWERING.
+
+Section BACKEND.
+Variable function_entry : genv -> function -> list val -> mem -> env -> temp_env -> mem -> Prop.
+Variable ge : genv.
+Variable locals : env.
+Variable view : I.State.t -> mem -> Prop.
+Variable backend : B.instruction_backend function_entry ge locals view.
+
+Definition compile_nested := compile_nested_raw (B.lower_instruction backend).
+Definition compile_nested_list := compile_nested_list_raw (B.lower_instruction backend).
 
 Lemma loop_framed_clight iterator bound code live base env lower upper body source target le m0 :
   iterator <> bound -> ~ In iterator live -> signed_range (L.eval_expr env lower) ->
@@ -161,7 +169,8 @@ Proof.
   apply nested_stmt_list_ind.
   - intros lower upper body IH layout bounds pool code env le source target m0 live
       COMPILE FREE WITHIN VIEW SOURCE MEMORY.
-    cbn [compile_nested] in COMPILE.
+    cbn [compile_nested compile_nested_raw compile_nested_list_raw] in COMPILE.
+    fold compile_nested compile_nested_list in COMPILE.
     destruct pool as [|[iterator bound] rest]; try discriminate.
     destruct (C.header_fresh layout iterator bound) eqn:FRESH; try discriminate.
     destruct (A.compile_expr layout bounds lower) as [[lo li]|] eqn:LOWER; try discriminate.
@@ -227,7 +236,8 @@ Proof.
       exact (EVAL ge locals m0).
   - intros i operands layout bounds pool code env le source target m0 live
       COMPILE FREE WITHIN VIEW SOURCE MEMORY.
-    cbn [compile_nested] in COMPILE.
+    cbn [compile_nested compile_nested_raw compile_nested_list_raw] in COMPILE.
+    fold compile_nested compile_nested_list in COMPILE.
     destruct (B.compile_operands layout bounds operands) as [codes|] eqn:OPERANDS; try discriminate.
     inversion SOURCE; subst.
     destruct (@B.instruction_execution function_entry ge locals view backend i codes
@@ -239,7 +249,8 @@ Proof.
     eapply IH; eauto.
   - intros test body IH layout bounds pool code env le source target m0 live
       COMPILE FREE WITHIN VIEW SOURCE MEMORY.
-    cbn [compile_nested] in COMPILE.
+    cbn [compile_nested compile_nested_raw compile_nested_list_raw] in COMPILE.
+    fold compile_nested compile_nested_list in COMPILE.
     destruct (A.lower_test layout bounds test) as [tree|] eqn:TEST; try discriminate.
     destruct (compile_nested layout bounds pool body) as [generated|] eqn:BODY; try discriminate.
     inversion COMPILE; subst code. inversion SOURCE; subst.
@@ -260,7 +271,10 @@ Proof.
     exists le, m0; repeat split; auto using temp_agree_refl; constructor.
   - intros st IH rest IHR layout bounds pool code env le source target m0 live
       COMPILE FREE WITHIN VIEW SOURCE MEMORY.
-    cbn [compile_nested_list] in COMPILE.
+    cbn [compile_nested_list compile_nested_raw compile_nested_list_raw] in COMPILE.
+    fold (compile_nested_raw (B.lower_instruction backend))
+      (compile_nested_list_raw (B.lower_instruction backend)) in COMPILE.
+    fold compile_nested compile_nested_list in COMPILE.
     destruct (compile_nested layout bounds pool st) as [first|] eqn:FIRST; try discriminate.
     destruct (compile_nested_list layout bounds pool rest) as [remaining|] eqn:REST; try discriminate.
     inversion COMPILE; subst code. inversion SOURCE; subst.
@@ -350,6 +364,16 @@ Example insufficient_depth_rejected :
 Proof. vm_compute; reflexivity. Qed.
 
 End BACKEND.
+
+Definition checked_compile_nested_raw lower layout bounds live pool st :=
+  if scratch_check pool (layout ++ live) then compile_nested_raw lower layout bounds pool st
+  else None.
+
+Lemma checked_compile_nested_raw_agrees function_entry ge locals view
+  (backend : B.instruction_backend function_entry ge locals view) layout bounds live pool st :
+  checked_compile_nested_raw (B.lower_instruction backend) layout bounds live pool st =
+    checked_compile_nested backend layout bounds live pool st.
+Proof. reflexivity. Qed.
 
 Theorem checked_compile_nested_steps temps p locals (view : I.State.t -> mem -> Prop)
   (backend : B.instruction_backend (fun ge => ClightGuard.adapter_entry temps ge)

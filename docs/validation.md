@@ -214,3 +214,13 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 执行 `make clean` 后，组合目标 `make check-integration polcert-nested-proof polcert-dynamic-proof polcert-optimizer-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。39 个工程证明、独立执行模型、上游 proof 目标、实际 C→Asm 假设审计、驱动提取和四组原生回归通过。真实 Loop 的 57 个依赖及真实 `PolOptCorrect` 的 92 个依赖分别恢复到隔离副本并以 `--clean` 重编译；所有原适配器及新的嵌套循环桥接通过。日志为 `build/nested-full-integration-check.log`。
 
 `build/polcert-nested-report.json` 审计递归 lowering 与任意 continuation 中的小步端点，只继承六个 Clight 假设和 `I.State.t/I.t/I.instr_semantics`，新增全局公理为空。两层相关边界循环的实际 AST、live 冲突／重复 scratch／深度不足拒绝由 Rocq 检查。`build/polcert-optimizer-adapter-report.json` 的实际优化器端点继续继承原先 42 个假设，新增全局公理与接口字段均为空。联合成功构建不表示多面体优化已进入原生 C→Asm 驱动。
+
+# 具体数组内存实例、纯语法循环接口与真实执行例子
+
+执行 `make clean` 后，组合目标 `make check-integration polcert-nested-proof polcert-dynamic-proof polcert-optimizer-proof polcert-memory-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。39 个工程证明、独立模型、CompCert proof 目标、原生提取／构建和四组原生回归通过；57 个 Loop、92 个优化器及 60 个 CInstr/Loop 并集的锁定输入分别恢复并以 `--clean` 重新编译。日志是 `build/array-full-integration-check.log`。三份闭包的来源相同，逻辑命名空间与 `.vo` 分别隔离。
+
+`compile_nested_raw`／`checked_compile_nested_raw` 现在把纯翻译函数与运行时执行证书分开。既有抽象端点的六项 Clight 假设及三项 INSTR 接口假设保持一致。具体数组实例的 `compile_array_nested_steps` 没有剩余 INSTR 接口假设，继承六项 Clight 假设；实际 CInstr Bernstein／CState 基线的并集为七项，包括上游 proof irrelevance。`build/polcert-memory-adapter-report.json` 记录新增全局公理为空，并检查当前全部桥接源文件的 SHA-256。
+
+Rocq 检查了一维数组更新、单层／两层相关边界循环及四种保守拒绝。执行正例使用真正的 `Mem.alloc` 和访问权限证明建立两个数组，初始化 `B[0]=7`，证明 CInstr 和生成 Clight 均执行，并证明 `A[0]=8`。内存执行例子使用 load/store 定理；纯编译例子使用 `vm_compute`。同时核对上游标量解码拒绝：`CTy.of_compcert_arrtype type_int32s = None`。
+
+循环与数组代码尚未进入原生驱动，完整程序区域 simulation、标量参数入口与目标进展仍是未完成义务。实际优化器假设审计继续保持原先 42 项，实际 C→Asm 编译器端点继续与上游相同的 35 项。没有性能测量。

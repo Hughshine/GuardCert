@@ -3,3 +3,5 @@ adapters/polcert/source.patch -whitespace
 adapters/polcert/patches/*.patch -whitespace
 adapters/polcert-optimizer/source.patch -whitespace
 adapters/polcert-optimizer/patches/*.patch -whitespace
+adapters/polcert-memory/source.patch -whitespace
+adapters/polcert-memory/patches/*.patch -whitespace

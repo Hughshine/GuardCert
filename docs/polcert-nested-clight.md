@@ -4,6 +4,8 @@
 
 这一步仍使用已证明的区间分析与入口 range guard。仿射边界和操作数的中间结果均须通过分析；除法、取模、min/max 目前不支持，因此还不能覆盖实际 tiling 生成器的全部输出。
 
+`compile_nested_raw` 和 `checked_compile_nested_raw` 只接收一个指令翻译函数，没有运行时语义参数。已有带证书接口调用同一个纯翻译函数，`checked_compile_nested_raw_agrees` 证明两种入口一致。具体的 [CInstr 数组实例](polcert-array-clight.md) 已供给指令执行证书。
+
 ## 公共与私有 temporaries
 
 旧单层接口要求 body 保留所有 temporaries。嵌套循环会更新内部 iterator/bound，因此递归接口改为保护参数 layout、外层计数器和调用者声明的 live frame。基本指令插件仍保留 temporaries，只通过内存 view 修改状态。
