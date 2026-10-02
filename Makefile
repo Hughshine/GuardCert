@@ -1,6 +1,9 @@
 ROCQ ?= rocq
 ROCQFLAGS ?=
-SOURCES := theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
+SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGuard.v \
+           theories/AbstractSchedule.v theories/EndpointBridge.v \
+           theories/PolCertCompat.v \
+           theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
@@ -34,7 +37,9 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/ClightGuard.v \
                   theories/ClightExprRule.v theories/CommonRewrites.v \
                   theories/CompCertMemoryRule.v \
                   theories/GuardCompiler.v theories/ClightIntegrationExamples.v \
-                  theories/CommonRewriteExamples.v
+                  theories/CommonRewriteExamples.v theories/ClightCondition.v \
+                  theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
+                  theories/ClightTreeRule.v theories/ClightTreeExamples.v theories/TreeCompiler.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done

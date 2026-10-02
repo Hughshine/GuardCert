@@ -1,5 +1,7 @@
 # 真实 CompCert 接入
 
+最新路径已将通用性质接口生成的短路条件树接入 Clight 宿主，并提取 `TreeCompiler.compile_property_rewrites` 作为当前 Driver 入口。实际 overflow 取消规则使用这条路径，完整程序定理仍为 `Csem → Asm` backward simulation。新接口、验证结果及未完成的 PolCert 适配见 [abstract-kernel.md](abstract-kernel.md) 和 [validation.md](validation.md)。下面记录的 `compile_common_rewrites` 是上一阶段的可用入口。
+
 2026-10-02：已实现 Clight 分支版本化 pass，并证明扩展编译器从原始 CompCert C 到 Asm 的 backward simulation。提取后的编译器实际编译了 C 文件，生成汇编经 GCC 汇编、链接后运行，输出与 GCC 编译的原程序一致。工具链仍为已锁定 CompCert v3.18、Rocq 9.2.0。
 
 同日扩展：新增表达式版本化 pass 和四个常见 rewrite，当前可执行编译器入口是 `compile_common_rewrites`，先执行既有分支 pass，再执行表达式 pass。两者共享编码／合成证明，完整编译器仍提供不带源程序 presumption 前提的 `Csem → Asm` backward simulation 和规格保持。接口、实例及实际内存雏形详见 [common-rewrites.md](common-rewrites.md)。下面保留首个分支适配器的契约和证据。

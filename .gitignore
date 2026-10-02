@@ -4,6 +4,7 @@
 *.glob
 .*.aux
 .lia.cache
+.nia.cache
 __pycache__/
 build/
 vendor/

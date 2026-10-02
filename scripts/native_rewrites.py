@@ -51,13 +51,17 @@ def main():
         raise SystemExit("Truth rewrite or its original fallback is missing")
     if "return ($x + $x) / 2U;" not in dump or "return $x / $y;" not in dump:
         raise SystemExit("original arithmetic fallback is missing")
+    property_tree = "if ($x <= 2147483647U) {\n    if (1) {\n      return $x;"
+    if property_tree not in dump:
+        raise SystemExit("property-generated validity/value tree is missing")
     (WORK / "output.txt").write_text(actual)
     (WORK / "report.json").write_text(json.dumps({
-        "proved_entrypoint": "GuardCompiler.compile_common_rewrites",
+        "proved_entrypoint": "TreeCompiler.compile_property_rewrites",
         "source": str(SOURCE), "clight_dump": str(dumps[0]),
         "input_values": list(expected_cancellation), "divisors": [1, 2, 3, 4294967295],
         "gcc_behavior_matches": True, "expected_cancellation_checked": True,
         "truth_identity_and_original_fallback_checked": True,
+        "property_generated_condition_tree_checked": True,
         "goto_result": 61, "division_by_zero_barrier_result": 777, **checks,
     }, indent=2) + "\n")
     print(f"common rewrites passed: {len(expected_cancellation)} arithmetic inputs, "

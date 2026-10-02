@@ -1,5 +1,19 @@
 # 本轮验证记录
 
+## 2026-10-02：抽象性质接口与生成的 Clight 条件树
+
+新增 `AbstractGuard`、`SemanticFacts`、`ResidualGuard`、`AbstractSchedule`、`EndpointBridge` 和 Clight 条件树／宿主／驱动。通用核心只依赖性质维度、检查证据、语言的条件选择与观察关系。它证明三种检查结果的短路编译、保守拒绝在否定下的安全性、维度组合、静态证书的残余化和局部 preservation。抽象调度接口证明独立指令的相邻交换链，不解释内存或算术。
+
+`ClightTreeRewriteProof.transform_program_correct1/2` 已证明真实条件树宿主的完整 Clight 程序模拟。`TreeCompiler.compile_property_rewrites_correct` 给出实际新驱动的 `Csem → Asm` backward simulation。overflow 取消规则通过 `encoded_tree_rule` 接口生成检查树；其他已有规则通过明确标记的 legacy adapter 复用。
+
+最终再次清理工程输出后，`make check-integration` 退出码为 0，重新编译当前全部 31 个工程文件，完成两个 Python 回归、上游 proof 目标、新驱动提取／构建及两个原生示例，并包含增强后的原生 IR 检查。完整日志为 `build/abstract-final-check.log`；较早的 30 文件检查保留在 `build/abstract-integration.log`。没有再次清理上游 CompCert。
+
+新原生驱动的入口为 `TreeCompiler.compile_property_rewrites`。旧边界值、24 对除数输入、循环、switch、label、goto 及源零除保护均通过，输出仍与 GCC 参考一致。新增检查确认 Clight dump 确实包含由性质接口生成的 validity/value 嵌套条件树；报告的 `property_generated_condition_tree_checked` 为 true。
+
+在同一 Rocq 环境中重新输出上游和新驱动的 `Print Assumptions`，两者均有相同的 35 个假设，新增集合为空。结果记录在 `build/property-assumptions-report.json`。通用核心的主要定理为闭合证明；CompCert 桥接继续继承上游假设。新增工程文件无 `Admitted`、语义 `Axiom` 或 `Parameter`。
+
+已实现的静态残余化与交换链接口尚未进入原生驱动；这次检查没有 PolCert 原生优化实例、性能结果、完整 arithmetic DSL 的 Clight lowering，或可执行的 alias guard。实际接口及后续桥接义务见 [abstract-kernel.md](abstract-kernel.md)。
+
 ## 2026-10-02：常见表达式 rewrite 接入
 
 新增六个工程文件：`ClightExprRewrite.v`、`ClightExprRewriteProof.v`、`ClightExprRule.v`、`CommonRewrites.v`、`CommonRewriteExamples.v` 和 `CompCertMemoryRule.v`。表达式适配器统一接入四种 unsigned32 rewrite：除数为 2 时除法变移位、取模变掩码，无回绕时 `(x+x)/2→x`，Truth 下 `x-x→0`。它们复用 presumption 编码与合成证明，再与既有分支 pass 及上游后端组合。

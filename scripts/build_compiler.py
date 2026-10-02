@@ -51,7 +51,7 @@ def main():
     needle = "(Compiler.transf_c_program csyntax)"
     if original.count(needle) != 1:
         raise SystemExit("unexpected upstream driver: compiler call is not unique")
-    patched = original.replace(needle, "(GuardCompiler.compile_common_rewrites csyntax)")
+    patched = original.replace(needle, "(TreeCompiler.compile_property_rewrites csyntax)")
     driver = WORK / "driver" / "Driver.ml"
     if driver.read_text() != patched:
         driver.write_text(patched)
@@ -60,9 +60,9 @@ def main():
     if upstream_extraction.count("Separate Extraction\n") != 1:
         raise SystemExit("unexpected upstream extraction roots")
     extraction.write_text(
-        "From Guard Require Import GuardCompiler.\n"
+        "From Guard Require Import TreeCompiler.\n"
         + upstream_extraction.replace(
-            "Separate Extraction\n", "Separate Extraction GuardCompiler.compile_common_rewrites\n"
+            "Separate Extraction\n", "Separate Extraction TreeCompiler.compile_property_rewrites\n"
         )
     )
     flags = ["-Q", str(ROOT / "theories"), "Guard"]
@@ -79,7 +79,7 @@ def main():
     stamp.write_text(json.dumps({
         "input_sha256": key,
         "compiler_sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
-        "proved_entrypoint": "GuardCompiler.compile_common_rewrites",
+        "proved_entrypoint": "TreeCompiler.compile_property_rewrites",
     }, indent=2) + "\n")
     print(f"guarded compiler: {WORK / 'ccomp'}")
 

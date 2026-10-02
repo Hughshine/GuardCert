@@ -15,11 +15,14 @@
 - [研究动机草稿](docs/intro.md)：先描述变换类与研究对象。
 - [Presumption 分类与合成](docs/presumptions.md)：表达能力、编码定理、overflow flag 和死分支 rewrite。
 - [问题定义与证明接口](docs/framework.md)：插件义务、局部到全程序的桥接、CompCert 接入路线。
+- [性质接口与抽象核心](docs/abstract-kernel.md)：语言实例、可组合的语义维度、三种检查结果、残余化，以及新条件树的实际 C→Asm 接入。
 - [验证记录与边界](docs/validation.md)：实际编译、实例和反例检查。
 - [真实 CompCert 接入](docs/compcert-integration.md)：插件证书、C 到 Asm 定理、提取与原生执行。
 - [常见 rewrite 接口与实例](docs/common-rewrites.md)：除法、取模、条件算术取消、Truth identity；真实内存的局部接口。
 
 ## 原型
+
+当前主线是 `AbstractGuard.v` / `SemanticFacts.v`：通用核不内置整数或内存语义，语言实例提供性质、检查原语与条件选择。`ClightCondition.v` 将生成的条件树降低成实际 Clight 控制流，`ClightTreeRewriteProof.v` 接到完整程序模拟，`TreeCompiler.v` 接到 C→Asm。overflow 取消规则已使用这个路径。`ResidualGuard.v` 提供有证书的静态消去，`AbstractSchedule.v` 提供性质驱动的交换链证明；这两项尚未进入原生驱动。详细接口与 PolCert 尚需的桥接见 [abstract-kernel.md](docs/abstract-kernel.md)。
 
 `GuardedRegion.v` 把片段表示为一次返回事件、控制出口和状态的转移。新的插件路径先证明语义义务与 presumption AST 的编码对应，经 `Synthesis.v` 合成为显式短路条件程序，再由通用定理提升到任意外围 CFG 的有限与无限执行。
 
@@ -63,4 +66,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
 opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
-`make proof` 编译六个独立证明文件；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建和十三个接入文件的编译。`make check-integration` 进一步提取 `compile_common_rewrites`、构建编译器、编译两个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/` 和 `build/native-rewrites/`。
+`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步提取 `TreeCompiler.compile_property_rewrites`、构建编译器、编译两个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/` 和 `build/native-rewrites/`。
