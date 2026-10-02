@@ -39,7 +39,7 @@ def main():
     (WORK / "output.txt").write_text(guarded)
     (WORK / "report.json").write_text(json.dumps({
         "compiler": str(COMPILER),
-        "proved_entrypoint": "RegionCompiler.compile_property_regions",
+        "proved_entrypoint": "AdaptiveRegionCompiler.compile_progress_regions",
         "source": str(SOURCE),
         "versioned_regions": guards,
         "input_values": [0, 1, 254, 255, 4294967294, 4294967295],

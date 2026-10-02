@@ -70,7 +70,7 @@ def main():
         raise SystemExit(f"unexpected load counts: fast={fast_reads}, fallback={fallback_reads}")
     (WORK / "output.txt").write_text(actual)
     (WORK / "report.json").write_text(json.dumps({
-        "proved_entrypoint": "RegionCompiler.compile_property_regions",
+        "proved_entrypoint": "AdaptiveRegionCompiler.compile_progress_regions",
         "source": str(SOURCE), "clight_dump": str(dumps[0]),
         "gcc_behavior_matches": True, "same_address_cases": len(values),
         "distinct_address_cases": len(values)**2, "same_address_guards": guards,

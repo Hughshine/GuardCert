@@ -1,4 +1,4 @@
-"""Audit the opaque progress protocol and its two Clight instances."""
+"""Audit the opaque progress protocol and the actual Clight whole-program host."""
 from pathlib import Path
 import hashlib
 import json
@@ -15,7 +15,9 @@ def main():
     source = WORK / "Audit.v"
     source.write_text("""From compcert.driver Require Import Compiler.
 From Guard Require Import SilentRegionProtocol ClightRegionProtocol
-  ClightCountedProtocol ClightCountedProtocolExamples ClightRegionRewriteProof.
+  ClightCountedProtocol ClightCountedProtocolExamples ClightRegionRewriteProof
+  ClightRegionProgress ClightProgressClassifier ClightAdaptiveRegionProof
+  ClightZeroTrip AdaptiveRegionCompiler ClightAdaptiveExamples.
 Goal True. idtac "PROTOCOL_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "PROTOCOL_KERNEL_BEGIN". exact I. Qed.
@@ -29,6 +31,12 @@ Print Assumptions ClightCountedProtocol.counted_region_cannot_diverge.
 Print Assumptions ClightCountedProtocol.counted_region_completed.
 Print Assumptions ClightCountedProtocolExamples.zero_trip_source_execution.
 Print Assumptions ClightRegionRewriteProof.transform_program_correct.
+Print Assumptions ClightRegionProgress.counted_progress.
+Print Assumptions ClightProgressClassifier.progress_supported_sound.
+Print Assumptions ClightAdaptiveRegionProof.AdaptiveRegionProof.transform_program_correct2.
+Print Assumptions ClightZeroTrip.select_zero_trip_sound.
+Goal True. idtac "PROTOCOL_COMPILER_BEGIN". exact I. Qed.
+Print Assumptions AdaptiveRegionCompiler.compile_progress_regions_correct.
 Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
 """)
     flags = ["-Q", str(ROOT / "theories"), "Guard"]
@@ -40,23 +48,32 @@ Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
     (WORK / "audit.log").write_text(result.stdout)
     baseline, rest = result.stdout.split("PROTOCOL_BASELINE_BEGIN", 1)[1].split("PROTOCOL_KERNEL_BEGIN", 1)
     kernel, rest = rest.split("PROTOCOL_CLIGHT_BEGIN", 1)
-    adapted = rest.split("PROTOCOL_ASSUMPTIONS_END", 1)[0]
+    adapted, compiled = rest.split("PROTOCOL_COMPILER_BEGIN", 1)
+    compiled = compiled.split("PROTOCOL_ASSUMPTIONS_END", 1)[0]
     if names(kernel) or kernel.count("Closed under the global context") != 3:
         raise SystemExit("unexpected protocol-kernel assumptions")
     baseline_names, adapted_names = names(baseline), names(adapted)
     if not baseline_names or not adapted_names or adapted_names - baseline_names:
         raise SystemExit(f"unexpected protocol assumptions: {sorted(adapted_names - baseline_names)}")
+    if names(compiled) != baseline_names:
+        raise SystemExit(f"unexpected whole-program assumptions: {sorted(names(compiled) - baseline_names)}")
     modules = ["SilentRegionProtocol", "ClightRegionProtocol", "ClightCountedProtocol",
-               "ClightCountedProtocolExamples", "ClightRegionRewriteProof"]
+               "ClightCountedProtocolExamples", "ClightRegionRewriteProof", "ClightRegionProgress",
+               "ClightProgressClassifier", "ClightAdaptiveRegion", "ClightAdaptiveRegionProof",
+               "ClightZeroTrip", "AdaptiveRegionCompiler", "ClightAdaptiveExamples"]
     report = {
         "status": "compiled", "kernel_global_axioms": [],
         "upstream_assumptions": sorted(baseline_names),
         "language_and_host_assumptions": sorted(adapted_names), "additional_global_axioms": [],
+        "whole_program_assumptions": sorted(names(compiled)),
+        "whole_program_theorem": "AdaptiveRegionCompiler.compile_progress_regions_correct",
         "sources": {"theories/" + name + ".v": hashlib.sha256(
             (ROOT / "theories" / (name + ".v")).read_bytes()).hexdigest() for name in modules},
         "source_protocol_instances": ["finite_clight_statement", "strict_signed_counted_memory_loop"],
         "finite_whole_program_host_consumes_protocol": True,
-        "counted_loop_whole_program_replacement": False,
+        "counted_loop_whole_program_replacement": True,
+        "counted_loop_frontend_native_replacement_checked": False,
+        "finite_and_counted_instances_share_host": True,
         "zero_trip_body_accesses_required": False,
         "private_temporary_frame_supported": False,
         "polopt_whole_program_connected": False,

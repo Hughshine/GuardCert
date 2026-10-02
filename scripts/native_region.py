@@ -47,7 +47,7 @@ def main():
         raise SystemExit("overlapping temporaries unexpectedly accepted")
     (WORK / "output.txt").write_text(actual)
     (WORK / "report.json").write_text(json.dumps({
-        "proved_entrypoint": "RegionCompiler.compile_property_regions",
+        "proved_entrypoint": "AdaptiveRegionCompiler.compile_progress_regions",
         "source": str(SOURCE), "inputs": inputs, "gcc_behavior_matches": True,
         "independent_unsigned_behavior_checked": True, "actual_clight_region_guards": guards,
         "normal_loop_and_goto_contexts_checked": True, "candidate_and_original_fallback_checked": True,

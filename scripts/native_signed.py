@@ -65,7 +65,7 @@ def main():
         raise SystemExit("signed candidate missing")
     (WORK / "output.txt").write_text(actual)
     (WORK / "report.json").write_text(json.dumps({
-        "proved_entrypoint": "RegionCompiler.compile_property_regions",
+        "proved_entrypoint": "AdaptiveRegionCompiler.compile_progress_regions",
         "source": str(SOURCE), "clight_dump": str(dumps[0]), "inputs": inputs,
         "gcc_reference_flags": ["-O0", "-fwrapv"], "gcc_behavior_matches": True,
         "expected_modular_fallback_checked": True, "widened_signed_guards": guards,

@@ -30,8 +30,8 @@ def main():
     parser.add_argument("--store-swap", action="store_true",
                         help="build the optional compiler proved with actual CInstr store commutation")
     args = parser.parse_args()
-    entrypoint = "PolCertStoreNative.compile" if args.store_swap else "RegionCompiler.compile_property_regions"
-    import_name = "PolCertStoreNative" if args.store_swap else "RegionCompiler"
+    entrypoint = "PolCertStoreNative.compile" if args.store_swap else "AdaptiveRegionCompiler.compile_progress_regions"
+    import_name = "PolCertStoreNative" if args.store_swap else "AdaptiveRegionCompiler"
     if args.store_swap:
         WORK = ROOT / "build" / "compcert-store-swap"
         from polcert_core import select_profile, load_flags, artifact

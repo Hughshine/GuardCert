@@ -65,3 +65,10 @@ theories/ClightRegionRule.v
 theories/ClightStraightLine.v
 theories/ClightRedundantSet.v
 theories/RegionCompiler.v
+theories/ClightRegionProgress.v
+theories/ClightProgressClassifier.v
+theories/ClightAdaptiveRegion.v
+theories/ClightAdaptiveRegionProof.v
+theories/ClightZeroTrip.v
+theories/AdaptiveRegionCompiler.v
+theories/ClightAdaptiveExamples.v

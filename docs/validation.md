@@ -1,5 +1,16 @@
 # 本轮验证记录
 
+## 2026-10-02：通用进展协议接入整个计数循环与 C→Asm
+
+`region_progress` 将 Clight 的入口、出口、状态形状和全局环境运输作为语言义务。`ClightAdaptiveRegionProof` 用显式自然数索引证明完整 Clight 程序模拟，实际消费同一个不透明进展协议；有限片段与严格 signed32 计数循环共用宿主。`ClightZeroTrip.zero_trip_rule` 通过共享性质与条件合成得到整个循环的零次迭代替换，检查仅读取计数器和上界。AST 命中与拒绝计数器可变 body 的 Rocq 例子均编译通过。
+
+执行 `make clean` 后，`make check-integration polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。日志为 `build/adaptive-region-full-check.log`。重新编译 65 个标准证明文件、60 个冻结 CInstr/Loop 依赖、7 个隔离适配依赖和 9 个具体适配文件；CompCert proof 复用此前完整构建。两个编译器重新提取、构建，五个默认与两个实际 CInstr 原生检查全部通过。已有快路／回退、普通／循环／goto 上下文及拒绝例子继续成立。
+
+默认实际入口改为 `AdaptiveRegionCompiler.compile_progress_regions`；可选 `PolCertStoreNative.compile` 也改用同一新宿主。两个实际入口分别审计为与 CompCert 基线完全相同的 35 项假设。进展核的三项主要定理闭合；语言与宿主定理合并继承 8 项上游假设，无新增公理。七份内存／协议／具体 PolCert 证明报告的源码哈希均与当前输入一致。
+
+这个里程碑证明精确 `counted_loop` AST 的整个循环替换和完整程序组合。真实 C 前端生成额外的顺序与 skip 包装，目前尚未纳入该规则，因而本轮没有原生整个循环命中的结论。private temporary/live frame、完整 PolOpt 优化器链和候选条件推断也仍未完成。
+
+
 ## 2026-10-02：实际 PolOpt_prepared 与 guarded Loop 程序连接
 
 实际 `driver/PolOptCorrect.v` 的 92 文件依赖闭包已迁移到锁定的 CompCert/Rocq 工具链。冻结指定提交、原 v10 工作目录改动及 32 份兼容补丁后，重新恢复全部锁定输入，再执行 `build --clean`，完整重编译成功。日志为 `build/polcert-optimizer-clean-check.log` 与 `build/polcert-optimizer-build.log`。没有修改 sibling 仓库。

@@ -8,17 +8,17 @@
 
 [递归 Loop 桥接](polcert-nested-clight.md) 已支持指定 scratch 深度的嵌套循环和公共 temporary frame，检查与参数／live 集合以及 scratch 之间的冲突。下一步重点转为具体内存／指令实例、外围 live 与函数声明的宿主证明、tiling 边界运算、候选进展及区域 simulation。
 
-[具体数组桥接](polcert-array-clight.md) 已使用真实 `CInstr/CState` 和 CompCert load/store，替代抽象基本指令执行假设。[有限语句区域宿主](clight-statement-regions.md) 已完成正常出口、精确 temps 和双向 `Mem.extends` 内存对应的完整 Clight 模拟，并有实际 C→Asm 例子。PolCert 仍需要内部循环区域、private temporary/live frame 和实际优化器的候选进展；有限区域宿主不能被当作这一整条链已完成。
+[具体数组桥接](polcert-array-clight.md) 已使用真实 `CInstr/CState` 和 CompCert load/store，替代抽象基本指令执行假设。[有限语句区域宿主](clight-statement-regions.md) 已完成正常出口、精确 temps 和双向 `Mem.extends` 内存对应的完整 Clight 模拟，并有实际 C→Asm 例子。PolCert 仍需要真实前端循环包装适配、private temporary/live frame 和实际优化器的候选进展；有限区域宿主不能被当作这一整条链已完成。
 
 [具体动态调度包](polcert-schedule-regions.md) 已把运行时下标的双写候选装入同一接口并提取运行。该实例推动接口区分检查域和语言适配前提：范围或无溢出前提可以在 guard 接受后才允许源解码。性质库、公式合成、真实 CInstr 调度定理与完整程序宿主在这一路径中实际复用；这仍是工程与机械化进展，尚未建立候选条件推断算法或独立新颖性结论。
 
-[片段内部进展接口](region-protocol.md) 已提供语义无关协议、有限 Clight 宿主接入及严格计数循环实例。循环路径的完成结果可还原为源语句执行，零次迭代无需 body 访存前提。下一步把宿主的停顿度量改为显式模拟索引，并接入循环选择器；这一步尚未完成，private temporary、实际 PolOpt 候选进展与出口关系仍需分别解决。
+[片段内部进展接口](region-protocol.md) 已提供语义无关协议、有限 Clight 宿主接入及严格计数循环实例。循环路径的完成结果可还原为源语句执行，零次迭代无需 body 访存前提。宿主现在通过显式模拟索引实际消费循环协议，零次迭代条件可替换整个循环，并具有完整 C→Asm 定理；真实 C 前端的包装识别、private temporary、实际 PolOpt 候选进展与出口关系仍需分别解决。
 
 ## 建议作为主问题
 
 > 给定原片段和独立候选，在指定的前提域与可用观察下，寻找能安全执行的充分条件，输出可核对的条件正确性证书、实际检查代码及完整程序精化保证。
 
-首版限定为顺序 CompCert、入口回退、自身不含循环的有限片段；这些片段可以出现在宿主循环中。宿主程序仍可以有调用、循环和复杂外围控制流。目标覆盖整数表达式、路径 rewrite 与一类真实 load/store 片段，候选来自规则、人工修改或不受信任工具。
+当前实例限定为顺序 CompCert、入口回退、有限片段与一种严格 signed32 计数循环；这些片段可以出现在宿主循环中。宿主程序仍可以有调用、循环和复杂外围控制流。目标覆盖整数表达式、路径 rewrite 与一类真实 load/store 片段，候选来自规则、人工修改或不受信任工具。
 
 关键设计选择是：条件推断从开始就要知道哪些输入可得到、哪些检查可安全执行、什么证据只能由静态分析提供。若只先找到任意逻辑 Q，再让使用者逐实例解决机器编码与执行安全，仍会留下本项目要消除的主要证明工作。
 

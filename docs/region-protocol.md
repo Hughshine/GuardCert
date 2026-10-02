@@ -27,10 +27,20 @@
 
 这些 Clight 定理继承上游语义假设。`scripts/audit_region_protocol.py` 将它们连同当前宿主定理的假设与完整 CompCert 基线比较，并记录源码哈希。
 
+## 完整程序宿主已经消费循环协议
+
+`region_progress source` 是 Clight 提供的语言接口。除通用协议外，它给出真实入口、正常出口、状态形状、无 label 以及在符号／复合类型布局保持时的执行运输。`ClightAdaptiveRegionProof.transform_program_correct2` 使用显式自然数模拟索引，在入口选择运行时度量，并在外围继续覆盖调用、外部事件、循环、switch 和 goto。有限片段和严格计数循环无需更改同一宿主证明。
+
+`ClightProgressClassifier.v` 的语法提议只决定尝试什么模型。完整 AST 相等性检查核对有符号类型、计数器、上界、递增、属性和 body 限制；证明 `progress_supported_sound` 提供真正的语言协议。
+
+`ClightZeroTrip.v` 的 `zero_trip_rule` 将“入口比较为假”编码为性质原子，通过共享条件合成生成 `if (iterator < bound) original_loop else skip`。原子检查的正、负证据、lowering 和局部结果均连接真实 Clight。它只读取计数器和上界；检查域由有定义的源循环入口条件建立，因此不要求预先访问 body 数据。
+
+`AdaptiveRegionCompiler.compile_progress_regions_correct` 给出实际 Csem→Asm backward simulation；默认提取入口已经切换到该函数。可选 `PolCertStoreNative.compile` 也复用新宿主，已有 CInstr 调度规则的局部契约不变。
+
 ## 仍待连接的边界
 
-循环实例还没有进入整程序区域选择器。当前整程序宿主仍只选择自身不含循环的有限片段。其模拟使用源状态的语法度量；数据相关循环需要改为显式模拟索引，才能在进入区域时选择运行时度量，而在外围正常执行时继续处理任意调用、循环和 goto。
+当前整个循环规则接受精确的 `counted_loop` AST。CompCert 的真实 C 前端为 `for` 添加 `Ssequence`／`Sskip` 包装；尚未机械化这些包装的执行协议与识别，因此目前没有声称原生 C 的整个循环已实际命中。
 
 这个进展接口也不承担 guard 的安全性证明。源循环零次迭代时，body 没有读取的数据不能被 guard 无条件提前读取；语言适配器必须证明检查域，或通过短路与检查位置避免新增非法访问。可能因回绕而无限运行的原循环还需要回退锁步模拟等机制；它们不属于这个首个严格计数实例。
 
-private temporary/live frame、循环出口修复和实际 PolOpt 的候选进展仍是独立义务。此处没有声称内部循环替换或多面体优化已经获得完整 C→Asm 定理。
+private temporary/live frame、循环出口修复和实际 PolOpt 的候选进展仍是独立义务。严格计数循环的整程序区域替换已有完整 C→Asm 定理；实际 PolOpt 的多面体循环优化还没有获得这条完整链。

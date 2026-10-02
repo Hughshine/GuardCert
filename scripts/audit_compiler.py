@@ -21,8 +21,8 @@ def main():
     parser.add_argument("--store-swap", action="store_true",
                         help="audit the optional concrete CInstr compiler entrypoint")
     args = parser.parse_args()
-    module = "PolCertStoreNative" if args.store_swap else "RegionCompiler"
-    theorem = "compile_correct" if args.store_swap else "compile_property_regions_correct"
+    module = "PolCertStoreNative" if args.store_swap else "AdaptiveRegionCompiler"
+    theorem = "compile_correct" if args.store_swap else "compile_progress_regions_correct"
     if args.store_swap:
         WORK = ROOT / "build" / "store-swap-compiler-assumptions"
     WORK.mkdir(parents=True, exist_ok=True)
