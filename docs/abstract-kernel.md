@@ -68,3 +68,5 @@ v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在�
 后续 [计数循环桥接](polcert-clight-loop.md) 已提供一个外层 Loop 与 `Instr/Seq/Guard` body 的 lowering，基本指令由语言插件提供执行与内存 view 证书。循环端点已提升为任意函数／continuation 中的小步执行；这尚不能代替区域替换的完整程序 simulation。嵌套循环、具体内存实例、区域提取及 private temporary 的宿主 frame 仍需补充。
 
 [同地址读取插件](clight-same-address.md) 已通过上述通用性质与完整程序宿主进入实际 C→Asm 编译器。源 load 的有定义求值建立指针检查有效性，接受的地址相等性质允许重复读取消除。它是已接通的内存表达式实例，不代替循环区域所需的可执行 non-alias 检查。
+
+[动态仿射合成](affine-dynamic-synthesis.md) 进一步将选定的不溢出前提直接编成安全的检查树，先检查子运算再用 signed64 检查父运算。树本身可作为一个测试，经 `decision_test_language` 接入原核心；不支持的原子保持 unknown。这一实例不要求提议输入区间，但仍需宿主建立 signed32 参数 view，且尚未进入原生驱动。

@@ -2,13 +2,14 @@ From Stdlib Require Import Bool List.
 From compcert.lib Require Import Maps.
 From compcert.common Require Import Values Memory.
 From compcert.cfrontend Require Import Ctypes Cop Clight.
-From Guard Require Import ClightCondition.
+From Guard Require Import AbstractGuard ClightCondition.
 Set Implicit Arguments.
 
 (** These expressions read temporaries and fixed type metadata, without loads.
     Their evaluation can fail, but every successful evaluation is unique. *)
 Inductive pure_scalar : expr -> Prop :=
 | pure_int : forall n ty, pure_scalar (Econst_int n ty)
+| pure_long : forall n ty, pure_scalar (Econst_long n ty)
 | pure_temp : forall id ty, pure_scalar (Etempvar id ty)
 | pure_unary : forall op a ty, pure_scalar a -> pure_scalar (Eunop op a ty)
 | pure_binary : forall op a b ty, pure_scalar a -> pure_scalar b ->
@@ -22,6 +23,13 @@ Lemma scalar_const_inv ge e le m n ty v :
 Proof.
   intro RUN; inversion RUN; subst; auto.
   match goal with H : eval_lvalue _ _ _ _ (Econst_int _ _) _ _ _ |- _ => inversion H end.
+Qed.
+
+Lemma scalar_long_inv ge e le m n ty v :
+  eval_expr ge e le m (Econst_long n ty) v -> v = Vlong n.
+Proof.
+  intro RUN; inversion RUN; subst; auto.
+  match goal with H : eval_lvalue _ _ _ _ (Econst_long _ _) _ _ _ |- _ => inversion H end.
 Qed.
 
 Lemma scalar_temp_inv ge e le m id ty v :
@@ -45,6 +53,7 @@ Lemma pure_scalar_determinate a : pure_scalar a -> forall ge e le m v v',
 Proof.
   intro PURE; induction PURE; intros ge e le m v v' RUN RUN'.
   - apply scalar_const_inv in RUN, RUN'; congruence.
+  - apply scalar_long_inv in RUN, RUN'; congruence.
   - apply scalar_temp_inv in RUN, RUN'; congruence.
   - inversion RUN; subst; try match goal with
       H : eval_lvalue _ _ _ _ (Eunop _ _ _) _ _ _ |- _ => inversion H end.
@@ -124,5 +133,32 @@ Proof.
   - constructor; auto.
 Qed.
 
+Lemma decision_bind_inv t : forall s yes no result,
+  decision_run s (decision_bind t yes no) result -> exists b,
+  decision_run s t b /\ decision_run s (if b then yes else no) result.
+Proof.
+  induction t as [known|a l IHL r IHR]; intros s yes no result RUN; cbn [decision_bind] in RUN.
+  - exists known; split; [constructor | exact RUN].
+  - inversion RUN; subst.
+    match goal with CHECK : expression_test a s ?choice |- _ => destruct choice end.
+    + match goal with CHILD : decision_run s (decision_bind l yes no) result |- _ =>
+        destruct (IHL _ _ _ _ CHILD) as [b [PREFIX LEAF]] end.
+      exists b; split; [eapply run_test with (b := true); eauto | exact LEAF].
+    + match goal with CHILD : decision_run s (decision_bind r yes no) result |- _ =>
+        destruct (IHR _ _ _ _ CHILD) as [b [PREFIX LEAF]] end.
+      exists b; split; [eapply run_test with (b := false); eauto | exact LEAF].
+Qed.
+
+Definition decision_test_language : language clight_entry.
+Proof.
+  refine {| command := decision_tree; test := decision_tree; observation := bool;
+    command_run := fun t s b => decision_run s t b; test_run := fun t s b => decision_run s t b;
+    conditional := decision_bind |}.
+  intros t yes no s result; split.
+  - apply decision_bind_inv.
+  - intros [b [CHECK RUN]]. eapply decision_bind_run; eauto.
+Defined.
+
 Print Assumptions pure_scalar_determinate.
 Print Assumptions pure_tree_determinate.
+Print Assumptions decision_test_language.

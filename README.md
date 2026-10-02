@@ -34,6 +34,8 @@
 
 [计数循环桥接](docs/polcert-clight-loop.md) 进一步提供基本指令插件、`Instr/Seq/Guard` 的 body 编译、一个外层 Loop 的 Clight lowering，以及任意 continuation 中的实际小步执行证书。复现目标为 `make polcert-loop-proof`。当前 body 要求保留 temporaries，内部循环尚未支持；多面体优化的完整程序 simulation 仍未闭合。
 
+[无人工区间的仿射 guard 合成](docs/affine-dynamic-synthesis.md) 直接从“不溢出”前提与 layout 生成依赖顺序的 signed64 检查树，证明检查精确对应所选 signed32 前提，并经性质接口支持复合公式和 unknown。复现目标为 `make polcert-dynamic-proof`；这一合成器尚未进入原生驱动。
+
 `GuardedRegion.v` 把片段表示为一次返回事件、控制出口和状态的转移。新的插件路径先证明语义义务与 presumption AST 的编码对应，经 `Synthesis.v` 合成为显式短路条件程序，再由通用定理提升到任意外围 CFG 的有限与无限执行。
 
 | 文件 | 内容 |

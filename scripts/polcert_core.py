@@ -427,9 +427,38 @@ def counted_adapter():
     print("Actual Loop iteration, signed Clight loop lowering, and instruction backend compiled")
 
 
+def dynamic_adapter():
+    if PROFILE != "core":
+        raise SystemExit("dynamic affine synthesis requires the core profile")
+    affine = json.loads((BUILD / "polcert-affine-report.json").read_text())
+    if affine["source_manifest_sha256"] != sha(MANIFEST):
+        raise SystemExit("compile the current affine bridge before dynamic synthesis")
+    report = BUILD / "polcert-dynamic-report.json"
+    report.unlink(missing_ok=True)
+    source = ROOT / "theories" / "PolCertAffineDynamic.v"
+    log_path = BUILD / "polcert-dynamic-build.log"
+    with log_path.open("w") as log:
+        subprocess.run(["rocq", "compile", *load_flags(), str(source)], cwd=ROOT,
+                       stdout=log, stderr=subprocess.STDOUT, check=True)
+    inherited = set(affine["compcert_expression_assumptions"])
+    adapted = set(re.findall(r"^([\w.]+)\s*:", log_path.read_text(), re.MULTILINE)) - {"Axioms", "Warning"}
+    if adapted != inherited:
+        raise SystemExit(f"unexpected dynamic synthesis assumptions: {sorted(adapted ^ inherited)}")
+    write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+                        "sources": {str(source.relative_to(ROOT)): sha(source)},
+                        "compcert_expression_assumptions": sorted(inherited),
+                        "additional_global_axioms": [],
+                        "input_interval_proposals_required": False,
+                        "presumption": "all signed32 affine intermediates and coefficients fit",
+                        "guard_arithmetic": "dependency-ordered signed64 checks",
+                        "unsupported_atoms": "unknown, including under complement",
+                        "native_driver_integration": False})
+    print("Affine safety presumptions synthesize executable guards without proposed intervals")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter"))
+    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter", "counted-adapter", "dynamic-adapter"))
     parser.add_argument("--source", type=Path)
     parser.add_argument("--target", default="polygen/Loop.v")
     parser.add_argument("--clean", action="store_true")
@@ -459,6 +488,8 @@ def main():
         affine_adapter()
     elif args.action == "counted-adapter":
         counted_adapter()
+    elif args.action == "dynamic-adapter":
+        dynamic_adapter()
     else:
         build(args.target, args.clean)
 

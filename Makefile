@@ -8,6 +8,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGu
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
         guarded-compiler native-demo check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
+        polcert-dynamic-proof \
         polcert-optimizer-proof clean
 all: check
 
@@ -39,7 +40,7 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/ClightGuard.v \
                   theories/CompCertMemoryRule.v \
                   theories/GuardCompiler.v theories/ClightIntegrationExamples.v \
                   theories/CommonRewriteExamples.v theories/ClightCondition.v theories/ClightPureExpr.v \
-                  theories/ClightCountedLoop.v \
+                  theories/ClightCountedLoop.v theories/ClightWideGuard.v \
                   theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
                   theories/ClightTreeRule.v theories/ClightTreeExamples.v \
                   theories/ClightSameAddress.v theories/TreeCompiler.v
@@ -85,6 +86,9 @@ polcert-affine-proof: polcert-proof
 
 polcert-loop-proof: polcert-affine-proof
 	python3 scripts/polcert_core.py counted-adapter
+
+polcert-dynamic-proof: polcert-affine-proof
+	python3 scripts/polcert_core.py dynamic-adapter
 
 polcert-optimizer-proof: check-compcert
 	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)

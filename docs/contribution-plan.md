@@ -2,7 +2,7 @@
 
 2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
 
-后续执行进展：通用三出口条件编译、静态残余化和真实 Clight 表达式宿主已实现；前两者的接口见 [abstract-kernel.md](abstract-kernel.md)。当前持续研究主线进一步朝循环区域推进：[PolCert 核心适配](../adapters/polcert/README.md) 已使用真实 `INSTR/Loop` 完成参数化接入，[实际优化器](../adapters/polcert-optimizer/README.md) 已直接调用 `Opt_prepared` 并消费其正确性端点。仍需固定宽度循环 lowering、候选进展与完整程序区域模拟。下面的首版范围和优先级保留为当时的建议，不能替代这个最新目标。
+后续执行进展：通用三出口条件编译、静态残余化和真实 Clight 表达式宿主已实现；前两者的接口见 [abstract-kernel.md](abstract-kernel.md)。[同地址内存实例](clight-same-address.md) 已进入实际 C→Asm 编译器；[动态仿射合成](affine-dynamic-synthesis.md) 已证明从选定的不溢出前提直接生成安全检查，不要求人工输入区间。[PolCert 核心适配](../adapters/polcert/README.md) 使用真实 `INSTR/Loop`，[实际优化器](../adapters/polcert-optimizer/README.md) 直接消费 `Opt_prepared` 的端点，[计数循环桥接](polcert-clight-loop.md) 支持一个外层 Loop 及结构化 body。仍需具体内存／指令实例、嵌套循环与 private temporary 的状态关系、候选进展和完整程序区域模拟。下面的首版范围和优先级保留为当时的建议，不能替代这个最新目标。
 
 ## 建议作为主问题
 
