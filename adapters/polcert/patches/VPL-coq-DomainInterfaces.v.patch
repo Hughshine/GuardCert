@@ -1,0 +1,83 @@
+--- a/VPL/coq/DomainInterfaces.v
++++ b/VPL/coq/DomainInterfaces.v
+@@ -46,8 +46,8 @@
+   Parameter project: t -> PVar.t -> imp t.
+   Parameter project_correct: forall a x, WHEN p <- project a x THEN (forall m v, gamma a m -> gamma p (Mem.assign x v m)).
+ 
+-  Hint Resolve isIncl_correct top_correct join_correct bottom_correct project_correct: vpl.
+-  Hint Resolve isBottom_correct: vpl.
++  #[global] Hint Resolve isIncl_correct top_correct join_correct bottom_correct project_correct: vpl.
++  #[global] Hint Resolve isBottom_correct: vpl.
+ 
+ End BasicDomainG.
+ 
+@@ -74,13 +74,13 @@
+   Parameter backend_rep_correct: 
+      forall a, (WHEN r <- backend_rep a THEN forall x, (snd (snd r) (fst (snd r) x) = x))%option.
+ 
+-  Hint Resolve backend_rep_correct: vpl.
++  #[global] Hint Resolve backend_rep_correct: vpl.
+ 
+   (* TODO: Having this operation in this module is really weird ! Rename the module or move this away... *)
+   Parameter meet: t -> t -> imp t.
+   Parameter meet_correct: forall p1 p2, WHEN p <- meet p1 p2 THEN (forall m, gamma p1 m -> gamma p2 m -> gamma p m).
+ 
+-  Hint Resolve meet_correct: vpl.
++  #[global] Hint Resolve meet_correct: vpl.
+ 
+ End HasSimplePrinting.
+ 
+@@ -102,7 +102,7 @@
+     (forall m, gamma a (Mem.assign x (m y) m) -> gamma p m).
+     (* ie. forall x y a, isRename gamma impl (rename x y a) a x y. *)
+ 
+-  Hint Resolve rename_correct: vpl.
++  #[global] Hint Resolve rename_correct: vpl.
+ 
+ End HasRename.
+ 
+@@ -133,7 +133,7 @@
+   Parameter get_itv_correct: forall (te: T.t) (a: t), WHEN i <- (get_itv te a) THEN
+     (forall m, gamma a m -> I.sat i (T.eval te m)).
+ 
+-  Hint Resolve get_itv_correct: vpl.
++  #[global] Hint Resolve get_itv_correct: vpl.
+ 
+ End HasGetItv.
+ 
+@@ -150,7 +150,7 @@
+ 
+   Parameter getItvMode_correct: forall mo (te: T.t) (a: t), WHEN i <- (getItvMode mo te a) THEN
+     (forall m, gamma a m -> I.sat i (T.eval te m)).
+-  Hint Resolve getItvMode_correct: vpl.
++  #[global] Hint Resolve getItvMode_correct: vpl.
+ 
+ End HasGetItvMode.
+ 
+@@ -173,7 +173,7 @@
+   Parameter assume: Cond.t -> t -> imp t.
+   Parameter assume_correct: forall c a, WHEN p <- assume c a THEN (forall m, sat c m -> gamma a m -> gamma p m).
+ 
+-  Hint Resolve assume_correct: vpl.
++  #[global] Hint Resolve assume_correct: vpl.
+ 
+ End HasAssumeG.
+ 
+@@ -189,7 +189,7 @@
+   Parameter assert: Cond.t -> t -> imp bool.
+   Parameter assert_correct: forall c a, If assert c a THEN (forall m, gamma a m -> sat c m).
+ 
+-  Hint Resolve assert_correct: vpl.
++  #[global] Hint Resolve assert_correct: vpl.
+ 
+ End HasAssertG.
+ 
+@@ -248,7 +248,7 @@
+   Parameter guassign_correct: forall x c a, WHEN p <- guassign x c a THEN 
+      (forall m v, xsat c m (Mem.assign x v m) -> gamma a m -> gamma p (Mem.assign x v m)).
+ 
+-  Hint Resolve assign_correct guassign_correct: vpl.
++  #[global] Hint Resolve assign_correct guassign_correct: vpl.
+ 
+ End HasAssignG.
+ 

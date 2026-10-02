@@ -1,0 +1,102 @@
+--- a/VPL/coq/ConsSet.v
++++ b/VPL/coq/ConsSet.v
+@@ -1,5 +1,6 @@
+ From Guard Require Import PolCertCompat.
+ Require Import String.
++From Stdlib Require Import Arith.Compare_dec.
+ Require Import List.
+ Require Export NumC.
+ Require Export ProgVar.
+@@ -53,7 +54,7 @@
+   Proof.
+     unfold Incl; auto.
+   Qed.
+-  Hint Resolve InclFold: pedraQ.
++  #[global] Hint Resolve InclFold: pedraQ.
+ 
+   Fixpoint isEq (l1 l2: t): bool :=
+     match l1, l2 with
+@@ -71,7 +72,7 @@
+     PedraQsimplify.
+     intuition eauto with pedraQ.
+   Qed.
+-  Hint Resolve isEq_correct: pedraQ.
++  #[global] Hint Resolve isEq_correct: pedraQ.
+ 
+   Definition isContrad (l: t): bool :=
+   match l with
+@@ -85,7 +86,7 @@
+     xsimplify ltac:(intuition eauto with pedraQ). 
+   Qed.
+   Global Opaque isContrad. 
+-  Hint Resolve isContrad_correct: pedraQ.
++  #[global] Hint Resolve isContrad_correct: pedraQ.
+ 
+ 
+   Fixpoint isFree (x: PVar.t) (l: t): bool :=
+@@ -98,7 +99,7 @@
+   Proof.
+     induction cs; simpl; PedraQsimplify. auto.
+   Qed.
+-  Hint Resolve isFree_correct: pedraQ.
++  #[global] Hint Resolve isFree_correct: pedraQ.
+ 
+   Fixpoint rename (x y: PVar.t) (cs: t): t :=
+     match cs with
+@@ -122,7 +123,7 @@
+   }.
+   Arguments rep [mod]. 
+ 
+-  Hint Resolve rep_sat: pedraQ.
++  #[global] Hint Resolve rep_sat: pedraQ.
+ 
+   Section CstrLCFImplem.
+ 
+@@ -181,7 +182,9 @@
+   | c::l' => x_unwrap l' ((rep c)::acc)
+   end.
+   Obligation 1.
+-    simpl in * |- *. firstorder. intuition.
++    split.
++    - apply rep_sat. exact H.
++    - apply H0. exact H.
+   Qed.
+ 
+   Program Definition unwrap (l: list (cstr mod)): t :=
+@@ -200,7 +203,7 @@
+ 
+   Arguments certCstrLCF {mod}.
+   Arguments unwrap [mod].
+-  Hint Resolve unwrap_correct: pedraQ.
++  #[global] Hint Resolve unwrap_correct: pedraQ.
+ 
+   Definition join (l1 l2: t) (cert1: list (cstr (sat l1))) (cert2: list (cstr (sat l2))): t :=
+   let res := unwrap cert1 in
+@@ -212,13 +215,13 @@
+   Proof.
+     unfold join; PedraQsimplify.
+   Qed.
+-  Hint Resolve join_correct1: pedraQ.
++  #[global] Hint Resolve join_correct1: pedraQ.
+ 
+   Lemma join_correct2 l1 l2 cert1 cert2: forall m, sat l2 m -> sat (join l1 l2 cert1 cert2) m.
+   Proof.
+     unfold join.  PedraQsimplify.
+   Qed.
+-  Hint Resolve join_correct2: pedraQ.
++  #[global] Hint Resolve join_correct2: pedraQ.
+ 
+   Program Fixpoint x_wrap (l: t) (mod: Mem.t QNum.t -> Prop) (H:forall m, mod m -> sat l m) (acc: list (cstr mod)): list (cstr mod) :=
+   match l with
+@@ -318,9 +321,8 @@
+     elim DEC.
+     - intro LE.
+       unfold geti.
+-      rewrite nth_overflow ; auto.
+-      simpl.
+-      intuition.
++      rewrite nth_overflow by exact LE.
++      vm_compute. discriminate.
+     - intro LT. 
+       assert (Csat : Cstr.sat (geti i P default) mem) by (apply sat_compat;assumption).
+       assert (compat : Qcanon.Q2Qc (PEsem (LinQ.to_PExpr (Cstr.coefs (geti i P default))) (mem_compat mem)) = LinQ.eval (Cstr.coefs (geti i P default)) mem) 

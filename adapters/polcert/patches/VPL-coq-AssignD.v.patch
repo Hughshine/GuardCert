@@ -1,0 +1,226 @@
+--- a/VPL/coq/AssignD.v
++++ b/VPL/coq/AssignD.v
+@@ -60,7 +60,9 @@
+ 
+ Existing Instance PositiveSet.eq_equiv.
+ 
+-Module CoreAssign (N: NumSig) (Cond: ASCondSig N) (D: AbstractDomain N Cond) (R: HasRename N D). 
++Module CoreAssign (N: NumSig) (Cond: ASCondSig N) (D: AbstractDomain N Cond) (R: HasRename N D).
++
++  #[local] Existing Instance D.gamma_ext. 
+ 
+   Import Cond.
+ 
+@@ -88,7 +90,7 @@
+     unfold decode, encode; case b; simpl; auto.
+   Qed.
+ 
+-  Hint Resolve decode_encode_id: vpl.
++  #[global] Hint Resolve decode_encode_id: vpl.
+ 
+   Definition encodeE r x := encode (PositiveSet.mem x r) x.
+   Definition encodeO r x := encode (negb (PositiveSet.mem x r)) x.
+@@ -102,7 +104,7 @@
+     - intros H1 H2; case H1; generalize H2; clear H1 H2.
+     destruct (PositiveSet.mem x r); destruct (PositiveSet.mem x0 r); simpl; intro H; inversion H; auto.
+   Qed.
+-  Hint Resolve encode_unalias: vpl.
++  #[global] Hint Resolve encode_unalias: vpl.
+ 
+ (* USEFULL for a better projection
+ 
+@@ -145,8 +147,8 @@
+     intro b; destruct b; intro H; rewrite H; simpl; rewrite H; simpl; auto.
+   Qed.
+ 
+-  Hint Resolve decode_encodeE: vpl.
+-  Hint Rewrite decode_encodeE: vpl.
++  #[global] Hint Resolve decode_encodeE: vpl.
++  #[global] Hint Rewrite decode_encodeE: vpl.
+ 
+   Local Opaque PositiveSet.mem.
+ 
+@@ -164,7 +166,7 @@
+     intro b; destruct b; intro H; rewrite H; simpl; rewrite H; simpl; auto.
+   Qed.
+ 
+-  Hint Rewrite decode_encodeO: vpl.
++  #[global] Hint Rewrite decode_encodeO: vpl.
+ 
+   Lemma decodeIn_simplify r aux1 m1 aux2 m2 x: 
+     (x=(encodeE r (decode x)) -> m1 (decode x) = m2 (decode x))
+@@ -184,7 +186,7 @@
+   generalize (PositiveSet.remove_spec r x x).
+   unfold PositiveSet.In; case (PositiveSet.mem x (PositiveSet.remove x r)); simpl; intuition.
+ Qed.
+-Hint Rewrite remove_id: vpl.
++#[global] Hint Rewrite remove_id: vpl.
+ 
+ Lemma remove_diff x r y: y<>x -> PositiveSet.mem y (PositiveSet.remove x r) = PositiveSet.mem y r.
+ Proof.
+@@ -228,13 +230,11 @@
+     induction m; simpl.
+     + intros x; generalize (PositiveSet.add_spec PositiveSet.Leaf x x).
+     unfold PositiveSet.In; simpl.
+-    cutrewrite (PositiveSet.mem x PositiveSet.Leaf = false); simpl.
+-    - destruct (PositiveSet.mem x (PositiveSet.add x PositiveSet.Leaf));
++    destruct (PositiveSet.mem x (PositiveSet.add x PositiveSet.Leaf));
+       intuition.
+-    - case x; simpl; auto.
+     + intro x; destruct x; rewrite PositiveSet.mem_node; simpl; auto.
+   Qed.
+-  Hint Rewrite switch_in: vpl.
++  #[global] Hint Rewrite switch_in: vpl.
+ 
+   Local Opaque switch PositiveSet.mem.
+ 
+@@ -253,7 +253,7 @@
+     elimtype (exists b, (PositiveSet.mem x r)=b); eauto.
+     intro b; destruct b; intro H; rewrite H; simpl; rewrite switch_in;  rewrite H; simpl; auto.
+   Qed.
+-  Hint Rewrite decode_sw_encodeE decode_sw_encodeO: vpl.
++  #[global] Hint Rewrite decode_sw_encodeE decode_sw_encodeO: vpl.
+ 
+   Lemma decode_sw_out r aux m x y:
+     y <> (encodeE r x) -> y <> (encodeO r x) ->
+@@ -279,10 +279,10 @@
+ 
+ (* NO MORE NEEDED FOR BoundVarD
+ 
+-  Instance mdo: MayDependOn := {| mayDependOn:=fun a x => mayDependOn (pol a) (encodeE (renaming a) x)  |}.
+-  Hint Immediate D.gamma_mdo: pedraQ.
+-
+-  Instance gamma_mdo: mdoExt gamma iff.
++  #[global] Instance mdo: MayDependOn := {| mayDependOn:=fun a x => mayDependOn (pol a) (encodeE (renaming a) x)  |}.
++  #[global] Hint Immediate D.gamma_mdo: pedraQ.
++
++  #[global] Instance gamma_mdo: mdoExt gamma iff.
+   Proof.
+     assert (mdoExt gamma Program.Basics.impl); auto with progvar.
+     unfold gamma, Basics.impl. constructor 1. 
+@@ -310,7 +310,7 @@
+   Qed.
+ *)
+ 
+-  Instance decodeIn_compat : Proper (PositiveSet.Equal ==>
++  #[global] Instance decodeIn_compat : Proper (PositiveSet.Equal ==>
+     pointwise_relation PVar.t Logic.eq ==>
+     pointwise_relation PVar.t Logic.eq ==>
+     pointwise_relation PVar.t Logic.eq) decodeIn.
+@@ -320,7 +320,7 @@
+         rewrite H1; case (PositiveSet.mem p r2); simpl; auto.
+   Qed.
+ 
+-  Instance gamma_ext: Proper (Logic.eq ==> pointwise_relation PVar.t Logic.eq ==> iff) gamma.
++  #[global] Instance gamma_ext: Proper (Logic.eq ==> pointwise_relation PVar.t Logic.eq ==> iff) gamma.
+   Proof.
+      eapply sat_compat_iff; unfold gamma.
+      intros x y H m1 m2 H0 H1 aux. rewrite <- H. rewrite <- H0; auto.
+@@ -353,8 +353,7 @@
+   Proof.
+     unfold isBottom.
+     VPLAsimplify.
+-    Grab Existential Variables.
+-    exact m.
++    Unshelve. all: exact m.
+   Qed.
+ 
+   Definition assume (c:cond) (a: t) : imp t :=
+@@ -362,7 +361,7 @@
+   pure {| pol := res ; 
+           renaming := renaming a |}.
+ 
+-  Hint Unfold pointwise_relation.
++  #[global] Hint Unfold pointwise_relation.
+ 
+   Lemma assume_correct (c:cond) (a:t): WHEN p <- assume c a THEN 
+     forall m, (sat c m) -> (gamma a m) -> gamma p m.
+@@ -372,7 +371,7 @@
+     rewrite sat_map.
+     erewrite (eval_pointwise_compat sat_mdo); eauto with vpl.
+   Qed.
+-  Hint Resolve assume_correct: vpl.
++  #[global] Hint Resolve assume_correct: vpl.
+ 
+   Definition assert (c:cond) (a: t) : imp bool := D.assert (map c (encodeE (renaming a))) (pol a).
+ 
+@@ -383,7 +382,7 @@
+     rewrite sat_map.
+     intros; erewrite (eval_pointwise_compat sat_mdo); eauto with vpl.
+   Qed.
+-  Hint Resolve assert_correct: vpl.
++  #[global] Hint Resolve assert_correct: vpl.
+ 
+ (* projection *)
+ 
+@@ -504,7 +503,7 @@
+     xsat c m (Mem.assign x v m) ->
+     gamma a m ->  gamma p (Mem.assign x v m).
+   Proof.
+-    VPLAsimplify.
++    unfold guassign. apply guassignAux_correct.
+   Qed.
+ 
+   Definition assign x te (a: t) : imp t := 
+@@ -519,7 +518,7 @@
+     autorewrite with progvar in H.
+     intros; eapply H; eauto with progvar.  
+   Qed.
+-  Hint Resolve guassign_correct assign_correct: vpl.  
++  #[global] Hint Resolve guassign_correct assign_correct: vpl.  
+ 
+ (* Auxiliary definitions of inclusion "isIncl" and join 
+      We recover here a form "phi"-assignement like in SSA-form.
+@@ -595,12 +594,12 @@
+     - VPLAsimplify.
+   Qed.
+ 
+-  Hint Rewrite SetoidList.InA_nil SetoidList.InA_cons: vplx.
+-  Hint Rewrite nop_effect_1: vplx. 
++  #[global] Hint Rewrite SetoidList.InA_nil SetoidList.InA_cons: vplx.
++  #[global] Hint Rewrite nop_effect_1: vplx. 
+ 
+   Lemma bool_eq_False b1 b2: (False <-> (b1=b2)) <-> b1 = negb b2.
+   Proof.
+-    case b1; case b2; simpl; intuition.
++    case b1; case b2; simpl; intuition discriminate.
+   Qed.
+ 
+   Lemma negb_negb b : negb (negb b) = b.
+@@ -608,7 +607,7 @@
+     case b; simpl; auto.
+   Qed.
+ 
+-  Hint Rewrite bool_eq_False negb_negb: vplx.   
++  #[global] Hint Rewrite bool_eq_False negb_negb: vplx.   
+ 
+   (* TODO: this proof could probably be simplified through xfold with an explicit reasoning on path
+         instead of lists without duplicates.
+@@ -765,7 +764,7 @@
+     pure  {| pol := res ; renaming := PositiveSet.inter (renaming a1) (renaming a2) |}.
+ 
+   Global Opaque assign join assume isIncl assert guassign project.
+-  Hint Resolve isIncl_correct top_correct join_correct bottom_correct project_correct
++  #[global] Hint Resolve isIncl_correct top_correct join_correct bottom_correct project_correct
+     assign_correct guassign_correct: vpl.
+ 
+ 
+@@ -815,6 +814,8 @@
+ 
+   Import Cond DI.
+   Import CD.
++  #[local] Existing Instance D.gamma_ext.
++  #[local] Existing Instance CD.decodeIn_compat.
+ 
+   Definition getItvMode mo (te:Term.t) (a:t) := getItvMode mo (Term.map te (encodeE (renaming a))) (pol a).
+ 
+@@ -833,6 +834,9 @@
+ 
+ Module AssignSimplePrinting (N: NumSig) (Cond: ASCondSig N) (D: AbstractDomain N Cond) (R: HasRename N D) (DP: HasSimplePrinting N D)
+    (Import CD: CoreAssignSig N Cond D R) <: HasSimplePrinting N CD with Definition rep := DP.rep.
++
++  #[local] Existing Instance D.gamma_ext.
++  #[local] Existing Instance CD.decodeIn_compat.
+ 
+   Definition pr (a:t) := DP.pr (pol a).
+ 

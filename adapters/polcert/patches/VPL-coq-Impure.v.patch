@@ -1,0 +1,12 @@
+--- a/VPL/coq/Impure.v
++++ b/VPL/coq/Impure.v
+@@ -248,7 +248,8 @@
+   Definition impeq_bind_assoc:=impeq_bind_assoc.
+ 
+   Hint Rewrite @impeq_bind_pure_l @impeq_bind_pure_r @impeq_bind_assoc: impeq.
+-  Hint Immediate (fun A x => @Equivalence_Reflexive _ _ (@impeq_equiv A) x).
++  Definition impeq_reflexive_hint := fun A x => @Equivalence_Reflexive _ _ (@impeq_equiv A) x.
++  Hint Immediate impeq_reflexive_hint.
+ 
+   Definition wlp {A:Type} (k: imp A) (P: A -> Prop): Prop
+     := forall a, mayReturn k a -> P a.

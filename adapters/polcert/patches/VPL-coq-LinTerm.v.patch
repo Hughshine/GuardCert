@@ -1,0 +1,76 @@
+--- a/VPL/coq/LinTerm.v
++++ b/VPL/coq/LinTerm.v
+@@ -67,8 +67,8 @@
+   Parameter isFree: PVar.t -> t -> bool.
+   Parameter isFree_correct: forall x l, If isFree x l THEN ~(mayDependOn l x).
+   Global Hint Resolve IsNil_correct isEq_correct isFree_correct:pedraQ.
+-  Hint Rewrite NilEval Add_correct Mul_correct Opp_correct single_correct: linterm.
+-  Hint Rewrite <- export_correct: linterm.
++  Global Hint Rewrite NilEval Add_correct Mul_correct Opp_correct single_correct: linterm.
++  Global Hint Rewrite <- export_correct: linterm.
+ 
+   (** Rename of a variable by an arbitrary variable. 
+       we choose a strong version because proofs are simpler in CstrC.v and ConsSet.v !
+@@ -249,7 +249,8 @@
+ 
+   Definition isEq: t -> t -> bool := (equal N_eqb).
+ 
+-  Local Hint Resolve (equal_correct _ N_eqb_correct) : PedraQ.
++  Definition equal_correct_hint := equal_correct _ N_eqb_correct.
++  Local Hint Resolve equal_correct_hint : PedraQ.
+   Lemma isEq_correct: forall lt1 lt2, If isEq lt1 lt2 THEN Eq lt1 lt2.
+   Proof.
+     unfold isEq. xsimplify ltac:(eauto with PedraQ).
+@@ -282,7 +283,7 @@
+       rewrite <- X; ring.
+     - intros; rewrite IHinMerge. ring_simplify; auto.
+   Qed.
+-  Hint Rewrite NilEval Add_correct Mul_correct Opp_correct single_correct: linterm.
++  Global Hint Rewrite NilEval Add_correct Mul_correct Opp_correct single_correct: linterm.
+ 
+ 
+   Definition isFree (x: PVar.t) (l: t): bool := negb (PositiveMap.mem x l).
+@@ -295,7 +296,7 @@
+     erewrite In_mem in Heq_simplified; eauto.
+     discriminate.
+   Qed.
+-  Hint Resolve IsNil_correct isFree_correct isEq_correct: pedraQ.
++  #[global] Hint Resolve IsNil_correct isFree_correct isEq_correct: pedraQ.
+ 
+   Lemma absEval_permutation l l' m: Permutation l l' -> absEval l m=absEval l' m.
+   Proof.
+@@ -373,7 +374,7 @@
+   Definition to_string (f: PVar.t -> string) (lt: t): string
+     := let l:=(PositiveMap.elements lt) in fmt (List.rev (List.map (pair_to_string f) l)).
+ 
+-  Hint Rewrite NilEval Add_correct Mul_correct Opp_correct single_correct: linterm.
++  Global Hint Rewrite NilEval Add_correct Mul_correct Opp_correct single_correct: linterm.
+ 
+ End PositiveMapVec.
+ 
+@@ -428,7 +429,7 @@
+     intros; unfold eval, LinZ.eval, lift. rewrite elements_map.
+     generalize (PositiveMap.elements lt); induction l; simpl; autorewrite with num; auto.
+   Qed.
+-  Hint Rewrite lift_correct: linterm.
++  #[global] Hint Rewrite lift_correct: linterm.
+ 
+ End LinQ.
+ 
+@@ -505,7 +506,7 @@
+   Global Hint Resolve isZero_correct: vpl.
+   Global Opaque isZero.  
+ 
+-  Hint Rewrite make_correct NilEval Opp_correct Mul_correct Add_correct Addc_correct Addx_correct Addnx_correct: linterm.
++  #[global] Hint Rewrite make_correct NilEval Opp_correct Mul_correct Add_correct Addc_correct Addx_correct Addnx_correct: linterm.
+   
+ End AffineTerm.
+ 
+@@ -542,6 +543,6 @@
+     autorewrite with linterm num.
+     auto.
+   Qed.
+-  Hint Rewrite lift_correct: linterm.
++  #[global] Hint Rewrite lift_correct: linterm.
+ 
+ End QAffTerm.

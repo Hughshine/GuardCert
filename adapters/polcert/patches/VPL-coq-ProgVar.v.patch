@@ -1,0 +1,178 @@
+--- a/VPL/coq/ProgVar.v
++++ b/VPL/coq/ProgVar.v
+@@ -16,7 +16,7 @@
+ Require Import Lia.
+ Require Extraction.
+ 
+-Hint Resolve f_equal f_equal2.
++#[global] Hint Resolve f_equal f_equal2.
+ 
+ Module PVar.
+ (** Wrapper of [positive] numbers (variable are positive).
+@@ -116,7 +116,7 @@
+     unfold PVar.Le; intuition.
+   Qed.
+ 
+-  Hint Rewrite Zpos_eq Zpos_Lt Zpos_Le Psucc_lift: pos2Z.
++  #[global] Hint Rewrite Zpos_eq Zpos_Lt Zpos_Le Psucc_lift: pos2Z.
+ 
+   Ltac pvar_solve := intros; autorewrite with pos2Z in * |- *; try lia.
+ 
+@@ -168,18 +168,16 @@
+ 
+   Lemma Le_pred n: Le (Pos.pred n) n.
+   Proof.
+-    case (Pos.succ_pred_or n).
+-    intros; subst; simpl; intuition.
+-    intros H; rewrite <- H at 2.
+-    pvar_solve.
++    destruct (Pos.succ_pred_or n) as [ONE | STEP].
++    - subst n; unfold Le; vm_compute; discriminate.
++    - rewrite <- STEP at 2. pvar_solve.
+   Qed.
+   
+   Lemma Le_Lt_pred n m: n <> m -> (Lt (Pos.pred n) m <-> Lt n m).
+   Proof.
+-    case (Pos.succ_pred_or n).
+-    intros; subst; simpl; intuition.
+-    intros H; rewrite <- H at 1 3.
+-    pvar_solve.
++    destruct (Pos.succ_pred_or n) as [ONE | STEP].
++    - subst n; intros; reflexivity.
++    - rewrite <- STEP at 1 3. pvar_solve.
+   Qed.
+   
+   Lemma xH_min: forall n, Le xH n.
+@@ -220,18 +218,18 @@
+     intros; rewrite Pos.max_id; auto.
+   Qed.
+ 
+-  Hint Rewrite max_1_l max_1_r: rwmax1.
++  #[global] Hint Rewrite max_1_l max_1_r: rwmax1.
+   
+   Lemma max_assoc m n p : max (max m n) p = max m (max n p).
+   Proof.
+     unfold max; rewrite Pos.max_assoc; auto.
+   Qed.
+-  Hint Rewrite max_1_l max_1_r max_id max_assoc: rwmax.
++  #[global] Hint Rewrite max_1_l max_1_r max_id max_assoc: rwmax.
+ 
+   Definition max_comm: forall n m, max n m = max m n := Pos.max_comm.
+ 
+   Create HintDb progvar discriminated.
+-  Hint Resolve xH_min Le_refl Le_pred Le_trans max_l max_r LeIsLe LtIsLt Lt_le_trans Lt_diff Succ_Le_compat_r Lt_succ: progvar.
++  #[global] Hint Resolve xH_min Le_refl Le_pred Le_trans max_l max_r LeIsLe LtIsLt Lt_le_trans Lt_diff Succ_Le_compat_r Lt_succ: progvar.
+ 
+   Lemma Le_max_rew_r: forall x y z, Le x (max y z) <-> (Le x y \/ Le x z).
+   Proof.
+@@ -276,7 +274,7 @@
+   unfold bExt; intros; symmetry; auto.
+ Qed.
+ 
+-Hint Immediate bExt_sym.
++#[global] Hint Immediate bExt_sym.
+ 
+ Lemma bExt_trans {A B} (pred: A -> Prop) (f1 f2 f3: A -> B):
+   bExt pred f1 f2 -> bExt pred f2 f3 -> bExt pred f1 f3.
+@@ -290,7 +288,7 @@
+   unfold bExt; eauto.
+ Qed.
+ 
+-Hint Unfold bExt.
++#[global] Hint Unfold bExt.
+ 
+ Instance bExt_equiv {A B} (pred: A -> Prop): Equivalence (@bExt A B pred).
+ Proof.
+@@ -305,9 +303,9 @@
+ *)
+ 
+ Infix "°=" := (pointwise_relation _ Logic.eq) (at level 70, no associativity).
+-Hint Unfold pointwise_relation.
+-
+-Hint Resolve bExt_monotonic: bExt.
++#[global] Hint Unfold pointwise_relation.
++
++#[global] Hint Resolve bExt_monotonic: bExt.
+ 
+ Module Mem.
+ 
+@@ -321,21 +319,21 @@
+   Proof.
+     unfold assign; case (PVar.eq_dec x x); tauto.
+   Qed.
+-  Hint Resolve assign_in: progvar.
+-  Hint Rewrite @assign_in: progvar.
++  #[global] Hint Resolve assign_in: progvar.
++  #[global] Hint Rewrite @assign_in: progvar.
+ 
+   Lemma assign_out {A} x (val:A) m x': x<>x' -> assign x val m x' = m x'.
+   Proof.
+     unfold assign; case (PVar.eq_dec x x'); try (intros; subst; tauto).
+   Qed.
+-  Hint Resolve assign_out: progvar. 
++  #[global] Hint Resolve assign_out: progvar. 
+ 
+   Lemma assign_id {A} x y (m:Mem.t A): assign x (m x) m y = m y.
+   Proof.
+     unfold assign; case (PVar.eq_dec x y); auto.
+   Qed.
+-  Hint Resolve assign_id: progvar.
+-  Hint Rewrite @assign_id: progvar.
++  #[global] Hint Resolve assign_id: progvar.
++  #[global] Hint Rewrite @assign_id: progvar.
+ 
+   Lemma assign_commutes {A} x1 x2 (m:Mem.t A) v1 v2:
+    x1 <> x2 -> assign x1 v1 (assign x2 v2 m) °= assign x2 v2 (assign x1 v1 m).
+@@ -351,7 +349,7 @@
+     intros x'; unfold assign.
+     case (PVar.eq_dec x x'); intros; auto.
+   Qed.
+-  Hint Rewrite @assign_absorbes: progvar.
++  #[global] Hint Rewrite @assign_absorbes: progvar.
+ 
+ 
+   Add Parametric Morphism A: (@assign A) with 
+@@ -377,7 +375,7 @@
+   Proof.
+     unfold assign, lift; intro y; simpl. case (PVar.eq_dec x y); auto.
+   Qed.
+-  Hint Rewrite @lift_commutes: vpl.
++  #[global] Hint Rewrite @lift_commutes: vpl.
+ 
+   Add Parametric Morphism A B: (@lift A B) with 
+     signature pointwise_relation A Logic.eq ==> pointwise_relation PVar.t Logic.eq ==> pointwise_relation PVar.t Logic.eq
+@@ -406,7 +404,8 @@
+   Lemma md_mdBounds e x:  
+     mayDependOn e x -> forall bound, mdBounds bound e -> PVar.Lt bound x -> False.
+   Proof.
+-    unfold mdBounds; simpl; intuition eauto with progvar.
++    intros DEP bound BOUND LT. apply (PVar.Lt_negLe _ _ LT).
++    apply BOUND; exact DEP.
+   Qed.
+ 
+   Context {mdBound: expr -> PVar.t -> PVar.t}.
+@@ -426,7 +425,7 @@
+ 
+ End MayDependOnDefinitions.
+ 
+-Hint Resolve @mdBound_le: progvar.
++#[global] Hint Resolve @mdBound_le: progvar.
+ 
+ 
+ Section MDBoundProp.
+@@ -582,9 +581,9 @@
+ 
+ End Rename.
+ 
+-Hint Resolve iff_equivalence.
+-
+-Hint Resolve sat_mdo_iff: progvar.
+-
+-Hint Unfold mdBounds: progvar.
+-
++#[global] Hint Resolve iff_equivalence.
++
++#[global] Hint Resolve sat_mdo_iff: progvar.
++
++#[global] Hint Unfold mdBounds: progvar.
++

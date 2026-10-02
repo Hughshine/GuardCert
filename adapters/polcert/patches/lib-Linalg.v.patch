@@ -1,0 +1,32 @@
+--- a/lib/Linalg.v
++++ b/lib/Linalg.v
+@@ -258,26 +258,9 @@
+     length v1 = length v2 ->
+     List.rev v1 =v= List.rev v2.
+ Proof.
+-  induction v1.
+-  - intros. symmetry in H0.
+-    rewrite List.length_zero_iff_nil in H0. subst.
+-    trivial.
+-  - intros. simpls. destruct v2 eqn:Hv2; tryfalse.
+-    inversion H. inversion H0.
+-    rewrite andb_true_iff in H2.
+-    destruct H2.
+-    simpl.
+-    assert (rev v1 =v= rev l). {
+-      eapply IHv1; eauto.
+-    } 
+-    Transparent veq.
+-    unfold veq. rewrite is_eq_app.
+-    2: { do 2 rewrite List.rev_length; trivial. }
+-    rewrite andb_true_iff. split; trivial.
+-    inversion H. rewrite H6.
+-    rewrite andb_true_iff in H6. 
+-    destruct H6. eapply Z.eqb_eq in H5. subst. simpls.
+-    rewrite andb_true_iff. split; trivial.
++  intros v1 v2 EQ LEN.
++  assert (v1 = v2) by (apply same_length_eq; assumption).
++  subst v2; apply veq_refl.
+ Qed.
+ 
+ Instance app_proper : Proper (eq ==> veq ==> veq) (@app Z).

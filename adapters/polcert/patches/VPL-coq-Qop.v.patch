@@ -1,0 +1,40 @@
+--- a/VPL/coq/Qop.v
++++ b/VPL/coq/Qop.v
+@@ -1,5 +1,5 @@
+ From Guard Require Import PolCertCompat.
+-Require Import QArith.
++Require Import QArith Lia.
+ Require Import NumC.
+ Require Import QArith_base.
+ Require Datatypes.
+@@ -58,7 +58,7 @@
+   
+   Lemma QNum_to_Q_lt_compat : forall q1 q2 : QNum.t, 
+   QNum.Lt q1 q2 -> Qle (QNum.to_Q q1) (QNum.to_Q q2).
+-  Proof. intuition. Qed.
++  Proof. intros q1 q2 LT; apply Qlt_le_weak; exact LT. Qed.
+ 
+     Lemma Qred_opp_compat : forall x:Q,
+     Qred x = x -> Qred (-x) = -x.
+@@ -202,9 +202,7 @@
+   
+   Local Open Scope Z_scope.
+   Lemma mul_pos_compat (num : Z) (den : positive) : 0 <= num * Zpos den <-> 0 <= num .
+-  Proof.
+-    intuition.
+-  Qed.
++  Proof. split; intros; nia. Qed.
+   Local Close Scope Z_scope.
+   
+   Lemma pos_compat (p q : Q) : 0 <= p -> p == q -> 0 <= q.
+@@ -227,9 +225,7 @@
+   Local Open Scope Z_scope.
+   Lemma mul_pos_compat_strict (num : Z) (den : positive) : 
+     0 < num * Zpos den <-> 0 < num .
+-  Proof.
+-    intuition.
+-  Qed.
++  Proof. split; intros; nia. Qed.
+ 
+   Local Close Scope Z_scope.
+   Lemma pos_compat_strict (p q : Q) : 0 < p -> p == q -> 0 < q.

@@ -49,7 +49,11 @@ if (x <= 2147483647U) {       /* validity: 检查提供正证据 */
 
 ## PolCert 的对接边界
 
-已核对的 v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳定性，以及 Bernstein 读写条件下的交换证明。它比“non-alias 就能交换任意指令”更准确。`AbstractSchedule.v` 已实现对应的抽象调度接口，在实例提供这些性质时，证明有限相邻交换证书保持结果模状态等价。它不解释地址，也不是多面体 schedule validator。
+v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳定性，以及 Bernstein 读写条件下的交换证明。`PolCertSchedule.v` 已直接使用这一真实模块实例化 `AbstractSchedule`，证明有限相邻交换证书保持结果模状态等价。它不解释地址，也不是多面体 schedule validator。
+
+`PolCertLoopGuard.v` 已把真正的 `Loop` 实例化为条件语言，生成带 validity/value 的版本化 `Loop.stmt`，分别证明 forward preservation 与 backward endpoint refinement，并包含恒不成立条件下的任意候选死分支例子。入口域可由外围语言建立。实际 `Loop.test` 只读取数学整数参数，因此不能直接承载内存 alias 检查；外层 Clight 适配器必须执行相应检查并建立入口性质。
+
+这两个接口及真实 `Loop` 的 57 个证明依赖已在当前 CompCert 基础库上从锁定源码恢复并完整重编译。可选命令是 `make polcert-proof`；源码哈希、兼容补丁和准确边界见 [PolCert 适配](../adapters/polcert/README.md)。上游 VPL 保留自身的 monad/oracle 公理；新增适配器定理只依赖声明的 `INSTR` 参数。
 
 v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在源 Loop 终止执行且结果 `State.eq`”。统一并行驱动的目标是 `ParallelLoop`。二者都不能直接用于声称完整 C 程序的优化正确性。需要完成数学 Loop 与固定宽度 Clight 的具体语言桥接、范围与访问条件、候选进展，以及适合 region 的上下文证明。
 

@@ -1,0 +1,54 @@
+--- a/VPL/coq/PedraQ.v
++++ b/VPL/coq/PedraQ.v
+@@ -625,7 +625,7 @@
+     unfold applyHandelman, sat. simpl.
+     induction certs.
+     xasimplify ltac:(eauto with pedraQ vpl).
+-    intros. simpl.
++    intros. simpl. unfold f, applyHandelman_one.
+     xasimplify ltac:(eauto with pedraQ vpl).
+     intuition. apply H0; intuition.
+     apply Handelman_pos_le; auto.
+@@ -641,7 +641,7 @@
+     unfold applyHandelman, sat. simpl.
+     induction certs.
+     xasimplify ltac:(eauto with pedraQ vpl).
+-    intros. simpl.
++    intros. simpl. unfold f, applyHandelman_one.
+     xasimplify ltac:(eauto with pedraQ vpl).
+     intuition. apply H0; intuition.
+     apply Handelman_pos_lt; auto.
+@@ -655,22 +655,19 @@
+     BIND a2 <- applyHandelman Le opp pol (LinearizeBackend.handelman_oracle pol.(ml) Le opp) -;
+     BasicD.meet a1 a2.
+ 
+-  Lemma assume_eq_correct: 
+-  forall qt pol, WHEN p <- assume_eq qt pol THEN 
++  Lemma assume_eq_correct:
++  forall qt pol, WHEN p <- assume_eq qt pol THEN
+   forall m, QAtomicCond.sat {| cmpOp := NumC.Eq ; right := qt |} m -> gamma (Some pol) m -> gamma p m.
+   Proof.
+-    unfold assume_eq, sat.
+-    VPLAsimplify.
+-    intros.
+-    apply (meet_correct exta exta0);auto.
+-    - apply H; unfold sat, QNum.cmpDenote ; simpl.
+-      rewrite H1.
+-      intuition.
+-      assumption.
+-    - apply H0; unfold sat, QNum.cmpDenote ; simpl.
+-      unfold QNum.opp. rewrite <- H1.
+-      intuition.
+-      assumption.
++    unfold assume_eq, sat. VPLAsimplify. intros.
++    apply (meet_correct exta exta0); auto.
++    - apply H.
++      + unfold sat, QNum.cmpDenote; simpl. rewrite H1. apply QNum.LeRefl.
++      + assumption.
++    - apply H0.
++      + unfold sat, QNum.cmpDenote; simpl. rewrite <- H1.
++        rewrite QNum.OppZ. apply QNum.LeRefl.
++      + assumption.
+   Qed.
+ 
+   Definition assume_neq (qt : QTerm.t) (pol : polT) : imp t :=

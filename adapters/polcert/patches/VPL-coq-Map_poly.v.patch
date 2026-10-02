@@ -1,0 +1,82 @@
+--- a/VPL/coq/Map_poly.v
++++ b/VPL/coq/Map_poly.v
+@@ -8,6 +8,7 @@
+ Require Import Qpower.
+ Require Import Qop.
+ Require Import Lia.
++From Stdlib Require Import Arith.PeanoNat Arith.Compare_dec.
+ 
+ Require Import FMapAVL.
+ Require Import ConsSet.
+@@ -137,10 +138,10 @@
+   Definition buildOrder : Type := list ind_cons.
+   
+   Lemma le_0_1 : 0 <= 1.
+-  Proof. intuition. Qed.
++  Proof. vm_compute. discriminate. Qed.
+   
+   Lemma lt_0_1 : 0 < 1.
+-  Proof. intuition. Qed.
++  Proof. reflexivity. Qed.
+ 
+   Definition find_or_1 (i : CIndex.NatIndex.t) (m : t) : PExpr :=
+   match M.find i m with
+@@ -289,7 +290,9 @@
+   Lemma to_posQ_pos (q : Q) : 0 <= to_posQ q.
+   Proof.
+     unfold to_posQ.
+-    destruct (Qlt_le_dec 0 q) as [LT|LE] ; intuition.
++    destruct (Qlt_le_dec 0 q) as [LT|LE].
++    - apply Qlt_le_weak. exact LT.
++    - apply Qle_refl.
+   Qed.
+   
+   Lemma to_pos1_pos (T : Type) (x : Q * T) : 0 <= fst (to_pos1 T x).
+@@ -302,23 +305,12 @@
+ 
+   Lemma coeff_are_pos : forall T : Type, forall l : list (Q * T), coeff_pos T (to_pos T l).
+   Proof.
+-    induction l.
+-    - simpl.
+-      unfold coeff_pos ; unfold fst.
+-      intuition.
+-    - simpl in *.
+-      apply coeff_pos_app.
+-      split.
+-      
+-      -- unfold coeff_pos.
+-      unfold In.
+-      intros x In.
+-      intuition.
+-      rewrite <- H.
+-      apply to_pos1_pos.
+-     -- unfold coeff_pos.
+-      intros x In.
+-      intuition.
++    intros T l. unfold coeff_pos, to_pos.
++    induction l as [|a l IH]; intros x H; simpl in H.
++    - contradiction.
++    - destruct H as [EQ | H].
++      + subst x. destruct a. simpl. apply to_posQ_pos.
++      + apply IH. exact H.
+   Qed.
+   
+   Lemma to_pos_app : forall T : Type, forall x: Q * T, forall l : list (Q * T), 
+@@ -598,7 +590,7 @@
+     -- apply OneEvalPos_strict.
+  
+   - destruct (Ring_polynom_AddOnQ.PExpr_eq w aff_pe).
+-    -- absurd (true = false) ; intuition ; try assumption.
++    -- discriminate.
+     -- apply OneEvalPos_strict.
+   Qed.
+   
+@@ -655,7 +647,7 @@
+     -- apply OneEvalPos. 
+  
+     - destruct (Ring_polynom_AddOnQ.PExpr_eq w aff_pe).
+-    -- absurd (true = false) ; intuition ; try assumption.
++    -- discriminate.
+     -- apply OneEvalPos.
+   Qed.
+ 

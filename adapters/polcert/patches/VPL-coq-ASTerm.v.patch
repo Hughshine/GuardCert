@@ -1,0 +1,143 @@
+--- a/VPL/coq/ASTerm.v
++++ b/VPL/coq/ASTerm.v
+@@ -60,7 +60,8 @@
+       | Annot _ te => mayDependOn te x 
+     end.
+ 
+-  Hint Resolve (@mdBounds_fold _ mayDependOn): progvar.
++  Definition mdBounds_fold_hint := @mdBounds_fold _ mayDependOn.
++  #[global] Hint Resolve mdBounds_fold_hint: progvar.
+ 
+   Fixpoint mdBound (te:term) (bound: PVar.t): PVar.t := 
+     match te with
+@@ -78,11 +79,11 @@
+     (rewrite IHe2; rewrite IHe1; eapply eq_sym; rewrite IHe1;
+      autorewrite with rwmax; auto).
+   Qed.
+-  Hint Resolve mdBound_mdBoundVar_obligation_1: progvar.
++  #[global] Hint Resolve mdBound_mdBoundVar_obligation_1: progvar.
+   Obligation 2.
+     unfold mdBounds; generalize bound; induction e; simpl; intros; subst; intuition; eauto with progvar.
+   Qed.
+-  Hint Resolve mdBound_mdBoundVar_obligation_2: progvar.
++  #[global] Hint Resolve mdBound_mdBoundVar_obligation_2: progvar.
+ 
+   Lemma eval_mdo: mdoExt mayDependOn eval Logic.eq.
+   Proof.
+@@ -124,7 +125,7 @@
+     induction te; simpl; auto.
+     (* Annot intros; destruct a; simpl; auto. *)
+   Qed.
+-  Hint Resolve eval_map: vpl.
++  #[global] Hint Resolve eval_map: vpl.
+ 
+    (** Smart Constructors: they perform a few constant propagations at constant cost (over the AST) ! *)
+ 
+@@ -145,7 +146,7 @@
+      unfold pseudoIsZero; case te; simpl; auto.
+      intros c; destruct (N.isZero c); simpl; subst; auto.
+    Qed.
+-   Hint Resolve pseudoIsZero_correct: pedraQ.
++   #[global] Hint Resolve pseudoIsZero_correct: pedraQ.
+ 
+    Lemma pseudoIsZero_correct2 te m :
+      pseudoIsZero te = true -> eval te m = N.z.
+@@ -166,7 +167,7 @@
+    Proof.
+       unfold smartScalAdd1; destruct (N.isZero c); simpl; intros; subst; ring.
+    Qed.
+-   Hint Rewrite smartScalAdd1_correct: linterm.
++   #[global] Hint Rewrite smartScalAdd1_correct: linterm.
+ 
+    Definition smartScalAdd (c:N.t) (te: term): term :=  
+      match te with 
+@@ -179,7 +180,7 @@
+    Proof.
+       unfold smartScalAdd; destruct te; simpl; autorewrite with linterm; auto. 
+    Qed.
+-   Hint Rewrite smartScalAdd_correct: linterm.
++   #[global] Hint Rewrite smartScalAdd_correct: linterm.
+ 
+    Definition smartAdd (te1 te2: term): term :=
+      match te1 with
+@@ -226,7 +227,7 @@
+       simpl; try (intro H; rewrite H; ring_simplify); auto.
+       intros; rewrite N.MulComm; auto.
+    Qed.
+-  Hint Rewrite smartScalMul1_correct: linterm.
++  #[global] Hint Rewrite smartScalMul1_correct: linterm.
+   Opaque smartScalMul1_correct.
+ 
+    Definition smartScalMul (c:N.t) (te: term): term :=  
+@@ -241,7 +242,7 @@
+    Proof.
+       unfold smartScalMul; destruct te; autorewrite with linterm num; simpl; auto.
+    Qed.
+-   Hint Rewrite smartScalMul_correct: linterm.
++   #[global] Hint Rewrite smartScalMul_correct: linterm.
+ 
+    Definition smartMul (te1 te2: term): term :=
+      match te1 with
+@@ -272,7 +273,7 @@
+       unfold smartAnnot; destruct te; simpl; auto.
+    Qed.
+ 
+-   Hint Rewrite smartAdd_correct smartOpp_correct smartAnnot_correct smartMul_correct: linterm.
++   #[global] Hint Rewrite smartAdd_correct smartOpp_correct smartAnnot_correct smartMul_correct: linterm.
+ 
+   (** import: optimized for list given by current implementation of Linterms
+    *)      
+@@ -308,7 +309,7 @@
+     rewrite import_acc_correct; autorewrite with linterm num; simpl.
+     ring.
+   Qed.
+-  Hint Rewrite import_correct: linterm.
++  #[global] Hint Rewrite import_correct: linterm.
+ 
+ End AnnotatedTerm.
+ 
+@@ -327,7 +328,7 @@
+   Proof.
+      unfold fromLin; autorewrite with linterm. auto.
+   Qed.
+-  Hint Rewrite fromLin_correct: linterm.
++  #[global] Hint Rewrite fromLin_correct: linterm.
+   
+   Definition fromAff (aff : affTerm) : term :=
+      Add (fromLin (lin aff)) (Cte (cte aff)) .
+@@ -342,7 +343,7 @@
+     reflexivity.
+   Qed.
+ 
+-  Hint Rewrite fromLin_correct: linterm.
++  #[global] Hint Rewrite fromLin_correct: linterm.
+ 
+   (* This function decomposes a polynomial "te" into the sum of an affine term and
+      a polynomial that is either zero or has only monomials of degree >= 2.
+@@ -577,7 +578,7 @@
+     (* Annot *)
+     destruct a; simpl; try congruence.
+   Qed.
+-  Hint Rewrite xeval_eval: vpl.
++  #[global] Hint Rewrite xeval_eval: vpl.
+ 
+   (* Useless: derived from eval_pointwise_compat ?
+   Add Parametric Morphism: xeval with
+@@ -623,7 +624,7 @@
+     (* Annot *)
+     destruct a; simpl; auto with vpl.
+   Qed.
+-  Hint Resolve xeval_xmap: vpl.
++  #[global] Hint Resolve xeval_xmap: vpl.
+ 
+   (** Recursive annotation of a term with AFFINE tag
+        if the term is already affine then we return None
+@@ -729,7 +730,7 @@
+   Proof.
+     induction te; simpl; auto.
+   Qed.
+-  Hint Resolve matchCte_def: vpl.
++  #[global] Hint Resolve matchCte_def: vpl.
+ 
+   Close Scope option_scope.
+ 

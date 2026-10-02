@@ -1,0 +1,195 @@
+--- a/VPL/coq/ZNoneItv.v
++++ b/VPL/coq/ZNoneItv.v
+@@ -27,19 +27,19 @@
+ Definition t:=itv.
+ 
+ Definition sat (i:itv) zn: Prop := low i <= Some zn <= up i.
+-Hint Unfold sat: zn.
++#[global] Hint Unfold sat: zn.
+ 
+ Lemma sat_low i zn: sat i zn -> low i <= Some zn.
+ Proof.
+   unfold sat; intuition.
+ Qed.
+-Hint Resolve sat_low: zn.
++#[global] Hint Resolve sat_low: zn.
+ 
+ Lemma sat_up i zn: sat i zn -> Some zn <= up i.
+ Proof.
+   unfold sat; intuition.
+ Qed.
+-Hint Resolve sat_up: zn.
++#[global] Hint Resolve sat_up: zn.
+ 
+ Program Definition top: itv 
+   := {| low := None ; up := None |}.
+@@ -48,7 +48,7 @@
+ Proof.
+   unfold sat; simpl; intuition. 
+ Qed.
+-Hint Resolve top_correct: zn.
++#[global] Hint Resolve top_correct: zn.
+ 
+ 
+ (** Import from Alexis's datatype *)
+@@ -63,13 +63,13 @@
+ Proof.
+   destruct b; simpl; auto.
+ Qed.
+-Hint Resolve ceilFromBndT_correct: zn.
++#[global] Hint Resolve ceilFromBndT_correct: zn.
+ 
+ Lemma floorFromBndT_correct b z: ZItv.satUpper b z -> (Some z) <= (fromBndT b).
+ Proof.
+   destruct b; simpl; auto.
+ Qed. 
+-Hint Resolve floorFromBndT_correct: zn.
++#[global] Hint Resolve floorFromBndT_correct: zn.
+ 
+ Local Hint Resolve ceilFromBndT_correct floorFromBndT_correct.
+ 
+@@ -133,7 +133,7 @@
+ Proof.
+   unfold sat; intuition auto with zn.
+ Qed.
+-Hint Resolve single_correct: zn.
++#[global] Hint Resolve single_correct: zn.
+ 
+ Definition select (m:mode) l u :=
+   match m with
+@@ -151,7 +151,7 @@
+   unfold sat, select.
+   destruct m;  simpl_arith; intuition auto with zn.
+ Qed.
+-Hint Resolve select_correct: zn.
++#[global] Hint Resolve select_correct: zn.
+ 
+ Definition add (m:mode) (i1 i2: itv): itv 
+   := select m ((low i1)+(low i2)) ((up i1)+(up i2)).
+@@ -161,7 +161,7 @@
+ Proof.
+   unfold add. intros; apply select_correct; fold ((Some zn1)+(Some zn2)); auto with zn.
+ Qed.
+-Hint Resolve add_correct: zn.
++#[global] Hint Resolve add_correct: zn.
+ 
+ (* opp with a mode with mode *)
+ Definition oppX m (i: itv): itv 
+@@ -171,7 +171,7 @@
+ Proof.
+   unfold oppX. intros; apply select_correct; fold (ZN.opp (Some zn)); auto with zn.
+ Qed.
+-Hint Resolve oppX_correct: zn.
++#[global] Hint Resolve oppX_correct: zn.
+ 
+ (* A version of opp without mode because it does not improve efficiency ! *) 
+ Definition opp (i: itv): itv 
+@@ -183,7 +183,7 @@
+   fold (ZN.opp (Some zn)).
+   generalize (Some zn); simpl; intuition auto with zn.
+ Qed.
+-Hint Resolve opp_correct: zn.
++#[global] Hint Resolve opp_correct: zn.
+ 
+ Definition oppMode m :=
+   match m with
+@@ -219,7 +219,7 @@
+   try (rewrite <- mulZ_Some); unfold sat in * |-; generalize (Some z2) H; 
+   intuition; simpl_arith.
+ Qed.
+-Hint Resolve mulZ_correct: zn.
++#[global] Hint Resolve mulZ_correct: zn.
+ 
+ (* multiplication of [Some(a),Some(b)] with i *)
+ Definition mulZZ m (a b:Z) (i2: itv): itv
+@@ -245,7 +245,7 @@
+       eapply ZN.le_trans; eauto.
+       simpl. auto with zarith.
+ Qed.
+-Hint Resolve mulZZ_correct: zn.
++#[global] Hint Resolve mulZZ_correct: zn.
+ 
+ (* multiplication of [None,None] with i *)
+ Definition mulNN i: itv
+@@ -266,7 +266,7 @@
+   unfold sat; intros H H0; rewrite H, H0; simpl.
+   intros; cutrewrite (z2=0); lia.
+ Qed.
+-Hint Resolve mulNN_correct: zn.
++#[global] Hint Resolve mulNN_correct: zn.
+ 
+ Definition bndLow z: itv
+   := {| low:=Some z; up:=None |}.
+@@ -311,7 +311,7 @@
+   unfold sat; simpl. intuition.
+   eauto with zle_compat.
+ Qed.
+-Hint Resolve mulZNNZ_correct: zn.
++#[global] Hint Resolve mulZNNZ_correct: zn.
+ 
+ (* multiplication of [Some b1,None] with [Some b2, None] *)
+ Definition mulZNZN m b1 b2: itv 
+@@ -334,7 +334,7 @@
+   unfold sat; simpl. intuition.
+   eauto with zle_compat.
+ Qed.
+-Hint Resolve mulZNZN_correct: zn.
++#[global] Hint Resolve mulZNZN_correct: zn.
+ 
+ (* multiplication of [None, Some b1] with [None, Some z2] *)
+ Definition mulNZNZ m b1 b2: itv 
+@@ -357,7 +357,7 @@
+   unfold sat; simpl. intuition.
+   eauto with zle_compat.
+ Qed.
+-Hint Resolve mulNZNZ_correct: zn.
++#[global] Hint Resolve mulNZNZ_correct: zn.
+ 
+ (* At last, multiplication of two intervals ! *)
+ Definition mul m i1 i2: itv
+@@ -392,7 +392,7 @@
+     rewrite Z.mul_comm;
+     simpl_arith.
+ Qed.
+-Hint Resolve mul_correct: zn.
++#[global] Hint Resolve mul_correct: zn.
+ 
+ End ZNItv.
+ 
+@@ -478,7 +478,7 @@
+       - destruct (Z_isZero c); intros; subst; simpl; ZN.simpl_arith.
+    Qed.
+     
+-   Hint Rewrite mulZ1_correct mulZ_correct cte_correct add_correct mul_correct opp_correct: linterm.
++   #[global] Hint Rewrite mulZ1_correct mulZ_correct cte_correct add_correct mul_correct opp_correct: linterm.
+ 
+ End NA.
+ 
+@@ -504,7 +504,7 @@
+    Proof.
+      auto.
+    Qed.
+-   Hint Rewrite single_correct: linterm.
++   #[global] Hint Rewrite single_correct: linterm.
+ 
+    Definition select mo l u :=
+    match mo with
+@@ -518,7 +518,7 @@
+    Proof.
+      case mo; simpl; auto.
+    Qed.
+-   Hint Rewrite select_correct: linterm.
++   #[global] Hint Rewrite select_correct: linterm.
+    
+    Definition add mo (i1 i2: itv): itv 
+      := select mo (NA.add (low i1) (low i2)) (NA.add (up i1) (up i2)).
+@@ -578,7 +578,7 @@
+          intuition; ZN.simpl_arith.
+        + unfold NA.mul; simpl; autorewrite with linterm; ZNum.simplify.
+   Qed.
+-  Hint Resolve mulP1_correct: zn.
+-  Hint Rewrite cte_correct add_correct opp_correct mulZ_correct mulP1_correct mulN_correct: linterm.
++  #[global] Hint Resolve mulP1_correct: zn.
++  #[global] Hint Rewrite cte_correct add_correct opp_correct mulZ_correct mulP1_correct mulN_correct: linterm.
+ 
+ End NAItv.

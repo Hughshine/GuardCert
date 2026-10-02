@@ -1,0 +1,108 @@
+--- a/VPL/coq/CIndex.v
++++ b/VPL/coq/CIndex.v
+@@ -1,4 +1,5 @@
+ From Guard Require Import PolCertCompat.
++From Stdlib Require Import Arith.Compare_dec Arith.PeanoNat.
+ Require Import Ring_polynom_AddOnQ.
+ Require Import NArith.
+ Require Import QArith.
+@@ -240,34 +241,10 @@
+       
+   Lemma lt_not_eq : forall x y : t, lt x y -> ~ eq x y.
+   Proof.
+-    intros x y LTxy.
+-    intuition.
+-    unfold lt in LTxy.
+-    unfold eq in H.
+-    pose proof (LTxy N.z) as LTxy_z. clear LTxy.
+-    elim (LTxy_z); clear LTxy_z.
+-    - intuition. 
+-    - intuition.
+-      elim H0.
+-      intros k LTk. 
+-      break_and.
+-      assert (DEC : {1 <= k} + {k < 1}) by apply le_lt_dec.
+-      elim DEC ; clear DEC.
+-      + intro LEQ.
+-        assert (EQ : nth (k-1) x N.z = nth (k-1) y N.z).
+-        apply H.
+-        lia.
+-        assert (~ (nth k x N.z = nth k y N.z)) 
+-          by (apply N.lt_not_eq;assumption).
+-      auto.
+-      + intros.
+-        assert (EQ0 : k = 0) by lia.
+-        rewrite EQ0 in *.
+-        assert (nth 0 x N.z = nth 0 y N.z) 
+-          by (apply H2 ; assumption).
+-        assert (~ (nth 0 x N.z = nth 0 y N.z)) 
+-          by (apply N.lt_not_eq;assumption).
+-        auto.
++    intros x y LT [LEN EQ].
++    destruct (LT N.z) as [[LESS _] | [k [KX [KY [LESS BEFORE]]]]].
++    - lia.
++    - apply (N.lt_not_eq _ _ LESS). apply EQ. exact KX.
+   Qed.
+ 
+   Open Scope bool_scope.
+@@ -461,22 +438,8 @@
+ 
+   Lemma lt_cons2 : forall x y : t, forall a b : N.t, N.lt a b -> lt (a::x) (b::y).
+   Proof.
+-    intros.
+-    unfold lt.
+-    right.
+-    exists 0.
+-    intuition.
+-   - cutrewrite (a :: x = [a] ++ x) ; [ | auto].
+-    rewrite app_length.
+-    simpl.
+-    intuition.
+-  - cutrewrite (b :: y = [b] ++ y) ; [ | auto].
+-    rewrite app_length.
+-    simpl.
+-    intuition.
+-  - absurd (i < 0).
+-    intuition. 
+-    assumption.
++    intros x y a b LT d. right. exists 0. simpl.
++    repeat split; auto; lia.
+   Qed.
+ 
+   Lemma compare : forall x y : t, Compare lt eq x y.
+@@ -498,7 +461,7 @@
+     intro d. 
+     left. 
+     split.
+-      -- simpl. intuition.
++      -- simpl. lia.
+       -- intros i LE. simpl in LE. assert (0 <= i) by apply le_0_n.
+         lia.
+   - constructor 3.
+@@ -506,7 +469,7 @@
+     intro d.
+     left. 
+     split.
+-      -- simpl. intuition.
++      -- simpl. lia.
+       -- intros i LE. simpl in LE. assert (0 <= i) by apply le_0_n.
+         lia.
+   - rewrite e. inversion pf_cons'. 
+@@ -540,7 +503,7 @@
+   Definition lt := Nat.lt.
+   Definition z := 0%nat.
+   Lemma lt_not_eq : forall x y : t, x < y -> ~ (x = y).
+-  Proof. intuition. Qed. 
++  Proof. unfold lt; lia. Qed. 
+    
+   Lemma eq_dec : forall n m : nat, {n = m} + {n <> m}.
+   Proof. apply Nat.eq_dec. Qed.
+@@ -549,7 +512,7 @@
+   Proof. apply lt_eq_lt_dec. Qed.
+  
+   Lemma lt_trans : forall x y z : t, lt x y -> lt y z -> lt x z.
+-  Proof. apply lt_trans. Qed.
++  Proof. apply Nat.lt_trans. Qed.
+ End NatNum. 
+ 
+ Module QcNum <: Num.

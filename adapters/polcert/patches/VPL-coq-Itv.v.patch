@@ -1,0 +1,60 @@
+--- a/VPL/coq/Itv.v
++++ b/VPL/coq/Itv.v
+@@ -49,6 +49,10 @@
+ 
+ Module StdItv (N: NumSig)<: ItvSig N.
+ 
++  Local Hint Rewrite -> N.MulUR N.MulZL: num.
++  Local Hint Rewrite <- N.OppLt N.OppLe N.LeNotLt N.LtNotLe N.MulLt: num.
++  Local Hint Resolve N.AddLeLe N.AddLeLt N.AddLtLt N.AddLtLe N.LeRefl N.LtLe N.MulLe1: num.
++
+   Inductive bndT: Set
+     :=
+     | Infty: bndT
+@@ -107,10 +111,12 @@
+ 
+   Lemma is_not_upper_correct n b: is_not_upper n b = true -> ~(satUpper b n).
+   Proof.
+-   destruct b; simpl; autorewrite with num.
+-   + intuition.
+-   + destruct (N.ltLeDec n t0); simpl; auto; try discriminate.
+-   + destruct (N.ltLeDec t0 n); simpl; auto; try discriminate.
++   destruct b; simpl.
++   - discriminate.
++   - destruct (N.ltLeDec n t0) as [LT | LE]; try discriminate.
++     intros _ LT. exact (proj1 (N.LtNotLe _ _) LT LE).
++   - destruct (N.ltLeDec t0 n) as [LT | LE]; try discriminate.
++     intros _ LE. exact (proj1 (N.LtNotLe _ _) LT LE).
+   Qed.
+ 
+   Definition is_bot (i: t): bool :=
+@@ -128,14 +134,21 @@
+ 
+   Lemma is_bot_correct i n: is_bot i = true -> ~(sat i n).
+   Proof.
+-   unfold is_bot, sat; destruct (lower i); intuition.
+-   + destruct (upper i); simpl in * |-; intuition.
+-     - destruct (N.ltLeDec t0 t1); intuition.
+-       assert (X:~(N.Lt t0 t1)); autorewrite with num; eauto.
+-     - destruct (N.ltLeDec t0 t1); intuition.
+-       assert (X:~(N.Lt t0 t1)); autorewrite with num; eauto.
+-  + eapply is_not_upper_correct; eauto.
+-    destruct (upper i); simpl in * |- *; intuition eauto.
++    destruct i as [lower upper]. unfold is_bot, sat. simpl.
++    destruct lower as [|lo|lo]; simpl.
++    - discriminate.
++    - destruct upper as [|hi|hi]; simpl; try discriminate.
++      + destruct (N.ltLeDec lo hi) as [LT | LE]; try discriminate.
++        intros _ [LOW UPP].
++        exact (proj1 (N.LtNotLe _ _) (N.LtTrans _ _ _ LOW UPP) LE).
++      + destruct (N.ltLeDec lo hi) as [LT | LE]; try discriminate.
++        intros _ [LOW UPP].
++        exact (proj1 (N.LtNotLe _ _) (N.LtLeTrans _ _ _ LOW UPP) LE).
++    - intros BOT [LOW UPP].
++      apply (is_not_upper_correct lo upper BOT).
++      destruct upper; simpl in *; auto.
++      + eapply N.LeLtTrans; eauto.
++      + eapply N.LeTrans; eauto.
+   Qed.
+ 
+   Definition mk1 (n: N.t): t := {| lower := Closed n; upper := Closed n |}.

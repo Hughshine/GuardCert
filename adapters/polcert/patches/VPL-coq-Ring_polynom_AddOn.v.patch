@@ -1,0 +1,21 @@
+--- a/VPL/coq/Ring_polynom_AddOn.v
++++ b/VPL/coq/Ring_polynom_AddOn.v
+@@ -204,7 +204,7 @@
+       apply Pos2Nat.is_pos.
+     + auto.
+   - intros; autorewrite with list; auto.
+-  Grab Existential Variables. apply O.
++  Unshelve. all: exact O.
+ Qed.
+ 
+ Fixpoint bound (pe:PExpr): positive :=
+@@ -248,7 +248,5 @@
+   unfold Pphi. refine (Peq_ok _ _ _ _ _ H _).
+   - eapply Cring.cring_eq_ext; eauto.
+   - eapply mkmorph; eauto.
+-  Grab Existential Variables. 
+-    apply Zplus.
+-    apply 0.
+-Qed.
++  Unshelve. all: first [exact Zplus | exact 0%Z].
++Qed.

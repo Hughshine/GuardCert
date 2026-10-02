@@ -1,0 +1,143 @@
+--- a/VPL/coq/ASCond.v
++++ b/VPL/coq/ASCond.v
+@@ -26,9 +26,12 @@
+ 
+ 
+ (* polyhedra as logical expressions *)
+-Module Cond (N: NumSig) (Import Term: ASTermSig(N)). 
+-
+-  Hint Resolve N.cmpDenote_dec: vpl.
++Module Cond (N: NumSig) (Import Term: ASTermSig(N)).
++
++  Local Hint Rewrite <- N.OppLt N.OppLe N.LeNotLt N.LtNotLe N.MulLt: num.
++  Local Hint Resolve N.LeRefl N.LtLe: num. 
++
++  #[global] Hint Resolve N.cmpDenote_dec: vpl.
+ 
+   Inductive cond: Type :=
+   | Basic (b: bool)
+@@ -89,7 +92,7 @@
+   Proof.
+     induction c; simpl; autorewrite with vpl; try congruence.
+   Qed.
+-  Hint Rewrite xsat_sat: vpl.
++  #[global] Hint Rewrite xsat_sat: vpl.
+ 
+   (* Useless: derived from eval_pointwise_compat ?
+     Add Parametric Morphism: xsat with
+@@ -110,7 +113,8 @@
+       | Not c => mayDependOn c x
+     end.
+ 
+-  Hint Resolve (@mdBounds_fold _ mayDependOn): progvar.
++  Definition mdBounds_fold_hint := @mdBounds_fold _ mayDependOn.
++  Local Hint Resolve mdBounds_fold_hint: progvar.
+ 
+   Fixpoint mdBound (c:cond) (bound: positive): positive := 
+     match c with
+@@ -132,11 +136,11 @@
+     apply eq_sym.
+     rewrite IHe1; autorewrite with rwmax; auto.     
+   Qed.
+-  Hint Resolve mdBound_mdBoundVar_obligation_1: progvar.
++  #[global] Hint Resolve mdBound_mdBoundVar_obligation_1: progvar.
+   Obligation 2.
+     unfold mdBounds; generalize bound; induction e; simpl; intros; subst; intuition; eauto with progvar.
+   Qed.
+-  Hint Resolve mdBound_mdBoundVar_obligation_2: progvar.
++  #[global] Hint Resolve mdBound_mdBoundVar_obligation_2: progvar.
+ 
+   Lemma sat_mdo: mdoExt mayDependOn sat Logic.eq.
+   Proof.
+@@ -187,7 +191,7 @@
+   Proof.
+     induction c; simpl; auto with vpl.
+   Qed.
+-  Hint Resolve xsat_xmap: vpl.
++  #[global] Hint Resolve xsat_xmap: vpl.
+ 
+   (* 
+ 
+@@ -210,7 +214,7 @@
+         intro H; case (N.eqDec (xeval t2 old new) (xeval t1 old new)); auto.
+         intros; case H; auto.
+       Qed.
+-      Hint Resolve dual_sound: vpl.
++      #[global] Hint Resolve dual_sound: vpl.
+ 
+       Fixpoint nnf (c:t):  t :=
+         match c with
+@@ -239,19 +243,19 @@
+         case (xsat_dec c1 old new); intuition.
+         - intros H; case (xsat_dec c old new); intuition.
+       Qed.
+-      Hint Resolve nnf_xsound: vpl.
++      #[global] Hint Resolve nnf_xsound: vpl.
+ 
+       Lemma nnf_sound (c:cond) m: (sat c m) -> (sat (nnf c) m).
+       Proof.
+         rewrite <- !xsat_sat. auto with vpl.
+       Qed.
+-      Hint Resolve nnf_sound: vpl.
++      #[global] Hint Resolve nnf_sound: vpl.
+ 
+       Lemma dual_complete: forall (cmp:cmpG) t1 t2 old new, xsat (dual cmp t1 t2) old new -> ~(N.cmpDenote cmp (xeval t1 old new) (xeval t2 old new)).
+       Proof.
+         intros cmp t1 t2 old new; case cmp; simpl in * |- *; autorewrite with num; auto.
+       Qed.
+-      Hint Resolve dual_complete: vpl.
++      #[global] Hint Resolve dual_complete: vpl.
+ 
+       Fixpoint nnf_xcomplete (c:t) old new {struct c}: (xsat (nnf c) old new) -> (xsat c old new)
+       with NnfNot_xcomplete (c:t) old new {struct c}: (xsat (nnfNot c) old new) -> ~(xsat c old new).
+@@ -262,13 +266,13 @@
+         - case b; simpl; auto.
+         - case op; simpl; intuition eauto.
+       Qed.
+-      Hint Resolve nnf_xcomplete: vpl.
++      #[global] Hint Resolve nnf_xcomplete: vpl.
+ 
+       Lemma nnf_complete (c:cond) m: (sat (nnf c) m) -> (sat c m).
+       Proof.
+         rewrite <- !xsat_sat. auto with vpl.
+       Qed.
+-      Hint Resolve nnf_complete: vpl.
++      #[global] Hint Resolve nnf_complete: vpl.
+ 
+       (* Nnf and mayDependOn *)
+       Fixpoint nnf_mdBound (c:t) x {struct c}: mdBound (nnf c) x = mdBound c x
+@@ -283,7 +287,7 @@
+              rewrite !nnfNot_mdBound; auto.
+       Qed.
+ 
+-  Hint Resolve nnf_xsound nnf_sound nnf_complete: vpl.
++  #[global] Hint Resolve nnf_xsound nnf_sound nnf_complete: vpl.
+ 
+   (*
+   Extraction nnf.
+@@ -344,7 +348,7 @@
+     VPLAsimplify.
+   Qed.
+   Extraction Inline skipBottom. (* IMPORTANT: lazy operator !  *)
+-  Hint Resolve skipBottom_correct: vpl.
++  #[global] Hint Resolve skipBottom_correct: vpl.
+ 
+   Fixpoint assumeRec (c:Cond.t) (a: t):  imp t :=
+     match c with
+@@ -402,7 +406,7 @@
+     intros H2 H3;  case (H0 m). 
+     auto with vpl.
+   Qed.
+-  Hint Resolve assert_correct: vpl.
++  #[global] Hint Resolve assert_correct: vpl.
+   Global Opaque assert.
+ 
+   Close Scope impure.
+@@ -468,6 +472,7 @@
+     - (* Atom *) case oc; simpl; VPLAsimplify.
+       intros; rewrite <- N.LeLeEq. intuition.
+     - (* AND *) case op; simpl; VPLAsimplify.
++    - simpl. apply Naive.assert_correct.
+   Qed.
+ 
+   Local Hint Resolve assertRec_correct: vpl.

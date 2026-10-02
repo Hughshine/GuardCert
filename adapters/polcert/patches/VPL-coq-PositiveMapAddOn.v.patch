@@ -1,0 +1,20 @@
+--- a/VPL/coq/PositiveMapAddOn.v
++++ b/VPL/coq/PositiveMapAddOn.v
+@@ -472,7 +472,7 @@
+   Proof.
+     induction l2; simpl; auto.
+     destruct 1; simpl; autorewrite with posmap; intuition auto.
+-    apply inMerge_app_r. auto. 
++    all: apply inMerge_app_r; auto. 
+   Qed.
+ 
+   Lemma inMerge_LT_app l1: forall l2 r1 r3, inMerge r1 l2 r3 ->
+@@ -481,7 +481,7 @@
+   Proof.
+     induction l1; simpl; auto.
+     destruct 1; simpl; autorewrite with posmap; intuition auto.
+-    apply inMerge_app_l. auto.
++    all: apply inMerge_app_l; auto.
+   Qed.
+   Local Hint Resolve inMerge_LT_app inMerge_GT_app.
+ 

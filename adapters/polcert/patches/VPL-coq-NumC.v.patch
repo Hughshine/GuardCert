@@ -1,0 +1,81 @@
+--- a/VPL/coq/NumC.v
++++ b/VPL/coq/NumC.v
+@@ -171,6 +171,10 @@
+ Qed.
+ 
+ Module CmpTheory(N: BasicNumSig).
++
++  Local Hint Rewrite -> N.MulUR N.MulZL: num.
++  Local Hint Rewrite <- N.OppLt N.OppLe N.LeNotLt N.LtNotLe N.MulLt: num.
++  Local Hint Resolve N.AddLeLe N.AddLeLt N.AddLtLt N.AddLtLe N.LeRefl N.LtLe N.MulLe1: num.
+ 
+   Add Ring NRing: N.Ring.
+ 
+@@ -300,7 +304,8 @@
+     apply zero_unique. auto.
+   Qed.
+   Obligation 2.
+-    intros H0. subst; apply H. vm_compute. auto.
++    intros EQ; subst. match goal with NE : _ <> _ |- _ => apply NE end.
++    vm_compute; reflexivity.
+   Qed.
+ 
+   Lemma one_unique (n:t): Qnum (this n)=1%Z -> Qden (this n)=1%positive -> n=u.
+@@ -516,7 +521,7 @@
+       assumption.
+   Qed.
+ 
+-  Hint Resolve AddLeLe AddLeLt AddLtLt AddLtLe SplitEq LeRefl: num.
++  #[global] Hint Resolve AddLeLe AddLeLt AddLtLt AddLtLe SplitEq LeRefl: num.
+ 
+   Lemma MulLe1: forall n1 n2 n3: t,
+                   Le z n1 -> Le n2 n3 -> Le (mul n1 n2) (mul n1 n3).
+@@ -599,9 +604,9 @@
+   Definition to_Q : t -> Q 
+   := fun qc => qc.(this).
+ 
+-  Hint Resolve LtLeAbsurd LeTrans LtLe LtLeTrans LeLtTrans: num.
+-  Hint Rewrite SubAdd: num.
+-  Hint Rewrite <- OppLt OppLe LeNotLt LtNotLe: num.
++  #[global] Hint Resolve LtLeAbsurd LeTrans LtLe LtLeTrans LeLtTrans: num.
++  #[global] Hint Rewrite SubAdd: num.
++  #[global] Hint Rewrite <- OppLt OppLe LeNotLt LtNotLe: num.
+ 
+ End QBasicNum.
+ 
+@@ -841,7 +846,7 @@
+   Definition Ring := mk_rt z u add mul sub opp eq Zplus_0_l Zplus_comm Zplus_assoc
+                            Zmult_1_l Zmult_comm MulAssoc Zmult_plus_distr_l SubAdd AddOpp.
+ 
+-  Hint Rewrite SubAdd: num.
++  #[global] Hint Rewrite SubAdd: num.
+ 
+   Program Definition isZero (n: t): {n = z} + {n <> z}
+     := match n with
+@@ -870,7 +875,7 @@
+   Qed.
+ 
+   Extraction Inline add sub mul opp eqDec ltLeDec dec isZero mulDiscr.
+-  Hint Resolve AddLeLe AddLeLt AddLtLt AddLtLe LeRefl: num.
++  #[global] Hint Resolve AddLeLe AddLeLt AddLtLt AddLtLe LeRefl: num.
+ 
+   Definition MulComm := Z.mul_comm.
+ 
+@@ -935,7 +940,7 @@
+   Proof.
+     apply Qc_is_canon; vm_compute; auto.
+   Qed.
+-  Hint Rewrite ofZ_zero ofZ_one: num.
++  #[global] Hint Rewrite ofZ_zero ofZ_one: num.
+ 
+   Lemma EqCommutes: forall z1 z2: ZNum.t, z1 = z2 <-> (ofZ z1) = (ofZ z2).
+     intros z1 z2.
+@@ -997,7 +1002,7 @@
+     reflexivity.
+   Qed.
+    
+-  Hint Rewrite EqCommutes LeCommutes LtCommutes LtCommutes AddCommutes MulCommutes OppCommutes: num.
++  #[global] Hint Rewrite EqCommutes LeCommutes LtCommutes LtCommutes AddCommutes MulCommutes OppCommutes: num.
+ 
+   Lemma isInZ_test q: Qden(this(q))=1%positive -> q=ofZ(Qnum(this(q))).
+   Proof.

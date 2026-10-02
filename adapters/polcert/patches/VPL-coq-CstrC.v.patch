@@ -1,0 +1,129 @@
+--- a/VPL/coq/CstrC.v
++++ b/VPL/coq/CstrC.v
+@@ -20,26 +20,26 @@
+ 
+   Definition Incl (c1: t) (c2: t): Prop
+     := forall m, sat c1 m -> sat c2 m.
+-  Hint Unfold Incl: pedraQ.
++  #[global] Hint Unfold Incl: pedraQ.
+ 
+   Parameter isEq: t -> t -> bool.
+   Parameter isEq_correct: forall c1 c2: t, If isEq c1 c2 THEN Incl c1 c2.
+-  Hint Resolve isEq_correct: pedraQ.
++  #[global] Hint Resolve isEq_correct: pedraQ.
+ 
+   Parameter isContrad: t -> bool.
+   Parameter isContrad_correct: forall c: t, If isContrad c THEN forall m, (sat c m)->False.
+-  Hint Resolve isContrad_correct: pedraQ.
++  #[global] Hint Resolve isContrad_correct: pedraQ.
+ 
+   Parameter top: t.
+   Parameter top_correct: forall m, sat top m.
+ 
+   Parameter triv: cmpT -> QNum.t -> t.
+   Parameter triv_correct: forall typ n m, sat (triv typ n) m.
+-  Hint Resolve triv_correct: pedraQ.
++  #[global] Hint Resolve triv_correct: pedraQ.
+ 
+   Parameter to_le: t -> t.  
+   Parameter to_le_correct: forall c m, sat c m -> sat (to_le c) m.
+-  Hint Resolve to_le_correct: pedraQ.
++  #[global] Hint Resolve to_le_correct: pedraQ.
+ 
+   Parameter add: t -> t -> t.
+   Parameter add_correct: forall (c1 c2: t) m,
+@@ -51,11 +51,11 @@
+   Parameter merge: t -> t -> t.
+   Parameter merge_correct: forall c1 c2 m, sat c1 m -> sat c2 m -> sat (merge c1 c2) m.
+ 
+-  Hint Resolve top_correct add_correct mul_correct merge_correct: pedraQ.
++  #[global] Hint Resolve top_correct add_correct mul_correct merge_correct: pedraQ.
+ 
+   Parameter isFree: PVar.t -> t -> bool.
+   Parameter isFree_correct: forall (x: PVar.t) (c: t), (If (isFree x c) THEN ~(mayDependOn c x)).
+-  Hint Resolve isFree_correct:pedraQ.
++  #[global] Hint Resolve isFree_correct:pedraQ.
+ 
+   (* Rename *)
+   Parameter rename: PVar.t -> PVar.t -> t -> t.
+@@ -113,7 +113,7 @@
+     unfold sat; rewrite L.NilEval.
+     simpl; auto.
+   Qed.
+-  Hint Resolve top_correct: pedraQ.
++  #[global] Hint Resolve top_correct: pedraQ.
+ 
+   Definition bot := {| coefs:= L.nil; typ:= EqT; cst:=QNum.u |}.
+ 
+@@ -122,7 +122,7 @@
+     unfold sat; rewrite L.NilEval.
+     simpl. apply QNum.ZNotU.
+   Qed.
+-  Hint Resolve bot_correct: pedraQ.
++  #[global] Hint Resolve bot_correct: pedraQ.
+ 
+   Definition triv (typ:cmpT) (n:QNum.t) :=  
+   if QNum.cmpDenote_dec typ QNum.z n then
+@@ -136,7 +136,7 @@
+     destruct (QNum.cmpDenote_dec typ QNum.z n);
+     simpl; rewrite L.NilEval; auto.
+   Qed.
+-  Hint Resolve triv_correct: pedraQ.
++  #[global] Hint Resolve triv_correct: pedraQ.
+ 
+   Definition to_le  (c: t): t :=  
+     {| coefs:= (coefs c); typ:= LeT; cst:=(cst c) |}.
+@@ -146,7 +146,7 @@
+     unfold to_le, sat. destruct (typ c); simpl; auto with num.
+     intros H; rewrite H; auto with num.
+   Qed.
+-  Hint Resolve to_le_correct: pedraQ.
++  #[global] Hint Resolve to_le_correct: pedraQ.
+ 
+ 
+   Definition Incl (c1: t) (c2: t): Prop
+@@ -178,7 +178,7 @@
+ 
+   Lemma isContrad_correct c: If isContrad c THEN forall m, (sat c m)->False.
+   Proof isContrad_correctx c.
+-  Hint Resolve isContrad_correct: pedraQ.
++  #[global] Hint Resolve isContrad_correct: pedraQ.
+   Global Opaque isContrad. 
+ 
+   Local Hint Resolve cmpT_eq_correct: pedraQ.
+@@ -194,7 +194,7 @@
+     unfold isEq, Incl, sat; PedraQsimplify; subst.
+     unfold L.Eq. intros X m; rewrite X. auto.
+   Qed.
+-  Hint Resolve isEq_correct: pedraQ.
++  #[global] Hint Resolve isEq_correct: pedraQ.
+   Global Opaque isEq.
+ 
+   Definition cmpAdd: cmpT -> cmpT -> cmpT
+@@ -292,7 +292,7 @@
+       | _ => None
+     end.
+ 
+-  Hint Resolve add_correct mul_correct merge_correct: pedraQ.
++  #[global] Hint Resolve add_correct mul_correct merge_correct: pedraQ.
+ 
+   Lemma split_correct c: WHEN p <- split c THEN Incl c (fst p) /\ Incl c (snd p).
+   Proof.
+@@ -311,7 +311,7 @@
+   Proof.
+     PedraQsimplify. 
+   Qed.
+-  Hint Resolve isFree_correct: pedraQ.
++  #[global] Hint Resolve isFree_correct: pedraQ.
+ 
+   Definition rename x y c : t 
+     := {| coefs:= L.rename x y (coefs c); typ:=(typ c); cst:=(cst c) |}.
+@@ -377,7 +377,7 @@
+   Definition to_PExpr : t -> PExpr
+   := fun cstr => PEsub (PEc (QNum.to_Q (cstr.(cst)))) (LinQ.to_PExpr (cstr.(coefs))) .
+ 
+-  Hint Resolve upperToCstr_correct upperOrEqualsToCstr_correct lowerToCstr_correct lowerOrEqualsToCstr_correct: pedraQ.
++  #[global] Hint Resolve upperToCstr_correct upperOrEqualsToCstr_correct lowerToCstr_correct lowerOrEqualsToCstr_correct: pedraQ.
+  
+   (* Opaque upperToCstr upperOrEqualsToCstr lowerToCstr lowerOrEqualsTo *)
+ 

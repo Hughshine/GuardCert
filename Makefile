@@ -7,7 +7,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGu
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
-        guarded-compiler native-demo check-integration clean
+        guarded-compiler native-demo check-integration polcert-proof clean
 all: check
 
 proof:
@@ -67,6 +67,14 @@ native-demo: guarded-compiler
 	python3 scripts/native_rewrites.py
 
 check-integration: native-demo
+
+POLCERT_SOURCE ?=
+POLCERT_SOURCE_ARG = $(if $(POLCERT_SOURCE),--source "$(POLCERT_SOURCE)",)
+
+polcert-proof: check-compcert
+	python3 scripts/polcert_core.py restore $(POLCERT_SOURCE_ARG)
+	python3 scripts/polcert_core.py build --clean
+	python3 scripts/polcert_core.py adapter
 
 clean:
 	@python3 scripts/clean.py

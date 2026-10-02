@@ -1,0 +1,28 @@
+--- a/VPL/coq/DomainFunctors.v
++++ b/VPL/coq/DomainFunctors.v
+@@ -38,6 +38,7 @@
+  (DP: HasSimplePrinting QNum D)
+  <: FullItvAbstractDomain ZNum ZCond ZNItv with Definition rep := DP.rep.
+ 
++  #[local] Existing Instance D.gamma_ext.
+   Import LinTerm.
+   Import ZNItv.
+ 
+@@ -50,7 +51,7 @@
+     Definition gamma (a:t) m
+       := D.gamma a (Mem.lift ZtoQ.ofZ m).
+ 
+-     Instance gamma_ext: Proper (Logic.eq ==> pointwise_relation PVar.t Logic.eq ==> iff) gamma.
++     #[global] Instance gamma_ext: Proper (Logic.eq ==> pointwise_relation PVar.t Logic.eq ==> iff) gamma.
+      Proof.
+        unfold gamma.
+        intros x y H m1 m2 H0. subst; rewrite H0; tauto.
+@@ -69,7 +70,7 @@
+      Lemma top_correct: forall m, gamma top m.
+        unfold top, gamma; auto with vpl.
+      Qed.
+-     Hint Resolve top_correct: vpl.
++     #[global] Hint Resolve top_correct: vpl.
+ 
+      Definition bottom: t := D.bottom.
+ 

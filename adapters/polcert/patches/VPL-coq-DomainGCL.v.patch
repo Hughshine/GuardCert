@@ -1,0 +1,31 @@
+--- a/VPL/coq/DomainGCL.v
++++ b/VPL/coq/DomainGCL.v
+@@ -40,17 +40,17 @@
+   Bind Scope cdac_scope with cdac.
+   Delimit Scope cdac_scope with cdac.
+ 
+-  Program Definition build_cdac 
+-     (impl:  D.t -> imp D.t) 
+-     (spec: (Mem.t N.t) -> MPP (Mem.t N.t) | forall a, WHEN a' <- impl a THEN forall m, D.gamma a m -> spec m (D.gamma a')) : cdac
+-  :=
+-    {| 
+-       impl := impl ;
+-       sapp := fun m => spec m
+-    |}.
+-  Obligation 1.
+-    eapply apply_monotone; eauto.
+-  Qed.
++  Definition build_cdac
++     (impl: D.t -> imp D.t)
++     (checked: {spec: (Mem.t N.t) -> MPP (Mem.t N.t) |
++       forall a, WHEN a' <- impl a THEN forall m,
++         D.gamma a m -> spec m (D.gamma a')}) : cdac.
++  Proof.
++    destruct checked as [spec CORRECT].
++    refine {| impl := impl; sapp := fun m => spec m;
++              impl_correct := CORRECT |}.
++    intros m P Q HP HQ. eapply apply_monotone; eauto.
++  Defined.
+ 
+   Program Definition spec (gc: cdac) m: MPP (Mem.t N.t) :=
+     {| apply := sapp gc m |}.

@@ -1,5 +1,17 @@
 # 本轮验证记录
 
+## 2026-10-02：真实 PolCert INSTR/Loop 的工具链迁移与适配
+
+可选 `make polcert-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。该目标重新编译现有 31 个 GuardCert 核心／Clight 文件，复用已编译的 CompCert proof，随后从锁定提交与保存的工作目录补丁恢复 57 个真实 PolCert 输入，使用 `--clean` 完整重编译，最后编译两个新增适配器。完整日志为 `build/polcert-integration-check.log`，报告为 `build/polcert-core-report.json` 和 `build/polcert-adapter-report.json`。
+
+PolCert 基础库来自当前 CompCert v3.18，而不是旧仓库的 CompCert/Flocq 副本。锁定输入保留 v10 原工作目录中所需的修改；另外 23 份兼容补丁恢复旧 tactic、Hint/instance 可见性和标准库名称，显式解构 `DomainGCL` 的带证明规格，完成所有现有正确性义务。没有修改 sibling 工作目录。
+
+`PolCertSchedule.schedule_correct` 直接消费真实 `INSTR` 的 NonAlias、状态等价稳定性、Bernstein 三项条件和交换性质。`PolCertLoopGuard.version_preserves/refines` 把通用 condition compiler 接到真正的 `Loop.stmt`。`impossible_version` 证明实际参数条件 `P ∧ ¬P` 生成的候选死分支不改变片段终止执行。
+
+新增两个模块没有 `Admitted` 或新全局公理。其 `Print Assumptions` 合并集合恰好为 11 项 `INSTR` 模块参数，构建脚本核对这一集合。上游 VPL 自身的 monad/oracle 公理仍存在；不能从 57 文件编译通过推断整个上游无公理。此次目标没有提取 PolCert、调用实际优化器或进行原生多面体优化。此前 Clight 原生编译检查仍是独立的验证记录。
+
+源码、复现和待接通的 C/Clight 区域边界见 [PolCert 适配说明](../adapters/polcert/README.md)。
+
 ## 2026-10-02：抽象性质接口与生成的 Clight 条件树
 
 新增 `AbstractGuard`、`SemanticFacts`、`ResidualGuard`、`AbstractSchedule`、`EndpointBridge` 和 Clight 条件树／宿主／驱动。通用核心只依赖性质维度、检查证据、语言的条件选择与观察关系。它证明三种检查结果的短路编译、保守拒绝在否定下的安全性、维度组合、静态证书的残余化和局部 preservation。抽象调度接口证明独立指令的相邻交换链，不解释内存或算术。

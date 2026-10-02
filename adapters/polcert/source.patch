@@ -1,0 +1,248 @@
+--- a/lib/LibTactics.v
++++ b/lib/LibTactics.v
+@@ -627,7 +627,7 @@
+     and it is able to instantiate existentials when required. *)
+ 
+ Tactic Notation "rapply" constr(t) :=
+-  first  (* todo: les @ sont inutiles *)
++  first  (* TODO: the @ markers are unnecessary *)
+   [ eexact (@t)
+   | refine (@t)
+   | refine (@t _) 
+--- a/VPL/coq/LinTerm.v
++++ b/VPL/coq/LinTerm.v
+@@ -382,7 +382,7 @@
+ 
+   Include PositiveMapVec QNum.
+   
+-  (* Ajout pour Handelman *)
++  (* Addition for Handelman. *)
+   Local Open Scope list_scope.
+   Import List.ListNotations.
+ 
+@@ -415,7 +415,7 @@
+     apply QOp.Qcanon_distrib_Q2Qc.
+   Qed.
+ 
+-  (* Fin ajout pour Handelman *)
++  (* End of the Handelman addition. *)
+ 
+   Definition import: exportT -> t
+     := fun l => List.fold_left (fun lt p => add (single (fst p) (snd p)) lt) l nil.
+@@ -544,4 +544,3 @@
+   Hint Rewrite lift_correct: linterm.
+ 
+ End QAffTerm.
+-
+--- a/VPL/coq/ConsSet.v
++++ b/VPL/coq/ConsSet.v
+@@ -245,7 +245,7 @@
+    unfold sat2 in * |-; intuition.
+   Qed.
+   
+-  (* Ajout pour Handelman *)
++  (* Addition for Handelman. *)
+   Definition geti (i:nat) (l:t) (d:Cstr.t) : Cstr.t :=
+   (nth i l d).
+   
+@@ -273,7 +273,7 @@
+   Qed.
+ 
+   Definition default : Cstr.t := Cstr.top.
+-  (* Fin ajout pour Handelman *)
++  (* End of the Handelman addition. *)
+ 
+   Global Hint Unfold sat2: pedraQ.
+ 
+@@ -283,7 +283,7 @@
+ Module Cs.
+   Include CsImpl Cstr.
+   
+-  (* Ajout pour Handelman *)
++  (* Addition for Handelman. *)
+   Require Import QArith.
+   Require Import Ring_polynom_AddOnQ.
+   Require Import Qop.
+@@ -348,4 +348,3 @@
+   Qed.
+ 
+ End Cs.
+-
+--- a/VPL/coq/PedraQBackend.v
++++ b/VPL/coq/PedraQBackend.v
+@@ -47,9 +47,7 @@
+ Axiom getLowerBound: forall {C}, (pedraCert C) * LinQ.t -> imp (bndT C).
+ Extract Constant getLowerBound => "(fun x -> Core.Base.pure (PedraQOracles.getLowerBound x))".
+ 
+-(* TODO: en toute rigueur, il faut ajouter un "imp" ici !
+-   A remplacer par un affichage plutôt que retourner une chaine ?
+-*)
++(* TODO: strictly speaking, an imp is needed here.
++   Should this print its result instead of returning a string? *)
+ Axiom pr: t -> string. (* not used in proofs (debugging only) *)
+ Extract Constant pr => "PedraQOracles.pr".
+-
+--- a/VPL/coq/ZNone.v
++++ b/VPL/coq/ZNone.v
+@@ -7,7 +7,7 @@
+   When [None] is involved in comparisons (e.g. [<=]),
+   it can thus be considered as a kind of infinite.
+ 
+-  Authors: Alexandre Maréchal et Sylvain Boulmé
++  Authors: Alexandre Maréchal and Sylvain Boulmé
+ 
+  *) 
+ 
+--- a/VPL/coq/ZNoneItv.v
++++ b/VPL/coq/ZNoneItv.v
+@@ -1,7 +1,7 @@
+ (** We provide here a basic interval abstract domain
+     for polynomial expressions over Z.
+ 
+-  Authors: Alexandre Maréchal et Sylvain Boulmé.
++  Authors: Alexandre Maréchal and Sylvain Boulmé.
+  *)
+ 
+ Require Import NumC.
+@@ -581,4 +581,3 @@
+   Hint Rewrite cte_correct add_correct opp_correct mulZ_correct mulP1_correct mulN_correct: linterm.
+ 
+ End NAItv.
+-
+--- a/VPL/coq/ASTerm.v
++++ b/VPL/coq/ASTerm.v
+@@ -343,8 +343,8 @@
+ 
+   Hint Rewrite fromLin_correct: linterm.
+ 
+-  (* This function decomposes a polynom "te" into the sum of an affine term and 
+-     a polynome which is either nul or with all its monome of degre >= 2 
++  (* This function decomposes a polynomial "te" into the sum of an affine term and
++     a polynomial that is either zero or has only monomials of degree >= 2.
+ 
+    NB: in the correctness proof, we only show that the source polynom is preserved by the
+        decomposition.
+@@ -770,4 +770,3 @@
+   cmp: cmpG               (* guard: "0 cmp source" *)
+ }.
+ 
+-
+--- a/VPL/coq/DomainGCL.v
++++ b/VPL/coq/DomainGCL.v
+@@ -3,17 +3,14 @@
+ Require Import PredTrans.
+ Require Export DomainInterfaces.
+ 
+-  (*
+-    on donne une description de plus haut niveau des operateurs des domaines abstraits.
+-    un opérateur d'un domaine "implémente" un transformateur de prédicats.
+-
+-    Intérêt:
+-    1. on peut raisonner sur le niveau "transfo de predicat" sans redescendre au niveau domaine abstrait...
+-    2. utiliser la tactique "Program" pour définir l'implem et la spec en même temps (surmonter des limites de 
+-       VPLAsimplify)...
+-
+-    NB: on utilise des transfo de prédicat en backward, car bien compatibles avec CPS.
+-   *)
++  (* Higher-level description of abstract-domain operators.
++    A domain operator implements a predicate transformer.
++
++    This supports reasoning about predicate transformers without returning to
++    the abstract-domain level. Program defines the implementation and its
++    specification together, overcoming limitations of VPLAsimplify.
++
++    Backward predicate transformers work well with continuation-passing style. *)
+ 
+ Module GeneralizedBasicGCL (Export Imp: FullImpureMonad) (N: NumSig) (D: BasicDomainG Imp N).
+ 
+@@ -26,7 +23,7 @@
+       impl_correct: 
+         forall a, WHEN a' <- impl a THEN forall m, gamma a m -> spec m (gamma a')
+     }.
+-  (* NB sur l'extraction: MP n'est pas eliminé bien que non-informatif ! *)
++  (* Extraction note: MP is not eliminated even though it is non-informative. *)
+   *)
+ 
+   (** We inline MP definition, but emulate the constructor and the spec projection of the initial version ! *)
+--- a/VPL/coq/Map_poly.v
++++ b/VPL/coq/Map_poly.v
+@@ -64,7 +64,7 @@
+     reflexivity.
+   Qed.
+ 
+-  (* Ce résultat est trop fort et est probablement inutile *)
++  (* This result is stronger than needed and is probably unnecessary. *)
+   Lemma maps_to_compat : forall P : Cs.t, forall k:M.key, forall p:PExpr, forall d:Cstr.t,
+   M.MapsTo k p (init P d) -> exists i:nat, Peano.lt i (length P) /\ (Cstr.to_PExpr (Cs.geti i P d)) = p.
+   Proof.
+@@ -660,4 +660,3 @@
+ 
+ End Handelman_compute.
+ 
+-
+--- a/VPL/coq/ASAtomicCond.v
++++ b/VPL/coq/ASAtomicCond.v
+@@ -176,10 +176,7 @@
+ 
+ 
+ 
+-(* 
+- * Atomic Conditions on Z (with linearization a la Miné)
+- *
+- *)
++(* Atomic conditions on Z (with linearization following Miné). *)
+ 
+ 
+ Module ZAtomicCond <: AtomicCondSig ZNum ZTerm.
+--- a/VPL/coq/ASCond.v
++++ b/VPL/coq/ASCond.v
+@@ -439,7 +439,7 @@
+ 
+ For the OR, we can not test if one of the branch is implied:
+   x <= 2  implies  "x < 2" OR "0 < x < 3"
+-                  (i.e. "x <= 1" OR "1 <= x <= 2" sur Z !)
++                  (i.e. "x <= 1" OR "1 <= x <= 2" over Z!)
+ But it does not implies neither of these alternatives !
+ 
+ 
+@@ -447,7 +447,7 @@
+ 
+  assert "x < 2  \/ (0 < x /\ x < 3)"
+  
+- devient
++ becomes
+ 
+  assume "x >= 2 /\ ( x <= 0 \/ x >= 3)" in "x <= 2"
+ 
+@@ -512,4 +512,3 @@
+ End NaiveRename.
+ 
+ Close Scope impure.
+-
+--- a/VPL/coq/AssignD.v
++++ b/VPL/coq/AssignD.v
+@@ -754,7 +754,7 @@
+       PositiveSetDecide.fsetdec.
+   Qed.
+ 
+- (* widening (calqué sur le join) *)
++ (* Widening, following the join implementation. *)
+   Definition widen (a1 a2:t) : imp t :=
+     let r1 := (PositiveSet.diff (renaming a1) (renaming a2)) in
+     let r2 := (PositiveSet.diff (renaming a2) (renaming a1)) in 
+@@ -884,4 +884,3 @@
+ 
+ End AssignSimplePrinting.
+ 
+-
+--- a/polygen/Loop.v
++++ b/polygen/Loop.v
+@@ -320,8 +320,6 @@
+   end.
+ 
+ (** loop_instance_list_semantics: loop semantics with instance list *)
+-(**没有办法完美变成instance list, 因为expr不一定变成matrix*)
+-(**所以extractor其实是partial的*)
+ Inductive loop_instance_list_semantics : stmt -> list Z -> list InstrPoint -> mem -> mem -> Prop :=
+ | LILInstr : forall i es env iv mem1 mem2 wcs rcs,
+     iv = map (eval_expr env) es ->
