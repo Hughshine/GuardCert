@@ -60,6 +60,11 @@ Definition constant_store id count index value :=
   Sassign (A.array_lvalue id count (Econst_int (Int.repr index) type_int32s))
     (Econst_int value type_int32s).
 
+Lemma constant_store_silent fe ge e le m id count index value trace le' m' outcome :
+  exec_stmt fe ge e le m (constant_store id count index value) trace le' m' outcome ->
+  trace = E0 /\ outcome = Out_normal.
+Proof. intro RUN; inversion RUN; subst; auto. Qed.
+
 Lemma constant_store_inv fe ge e le m id count index value le' m' :
   0 <= index < count -> A.array_bound_ok count = true ->
   exec_stmt fe ge e le m (constant_store id count index value) E0 le' m' Out_normal ->

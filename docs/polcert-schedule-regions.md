@@ -17,4 +17,6 @@
 
 `PolCertStoreRegion.v` 已开始补具体解码实例：对经过边界检查的普通 signed32 数组、常量下标与常量写入，`constant_store_inv` 从实际源 Clight 执行恢复数组地址和真实 `Mem.store`，`constant_store_run` 给出反向生成。它支持局部数组和经符号表取得的全局地址；具体指令列的包、重排条件及原生选择器仍需构造。
 
+独立的 [双写重排实例](polcert-store-swap.md) 已进一步构造源执行、调用真实 Bernstein 定理并恢复候选 store，直接形成完整程序区域证书。这一实例尚未包装为上述 `schedule_region_package`，也还没有原生提取。调度包的实例数量与具体区域实例分别记录。
+
 复现命令为 `make polcert-memory-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`。`build/polcert-memory-region-adapter-report.json` 单独记录完整程序接口的假设审计和未完成义务，避免把接口定理当作具体多面体优化已经运行。有限区域限制、全部 temps 精确对应和 `fn_temps` 不扩展仍适用。

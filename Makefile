@@ -34,7 +34,7 @@ COMPCERT_FLAGS = -R $(COMPCERT_DIR)/lib compcert.lib \
                  -R $(COMPCERT_DIR)/flocq Flocq
 
 BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalence.v \
-                  theories/CompCertOperatorEquivalence.v theories/ClightGuard.v \
+                  theories/CompCertOperatorEquivalence.v theories/ClightGuard.v theories/ClightSyntaxEquality.v \
                   theories/ClightGuardProof.v theories/ClightEncodedRule.v theories/ClightNoWrap.v \
                   theories/ClightExprRewrite.v theories/ClightExprRewriteProof.v \
                   theories/ClightExprRule.v theories/CommonRewrites.v \

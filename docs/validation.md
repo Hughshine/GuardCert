@@ -266,3 +266,13 @@ opam exec --root=/tmp/guard-opam --switch=guard -- \
 `build/polcert-memory-region-adapter-report.json` 单独审计真实 CInstr 实例的 `package_rule`、完整 Clight 模拟和完整 C→Asm 编译端点，假设并集与 CompCert 基线相同，为 35 项，没有抽象 INSTR 接口假设或新增全局公理。解码、条件调度证书及候选生成是调度包必须携带的局部证明字段；没有将它们改为公理。
 
 `constant_store_inv` 和 `constant_store_run` 已覆盖经过边界检查的普通 signed32 数组常量写入，连接实际地址、真实 store 与两侧 Clight 正常执行。当前具体调度包数量仍为 0，原生驱动和真实多面体优化器接入均为 false；完整编译接口证明不能代替具体片段实例和内部循环宿主。详见 [调度包接口](polcert-schedule-regions.md)。
+
+## 2026-10-02：具体双写重排的 CInstr→Clight→完整程序链
+
+新增 `ClightSyntaxEquality.v` 和 `PolCertStoreSwap.v` 后，执行 `make clean`，联合运行 `make check-integration polcert-memory-proof POLCERT_SOURCE=.../verified-compilation-v10-driver`，退出码 0。52 个标准证明和 60 个锁定 PolCert 输入清理重编译，七个隔离适配依赖及六个实际源模块编译通过；五组既有原生回归通过。日志为 `build/store-swap-integration-check.log`。
+
+实例的 `actual_cinstr_store_swap` 调用真实 `bc_condition_implie_permutbility`，生成两次逆序 store 及等价内存出口；实际源执行解码和候选生成义务均在本实例中构造。`compile_store_pair_correct` 经通用区域宿主达到 Csem→Asm。`build/polcert-memory-store-swap-report.json` 将这一具体端点与 CompCert 基线比较，两者都为相同的 35 个假设，没有 INSTR 接口公理或新增全局公理。报告中的源 SHA256 与当前源码一致。
+
+Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结合方式；另以实际八字节分配及权限证明构造源／候选执行，并证明候选最终的两个元素为 7、8。语法绑定检查本身没有全局公理。
+
+该实例仅处理一个数组的两次普通 signed32 常量写入，使用静态独立性条件；尚未运行提取后的原生重排驱动，也没有接入真实多面体优化器或循环区域。上述五组原生回归属于既有默认驱动，不是新实例的原生验证。泛型调度包的具体包数量仍为 0；新实例直接提供区域证书。

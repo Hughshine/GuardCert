@@ -24,6 +24,7 @@ theories/CompCertArithmetic.v
 theories/CompCertMemoryEquivalence.v
 theories/CompCertOperatorEquivalence.v
 theories/ClightGuard.v
+theories/ClightSyntaxEquality.v
 theories/ClightGuardProof.v
 theories/ClightEncodedRule.v
 theories/ClightNoWrap.v

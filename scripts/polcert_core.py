@@ -508,11 +508,13 @@ def memory_adapter():
                     "PolCertCountedClight.v", "PolCertClightBody.v", "PolCertNestedClight.v",
                     "PolCertSchedule.v"]
     sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",
-               "PolCertScheduleRegion.v", "PolCertStoreRegion.v"]
+               "PolCertScheduleRegion.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v"]
     report = artifact("adapter-report.json")
     report.unlink(missing_ok=True)
     region_report = artifact("region-adapter-report.json")
     region_report.unlink(missing_ok=True)
+    swap_report = artifact("store-swap-report.json")
+    swap_report.unlink(missing_ok=True)
 
     def isolate_imports(match):
         words = match.group(1).split()
@@ -549,6 +551,30 @@ def memory_adapter():
     region_baseline, region_adapted = assumptions(region_baseline), assumptions(region_adapted)
     if not region_baseline or not region_adapted or region_adapted - region_baseline:
         raise SystemExit(f"unexpected schedule-region assumptions: {sorted(region_adapted - region_baseline)}")
+    swap_baseline, swap_adapted = contents.split(
+        "GUARDCERT_STORE_SWAP_BASELINE_BEGIN", 1)[1].split("GUARDCERT_STORE_SWAP_ADAPTER_BEGIN", 1)
+    swap_adapted = swap_adapted.split("GUARDCERT_STORE_SWAP_ASSUMPTIONS_END", 1)[0]
+    swap_baseline, swap_adapted = assumptions(swap_baseline), assumptions(swap_adapted)
+    if not swap_baseline or swap_adapted != swap_baseline:
+        raise SystemExit(f"unexpected concrete store-swap assumptions: {sorted(swap_adapted - swap_baseline)}")
+    write_json(swap_report, {
+        "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+        "sources": {"theories/" + n: sha(ROOT / "theories" / n)
+                    for n in ["ClightSyntaxEquality.v", "PolCertStoreRegion.v", "PolCertStoreSwap.v",
+                              "ClightRegionRewrite.v", "ClightRegionRewriteProof.v", "RegionCompiler.v"]},
+        "upstream_assumptions": sorted(swap_baseline), "adapter_assumptions": sorted(swap_adapted),
+        "additional_global_axioms": [], "instruction_interface_axioms": [],
+        "theorem": "PolCertStoreSwap.compile_store_pair_correct",
+        "endpoint": "Csem to Asm backward simulation for a checked constant-store pair proposal",
+        "commutation_theorem": "actual CInstr.bc_condition_implie_permutbility",
+        "logical_environment": "proved NonAlias for a single-array projection with empty globals",
+        "source_binding": "proved sequence flattening and exact statement equality, including type attributes",
+        "static_parameters": "checked array extent, both index ranges and distinct indices",
+        "memory_exit_relation": "mutual Mem.extends", "temps_exit_relation": "exact",
+        "allocated_execution_witness": True,
+        "dynamic_alias_guard": False, "native_driver_integration": False,
+        "polyhedral_optimizer_driver_integration": False, "loop_regions_supported": False,
+    })
     write_json(region_report, {
         "status": "compiled", "source_manifest_sha256": sha(MANIFEST),
         "sources": {"theories/" + n: sha(ROOT / "theories" / n)
