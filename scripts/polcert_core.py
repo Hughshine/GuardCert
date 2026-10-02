@@ -339,9 +339,52 @@ def optimizer_adapter():
     print("Guarded versioning consumes the actual Opt_prepared_correct endpoint")
 
 
+def affine_adapter():
+    if PROFILE != "core":
+        raise SystemExit("the affine Clight bridge requires the core profile")
+    core = json.loads(artifact("report.json").read_text())
+    if core["target"] != "polygen/Loop.v" or core["source_manifest_sha256"] != sha(MANIFEST):
+        raise SystemExit("compile the current Loop proof closure before its affine bridge")
+    report = BUILD / "polcert-affine-report.json"
+    report.unlink(missing_ok=True)
+    baseline = BUILD / "PolCertAffineBaseline.v"
+    baseline.write_text("From compcert.cfrontend Require Import Clight.\n"
+                        "Print Assumptions Clight.eval_expr.\n")
+    baseline_log = BUILD / "polcert-affine-baseline.log"
+    with baseline_log.open("w") as log:
+        subprocess.run(["rocq", "compile", *load_flags(), str(baseline)], cwd=ROOT,
+                       stdout=log, stderr=subprocess.STDOUT, check=True)
+    sources = [ROOT / "theories" / "PolCertAffineClight.v",
+               ROOT / "theories" / "PolCertAffineGuard.v"]
+    log_path = BUILD / "polcert-affine-build.log"
+    with log_path.open("w") as log:
+        for source in sources:
+            subprocess.run(["rocq", "compile", *load_flags(), str(source)], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+
+    def assumption_names(path):
+        return set(re.findall(r"^([\w.]+)\s*:", path.read_text(), re.MULTILINE)) - {"Axioms", "Warning"}
+
+    inherited = assumption_names(baseline_log)
+    adapted = assumption_names(log_path)
+    if not inherited or not adapted or adapted != inherited:
+        raise SystemExit(f"unexpected affine bridge assumptions: {sorted(adapted ^ inherited)}")
+    write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
+                        "core_proof_files": core["proof_files"],
+                        "sources": {str(s.relative_to(ROOT)): sha(s) for s in sources},
+                        "compcert_expression_assumptions": sorted(inherited),
+                        "adapter_assumptions": sorted(adapted),
+                        "additional_global_axioms": [],
+                        "supported_expressions": ["Constant", "Var", "Sum", "Mult"],
+                        "integer_model": "signed32",
+                        "runtime_guard": "checked input intervals",
+                        "whole_loop_lowering": False})
+    print("Signed affine lowering and runtime range guards compiled against actual Loop and Clight")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter"))
+    parser.add_argument("action", choices=("snapshot", "build", "record", "freeze", "restore", "adapter", "optimizer-adapter", "affine-adapter"))
     parser.add_argument("--source", type=Path)
     parser.add_argument("--target", default="polygen/Loop.v")
     parser.add_argument("--clean", action="store_true")
@@ -367,6 +410,8 @@ def main():
         adapter()
     elif args.action == "optimizer-adapter":
         optimizer_adapter()
+    elif args.action == "affine-adapter":
+        affine_adapter()
     else:
         build(args.target, args.clean)
 

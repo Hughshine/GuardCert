@@ -7,7 +7,8 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/ResidualGu
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
-        guarded-compiler native-demo check-integration polcert-proof polcert-optimizer-proof clean
+        guarded-compiler native-demo check-integration polcert-proof polcert-affine-proof \
+        polcert-optimizer-proof clean
 all: check
 
 proof:
@@ -37,7 +38,7 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/ClightGuard.v \
                   theories/ClightExprRule.v theories/CommonRewrites.v \
                   theories/CompCertMemoryRule.v \
                   theories/GuardCompiler.v theories/ClightIntegrationExamples.v \
-                  theories/CommonRewriteExamples.v theories/ClightCondition.v \
+                  theories/CommonRewriteExamples.v theories/ClightCondition.v theories/ClightPureExpr.v \
                   theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
                   theories/ClightTreeRule.v theories/ClightTreeExamples.v theories/TreeCompiler.v
 
@@ -75,6 +76,9 @@ polcert-proof: check-compcert
 	python3 scripts/polcert_core.py restore $(POLCERT_SOURCE_ARG)
 	python3 scripts/polcert_core.py build --clean
 	python3 scripts/polcert_core.py adapter
+
+polcert-affine-proof: polcert-proof
+	python3 scripts/polcert_core.py affine-adapter
 
 polcert-optimizer-proof: check-compcert
 	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)

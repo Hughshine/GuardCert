@@ -181,3 +181,8 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 本轮未实现真实 CompCert IR 适配器、内部可能发散的片段语义、关系式内存接口、带 load 的 guard、CGO 2017 的完整条件推导/消元算法或中途去优化。guard 的 word 模型没有经过 CompCert lowering；玩具 heap 不含权限与指针语义。没有性能测量，也没有据此声称提速。
 
 文献阅读深度逐项记录在 [survey.md](survey.md)。OOPSLA 2023 的块仿真论文目前仅核对官方摘要及作者海报，不能据此做完整接口或新颖性判定。
+# signed32 仿射桥接与运行时区间检查
+
+执行 `make clean` 后，组合目标 `make check-integration polcert-affine-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。32 个既有核心／Clight 工程文件重新编译，两个 Python 回归、CompCert proof 目标、新驱动提取／构建及两个原生示例通过。随后恢复并以 `--clean` 重编译真实 Loop 的 57 个证明输入，三个原适配器及两个新增仿射桥接文件编译通过。完整日志是 `build/affine-full-integration-check.log`。
+
+新增区间分析例子由 Rocq `vm_compute` 检查，包括正／负系数、最大安全边界、最小负数取负的拒绝、未支持除法和 unknown 在否定下的保持。`build/polcert-affine-report.json` 将桥接定理与实际 `Clight.eval_expr` 比较，二者都只列出相同的四个既有逻辑假设，新增全局公理为空。这里没有原生多面体优化或完整循环 lowering 的验证结论。
