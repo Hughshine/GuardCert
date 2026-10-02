@@ -6,7 +6,7 @@ From Guard Require Import ClightGuard ClightGuardProof ClightNoWrap GuardCompile
   ClightCondition ClightTreeRewrite ClightTreeRewriteProof ClightTreeExamples ClightSameAddress
   ClightSignedCancel ClightRegionRewrite ClightRegionRewriteProof ClightRedundantSet
   ClightAdaptiveRegion ClightAdaptiveRegionProof ClightRegionProgress ClightProgressClassifier
-  ClightZeroTrip.
+  ClightZeroTrip ClightFrontendRegion.
 
 Definition compile_with_adaptive_regions
   (supported : Clight.statement -> bool)
@@ -92,7 +92,7 @@ End ADAPTIVE_REGION_COMPILER.
 
 
 Definition select_progress_regions (source : Clight.statement) : option Clight.statement :=
-  match select_zero_trip source with
+  match select_loop_zero_trip source with
   | Some target => Some target
   | None => select_redundant_set source
   end.
@@ -100,19 +100,19 @@ Definition select_progress_regions (source : Clight.statement) : option Clight.s
 Lemma select_progress_regions_sound source target :
   select_progress_regions source = Some target -> region_contract source target.
 Proof.
-  unfold select_progress_regions; destruct (select_zero_trip source) as [selected|] eqn:ZERO.
-  - intro TARGET; inversion TARGET; subst; eapply select_zero_trip_sound; exact ZERO.
+  unfold select_progress_regions; destruct (select_loop_zero_trip source) as [selected|] eqn:ZERO.
+  - intro TARGET; inversion TARGET; subst; eapply select_loop_zero_trip_sound; exact ZERO.
   - apply select_redundant_set_sound.
 Qed.
 
-Definition compile_progress_regions := compile_with_adaptive_regions progress_supported
+Definition compile_progress_regions := compile_with_adaptive_regions frontend_progress_supported
   select_no_wrap select_signed_memory_rewrites select_progress_regions.
 
 Corollary compile_progress_regions_correct : forall p tp,
   compile_progress_regions p = OK tp ->
   backward_simulation (Csem.semantics p) (Asm.semantics tp).
 Proof.
-  apply compile_with_adaptive_regions_correct; auto using progress_supported_sound, select_no_wrap_sound, select_signed_memory_rewrites_sound, select_progress_regions_sound.
+  apply compile_with_adaptive_regions_correct; auto using frontend_progress_supported_sound, select_no_wrap_sound, select_signed_memory_rewrites_sound, select_progress_regions_sound.
 Qed.
 
 Corollary compile_progress_regions_preserves_spec : forall p tp spec,
@@ -120,7 +120,7 @@ Corollary compile_progress_regions_preserves_spec : forall p tp spec,
   safety_enforcing_specification spec ->
   c_program_satisfies_spec p spec -> asm_program_satisfies_spec tp spec.
 Proof.
-  apply compile_with_adaptive_regions_preserves_spec; auto using progress_supported_sound, select_no_wrap_sound, select_signed_memory_rewrites_sound, select_progress_regions_sound.
+  apply compile_with_adaptive_regions_preserves_spec; auto using frontend_progress_supported_sound, select_no_wrap_sound, select_signed_memory_rewrites_sound, select_progress_regions_sound.
 Qed.
 
 Print Assumptions Compiler.transf_c_program_correct.

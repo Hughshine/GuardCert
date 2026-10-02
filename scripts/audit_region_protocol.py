@@ -17,7 +17,8 @@ def main():
 From Guard Require Import SilentRegionProtocol ClightRegionProtocol
   ClightCountedProtocol ClightCountedProtocolExamples ClightRegionRewriteProof
   ClightRegionProgress ClightProgressClassifier ClightAdaptiveRegionProof
-  ClightZeroTrip AdaptiveRegionCompiler ClightAdaptiveExamples.
+  ClightZeroTrip ClightFrontendLoopProtocol ClightFrontendRegion
+  AdaptiveRegionCompiler ClightAdaptiveExamples.
 Goal True. idtac "PROTOCOL_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "PROTOCOL_KERNEL_BEGIN". exact I. Qed.
@@ -35,6 +36,10 @@ Print Assumptions ClightRegionProgress.counted_progress.
 Print Assumptions ClightProgressClassifier.progress_supported_sound.
 Print Assumptions ClightAdaptiveRegionProof.AdaptiveRegionProof.transform_program_correct2.
 Print Assumptions ClightZeroTrip.select_zero_trip_sound.
+Print Assumptions ClightFrontendLoopProtocol.frontend_step_closed.
+Print Assumptions ClightFrontendLoopProtocol.frontend_region_completed.
+Print Assumptions ClightFrontendRegion.frontend_progress_supported_sound.
+Print Assumptions ClightFrontendRegion.select_frontend_zero_trip_sound.
 Goal True. idtac "PROTOCOL_COMPILER_BEGIN". exact I. Qed.
 Print Assumptions AdaptiveRegionCompiler.compile_progress_regions_correct.
 Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
@@ -60,7 +65,8 @@ Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
     modules = ["SilentRegionProtocol", "ClightRegionProtocol", "ClightCountedProtocol",
                "ClightCountedProtocolExamples", "ClightRegionRewriteProof", "ClightRegionProgress",
                "ClightProgressClassifier", "ClightAdaptiveRegion", "ClightAdaptiveRegionProof",
-               "ClightZeroTrip", "AdaptiveRegionCompiler", "ClightAdaptiveExamples"]
+               "ClightZeroTrip", "ClightFrontendLoopProtocol", "ClightFrontendRegion",
+               "AdaptiveRegionCompiler", "ClightAdaptiveExamples"]
     report = {
         "status": "compiled", "kernel_global_axioms": [],
         "upstream_assumptions": sorted(baseline_names),
@@ -69,10 +75,12 @@ Goal True. idtac "PROTOCOL_ASSUMPTIONS_END". exact I. Qed.
         "whole_program_theorem": "AdaptiveRegionCompiler.compile_progress_regions_correct",
         "sources": {"theories/" + name + ".v": hashlib.sha256(
             (ROOT / "theories" / (name + ".v")).read_bytes()).hexdigest() for name in modules},
-        "source_protocol_instances": ["finite_clight_statement", "strict_signed_counted_memory_loop"],
+        "source_protocol_instances": ["finite_clight_statement", "strict_signed_counted_memory_loop",
+                                      "frontend_strict_signed_for_memory_loop"],
         "finite_whole_program_host_consumes_protocol": True,
         "counted_loop_whole_program_replacement": True,
-        "counted_loop_frontend_native_replacement_checked": False,
+        "frontend_loop_ast_supported": True,
+        "frontend_native_execution_report": "build/native-zero-trip/report.json",
         "finite_and_counted_instances_share_host": True,
         "zero_trip_body_accesses_required": False,
         "private_temporary_frame_supported": False,

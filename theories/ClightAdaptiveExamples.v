@@ -2,7 +2,8 @@ From Stdlib Require Import List ZArith.
 From compcert.common Require Import Errors Smallstep.
 From compcert.cfrontend Require Import Clight Csyntax Csem.
 From Guard Require Import ClightCountedLoop ClightRegionRule ClightZeroTrip
-  ClightAdaptiveRegion ClightProgressClassifier AdaptiveRegionCompiler.
+  ClightAdaptiveRegion ClightProgressClassifier ClightFrontendLoopProtocol ClightFrontendRegion
+  AdaptiveRegionCompiler.
 Import Clight.
 
 (** This checks replacement of the entire loop node, rather than a finite
@@ -31,3 +32,15 @@ Theorem zero_trip_whole_program_compile_correct : forall p target,
 Proof. exact compile_progress_regions_correct. Qed.
 
 Print Assumptions zero_trip_whole_program_compile_correct.
+
+Example frontend_entire_loop_is_selected :
+  AdaptiveRegion.transform_statement frontend_progress_supported select_loop_zero_trip
+    (frontend_counted_loop 1%positive 2%positive Sskip) =
+  Sifthenelse (counter_condition 1%positive 2%positive)
+    (frontend_counted_loop 1%positive 2%positive Sskip) Sskip.
+Proof. vm_compute; reflexivity. Qed.
+
+Example frontend_counter_body_is_refused :
+  frontend_progress_supported (frontend_counted_loop 1%positive 2%positive
+    (counter_increment 1%positive)) = false.
+Proof. vm_compute; reflexivity. Qed.

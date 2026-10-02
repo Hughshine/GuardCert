@@ -1,5 +1,16 @@
 # 本轮验证记录
 
+## 2026-10-02：真实 C 前端整个 for-loop 的版本化
+
+新增 `ClightFrontendLoopProtocol.v` 和 `ClightFrontendRegion.v`，直接证明 CompCert 为简单 signed32 `for` 生成的顺序／skip 包装。完整 AST 检查绑定计数器、上界、递增、类型及属性；语言实例提供真实执行的小步覆盖、下降度量和完成重建。它复用既有宿主、性质原子、检查编码和条件合成，不依赖未经证明的归一化。
+
+真实 `native_zero_trip.c` 已命中四个整个循环 guard，分别位于普通、外层循环、goto 后及指针 body 函数。八对 signed32 输入含最大／最小值、跨零及空循环边界；输出与 GCC 和独立迭代次数一致。有迭代时原 body 正常执行；零次迭代且 body 指针为 null 时未发生访问。修改计数器的 body 和非严格比较保留源循环。Clight dump 核对入口 guard 内确实包含完整原循环。报告为 `build/native-zero-trip/report.json`。
+
+`make clean` 后的 `make check-integration polcert-store-native POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。日志为 `build/frontend-loop-full-check.log`。全部 67 个标准证明、60 个冻结 CInstr/Loop 依赖、7 个隔离适配依赖和 9 个具体适配文件重新编译；两个编译器提取／构建及八组原生检查通过。两个真实入口的假设集合仍与上游 CompCert 的 35 项完全相同；协议／语言／宿主审计和七份证明报告源码哈希均一致。
+
+当前循环接受两个不同 signed32 temporaries、严格 `<`、步长 1 和保持全部 temps 的静默 body。常量上界、其他步长、local accumulator、循环内 break/continue、private temporary/live frame 及完整 PolOpt 调度器链仍不在此结论中。没有性能测量。
+
+
 ## 2026-10-02：通用进展协议接入整个计数循环与 C→Asm
 
 `region_progress` 将 Clight 的入口、出口、状态形状和全局环境运输作为语言义务。`ClightAdaptiveRegionProof` 用显式自然数索引证明完整 Clight 程序模拟，实际消费同一个不透明进展协议；有限片段与严格 signed32 计数循环共用宿主。`ClightZeroTrip.zero_trip_rule` 通过共享性质与条件合成得到整个循环的零次迭代替换，检查仅读取计数器和上界。AST 命中与拒绝计数器可变 body 的 Rocq 例子均编译通过。

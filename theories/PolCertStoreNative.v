@@ -3,7 +3,7 @@ From compcert.lib Require Import Integers.
 From compcert.common Require Import AST Errors Smallstep.
 From compcert.cfrontend Require Import Csem Clight.
 From Guard Require Import PolCertArrayExamples PolCertStorePackage
-  ClightRegionRewrite AdaptiveRegionCompiler ClightProgressClassifier ClightNoWrap ClightSignedCancel.
+  ClightRegionRewrite AdaptiveRegionCompiler ClightProgressClassifier ClightFrontendRegion ClightNoWrap ClightSignedCancel.
 Open Scope Z_scope.
 
 Module NativeStorePackage := PolCertStorePackage DecimalNames.
@@ -30,7 +30,7 @@ Proof.
 Qed.
 
 Definition compile (array_id first_id second_id : ident) :=
-  compile_with_adaptive_regions progress_supported select_no_wrap select_signed_memory_rewrites
+  compile_with_adaptive_regions frontend_progress_supported select_no_wrap select_signed_memory_rewrites
     (select array_id first_id second_id).
 
 Theorem compile_correct array_id first_id second_id p target :
@@ -38,7 +38,7 @@ Theorem compile_correct array_id first_id second_id p target :
   backward_simulation (Csem.semantics p) (Asm.semantics target).
 Proof.
   unfold compile; apply compile_with_adaptive_regions_correct.
-  - exact progress_supported_sound.
+  - exact frontend_progress_supported_sound.
   - exact select_no_wrap_sound.
   - exact (select_sound array_id first_id second_id).
   - exact select_signed_memory_rewrites_sound.

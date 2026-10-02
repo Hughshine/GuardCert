@@ -31,7 +31,7 @@
 
 [有限语句区域宿主](docs/clight-statement-regions.md) 将局部条件正确性证书提升到完整 Clight 小步模拟，证明源区域内部每一步的工作量度量严格下降。`encoded_region_rule` 复用同一性质与条件合成接口；冗余赋值实例已进入实际提取驱动，原生例子验证普通、循环和 goto 外围中的快路／回退。出口 memory 已支持双向 `Mem.extends`；它的旧有限宿主保留为独立基线，当前提取入口使用下述进展协议宿主。
 
-[片段内部进展协议](docs/region-protocol.md) 将小步覆盖、下降度量和完成执行的重建交给语言实例。通用核心不解释语言语义；有限片段与严格 signed32 计数循环共用显式模拟索引和整程序宿主。零次迭代时跳过整个循环的规则复用性质合成与 C→Asm 定理。真实 C 前端的循环包装识别仍待接入。
+[片段内部进展协议](docs/region-protocol.md) 将小步覆盖、下降度量和完成执行的重建交给语言实例。通用核心不解释语言语义；有限片段与严格 signed32 计数循环共用显式模拟索引和整程序宿主。零次迭代时跳过整个循环的规则复用性质合成与 C→Asm 定理。真实 C 前端的循环包装已直接证明；原生例子验证整个循环命中、signed 边界和零次迭代的空指针 barrier。
 
 [内存与宿主运输性质](docs/compcert-memory-transport.md) 从不依赖具体语义的双向模拟引理，实例化真实 CompCert 内存、运算、Clight 表达式和完整小步执行。代码及 temps 相同而 memory 双向扩展时，语言实例提供相同观察及后继关系的证书。PolCert 的具体 load/store 桥接已复用这个接口；区域替换宿主已借此连接等价内存出口与完整 C→Asm 定理。
 
@@ -97,4 +97,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
 opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
-`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `AdaptiveRegionCompiler.compile_progress_regions`、构建编译器、编译五个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/`、`build/native-rewrites/`、`build/native-alias/` 、`build/native-signed/` 和 `build/native-region/`。
+`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设、提取 `AdaptiveRegionCompiler.compile_progress_regions`、构建编译器、编译六个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/`、`build/native-rewrites/`、`build/native-alias/` 、`build/native-signed/`、`build/native-region/` 和 `build/native-zero-trip/`。

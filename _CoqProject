@@ -70,5 +70,7 @@ theories/ClightProgressClassifier.v
 theories/ClightAdaptiveRegion.v
 theories/ClightAdaptiveRegionProof.v
 theories/ClightZeroTrip.v
+theories/ClightFrontendLoopProtocol.v
+theories/ClightFrontendRegion.v
 theories/AdaptiveRegionCompiler.v
 theories/ClightAdaptiveExamples.v

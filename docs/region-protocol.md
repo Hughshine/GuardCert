@@ -15,7 +15,7 @@
 
 核心证明 `cursor_path_bound`、`cursor_cannot_diverge` 和 `completed_entry`。它们均闭合于全局上下文，没有内置整数、内存、AST 或循环规则，也没有承诺未发生卡住的执行一定存在。语言实例仍须证明上述义务。
 
-## 两个已编译的 Clight 实例
+## 三个已编译的 Clight 实例
 
 `ClightRegionProtocol.v` 覆盖 skip、assign、set、sequence 和 if。cursor 保存当前语句、片段内部 continuation、temps 和 memory；度量来自语法工作量。现有 `ClightRegionRewriteProof.advance_region` 已通过通用字段消费其小步覆盖和下降性质，继续获得完整 Clight 程序模拟。因此这个实例实际用于现有 C→Asm 路径。
 
@@ -24,6 +24,8 @@
 循环度量结合剩余迭代数与 body 的语法工作量。`counter_increment_distance` 证明进入 body 后递增不会回绕：当前计数器小于 signed32 上界，增加 1 仍可由机器整数精确表示。输入并不要求预先全部是 Vint；有定义的真条件建立本轮类型与范围证据，无定义条件无法产生继续执行的小步。
 
 `counted_region_completed` 将完成的 cursor 路径还原为真实 `exec_stmt`，并给出源小步数量上界。`ClightCountedProtocolExamples.v` 证明零次迭代时无需执行或验证 body 的访存，源循环保持入口 temps 和 memory；另核对跨零的计数距离与 signed32 最大值边界。
+
+`ClightFrontendLoopProtocol.v` 直接覆盖真实 `SimplExpr`／`SimplLocals` 为简单 signed32 `for` 生成的顺序与 skip 包装。额外 cursor 阶段对应每个实际包装步骤，不依赖未证明的 AST 归一化。`ClightFrontendRegion.v` 提供协议族、完整 AST 检查和同一零次迭代性质规则。
 
 这些 Clight 定理继承上游语义假设。`scripts/audit_region_protocol.py` 将它们连同当前宿主定理的假设与完整 CompCert 基线比较，并记录源码哈希。
 
@@ -39,7 +41,9 @@
 
 ## 仍待连接的边界
 
-当前整个循环规则接受精确的 `counted_loop` AST。CompCert 的真实 C 前端为 `for` 添加 `Ssequence`／`Sskip` 包装；尚未机械化这些包装的执行协议与识别，因此目前没有声称原生 C 的整个循环已实际命中。
+当前整个循环规则接受精确的 `counted_loop` 和 `frontend_counted_loop` AST。原生 `native_zero_trip.c` 已在普通、外层循环和 goto 上下文实际命中四个整个循环入口 guard。八对 signed32 输入包括最大／最小值边界；输出与 GCC 及独立迭代次数一致。零次迭代且 body 指针为 null 时正常返回；有迭代时原 body 仍执行。修改计数器的 body 与 `<=` 比较被拒绝。没有性能结论。
+
+这些循环目前要求 body 保留全部 temporaries，计数器与上界为不同的 signed32 temporaries，步长为 1；不覆盖一般 while、break/continue、local accumulator、常量上界、其他步长或 debug annotations。外围程序可以包含这些语句。
 
 这个进展接口也不承担 guard 的安全性证明。源循环零次迭代时，body 没有读取的数据不能被 guard 无条件提前读取；语言适配器必须证明检查域，或通过短路与检查位置避免新增非法访问。可能因回绕而无限运行的原循环还需要回退锁步模拟等机制；它们不属于这个首个严格计数实例。
 

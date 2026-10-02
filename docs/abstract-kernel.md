@@ -66,7 +66,7 @@ v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在�
 
 `PolCertOptimizer.v` 已直接调用真实 `Opt_prepared` 并消费其正确性证明。适配器使用现有 `PolIRs.Loop`；metadata 通过已证明的相等检查核对，失败时返回原 Loop 程序。该入口沿用上游 alarm monad 的成功返回契约。复现与精确边界见 [优化器适配](../adapters/polcert-optimizer/README.md)。
 
-目前已接通的真实 Clight 宿主包括表达式、有限多语句区域及严格计数循环；动态数组双写的调度包已经进入完整程序与提取路径。真实 C 前端的循环包装、跨数组 alias 检查和实际 PolOpt 的完整程序链仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。
+目前已接通的真实 Clight 宿主包括表达式、有限多语句区域及严格计数循环；动态数组双写的调度包已经进入完整程序与提取路径。跨数组 alias 检查和实际 PolOpt 的完整程序链仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。
 
 `PolCertAffineClight.v` 和 `PolCertAffineGuard.v` 已补出数学整数与 signed32 的表达式桥接：静态区间检查覆盖常量、变量、加法及常量乘法的每个中间值；实际 Clight 范围 guard 的接受建立输入区间，布尔测试 lowering 保持实际 Loop 的求值。这些定理消费已证明的性质接口，没有向通用核心加入整数语义。详细契约和不支持的运算见 [仿射桥接](polcert-affine-clight.md)。
 
@@ -78,4 +78,4 @@ v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在�
 
 [动态仿射合成](affine-dynamic-synthesis.md) 进一步将选定的不溢出前提直接编成安全的检查树，先检查子运算再用 signed64 检查父运算。树本身可作为一个测试，经 `decision_test_language` 接入原核心；不支持的原子保持 unknown。这一实例不要求提议输入区间，但仍需宿主建立 signed32 参数 view，且尚未进入原生驱动。
 
-[内部进展协议](region-protocol.md) 已由有限 Clight 实例接入现有整程序模拟，另有严格计数循环实例。它将源片段内部执行及完成语义的要求移入语言提供的性质接口；有限和严格计数循环实例已经通过显式模拟索引接入同一宿主。
+[内部进展协议](region-protocol.md) 已由有限 Clight 实例接入现有整程序模拟，另有严格计数循环实例。它将源片段内部执行及完成语义的要求移入语言提供的性质接口；有限和严格计数循环实例已经通过显式模拟索引接入同一宿主。真实 C 前端的顺序／skip 包装另有实际小步协议，整个循环已在原生 C 测试中命中。
