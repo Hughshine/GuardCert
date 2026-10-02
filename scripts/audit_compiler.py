@@ -18,11 +18,11 @@ def main():
     WORK.mkdir(parents=True, exist_ok=True)
     source = WORK / "Audit.v"
     source.write_text("""From compcert.driver Require Import Compiler.
-From Guard Require Import TreeCompiler.
+From Guard Require Import RegionCompiler.
 Goal True. idtac "GUARD_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "GUARD_DRIVER_BEGIN". exact I. Qed.
-Print Assumptions TreeCompiler.compile_property_rewrites_correct.
+Print Assumptions RegionCompiler.compile_property_regions_correct.
 Goal True. idtac "GUARD_ASSUMPTIONS_END". exact I. Qed.
 """)
     flags = ["-Q", str(ROOT / "theories"), "Guard"]
@@ -39,10 +39,10 @@ Goal True. idtac "GUARD_ASSUMPTIONS_END". exact I. Qed.
         raise SystemExit(f"unexpected compiler assumptions: {sorted(driver_names - upstream_names)}")
     (ROOT / "build" / "compiler-assumptions-report.json").write_text(json.dumps({
         "upstream_theorem": "Compiler.transf_c_program_correct",
-        "adapted_theorem": "TreeCompiler.compile_property_rewrites_correct",
+        "adapted_theorem": "RegionCompiler.compile_property_regions_correct",
         "upstream_assumptions": sorted(upstream_names), "adapted_assumptions": sorted(driver_names),
         "additional_global_axioms": [],
-        "theorem_source_sha256": hashlib.sha256((ROOT / "theories" / "TreeCompiler.v").read_bytes()).hexdigest(),
+        "theorem_source_sha256": hashlib.sha256((ROOT / "theories" / "RegionCompiler.v").read_bytes()).hexdigest(),
     }, indent=2) + "\n")
     print(f"compiler assumptions audited: {len(driver_names)} inherited, no additional global axioms")
 

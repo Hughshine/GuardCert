@@ -23,7 +23,7 @@ if (p == q) {
 
 ## 定理与原生证据
 
-`same_load_rule_correct` 将性质维度、实际 validity/value 表达式、入口域与局部求值证明交给 `encoded_tree_rule_sound`。`select_memory_rewrites_sound` 与既有算术插件组合。实际提取入口 `TreeCompiler.compile_property_rewrites` 已使用这个组合，正确性终点仍是 `Csem` 到形式化 `Asm` 的 backward simulation。
+`same_load_rule_correct` 将性质维度、实际 validity/value 表达式、入口域与局部求值证明交给 `encoded_tree_rule_sound`。`select_memory_rewrites_sound` 与既有算术插件组合。实际提取入口 `RegionCompiler.compile_property_regions` 已使用这个组合，正确性终点仍是 `Csem` 到形式化 `Asm` 的 backward simulation。
 
 原生检查包括五个相同地址边界、25 个不同地址输入对、unsigned wraparound、空指针前置分支、signed／volatile 排除，以及赋值目标与输入别名的情况。输出与 GCC 的原程序相同；实际 Clight dump 含四棵生成的条件树与原表达式回退。
 

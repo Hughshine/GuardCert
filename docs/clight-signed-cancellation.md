@@ -31,7 +31,7 @@ CompCert 的 signed 乘法使用模 `Int.mul`，因此源在这些溢出输入�
 
 ## 完整程序与原生检查
 
-`TreeCompiler.compile_property_rewrites` 已组合此插件、既有 unsigned 算术与同地址读取插件。它继续提供实际 Csem→Asm backward simulation 以及排除出错的规格保持，完整程序端点不额外要求 no-overflow 前提。
+`RegionCompiler.compile_property_regions` 已组合此插件、既有 unsigned 算术与同地址读取插件。它继续提供实际 Csem→Asm backward simulation 以及排除出错的规格保持，完整程序端点不额外要求 no-overflow 前提。
 
 `examples/native_signed.c` 与 `scripts/native_signed.py` 检查九个 signed32 输入，包含 `INT_MIN/INT_MAX`、正负接受边界及紧邻的拒绝边界；还检查严格表达式上下文、局部赋值及标签跳转。提取后的实际 Clight dump 含五个加宽检查树、候选与源式回退。检查结果与 GCC `-O0 -fwrapv` 及独立模算术计算一致。
 

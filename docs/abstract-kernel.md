@@ -1,5 +1,7 @@
 # 由语言实例提供性质与条件选择
 
+当前实际驱动是 `RegionCompiler.compile_property_regions`，在既有表达式／分支 passes 前组合了 [有限语句区域宿主](clight-statement-regions.md)。`encoded_region_rule` 复用相同的性质维度和条件合成接口；本文后面的 `TreeCompiler` 路径保留为此前表达式接入阶段。
+
 这条实现路径把整数、内存、地址及 overflow 表示移出了通用核心。核心处理前提公式和证据；具体语言负责给出检查代码、条件选择的含义，以及替换如何进入该语言的完整程序证明。这里区分已编译的接口与尚未接通的 PolCert 适配。
 
 ## 插件与语言分别提供什么

@@ -224,3 +224,21 @@ Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结�
 Rocq 检查了一维数组更新、单层／两层相关边界循环及四种保守拒绝。执行正例使用真正的 `Mem.alloc` 和访问权限证明建立两个数组，初始化 `B[0]=7`，证明 CInstr 和生成 Clight 均执行，并证明 `A[0]=8`。内存执行例子使用 load/store 定理；纯编译例子使用 `vm_compute`。同时核对上游标量解码拒绝：`CTy.of_compcert_arrtype type_int32s = None`。
 
 循环与数组代码尚未进入原生驱动，完整程序区域 simulation、标量参数入口与目标进展仍是未完成义务。实际优化器假设审计继续保持原先 42 项，实际 C→Asm 编译器端点继续与上游相同的 35 项。没有性能测量。
+## 2026-10-02：有限语句区域的完整程序接入
+
+在具体数组桥接之后，新增七个接入模块。清理工程输出后，以下联合目标完整通过，退出码 0：
+
+```sh
+opam exec --root=/tmp/guard-opam --switch=guard -- \
+  make check-integration polcert-nested-proof polcert-dynamic-proof \
+       polcert-optimizer-proof polcert-memory-proof \
+       POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
+```
+
+日志为 `build/region-full-integration-check.log`。此次重编译 46 个标准工程证明，并分别清理重编译 PolCert 核心 57、优化器 92 和具体内存 60 个源码依赖。四个适配报告均为 `compiled`，源码 SHA256 与报告一致，没有新增全局公理。
+
+实际提取入口现在是 `RegionCompiler.compile_property_regions`。`compile_property_regions_correct` 给出完整 Csem→Asm backward simulation，假设集合与 CompCert 基线完全相同，仍为 35 项。新增的 `ClightRegionRewriteProof.transform_program_correct` 使用严格下降度量覆盖区域的内部小步，而非假定整段原子完成。
+
+五组原生回归均通过。新增 `native_region.c` 的六个输入覆盖 guard 接受、拒绝、unsigned 回绕，以及普通函数、循环体和 goto 标签后的插入；Clight dump 明确出现三个 guard、对应候选和原始 fallback，变量重合的例子没有注入 guard。结果同时匹配 GCC 和独立 unsigned 算术计算。报告在 `build/native-region/report.json`；未测量性能。
+
+该宿主只替换有限静默源区域，要求正常出口的全部 temps 和 memory 精确一致。内部循环、PolCert 的 private temporary/live frame 和 mutual `Mem.extends` 出口关系尚未进入这一完整程序宿主；实际多面体优化的 C→Asm 链仍未闭合。详见 [语句区域接口](clight-statement-regions.md)。

@@ -56,7 +56,7 @@ def main():
         raise SystemExit("property-generated validity/value tree is missing")
     (WORK / "output.txt").write_text(actual)
     (WORK / "report.json").write_text(json.dumps({
-        "proved_entrypoint": "TreeCompiler.compile_property_rewrites",
+        "proved_entrypoint": "RegionCompiler.compile_property_regions",
         "source": str(SOURCE), "clight_dump": str(dumps[0]),
         "input_values": list(expected_cancellation), "divisors": [1, 2, 3, 4294967295],
         "gcc_behavior_matches": True, "expected_cancellation_checked": True,

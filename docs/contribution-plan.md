@@ -8,6 +8,8 @@
 
 [递归 Loop 桥接](polcert-nested-clight.md) 已支持指定 scratch 深度的嵌套循环和公共 temporary frame，检查与参数／live 集合以及 scratch 之间的冲突。下一步重点转为具体内存／指令实例、外围 live 与函数声明的宿主证明、tiling 边界运算、候选进展及区域 simulation。
 
+[具体数组桥接](polcert-array-clight.md) 已使用真实 `CInstr/CState` 和 CompCert load/store，替代抽象基本指令执行假设。[有限语句区域宿主](clight-statement-regions.md) 已完成正常出口、精确 temps/memory 对应的完整 Clight 模拟，并有实际 C→Asm 例子。PolCert 仍需要内部循环区域、private temporary/live frame、mutual `Mem.extends` 出口运输和实际优化器的候选进展；有限区域宿主不能被当作这一整条链已完成。
+
 ## 建议作为主问题
 
 > 给定原片段和独立候选，在指定的前提域与可用观察下，寻找能安全执行的充分条件，输出可核对的条件正确性证书、实际检查代码及完整程序精化保证。

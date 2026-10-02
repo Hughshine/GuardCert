@@ -44,7 +44,10 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/ClightGuard.v \
                   theories/ClightWideGuard.v \
                   theories/ClightTreeRewrite.v theories/ClightTreeRewriteProof.v \
                   theories/ClightTreeRule.v theories/ClightDecisionRule.v theories/ClightTreeExamples.v \
-                  theories/ClightSameAddress.v theories/ClightSignedCancel.v theories/TreeCompiler.v
+                  theories/ClightSameAddress.v theories/ClightSignedCancel.v theories/TreeCompiler.v \
+                  theories/ClightFiniteRegion.v theories/ClightRegionRewrite.v \
+                  theories/ClightRegionRewriteProof.v theories/ClightRegionRule.v theories/ClightStraightLine.v \
+                  theories/ClightRedundantSet.v theories/RegionCompiler.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done
@@ -73,6 +76,7 @@ native-demo: guarded-compiler
 	python3 scripts/native_rewrites.py
 	python3 scripts/native_alias.py
 	python3 scripts/native_signed.py
+	python3 scripts/native_region.py
 
 check-integration: native-demo
 
