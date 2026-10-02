@@ -12,7 +12,7 @@
 make polcert-proof
 ```
 
-该目标先检查独立核心和 CompCert 桥接，再恢复锁定输入、完整编译 57 个 PolCert 文件和两个 GuardCert 适配器。默认从锁定仓库克隆；已有 Git 仓库可作为只读对象来源：
+该目标先检查独立核心和 CompCert 桥接，再恢复锁定输入、完整编译 57 个 PolCert 文件和三个 GuardCert 适配器。默认从锁定仓库克隆；已有 Git 仓库可作为只读对象来源：
 
 ```sh
 make polcert-proof \
@@ -29,8 +29,11 @@ make polcert-proof \
 | --- | --- |
 | [PolCertSchedule.v](../../theories/PolCertSchedule.v) | 直接实例化 `AbstractSchedule`：状态为 `I.State.t`，入口不变量为 `I.NonAlias`，结果关系为 `I.State.eq`，独立性为真正的三项 Bernstein 读写条件。交换性质来自 `I.bc_condition_implie_permutbility`。有限相邻交换证书保持每次源执行的结果模状态等价。 |
 | [PolCertLoopGuard.v](../../theories/PolCertLoopGuard.v) | 把实际 `Loop` 实例化为通用条件语言。两个互补的 `Guard` 组成条件选择，证明其执行恰好对应选中的片段。原子检查有 validity/value 编码证书及入口域；通用条件编译器生成 `Loop.stmt`。分别提供 forward preservation 与 backward endpoint refinement。 |
+| [PolCertLoopProgram.v](../../theories/PolCertLoopProgram.v) | 提升到实际 `Loop.t` 的 `semantics`，保留原 context 与变量元数据。检查域必须由真正的 `Compat/NonAlias/InitEnv` 入口前提推出。`version_program_refines_endpoint` 接受带条件的候选程序 backward endpoint，并要求元数据一致。 |
 
 `impossible_version` 使用真实 `Loop` 参数测试 `env[0] = 0`，生成 `P ∧ ¬P` 条件。它证明对任意源与候选片段，版本化后的终止执行恰好等于源片段执行，因此候选死分支不需要成立条件以外的执行证明。
+
+`impossible_program` 将同一例子提升到完整的 `Loop.t`。`version_program_refines_unconditional` 可以消费已有的 `Loop.semantics candidate → Loop.semantics source` 证明，但仍要求候选与源的 metadata 对齐；它没有假定真正的优化器自动满足此要求。正向程序定理另外要求同一参数环境下的候选执行证书，不从 backward endpoint 自动推出候选进展。
 
 `Loop.test` 只观察数学整数参数。内存 alias 不能直接变成这种测试；外层语言必须提供可执行检查，并证明接受后建立 `NonAlias` 等入口性质。`encoded_atom` 的域参数允许复用外层已建立的事实，没有把注释当作可信事实。
 
@@ -38,10 +41,10 @@ make polcert-proof \
 
 补丁处理旧 tactic、删除或移动的标准库名称、Hint/instance 可见性，以及新版自动化已提前解决的义务。`DomainGCL.build_cdac` 改为显式解构同一带证明规格，避开旧 `Program` 的投影 universe 问题，仍构造同一组实现与正确性字段。没有新增 `Admitted` 或语义公理，也没有削弱原定理陈述。
 
-PolCert/VPL 上游本身声明 impure monad、外部 oracle 等公理，57 文件编译通过并不表示整个上游无公理。两个新增适配器的 `Print Assumptions` 只列出其 `INSTR` 模块参数。构建核对明确的 11 项接口参数集合；没有额外的全局公理。这是参数化定理，具体 `INSTR` 实例仍须实现这些字段并证明性质。
+PolCert/VPL 上游本身声明 impure monad、外部 oracle 等公理，57 文件编译通过并不表示整个上游无公理。三个新增适配器的 `Print Assumptions` 只列出其 `INSTR` 模块参数。构建核对明确的 15 项接口参数集合；没有额外的全局公理。这是参数化定理，具体 `INSTR` 实例仍须实现这些字段并证明性质。
 
 ## 尚需完成
 
-这一步没有调用真实 `Opt_prepared`，也没有移植具体 `CState/CInstr` 实例。相邻交换证书不是完整的多面体 schedule validator。`Loop` 版本化定理只涉及终止片段执行。
+这一步没有调用真实 `Opt_prepared`，也没有移植具体 `CState/CInstr` 实例。相邻交换证书不是完整的多面体 schedule validator。`Loop` 版本化定理覆盖终止的 statement 与 `Loop.t` 执行；`Loop.t` 仍是循环 IR 程序，不是完整 C 程序。
 
 要得到完整 C 程序上的多面体优化，还需连接实际优化器证书、证明候选进展、建立数学迭代与固定宽度 Clight 循环的对应、实现可执行 alias/range 检查，并完成区域插入的状态与控制流模拟。已接通 C→Asm 的能力仍是 [条件表达式替换](../../docs/abstract-kernel.md)。

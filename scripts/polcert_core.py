@@ -13,8 +13,31 @@ BUILD = ROOT / "build"
 MANIFEST = BUILD / "polcert-core-source.json"
 LOCK = ROOT / "adapters" / "polcert" / "source.lock.json"
 SOURCE_PATCH = ROOT / "adapters" / "polcert" / "source.patch"
+PROFILE = "core"
+PATCH_ROOT = ROOT / "adapters" / "polcert" / "patches"
 EXCLUDED = ("common/", "cfrontend/", "x86/", "x86_64/", "flocq/",
             "MenhirLib/", "cparser/", "extraction/")
+
+
+def select_profile(name):
+    global PROFILE, WORK, MANIFEST, LOCK, SOURCE_PATCH, PATCH_ROOT
+    PROFILE = name
+    WORK = ROOT / "vendor" / ("PolCert-" + name)
+    MANIFEST = artifact("source.json")
+    directory = ROOT / "adapters" / ("polcert" if name == "core" else "polcert-" + name)
+    LOCK = directory / "source.lock.json"
+    SOURCE_PATCH = directory / "source.patch"
+    PATCH_ROOT = directory / "patches"
+
+
+def artifact(suffix):
+    return BUILD / ("polcert-" + PROFILE + "-" + suffix)
+
+
+def compatibility_patches():
+    base = ROOT / "adapters" / "polcert" / "patches"
+    roots = [base] if PATCH_ROOT == base else [base, PATCH_ROOT]
+    return [patch for root in roots for patch in sorted(root.glob("*.patch"))]
 
 
 def sha(path):
@@ -31,7 +54,8 @@ def load_flags():
         flags += ["-R", str(ROOT / "vendor" / "CompCert" / name), "compcert." + name]
     flags += ["-R", str(ROOT / "vendor" / "CompCert" / "flocq"), "Flocq"]
     for name in ("lib", "src", "polygen", "syntax", "driver", "samples"):
-        flags += ["-R", str(WORK / name), "polcert." + name]
+        if (WORK / name).is_dir():
+            flags += ["-R", str(WORK / name), "polcert." + name]
     flags += ["-R", str(WORK / "VPL" / "coq"), "Vpl"]
     return flags
 
@@ -43,7 +67,7 @@ def snapshot(source):
     manifest = {"source": str(source), "commit": subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=source, text=True).strip(),
         "upstream_hashes": {}, "replaced_foundations": [], "patches": []}
-    original_root = BUILD / "polcert-original"
+    original_root = artifact("original")
     manifest["original_source"] = str(original_root)
     for name in names:
         if name.startswith(EXCLUDED) or (ROOT / "vendor" / "CompCert" / name).is_file():
@@ -57,8 +81,7 @@ def snapshot(source):
         saved.parent.mkdir(parents=True, exist_ok=True)
         saved.write_bytes(original.read_bytes())
         target.write_text("From Guard Require Import PolCertCompat.\n" + original.read_text())
-    patch_root = ROOT / "adapters" / "polcert" / "patches"
-    for patch in sorted(patch_root.glob("*.patch")):
+    for patch in compatibility_patches():
         subprocess.run(["patch", "-p1", "-i", str(patch)], cwd=WORK, check=True)
         manifest["patches"].append({"path": str(patch.relative_to(ROOT)), "sha256": sha(patch)})
     write_json(MANIFEST, manifest)
@@ -76,12 +99,12 @@ def record_patch(name):
     after = (WORK / name).read_text()
     diff = "".join(difflib.unified_diff(before.splitlines(True), after.splitlines(True),
                                        fromfile="a/" + name, tofile="b/" + name))
-    patch_root = ROOT / "adapters" / "polcert" / "patches"
+    patch_root = PATCH_ROOT
     patch_root.mkdir(parents=True, exist_ok=True)
     patch = patch_root / (name.replace("/", "-") + ".patch")
     patch.write_text(diff)
     manifest["patches"] = [{"path": str(p.relative_to(ROOT)), "sha256": sha(p)}
-                           for p in sorted(patch_root.glob("*.patch"))]
+                           for p in compatibility_patches()]
     write_json(MANIFEST, manifest)
     print(f"recorded PolCert patch: {patch.relative_to(ROOT)}")
 
@@ -129,7 +152,7 @@ def restore(source):
             subprocess.run(["git", "clone", "--no-checkout", "--filter=blob:none",
                             locked["repository"], str(source)], check=True)
     source = Path(source).resolve()
-    original_root = BUILD / "polcert-original"
+    original_root = artifact("original")
     for name in locked["upstream_hashes"]:
         contents = subprocess.check_output(["git", "show", locked["commit"] + ":" + name], cwd=source)
         target = WORK / name
@@ -160,8 +183,8 @@ def closure(manifest, target):
     files = [str(WORK / name) for name in manifest["upstream_hashes"]]
     dep = subprocess.run(["rocq", "dep", *flags, *files], cwd=ROOT,
                          check=True, text=True, capture_output=True)
-    (BUILD / "polcert-core-dependencies.txt").write_text(dep.stdout)
-    (BUILD / "polcert-core-dependency-warnings.txt").write_text(dep.stderr)
+    artifact("dependencies.txt").write_text(dep.stdout)
+    artifact("dependency-warnings.txt").write_text(dep.stderr)
     graph = {}
     for line in dep.stdout.splitlines():
         targets, dependencies = line.split(": ", 1)
@@ -185,18 +208,19 @@ def closure(manifest, target):
         order.append(node)
 
     visit(str(WORK / Path(target).with_suffix(".vo")))
-    write_json(BUILD / "polcert-core-order.json", order)
+    write_json(artifact("order.json"), order)
     return flags, graph, order
 
 
 def build(target, clean):
     manifest = json.loads(MANIFEST.read_text())
     flags, graph, order = closure(manifest, target)
-    stamp_path = BUILD / "polcert-core-stamps.json"
+    stamp_path = artifact("stamps.json")
     stamps = json.loads(stamp_path.read_text()) if stamp_path.is_file() and not clean else {}
-    (BUILD / "polcert-core-report.json").unlink(missing_ok=True)
+    artifact("report.json").unlink(missing_ok=True)
     print(f"PolCert {target}: {len(order)} proof files", flush=True)
-    with (BUILD / "polcert-core-build.log").open("w") as log:
+    log_path = artifact("build.log")
+    with log_path.open("w") as log:
         for index, vo in enumerate(order, 1):
             source = Path(vo).with_suffix(".v")
             digest = hashlib.sha256()
@@ -216,10 +240,10 @@ def build(target, clean):
                                     stdout=log, stderr=subprocess.STDOUT)
             if result.returncode:
                 write_json(stamp_path, stamps)
-                raise SystemExit(f"PolCert proof failed: {source.relative_to(WORK)}; see build/polcert-core-build.log")
+                raise SystemExit(f"PolCert proof failed: {source.relative_to(WORK)}; see {log_path.relative_to(ROOT)}")
             stamps[vo] = {"input": key, "output": sha(vo)}
             write_json(stamp_path, stamps)
-    write_json(BUILD / "polcert-core-report.json", {
+    write_json(artifact("report.json"), {
         "target": target, "proof_files": len(order), "upstream_commit": manifest["commit"],
         "source_manifest_sha256": sha(MANIFEST), "status": "compiled",
         "compcert_foundations": json.loads((ROOT / "toolchain.lock.json").read_text()),
@@ -228,11 +252,14 @@ def build(target, clean):
 
 
 def adapter():
+    if PROFILE != "core":
+        raise SystemExit("the language adapters require the core profile")
     core = json.loads((BUILD / "polcert-core-report.json").read_text())
     if core["target"] != "polygen/Loop.v" or core["source_manifest_sha256"] != sha(MANIFEST):
         raise SystemExit("compile the current Loop proof closure before building its adapters")
     sources = [ROOT / "theories" / "PolCertSchedule.v",
-               ROOT / "theories" / "PolCertLoopGuard.v"]
+               ROOT / "theories" / "PolCertLoopGuard.v",
+               ROOT / "theories" / "PolCertLoopProgram.v"]
     report = BUILD / "polcert-adapter-report.json"
     report.unlink(missing_ok=True)
     log_path = BUILD / "polcert-adapter-build.log"
@@ -244,7 +271,8 @@ def adapter():
     allowed = {"I.State.t", "I.t", "I.instr_semantics", "I.NonAlias", "I.State.eq",
                "I.State.eq_refl", "I.State.eq_sym", "I.State.eq_trans",
                "I.instr_semantics_stable_under_state_eq", "I.sema_prsv_nonalias",
-               "I.bc_condition_implie_permutbility"}
+               "I.bc_condition_implie_permutbility", "I.Ty.t", "I.ident",
+               "I.Compat", "I.InitEnv"}
     if names != allowed:
         raise SystemExit(f"unexpected adapter assumption set: {sorted(names ^ allowed)}")
     write_json(report, {"status": "compiled", "source_manifest_sha256": sha(MANIFEST),
@@ -262,7 +290,10 @@ def main():
     parser.add_argument("--target", default="polygen/Loop.v")
     parser.add_argument("--clean", action="store_true")
     parser.add_argument("--file")
+    parser.add_argument("--profile", choices=("core", "optimizer"), default="core",
+                        help="isolate exploratory optimizer inputs and proof artifacts")
     args = parser.parse_args()
+    select_profile(args.profile)
     BUILD.mkdir(exist_ok=True)
     if args.action == "snapshot":
         if args.source is None:

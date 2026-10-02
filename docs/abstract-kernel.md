@@ -53,7 +53,9 @@ v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳�
 
 `PolCertLoopGuard.v` 已把真正的 `Loop` 实例化为条件语言，生成带 validity/value 的版本化 `Loop.stmt`，分别证明 forward preservation 与 backward endpoint refinement，并包含恒不成立条件下的任意候选死分支例子。入口域可由外围语言建立。实际 `Loop.test` 只读取数学整数参数，因此不能直接承载内存 alias 检查；外层 Clight 适配器必须执行相应检查并建立入口性质。
 
-这两个接口及真实 `Loop` 的 57 个证明依赖已在当前 CompCert 基础库上从锁定源码恢复并完整重编译。可选命令是 `make polcert-proof`；源码哈希、兼容补丁和准确边界见 [PolCert 适配](../adapters/polcert/README.md)。上游 VPL 保留自身的 monad/oracle 公理；新增适配器定理只依赖声明的 `INSTR` 参数。
+`PolCertLoopProgram.v` 进一步提升到实际 `Loop.t` 的 wrapped semantics，保留源的 context 与变量 metadata。入口域必须由真实 `Compat/NonAlias/InitEnv` 推出；候选的 backward endpoint 在 metadata 一致时可直接接入。恒假条件例子也已提升。这里的完整 `Loop.t` 程序仍不是完整 C 程序。
+
+三个接口及真实 `Loop` 的 57 个证明依赖已在当前 CompCert 基础库上从锁定源码恢复并完整重编译。可选命令是 `make polcert-proof`；源码哈希、兼容补丁和准确边界见 [PolCert 适配](../adapters/polcert/README.md)。上游 VPL 保留自身的 monad/oracle 公理；新增适配器定理只依赖声明的 `INSTR` 参数。
 
 v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在源 Loop 终止执行且结果 `State.eq`”。统一并行驱动的目标是 `ParallelLoop`。二者都不能直接用于声称完整 C 程序的优化正确性。需要完成数学 Loop 与固定宽度 Clight 的具体语言桥接、范围与访问条件、候选进展，以及适合 region 的上下文证明。
 

@@ -1,5 +1,13 @@
 # 本轮验证记录
 
+## 2026-10-02：提升到真实 Loop.t 程序语义
+
+新增 `PolCertLoopProgram.v` 经 Rocq 9.2 编译。`version_program_preserves` 保留源程序实际的 `Compat/NonAlias/InitEnv` 前提及 metadata；`version_program_refines_endpoint` 在候选 metadata 对齐时消费真正的 `Loop.semantics` backward endpoint。`impossible_program` 证明恒假条件下任意候选死分支保持 wrapped 程序的终止执行。
+
+脚本新增相互隔离的 core/optimizer profile。修改后再次恢复锁定核心输入，`build --clean` 完整编译 57 个文件成功；随后三个适配器全部编译，假设审计恰好为 15 个 `INSTR` 参数，额外全局公理为空。日志为 `build/polcert-core-full-program-check.log` 和 `build/polcert-adapter-build.log`。这轮没有重跑未修改的 Clight 原生执行检查。
+
+`Loop.t` 是循环 IR 程序，尚未由这一步得到完整 C 程序优化定理。优化器 97 文件的移植正在单独工作目录进行；未通过的探索构建不计入上述成功报告。
+
 ## 2026-10-02：真实 PolCert INSTR/Loop 的工具链迁移与适配
 
 可选 `make polcert-proof POLCERT_SOURCE=.../verified-compilation-v10-driver` 完整通过，退出码 0。该目标重新编译现有 31 个 GuardCert 核心／Clight 文件，复用已编译的 CompCert proof，随后从锁定提交与保存的工作目录补丁恢复 57 个真实 PolCert 输入，使用 `--clean` 完整重编译，最后编译两个新增适配器。完整日志为 `build/polcert-integration-check.log`，报告为 `build/polcert-core-report.json` 和 `build/polcert-adapter-report.json`。

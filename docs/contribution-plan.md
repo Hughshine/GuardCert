@@ -14,6 +14,8 @@
 
 ## 必须比较的新增先例
 
+新发现的 [VLIM，DATE 2026](vlim-comparison.md) 已提供很接近的 verified rewrite algebra 与 statement-to-function 提升。当前仅核对仓储与会议论文索引，runtime guard 的具体意义尚未确定；不能继续把证明组合本身当作足够的新颖性主张。
+
 除了 [COVE/cSTOKE](https://theory.stanford.edu/~aiken/publications/papers/oopsla15a.pdf)、CGO、CoreJIT 和 Peek，还需比较：
 
 - Cousot、Cousot、Logozzo，[Precondition Inference from Intermittent Assertions and Application to Contracts on Collections，VMCAI 2011](https://pcousot.github.io/publications/CousotCousotLogozzo-VMCAI-LNCS-6538-pp150--168-Jan-2011.pdf)。论文同时研究静态契约推断与可由调用者观察、没有可见副作用的运行时检查生成。其非确定性契约允许保留有成功执行的输入，不能直接当作本项目要求的普遍条件精化。
