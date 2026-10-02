@@ -1,0 +1,137 @@
+# 本轮验证记录
+
+## 2026-10-02：常见表达式 rewrite 接入
+
+新增六个工程文件：`ClightExprRewrite.v`、`ClightExprRewriteProof.v`、`ClightExprRule.v`、`CommonRewrites.v`、`CommonRewriteExamples.v` 和 `CompCertMemoryRule.v`。表达式适配器统一接入四种 unsigned32 rewrite：除数为 2 时除法变移位、取模变掩码，无回绕时 `(x+x)/2→x`，Truth 下 `x-x→0`。它们复用 presumption 编码与合成证明，再与既有分支 pass 及上游后端组合。
+
+`compile_common_rewrites_correct` 给出实际编译函数的 `Csem → Asm` backward simulation；`compile_common_rewrites_preserves_spec` 给出排除出错的规格保持。具体定理没有源程序 no-overflow 或固定除数前提。`encoded_expression_rule` 暴露完整入口快照、编码、lowering、类型及局部值保持义务；识别器和严格表达式上下文提升也已证明。
+
+最终执行 `make clean` 后的 `make check-integration`，退出码 0。全部 19 个工程 Rocq 文件重新编译，既有两个 Python 回归、CompCert proof 目标、编译器提取／构建和两个原生示例通过。上游 proof 使用此前完整构建的 `.vo`，未清理上游。日志是 `build/common-integration-check.log`，报告是 `build/common-integration-report.json`。编译器缓存键现在包含全部工程 `.v`，执行入口是 `GuardCompiler.compile_common_rewrites`。
+
+原版 `Compiler.transf_c_program_correct`、既有 `compile_no_wrap_correct` 和新增 `compile_common_rewrites_correct` 的假设名集合均为相同的 35 个，新增集合为空。工程源码没有 `Admitted`、新增 `Axiom` 或 `Parameter`。这些定理继承上游假设，不是闭合的独立语义核定理。
+
+真实 C 测试 [native_rewrites.c](../examples/native_rewrites.c) 的结果：
+
+| 检查 | 结果 |
+| --- | --- |
+| IR 实际命中 | 9 个除数 guard、2 个 no-overflow guard、7 个 shift 候选、2 个 mask 候选、1 个 Truth identity；原始 fallback 保留 |
+| 输入 | x 为 `0,1,254,2147483647,2147483648,4294967295`，除数为 `1,2,3,4294967295`，共 24 对 |
+| 无回绕边界 | `2147483647` 接受，取消后仍为 `2147483647` |
+| 第一个回绕值 | `2147483648` 拒绝，原式结果为 0；Rocq 另证明无条件替换会错 |
+| UINT_MAX | 拒绝取消，原式结果为 `2147483647` |
+| 上下文 | return、临时赋值、真实全局 store、嵌套表达式、循环、switch、label body 与 goto |
+| 控制保护 | goto 进入 label 后执行新 guard，结果为 61；零除数在源保护分支返回 777 |
+| 原生执行 | 所有输出与 GCC 编译原 C 的结果相同，退出码均为 0；取消加法结果另与独立预期核对 |
+
+旧 no-wrap 分支测试继续通过：两个版本化区域、带 label 区域的 barrier、UINT_MAX 回退和外部 goto 均保持。新报告、Clight dump、汇编及输出在 `build/native-rewrites/`，旧报告在 `build/native-demo/`。没有性能测量。
+
+内存类新增真实 CompCert Mem 局部证明：Disjoint 编码恰好对应字节不重叠条件，合成检查接受后跨 store 的 load 值稳定，并给出 load-hoisting 的成功端点。实例拒绝不等地址但重叠的访问，接受相邻访问，拒绝 endpoint overflow。它不包含可执行 C alias guard、Clight reinsertion 或内存 rewrite 的端到端定理；访问／权限仍由独立 `Mem.store=Some` 前提承担。完整说明见 [common-rewrites.md](common-rewrites.md)。
+
+## 2026-10-02 较早阶段：首个 Clight pass 与端到端接入
+
+新增六个文件：`ClightGuard.v`、`ClightGuardProof.v`、`ClightEncodedRule.v`、`ClightNoWrap.v`、`GuardCompiler.v`、`ClightIntegrationExamples.v`。实际编译通过了编码与 lowering、Clight 两种入口语义的完整程序仿真、`Csem → Asm` backward simulation 和规格保持。具体的 no-wrap 编译器定理不要求源程序始终无溢出。
+
+最终执行 `make clean` 后的 `make check-integration`，退出码 0：13 个工程 Rocq 文件全部重新编译，已有两个 Python 回归通过，CompCert proof 目标通过，新的编译器提取、构建及原生检查通过。上游 `.vo` 复用此前已完成的完整构建，没有再次清理上游。随后单独重跑构建脚本，checksum 匹配并使用缓存编译器。日志为 `build/integration-check.log` 和 `build/native-build.log`。
+
+原版 `Compiler.transf_c_program_correct` 与新增 `compile_no_wrap_correct` 的 `Print Assumptions` 各有相同的 35 个假设名，新增集合为空。真实 CompCert 定理继承上游假设；接入前的 19 个闭合输出不能用来声称这些定理也没有假设。工程源码没有 `Admitted` 或新增 `Axiom`／`Parameter`。
+
+提取在独立的 `build/compcert-guard` 副本中完成，并构建了实际 ccomp；OCaml Driver 调用的是 `GuardCompiler.compile_no_wrap`。提取沿用上游配置，所有 roots 一次生成。`vendor/CompCert` 源码及 sibling PolCert 没有修改。
+
+真实 C 测试使用 [native_guard.c](../examples/native_guard.c)：
+
+| 检查 | 结果 |
+| --- | --- |
+| 编译器实际命中 | Clight dump 有两处 no-wrap guard，分别在普通函数和循环内 |
+| 运行输入 | `0,1,254,255,4294967294,4294967295` |
+| 安全输入 | `probe=22`，两次循环后 `loop=144` |
+| UINT_MAX 回绕 | 原条件通过回退执行，`probe=11`、`loop=122` |
+| label 适用性检查 | 第三处带 label 的 if 没有版本化；外部 goto 返回 11 |
+| 原生结果 | 汇编经 GCC 汇编／链接后运行，与 GCC 编译同一 C 文件的输出一致，退出码均为 0 |
+
+复现目标为 `make check-integration`。证明终点仍是形式化 Asm；原生测试不把解析、打印、系统汇编器、链接器或 libc 纳入新增定理。接口、命令和当前限制见 [接入说明](compcert-integration.md)。
+
+## 2026-10-02 较早阶段：编码、合成、rewrite 与新工具链
+
+以下为真实 Clight 接入前的历史记录，其“尚未完成”描述对应当时状态。
+
+最新验证使用 CompCert v3.18 的已锁定源码、Rocq 9.2.0、Stdlib 9.2.0 和 OCaml 4.14.1，版本与复现见 [toolchain.md](toolchain.md)。当前源码已迁移到 `From Stdlib`；下面 2026-10-01 的 Coq 8.15 记录只描述早期原型，不能用于重新编译当前版本。
+
+本轮新增三个独立证明文件和一个 CompCert 桥接文件：
+
+- `Presumption.v`：分类后的 DSL、数学语义及区间分离含义。
+- `Synthesis.v`：overflow flag 与独立数学范围的对应、编码契约、合成条件在成功求值时的真/假对应。
+- `ConditionalRewrite.v`：无溢出与无别名编码对应、三种 dead-branch/contradiction rewrite、完整程序有限和无限执行。
+- `CompCertArithmetic.v`：用 CompCert 实际 Int 操作构造的 checked-add 原语对应。
+
+六个独立文件从清理后状态完整编译，随后编译 CompCert 桥接；19 个 `Print Assumptions` 输出均为 `Closed under the global context`。CompCert 本身从新解压的发布源码完成 `configure`、`make depend` 和完整 `make -j4 proof`，退出码 0；没有据此声称 C 编译器可执行文件或新的 IR pass 已完成。
+
+新增执行检查：180 个公式，在全部 8 位标量、两指针各三个代表位置上，共比较 414,720 次合成结果。成功求值时真/假均与独立 presumption 语义一致；另检查 flag 保持失败、短路、`not` 下的失败以及显式 `NoOverflow` 取反。新增完整程序比较 6,400 次，并加入范围外输入回退检查。
+
+生成的 condition AST 在 `build/synthesized-conditions.json`，独立回归程序为 [synthesis_demo.py](../prototype/synthesis_demo.py)，并非 Rocq 提取。关键结果：
+
+| 输入 | 事件轨迹 | 结果 |
+| --- | --- | --- |
+| 安全且无别名 | `[100,7]` | 正常返回，heap `[1,2]` |
+| `x=255` 回绕 | `[100,900]` | 回退后保留原错误出口，heap `[0,0]` |
+| `p=q` | `[100,7]` | 别名 rewrite 回退，heap `[2,0]` |
+
+执行入口条件推断/投影、完整 condition 的实际 IR lowering、真实 CompCert 内存 guard，以及实际 IR 上下文替换仍未完成。新代码的有限/无限执行定理仍建立在总的有限 region 转移上。
+
+## 2026-10-01：早期语义核记录
+
+日期：2026-10-01。工作目录：`/home/hugh/research/polyhedral/guard`。本轮只在该目录添加研究说明和原型；没有修改 sibling PolCert。
+
+## 证明编译
+
+环境：Coq 8.15.0，编译器构建所用 OCaml 4.13.1。宿主原先没有 `coqc`，本轮将发行版软件包解压到 `/tmp/guard-coq/root`，未进行系统安装。
+
+实际执行：
+
+```sh
+make clean
+make check COQC=/tmp/guard-coq/root/usr/bin/coqc \
+  COQFLAGS='-coqlib /tmp/guard-coq/root/usr/lib/ocaml/coq'
+```
+
+三个 `.v` 文件从清理后的状态顺序编译，命令退出码为 0。源码没有 `Admitted` 或显式引入的公理；以下七个 `Print Assumptions` 均输出 `Closed under the global context`：
+
+- `contextual_replacement`
+- `whole_program_infinite`
+- `checked_add_sound`
+- `accepts_sound`
+- `overflow_conditional_correct`
+- `alias_conditional_correct`
+- `demo_whole_program_correct`
+
+泛型定理仍有声明中的前提，例如 `plan_matches` 和每个插件的条件正确性；“没有额外公理”不意味着这些前提可以省略。实例文件确实构造了两个插件并证明其前提。
+
+## 可执行回归
+
+Python 模型独立实现相同的小型语义，不是 Coq 提取产物。结果：
+
+| 检查 | 数量与范围 |
+| --- | --- |
+| checked addition | 65,536 个有效 8 位操作数对；另检查代表性的范围外操作数 |
+| 局部带回退替换 | 38,400 次；全部 256 个 word 输入、两下标各 5 个位置、3 个初始 heap、2 个插件 |
+| 完整程序比较 | 58,200 次；顺序、分支、错误出口、循环重入和静默循环的有限前缀 |
+| 错误变体 | 7 类；朴素回绕检查、漏掉无别名条件、缓存过期 guard、错误出口、额外事件、错误 live-out、证书与原代码不匹配 |
+
+循环重入用改变 `x` 的外围代码，使原先接受的前提在后续入口失效。正确实现重新检查并回退；缓存旧决定的变体产生不同的完整程序行为。
+
+静默循环的 Python 检查只比较有 fuel 限制的前缀，明确返回 `prefix`，不把超时当成发散证据。无限执行保证来自 Coq 的余归纳定理。
+
+三个可直接观察的运行结果：
+
+| 输入 | guard（算术，别名） | 事件轨迹 | 最终 heap |
+| --- | --- | --- | --- |
+| `x=254, p=0, q=1` | `(true, true)` | `[100, 0]` | `[1, 2]` |
+| `x=255, p=0, q=1` | `(false, true)` | `[100, 1]` | `[1, 2]` |
+| `x=12, p=0, q=0` | `(true, false)` | `[100, 0]` | `[2, 0]` |
+
+## 证据边界
+
+已证明的是独立宏转移语义中的上下文替换，包含外围 CFG 的有限和无限执行。它不是实际 Clight/RTL 到汇编的端到端定理。
+
+本轮未实现真实 CompCert IR 适配器、内部可能发散的片段语义、关系式内存接口、带 load 的 guard、CGO 2017 的完整条件推导/消元算法或中途去优化。guard 的 word 模型没有经过 CompCert lowering；玩具 heap 不含权限与指针语义。没有性能测量，也没有据此声称提速。
+
+文献阅读深度逐项记录在 [survey.md](survey.md)。OOPSLA 2023 的块仿真论文目前仅核对官方摘要及作者海报，不能据此做完整接口或新颖性判定。

@@ -1,0 +1,17 @@
+{
+  "checked_on": "2026-10-02",
+  "compcert": {
+    "tag": "v3.18",
+    "commit": "14d616046360a0b2611ebdfc2f98368af402e1f7",
+    "archive_url": "https://codeload.github.com/AbsInt/CompCert/tar.gz/refs/tags/v3.18",
+    "archive_sha256": "564b312b3ed3162f02605f0108feb555bd28fe7a80b97ea269c546bcc60c1cf0",
+    "target": "x86_64-linux",
+    "version_file_value": "3.17"
+  },
+  "packages": {
+    "ocaml": "4.14.1",
+    "rocq-core": "9.2.0",
+    "rocq-stdlib": "9.2.0",
+    "menhir": "20260209"
+  }
+}

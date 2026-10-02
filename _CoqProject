@@ -1,0 +1,28 @@
+-Q theories Guard
+-R vendor/CompCert/lib compcert.lib
+-R vendor/CompCert/common compcert.common
+-R vendor/CompCert/x86 compcert.x86
+-R vendor/CompCert/x86_64 compcert.x86_64
+-R vendor/CompCert/cfrontend compcert.cfrontend
+-R vendor/CompCert/backend compcert.backend
+-R vendor/CompCert/driver compcert.driver
+-R vendor/CompCert/flocq Flocq
+theories/GuardedRegion.v
+theories/CheckedGuard.v
+theories/Examples.v
+theories/Presumption.v
+theories/Synthesis.v
+theories/ConditionalRewrite.v
+theories/CompCertArithmetic.v
+theories/ClightGuard.v
+theories/ClightGuardProof.v
+theories/ClightEncodedRule.v
+theories/ClightNoWrap.v
+theories/ClightExprRewrite.v
+theories/ClightExprRewriteProof.v
+theories/ClightExprRule.v
+theories/CommonRewrites.v
+theories/CompCertMemoryRule.v
+theories/GuardCompiler.v
+theories/ClightIntegrationExamples.v
+theories/CommonRewriteExamples.v

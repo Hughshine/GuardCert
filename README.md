@@ -1,0 +1,64 @@
+# Guard：带前提的程序变换与组合证明
+
+研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是顺序 CompCert 中的行为保持变换，采用入口检查与原片段回退。PolCert 是可能的实例，接口不依赖多面体表示。
+
+以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支与表达式 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
+
+已有 Peek、Chamois、Icing 和 CoreJIT 等直接先例；“局部 rewrite 证明接入完整程序”本身不是新的研究贡献。当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。其新颖性尚需具体算法与实例支持。
+
+- [文献与需求](docs/survey.md)：已有工作解决了哪些部分，以及候选研究空隙。
+- [跨领域 survey](docs/survey-general.md)：重构、修复、合约、更新、enforcement、近似和超性质等场景的区别。
+- [已有覆盖与研究定位](docs/research-position.md)：CompCert 主线、verified peephole 和最接近工作的对比；值得检验的具体问题。
+- [框架扩展设计](docs/framework-extension.md)：证据、状态关系、失败协议与不同证明目标；区分设计和已实现能力。
+- [研究动机草稿](docs/intro.md)：先描述变换类与研究对象。
+- [Presumption 分类与合成](docs/presumptions.md)：表达能力、编码定理、overflow flag 和死分支 rewrite。
+- [问题定义与证明接口](docs/framework.md)：插件义务、局部到全程序的桥接、CompCert 接入路线。
+- [验证记录与边界](docs/validation.md)：实际编译、实例和反例检查。
+- [真实 CompCert 接入](docs/compcert-integration.md)：插件证书、C 到 Asm 定理、提取与原生执行。
+- [常见 rewrite 接口与实例](docs/common-rewrites.md)：除法、取模、条件算术取消、Truth identity；真实内存的局部接口。
+
+## 原型
+
+`GuardedRegion.v` 把片段表示为一次返回事件、控制出口和状态的转移。新的插件路径先证明语义义务与 presumption AST 的编码对应，经 `Synthesis.v` 合成为显式短路条件程序，再由通用定理提升到任意外围 CFG 的有限与无限执行。
+
+| 文件 | 内容 |
+| --- | --- |
+| [GuardedRegion.v](theories/GuardedRegion.v) | 版本选择、证书与原片段的绑定、多位置替换、上下文替换定理 |
+| [CheckedGuard.v](theories/CheckedGuard.v) | 8 位无符号加法检查；接受的表达式与数学整数求值一致 |
+| [Examples.v](theories/Examples.v) | 无回绕假设下的比较消除、无别名假设下的写操作交换、完整示例程序 |
+| [Presumption.v](theories/Presumption.v) | 有限表达子集：算术、NoOverflow、边界、不相交及布尔组合 |
+| [Synthesis.v](theories/Synthesis.v) | 编码契约、带 flag 的求值、condition 合成与真/假对应 |
+| [ConditionalRewrite.v](theories/ConditionalRewrite.v) | 恒假分支、前提下的死分支、矛盾前提；共享完整程序定理 |
+| [CompCertArithmetic.v](theories/CompCertArithmetic.v) | 实际 CompCert Int 运算与 checked-add 原语的对应证明 |
+| [ClightGuard.v](theories/ClightGuard.v) / [ClightGuardProof.v](theories/ClightGuardProof.v) | 真实分支版本化 pass；Clight 两种入口语义的完整程序仿真 |
+| [ClightEncodedRule.v](theories/ClightEncodedRule.v) / [ClightNoWrap.v](theories/ClightNoWrap.v) | 编码、condition lowering 与局部正确性证书；unsigned32 分支实例 |
+| [ClightExprRewrite.v](theories/ClightExprRewrite.v) / [ClightExprRewriteProof.v](theories/ClightExprRewriteProof.v) | 表达式版本化与完整 Clight 程序的仿真 |
+| [ClightExprRule.v](theories/ClightExprRule.v) / [CommonRewrites.v](theories/CommonRewrites.v) | 完整快照上的表达式证书；严格表达式上下文提升；四个 rewrite 实例 |
+| [CompCertMemoryRule.v](theories/CompCertMemoryRule.v) | Disjoint 编码与实际 Mem.load/store 的局部稳定性、load hoisting 端点证明 |
+| [GuardCompiler.v](theories/GuardCompiler.v) | 扩展编译驱动、Csem 到 Asm backward simulation 与规格保持 |
+| [ClightIntegrationExamples.v](theories/ClightIntegrationExamples.v) | 真实 Clight 快路／回退；恒假分支与矛盾前提的编译器实例 |
+| [CommonRewriteExamples.v](theories/CommonRewriteExamples.v) | 实际 AST 命中、类型拒绝、嵌套上下文和无条件取消的溢出反例 |
+| [demo.py](prototype/demo.py) | 独立 Python 执行模型、边界枚举和错误变体反例 |
+| [synthesis_demo.py](prototype/synthesis_demo.py) | 从 presumption 合成 condition AST，运行新增 rewrite |
+
+真实 passes 在 `SimplLocals` 后运行：分支版本化允许 guard 接受时进入原 else；表达式版本化允许 guard 接受时运行保持类型和值的候选。后者支持赋值右侧和 return，可提升到二元／单目运算及 cast。四个新实例是 `x/y→x>>1`、`x%y→x&1`（检查 y=2）、`(x+x)/2→x`（检查不回绕）和 `x-x→0`（Truth）。完整程序证明覆盖调用、外部事件、可能发散的循环、switch 和 goto。
+
+当前没有任意候选 region 的关系式接口、可执行的内存 guard、preload 或完整 DSL lowering；真实 Mem 的 load-hoisting 证明尚未接入 Clight。独立 `GuardedRegion.v` 模型仍采用总的有限宏转移，两条证明路径的边界见接入说明。
+
+## 运行
+
+需要 opam、Python 3.10 或更新版本和通常的 OCaml 构建依赖。工具链在项目的 `.toolchain/` 中隔离，不需要系统安装。详细版本与构建记录见 [toolchain.md](docs/toolchain.md)。
+
+```sh
+sh scripts/bootstrap.sh
+opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check-integration
+```
+
+只验证独立语义核和 Python 模型：
+
+```sh
+opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
+opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
+```
+
+`make proof` 编译六个独立证明文件；`make demo` 运行两个独立执行模型。`make check-compcert` 还完成 CompCert proof 构建和十三个接入文件的编译。`make check-integration` 进一步提取 `compile_common_rewrites`、构建编译器、编译两个 C 示例并比较原生输出，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果分别在 `build/compiler.txt`、`build/synthesized-conditions.json`、`build/native-demo/` 和 `build/native-rewrites/`。
