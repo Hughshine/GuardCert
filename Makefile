@@ -301,3 +301,8 @@ native-memory-conditioned-width: memory-unified-compiler
 native-memory-triple: memory-unified-compiler
 	python3 scripts/native_memory_triple.py
 	python3 scripts/native_memory_triple_paths.py
+
+.PHONY: native-memory-recursive
+native-memory-recursive: memory-unified-compiler
+	python3 scripts/native_memory_recursive.py
+	python3 scripts/native_memory_recursive_paths.py
