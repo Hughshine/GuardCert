@@ -418,3 +418,17 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 测试还覆盖负系数和偏置、全局数组、外围 goto／循环、未初始化且源不读取的内层边界，以及依赖内存的 RHS、volatile 数组和无效跨度的拒绝。报告为 `build/native-rectangular/report.json`。既有提取编译器上的矩阵、嵌套区域和有限点调度回归也通过，后者覆盖 24 个合法排列和七个错误提案。
 
 当前规则限于动态矩形上的独立仿射写入和内置循环交换；未调用 PolOpt／Pluto，未实现一般 affine schedule、多语句依赖验证或分块，也未测量性能。支持范围与接口见 [dynamic-rectangles.md](dynamic-rectangles.md)。
+
+## 2026-10-02：private temporary 完整程序宿主与实际循环分块
+
+新增十三个证明模块，运行 `make proof compcert-bridge`，全部独立核与 CompCert 接入文件重新编译，退出码 0；上游 CompCert 依赖使用此前已编译的锁定工具链。日志为 `build/stripmine-full-proof.log`。本轮未重建可选 PolCert 依赖。
+
+`ClightTempScope` 证明源标识符范围沿完整 Clight 执行保持，`PrivateRegionProof` 对在该范围上相等、辅助变量可能不同的两侧 temporary 环境建立完整程序模拟。函数入口为新增声明建立未定义值，调用与返回使用各自的 temporary frame；标签跳转和 switch 同样覆盖。新的局部规则接口复用性质维度、检查原语、公式合成和共享源回退。具体 strip-mining 对任意核对后的正块大小证明迭代分割、尾块截断、辅助加法无溢出检查、真实内存执行和源 temporary 出口相等。
+
+`audit_stripmine.py` 核对迭代分割与顺序保持定理闭合于全局上下文；语言／宿主并集只继承八项既有假设，`StripmineCompiler.compile_stripmine_regions_correct` 与原 CompCert 的 35 项全局假设完全一致。报告 `build/stripmine-proof-report.json` 记录入口、支持范围与所有框架源码摘要。实际编译器由 `build_compiler.py --stripmine` 从已审计入口提取并构建。
+
+`native_stripmine.py` 验证 0、1、2、4、7、16、65、1024 八种块大小。每种执行 63 个循环携带依赖案例、63 个相同 block 的别名案例与 63 个不同 block 的指针案例，完整数组和源 counter 出口同时匹配 GCC 与独立 Python 模型。实际 Clight dump 核对六个函数的候选、辅助边界和 `INT_MAX-B` 检查，覆盖多语句／条件循环体、goto、switch、外围循环及递归调用。0 拒绝变换；负数、1025 和无效字符串由 driver 拒绝。volatile、调用、改写边界与提前 break 均未进入分块候选。
+
+同一新编译器还运行动态矩形 fixture：225 个正矩形及既有回退／上下文输出与独立模型及 GCC 一致；实际 IR 同时含列优先交换，以及候选／回退内层的分块。此前编译器上的矩阵、嵌套区域、矩形及有限点调度回归也通过，有限点入口仍覆盖 24 个排列和七个错误提案。
+
+范围是保持顺序的 strip-mining；没有把真实依赖／别名案例的成功当作一般依赖重排验证。一般仿射域、外部仿射调度、多语句依赖验证和带重排的多维 tiling 仍未完成，也未进行性能测量。目标继续推进；接口和运行方式见 [private-stripmine.md](private-stripmine.md)。

@@ -12,6 +12,10 @@ COMPILER = ROOT / "build" / "compcert-rectangular" / "ccomp"
 SOURCE = ROOT / "examples" / "native_rectangular.c"
 WORK = ROOT / "build" / "native-rectangular"
 
+FALLBACK_INPUTS = [(0, 2, 11), (1, 4, 5), (0, 13, 0), (0, 3, -1),
+                   (0, 0, 2**31-1), (2**31-1, 2**31-1, -2**31),
+                   (-2**31, -2**31, 2**31-1)]
+
 
 def run(*args):
     return subprocess.run([str(x) for x in args], cwd=WORK, check=True,
@@ -45,6 +49,23 @@ def snapshot(tag, start, n, m, extent=120, stride=10, coefficient=37, bias=7,
     return f"{tag} {i} {j} " + " ".join(map(str, cells)) + "\n"
 
 
+def expected_output():
+    expected = "".join(snapshot("dynamic", 0, n, m)
+                       for n in range(1, 13) for m in range(1, 11))
+    expected += "".join(snapshot("other", 0, n, m, 105, 7, -11, -3)
+                        for n in range(1, 16) for m in range(1, 8))
+    fallback_inputs = FALLBACK_INPUTS
+    expected += "".join(snapshot("dynamic", *case) for case in fallback_inputs)
+    for n, m in [(5, 4), (2, 11)]:
+        for tag in ["goto", "global", "enclosing"]:
+            expected += snapshot(tag, 0, n, m, repeats=2 if tag == "enclosing" else 1)
+    expected += "unread 99 99 99\n"
+    expected += snapshot("dependent", 0, 3, 4, dependent=True)
+    expected += snapshot("volatile", 0, 3, 4)
+    expected += snapshot("invalid", 0, 3, 4, stride=0)
+    return expected
+
+
 def main():
     WORK.mkdir(parents=True, exist_ok=True)
     run(COMPILER, "-conf", COMPILER.parent / "compcert.ini", "-stdlib",
@@ -55,21 +76,7 @@ def main():
     reference = run(WORK / "gcc-reference").stdout
     if actual != reference:
         raise SystemExit("rectangular native output differs from GCC")
-    expected = "".join(snapshot("dynamic", 0, n, m)
-                       for n in range(1, 13) for m in range(1, 11))
-    expected += "".join(snapshot("other", 0, n, m, 105, 7, -11, -3)
-                        for n in range(1, 16) for m in range(1, 8))
-    fallback_inputs = [(0, 2, 11), (1, 4, 5), (0, 13, 0), (0, 3, -1),
-                       (0, 0, 2**31-1), (2**31-1, 2**31-1, -2**31),
-                       (-2**31, -2**31, 2**31-1)]
-    expected += "".join(snapshot("dynamic", *case) for case in fallback_inputs)
-    for n, m in [(5, 4), (2, 11)]:
-        for tag in ["goto", "global", "enclosing"]:
-            expected += snapshot(tag, 0, n, m, repeats=2 if tag == "enclosing" else 1)
-    expected += "unread 99 99 99\n"
-    expected += snapshot("dependent", 0, 3, 4, dependent=True)
-    expected += snapshot("volatile", 0, 3, 4)
-    expected += snapshot("invalid", 0, 3, 4, stride=0)
+    expected = expected_output()
     if actual != expected:
         a, e = actual.splitlines(), expected.splitlines()
         mismatch = next((k for k, (x, y) in enumerate(zip(a, e)) if x != y), min(len(a), len(e)))
@@ -100,7 +107,7 @@ def main():
         "status": "passed", "proved_entrypoint": stamp["proved_entrypoint"],
         "compiler_sha256": stamp["compiler_sha256"],
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
-        "positive_dynamic_rectangles": 225, "fallback_inputs": fallback_inputs,
+        "positive_dynamic_rectangles": 225, "fallback_inputs": FALLBACK_INPUTS,
         "every_array_cell_and_complete_iterator_exit_checked": True,
         "gcc_behavior_matches": True, "independent_model_matches": True,
         "actual_clight_guarded_interchange_checked": accepted,

@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前已闭合动态矩形循环交换的真实内存、检查与完整程序路径；一般仿射域、读写依赖验证和分块仍未闭合。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
+研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前已闭合动态矩形交换，以及允许辅助变量的顺序循环分块的真实内存、检查与完整程序路径；一般仿射域、读写依赖验证和带重排的多维分块仍未闭合。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
 
 以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支、表达式、有限区域与严格计数循环 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
 
@@ -40,6 +40,8 @@
 [原生矩阵循环交换](docs/native-matrix-interchange.md) 已进一步接入完整 Csem→Asm：动态检查 `i == 0 && n == 2 && m == 2` 后，将行顺序改成列顺序，否则执行原循环。实际 CompCert 内存重排证书保留完整内存和所有退出 temporaries；条件的读取安全性从源执行推导。五个实际 guard、九组输入、局部／全局数组、外围 goto／循环、未初始化但不被读取的内层边界及拒绝例子均通过原生验证。该入口只支持一个 2×2 仿射 store 模板，未调用 PolOpt，未声称性能改善。
 
 [动态矩形循环交换](docs/dynamic-rectangles.md) 将源对应和循环重建推广到任意运行时行列数，编译器从数组长度与跨度导出短路 guard；通用核在语言提供可交换性质后证明符号化域的重排，无需枚举运行时点。独立 `RectangularCompiler.compile_rectangular_regions` 接入完整 Csem→Asm 定理，`make native-rectangular` 提取并验证两种布局的 225 个正矩形、7 组回退及外围上下文。此实例仍限于独立仿射写入和内置循环交换，未实现一般调度或分块。
+
+[辅助变量与循环分块](docs/private-stripmine.md) 让局部变换引入 private temporaries，并证明完整程序只需在源标识符上保留 temporary 值。`StripmineCompiler.compile_stripmine_regions` 实现任意核对后的正块大小的 strip-mining，包含动态尾块；循环体允许普通数组读写、多条语句、分支、真实依赖与指针别名。辅助边界无溢出前提经同一检查合成器产生，检查失败保留原循环。`make native-stripmine` 提取实际 C→Asm 入口并验证不同块大小、源 counter 出口、完整数组及调用／goto／switch 上下文。一般仿射调度及带依赖重排的多维 tiling 仍未实现。
 
 [通用有限调度核对器](docs/schedule-checker.md) 从不受信任的候选顺序生成重排证书，只消费指令相等性与可交换性质的检查。实际矩阵规则已消费它，CompCert 数组元素性质库提供真实内存解释。Rocq 提取的 OCaml 检查器已运行全部 120 个五指令排列、依赖拒绝及重复／缺失指令案例；这还不是一般 affine schedule validator。
 
@@ -113,4 +115,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make clean
 opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
-`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型及实际 Rocq 提取的调度检查器。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设，提取默认、有限点调度及动态矩形入口，构建三个编译器并运行八组默认 C 原生套件、点调度套件及动态矩形套件，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果在 `build/compiler.txt`、`build/synthesized-conditions.json` 和各个 `build/native-*/` 目录，包括 `build/native-nested-regions/`、`build/native-matrix-interchange/`、`build/native-scheduled-matrix/` 与 `build/native-rectangular/`。
+`make proof` 编译独立语义核；`make demo` 运行两个独立执行模型及实际 Rocq 提取的调度检查器。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设，提取默认、有限点调度、动态矩形及分块入口，构建四个编译器并运行八组默认 C 原生套件、点调度、动态矩形及分块套件，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果在 `build/compiler.txt`、`build/synthesized-conditions.json` 和各个 `build/native-*/` 目录，包括 `build/native-nested-regions/`、`build/native-matrix-interchange/`、`build/native-scheduled-matrix/` 、`build/native-rectangular/` 与 `build/native-stripmine/`。

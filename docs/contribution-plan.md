@@ -2,19 +2,19 @@
 
 2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
 
-当前主线是以 PolCert 为功能与证明架构参照，在 CompCert 中实现有动态前提的多面体变换，并闭合完整程序保证。允许为机器语义重实现状态、IR、算法和证明；验收看基本功能与语义保证，见 [多面体接入目标](polcert-integration-target.md)。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动；[原生矩阵循环交换](native-matrix-interchange.md) 又完成一个带安全动态检查的 2×2 仿射 store 模板，重排实际 Mem.store 并保留完整出口，五个函数通过原生验证。[动态矩形循环交换](dynamic-rectangles.md) 已分离任意大小域与 body 编解码接口，并从数组布局生成运行时检查，闭合源执行到完整程序的证明。下一步是扩展 body、调度证书与候选来源；private temporary、一般 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
+当前主线是以 PolCert 为功能与证明架构参照，在 CompCert 中实现有动态前提的多面体变换，并闭合完整程序保证。允许为机器语义重实现状态、IR、算法和证明；验收看基本功能与语义保证，见 [多面体接入目标](polcert-integration-target.md)。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动；[原生矩阵循环交换](native-matrix-interchange.md) 又完成一个带安全动态检查的 2×2 仿射 store 模板，重排实际 Mem.store 并保留完整出口，五个函数通过原生验证。[动态矩形循环交换](dynamic-rectangles.md) 已分离任意大小域与 body 编解码接口，并从数组布局生成运行时检查，闭合源执行到完整程序的证明。下一步是扩展 body、调度证书与候选来源；[private temporary 完整程序宿主与保持顺序的 strip-mining](private-stripmine.md) 已完成；一般仿射调度、多维 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
 
 [可执行有限调度检查器](schedule-checker.md) 与[外部点顺序入口](untrusted-point-schedules.md) 已扩展候选来源：工具只提交自然数点序列，检查器构造交换证书，语言编码器生成真实 Clight 展开代码并修复精确出口。参数化完整程序定理不信任提案；原生测试覆盖全部 24 个四点排列与七个错误提案。该有限点入口的源域仍固定为 2×2。新的动态矩形规则已闭合通用矩形域／body 编解码和域对应，继续加入读改写依赖及一般候选调度；有限排列检查和内置矩形交换各有明确范围。
 
 [树形原子检查接口](clight-signed-cancellation.md) 已接入相同完整程序宿主：signed32 的乘法取消实例使用 signed64 检查并保留溢出输入的回退。它和实际 Loop 动态合成共用公式合成器；这项复用没有闭合多语句循环区域的完整程序链。
 
-[递归 Loop 桥接](polcert-nested-clight.md) 已支持指定 scratch 深度的嵌套循环和公共 temporary frame，检查与参数／live 集合以及 scratch 之间的冲突。下一步重点转为具体内存／指令实例、外围 live 与函数声明的宿主证明、tiling 边界运算、候选进展及区域 simulation。
+[递归 Loop 桥接](polcert-nested-clight.md) 已支持指定 scratch 深度的嵌套循环和公共 temporary frame，检查与参数／live 集合以及 scratch 之间的冲突。外围 live 与新增函数声明的宿主证明，以及顺序分块的边界运算现已闭合；下一步重点转为一般候选域、具体读写依赖证书和区域对应。
 
-[具体数组桥接](polcert-array-clight.md) 已使用真实 `CInstr/CState` 和 CompCert load/store，替代抽象基本指令执行假设。[有限语句区域宿主](clight-statement-regions.md) 已完成正常出口、精确 temps 和双向 `Mem.extends` 内存对应的完整 Clight 模拟，并有实际 C→Asm 例子。PolCert 仍需要private temporary/live frame 和实际优化器的候选进展；有限区域宿主不能被当作这一整条链已完成。
+[具体数组桥接](polcert-array-clight.md) 已使用真实 `CInstr/CState` 和 CompCert load/store，替代抽象基本指令执行假设。[有限语句区域宿主](clight-statement-regions.md) 已完成正常出口、精确 temps 和双向 `Mem.extends` 内存对应的完整 Clight 模拟，并有实际 C→Asm 例子。private temporary/live frame 已进入完整程序宿主；PolCert 路线仍需要实际优化器的候选进展；有限区域宿主不能被当作这一整条链已完成。
 
 [具体动态调度包](polcert-schedule-regions.md) 已把运行时下标的双写候选装入同一接口并提取运行。该实例推动接口区分检查域和语言适配前提：范围或无溢出前提可以在 guard 接受后才允许源解码。性质库、公式合成、真实 CInstr 调度定理与完整程序宿主在这一路径中实际复用；这仍是工程与机械化进展，尚未建立候选条件推断算法或独立新颖性结论。
 
-[片段内部进展接口](region-protocol.md) 已提供语义无关协议、有限 Clight 宿主接入及严格计数循环实例。循环路径的完成结果可还原为源语句执行，零次迭代无需 body 访存前提。宿主现在通过显式模拟索引实际消费循环协议，零次迭代条件可替换整个循环，并具有完整 C→Asm 定理；真实 C 前端包装已经接通；private temporary、实际 PolOpt 候选进展与出口关系仍需分别解决。
+[片段内部进展接口](region-protocol.md) 已提供语义无关协议、有限 Clight 宿主接入及严格计数循环实例。循环路径的完成结果可还原为源语句执行，零次迭代无需 body 访存前提。宿主现在通过显式模拟索引实际消费循环协议，零次迭代条件可替换整个循环，并具有完整 C→Asm 定理；真实 C 前端包装已经接通；private temporary 出口关系已由新宿主处理，实际 PolOpt 候选进展和一般域对应仍需解决。
 
 ## 建议作为主问题
 

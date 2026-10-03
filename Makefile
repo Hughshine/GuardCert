@@ -8,7 +8,7 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRest
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
-        guarded-compiler scheduled-compiler rectangular-compiler native-demo native-schedules native-rectangular check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
+        guarded-compiler scheduled-compiler rectangular-compiler stripmine-compiler native-demo native-schedules native-rectangular native-stripmine check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
         polcert-dynamic-proof polcert-nested-proof polcert-memory-proof \
         polcert-optimizer-proof polcert-store-native clean
 all: check
@@ -70,7 +70,12 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/RectangularSchedule.v theories/RectangularIteration.v \
                   theories/ClightParametricLoops.v theories/ClightRectangularStore.v \
                   theories/ClightRectangularLoops.v theories/ClightRectangularGuard.v \
-                  theories/ClightRectangularRegion.v theories/ClightRectangularSelector.v theories/RectangularCompiler.v
+                  theories/ClightRectangularRegion.v theories/ClightRectangularSelector.v theories/RectangularCompiler.v \
+                  theories/ClightTempFootprint.v theories/ClightTempScope.v theories/ClightProjectedExecution.v \
+                  theories/ClightPrivateRegion.v theories/ClightPrivateRegionProof.v theories/ClightPrivatePool.v \
+                  theories/ClightPrivateRule.v theories/CountedStripmine.v theories/ClightStripmineLoops.v \
+                  theories/ClightStripmineGuard.v theories/ClightStripmineRegion.v theories/ClightStripmineSelector.v \
+                  theories/StripmineCompiler.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done
@@ -115,7 +120,7 @@ scheduled-compiler: check-compcert
 native-schedules: scheduled-compiler
 	python3 scripts/native_scheduled_matrix.py
 
-check-integration: native-demo native-schedules native-rectangular
+check-integration: native-demo native-schedules native-rectangular native-stripmine
 
 rectangular-compiler: check-compcert
 	python3 scripts/audit_rectangular.py
@@ -124,6 +129,14 @@ rectangular-compiler: check-compcert
 
 native-rectangular: rectangular-compiler
 	python3 scripts/native_rectangular.py
+
+stripmine-compiler: check-compcert
+	python3 scripts/audit_stripmine.py
+	@python3 scripts/build_compiler.py --stripmine > build/stripmine-native-build.log 2>&1 || \
+	  { cat build/stripmine-native-build.log; exit 1; }
+
+native-stripmine: stripmine-compiler
+	python3 scripts/native_stripmine.py
 
 POLCERT_SOURCE ?=
 POLCERT_SOURCE_ARG = $(if $(POLCERT_SOURCE),--source "$(POLCERT_SOURCE)",)

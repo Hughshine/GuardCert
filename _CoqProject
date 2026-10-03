@@ -84,3 +84,16 @@ theories/ClightRectangularGuard.v
 theories/ClightRectangularRegion.v
 theories/ClightRectangularSelector.v
 theories/RectangularCompiler.v
+theories/ClightTempFootprint.v
+theories/ClightTempScope.v
+theories/ClightProjectedExecution.v
+theories/ClightPrivateRegion.v
+theories/ClightPrivateRegionProof.v
+theories/ClightPrivatePool.v
+theories/ClightPrivateRule.v
+theories/CountedStripmine.v
+theories/ClightStripmineLoops.v
+theories/ClightStripmineGuard.v
+theories/ClightStripmineRegion.v
+theories/ClightStripmineSelector.v
+theories/StripmineCompiler.v

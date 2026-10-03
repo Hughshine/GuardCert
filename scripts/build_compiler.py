@@ -34,8 +34,19 @@ def main():
                          help="build the compiler accepting untrusted GUARDCERT_POINT_ORDER proposals")
     variant.add_argument("--rectangular-loop", action="store_true",
                          help="build the compiler for guarded dynamic rectangle interchange")
+    variant.add_argument("--stripmine", action="store_true",
+                         help="build the compiler with verified private counters and loop strip-mining")
     args = parser.parse_args()
-    if args.rectangular_loop:
+    if args.stripmine:
+        entrypoint, import_name = "StripmineCompiler.compile_stripmine_regions", "StripmineCompiler"
+        WORK = ROOT / "build" / "compcert-stripmine"
+        report = json.loads((ROOT / "build" / "stripmine-proof-report.json").read_text())
+        if (report["status"] != "compiled" or report["additional_global_axioms"]
+                or report["whole_program_theorem"] != entrypoint + "_correct"
+                or any(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
+                       for path, expected in report["sources"].items())):
+            raise SystemExit("rebuild and audit the strip-mining proof before extraction")
+    elif args.rectangular_loop:
         entrypoint, import_name = "RectangularCompiler.compile_rectangular_regions", "RectangularCompiler"
         WORK = ROOT / "build" / "compcert-rectangular"
         report = json.loads((ROOT / "build" / "rectangular-proof-report.json").read_text())
@@ -126,6 +137,12 @@ def main():
             if n < 0 || n > 1024 then invalid_arg "GuardCert point identifier outside parser range";
             natural n in
           ScheduledRegionCompiler.compile_scheduled_regions (List.map point tokens) csyntax)"""
+    if args.stripmine:
+        replacement = """(let width = match Sys.getenv_opt "GUARDCERT_TILE_WIDTH" with
+            | None -> 4 | Some value -> int_of_string (String.trim value) in
+          if width < 0 || width > 1024 then invalid_arg "GuardCert tile width outside parser range";
+          let rec natural n = if n = 0 then Datatypes.O else Datatypes.S (natural (n - 1)) in
+          StripmineCompiler.compile_stripmine_regions (natural width) csyntax)"""
     patched = original.replace(needle, replacement)
     driver = WORK / "driver" / "Driver.ml"
     if driver.read_text() != patched:
@@ -164,6 +181,7 @@ def main():
         "index_identifier_inputs": ["frontend identifier for i", "frontend identifier for j"] if args.store_swap else [],
         "schedule_package_proposer": "PolCertStorePackage.propose_dynamic_package" if args.store_swap else None,
         "schedule_proposal_input": "GUARDCERT_POINT_ORDER" if args.matrix_schedule else None,
+        "tile_width_proposal_input": "GUARDCERT_TILE_WIDTH" if args.stripmine else None,
     }, indent=2) + "\n")
     print(f"guarded compiler: {WORK / 'ccomp'}")
 
