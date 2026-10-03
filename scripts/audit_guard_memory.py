@@ -14,7 +14,7 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryLoopTrace", "GuardMemoryTiledRectangles", "GuardMemoryTiledExecution",
            "GuardMemoryTiledClight", "GuardMemoryTiledCompiler", "GuardMemoryAffineDomains",
            "GuardMemoryConditionalLoops", "GuardMemoryCutExecution", "GuardMemoryCutClight",
-           "GuardMemoryCutTiledClight", "GuardMemoryCutCompiler"]
+           "GuardMemoryCutTiledClight", "GuardMemoryCutCompiler", "GuardMemoryTilingMultipleProgress"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -48,7 +48,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress GuardMemoryArrayBackend
   GuardMemoryLoopTrace GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryTiledCompiler
   GuardMemoryAffineDomains GuardMemoryConditionalLoops GuardMemoryCutExecution GuardMemoryCutClight
-  GuardMemoryCutTiledClight GuardMemoryCutCompiler.
+  GuardMemoryCutTiledClight GuardMemoryCutCompiler GuardMemoryTilingMultipleProgress.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -87,6 +87,8 @@ Print Assumptions validated_memory_single_tiling_progress_at.
 Print Assumptions guarded_memory_tiling_equivalence_refines.
 Print Assumptions validated_memory_rectangle_tiling.
 Print Assumptions validated_memory_cut_tiling.
+Print Assumptions before_to_retiled_multiple_progress.
+Print Assumptions validated_memory_multiple_tiling_progress_at.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -150,13 +152,15 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "bidirectional_affine_validation_establishes_progress": True,
         "single_statement_tiling_source_to_candidate_progress_proved": True,
         "tiling_progress_preserves_actual_parameters": True,
-        "general_multiple_statement_tiling_progress_proved": False,
+        "general_multiple_statement_tiling_progress_proved": True,
         "native_validator_validation_report": "build/native-memory-validator/report.json",
         "canonical_rectangle_clight_to_loop_decoder_instantiated": True,
         "canonical_rectangle_loop_to_clight_encoder_instantiated": True,
         "general_pure_array_loop_to_clight_encoder_instantiated": True,
         "nonnegative_floor_division_lowering_proved": True,
         "pure_rectangle_two_dimensional_tiling_csem_asm_proved": True,
+        "affine_conditional_domain_two_dimensional_tiling_csem_asm_proved": True,
+        "conditional_domain_c_source_scope": "one static affine leaf cut with nonnegative limit",
         "pure_rectangle_tiling_public_exit": "agreement on all source program temporaries and exact Mem",
         "pure_rectangle_tiling_partial_tiles_checked": True,
         "canonical_rectangle_memory_modes": ["pure write", "own-cell update", "row-prefix update"],

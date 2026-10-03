@@ -114,6 +114,12 @@ def simulate(program, n, m):
 
 
 def main():
+    stamp = json.loads((EXECUTABLE.parent / "build.json").read_text())
+    if stamp["status"] != "built" or stamp["executable_sha256"] != hashlib.sha256(EXECUTABLE.read_bytes()).hexdigest():
+        raise SystemExit("changed or unbuilt memory validator executable")
+    for path, expected in (stamp["proof_sources"] | stamp["native_sources"]).items():
+        if hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected:
+            raise SystemExit(f"rebuild the memory validator: changed input {path}")
     WORK.mkdir(parents=True, exist_ok=True)
     cases = {
         "pure-interchange": (proposal(rectangle()), True),
@@ -170,6 +176,39 @@ def main():
         request = copy.deepcopy(request)
         request["mode"] = "tiling-equivalence"
         cases[name] = (request, accepted)
+    # The forward theorem now retains each statement number while lifting
+    # its actual iteration points. Use noncommuting updates to test order.
+    multiple = rectangle(reads=[[10, 1, 0]])
+    multiple["statements"] += copy.deepcopy(multiple["statements"])
+    for index, statement in enumerate(multiple["statements"]):
+        statement["schedule"].append([0, 0, 0, 0, index])
+    multiple["statements"][0]["value"] = ["add", ["mul", ["loaded", 0], 2], ["parameter", 1]]
+    multiple["statements"][1]["value"] = ["add", ["loaded", 0], 7]
+    def multiple_tiling(program, bi=2, bj=3):
+        request = tiled_proposal(program, bi, bj)
+        request["mode"] = "tiling-equivalence"
+        for index, statement in enumerate(request["candidate"]["statements"]):
+            statement["schedule"].append([0, 0, 0, 0, 0, 0, index])
+        return request
+    cases["two-statement-tiling-progress"] = (multiple_tiling(multiple), True)
+    three = copy.deepcopy(multiple)
+    three["statements"].append(copy.deepcopy(three["statements"][1]))
+    three["statements"][2]["schedule"][-1][-1] = 2
+    three["statements"][2]["value"] = ["sub", ["loaded", 0], ["parameter", 0]]
+    cases["three-statement-tiling-progress"] = (multiple_tiling(three, 4, 5), True)
+    triangle = copy.deepcopy(multiple)
+    for statement in triangle["statements"]:
+        statement["domain"].append([0, 0, 1, 1, 6])
+    cases["conditional-multiple-tiling-progress"] = (multiple_tiling(triangle), True)
+    cases["sparse-multiple-tiling-progress"] = (multiple_tiling(triangle, 17, 13), True)
+    corrupt = multiple_tiling(multiple)
+    corrupt["candidate"]["statements"][1]["schedule"][-1][-1] = -1
+    cases["tiled-statement-order-reversal"] = (corrupt, False)
+    if simulate(corrupt["source"], 3, 4) == simulate(corrupt["candidate"], 3, 4):
+        raise AssertionError("tiled statement-order refusal needs an independent execution counterexample")
+    corrupt = multiple_tiling(multiple)
+    corrupt["candidate"]["statements"][1]["domain"][1][-1] += 1
+    cases["second-statement-tiling-domain-corruption"] = (corrupt, False)
     results = {}
     simulation_count = 0
     for name, (request, expected) in cases.items():
@@ -207,7 +246,9 @@ def main():
               "diagonal_semantic_counterexample": {"n": 3, "m": 4},
               "source_parameters_were_not_enumerated_by_validator": True,
               "executable_sha256": hashlib.sha256(EXECUTABLE.read_bytes()).hexdigest(),
-              "complete_clight_loop_bridge_tested": False}
+              "complete_clight_loop_bridge_tested": False,
+              "multiple_statement_tiling_progress_cases_checked": True,
+              "tiled_statement_order_independent_counterexample_checked": True}
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(f"Native memory validator passed: {len(results)} proposals, {simulation_count} independent simulations")
 

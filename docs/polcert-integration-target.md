@@ -48,6 +48,6 @@
 
 ## 一般 validator 的具体内存路线
 
-[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。二十二个模块已将三种完整矩形 Clight 交换、矩形和仿射条件域纯写二维 tiling 接到 Loop、PolyLang、依赖验证和候选执行；环境索引的端点保留实际入口参数值。`GuardMemoryCompiler.compile_memory_regions_correct` 是这条路径的完整 Csem→Asm 定理。
+[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。二十三个模块已将三种完整矩形 Clight 交换、矩形和仿射条件域纯写二维 tiling 接到 Loop、PolyLang、依赖验证和候选执行；环境索引的端点保留实际入口参数值。`GuardMemoryCompiler.compile_memory_regions_correct` 是这条路径的完整 Csem→Asm 定理。
 
-原生检查器已有 29 组提案及 1001 组独立执行比较，包含二维 tiling；完整 C 编译器已有 795 个正矩形及外围上下文、回退和故障 oracle 验证。这些模块仍不等于一般完整程序接入：任意嵌套仿射域、多语句、一般候选的 C 源／候选 bridge 尚未完成。二维 tiling 的矩形及静态仿射条件域纯写 C bridge 和完整程序定理已通过编译；条件域入口还有五组块大小、4800 个正动态域的真实快路、完整数组、计数器及拒绝验证，见 [memory-affine-conditional-domains.md](memory-affine-conditional-domains.md)。专用审计的完整编译器继承 CompCert 与 VPL validator 的并集 42 项假设，没有新增公理；默认动态矩形／分块编译器的 35 项基线不受这条可选路线影响。
+原生检查器已有 35 组提案及 1309 组独立执行比较，包含二维 tiling；完整 C 编译器已有 795 个正矩形及外围上下文、回退和故障 oracle 验证。[一般多语句 tiling 的正向执行端点](memory-multiple-statement-tiling.md) 已闭合，但这些模块仍不等于一般完整程序接入：任意嵌套仿射域、多语句、一般候选的 C 源／候选 bridge 尚未完成。二维 tiling 的矩形及静态仿射条件域纯写 C bridge 和完整程序定理已通过编译；条件域入口还有五组块大小、4800 个正动态域的真实快路、完整数组、计数器及拒绝验证，见 [memory-affine-conditional-domains.md](memory-affine-conditional-domains.md)。专用审计的完整编译器继承 CompCert 与 VPL validator 的并集 42 项假设，没有新增公理；默认动态矩形／分块编译器的 35 项基线不受这条可选路线影响。

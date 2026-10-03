@@ -55,4 +55,4 @@ GUARDCERT_TILE_ROWS=2 GUARDCERT_TILE_COLUMNS=3 \
 
 此外，完全空的负常量条件、非仿射乘法条件、无符号比较和条件中间溢出不被选中。五条独立拒绝路线为零块大小、负块大小、辅助算术溢出、证书搜索资源耗尽和注入错误证书；实际编译、执行结果保持源行为。
 
-`build/guard-memory-proof-report.json` 对二十二个具体内存适配模块和七个 lowering 模块完成重编译与假设审计。新增条件域入口仍精确继承 CompCert 的 35 项与实际 validator 的 12 项的并集 42 项，没有新增公理；域筛选对应与机器条件数学对应均有闭合或原有逻辑假设下的具体证明。
+该条件域提交 `a463ca8` 的 `build/guard-memory-proof-report.json` 对二十二个具体内存适配模块和七个 lowering 模块完成重编译与假设审计。新增条件域入口仍精确继承 CompCert 的 35 项与实际 validator 的 12 项的并集 42 项，没有新增公理；域筛选对应与机器条件数学对应均有闭合或原有逻辑假设下的具体证明。

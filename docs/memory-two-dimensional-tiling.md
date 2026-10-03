@@ -25,6 +25,6 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/native_memory
 
 完整依赖目标是 `make native-memory-tiling`。提取驱动默认使用 4×4，可通过 `GUARDCERT_TILE_ROWS` 和 `GUARDCERT_TILE_COLUMNS` 配置。编译入口的定理量化所有块大小；OCaml 参数读取不承担验证义务。
 
-审计重编译七个 lowering 模块与十六个具体适配模块。完整 C→Asm 定理的全局假设恰好等于 CompCert 与实际 validator 的并集 42 项，没有新增公理。支持范围、实际执行结果和来源哈希分别记录在 `build/guard-memory-proof-report.json`、`build/native-memory-tiling/report.json` 和编译器 `.guard-build.json` 中。
+该矩形分块提交 `be95243` 的审计重编译七个 lowering 模块与十六个具体适配模块；后续统一审计已增加条件域和多语句进展模块。完整 C→Asm 定理的全局假设恰好等于 CompCert 与实际 validator 的并集 42 项，没有新增公理。支持范围、实际执行结果和来源哈希分别记录在 `build/guard-memory-proof-report.json`、`build/native-memory-tiling/report.json` 和编译器 `.guard-build.json` 中。
 
 实际提取编译器已验证 1×1、2×3、4×4、5×7、17×13 五组块大小，共 1125 个正动态纯写矩形；同时比较既有 570 个读改写／行内依赖输入的源回退。六个函数中的实际四层 Clight 候选和共享回退均被检查，包含不满块、整个域位于单块、局部／全局数组、goto、外围循环以及未初始化但源不读取的内层边界。完整数组和公开 iterator 出口与 GCC 及独立源模型一致。非正块大小、可能溢出的块大小、搜索耗尽和错误证书五条拒绝路径均实际编译、执行并保留源行为；没有性能结论。
