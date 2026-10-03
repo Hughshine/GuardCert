@@ -64,11 +64,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 141 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 145 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
-当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。不同布局的混合操作列表也已接入；零偏移的转置、缩放、散布访问及混合复制链已接入；一般 C 仿射源提取、邻居偏移、一般多读取算术和指针缓冲区仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
+当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。不同布局的混合操作列表也已接入；零偏移的转置、缩放、散布访问及混合复制链已接入；一般 C 仿射源提取、有源基址证据覆盖的非负邻居偏移也已接入；一般多读取算术和指针缓冲区仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
 
 `make native-memory-operations` 构建同数组混合读写列表的完整 C 分块入口，`build/native-memory-operations/report.json` 记录五组块大小、5325 个正动态矩形、10 个实际快路函数与五条拒绝路线；每组 1564 行完整数组及公开 iterator 输出与 GCC 和独立模型一致。证明与当前源语法范围见 [混合列表证明链](../../docs/memory-mixed-statement-tiling.md)。
 
@@ -96,3 +96,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [不同布局操作序列](../../docs/memory-layout-operation-lists.md)证明每条操作的源执行、实际对象登记和指令对应，再顺序组合为通用源体模型。`make native-memory-layout-sequence` 使用同一完整 C 编译器验证复制链、更新、全局数组、外围重复循环和同数组重映射。
 
 [真实仿射 C 下标](../../docs/memory-affine-source-accesses.md)已将加减和嵌套常数乘法构成的两变量访问编码为实际读写足迹。`make native-memory-affine-access` 在统一完整程序入口验证转置、缩放、散布、混合复制链和同数组依赖，以及未支持的 `while` 结构回退。
+
+[源证据与邻居偏移](../../docs/memory-anchored-offset-accesses.md)将一个对象的零地址访问证据用于该对象的不同偏移访问。`make native-memory-offset-access` 验证邻居读写、跨操作证据、调度与分块及依赖拒绝。

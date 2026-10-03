@@ -38,4 +38,4 @@ for (; i < n; ++i) {
 
 同数组转置读写在交换以及非平凡分块时得到 `n <= 1` 的条件；identity、分裂、平移、剪切和 1×1 分块保持更大范围。散布写入在交换与 17×13 分块时得到 `n <= 8`，另有候选保持 `n <= 20`。这些区间是保守的充分条件。独立源执行模型在 `n=6,m=6,p=0` 为无条件同数组转置交换找到 11 个不同单元，为 2×3、4×4 分块各找到一个不同单元；未给分裂或 17×13 分块报告未找到的反例。
 
-当前全量审计编译 141 个适配模块和七个 lowering 模块，物理非别名证明闭合，指令桥继承七项假设，validator 继承 12 项，统一编译器精确继承 CompCert 与 validator 的 42 项并集。没有新增全局公理。验证二进制 SHA-256 为 `36ade895ce65940bd90560a882ecf2e0d4730594e9ed850117609deaf16dc50b`，详细结果为 `build/native-memory-affine-access/{report,branch-report}.json`。
+该阶段在 `1d6af2a` 的全量审计编译 141 个适配模块和七个 lowering 模块，物理非别名证明闭合，指令桥继承七项假设，validator 继承 12 项，统一编译器精确继承 CompCert 与 validator 的 42 项并集。没有新增全局公理。验证二进制 SHA-256 为 `36ade895ce65940bd90560a882ecf2e0d4730594e9ed850117609deaf16dc50b`，详细结果为 `build/native-memory-affine-access/{report,branch-report}.json`。
