@@ -20,4 +20,4 @@
 make polcert-memory-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-driver
 ```
 
-后续主线直接构造 CompCert 语义下的循环变换与 guard 证书。此审计保留为适配经验及真实入口检查的依据。
+后续主线仍是将真实 PolCert 优化器接入 CompCert。此审计指出了必须修复或绕过的具体语言实例问题；不能用没有真实执行的 wrapped 语义闭合入口，也不能将这个问题视为放弃优化器接入的理由。下一步需把新实例用于实际优化器，并完成源循环解码、候选 lowering 与完整程序证明，见 [接入目标](polcert-integration-target.md)。

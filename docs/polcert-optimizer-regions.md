@@ -27,4 +27,4 @@
 make polcert-optimizer-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-driver
 ```
 
-后续具体循环变换优先直接使用 CompCert 语义；PolCert 提供算法、调度证书和性质接口的参考，不要求沿用其 CInstr 表示。
+后续主线是实例化这些义务，并在原生 C 驱动中实际调用 PolCert 优化器，见 [接入目标](polcert-integration-target.md)。具体语言实例可以调整状态表示，但必须使用真实 PolCert 算法与正确性端点；直接实现矩阵调度不能代替这项接入。
