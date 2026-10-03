@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是将真实 PolCert 多面体优化器接入顺序 CompCert，采用入口检查与原片段回退，并获得完整程序的行为保持证明。通用框架通过语言接口实例化；当前直接 Clight 的固定矩阵样例用于验证检查和宿主接入，不代表 PolCert 优化器已完成集成。具体缺口与验收要求见 [PolCert 接入目标](docs/polcert-integration-target.md)。
+研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化；当前固定矩阵样例只验证了检查和宿主接入，一般参数化循环与多面体变换仍未闭合。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
 
 以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支、表达式、有限区域与严格计数循环 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
 
@@ -59,7 +59,7 @@
 
 [具体数组实例](docs/polcert-array-clight.md) 重编译真实 `CInstr/CState/Loop` 的 60 个依赖，将一维 signed32 数组指令和嵌套循环接到 Clight 的真实 load/store 与小步执行。最终端点没有抽象指令执行假设；真实分配／初始化例子证明 `B[0]=7` 时生成代码产生 `A[0]=8`。复现目标为 `make polcert-memory-proof`。标量参数入口、候选进展、tiling 边界运算及完整程序区域模拟仍在推进。
 
-[CInstr 入口审计](docs/polcert-context-audit.md) 证明锁定的旧非空声明 wrapped 语义不可执行，并提供新的显式只读参数实例。真实分配内存上的循环执行见证已通过；旧模型与既有 raw 指令／原生双写实例的边界分别记录。后续需要把具有真实执行见证的语言实例用于 PolCert 优化器，并完成 Clight 源解码与候选重建。
+[CInstr 入口审计](docs/polcert-context-audit.md) 证明锁定的旧非空声明 wrapped 语义不可执行，并提供新的显式只读参数实例。真实分配内存上的循环执行见证已通过；旧模型与既有 raw 指令／原生双写实例的边界分别记录。该问题约束复用旧模型的路线；自建语言实例可以直接使用 CompCert 内存与机器算术，但仍须证明真实入口、源解码与候选重建。
 
 [真实 CInstr 调度区域接口](docs/polcert-schedule-regions.md) 已将入口检查域、接受后的源解码、条件调度证书和候选生成组合为完整 Csem→Asm 定理，采用与 PolCert 相同的等价内存出口。`PolCertStorePackage.v` 已实例化动态数组双写的具体包族，并进入实际提取入口；这些局部义务均连接真实执行。
 

@@ -20,4 +20,4 @@
 make polcert-memory-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-driver
 ```
 
-后续主线仍是将真实 PolCert 优化器接入 CompCert。此审计指出了必须修复或绕过的具体语言实例问题；不能用没有真实执行的 wrapped 语义闭合入口，也不能将这个问题视为放弃优化器接入的理由。下一步需把新实例用于实际优化器，并完成源循环解码、候选 lowering 与完整程序证明，见 [接入目标](polcert-integration-target.md)。
+主线是以 PolCert 为功能参照，在 CompCert 中实现有动态前提的多面体优化，见 [接入目标](polcert-integration-target.md)。此审计约束复用旧 CInstr 模型的路线；允许采用自建状态与 IR，不要求保留旧模型。任何路线都必须建立非空的真实入口，并完成源循环解码、候选 lowering 与完整程序证明。

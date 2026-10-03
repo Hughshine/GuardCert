@@ -27,4 +27,4 @@
 make polcert-optimizer-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-driver
 ```
 
-后续主线是实例化这些义务，并在原生 C 驱动中实际调用 PolCert 优化器，见 [接入目标](polcert-integration-target.md)。具体语言实例可以调整状态表示，但必须使用真实 PolCert 算法与正确性端点；直接实现矩阵调度不能代替这项接入。
+这一适配器是复用现有 PolCert 实现的可选路线。用户要求以 PolCert 为功能参照，允许为 CompCert 重实现表示、算法与证明；原生驱动可以调用自建优化器和验证器，见 [接入目标](polcert-integration-target.md)。上述源解码、候选进展、机器语义对应与出口证明仍是需要解决的义务。固定矩阵调度只验证部分组合机制，一般多面体能力尚未达成。
