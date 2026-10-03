@@ -287,8 +287,16 @@
       "sha256": "c0662df98c79d9d2fd03db426ba6df5e71174804587038d1716a26787f49641b"
     },
     {
+      "path": "adapters/polcert-optimizer/patches/src-ExtractorCorrect.v.patch",
+      "sha256": "fa0d2ab44674ff47d67fe62f520414bd754efeec0b6be274aa133a847ea6379a"
+    },
+    {
       "path": "adapters/polcert-optimizer/patches/src-ExtractorFacts.v.patch",
       "sha256": "073a77c6c3c487feb6e605f4a70023c305d502190e468f55c5bb48f75fe504b5"
+    },
+    {
+      "path": "adapters/polcert-optimizer/patches/src-ExtractorFrontend.v.patch",
+      "sha256": "9063f21f9fca40ab9e15c4d0c43babf3004b0581d6a8c533647df496e3d1d552"
     },
     {
       "path": "adapters/polcert-optimizer/patches/src-PolyLang.v.patch",

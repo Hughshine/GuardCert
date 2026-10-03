@@ -49,9 +49,60 @@ def encode_program(program):
             ["statements", *map(encode_statement, program["statements"])]]
 
 
+def loop_expression(value):
+    if isinstance(value, int) and not isinstance(value, bool):
+        return ["constant", value]
+    if not isinstance(value, list) or not value:
+        raise ValueError("invalid Loop expression")
+    operation = value[0]
+    if operation == "var" and len(value) == 2:
+        return value
+    if operation in ("sum", "min", "max") and len(value) == 3:
+        return [operation, loop_expression(value[1]), loop_expression(value[2])]
+    if operation == "scale" and len(value) == 3 and isinstance(value[1], int):
+        return [operation, value[1], loop_expression(value[2])]
+    if operation in ("div", "mod") and len(value) == 3 and isinstance(value[2], int):
+        return [operation, loop_expression(value[1]), value[2]]
+    raise ValueError("invalid Loop expression")
+
+
+def loop_test(value):
+    if not isinstance(value, list) or not value:
+        raise ValueError("invalid Loop test")
+    if value[0] in ("le", "eq") and len(value) == 3:
+        return [value[0], loop_expression(value[1]), loop_expression(value[2])]
+    if value[0] in ("and", "or") and len(value) == 3:
+        return [value[0], loop_test(value[1]), loop_test(value[2])]
+    if value[0] == "not" and len(value) == 2:
+        return ["not", loop_test(value[1])]
+    raise ValueError("invalid Loop test")
+
+
+def encode_loop_statement(statement):
+    kind = statement["kind"]
+    if kind == "loop":
+        return [kind, loop_expression(statement["lower"]), loop_expression(statement["upper"]),
+                encode_loop_statement(statement["body"])]
+    if kind == "seq":
+        return [kind, *map(encode_loop_statement, statement["statements"])]
+    if kind == "guard":
+        return [kind, loop_test(statement["test"]), encode_loop_statement(statement["body"])]
+    if kind == "instr":
+        fields = [["write", statement["write"]], ["reads", *statement.get("reads", [])],
+                  ["value", expression(statement["value"])]]
+        return [kind, fields, list(map(loop_expression, statement["arguments"]))]
+    raise ValueError("invalid Loop statement")
+
+
+def encode_loop_program(program):
+    return [["context", *program["context"]], ["variables", *program["variables"]],
+            ["body", encode_loop_statement(program["body"])]]
+
+
 def encode_request(request):
     mode = request.get("mode", "affine")
-    arguments = [mode, encode_program(request["source"]), encode_program(request["candidate"])]
+    encode = encode_loop_program if mode == "loops" else encode_program
+    arguments = [mode, encode(request["source"]), encode(request["candidate"])]
     if mode in ("tiling", "tiling-equivalence"):
         arguments.append(request["witnesses"])
     return sexpr(arguments) + "\n"

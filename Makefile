@@ -227,3 +227,14 @@ memory-operations-compiler: guard-memory-proof
 
 native-memory-operations: memory-operations-compiler
 	python3 scripts/native_memory_operations.py
+
+.PHONY: native-memory-loop-ir memory-proposed-compiler native-memory-proposed
+native-memory-loop-ir: memory-validator
+	python3 scripts/native_memory_loop_ir.py
+
+memory-proposed-compiler: guard-memory-proof
+	@python3 scripts/build_memory_compiler.py --proposed > build/memory-proposed-native-build.log 2>&1 || \
+	  { cat build/memory-proposed-native-build.log; exit 1; }
+
+native-memory-proposed: memory-proposed-compiler
+	python3 scripts/native_memory_proposed.py

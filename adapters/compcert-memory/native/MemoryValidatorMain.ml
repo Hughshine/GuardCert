@@ -1,6 +1,7 @@
 (* This reader proposes data to the extracted checker. It does not establish
    the connection from a C program to this IR; that is the language bridge. *)
 module IR = GuardMemoryPolyhedral.GuardMemoryIRs.PolyLang
+module L = GuardMemoryPolyhedral.GuardMemoryIRs.Loop
 
 type sexpr = Atom of string | List of sexpr list
 
@@ -127,19 +128,60 @@ let program expression =
   if List.length statements > 32 then invalid_arg "statement limit";
   ((List.map statement statements, context), variables)
 
+
+let rec loop_expression = function
+  | List [Atom "constant"; value] -> L.Constant (integer value)
+  | List [Atom "var"; index] -> L.Var (natural (small index))
+  | List [Atom "sum"; first; second] -> L.Sum (loop_expression first, loop_expression second)
+  | List [Atom "scale"; coefficient; value] -> L.Mult (integer coefficient, loop_expression value)
+  | List [Atom "div"; value; divisor] -> L.Div (loop_expression value, integer divisor)
+  | List [Atom "mod"; value; divisor] -> L.Mod (loop_expression value, integer divisor)
+  | List [Atom "min"; first; second] -> L.Min (loop_expression first, loop_expression second)
+  | List [Atom "max"; first; second] -> L.Max (loop_expression first, loop_expression second)
+  | _ -> invalid_arg "Loop expression"
+let rec loop_test = function
+  | List [Atom "le"; first; second] -> L.LE (loop_expression first, loop_expression second)
+  | List [Atom "eq"; first; second] -> L.EQ (loop_expression first, loop_expression second)
+  | List [Atom "and"; first; second] -> L.And (loop_test first, loop_test second)
+  | List [Atom "or"; first; second] -> L.Or (loop_test first, loop_test second)
+  | List [Atom "not"; test] -> L.Not (loop_test test)
+  | _ -> invalid_arg "Loop test"
+let rec loop_statement = function
+  | List [Atom "loop"; lower; upper; body] -> L.Loop (loop_expression lower, loop_expression upper, loop_statement body)
+  | List (Atom "seq" :: statements) ->
+    if List.length statements > 32 then invalid_arg "Loop statement-list limit";
+    L.Seq (List.fold_right (fun statement rest -> L.SCons (loop_statement statement, rest)) statements L.SNil)
+  | List [Atom "guard"; test; body] -> L.Guard (loop_test test, loop_statement body)
+  | List [Atom "instr"; List fields; List arguments] ->
+    let instruction = {
+      GuardMemoryInstr.instruction_write = access (one (field "write" fields));
+      instruction_reads = List.map access (field "reads" fields);
+      instruction_value = value_expression (one (field "value" fields)) } in
+    L.Instr (instruction, List.map loop_expression arguments)
+  | _ -> invalid_arg "Loop statement"
+let loop_program expression =
+  let fields = members expression in
+  let context = List.map positive (field "context" fields) in
+  let variables = List.map (fun identifier -> (positive identifier, ())) (field "variables" fields) in
+  ((loop_statement (one (field "body" fields)), context), variables)
+
 let run () =
-  let mode, source, candidate, witnesses = match parse (read_input ()) with
-    | List [Atom "affine"; source; candidate] -> "affine", program source, program candidate, []
-    | List [Atom (("tiling" | "tiling-equivalence") as mode); source; candidate; List witnesses] ->
-      let witnesses = List.map (fun expression -> match witness expression with
-        | PointWitness.PSWTiling w -> w | _ -> invalid_arg "tiling witness expected") witnesses in
-      mode, program source, program candidate, witnesses
-    | _ -> invalid_arg "expected mode, source, candidate, and witnesses for tiling" in
-  let result = match mode with
-    | "affine" -> GuardMemoryPolyhedral.validate_memory_equivalence source candidate
-    | "tiling" -> GuardMemoryPolyhedral.GuardMemoryTilingValidator.checked_tiling_validate_poly source candidate witnesses
-    | "tiling-equivalence" -> GuardMemoryTilingProgress.validate_memory_tiling_equivalence source candidate witnesses
-    | _ -> invalid_arg "mode must be affine or tiling" in
+  let mode, result = match parse (read_input ()) with
+    | List [Atom "loops"; source; candidate] ->
+      "loops", GuardMemoryExtractorProgress.checked_memory_loop_equivalence (loop_program source) (loop_program candidate)
+    | expression ->
+      let mode, source, candidate, witnesses = match expression with
+        | List [Atom "affine"; source; candidate] -> "affine", program source, program candidate, []
+        | List [Atom (("tiling" | "tiling-equivalence") as mode); source; candidate; List witnesses] ->
+          let witnesses = List.map (fun expression -> match witness expression with
+            | PointWitness.PSWTiling w -> w | _ -> invalid_arg "tiling witness expected") witnesses in
+          mode, program source, program candidate, witnesses
+        | _ -> invalid_arg "expected mode, source, candidate, and witnesses for tiling" in
+      mode, (match mode with
+        | "affine" -> GuardMemoryPolyhedral.validate_memory_equivalence source candidate
+        | "tiling" -> GuardMemoryPolyhedral.GuardMemoryTilingValidator.checked_tiling_validate_poly source candidate witnesses
+        | "tiling-equivalence" -> GuardMemoryTilingProgress.validate_memory_tiling_equivalence source candidate witnesses
+        | _ -> invalid_arg "mode must be affine or tiling") in
   let observed = ref None in
   let _ = ImpureConfig.Core.Base.bind result (fun pair ->
     observed := Some pair; ImpureConfig.Core.Base.pure ()) in

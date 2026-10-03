@@ -24,9 +24,12 @@ def run(*arguments):
     subprocess.run(arguments, cwd=WORK, check=True)
 
 
-def main(tiling=False, cuts=False, sequences=False, operations=False):
+def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False):
     global WORK, ENTRY
-    if operations:
+    if proposed:
+        WORK = ROOT / "build" / "compcert-memory-proposed"
+        ENTRY = "GuardMemoryProposedCompiler.compile_memory_proposed_regions"
+    elif operations:
         WORK = ROOT / "build" / "compcert-memory-operations"
         ENTRY = "GuardMemoryOperationsCompiler.compile_memory_operations_regions"
     elif sequences:
@@ -40,7 +43,7 @@ def main(tiling=False, cuts=False, sequences=False, operations=False):
         ENTRY = "GuardMemoryTiledCompiler.compile_memory_tiled_regions"
     polcert_core.select_profile("optimizer")
     proof = json.loads((ROOT / "build" / "guard-memory-proof-report.json").read_text())
-    proof_entry = "operations_whole_program_entrypoint" if operations else "sequence_whole_program_entrypoint" if sequences else "cut_whole_program_entrypoint" if cuts else "tiling_whole_program_entrypoint" if tiling else "whole_program_entrypoint"
+    proof_entry = "proposed_whole_program_entrypoint" if proposed else "operations_whole_program_entrypoint" if operations else "sequence_whole_program_entrypoint" if sequences else "cut_whole_program_entrypoint" if cuts else "tiling_whole_program_entrypoint" if tiling else "whole_program_entrypoint"
     if (proof["status"] != "compiled" or proof.get(proof_entry) != ENTRY
             or any(sha(ROOT / path) != expected for path, expected in proof["sources"].items())):
         raise SystemExit("audit the current memory compiler before extraction")
@@ -62,6 +65,8 @@ def main(tiling=False, cuts=False, sequences=False, operations=False):
       ENTRY_PLACEHOLDER
         (tile_width "GUARDCERT_TILE_ROWS") (tile_width "GUARDCERT_TILE_COLUMNS") csyntax)"""
         if tiling or cuts or sequences or operations else "(GuardMemoryCompiler.compile_memory_regions csyntax)").replace("ENTRY_PLACEHOLDER", ENTRY)
+    if proposed:
+        invocation = "(" + ENTRY + " GuardMemoryCandidate.propose (GuardMemoryCandidate.natural 8) csyntax)"
     replacement = """(let outcome = ref None in
       ImpureConfig.Core.Base.bind INVOCATION
         (fun (result, alarm_free) -> outcome := Some (result, alarm_free); ());
@@ -96,7 +101,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
     for name in ("cparser", "export", "MenhirLib"):
         flags += ["-R", str(UPSTREAM / name), "MenhirLib" if name == "MenhirLib" else "compcert." + name]
     run("rocq", "compile", *flags, str(extraction))
-    inferred = ["ImpureConfig"] + (["TilingValidator", "GuardMemoryPolyhedral", "GuardMemoryTilingProgress"] if tiling or cuts or sequences or operations else [])
+    inferred = ["ImpureConfig"] + (["TilingValidator", "GuardMemoryPolyhedral", "GuardMemoryTilingProgress"] if tiling or cuts or sequences or operations or proposed else [])
     for module in inferred:
         (WORK / "extraction" / (module + ".mli")).unlink(missing_ok=True)
     for source in (WORK / "extraction").glob("*.ml"):
@@ -104,6 +109,8 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
             raise SystemExit(f"unrealized extraction axiom: {source.name}")
     sources = [ADAPTER / "native" / name for name in
                ("GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml", "GuardMemoryTopo.ml")]
+    if proposed:
+        sources.append(ADAPTER / "native" / "GuardMemoryCandidate.ml")
     for source in sources:
         target = "GuardMemoryNumbers.ml" if source.name == "GuardMemoryNumbersCompCert.ml" else source.name
         shutil.copy2(source, WORK / "extraction" / target)
@@ -119,6 +126,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         "proof_sources": proof["sources"], "extraction_sha256": sha(extraction),
         "native_sources": {str(path.relative_to(ROOT)): sha(path) for path in sources},
         "oracle": "bounded Fourier-Motzkin with checked LCF certificates",
+        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE file with instruction-site template" if proposed else None,
         "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling or cuts or sequences or operations else None,
     }, indent=2) + "\n")
     print(f"verified dependence compiler: {WORK / 'ccomp'}")
@@ -130,7 +138,8 @@ if __name__ == "__main__":
     parser.add_argument("--cuts", action="store_true", help="extract the proved affine conditional-domain tiling compiler")
     parser.add_argument("--sequences", action="store_true", help="extract the proved multiple-statement tiling compiler")
     parser.add_argument("--operations", action="store_true", help="extract the proved mixed-read/write statement-list tiling compiler")
+    parser.add_argument("--proposed", action="store_true", help="extract the proved compiler for externally proposed Loop candidates")
     arguments = parser.parse_args()
-    if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations)) > 1:
+    if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed)) > 1:
         parser.error("select one compiler entrypoint")
-    main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations)
+    main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed)

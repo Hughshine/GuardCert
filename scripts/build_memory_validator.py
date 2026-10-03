@@ -12,7 +12,7 @@ WORK = ROOT / "build" / "guard-memory-validator"
 ADAPTER = ROOT / "adapters" / "compcert-memory"
 
 EXTRACTION = r'''From Stdlib Require Import Extraction ExtrOcamlBasic ExtrOcamlNativeString ExtrOcamlZBigInt.
-From GuardMemory Require Import GuardMemoryPolyhedral GuardMemoryTilingProgress.
+From GuardMemory Require Import GuardMemoryPolyhedral GuardMemoryTilingProgress GuardMemoryExtractorProgress.
 From polcert.lib Require Import ImpureAlarmConfig.
 From polcert.lib Require Import TopoSort.
 From Vpl Require Import CstrC LinTerm CoqAddOn Debugging PedraQBackend.
@@ -31,7 +31,7 @@ Extract Constant PedraQBackend.add => "GuardMemoryOracle.add".
 Extract Constant TopoSort.topo_sort_untrusted => "GuardMemoryTopo.sort".
 Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed.Base.imp.
 Separate Extraction validate_memory_equivalence GuardMemoryTilingValidator.checked_tiling_validate_poly
-  validate_memory_tiling_equivalence
+  validate_memory_tiling_equivalence checked_memory_loop_equivalence
   GuardMemoryIRs.PolyLang.dummy_pi LinTerm.LinQ.export CstrC.Cstr.isContrad.
 '''
 

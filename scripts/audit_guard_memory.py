@@ -19,7 +19,9 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemorySequenceLoops", "GuardMemorySequenceClight", "GuardMemorySequencePolyhedral",
            "GuardMemorySequenceOrder", "GuardMemorySequenceExecution", "GuardMemorySequenceTiledClight",
            "GuardMemorySequenceCompiler", "GuardMemoryOperationsClight", "GuardMemoryOperationsTiledClight",
-           "GuardMemoryOperationsCompiler"]
+           "GuardMemoryOperationsCompiler", "GuardMemoryExtractorTrace", "GuardMemoryTraceUniqueness",
+           "GuardMemoryExtractorCoverage", "GuardMemoryExtractorOrder", "GuardMemoryPointIsomorphism", "GuardMemoryDomainNormalization", "GuardMemoryExtractorProgress",
+           "GuardMemoryProposedClight", "GuardMemoryProposedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -58,7 +60,9 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryArrayFamilyBackend GuardMemoryIndexedTrace GuardMemorySequenceLoops GuardMemorySequenceClight
   GuardMemorySequencePolyhedral GuardMemorySequenceOrder GuardMemorySequenceExecution
   GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
-  GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler.
+  GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
+  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress
+  GuardMemoryProposedClight GuardMemoryProposedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -92,6 +96,15 @@ Print Assumptions memory_sequence_tiled_loop_points.
 Print Assumptions array_operations_source_clight_decode.
 Print Assumptions flat_array_instruction_backend.
 Print Assumptions compile_memory_flat_array_loop_within_correct.
+Print Assumptions memory_extractor_static_sites.
+Print Assumptions memory_extractor_trace_metadata.
+Print Assumptions memory_extracted_trace_execution.
+Print Assumptions memory_extracted_trace_coverage_iff.
+Print Assumptions memory_extracted_trace_points_unique.
+Print Assumptions memory_extracted_trace_points_sorted.
+Print Assumptions memory_extractor_execution_at.
+Print Assumptions memory_point_isomorphism_execution.
+Print Assumptions memory_domain_normalization_execution.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -107,6 +120,7 @@ Print Assumptions validated_memory_cut_tiling.
 Print Assumptions before_to_retiled_multiple_progress.
 Print Assumptions validated_memory_multiple_tiling_progress_at.
 Print Assumptions validated_memory_sequence_tiling.
+Print Assumptions validated_memory_affine_loops_at.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -121,12 +135,15 @@ Print Assumptions memory_mode_tiled_rectangle_local.
 Print Assumptions check_memory_sequence_region_sound.
 Print Assumptions memory_tiled_array_operations_local.
 Print Assumptions check_memory_operations_region_sound.
+Print Assumptions memory_proposed_array_operations_local.
+Print Assumptions check_memory_proposed_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
 Print Assumptions compile_memory_cut_regions_correct.
 Print Assumptions compile_memory_sequence_regions_correct.
 Print Assumptions compile_memory_operations_regions_correct.
+Print Assumptions compile_memory_proposed_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
     result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
@@ -166,6 +183,10 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "sequence_whole_program_theorem": "GuardMemorySequenceCompiler.compile_memory_sequence_regions_correct",
         "operations_whole_program_entrypoint": "GuardMemoryOperationsCompiler.compile_memory_operations_regions",
         "operations_whole_program_theorem": "GuardMemoryOperationsCompiler.compile_memory_operations_regions_correct",
+        "proposed_whole_program_entrypoint": "GuardMemoryProposedCompiler.compile_memory_proposed_regions",
+        "proposed_whole_program_theorem": "GuardMemoryProposedCompiler.compile_memory_proposed_regions_correct",
+        "untrusted_loop_candidate_csem_asm_proved": True,
+        "untrusted_loop_candidate_c_source_scope": "canonical rectangular mixed statements on one fixed-layout array",
         "multiple_mixed_array_statements_tiling_csem_asm_proved": True,
         "operations_c_source_scope": "nonempty list of pure writes, own-cell updates and row-prefix updates on one fixed-layout array",
         "multiple_pure_array_statements_tiling_csem_asm_proved": True,
@@ -208,6 +229,15 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "complete_source_loop_decoder_instantiated": False,
         "complete_candidate_loop_encoder_instantiated": False,
         "complete_csem_asm_rule_instantiated": False,
+        "general_affine_loop_to_poly_execution_equivalence_proved": True,
+        "general_loop_statement_scope": "arbitrary nesting of affine Loop, Seq and conjunctive affine Guard accepted by the actual extractor",
+        "domain_constraint_order_normalization_proved": True,
+        "point_representation_isomorphism_semantic_interface_proved": True,
+        "array_entry_presumption_consumed_by_candidate_checker": True,
+        "general_affine_loop_candidate_equivalence_checker": "GuardMemoryExtractorProgress.checked_memory_loop_equivalence",
+        "general_affine_loop_progress_theorem": "GuardMemoryExtractorProgress.validated_memory_affine_loops_at",
+        "general_loop_endpoint_preserves_exact_entry_parameters_and_mem": True,
+        "general_loop_endpoint_is_complete_c_source_decoder": False,
         "external_scheduler_connected": False,
         "sources": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                     for path in sources},

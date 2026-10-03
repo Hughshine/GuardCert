@@ -1,0 +1,24 @@
+--- a/src/ExtractorCorrect.v
++++ b/src/ExtractorCorrect.v
+@@ -1074,8 +1074,8 @@
+         PolyLang.pi_point_witness := PSWIdentity iter_depth;
+         PolyLang.pi_transformation := normalize_affine_list_rev (env_dim + iter_depth)%nat tf;
+         PolyLang.pi_access_transformation := normalize_affine_list_rev (env_dim + iter_depth)%nat tf;
+-        PolyLang.pi_waccess := normalize_access_list (env_dim + iter_depth)%nat w;
+-        PolyLang.pi_raccess := normalize_access_list (env_dim + iter_depth)%nat r;
++        PolyLang.pi_waccess := normalize_access_list (length es) w;
++        PolyLang.pi_raccess := normalize_access_list (length es) r;
+       |}] ipl ->
+     Permutation ipl sorted_ipl ->
+     Sorted PolyLang.instr_point_sched_le sorted_ipl ->
+@@ -1170,8 +1170,8 @@
+         PolyLang.pi_point_witness := PSWIdentity iter_depth;
+         PolyLang.pi_transformation := normalize_affine_list_rev (env_dim + iter_depth)%nat tf;
+         PolyLang.pi_access_transformation := normalize_affine_list_rev (env_dim + iter_depth)%nat tf;
+-        PolyLang.pi_waccess := normalize_access_list (env_dim + iter_depth)%nat w;
+-        PolyLang.pi_raccess := normalize_access_list (env_dim + iter_depth)%nat r;
++        PolyLang.pi_waccess := normalize_access_list (length es) w;
++        PolyLang.pi_raccess := normalize_access_list (length es) r;
+       |}] ipl ->
+     Permutation ipl sorted_ipl ->
+     Sorted PolyLang.instr_point_sched_le sorted_ipl ->
