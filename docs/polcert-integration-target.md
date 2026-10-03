@@ -1,6 +1,6 @@
 # 多面体能力接入目标：以 PolCert 为功能参照
 
-2026-10-02 用户澄清：PolCert 是功能与证明架构的参照。允许为 CompCert 必要地重实现状态、IR、算法与证明，要求基本多面体功能达成一致，并通过统一的 guarded transformation 框架获得完整程序保证。调用现有 PolCert 源码不是验收条件。当前动态矩形交换与保持顺序的循环分块已进入完整程序路径；一般仿射域、依赖验证及带重排的多维 tiling 仍未达到完整目标。
+2026-10-02 用户澄清：PolCert 是功能与证明架构的参照。允许为 CompCert 必要地重实现状态、IR、算法与证明，要求基本多面体功能达成一致，并通过统一的 guarded transformation 框架获得完整程序保证。调用现有 PolCert 源码不是验收条件。当前动态矩形交换与保持顺序的循环分块已进入完整程序路径；实际依赖检查、矩形纯写二维 tiling 和完整程序定理也已接通；一般仿射域、多语句与任意外部候选仍未达到完整目标。
 
 ## 所需链路
 
@@ -24,9 +24,9 @@
 | 参数化循环提取与源对应 | 动态矩形的完整 AST、真实源执行解码与循环出口；另有参数化 Loop lowering 证明 | 一般嵌套仿射域与多个语句的提取 |
 | 仿射调度及依赖验证 | 实际 Mem 的一般 validator 已提取执行，验证参数化域、多语句、重排与实际二维 tiling；三种矩形循环的 C 编译器已消费真实依赖检查 | 多语句及一般域的完整 C 源提取与候选接入 |
 | 循环生成与出口对应 | 实际动态矩形候选、精确 iterator 出口与完整程序宿主；另有嵌套 Loop lowering；private temporary 完整程序宿主已闭合 | 一般域和外部调度驱动的循环生成 |
-| 分块与域变换 | 任意正块大小的 strip-mining、尾块对应、辅助边界无溢出检查、private temporary 宿主与实际候选执行 | 带重排的多维 tiling、一般域变换及相应依赖证书 |
+| 分块与域变换 | 任意正块大小的 strip-mining、尾块对应、辅助边界无溢出检查、private temporary 宿主与实际候选执行 | 更一般 tiling 与域变换；矩形纯写二维 tiling 已消费实际域与依赖证书 |
 | 前提编码与检查 | 从源布局生成的矩形边界检查、条件读取安全证明；可组合性质接口与动态仿射检查 | 一般候选所需前提的发现与编码；扩展 alias/layout 前提 |
-| 完整程序接入 | 实际 Clight 区域宿主与 Csem→Asm 定理；真实依赖检查的矩形路径已提取运行，故障 oracle 安全拒绝 | 继续闭合一般调度与多维分块规则 |
+| 完整程序接入 | 实际 Clight 区域宿主与 Csem→Asm 定理；真实依赖检查的矩形路径已提取运行，故障 oracle 安全拒绝 | 继续闭合一般调度、多语句与更一般分块规则 |
 
 这张表比较的是能力和语义保证，不要求复制 PolCert 的表示或逐个函数。先闭合顺序的参数化仿射调度与分块路径，再按同一标准对照 ISS、更多 tiling 路线及其他已验证能力，明确支持与未支持项。并行扩展需要额外执行语义和后端证明，生成注释不能代替这一保证。
 
@@ -44,10 +44,10 @@
 4. 源对应、依赖保持、候选进展、机器算术与出口修复均有具体证明，完整程序定理不把核心义务留作未实例化字段。
 5. 实际提取的编译器生成可运行汇编，验证快路、回退及外围可观察结果，报告支持范围与假设。与 PolCert 的功能差距逐项更新。
 
-`compile_scheduled_regions` 和 CInstr 双写交换保留为验证条件与程序组合的回归实例。它们已证明的部分可以复用；动态矩形规则的实现与验证见 [dynamic-rectangles.md](dynamic-rectangles.md)；顺序分块与辅助变量接口见 [private-stripmine.md](private-stripmine.md)，一般仿射域、读写依赖验证及多维 tiling 仍需实现。
+`compile_scheduled_regions` 和 CInstr 双写交换保留为验证条件与程序组合的回归实例。它们已证明的部分可以复用；动态矩形规则的实现与验证见 [dynamic-rectangles.md](dynamic-rectangles.md)；顺序分块与辅助变量接口见 [private-stripmine.md](private-stripmine.md)，一般仿射域和多语句源桥接仍需实现，矩形纯写二维 tiling 见 [memory-two-dimensional-tiling.md](memory-two-dimensional-tiling.md)。
 
 ## 一般 validator 的具体内存路线
 
-[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。九个模块已将三种完整矩形 Clight 循环接到 Loop、PolyLang、依赖验证和候选执行；环境索引的端点保留实际入口参数值。`GuardMemoryCompiler.compile_memory_regions_correct` 是这条路径的完整 Csem→Asm 定理。
+[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。十六个模块已将三种完整矩形 Clight 交换、纯写二维 tiling 接到 Loop、PolyLang、依赖验证和候选执行；环境索引的端点保留实际入口参数值。`GuardMemoryCompiler.compile_memory_regions_correct` 是这条路径的完整 Csem→Asm 定理。
 
-原生检查器已有 25 组提案及 847 组独立执行比较，包含二维 tiling；完整 C 编译器已有 795 个正矩形及外围上下文、回退和故障 oracle 验证。这些模块仍不等于一般完整程序接入：任意嵌套仿射域、多语句、一般候选以及二维 tiling 的 C 源／候选 bridge 尚未完成。专用审计的完整编译器继承 CompCert 与 VPL validator 的并集 42 项假设，没有新增公理；默认动态矩形／分块编译器的 35 项基线不受这条可选路线影响。
+原生检查器已有 29 组提案及 1001 组独立执行比较，包含二维 tiling；完整 C 编译器已有 795 个正矩形及外围上下文、回退和故障 oracle 验证。这些模块仍不等于一般完整程序接入：任意嵌套仿射域、多语句、一般候选的 C 源／候选 bridge 尚未完成。二维 tiling 的矩形纯写 C bridge 和完整程序定理已通过编译。专用审计的完整编译器继承 CompCert 与 VPL validator 的并集 42 项假设，没有新增公理；默认动态矩形／分块编译器的 35 项基线不受这条可选路线影响。

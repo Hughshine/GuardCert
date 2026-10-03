@@ -6,7 +6,7 @@
 
 调用者提供参数位置到 Clight temporary 的 `layout`，以及每个参数的候选区间 `bounds`。`typed_view` 关联 Loop 的数学整数环境与这些实际 temporaries：对应 temporary 必须包含 `Vint`，其 signed 值等于数学参数。这个关系不包含无溢出或参数处于提议区间的假设。
 
-区间是未经信任的输入。`analyze` 检查区间合法性、常量、乘法系数，以及每个中间表达式的 signed32 范围。`compile_expr` 同时要求区间检查和代码生成成功。目前支持 `Constant`、`Var`、`Sum` 与常量乘法 `Mult`。`Div`、`Mod`、`Max`、`Min` 返回 `None`；其中整数除法还涉及 Loop 的 floor division 与 C 的截断除法差异。
+区间是未经信任的输入。`analyze` 检查区间合法性、常量、乘法系数，以及每个中间表达式的 signed32 范围。`compile_expr` 同时要求区间检查和代码生成成功。目前支持 `Constant`、`Var`、`Sum`、常量乘法 `Mult`，以及非负分子除以正的 signed32 常数的 `Div`。`ClightPositiveDivision.v` 证明这个子集的 floor division 等于实际 Clight 的有符号截断除法，并排除零除数和 `MIN / -1`。`Mod`、`Max`、`Min` 仍返回 `None`。
 
 输入区间检查是独立的性质维度，可与其他维度组合。`range_dimension` 给每个下界或上界比较提供正、负证据；`range_primitives` 提供实际 Clight validity/value 表达式。参数映射缺失或区间无效时返回 unknown。通用条件编译器保持 unknown，包含对条件取反的情况。
 
@@ -33,7 +33,8 @@ Rocq 的 `vm_compute` 检查实际算法：
 - 对完整 signed32 输入域，同一表达式被拒绝。
 - `-2*x` 在 `[-3,4]` 下得到 `[-8,6]`。
 - 对完整 signed32 域，`-x` 被拒绝，因为最小负数不能取负。
-- 除法被拒绝；无参数映射或倒置区间的原子在否定下仍是 unknown。
+- `x/2` 在 `[0,10]` 下得到 `[0,5]`；分块数量 `(x+3)/4` 在 `[0,100]` 下得到 `[0,25]`。
+- 可能为负的分子、非正除数和块数计算中的中间溢出被拒绝；无参数映射或倒置区间的原子在否定下仍是 unknown。
 
 这些是编译时执行与证明检查，不是多面体优化的原生性能测试。
 
@@ -43,6 +44,6 @@ Rocq 的 `vm_compute` 检查实际算法：
 make polcert-affine-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-driver
 ```
 
-该目标复用锁定 CompCert 工具链，恢复并重编译真实 Loop 的 57 个证明依赖及既有适配器，然后编译两个桥接文件。`build/polcert-affine-report.json` 将新增定理的 `Print Assumptions` 与实际 `Clight.eval_expr` 基线比较；二者相同，新增全局公理为空。数学区间分析本身闭合。表达式语义证明继承 CompCert 的四个既有逻辑假设。
+该目标复用锁定 CompCert 工具链，恢复并重编译真实 Loop 的 57 个证明依赖及既有适配器，然后编译除法原语和两个桥接文件。`build/polcert-affine-report.json` 将新增定理的 `Print Assumptions` 与实际 `Clight.eval_expr` 基线比较；二者相同，新增全局公理为空。数学区间分析本身闭合。表达式语义证明继承 CompCert 的四个既有逻辑假设。
 
 后续 [计数循环桥接](polcert-clight-loop.md) 已增加一个外层 Loop 及结构化 body 的 Clight lowering。嵌套循环、具体内存／指令实例、候选进展和完整程序区域 simulation 仍需补充。实际 `Opt_prepared_correct` 已接入的是 [guarded Loop 程序](../adapters/polcert-optimizer/README.md)，尚未进入提取后驱动的多面体优化链。

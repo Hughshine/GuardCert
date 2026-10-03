@@ -3,7 +3,7 @@ From compcert.lib Require Import Maps Integers Coqlib.
 From compcert.common Require Import AST Values Memory.
 From compcert.cfrontend Require Import Ctypes Cop Clight.
 From polcert.polygen Require Import InstrTy Loop.
-From Guard Require Import PolCertLoopGuard ClightCondition ClightPureExpr.
+From Guard Require Import PolCertLoopGuard ClightCondition ClightPureExpr ClightPositiveDivision.
 Import ListNotations.
 Open Scope Z_scope.
 Set Implicit Arguments.
@@ -38,6 +38,8 @@ Definition sum_interval (a b : interval) : interval :=
 Definition scaled_interval (k : Z) (a : interval) : interval :=
   if 0 <=? k then Interval (k * lower a) (k * upper a)
   else Interval (k * upper a) (k * lower a).
+Definition divided_interval (k : Z) (a : interval) :=
+  Interval (lower a / k) (upper a / k).
 
 Fixpoint analyze (bounds : list interval) (e : L.expr) : option interval :=
   match e with
@@ -49,6 +51,11 @@ Fixpoint analyze (bounds : list interval) (e : L.expr) : option interval :=
   | L.Mult k x =>
       match checked (Interval k k), analyze bounds x with
       | Some _, Some a => checked (scaled_interval k a) | _, _ => None end
+  | L.Div x k =>
+      match checked (Interval k k), analyze bounds x with
+      | Some _, Some a => if (0 <? k) && (0 <=? lower a)
+          then checked (divided_interval k a) else None
+      | _, _ => None end
   | _ => None
   end.
 
@@ -71,6 +78,8 @@ Fixpoint affine_safe (e : L.expr) (env : list Z) : Prop :=
       machine_range (L.eval_expr env e)
   | L.Mult k x => machine_range k /\ affine_safe x env /\
       machine_range (L.eval_expr env e)
+  | L.Div x k => machine_range k /\ 0 < k /\ affine_safe x env /\
+      0 <= L.eval_expr env x /\ machine_range (L.eval_expr env e)
   | _ => False
   end.
 
@@ -112,6 +121,21 @@ Proof.
     split; [exact PRODUCT |]. cbn [affine_safe].
     split; [unfold machine_range; auto |]. split; [exact SAFE_A |].
     exact (interval_range LO HI PRODUCT).
+  - destruct (checked (Interval z z)) as [divisor|] eqn:K; try discriminate.
+    destruct (analyze bounds e) as [a|] eqn:A; try discriminate.
+    destruct ((0 <? z) && (0 <=? lower a)) eqn:DOMAIN; try discriminate.
+    apply andb_true_iff in DOMAIN as [POSITIVE NONNEGATIVE].
+    apply Z.ltb_lt in POSITIVE; apply Z.leb_le in NONNEGATIVE.
+    destruct (IHe _ _ _ A VIEW) as [VALUE SAFE].
+    apply checked_sound in K as [_ [_ [KLO KHI]]].
+    apply checked_sound in ANAL as [<- [_ [LO HI]]].
+    assert (QUOTIENT : contains (divided_interval z a) (L.eval_expr env (L.Div e z))).
+    { unfold contains, divided_interval in *; cbn [lower upper L.eval_expr] in *.
+      split; apply Z.div_le_mono; lia. }
+    split; [exact QUOTIENT|]. cbn [affine_safe].
+    split; [unfold machine_range; exact (conj KLO KHI)|].
+    split; [exact POSITIVE|]. split; [exact SAFE|].
+    split; [unfold contains in VALUE; lia|exact (interval_range LO HI QUOTIENT)].
   - destruct (nth_error bounds n) as [a|] eqn:A; try discriminate.
     apply checked_sound in ANAL. destruct ANAL as [<- [_ [LO HI]]].
     pose proof (VIEW _ _ A) as CONTAINS.
@@ -135,6 +159,11 @@ Fixpoint lower_expr (layout : list ident) (e : L.expr) : option Clight.expr :=
       match lower_expr layout x with
       | Some a => Some (Ebinop Omul (Econst_int (Int.repr k) type_int32s)
           a type_int32s) | None => None end else None
+  | L.Div x k =>
+      if interval_valid (Interval k k) && (0 <? k) then
+        match lower_expr layout x with
+        | Some a => Some (Ebinop Odiv a (Econst_int (Int.repr k) type_int32s) type_int32s)
+        | None => None end else None
   | _ => None
   end.
 
@@ -228,6 +257,14 @@ Proof.
       * reflexivity.
       * destruct e; cbn [affine_safe] in SA; tauto.
       * exact SK.
+  - destruct (interval_valid (Interval z z) && (0 <? z)); try discriminate.
+    destruct (lower_expr layout e) as [a|] eqn:A; try discriminate.
+    inversion LOWER; subst; destruct SAFE as [KR [POSITIVE [SOURCE [NONNEGATIVE RANGE]]]].
+    eapply positive_division_evaluation with (x := L.eval_expr env e) (divisor := z).
+    + eapply lower_expr_type; exact A.
+    + eapply IHe; eauto.
+    + pose proof (@affine_safe_range e env SOURCE); unfold machine_range in *; lia.
+    + unfold machine_range in KR; lia.
   - destruct (nth_error layout n) as [id|] eqn:ID; try discriminate.
     inversion LOWER; subst.
     destruct (VIEW _ _ ID) as [value [TEMP SIGNED]].
@@ -415,8 +452,28 @@ Example negation_minimum_overflow_refused :
   analyze [Interval (-2147483648) 2147483647] (L.Mult (-1) (L.Var 0)) = None.
 Proof. vm_compute; reflexivity. Qed.
 
-Example unsupported_division_refused :
-  analyze [Interval 0 10] (L.Div (L.Var 0) 2) = None.
+Example nonnegative_division :
+  analyze [Interval 0 10] (L.Div (L.Var 0) 2) = Some (Interval 0 5).
+Proof. vm_compute; reflexivity. Qed.
+
+Example tile_count_with_tail :
+  analyze [Interval 0 100] (L.Div (L.Sum (L.Var 0) (L.Constant 3)) 4) = Some (Interval 0 25).
+Proof. vm_compute; reflexivity. Qed.
+
+Example overflowing_tile_count_refused :
+  analyze [Interval 0 2147483647] (L.Div (L.Sum (L.Var 0) (L.Constant 3)) 4) = None.
+Proof. vm_compute; reflexivity. Qed.
+
+Example negative_numerator_floor_division_refused :
+  analyze [Interval (-3) 10] (L.Div (L.Var 0) 2) = None.
+Proof. vm_compute; reflexivity. Qed.
+
+Example zero_divisor_refused :
+  analyze [Interval 0 10] (L.Div (L.Var 0) 0) = None.
+Proof. vm_compute; reflexivity. Qed.
+
+Example negative_divisor_refused :
+  analyze [Interval 0 10] (L.Div (L.Var 0) (-2)) = None.
 Proof. vm_compute; reflexivity. Qed.
 
 End PolCertAffineClightFor.

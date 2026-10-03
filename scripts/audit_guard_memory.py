@@ -10,7 +10,11 @@ import polcert_core
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "GuardMemoryPolyhedral",
            "GuardMemoryLoops", "GuardMemoryClightRectangles", "GuardMemoryPolyhedralRectangles",
-           "GuardMemoryValidatedRectangles", "GuardMemoryCompiler", "GuardMemoryTilingProgress"]
+           "GuardMemoryValidatedRectangles", "GuardMemoryCompiler", "GuardMemoryTilingProgress", "GuardMemoryArrayBackend",
+           "GuardMemoryLoopTrace", "GuardMemoryTiledRectangles", "GuardMemoryTiledExecution",
+           "GuardMemoryTiledClight", "GuardMemoryTiledCompiler"]
+LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
+                    "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
 WORK = ROOT / "build" / "guard-memory-assumptions"
 
@@ -24,6 +28,11 @@ def main():
     flags = [*polcert_core.load_flags(), "-Q", str(DIRECTORY), "GuardMemory"]
     WORK.mkdir(parents=True, exist_ok=True)
     logs = []
+    for module in LOWERING_MODULES:
+        result = subprocess.run(["rocq", "compile", *flags, str(ROOT / "theories" / (module + ".v"))],
+                                cwd=ROOT, check=True, text=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+        logs.append(result.stdout)
     for module in MODULES:
         result = subprocess.run(["rocq", "compile", *flags, str(DIRECTORY / (module + ".v"))],
                                 cwd=ROOT, check=True, text=True, stdout=subprocess.PIPE,
@@ -34,7 +43,8 @@ def main():
     audit.write_text("""From compcert.driver Require Import Compiler.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral
   GuardMemoryLoops GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
-  GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress.
+  GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress GuardMemoryArrayBackend
+  GuardMemoryLoopTrace GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryTiledCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -55,6 +65,10 @@ Print Assumptions memory_rectangle_loop_iterations.
 Print Assumptions memory_rectangle_lift.
 Print Assumptions memory_rectangle_source_clight_decode.
 Print Assumptions memory_rectangle_candidate_clight_encode.
+Print Assumptions array_write_backend.
+Print Assumptions compile_memory_array_loop_correct.
+Print Assumptions memory_loop_trace_correct.
+Print Assumptions rectangle_tiled_loop_points.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -65,12 +79,17 @@ Print Assumptions validated_memory_rectangle_interchange.
 Print Assumptions before_to_retiled_old_progress.
 Print Assumptions validated_memory_single_tiling_progress_at.
 Print Assumptions guarded_memory_tiling_equivalence_refines.
+Print Assumptions validated_memory_rectangle_tiling.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
 Print Assumptions check_memory_region_sound.
+Print Assumptions memory_tiled_rectangle_local.
+Print Assumptions memory_tiled_rectangle_rule.
+Print Assumptions check_memory_tiled_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
+Print Assumptions compile_memory_tiled_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
     result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
@@ -93,7 +112,7 @@ Goal True. idtac "MEM_END". exact I. Qed.
     sources = [DIRECTORY / (module + ".v") for module in MODULES]
     sources += sorted((ROOT / "theories").glob("*.v"))
     result = {
-        "status": "compiled", "checked_modules": MODULES,
+        "status": "compiled", "checked_modules": MODULES, "checked_lowering_modules": LOWERING_MODULES,
         "physical_flat_array_nonalias_global_axioms": [],
         "instruction_assumptions": sorted(names(instruction)),
         "actual_validator_baseline_assumptions": sorted(names(baseline)),
@@ -102,6 +121,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "whole_program_assumptions": sorted(names(compiler)),
         "whole_program_entrypoint": "GuardMemoryCompiler.compile_memory_regions",
         "whole_program_theorem": "GuardMemoryCompiler.compile_memory_regions_correct",
+        "tiling_whole_program_entrypoint": "GuardMemoryTiledCompiler.compile_memory_tiled_regions",
+        "tiling_whole_program_theorem": "GuardMemoryTiledCompiler.compile_memory_tiled_regions_correct",
         "whole_program_acceptance": "alarm-free mayReturn with OK assembly program",
         "additional_global_axioms": [],
         "concrete_instr_module": "GuardMemoryInstr.GuardMemoryInstr",
@@ -121,6 +142,11 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "native_validator_validation_report": "build/native-memory-validator/report.json",
         "canonical_rectangle_clight_to_loop_decoder_instantiated": True,
         "canonical_rectangle_loop_to_clight_encoder_instantiated": True,
+        "general_pure_array_loop_to_clight_encoder_instantiated": True,
+        "nonnegative_floor_division_lowering_proved": True,
+        "pure_rectangle_two_dimensional_tiling_csem_asm_proved": True,
+        "pure_rectangle_tiling_public_exit": "agreement on all source program temporaries and exact Mem",
+        "pure_rectangle_tiling_partial_tiles_checked": True,
         "canonical_rectangle_memory_modes": ["pure write", "own-cell update", "row-prefix update"],
         "canonical_rectangle_public_exit": "exact full temporary environment and Mem",
         "canonical_rectangle_clight_poly_bridge_instantiated": True,

@@ -398,7 +398,7 @@ def affine_adapter():
     with baseline_log.open("w") as log:
         subprocess.run(["rocq", "compile", *load_flags(), str(baseline)], cwd=ROOT,
                        stdout=log, stderr=subprocess.STDOUT, check=True)
-    sources = [ROOT / "theories" / "PolCertAffineClight.v",
+    sources = [ROOT / "theories" / "ClightPositiveDivision.v", ROOT / "theories" / "PolCertAffineClight.v",
                ROOT / "theories" / "PolCertAffineGuard.v"]
     log_path = BUILD / "polcert-affine-build.log"
     with log_path.open("w") as log:
@@ -419,7 +419,7 @@ def affine_adapter():
                         "compcert_expression_assumptions": sorted(inherited),
                         "adapter_assumptions": sorted(adapted),
                         "additional_global_axioms": [],
-                        "supported_expressions": ["Constant", "Var", "Sum", "Mult"],
+                        "supported_expressions": ["Constant", "Var", "Sum", "Mult", "Div (nonnegative numerator, positive signed32 constant)"],
                         "integer_model": "signed32",
                         "runtime_guard": "checked input intervals",
                         "whole_loop_lowering": False})
@@ -542,7 +542,7 @@ def memory_adapter():
     copies = artifact("adapters")
     copies.mkdir(exist_ok=True)
     flags = [*load_flags(), "-Q", str(copies), "GuardPolCert"]
-    dependencies = ["PolCertLoopGuard.v", "PolCertAffineClight.v", "PolCertAffineGuard.v",
+    dependencies = ["ClightPositiveDivision.v", "PolCertLoopGuard.v", "PolCertAffineClight.v", "PolCertAffineGuard.v",
                     "PolCertCountedClight.v", "PolCertClightBody.v", "PolCertNestedClight.v",
                     "PolCertSchedule.v"]
     sources = ["PolCertMemoryModel.v", "PolCertArrayClight.v", "PolCertArrayExamples.v",

@@ -32,4 +32,4 @@ make polcert-memory-proof POLCERT_SOURCE=/path/to/verified-compilation-v10-drive
 
 `build/polcert-memory-adapter-report.json` 比较实际 CInstr/CState/Clight 的上游假设与新端点，记录来源哈希与所有证据边界。具体执行端点继承六个 Clight 假设；实际 Bernstein 基线另有上游 proof irrelevance。新增全局公理和指令接口假设均为空。
 
-这仍是具体 Loop→Clight 的片段端点。它尚未证明 source Clight 区域提取、目标进展、私有 temporaries 的完整函数声明及任意外围程序的区域替换 simulation；`Opt_prepared` 也尚未进入原生 C→Asm 入口。Div/Mod/Min/Max 和多维索引的 lowering 仍须扩展，不能据此声称已支持全部 tiling 输出。
+这仍是具体 Loop→Clight 的片段端点。它尚未证明 source Clight 区域提取、目标进展、私有 temporaries 的完整函数声明及任意外围程序的区域替换 simulation；`Opt_prepared` 也尚未进入原生 C→Asm 入口。共享表达式 lowerer 已支持非负分子除以正常数的 Div；本旧 CInstr 实例尚未重新验证新增能力，Mod/Min/Max 和多维索引的 lowering 仍须扩展，不能据此声称已支持全部 tiling 输出。

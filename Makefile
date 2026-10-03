@@ -35,7 +35,7 @@ COMPCERT_FLAGS = -R $(COMPCERT_DIR)/lib compcert.lib \
                  -R $(COMPCERT_DIR)/driver compcert.driver \
                  -R $(COMPCERT_DIR)/flocq Flocq
 
-BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalence.v \
+BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/ClightPositiveDivision.v theories/CompCertMemoryEquivalence.v \
                   theories/CompCertOperatorEquivalence.v theories/ClightGuard.v theories/ClightSyntaxEquality.v \
                   theories/ClightGuardProof.v theories/ClightEncodedRule.v theories/ClightNoWrap.v \
                   theories/ClightExprRewrite.v theories/ClightExprRewriteProof.v \
@@ -182,7 +182,7 @@ polcert-optimizer-proof: check-compcert
 guard-memory-proof: polcert-optimizer-proof
 	python3 scripts/audit_guard_memory.py
 
-.PHONY: guard-memory-proof memory-validator native-memory-validator memory-compiler native-memory-compiler
+.PHONY: guard-memory-proof memory-validator native-memory-validator memory-compiler native-memory-compiler memory-tiling-compiler native-memory-tiling
 memory-validator: guard-memory-proof
 	python3 scripts/build_memory_validator.py
 
@@ -194,6 +194,13 @@ memory-compiler: guard-memory-proof
 
 native-memory-compiler: memory-compiler
 	python3 scripts/native_memory_compiler.py
+
+memory-tiling-compiler: guard-memory-proof
+	@python3 scripts/build_memory_compiler.py --tiling > build/memory-tiled-native-build.log 2>&1 || \
+	  { cat build/memory-tiled-native-build.log; exit 1; }
+
+native-memory-tiling: memory-tiling-compiler
+	python3 scripts/native_memory_tiling.py
 
 clean:
 	@python3 scripts/clean.py
