@@ -13,7 +13,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryLoops GuardMemoryPolyhedral GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
   GuardMemoryValidatedRectangles GuardMemoryTilingProgress GuardMemoryArrayBackend
   GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryArrayFamilyBackend
-  GuardMemorySequenceLoops GuardMemorySequencePolyhedral GuardMemorySequenceExecution GuardMemorySequenceClight GuardMemoryOperationsClight GuardMemoryFlatArrayBackend GuardMemoryExtractorProgress.
+  GuardMemorySequenceLoops GuardMemorySequencePolyhedral GuardMemorySequenceExecution GuardMemorySequenceClight GuardMemoryOperationsClight GuardMemoryFlatArrayBackend GuardMemoryExtractorProgress GuardMemoryReindexedExtractor.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -43,11 +43,11 @@ Proof.
   - inversion RUN; subst; [assumption|congruence].
   - apply L.LGuardTrue; assumption.
 Qed.
-Definition checked_array_operations_candidate (base : rectangle_shape) operations candidate :=
+Definition checked_array_operations_candidate (base : rectangle_shape) operations candidate swaps :=
   let instructions := map (operation_instruction 3%positive) operations in
-  checked_memory_loop_equivalence
+  checked_memory_reindexed_loop_equivalence
     (memory_array_assumed_loop base (memory_rectangle_sequence instructions),[1%positive;2%positive],[(1%positive,tt);(2%positive,tt);(3%positive,tt)])
-    (memory_array_assumed_loop base candidate,[1%positive;2%positive],[(1%positive,tt);(2%positive,tt);(3%positive,tt)]).
+    (memory_array_assumed_loop base candidate,[1%positive;2%positive],[(1%positive,tt);(2%positive,tt);(3%positive,tt)]) swaps.
 Definition compile_array_operations_candidate base (operations : list array_operation) array bound inner_bound live pool candidate :=
   compile_memory_flat_array_loop base array 3%positive [bound;inner_bound]
     (rectangle_tiled_bounds base) live pool candidate.
@@ -70,9 +70,10 @@ Hypothesis OUTER : flatten_region outer_body = [rectangle_reset column; frontend
 Variable live : list ident.
 Variable pool : list (ident * ident).
 Variable candidate : L.stmt.
+Variable swaps : list nat.
 Variable code : statement.
 Hypothesis COMPILE : compile_array_operations_candidate d operations array bound inner_bound live pool candidate = Some code.
-Hypothesis DEPENDENCES : mayReturn (checked_array_operations_candidate d operations candidate) true.
+Hypothesis DEPENDENCES : mayReturn (checked_array_operations_candidate d operations candidate swaps) true.
 
 Theorem memory_proposed_array_operations_local fe ge locals le memory le' final N M :
   le ! row = Some (Vint Int.zero) -> le ! bound = Some (Vint (Int.repr N)) ->
@@ -103,10 +104,10 @@ Proof.
       (RuntimeState (flat_array_locations 3%positive block (rectangle_extent d)) memory)
       (RuntimeState (flat_array_locations 3%positive block (rectangle_extent d)) final)).
   { apply memory_array_assumed_loop_execution; assumption. }
-  pose proof (proj1 (@validated_memory_affine_loops_at
+  pose proof (proj1 (@validated_memory_reindexed_loops_at
     (memory_array_assumed_loop d (memory_rectangle_sequence (map (operation_instruction 3%positive) operations)))
     (memory_array_assumed_loop d candidate)
-    [1%positive;2%positive] [(1%positive,tt);(2%positive,tt);(3%positive,tt)] [M;N] _ _
+    [1%positive;2%positive] [(1%positive,tt);(2%positive,tt);(3%positive,tt)] swaps [M;N] _ _
     eq_refl NONALIAS DEPENDENCES) ASSUMED) as CANDIDATE.
   apply memory_array_assumed_loop_execution in CANDIDATE; [|exact NB|exact MB].
   destruct (@compile_memory_flat_array_loop_within_correct d VALID fe ge locals array 3%positive block ARRAY

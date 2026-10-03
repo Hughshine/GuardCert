@@ -167,6 +167,9 @@ let loop_program expression =
 
 let run () =
   let mode, result = match parse (read_input ()) with
+    | List [Atom "loops-reindexed"; source; candidate; List swaps] ->
+      "loops-reindexed", GuardMemoryReindexedExtractor.checked_memory_reindexed_loop_equivalence
+        (loop_program source) (loop_program candidate) (List.map (fun slot -> natural (small slot)) swaps)
     | List [Atom "loops"; source; candidate] ->
       "loops", GuardMemoryExtractorProgress.checked_memory_loop_equivalence (loop_program source) (loop_program candidate)
     | expression ->

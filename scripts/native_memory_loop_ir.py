@@ -55,7 +55,25 @@ def fixtures():
     assumption = ["and",["and",["le",1,var(0)],["le",var(0),12]],
                         ["and",["le",1,var(1)],["le",var(1),10]]]
     reordered = ["and",assumption[2],assumption[1]]
+    interchanged2 = loop(0,var(1),loop(0,var(1),sequence(
+        instruction([var(0),var(1)],coefficients=(10,1),bias=0),
+        instruction([var(0),var(1)],coefficients=(10,1),bias=0,
+                    reads=[[3,[10,1,0]]],value=["add",["loaded",0],11]))))
+    reindexed2 = request(program(guard(assumption,fused2),(1,2)),
+                         program(guard(assumption,interchanged2),(1,2)))
+    reindexed2.update(mode="loops-reindexed",swaps=[0])
+    missing2 = copy.deepcopy(reindexed2); missing2["swaps"] = []
+    cube = loop(0,var(0),loop(0,var(1),loop(0,var(2),
+        instruction([var(2),var(1),var(0)],coefficients=(100,10,1)))))
+    reverse_cube = loop(0,var(0),loop(0,var(1),loop(0,var(2),
+        instruction([var(0),var(1),var(2)],coefficients=(100,10,1)))))
+    cube_domain = ["and",["le",1,var(0)],["le",var(0),5]]
+    reindexed3 = request(program(guard(cube_domain,cube)),program(guard(cube_domain,reverse_cube)))
+    reindexed3.update(mode="loops-reindexed",swaps=[0,1,0])
     return {
+        "reindexed-two-dimensional-interchange": (reindexed2,True),
+        "interchange-missing-point-correspondence": (missing2,False),
+        "reindexed-three-dimensional-coordinate-reversal": (reindexed3,True),
         "bounded-two-dimensional-fission": (request(program(guard(assumption,fused2),(1,2)),
                                                      program(guard(assumption,fission2),(1,2))),True),
         "same-domain-reordered-conjuncts": (request(program(guard(assumption,fused2),(1,2)),

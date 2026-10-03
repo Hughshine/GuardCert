@@ -104,6 +104,8 @@ let template = lazy (match Sys.getenv_opt "GUARDCERT_LOOP_CANDIDATE" with
 
 let propose instructions =
   try match Lazy.force template with
-    | Some syntax -> Some (instantiate_at instructions None syntax)
+    | Some (List [Atom "reindex"; List swaps; syntax]) ->
+      Some (instantiate_at instructions None syntax,List.map (fun slot -> natural (small slot)) swaps)
+    | Some syntax -> Some (instantiate_at instructions None syntax,[])
     | None -> None
   with Invalid_argument _ | Failure _ | Sys_error _ | Stack_overflow -> None

@@ -21,6 +21,7 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemorySequenceCompiler", "GuardMemoryOperationsClight", "GuardMemoryOperationsTiledClight",
            "GuardMemoryOperationsCompiler", "GuardMemoryExtractorTrace", "GuardMemoryTraceUniqueness",
            "GuardMemoryExtractorCoverage", "GuardMemoryExtractorOrder", "GuardMemoryPointIsomorphism", "GuardMemoryDomainNormalization", "GuardMemoryExtractorProgress",
+           "GuardMemoryCoordinateSwap", "GuardMemoryReindexedExtractor",
            "GuardMemoryProposedClight", "GuardMemoryProposedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
@@ -61,7 +62,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemorySequencePolyhedral GuardMemorySequenceOrder GuardMemorySequenceExecution
   GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
   GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
-  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress
+  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryReindexedExtractor
   GuardMemoryProposedClight GuardMemoryProposedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -105,6 +106,8 @@ Print Assumptions memory_extracted_trace_points_sorted.
 Print Assumptions memory_extractor_execution_at.
 Print Assumptions memory_point_isomorphism_execution.
 Print Assumptions memory_domain_normalization_execution.
+Print Assumptions memory_coordinate_swap_execution.
+Print Assumptions memory_reindexed_execution.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -121,6 +124,7 @@ Print Assumptions before_to_retiled_multiple_progress.
 Print Assumptions validated_memory_multiple_tiling_progress_at.
 Print Assumptions validated_memory_sequence_tiling.
 Print Assumptions validated_memory_affine_loops_at.
+Print Assumptions validated_memory_reindexed_loops_at.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -231,6 +235,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "complete_csem_asm_rule_instantiated": False,
         "general_affine_loop_to_poly_execution_equivalence_proved": True,
         "general_loop_statement_scope": "arbitrary nesting of affine Loop, Seq and conjunctive affine Guard accepted by the actual extractor",
+        "adjacent_iterator_coordinate_permutation_proved": True,
+        "externally_proposed_iterator_coordinate_swaps_consumed": True,
         "domain_constraint_order_normalization_proved": True,
         "point_representation_isomorphism_semantic_interface_proved": True,
         "array_entry_presumption_consumed_by_candidate_checker": True,

@@ -19,14 +19,14 @@ Import Clight.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
 
-Definition memory_candidate_proposer := list memory_instruction -> option L.stmt.
+Definition memory_candidate_proposer := list memory_instruction -> option (L.stmt * list nat).
 Definition memory_proposed_target source (package : memory_operations_package source) code :=
   memory_operations_target package code.
-Theorem memory_proposed_target_sound source (package : memory_operations_package source) live pairs candidate code :
+Theorem memory_proposed_target_sound source (package : memory_operations_package source) live pairs candidate swaps code :
   compile_array_operations_candidate (described_shape (operations_description package)) (operations_list package)
     (described_array (operations_description package)) (rectangle_bound (operations_description package))
     (rectangle_inner_bound (operations_description package)) live pairs candidate = Some code ->
-  mayReturn (checked_array_operations_candidate (described_shape (operations_description package)) (operations_list package) candidate) true ->
+  mayReturn (checked_array_operations_candidate (described_shape (operations_description package)) (operations_list package) candidate swaps) true ->
   projected_region_contract live source (memory_proposed_target package code).
 Proof.
   destruct package as [d shapes CERT]; cbn; intros COMPILE CHECK.
@@ -37,7 +37,7 @@ Proof.
     (generated_private_region (@memory_proposed_array_operations_rule (described_shape d) VALID shapes LAYOUTS NONEMPTY
       (described_array d) (rectangle_row d) (rectangle_bound d) (rectangle_column d) (rectangle_inner_bound d)
       (rectangle_inner_body d) (rectangle_described_outer_body d) RN RC NC RM CM BODY OUTER
-      live pairs candidate code COMPILE CHECK))).
+      live pairs candidate swaps code COMPILE CHECK))).
   apply encoded_private_rule_sound.
 Qed.
 Definition check_memory_proposed_region live pool (propose : memory_candidate_proposer) source : CoreAlarmed.Base.imp (option statement) :=
@@ -45,9 +45,9 @@ Definition check_memory_proposed_region live pool (propose : memory_candidate_pr
   | Some pairs,Some package =>
     let d := operations_description package in
     match propose (map (operation_instruction 3%positive) (operations_list package)) with
-    | Some candidate => match compile_array_operations_candidate (described_shape d) (operations_list package)
+    | Some (candidate,swaps) => match compile_array_operations_candidate (described_shape d) (operations_list package)
         (described_array d) (rectangle_bound d) (rectangle_inner_bound d) live pairs candidate with
-      | Some code => BIND valid <- checked_array_operations_candidate (described_shape d) (operations_list package) candidate -;
+      | Some code => BIND valid <- checked_array_operations_candidate (described_shape d) (operations_list package) candidate swaps -;
         pure (if valid then Some (memory_proposed_target package code) else None)
       | None => pure None end
     | None => pure None end
@@ -59,7 +59,7 @@ Proof.
   unfold check_memory_proposed_region.
   destruct (private_counter_pairs pool) as [pairs|]; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct (describe_memory_operations source) as [package|]; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
-  destruct (propose (map (operation_instruction 3%positive) (operations_list package))) as [candidate|];
+  destruct (propose (map (operation_instruction 3%positive) (operations_list package))) as [[candidate swaps]|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct (compile_array_operations_candidate (described_shape (operations_description package)) (operations_list package)
     (described_array (operations_description package)) (rectangle_bound (operations_description package))
@@ -67,7 +67,7 @@ Proof.
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   intro CHECK; bind_imp_destruct CHECK valid VALID; apply mayReturn_pure in CHECK.
   destruct valid; [inversion CHECK; subst target|discriminate].
-  apply memory_proposed_target_sound with (pairs := pairs) (candidate := candidate); assumption.
+  apply memory_proposed_target_sound with (pairs := pairs) (candidate := candidate) (swaps := swaps); assumption.
 Qed.
 Fixpoint checked_memory_proposed_regions live pool propose sources : CoreAlarmed.Base.imp (list (statement * statement)) :=
   match sources with
