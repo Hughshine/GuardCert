@@ -12,7 +12,7 @@ WORK = ROOT / "build" / "guard-memory-validator"
 ADAPTER = ROOT / "adapters" / "compcert-memory"
 
 EXTRACTION = r'''From Stdlib Require Import Extraction ExtrOcamlBasic ExtrOcamlNativeString ExtrOcamlZBigInt.
-From GuardMemory Require Import GuardMemoryPolyhedral.
+From GuardMemory Require Import GuardMemoryPolyhedral GuardMemoryTilingProgress.
 From polcert.lib Require Import ImpureAlarmConfig.
 From polcert.lib Require Import TopoSort.
 From Vpl Require Import CstrC LinTerm CoqAddOn Debugging PedraQBackend.
@@ -31,6 +31,7 @@ Extract Constant PedraQBackend.add => "GuardMemoryOracle.add".
 Extract Constant TopoSort.topo_sort_untrusted => "GuardMemoryTopo.sort".
 Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed.Base.imp.
 Separate Extraction validate_memory_equivalence GuardMemoryTilingValidator.checked_tiling_validate_poly
+  validate_memory_tiling_equivalence
   GuardMemoryIRs.PolyLang.dummy_pi LinTerm.LinQ.export CstrC.Cstr.isContrad.
 '''
 
@@ -59,8 +60,11 @@ def main():
     # Rocq hides the pure monad's type equation in this generated signature.
     # Infer it from the unchanged extracted implementation, as PolCert's
     # Makefile.extr also does for ImpureConfig. No Obj cast is needed.
-    (WORK / "ImpureConfig.mli").unlink()
-    (WORK / "ImpureConfig.cmi").unlink(missing_ok=True)
+    # The memory functor aliases also lose manifest Ty equations in Rocq's
+    # generated signature. Infer these interfaces from the extracted .ml.
+    for name in ("ImpureConfig", "TilingValidator", "GuardMemoryPolyhedral", "GuardMemoryTilingProgress"):
+        (WORK / (name + ".mli")).unlink()
+        (WORK / (name + ".cmi")).unlink(missing_ok=True)
     for path in WORK.glob("*.ml"):
         if "AXIOM TO BE REALIZED" in path.read_text():
             raise SystemExit(f"unrealized extraction axiom: {path.name}")

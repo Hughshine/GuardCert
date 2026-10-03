@@ -52,7 +52,7 @@ def encode_program(program):
 def encode_request(request):
     mode = request.get("mode", "affine")
     arguments = [mode, encode_program(request["source"]), encode_program(request["candidate"])]
-    if mode == "tiling":
+    if mode in ("tiling", "tiling-equivalence"):
         arguments.append(request["witnesses"])
     return sexpr(arguments) + "\n"
 

@@ -1,5 +1,11 @@
 # 本轮验证记录
 
+## 2026-10-02：新增 tile 坐标的源到候选进展
+
+`GuardMemoryTilingProgress` 证明源点到新增 tile 坐标点的构造、投影逆映射、有限实例列表覆盖与唯一性，以及单点执行和原时间戳保持。`before_to_retiled_old_progress` 从源执行构造 retiled 执行；`validated_memory_single_tiling_progress_at` 消费结构及双向调度检查，为单条多面体语句的任意合法 witness 建立候选进展，保留入口参数和最终完整状态。十个适配模块重编译与审计通过，假设仍为原有具体 validator 的 12 项，完整 C 编译器仍为 42 项并集。日志为 `build/memory-tiling-progress.log` 与 `build/memory-tiling-audit.log`。
+
+新增提取入口 `validate_memory_tiling_equivalence` 实际构建并运行。29 组提案、1001 组独立执行比较通过，包含纯写和行内依赖的二维 tiling 双向检查，以及错误域、零块宽拒绝。提取日志为 `build/memory-tiling-validator-build.log`，运行日志为 `build/native-tiling-progress.log`，报告为 `build/native-memory-validator/report.json`。这个进展定理仍未接到 tiling 的实际 C 候选编码；多语句 tiling 正向端点也尚未证明。
+
 ## 2026-10-02：真实多面体检查器消费到完整 C→Asm
 
 `scripts/audit_guard_memory.py` 重编译九个适配模块，闭合完整矩形 Clight→Loop→PolyLang 源对应、参数值保留、实际依赖验证、候选进展与精确公共出口；`GuardMemoryCompiler.compile_memory_regions_correct` 编译通过。物理 nonalias 没有全局假设；完整编译器假设精确等于 CompCert 与实际 validator 的并集 42 项，没有新增全局公理。本次复用上游 optimizer profile 的既有构建，没有重编译全部 92 文件。日志为 `build/memory-loop-audit.log`，详细报告为 `build/guard-memory-proof-report.json`。

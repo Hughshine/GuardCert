@@ -12,7 +12,9 @@
 
 `GuardMemoryRectangles` 从真实 Clight 的纯数组写、同格子读改写、行首读取恢复具体指令执行。`GuardMemoryLoops` 与 `GuardMemoryClightRectangles` 把完整矩形循环的实际执行接到真实 Loop 语义，并重建完整候选执行，保留全部公共 temporaries 和 Mem。
 
-`GuardMemoryPolyhedral` 实例化实际一般仿射和 tiling validator。`guarded_memory_validate_refines` 的输出是精确的状态结果，无遗留 INSTR 语义参数。`validate_memory_equivalence` 对仿射提案进行双向验证；接受时 `validated_memory_equivalence` 给出两种执行方向，因而源执行可以建立候选进展。双向检查是当前可用的构造，不声称是最便宜的算法，也未把它推广到全部 tiling 对应。
+`GuardMemoryPolyhedral` 实例化实际一般仿射和 tiling validator。`guarded_memory_validate_refines` 的输出是精确的状态结果，无遗留 INSTR 语义参数。`validate_memory_equivalence` 对仿射提案进行双向验证；接受时 `validated_memory_equivalence` 给出两种执行方向，因而源执行可以建立候选进展。双向检查是当前可用的构造，不声称是最便宜的算法。
+
+`GuardMemoryTilingProgress` 进一步构造原迭代点与新增 tile 坐标的双向对应，证明有限点覆盖、唯一性、排序及单点执行保持，从源执行构造 retiled 执行。`validate_memory_tiling_equivalence` 在结构检查后，对 retiled 点空间与候选执行双向调度检查。接受时，`validated_memory_single_tiling_progress_at` 对单条多面体语句、任意合法 tiling witness 给出源到候选的实际执行进展，保留具体参数值与完整状态；多语句的这个正向端点尚未证明。所有提案仍继承原有候选到源的正确性端点。
 
 `validated_memory_equivalence_at` 保留具体入口参数值；仅用存在量词包装参数的实例级端点不足以建立 Clight 对应。`GuardMemoryPolyhedralRectangles` 证明完整矩形域的点覆盖、唯一性、排序与实际执行对应；`GuardMemoryValidatedRectangles` 用真实双向依赖验证的结果建立 guarded Clight 规则。`GuardMemoryCompiler` 检查源 AST、构造源与交换候选的 IR，消费上述规则并证明 `compile_memory_regions_correct`。定理要求无 alarm 的 `mayReturn (OK assembly)`，结论是原 Csem 到实际 Asm 的 backward simulation。
 
@@ -28,9 +30,9 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/native_memory
 
 完整依赖构建目标为 `make native-memory-validator` 与 `make native-memory-compiler`。两种提取共用有资源上限的非可信 Fourier–Motzkin 证书搜索；证书由提取的 VPL LCF 检查。错误证书和搜索耗尽均拒绝变换。OCaml 的整数表示转换、文本读取与拓扑排序属于非可信输入侧；检查器验证它们产生的结果。
 
-独立检查器的 JSON 输入经 `scripts/memory_validator_input.py` 转为有大小上限的输入格式；仿射提案执行双向检查，tiling 提案执行实际 `checked_tiling_validate_poly`，验证新增 tile 坐标与域对应。历史的 `AffineValidator.validate_tiling` 只处理同一已有点空间上的调度，不能代替这个检查。独立 IR 接受不构成某个 C 源程序的编译保证。
+独立检查器的 JSON 输入经 `scripts/memory_validator_input.py` 转为有大小上限的输入格式；`affine` 执行双向仿射检查，`tiling` 执行实际 `checked_tiling_validate_poly`，验证新增 tile 坐标与域对应，`tiling-equivalence` 还执行建立进展所需的双向调度检查。历史的 `AffineValidator.validate_tiling` 只处理同一已有点空间上的调度，不能代替结构检查。独立 IR 接受不构成某个 C 源程序的编译保证。
 
-验证报告为 `build/native-memory-validator/report.json`（25 组提案、847 组独立执行比较）与 `build/native-memory-compiler/report.json`（225 个纯写、345 个读改写、225 个行内依赖正矩形；19 个实际命中 guard 的函数；完整数组及 iterator 出口与 GCC 和独立模型一致）。后者还实际编译、执行资源耗尽与错误证书下保留源循环的程序。
+验证报告为 `build/native-memory-validator/report.json`（29 组提案、1001 组独立执行比较，含纯写和行内依赖的二维 tiling 双向检查）与 `build/native-memory-compiler/report.json`（225 个纯写、345 个读改写、225 个行内依赖正矩形；19 个实际命中 guard 的函数；完整数组及 iterator 出口与 GCC 和独立模型一致）。后者还实际编译、执行资源耗尽与错误证书下保留源循环的程序。
 
 ## 构建与假设
 
@@ -46,7 +48,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译九个适配模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译十个适配模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 

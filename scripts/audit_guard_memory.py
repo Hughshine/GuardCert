@@ -10,7 +10,7 @@ import polcert_core
 ROOT = Path(__file__).resolve().parents[1]
 MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "GuardMemoryPolyhedral",
            "GuardMemoryLoops", "GuardMemoryClightRectangles", "GuardMemoryPolyhedralRectangles",
-           "GuardMemoryValidatedRectangles", "GuardMemoryCompiler"]
+           "GuardMemoryValidatedRectangles", "GuardMemoryCompiler", "GuardMemoryTilingProgress"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
 WORK = ROOT / "build" / "guard-memory-assumptions"
 
@@ -34,7 +34,7 @@ def main():
     audit.write_text("""From compcert.driver Require Import Compiler.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral
   GuardMemoryLoops GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
-  GuardMemoryValidatedRectangles GuardMemoryCompiler.
+  GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -62,6 +62,9 @@ Print Assumptions guarded_memory_checked_tiling_refines.
 Print Assumptions validated_memory_equivalence.
 Print Assumptions validated_memory_equivalence_at.
 Print Assumptions validated_memory_rectangle_interchange.
+Print Assumptions before_to_retiled_old_progress.
+Print Assumptions validated_memory_single_tiling_progress_at.
+Print Assumptions guarded_memory_tiling_equivalence_refines.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -112,6 +115,9 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "actual_affine_and_tiling_validator_instantiated": True,
         "actual_point_space_tiling_checker_instantiated": True,
         "bidirectional_affine_validation_establishes_progress": True,
+        "single_statement_tiling_source_to_candidate_progress_proved": True,
+        "tiling_progress_preserves_actual_parameters": True,
+        "general_multiple_statement_tiling_progress_proved": False,
         "native_validator_validation_report": "build/native-memory-validator/report.json",
         "canonical_rectangle_clight_to_loop_decoder_instantiated": True,
         "canonical_rectangle_loop_to_clight_encoder_instantiated": True,

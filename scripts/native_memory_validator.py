@@ -162,6 +162,14 @@ def main():
     corrupt["candidate"]["statements"][0]["domain"][1][-1] += 1
     cases["tiling-domain-off-by-one"] = (corrupt, False)
     cases["zero-tile-width"] = (tiled_proposal(rectangle(), 0), False)
+    for previous, name in (("two-dimensional-tiling", "two-dimensional-tiling-progress"),
+                           ("dependent-two-dimensional-tiling", "dependent-tiling-progress"),
+                           ("tiling-domain-off-by-one", "tiling-progress-invalid-domain"),
+                           ("zero-tile-width", "tiling-progress-zero-width")):
+        request, accepted = cases[previous]
+        request = copy.deepcopy(request)
+        request["mode"] = "tiling-equivalence"
+        cases[name] = (request, accepted)
     results = {}
     simulation_count = 0
     for name, (request, expected) in cases.items():

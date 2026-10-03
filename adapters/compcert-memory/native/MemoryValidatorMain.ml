@@ -130,14 +130,15 @@ let program expression =
 let run () =
   let mode, source, candidate, witnesses = match parse (read_input ()) with
     | List [Atom "affine"; source; candidate] -> "affine", program source, program candidate, []
-    | List [Atom "tiling"; source; candidate; List witnesses] ->
+    | List [Atom (("tiling" | "tiling-equivalence") as mode); source; candidate; List witnesses] ->
       let witnesses = List.map (fun expression -> match witness expression with
         | PointWitness.PSWTiling w -> w | _ -> invalid_arg "tiling witness expected") witnesses in
-      "tiling", program source, program candidate, witnesses
+      mode, program source, program candidate, witnesses
     | _ -> invalid_arg "expected mode, source, candidate, and witnesses for tiling" in
   let result = match mode with
     | "affine" -> GuardMemoryPolyhedral.validate_memory_equivalence source candidate
     | "tiling" -> GuardMemoryPolyhedral.GuardMemoryTilingValidator.checked_tiling_validate_poly source candidate witnesses
+    | "tiling-equivalence" -> GuardMemoryTilingProgress.validate_memory_tiling_equivalence source candidate witnesses
     | _ -> invalid_arg "mode must be affine or tiling" in
   let observed = ref None in
   let _ = ImpureConfig.Core.Base.bind result (fun pair ->
