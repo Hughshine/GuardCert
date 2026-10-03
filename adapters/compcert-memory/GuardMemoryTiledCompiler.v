@@ -11,7 +11,7 @@ From Guard Require Import ClightGuard ClightCondition ClightPrivateRule ClightPr
   ClightStructuredProgress ClightRectangularSelector ClightRectangularStore
   ClightRectangularGuard ClightRectangularRegion ClightRectangularLoops GuardCompiler
   ClightFrontendLoopProtocol ClightSharedRegion ClightSyntaxEquality.
-From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight.
+From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight GuardMemoryModeTiledClight.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -27,13 +27,14 @@ Fixpoint private_counter_pairs (pool : list (ident * type)) : option (list (iden
   | _ => None end.
 
 Record memory_tiling_package source := MemoryTilingPackage {
+  tiling_mode : rectangle_memory_mode;
   tiling_description : rectangle_description;
-  tiling_syntax : memory_rectangle_certificate source WriteOnly tiling_description
+  tiling_syntax : memory_rectangle_certificate source tiling_mode tiling_description
 }.
 Definition describe_memory_tiling source : option (memory_tiling_package source) :=
-  match propose_rectangle_description source with
-  | Some d => match check_memory_rectangle source WriteOnly d with
-    | Some CERT => Some (@MemoryTilingPackage source d CERT) | None => None end
+  match describe_memory_rectangle source with
+  | Some package => Some (@MemoryTilingPackage source (package_mode package)
+      (package_description package) (package_syntax package))
   | None => None end.
 Definition memory_tiled_target source (package : memory_tiling_package source) code :=
   let d := tiling_description package in
@@ -44,18 +45,18 @@ Definition memory_tiled_target source (package : memory_tiling_package source) c
 
 Theorem memory_tiled_target_sound source (package : memory_tiling_package source) live pairs bi bj code :
   0 < bi -> 0 < bj ->
-  compile_rectangle_tiled (described_shape (tiling_description package))
+  compile_rectangle_mode_tiled (tiling_mode package) (described_shape (tiling_description package))
     (described_array (tiling_description package)) (rectangle_bound (tiling_description package))
     (rectangle_inner_bound (tiling_description package)) live pairs bi bj = Some code ->
-  mayReturn (checked_rectangle_tiling (described_shape (tiling_description package)) bi bj) true ->
+  mayReturn (checked_rectangle_mode_tiling (tiling_mode package) (described_shape (tiling_description package)) bi bj) true ->
   projected_region_contract live source (memory_tiled_target package code).
 Proof.
-  destruct package as [d CERT]; cbn; intros BI BJ COMPILE CHECK.
+  destruct package as [mode d CERT]; cbn; intros BI BJ COMPILE CHECK.
   destruct CERT as [SOURCE BODY OUTER RN RC NC RM CM VALID]; subst source.
   unfold memory_tiled_target,rectangle_described_source; cbn.
   change (projected_region_contract live
     (frontend_counted_loop (rectangle_row d) (rectangle_bound d) (rectangle_described_outer_body d))
-    (generated_private_region (@memory_tiled_rectangle_rule (described_shape d) VALID
+    (generated_private_region (@memory_mode_tiled_rectangle_rule mode (described_shape d) VALID
       (described_array d) (rectangle_row d) (rectangle_bound d) (rectangle_column d) (rectangle_inner_bound d)
       (rectangle_inner_body d) (rectangle_described_outer_body d) RN RC NC RM CM BODY OUTER
       live pairs bi bj BI BJ code COMPILE CHECK))).
@@ -66,9 +67,9 @@ Definition check_memory_tiled_region live pool bi bj source : CoreAlarmed.Base.i
   match Z_lt_dec 0 bi, Z_lt_dec 0 bj, private_counter_pairs pool, describe_memory_tiling source with
   | left _,left _,Some pairs,Some package =>
     let d := tiling_description package in
-    match compile_rectangle_tiled (described_shape d) (described_array d) (rectangle_bound d)
+    match compile_rectangle_mode_tiled (tiling_mode package) (described_shape d) (described_array d) (rectangle_bound d)
       (rectangle_inner_bound d) live pairs bi bj with
-    | Some code => BIND valid <- checked_rectangle_tiling (described_shape d) bi bj -;
+    | Some code => BIND valid <- checked_rectangle_mode_tiling (tiling_mode package) (described_shape d) bi bj -;
         pure (if valid then Some (memory_tiled_target package code) else None)
     | None => pure None end
   | _,_,_,_ => pure None end.
@@ -82,7 +83,7 @@ Proof.
   destruct (Z_lt_dec 0 bj); [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct (private_counter_pairs pool) as [pairs|]; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct (describe_memory_tiling source) as [package|]; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
-  destruct (compile_rectangle_tiled (described_shape (tiling_description package))
+  destruct (compile_rectangle_mode_tiled (tiling_mode package) (described_shape (tiling_description package))
     (described_array (tiling_description package)) (rectangle_bound (tiling_description package))
     (rectangle_inner_bound (tiling_description package)) live pairs bi bj) as [code|] eqn:COMPILE;
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].

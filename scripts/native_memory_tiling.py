@@ -15,7 +15,14 @@ WORK = ROOT / "build" / "native-memory-tiling"
 ENTRY = "GuardMemoryTiledCompiler.compile_memory_tiled_regions"
 ACCEPTED = {"rectangle_dynamic": (12, 10), "rectangle_other_layout": (15, 7),
             "rectangle_goto": (12, 10), "rectangle_global": (12, 10),
-            "rectangle_enclosing_loop": (12, 10), "rectangle_unread_bound": (12, 10)}
+            "rectangle_enclosing_loop": (12, 10), "rectangle_unread_bound": (12, 10),
+            "rectangle_update_dynamic": (12, 10), "rectangle_update_other_layout": (15, 7),
+            "rectangle_update_goto": (12, 10), "rectangle_update_global": (12, 10),
+            "rectangle_update_enclosing_loop": (12, 10), "rectangle_update_unread_bound": (12, 10),
+            "rectangle_update_compound": (12, 10),
+            "rectangle_row_dynamic": (12, 10), "rectangle_row_other_layout": (15, 7),
+            "rectangle_row_goto": (12, 10), "rectangle_row_global": (12, 10),
+            "rectangle_row_enclosing_loop": (12, 10), "rectangle_row_unread_bound": (12, 10)}
 
 
 def selected(body, limit, stride, bi, bj):
@@ -79,14 +86,15 @@ def main():
             if body.count("switch (0)") != 1:
                 raise SystemExit(f"single shared source fallback missing: {name}/{function}")
         refused = ["rectangle_dependent", "rectangle_volatile", "rectangle_invalid_layout",
-                   "rectangle_update_dynamic", "rectangle_row_dynamic", "rectangle_diagonal_dependency"]
+                   "rectangle_update_neighbor", "rectangle_diagonal_dependency"]
         for function in refused:
             if selected(function_body(dump, function), 12, 10, bi, bj):
                 raise SystemExit(f"unsupported memory body tiled: {name}/{function}")
         configurations[name] = {"actual_four_level_clight_tiling_checked": ACCEPTED,
                                 "all_cells_and_public_iterator_exit_checked": True,
                                 "positive_dynamic_pure_rectangles": 225,
-                                "other_memory_source_fallback_cases": 570}
+                                "positive_dynamic_own_cell_update_rectangles": 345,
+                                "positive_dynamic_row_prefix_rectangles": 225}
     refusals = {}
     for name, environment in [
             ("zero-width", {"GUARDCERT_TILE_ROWS": "0"}),
@@ -111,10 +119,11 @@ def main():
               "source_public_iterator_exit_restored": True,
               "runtime_trip_counts_enumerated_by_compiler": False,
               "general_affine_source_decoder_supported": False,
-              "read_modify_write_tiling_supported": False, "performance_measured": False}
+              "read_modify_write_tiling_supported": True,
+              "row_prefix_read_tiling_supported": True, "performance_measured": False}
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
-    print("Whole C-to-Asm tiling passed: five tile sizes, 1125 positive dynamic pure rectangles, "
-          "six real guarded functions, all cells/public exits and five refusal paths")
+    print("Whole C-to-Asm tiling passed: five tile sizes, 3975 positive dynamic rectangles (pure write, update and row-prefix read), "
+          "nineteen real guarded functions, all cells/public exits and five refusal paths")
 
 
 if __name__ == "__main__":

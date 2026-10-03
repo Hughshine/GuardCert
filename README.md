@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前已闭合动态矩形交换、顺序 strip-mining，以及消费实际多面体依赖检查的矩形纯写二维 tiling 的真实内存、检查与完整程序路径；同布局数组纯写语句列表的完整 C 分块路径也已闭合；一般仿射域、混合读写列表及任意外部候选仍在推进。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
+研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前已闭合动态矩形交换、顺序 strip-mining，以及消费实际多面体依赖检查的矩形纯写／原地更新／行前缀读取二维 tiling 的真实内存、检查与完整程序路径；同布局数组纯写语句列表的完整 C 分块路径也已闭合；一般仿射域、混合读写列表及任意外部候选仍在推进。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
 
 以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支、表达式、有限区域与严格计数循环 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
 
@@ -43,7 +43,7 @@
 
 [真实内存的多面体路径](adapters/compcert-memory/README.md) 已把上述三类完整源循环接到实际 Loop 与 PolyLang，并由一般依赖验证器的结果建立候选进展及完整 Csem→Asm 定理。`make native-memory-compiler` 提取 `GuardMemoryCompiler.compile_memory_regions`，验证 795 个正矩形、19 个 guarded 函数及错误证书／资源耗尽时的源循环保留。`make native-memory-validator` 单独执行一般仿射与实际二维 tiling 检查器。[二维分块的完整 C 路径](docs/memory-two-dimensional-tiling.md) 另通过 `GuardMemoryTiledCompiler.compile_memory_tiled_regions` 接入完整定理，生成四层候选、尾块 guard 与公开 iterator 出口修复；`make native-memory-tiling` 提取并运行这个入口。[仿射条件域](docs/memory-affine-conditional-domains.md) 另接通三角形、斜切等静态叶子条件的完整 C 分块入口，`make native-memory-cuts` 已验证 4800 个正动态条件域与实际快路。[多语句完整 C 分块](docs/memory-multiple-statement-tiling.md) 已支持同布局数组纯写列表和重复语句的位置区分；`make native-memory-sequences` 提取这个入口。更一般域、混合读写和任意外部调度的 C 编译接入仍在进行。
 
-[辅助变量与循环分块](docs/private-stripmine.md) 让局部变换引入 private temporaries，并证明完整程序只需在源标识符上保留 temporary 值。`StripmineCompiler.compile_stripmine_regions` 实现任意核对后的正块大小的 strip-mining，包含动态尾块；循环体允许普通数组读写、多条语句、分支、真实依赖与指针别名。辅助边界无溢出前提经同一检查合成器产生，检查失败保留原循环。`make native-stripmine` 提取实际 C→Asm 入口并验证不同块大小、源 counter 出口、完整数组及调用／goto／switch 上下文。一般仿射调度仍未完整接入；矩形纯写二维 tiling 已由上述真实多面体路径实现。
+[辅助变量与循环分块](docs/private-stripmine.md) 让局部变换引入 private temporaries，并证明完整程序只需在源标识符上保留 temporary 值。`StripmineCompiler.compile_stripmine_regions` 实现任意核对后的正块大小的 strip-mining，包含动态尾块；循环体允许普通数组读写、多条语句、分支、真实依赖与指针别名。辅助边界无溢出前提经同一检查合成器产生，检查失败保留原循环。`make native-stripmine` 提取实际 C→Asm 入口并验证不同块大小、源 counter 出口、完整数组及调用／goto／switch 上下文。一般仿射调度仍未完整接入；矩形纯写／原地更新／行前缀读取二维 tiling 已由上述真实多面体路径实现。
 
 [通用有限调度核对器](docs/schedule-checker.md) 从不受信任的候选顺序生成重排证书，只消费指令相等性与可交换性质的检查。实际矩阵规则已消费它，CompCert 数组元素性质库提供真实内存解释。Rocq 提取的 OCaml 检查器已运行全部 120 个五指令排列、依赖拒绝及重复／缺失指令案例；这还不是一般 affine schedule validator。
 

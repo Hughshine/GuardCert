@@ -12,7 +12,8 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryLoops", "GuardMemoryClightRectangles", "GuardMemoryPolyhedralRectangles",
            "GuardMemoryValidatedRectangles", "GuardMemoryCompiler", "GuardMemoryTilingProgress", "GuardMemoryArrayBackend",
            "GuardMemoryLoopTrace", "GuardMemoryTiledRectangles", "GuardMemoryTiledExecution",
-           "GuardMemoryTiledClight", "GuardMemoryTiledCompiler", "GuardMemoryAffineDomains",
+           "GuardMemoryTiledClight", "GuardMemoryFlatArrayBackend", "GuardMemoryModeTiledClight",
+           "GuardMemoryTiledCompiler", "GuardMemoryAffineDomains",
            "GuardMemoryConditionalLoops", "GuardMemoryCutExecution", "GuardMemoryCutClight",
            "GuardMemoryCutTiledClight", "GuardMemoryCutCompiler", "GuardMemoryTilingMultipleProgress", "GuardMemoryArrayFamilyBackend", "GuardMemoryIndexedTrace",
            "GuardMemorySequenceLoops", "GuardMemorySequenceClight", "GuardMemorySequencePolyhedral",
@@ -49,7 +50,8 @@ def main():
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral
   GuardMemoryLoops GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
   GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress GuardMemoryArrayBackend
-  GuardMemoryLoopTrace GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryTiledCompiler
+  GuardMemoryLoopTrace GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight
+  GuardMemoryFlatArrayBackend GuardMemoryModeTiledClight GuardMemoryTiledCompiler
   GuardMemoryAffineDomains GuardMemoryConditionalLoops GuardMemoryCutExecution GuardMemoryCutClight
   GuardMemoryCutTiledClight GuardMemoryCutCompiler GuardMemoryTilingMultipleProgress
   GuardMemoryArrayFamilyBackend GuardMemoryIndexedTrace GuardMemorySequenceLoops GuardMemorySequenceClight
@@ -85,6 +87,8 @@ Print Assumptions array_family_source_clight_decode.
 Print Assumptions array_family_backend.
 Print Assumptions indexed_memory_loop_execution.
 Print Assumptions memory_sequence_tiled_loop_points.
+Print Assumptions flat_array_instruction_backend.
+Print Assumptions compile_memory_flat_array_loop_within_correct.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -110,6 +114,7 @@ Print Assumptions check_memory_tiled_region_sound.
 Print Assumptions memory_cut_tiled_local.
 Print Assumptions check_memory_cut_region_sound.
 Print Assumptions memory_tiled_array_family_local.
+Print Assumptions memory_mode_tiled_rectangle_local.
 Print Assumptions check_memory_sequence_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
@@ -175,6 +180,10 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "canonical_rectangle_clight_to_loop_decoder_instantiated": True,
         "canonical_rectangle_loop_to_clight_encoder_instantiated": True,
         "general_pure_array_loop_to_clight_encoder_instantiated": True,
+        "general_single_flat_array_memory_loop_encoder_instantiated": True,
+        "flat_array_encoder_payload_operations": ["constant", "parameter", "loaded value", "Int.add", "Int.sub", "Int.mul"],
+        "read_modify_write_rectangle_tiling_csem_asm_proved": True,
+        "row_prefix_read_rectangle_tiling_csem_asm_proved": True,
         "nonnegative_floor_division_lowering_proved": True,
         "pure_rectangle_two_dimensional_tiling_csem_asm_proved": True,
         "affine_conditional_domain_two_dimensional_tiling_csem_asm_proved": True,

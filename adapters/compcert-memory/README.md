@@ -1,6 +1,6 @@
 # 基于 CompCert Mem 的具体多面体指令实例
 
-这个适配实例将一般多面体 validator 的 `INSTR` 参数具体化为实际 CompCert 内存。`GuardMemoryCompiler.compile_memory_regions` 已将真实源循环、实际多面体依赖检查、guard、候选循环与原片段回退接到完整 Csem→Asm 定理。完整 C 输入的交换路径支持三种矩形循环体；`GuardMemoryTiledCompiler.compile_memory_tiled_regions` 另支持矩形纯写的二维分块、尾块和公开 iterator 出口修复。`GuardMemoryCutCompiler.compile_memory_cut_regions` 支持仿射叶子条件选择出的三角形、斜切等迭代域，并已接通完整定理和实际分块。`GuardMemorySequenceCompiler.compile_memory_sequence_regions` 已支持同布局数组上的非空纯写语句列表，保留每条语句的编号与先后顺序并接通完整 C 分块定理。独立 IR 检查器支持更一般的仿射提案与二维 tiling。支持范围分别记录。
+这个适配实例将一般多面体 validator 的 `INSTR` 参数具体化为实际 CompCert 内存。`GuardMemoryCompiler.compile_memory_regions` 已将真实源循环、实际多面体依赖检查、guard、候选循环与原片段回退接到完整 Csem→Asm 定理。完整 C 输入的交换路径支持三种矩形循环体；`GuardMemoryTiledCompiler.compile_memory_tiled_regions` 另支持矩形纯写、原地更新和行前缀读取的二维分块、尾块和公开 iterator 出口修复。`GuardMemoryCutCompiler.compile_memory_cut_regions` 支持仿射叶子条件选择出的三角形、斜切等迭代域，并已接通完整定理和实际分块。`GuardMemorySequenceCompiler.compile_memory_sequence_regions` 已支持同布局数组上的非空纯写语句列表，保留每条语句的编号与先后顺序并接通完整 C 分块定理。独立 IR 检查器支持更一般的仿射提案与二维 tiling。支持范围分别记录。
 
 ## 已证明的接口
 
@@ -18,7 +18,7 @@
 
 `validated_memory_equivalence_at` 保留具体入口参数值；仅用存在量词包装参数的实例级端点不足以建立 Clight 对应。`GuardMemoryPolyhedralRectangles` 证明完整矩形域的点覆盖、唯一性、排序与实际执行对应；`GuardMemoryValidatedRectangles` 用真实双向依赖验证的结果建立 guarded Clight 规则。`GuardMemoryCompiler` 检查源 AST、构造源与交换候选的 IR，消费上述规则并证明 `compile_memory_regions_correct`。定理要求无 alarm 的 `mayReturn (OK assembly)`，结论是原 Csem 到实际 Asm 的 backward simulation。
 
-[二维分块证明链](../../docs/memory-two-dimensional-tiling.md) 从源循环建立候选执行，经具体 `GuardMemoryArrayBackend` 生成实际 Clight，并通过私有状态宿主获得完整 Csem→Asm 保证。一般结构化 Loop 的纯写编码器允许下标包含已检查的仿射运算和正整数除法。
+[二维分块证明链](../../docs/memory-two-dimensional-tiling.md) 从源循环建立候选执行，经具体 `GuardMemoryFlatArrayBackend` 生成包含真实读取和写入的 Clight，并通过私有状态宿主获得完整 Csem→Asm 保证。一般结构化 Loop 的纯写编码器允许下标包含已检查的仿射运算和正整数除法。
 
 [仿射条件域证明链](../../docs/memory-affine-conditional-domains.md) 证明域筛选、真实源条件执行、机器算术、实际依赖检查和候选分块执行的对应，支持两个动态边界与静态 cut。具体 C 入口要求非负 cut 常量，以真实执行建立数组绑定；更广的域交集与结构化条件 Loop 定理分别记录。
 
@@ -40,7 +40,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/native_memory
 
 完整依赖构建目标为 `make native-memory-validator` 与 `make native-memory-compiler`。两种提取共用有资源上限的非可信 Fourier–Motzkin 证书搜索；证书由提取的 VPL LCF 检查。错误证书和搜索耗尽均拒绝变换。OCaml 的整数表示转换、文本读取与拓扑排序属于非可信输入侧；检查器验证它们产生的结果。
 
-`make native-memory-tiling` 构建独立的二维分块 C 编译入口。`build/native-memory-tiling/report.json` 记录五组块大小、1125 个正动态纯写矩形、六个实际分块函数，以及非法块大小、溢出、错误证书和资源耗尽的源回退；所有数组元素和公开 iterator 出口与 GCC 和独立模型一致。
+`make native-memory-tiling` 构建独立的二维分块 C 编译入口。`build/native-memory-tiling/report.json` 记录五组块大小、3975 个正动态矩形（纯写、原地更新、行前缀读取）、19 个实际分块函数，以及非法块大小、溢出、错误证书和资源耗尽的源回退；所有数组元素和公开 iterator 出口与 GCC 和独立模型一致。
 
 `make native-memory-cuts` 构建仿射条件域 C 编译入口。`build/native-memory-cuts/report.json` 记录五组块大小、4800 个正动态条件域、九个实际分块函数和五条拒绝路线；每组 1294 行完整程序输出与 GCC 和独立模型一致，逐元素检查数组及公开计数器。
 
@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译三十二个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译三十四个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
