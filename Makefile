@@ -209,5 +209,13 @@ memory-cut-compiler: guard-memory-proof
 native-memory-cuts: memory-cut-compiler
 	python3 scripts/native_memory_cuts.py
 
+.PHONY: memory-sequence-compiler native-memory-sequences
+memory-sequence-compiler: guard-memory-proof
+	@python3 scripts/build_memory_compiler.py --sequences > build/memory-sequence-native-build.log 2>&1 || \
+	  { cat build/memory-sequence-native-build.log; exit 1; }
+
+native-memory-sequences: memory-sequence-compiler
+	python3 scripts/native_memory_sequences.py
+
 clean:
 	@python3 scripts/clean.py
