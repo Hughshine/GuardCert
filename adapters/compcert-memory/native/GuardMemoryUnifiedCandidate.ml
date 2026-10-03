@@ -14,6 +14,16 @@ let affine_step =
 
 let propose instructions =
   try match Lazy.force GuardMemoryCandidate.template with
+    | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "schedule";
+             GuardMemoryCandidate.List axes; GuardMemoryCandidate.List steps]) ->
+      if List.length steps > 32 then invalid_arg "schedule index-map limit";
+      Some (GuardMemoryUnifiedCompiler.GuardedScheduleCandidate
+        (GuardMemoryScheduleInput.instantiate instructions axes,List.map affine_step steps))
+    | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "schedule-list";
+             GuardMemoryCandidate.List schedules; GuardMemoryCandidate.List steps]) ->
+      if List.length steps > 32 then invalid_arg "schedule index-map limit";
+      Some (GuardMemoryUnifiedCompiler.GuardedScheduleCandidate
+        (GuardMemoryScheduleInput.explicit schedules,List.map affine_step steps))
     | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "map-index";
              GuardMemoryCandidate.List steps; syntax]) ->
       if List.length steps > 32 then invalid_arg "affine index-map composition limit";

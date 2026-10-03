@@ -7,7 +7,7 @@ make polcert-optimizer-proof \
   POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-不提供 `POLCERT_SOURCE` 时，与核心适配器一样从锁定 Git 仓库读取输入。`source.lock.json`、`source.patch` 和 34 份兼容补丁锁定 92 个实际证明文件，保留指定 v10 工作目录中所需的修改。源码恢复与 `.vo` 构建位于独立的 `vendor/PolCert-optimizer`；不写入原 PolCert 仓库，也不覆盖核心适配器的构建。
+不提供 `POLCERT_SOURCE` 时，与核心适配器一样从锁定 Git 仓库读取输入。`source.lock.json`、`source.patch` 和 35 份兼容补丁锁定 92 个实际证明文件，保留指定 v10 工作目录中所需的修改。源码恢复与 `.vo` 构建位于独立的 `vendor/PolCert-optimizer`；不写入原 PolCert 仓库，也不覆盖核心适配器的构建。
 
 优化器桥接所需的两个通用适配器在 `build/polcert-optimizer-adapters` 以 `GuardPolCert` 名称重新编译，算法和证明源来自 `theories/`。这里只有 `PolCertLoopProgram.v` 的依赖 import 被确定地改为这个隔离名称；编译器与标量 Clight 证明继续使用 `Guard`。
 
@@ -28,7 +28,7 @@ runtime guard 为 false 或 unknown 时运行源 body；metadata 不匹配是优
 
 ## 兼容范围与待完成工作
 
-34 份补丁包括核心适配的 23 份、优化器兼容的 9 份和访问维度修复的 2 份。额外补丁恢复标准库名称、数字 notation scope、Proper instance 可见性、replace 的证明方向与显式关系运输。组合 validator 的未使用转发别名被移除，以避免 Rocq 9.2 的 module-substitution 异常；实际字段直接指向原模块。`PolOpt` 中未使用的 `Convert/CInstr` import 被替换为仍需的 `Csyntax` import。访问维度修复将 ExtractorFrontend 的读写系数补齐到指令实参个数，符合 AffineValidator 的检查契约；ExtractorCorrect 的对应叶子表示同步更新。其余优化器算法和正确性端点不变。此次修改后的 92 个依赖文件已重新编译。
+35 份补丁包括核心适配的 23 份、优化器兼容的 9 份、访问维度修复的 2 份，以及闭合拓扑排序提案的 1 份。额外补丁恢复标准库名称、数字 notation scope、Proper instance 可见性、replace 的证明方向与显式关系运输。组合 validator 的未使用转发别名被移除，以避免 Rocq 9.2 的 module-substitution 异常；实际字段直接指向原模块。`PolOpt` 中未使用的 `Convert/CInstr` import 被替换为仍需的 `Csyntax` import。访问维度修复将 ExtractorFrontend 的读写系数补齐到指令实参个数，符合 AffineValidator 的检查契约；ExtractorCorrect 的对应叶子表示同步更新。拓扑排序提案函数改为有 256 节点上限的具体定义，其结果继续由原排列和排序检查器验证；不再留下外部提案函数的全局参数。其余优化器算法和正确性端点不变。此次修改后的 92 个依赖文件已重新编译。
 
 `PolCertOptimizerRegion.v` 现在提供[端点到完整程序的证书接口](../../docs/polcert-optimizer-regions.md)：实际优化器后向端点、候选进展、源结果唯一性与语言桥接共同建立局部规则，再复用完整 Clight 区域宿主和 Csem→Asm 定理。选择器核对整个源 AST。这个参数化定理已编译，但具体完整循环证书尚未实例化，原生驱动也尚未调用 `Opt_prepared`。
 

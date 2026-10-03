@@ -1,0 +1,27 @@
+--- a/lib/TopoSort.v
++++ b/lib/TopoSort.v
+@@ -24,7 +24,23 @@
+ Require Import String.
+ Require Import List.
+ 
+-Parameter topo_sort_untrusted : list (list bool) -> imp (list nat).
++(** A bounded concrete proposal replaces the external data parameter.
++    Its output remains subject to [check_toposort]; no correctness property
++    of this proposal algorithm is assumed. *)
++Definition topo_sort_ready cstr remaining first :=
++  forallb (fun second => Nat.eqb first second ||
++    negb (nth second (nth first cstr nil) true)) remaining.
++Fixpoint topo_sort_bounded fuel cstr remaining :=
++  match fuel with
++  | O => nil
++  | S fuel => match find (topo_sort_ready cstr remaining) remaining with
++    | Some first => first :: topo_sort_bounded fuel cstr
++        (filter (fun second => negb (Nat.eqb first second)) remaining)
++    | None => nil end
++  end.
++Definition topo_sort_untrusted (cstr : list (list bool)) : imp (list nat) :=
++  pure (if Nat.leb (length cstr) 256 then
++    topo_sort_bounded (length cstr) cstr (n_range (length cstr)) else nil).
+ 
+ Definition check_toposort cstr out :=
+   if Permutation_dec _ Nat.eq_dec (n_range (length cstr)) out then

@@ -92,7 +92,6 @@ Extract Constant PedraQBackend.top => "()".
 Extract Constant PedraQBackend.pr => "(fun _ -> String.empty)".
 Extract Constant PedraQBackend.isEmpty => "GuardMemoryOracle.is_empty".
 Extract Constant PedraQBackend.add => "GuardMemoryOracle.add".
-Extract Constant TopoSort.topo_sort_untrusted => "GuardMemoryTopo.sort".
 Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed.Base.imp.
 '''
     extraction = WORK / "extract_memory.v"
@@ -112,10 +111,11 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         if "AXIOM TO BE REALIZED" in source.read_text():
             raise SystemExit(f"unrealized extraction axiom: {source.name}")
     sources = [ADAPTER / "native" / name for name in
-               ("GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml", "GuardMemoryTopo.ml")]
+               ("GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml")]
     if proposed or unified:
         sources.append(ADAPTER / "native" / "GuardMemoryCandidate.ml")
     if unified:
+        sources.append(ADAPTER / "native" / "GuardMemoryScheduleInput.ml")
         sources.append(ADAPTER / "native" / "GuardMemoryUnifiedCandidate.ml")
     for source in sources:
         target = "GuardMemoryNumbers.ml" if source.name == "GuardMemoryNumbersCompCert.ml" else source.name
@@ -132,7 +132,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         "proof_sources": proof["sources"], "extraction_sha256": sha(extraction),
         "native_sources": {str(path.relative_to(ROOT)): sha(path) for path in sources},
         "oracle": "bounded Fourier-Motzkin with checked LCF certificates",
-        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE file with instruction-site template" if proposed or unified else None,
+        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE file with Loop, tiling or affine-schedule proposal" if proposed or unified else None,
         "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling or cuts or sequences or operations else None,
     }, indent=2) + "\n")
     print(f"verified dependence compiler: {WORK / 'ccomp'}")

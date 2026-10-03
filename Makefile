@@ -258,3 +258,7 @@ native-memory-affine-maps: memory-unified-compiler
 .PHONY: native-memory-ragged
 native-memory-ragged: memory-unified-compiler
 	python3 scripts/native_memory_ragged.py
+
+.PHONY: native-memory-schedules
+native-memory-schedules: memory-unified-compiler
+	python3 scripts/native_memory_schedules.py

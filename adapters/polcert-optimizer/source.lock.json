@@ -279,6 +279,10 @@
       "sha256": "bc4c0e27f7ab1b696efadb6ac596b47157f49382fe0b73b1817300fa15962b25"
     },
     {
+      "path": "adapters/polcert-optimizer/patches/lib-TopoSort.v.patch",
+      "sha256": "2234c31bee60207c93321aced25c1ceab9c44a676f83af3feee11eb83c1c2fb1"
+    },
+    {
       "path": "adapters/polcert-optimizer/patches/polygen-ASTGen.v.patch",
       "sha256": "e64d1fd45e95419e4e04285adc9e6dccffe013bedf85a1cbf2682005e297ca38"
     },

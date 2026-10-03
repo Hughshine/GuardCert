@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 86 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 89 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -82,4 +82,7 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 
 [仿射 iterator 对应](../../docs/memory-affine-iterator-maps.md)提供候选坐标的交换、平移、剪切及其组合；它们已进入同一完整编译器证明。`make native-memory-affine-maps` 检查实际 C 程序中的候选接受、依赖拒绝及机器边界拒绝。
 
-[非矩形 C 源循环](../../docs/memory-nonrectangular-source.md)支持实际 `K=i+M; j<K` 的循环边界，证明宽度前提的安全编码和 `i/j/K` 的源出口对应，并接通实际二维分块；生成代码以除法向上取整计算块数，空迭代裁剪有执行等价证明。`make native-memory-ragged` 运行统一完整程序入口；当前完整审计覆盖 86 个内存适配模块和 7 个 lowering 模块。
+[非矩形 C 源循环](../../docs/memory-nonrectangular-source.md)支持实际 `K=i+M; j<K` 的循环边界，证明宽度前提的安全编码和 `i/j/K` 的源出口对应，并接通实际二维分块；生成代码以除法向上取整计算块数，空迭代裁剪有执行等价证明。`make native-memory-ragged` 运行统一完整程序入口；当前完整审计覆盖 89 个内存适配模块和 7 个 lowering 模块。
+
+
+[源调度到实际代码生成](../../docs/memory-schedule-generation.md)接入相同统一编译器：不受信任的候选只提交每条源指令的仿射调度，源域、指令和访问来自实际提取；生成出的 Loop 再经独立域与依赖检查。`make native-memory-schedules` 验证矩形和非矩形两类源的各 13 组配置，分别逐组比较 4,022 和 1,385 行完整程序输出。交换、分裂、平移和剪切的实际快路，以及错误映射、资源耗尽和错误证书下的源回退均通过。
