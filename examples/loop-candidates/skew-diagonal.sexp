@@ -1,0 +1,5 @@
+(map-index ((skew 0 1 -1))
+ (loop (constant 0) (sum (var 0) (var 1))
+  (loop (constant 0) (var 2)
+  (guard (and (le (var 0) (var 1)) (le (sum (var 1) (scale -1 (var 0))) (sum (var 2) (scale -1 (constant 1)))))
+ (each (instr current ((sum (var 1) (scale -1 (var 0))) (var 0))))))))

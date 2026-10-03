@@ -14,7 +14,7 @@ From Guard Require Import ClightGuard ClightCondition ClightPrivateRule ClightPr
 From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight GuardMemoryTiledCompiler
   GuardMemoryArrayFamilyBackend GuardMemoryOperationsClight GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler
   GuardMemoryInstr GuardMemoryLoops GuardMemoryProposedClight GuardMemoryProposedCompiler
-  GuardMemoryNamedOperations GuardMemoryNamedCompiler.
+  GuardMemoryNamedOperations GuardMemoryNamedCompiler GuardMemoryAffineReindex GuardMemoryNamedMappedCompiler.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -22,6 +22,7 @@ Local Open Scope Z_scope.
 
 Inductive guarded_memory_candidate :=
 | GuardedAffineCandidate (candidate : L.stmt) (swaps : list nat)
+| GuardedMappedCandidate (candidate : L.stmt) (steps : list memory_affine_reindex)
 | GuardedTilingCandidate (rows columns : Z).
 Definition guarded_memory_proposer := list memory_instruction -> option guarded_memory_candidate.
 Definition check_memory_named_unified_region live pool (propose : guarded_memory_proposer) source :=
@@ -30,6 +31,8 @@ Definition check_memory_named_unified_region live pool (propose : guarded_memory
     match propose (map named_operation_instruction (named_operations package)) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_named_affine_region live pool (fun _ => Some (candidate,swaps)) source
+    | Some (GuardedMappedCandidate candidate steps) =>
+      check_memory_named_mapped_region live pool (fun _ => Some (candidate,steps)) source
     | Some (GuardedTilingCandidate rows columns) => check_memory_named_tiled_region live pool rows columns source
     | None => CoreAlarmed.Base.pure None end
   | None => CoreAlarmed.Base.pure None end.
@@ -44,6 +47,7 @@ Proof.
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_named_affine_region_sound; exact CHECK.
+  - eapply check_memory_named_mapped_region_sound; exact CHECK.
   - eapply check_memory_named_tiled_region_sound; exact CHECK.
 Qed.
 Definition check_memory_unified_region live pool (propose : guarded_memory_proposer) source :=
@@ -52,6 +56,8 @@ Definition check_memory_unified_region live pool (propose : guarded_memory_propo
     match propose (map (operation_instruction 3%positive) (operations_list package)) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_proposed_region live pool (fun _ => Some (candidate,swaps)) source
+    | Some (GuardedMappedCandidate candidate steps) =>
+      check_memory_named_unified_region live pool propose source
     | Some (GuardedTilingCandidate rows columns) =>
       check_memory_operations_region live pool rows columns source
     | None => CoreAlarmed.Base.pure None end
@@ -67,6 +73,7 @@ Proof.
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_proposed_region_sound; exact CHECK.
+  - eapply check_memory_named_unified_region_sound; exact CHECK.
   - eapply check_memory_operations_region_sound; exact CHECK.
 Qed.
 Fixpoint checked_memory_unified_regions live pool propose sources : CoreAlarmed.Base.imp (list (statement * statement)) :=

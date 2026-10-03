@@ -21,10 +21,10 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemorySequenceCompiler", "GuardMemoryOperationsClight", "GuardMemoryOperationsTiledClight",
            "GuardMemoryOperationsCompiler", "GuardMemoryExtractorTrace", "GuardMemoryTraceUniqueness",
            "GuardMemoryExtractorCoverage", "GuardMemoryExtractorOrder", "GuardMemoryPointIsomorphism", "GuardMemoryDomainNormalization", "GuardMemoryExtractorProgress",
-           "GuardMemoryCoordinateSwap", "GuardMemoryReindexedExtractor",
-           "GuardMemoryDomainAlignment", "GuardMemoryEquivalentDomainsExtractor",
+           "GuardMemoryCoordinateSwap", "GuardMemoryCoordinateShift", "GuardMemoryCoordinateSkew", "GuardMemoryReindexedExtractor",
+           "GuardMemoryDomainAlignment", "GuardMemoryEquivalentDomainsExtractor", "GuardMemoryAffineReindex", "GuardMemoryAffineMappedExtractor",
            "GuardMemoryProposedClight", "GuardMemoryProposedCompiler",
-           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryCrossArray", "GuardMemoryCrossInstruction", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryUnifiedCompiler"]
+           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryCrossArray", "GuardMemoryCrossInstruction", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryNamedMappedChecker", "GuardMemoryNamedMappedCompiler", "GuardMemoryUnifiedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -64,9 +64,9 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemorySequencePolyhedral GuardMemorySequenceOrder GuardMemorySequenceExecution
   GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
   GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
-  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryEquivalentDomainsExtractor
+  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryCoordinateShift GuardMemoryCoordinateSkew GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryEquivalentDomainsExtractor GuardMemoryAffineReindex GuardMemoryAffineMappedExtractor
   GuardMemoryProposedClight GuardMemoryProposedCompiler
-  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryUnifiedCompiler.
+  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryNamedMappedChecker GuardMemoryNamedMappedCompiler GuardMemoryUnifiedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -113,6 +113,9 @@ Print Assumptions memory_extractor_execution_at.
 Print Assumptions memory_point_isomorphism_execution.
 Print Assumptions memory_domain_normalization_execution.
 Print Assumptions memory_coordinate_swap_execution.
+Print Assumptions memory_coordinate_shift_execution.
+Print Assumptions memory_coordinate_skew_execution.
+Print Assumptions memory_affine_reindexed_execution.
 Print Assumptions memory_reindexed_execution.
 Print Assumptions memory_array_separation_exact.
 Print Assumptions memory_registry_instruction_backend.
@@ -149,6 +152,8 @@ Print Assumptions validated_memory_equivalent_domain_loops_at.
 Print Assumptions memory_check_domain_equivalence_correct.
 Print Assumptions memory_aligned_domains_execution.
 Print Assumptions checked_named_affine_candidate_correct.
+Print Assumptions validated_memory_affine_mapped_domain_loops_at.
+Print Assumptions checked_named_mapped_candidate_correct.
 Print Assumptions checked_named_tiled_candidate_correct.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
@@ -168,6 +173,7 @@ Print Assumptions memory_proposed_array_operations_local.
 Print Assumptions check_memory_proposed_region_sound.
 Print Assumptions check_memory_unified_region_sound.
 Print Assumptions check_memory_named_affine_region_sound.
+Print Assumptions check_memory_named_mapped_region_sound.
 Print Assumptions check_memory_named_tiled_region_sound.
 Print Assumptions check_memory_named_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
