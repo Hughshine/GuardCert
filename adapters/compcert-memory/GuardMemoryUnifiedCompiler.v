@@ -17,7 +17,7 @@ From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler 
   GuardMemoryNamedOperations GuardMemoryNamedCompiler GuardMemoryAffineReindex GuardMemoryNamedMappedCompiler GuardMemoryNamedRaggedCompiler
   GuardMemoryScheduledCompiler GuardMemoryParametricSyntax GuardMemoryParametricCompiler
   GuardMemoryLayoutCopySyntax GuardMemoryLayoutCopyCompiler
-  GuardMemoryParametricRegion GuardMemoryParametricRegionInstances GuardMemoryParametricRegionCompiler.
+  GuardMemoryParametricRegion GuardMemoryParametricRegionInstances GuardMemoryParametricRegionCompiler GuardMemoryParametricWidthSearch.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -61,15 +61,23 @@ Definition check_memory_parametric_unified_region live pool (propose : guarded_m
   | Some package =>
     match propose (memory_parametric_region_instructions package) with
     | Some (GuardedAffineCandidate candidate swaps) =>
-      check_memory_parametric_region_conditioned live pool describe_memory_parametric_region
-        (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
+      check_memory_parametric_with_widths
+        (fun describe source => check_memory_parametric_region_conditioned live pool describe
+          (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source)
+        describe_memory_parametric_region [1] source
     | Some (GuardedMappedCandidate candidate steps) =>
-      check_memory_parametric_region_conditioned live pool describe_memory_parametric_region
-        (fun _ => Some (candidate,steps)) source
+      check_memory_parametric_with_widths
+        (fun describe source => check_memory_parametric_region_conditioned live pool describe
+          (fun _ => Some (candidate,steps)) source)
+        describe_memory_parametric_region [1] source
     | Some (GuardedTilingCandidate rows columns) =>
-      check_memory_parametric_region_conditioned_tiling live pool describe_memory_parametric_region rows columns source
+      check_memory_parametric_with_widths
+        (fun describe source => check_memory_parametric_region_conditioned_tiling live pool describe rows columns source)
+        describe_memory_parametric_region [1] source
     | Some (GuardedScheduleCandidate schedules steps) =>
-      check_memory_parametric_region_scheduled live pool describe_memory_parametric_region schedules steps source
+      check_memory_parametric_with_widths
+        (fun describe source => check_memory_parametric_region_scheduled live pool describe schedules steps source)
+        describe_memory_parametric_region [1] source
     | None => CoreAlarmed.Base.pure None end
   | None => CoreAlarmed.Base.pure None end.
 Theorem check_memory_parametric_unified_region_sound live pool propose source target :
@@ -82,10 +90,14 @@ Proof.
   destruct (propose (memory_parametric_region_instructions package)) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
-  - eapply check_memory_parametric_region_conditioned_sound; exact CHECK.
-  - eapply check_memory_parametric_region_conditioned_sound; exact CHECK.
-  - eapply check_memory_parametric_region_conditioned_tiling_sound; exact CHECK.
-  - eapply check_memory_parametric_region_scheduled_sound; exact CHECK.
+  - eapply check_memory_parametric_with_widths_sound; [|exact CHECK].
+    intros describe original chosen ACCEPT; eapply check_memory_parametric_region_conditioned_sound; exact ACCEPT.
+  - eapply check_memory_parametric_with_widths_sound; [|exact CHECK].
+    intros describe original chosen ACCEPT; eapply check_memory_parametric_region_conditioned_sound; exact ACCEPT.
+  - eapply check_memory_parametric_with_widths_sound; [|exact CHECK].
+    intros describe original chosen ACCEPT; eapply check_memory_parametric_region_conditioned_tiling_sound; exact ACCEPT.
+  - eapply check_memory_parametric_with_widths_sound; [|exact CHECK].
+    intros describe original chosen ACCEPT; eapply check_memory_parametric_region_scheduled_sound; exact ACCEPT.
 Qed.
 Definition check_memory_ragged_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_ragged source with

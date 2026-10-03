@@ -291,3 +291,8 @@ native-memory-offset-access: memory-unified-compiler
 native-memory-affine-compute: memory-unified-compiler
 	python3 scripts/native_memory_affine_compute.py
 	python3 scripts/native_memory_affine_compute_paths.py
+
+.PHONY: native-memory-conditioned-width
+native-memory-conditioned-width: memory-unified-compiler
+	python3 scripts/native_memory_conditioned_width.py
+	python3 scripts/native_memory_conditioned_width_paths.py

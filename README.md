@@ -122,3 +122,5 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 [实际多面体候选的条件搜索](docs/memory-candidate-conditioning.md)在默认域失败后提出更小的外层次数区间，逐个重新核对域、依赖、机器代码与 guard，接入相同完整 C→Asm 入口；运行诊断同时核对快分支可达和依赖反例回退。
 
 [不同布局读写列表](docs/memory-layout-operation-lists.md)保留各条赋值的实际步长与对象，组合整段列表的真实内存执行，并进入同一个完整程序定理。复制链、更新和同数组重映射继续消费候选依赖检查及已验证条件搜索。
+
+[内层宽度条件搜索](docs/memory-inner-width-conditioning.md)在原域及外层次数搜索失败后，用范围包含证明限制内层宽度并重新验证候选。`m-p` 复制链的循环分裂已经进入完整 C→Asm 入口，实际快路允许多个外层迭代，依赖反例回退。

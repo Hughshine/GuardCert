@@ -62,6 +62,8 @@ def main():
             inputs=[(0,1,1,0,hits),(0,0,-2147483648,2147483647,0),(2,4,5,1,0)]
             cap=report['configurations'][configuration]['outer_count_guard_upper'].get(function,0)
             if function=='offset_self_transpose' and cap<6: inputs.append((0,6,6,0,0))
+            if configuration=='fission' and function in {'offset_anchor_chain','offset_global_chain'}:
+                inputs.append((0,1,2,0,0))
             for start,n,m,p,hit in inputs:
                 calls.append(f'guard_branch_hits[{index}]=0; {function}({start},{n},{m},{p}); '
                     f'if (guard_branch_hits[{index}]!={hit}) return {20+len(calls)};')
