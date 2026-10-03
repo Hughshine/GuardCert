@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前统一 C→Asm 入口支持动态矩形、`j<i+M` 的非矩形源、多个实际数组对象及跨数组读取／复制；消费实际依赖证书的仿射候选、组合坐标映射和二维 tiling 已接通源执行、运行时检查、候选执行及完整程序定理。一般仿射 Loop 的提取执行对应也已证明。单个稳定指针缓冲区及指针／固定数组中的稳定 RHS 标量参数也已接入。一般 C 源识别、更广仿射访问及多个不同指针的别名条件仍在推进。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
+研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前统一 C→Asm 入口支持动态矩形、`j<i+M` 的非矩形源、多个实际数组对象及跨数组读取／复制；消费实际依赖证书的仿射候选、组合坐标映射和二维 tiling 已接通源执行、运行时检查、候选执行及完整程序定理。一般仿射 Loop 的提取执行对应也已证明。单个稳定指针缓冲区及指针／固定数组中的稳定 RHS 标量参数也已接入。正、负及混合系数的仿射源地址随后也已接通，见 [signed 仿射地址](docs/memory-signed-affine-access.md)。一般 C 源识别、更广仿射访问及多个不同指针的别名条件仍在推进。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
 
 以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支、表达式、有限区域与严格计数循环 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
 
@@ -128,3 +128,5 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 [三重 C 循环与矩阵乘法](docs/memory-three-level-loops.md)已进入统一完整 C→Asm 入口，实际依赖检查接受 `i-k-j` 和外层两维分块，拒绝破坏复制链顺序的反转与分裂。`make native-memory-triple` 验证完整汇编、机器回绕、公开出口和短路回退。
 
 [递归 C 源循环](docs/memory-recursive-source-loops.md)已通过 17 组完整汇编配置和 11 组实际分支诊断。`make native-memory-recursive` 构建并验证该路径；当前原生驱动的八对辅助计数器允许八层普通候选或六层源的外层二维分块，资源不足安全回退。
+
+[signed 仿射源地址](docs/memory-signed-affine-access.md) 通过 241 个适配模块及七个 lowering 模块的完整编译与假设审计，完整程序端点仍继承 42 项原有假设。13 组实际汇编配置和 10 组分支诊断（5463 次调用）通过；检查覆盖反向依赖链的正确回退、中间回绕和最终合法地址。

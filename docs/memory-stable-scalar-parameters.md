@@ -84,3 +84,5 @@ guard 保持次数上界、正次数和初始外层计数器检查，不读取�
 | 深层循环路径回归 | 17 | 2250 | 11 | 560 |
 
 完整输出来自提取编译器生成的汇编；独立模型与 GCC `-fwrapv` 给出相同结果。分支计数来自带标记的 Clight 打印结果，未将这项诊断扩大为额外的汇编证明。所有结果对应上述 SHA256 和 `build/guard-memory-proof-report.json`；测试报告位于 `build/native-memory-scalar/`、`build/native-memory-scalar-array/` 、`build/native-memory-pointer/` 与 `build/native-memory-recursive/`。
+
+本页的完整测试快照对应标量提交 `2ccb7c0`。后续 [signed 仿射源地址](memory-signed-affine-access.md) 已扩展正、负及混合系数访问，另有其正式审计、完整测试及共享路径回归记录。

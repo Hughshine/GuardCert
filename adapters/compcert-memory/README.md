@@ -108,3 +108,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [真实指针缓冲区](../../docs/memory-pointer-buffers.md)的统一全量审计为 211 个适配模块与七个 lowering 模块，完整编译器仍为原有 42 项假设。`make native-memory-pointer` 验证 15 组完整汇编配置，每组 227 行调用方完整缓冲区及公开计数器输出，并通过 10 组／390 次调用的分支诊断；包含一元素实际分配的快路及空指针零次循环。这一指针阶段的报告在加入 RHS 标量之前，多个不同指针和外部 RHS 标量安全拒绝。
 
 [稳定 RHS 标量参数](../../docs/memory-stable-scalar-parameters.md)随后接入指针与局部／全局固定数组。零列补齐的语义证明保持地址与 N+E 实参的一致，实际源执行提供标量类型，guard 不提前读取标量。当前全量审计为 240 个适配模块与七个 lowering 模块，完整编译器仍继承原有 42 项假设。两类各 16 组完整汇编配置通过，每组分别核对 196／672 行完整输出；各 10 组分支诊断分别核对 2626／2602 次调用，包含不同轴长度、负数及极值标量和未初始化标量的零次循环。旧指针路径 15 组完整配置及 10 组／586 次分支回归也通过。多个不同指针的重叠条件与更一般深层源域继续推进。
+
+Signed affine source accesses now use a proved lower and upper box check. The 241-module audit retains the existing 42 whole-compiler assumptions. Thirteen assembly configurations and ten branch diagnostics (5463 calls) passed; see [the signed access record](../../docs/memory-signed-affine-access.md) for the compiler hash and the distinction between assembly checks and instrumented Clight diagnostics. Multiple pointer inputs still require a new source and backend instance.

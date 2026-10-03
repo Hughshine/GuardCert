@@ -51,8 +51,15 @@ Definition memory_triple_region_descriptors source (package : memory_triple_regi
 
 Definition propose_memory_nary_access_cap access :=
   let term := memory_nary_access_index access in
-  Z.max 1 ((rectangle_extent (memory_nary_access_shape access)-snd term-1) /
-    Z.max 1 (fold_right Z.add 0 (fst term))+1).
+  let extent := rectangle_extent (memory_nary_access_shape access) in
+  if forallb (fun coefficient => 0 <=? coefficient) (fst term) then
+    Z.max 1 ((extent-snd term-1) / Z.max 1 (fold_right Z.add 0 (fst term))+1)
+  else
+    let positive := fold_right Z.add 0 (map (fun coefficient => Z.max 0 coefficient) (fst term)) in
+    let negative := fold_right Z.add 0 (map (fun coefficient => Z.max 0 (-coefficient)) (fst term)) in
+    let upper := if positive =? 0 then Int.max_signed else (extent-snd term-1)/positive+1 in
+    let lower := if negative =? 0 then Int.max_signed else snd term/negative+1 in
+    Z.max 1 (Z.min upper lower).
 Definition propose_memory_triple_cap operations :=
   fold_left Z.min (map propose_memory_nary_access_cap
     (flat_map (fun operation => memory_nary_compute_write operation::memory_nary_compute_reads operation) operations)) Int.max_signed.

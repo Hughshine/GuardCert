@@ -5,7 +5,7 @@ From compcert.cfrontend Require Import Clight Ctypes Cop.
 From polcert.lib Require Import Linalg.
 From Guard Require Import ClightSyntaxEquality ClightRectangularStore.
 From GuardMemory Require Import GuardMemoryAffineSourceReifier GuardMemoryAffineSourceExpressions
-  GuardMemoryNaryAffineExpressions GuardMemoryNaryRanges GuardMemoryNaryAffineAccess.
+  GuardMemoryNaryAffineExpressions GuardMemoryNaryRanges GuardMemorySignedRanges GuardMemoryNaryAffineAccess.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -18,7 +18,7 @@ Definition memory_nary_access_valid limits (layout : list ident) access :=
     0 <= memory_nary_index_value (memory_nary_access_index access) values < rectangle_extent (memory_nary_access_shape access).
 Definition memory_nary_access_check limits layout access :=
   rectangle_layout_check (memory_nary_access_shape access) &&
-  memory_nary_box_check limits (rectangle_extent (memory_nary_access_shape access)) (memory_nary_access_index access) &&
+  memory_signed_box_check limits (rectangle_extent (memory_nary_access_shape access)) (memory_nary_access_index access) &&
   match memory_encode_nary_index layout (memory_nary_access_expression access) with
   | Some term => if memory_nary_term_eq term (memory_nary_access_index access) then true else false
   | None => false end.
@@ -29,7 +29,7 @@ Proof.
   destruct (memory_encode_nary_index layout (memory_nary_access_expression access)) as [term|] eqn:EXPRESSION; [|discriminate].
   destruct (memory_nary_term_eq term (memory_nary_access_index access)) as [SAME|]; [subst term|discriminate].
   split; [apply rectangle_layout_check_sound; exact LAYOUT|]; split; [exact EXPRESSION|].
-  intros values RANGE; eapply memory_nary_box_sound; eassumption.
+  intros values RANGE; eapply memory_signed_box_sound; eassumption.
 Qed.
 Definition propose_memory_nary_access layout source :=
   match source with
