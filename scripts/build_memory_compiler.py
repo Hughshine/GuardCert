@@ -24,14 +24,17 @@ def run(*arguments):
     subprocess.run(arguments, cwd=WORK, check=True)
 
 
-def main(tiling=False):
+def main(tiling=False, cuts=False):
     global WORK, ENTRY
-    if tiling:
+    if cuts:
+        WORK = ROOT / "build" / "compcert-memory-cuts"
+        ENTRY = "GuardMemoryCutCompiler.compile_memory_cut_regions"
+    elif tiling:
         WORK = ROOT / "build" / "compcert-memory-tiling"
         ENTRY = "GuardMemoryTiledCompiler.compile_memory_tiled_regions"
     polcert_core.select_profile("optimizer")
     proof = json.loads((ROOT / "build" / "guard-memory-proof-report.json").read_text())
-    proof_entry = "tiling_whole_program_entrypoint" if tiling else "whole_program_entrypoint"
+    proof_entry = "cut_whole_program_entrypoint" if cuts else "tiling_whole_program_entrypoint" if tiling else "whole_program_entrypoint"
     if (proof["status"] != "compiled" or proof.get(proof_entry) != ENTRY
             or any(sha(ROOT / path) != expected for path, expected in proof["sources"].items())):
         raise SystemExit("audit the current memory compiler before extraction")
@@ -50,9 +53,9 @@ def main(tiling=False):
         let value = match Sys.getenv_opt name with Some value -> value | None -> "4" in
         if String.length value > 128 then invalid_arg "GuardCert tile width too long";
         GuardMemoryNumbers.import_integer (Z.of_string value) in
-      GuardMemoryTiledCompiler.compile_memory_tiled_regions
+      ENTRY_PLACEHOLDER
         (tile_width "GUARDCERT_TILE_ROWS") (tile_width "GUARDCERT_TILE_COLUMNS") csyntax)"""
-        if tiling else "(GuardMemoryCompiler.compile_memory_regions csyntax)")
+        if tiling or cuts else "(GuardMemoryCompiler.compile_memory_regions csyntax)").replace("ENTRY_PLACEHOLDER", ENTRY)
     replacement = """(let outcome = ref None in
       ImpureConfig.Core.Base.bind INVOCATION
         (fun (result, alarm_free) -> outcome := Some (result, alarm_free); ());
@@ -87,7 +90,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
     for name in ("cparser", "export", "MenhirLib"):
         flags += ["-R", str(UPSTREAM / name), "MenhirLib" if name == "MenhirLib" else "compcert." + name]
     run("rocq", "compile", *flags, str(extraction))
-    inferred = ["ImpureConfig"] + (["TilingValidator", "GuardMemoryPolyhedral", "GuardMemoryTilingProgress"] if tiling else [])
+    inferred = ["ImpureConfig"] + (["TilingValidator", "GuardMemoryPolyhedral", "GuardMemoryTilingProgress"] if tiling or cuts else [])
     for module in inferred:
         (WORK / "extraction" / (module + ".mli")).unlink(missing_ok=True)
     for source in (WORK / "extraction").glob("*.ml"):
@@ -110,7 +113,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         "proof_sources": proof["sources"], "extraction_sha256": sha(extraction),
         "native_sources": {str(path.relative_to(ROOT)): sha(path) for path in sources},
         "oracle": "bounded Fourier-Motzkin with checked LCF certificates",
-        "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling else None,
+        "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling or cuts else None,
     }, indent=2) + "\n")
     print(f"verified dependence compiler: {WORK / 'ccomp'}")
 
@@ -118,4 +121,6 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tiling", action="store_true", help="extract the proved two-dimensional tiling compiler")
-    main(parser.parse_args().tiling)
+    parser.add_argument("--cuts", action="store_true", help="extract the proved affine conditional-domain tiling compiler")
+    arguments = parser.parse_args()
+    main(arguments.tiling, arguments.cuts)

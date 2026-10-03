@@ -12,7 +12,9 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryLoops", "GuardMemoryClightRectangles", "GuardMemoryPolyhedralRectangles",
            "GuardMemoryValidatedRectangles", "GuardMemoryCompiler", "GuardMemoryTilingProgress", "GuardMemoryArrayBackend",
            "GuardMemoryLoopTrace", "GuardMemoryTiledRectangles", "GuardMemoryTiledExecution",
-           "GuardMemoryTiledClight", "GuardMemoryTiledCompiler"]
+           "GuardMemoryTiledClight", "GuardMemoryTiledCompiler", "GuardMemoryAffineDomains",
+           "GuardMemoryConditionalLoops", "GuardMemoryCutExecution", "GuardMemoryCutClight",
+           "GuardMemoryCutTiledClight", "GuardMemoryCutCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -44,7 +46,9 @@ def main():
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral
   GuardMemoryLoops GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
   GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress GuardMemoryArrayBackend
-  GuardMemoryLoopTrace GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryTiledCompiler.
+  GuardMemoryLoopTrace GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryTiledCompiler
+  GuardMemoryAffineDomains GuardMemoryConditionalLoops GuardMemoryCutExecution GuardMemoryCutClight
+  GuardMemoryCutTiledClight GuardMemoryCutCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -69,6 +73,8 @@ Print Assumptions array_write_backend.
 Print Assumptions compile_memory_array_loop_correct.
 Print Assumptions memory_loop_trace_correct.
 Print Assumptions rectangle_tiled_loop_points.
+Print Assumptions compile_memory_cut_condition_evaluation.
+Print Assumptions memory_cut_source_clight_decode.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -80,6 +86,7 @@ Print Assumptions before_to_retiled_old_progress.
 Print Assumptions validated_memory_single_tiling_progress_at.
 Print Assumptions guarded_memory_tiling_equivalence_refines.
 Print Assumptions validated_memory_rectangle_tiling.
+Print Assumptions validated_memory_cut_tiling.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -87,9 +94,12 @@ Print Assumptions check_memory_region_sound.
 Print Assumptions memory_tiled_rectangle_local.
 Print Assumptions memory_tiled_rectangle_rule.
 Print Assumptions check_memory_tiled_region_sound.
+Print Assumptions memory_cut_tiled_local.
+Print Assumptions check_memory_cut_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
+Print Assumptions compile_memory_cut_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
     result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
@@ -121,6 +131,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "whole_program_assumptions": sorted(names(compiler)),
         "whole_program_entrypoint": "GuardMemoryCompiler.compile_memory_regions",
         "whole_program_theorem": "GuardMemoryCompiler.compile_memory_regions_correct",
+        "cut_whole_program_entrypoint": "GuardMemoryCutCompiler.compile_memory_cut_regions",
+        "cut_whole_program_theorem": "GuardMemoryCutCompiler.compile_memory_cut_regions_correct",
         "tiling_whole_program_entrypoint": "GuardMemoryTiledCompiler.compile_memory_tiled_regions",
         "tiling_whole_program_theorem": "GuardMemoryTiledCompiler.compile_memory_tiled_regions_correct",
         "whole_program_acceptance": "alarm-free mayReturn with OK assembly program",
