@@ -4,20 +4,22 @@ From polcert.src Require Import PointWitness.
 From polcert.polygen Require Import Result.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryPolyhedral GuardMemoryLoops
   GuardMemoryExtractorTrace GuardMemoryExtractorProgress GuardMemoryDomainNormalization GuardMemoryCoordinateSwap
-  GuardMemoryCoordinateShift GuardMemoryCoordinateSkew GuardMemoryReindexedExtractor GuardMemoryDomainAlignment.
+  GuardMemoryCoordinateShift GuardMemoryCoordinateSkew GuardMemoryCoordinateReflect GuardMemoryReindexedExtractor GuardMemoryDomainAlignment.
 Import ListNotations.
 Set Implicit Arguments.
 
 Inductive memory_affine_reindex :=
 | MemoryReindexSwap (position : nat)
 | MemoryReindexShift (position : nat) (delta : Z)
-| MemoryReindexSkew (target source : nat) (factor : Z).
+| MemoryReindexSkew (target source : nat) (factor : Z)
+| MemoryReindexReflect (position : nat).
 Definition memory_affine_reindex_step dimension step instructions :=
   match step with
   | MemoryReindexSwap position => memory_swap_instructions (dimension+position)%nat instructions
   | MemoryReindexShift position delta => memory_shift_instructions (dimension+position)%nat delta instructions
   | MemoryReindexSkew target source factor => memory_skew_instructions
-      (dimension+target)%nat (dimension+source)%nat factor instructions end.
+      (dimension+target)%nat (dimension+source)%nat factor instructions
+  | MemoryReindexReflect position => memory_reflect_instructions (dimension+position)%nat instructions end.
 Lemma memory_affine_reindex_step_representation dimension step instructions :
   Forall (memory_identity_representation dimension) instructions ->
   Forall (memory_identity_representation dimension) (memory_affine_reindex_step dimension step instructions).
@@ -27,6 +29,7 @@ Proof.
   - intros pi REP; apply memory_swap_instruction_representation; exact REP.
   - intros pi REP; apply memory_shift_instruction_representation; exact REP.
   - intros pi REP; apply memory_skew_instruction_representation; exact REP.
+  - intros pi REP; apply memory_reflect_instruction_representation; exact REP.
 Qed.
 Lemma memory_affine_reindex_step_execution dimension step parameters instructions context vars initial final :
   length parameters = dimension -> Forall (memory_identity_representation dimension) instructions ->
@@ -37,6 +40,7 @@ Proof.
   - apply memory_coordinate_swap_execution; [lia|rewrite LENGTH; exact REPRESENTATIONS].
   - apply memory_coordinate_shift_execution; [lia|rewrite LENGTH; exact REPRESENTATIONS].
   - apply memory_coordinate_skew_execution; [lia|rewrite LENGTH; exact REPRESENTATIONS].
+  - apply memory_coordinate_reflect_execution; [lia|rewrite LENGTH; exact REPRESENTATIONS].
 Qed.
 Fixpoint memory_affine_reindexed_instructions dimension steps instructions :=
   match steps with

@@ -98,8 +98,7 @@ def loop_template(dimensions,permutation=None,reverse=False):
         else:lower='(constant 0)';upper=f'(var {depth+permutation[depth]})'
         code=f'(loop {lower} {upper} {code})'
     if reverse:
-        a,b=dimensions-1,dimensions-2
-        code=f'(map-index ((skew {a} {b} 1) (skew {b} {a} -1) (skew {a} {b} 1) (swap {b})) {code})'
+        code=f'(map-index ((reflect {dimensions-1})) {code})'
     elif permutation!=list(range(dimensions)):code=f'(reindex (0) {code})'
     return code
 

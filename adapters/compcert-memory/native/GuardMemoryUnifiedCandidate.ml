@@ -10,6 +10,8 @@ let affine_step =
   | List [Atom "skew"; target; source; factor] ->
     GuardMemoryAffineReindex.MemoryReindexSkew
       (natural (small target),natural (small source),GuardMemoryNumbers.import_integer (integer factor))
+  | List [Atom "reflect"; position] ->
+    GuardMemoryAffineReindex.MemoryReindexReflect (natural (small position))
   | _ -> invalid_arg "affine index-map step"
 
 let propose request =

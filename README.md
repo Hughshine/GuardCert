@@ -135,4 +135,4 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 
 [显式源元数据的候选接口](docs/memory-source-metadata.md)消除访问式未使用某些循环维度、或遗漏稳定参数时的调度维数猜测。完整程序定理对任意候选提议器继续成立；269 个适配模块和七个 lowering 模块全量审计通过，九组完整汇编配置和六组分支诊断通过，`make native-memory-source-metadata` 可复现。
 
-[循环式 alias guard](docs/memory-loop-alias-guards.md)允许检查修改私有计数器和标志，并证明检查后的状态满足候选前提。一个计数轴、两个指针及逐元素访问已接入完整 C→Asm 入口，检查代码不按循环上界展开。279 个适配模块和七个 lowering 模块全量审计、800 次完整汇编调用及 300 次分支诊断通过；`make native-memory-loop-alias` 可复现。当前扫描为 O(n²)，逻辑窗口为 1024，一维反向候选仍拒绝。
+[循环式 alias guard](docs/memory-loop-alias-guards.md)允许检查修改私有计数器和标志，并证明检查后的状态满足候选前提。一个计数轴、两个指针及逐元素访问已接入完整 C→Asm 入口，检查代码不按循环上界展开。当前扫描为 O(n²)，逻辑窗口为 1024。[坐标反射](docs/memory-coordinate-reflection.md)随后接入一维反向执行及反射和平移的组合：280 个适配模块和七个 lowering 模块全量审计、1200 次完整汇编调用及 600 次分支诊断通过，`make native-memory-loop-alias` 可复现。

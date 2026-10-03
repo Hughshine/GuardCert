@@ -82,6 +82,10 @@ def main():
         'schedule-reverse': '(schedule ((affine (0 0 0 -1) 0) ordinal) ())',
         'direct-identity': '(loop (constant 0) (var 0) (each (instr current ((var 0)))))',
         'direct-reverse': '(loop (sum (constant 1) (scale -1 (var 0))) (constant 1) (each (instr current ((scale -1 (var 0))))))',
+        'schedule-reflect': '(schedule ((affine (0 0 0 -1) 0) ordinal) ((reflect 0)))',
+        'direct-reflect': '(map-index ((reflect 0)) (loop (sum (constant 1) (scale -1 (var 0))) (constant 1) (each (instr current ((scale -1 (var 0)))))))',
+        'shift-reflect': '(map-index ((reflect 0) (shift 0 3)) (loop (sum (constant 4) (scale -1 (var 0))) (constant 4) (each (instr current ((sum (constant 3) (scale -1 (var 0))))))))',
+        'wrong-reflect': '(map-index ((reflect 0)) (loop (constant 0) (var 0) (each (instr current ((var 0))))))',
         'invalid-coordinate': '(schedule ((coordinate 1) ordinal) ())'}
     cases = [(name,syntax,{}) for name,syntax in templates.items()]
     cases += [(name,templates['schedule-identity'],extra) for name,extra in [
@@ -109,7 +113,7 @@ def main():
         dump_path = work/(SOURCE.stem+'.light.c')
         dump = dump_path.read_text()
         guarded = {fn for fn in NAMES if 'switch (0)' in function_body(dump,fn)}
-        expected = set() if extra or name in {'invalid-coordinate','schedule-reverse','direct-reverse'} else set(NAMES)
+        expected = set() if extra or name in {'invalid-coordinate','schedule-reverse','direct-reverse','wrong-reflect'} else set(NAMES)
         assert guarded == expected,(name,guarded)
         for fn in guarded:
             body = function_body(dump,fn)
@@ -120,6 +124,7 @@ def main():
             'clight_bytes':dump_path.stat().st_size,'assembly_bytes':(work/'scan.s').stat().st_size,
             'runtime_count_guard_cap':1024 if guarded else None,
             'negative_one_dimensional_coordinate_candidate_currently_rejected':name in {'schedule-reverse','direct-reverse'},
+            'explicit_reflection_map':name in {'schedule-reflect','direct-reflect','shift-reflect'},
             'template_sha256':hashlib.sha256(template.read_bytes()).hexdigest()}
         (WORK/'partial-report.json').write_text(json.dumps(configurations,indent=2)+'\n')
         print(name,sorted(guarded),flush=True)

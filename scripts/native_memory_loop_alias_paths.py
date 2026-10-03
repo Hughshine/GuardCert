@@ -22,7 +22,8 @@ def main():
     witness = [0,1,0,33,-7,11]
     assert output_model(witness) != output_model(witness,reverse=True)
     diagnostics = {}
-    for name in ['schedule-identity','schedule-fission','direct-identity']:
+    for name in ['schedule-identity','schedule-fission','direct-identity',
+                 'schedule-reflect','direct-reflect','shift-reflect']:
         work = WORK/name
         dump = printer_for_gcc((work/(SOURCE.stem+'.light.c')).read_text())
         marker = '\nint guard_original_main(void)\n{'
