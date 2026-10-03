@@ -54,7 +54,7 @@
 
 [同数组混合读写列表](memory-mixed-statement-tiling.md) 的完整 C 源解码、一般候选 load/store 编码和完整程序定理已闭合；源语法目前是纯写、原地更新和行首读取的任意非空组合。它复用实际多语句 validator，不把语句独立性留给调用方。实际入口已通过五组块大小、5325 个正动态矩形、10 个实际快路函数及五条拒绝路线的原生验证。
 
-[一般 Loop 与外部候选](memory-general-loop-candidates.md)、[点坐标对应](memory-point-coordinate-correspondence.md)和[语义域等价／统一入口](memory-semantic-domain-alignment.md)补全实际提取的双向执行以及外部候选完整 C 接入。[多个实际数组对象](memory-multiple-array-objects.md)已提供基于实际 block 的非别名证明、范围后短路的基址检查、具体源和候选桥及统一 Csem→Asm 定理；跨数组同单元读取与只读数组也已进入源登记表和相同依赖检查；`K=i+M; j<K` 的非矩形 C 源、宽度检查、仿射候选和使用真实块数的二维分块也已接通，见[非矩形源边界](memory-nonrectangular-source.md)；当前专用内存审计覆盖 134 个适配模块和 7 个 lowering 模块。上述早期报告记录各自入口的范围，不作为一般 C 源已经完整覆盖的结论。
+[一般 Loop 与外部候选](memory-general-loop-candidates.md)、[点坐标对应](memory-point-coordinate-correspondence.md)和[语义域等价／统一入口](memory-semantic-domain-alignment.md)补全实际提取的双向执行以及外部候选完整 C 接入。[多个实际数组对象](memory-multiple-array-objects.md)已提供基于实际 block 的非别名证明、范围后短路的基址检查、具体源和候选桥及统一 Csem→Asm 定理；跨数组同单元读取与只读数组也已进入源登记表和相同依赖检查；`K=i+M; j<K` 的非矩形 C 源、宽度检查、仿射候选和使用真实块数的二维分块也已接通，见[非矩形源边界](memory-nonrectangular-source.md)；当前专用内存审计覆盖 141 个适配模块和 7 个 lowering 模块。上述早期报告记录各自入口的范围，不作为一般 C 源已经完整覆盖的结论。
 
 [整数平移、剪切与组合坐标映射](memory-affine-iterator-maps.md)已进入完整编译器；实际候选包括斜向遍历、负向剪切、平移后交换和内层反转。点同构保证表示对应，依赖验证另行决定调度是否合法，辅助机器边界另行检查。参数化仿射内层上界已接入；更深的 C 嵌套域、任意仿射源访问和指针缓冲区仍是后续工作。
 
@@ -69,4 +69,6 @@
 
 [有限候选条件搜索](memory-candidate-conditioning.md)已把具体源体解码、登记表与单点指令对应封装为可实例化接口，并由统一完整程序入口消费。同布局混合列表和独立布局复制两种模型均有具体证明；候选在默认域失败后可由已验证检查器接受更小的外层次数区间。该阶段在 `4adeeca` 的完整审计为 127 个适配模块及 7 个 lowering 模块，假设仍为 42 项，38 组完整程序配置全部通过。任意关系式前提发现和更广的源语法仍未覆盖。
 
-[不同布局操作序列](memory-layout-operation-lists.md)已具体实例化相同语言接口，保留每条操作的真实对象、读写布局和顺序，并组合整个列表的内存执行。当前全量证明审计为 134 个适配模块和 7 个 lowering 模块，完整编译器仍为 42 项原有假设；更广的仿射源访问和更深的 C 源域继续推进。
+[不同布局操作序列](memory-layout-operation-lists.md)已具体实例化相同语言接口，保留每条操作的真实对象、读写布局和顺序，并组合整个列表的内存执行。该阶段在 `2348f12` 的全量证明审计为 134 个适配模块和 7 个 lowering 模块，完整编译器仍为 42 项原有假设；更广的仿射源访问和更深的 C 源域继续推进。
+
+[实际仿射 C 下标](memory-affine-source-accesses.md)进一步支持转置、缩放、散布及混合复制链的真实源访问编码，与统一调度、分块、条件搜索及完整程序定理相接。当前审计为 141 个适配模块和 7 个 lowering 模块，15 组汇编配置与五组分支诊断通过；非零偏移、一般多读取算术、指针切片和更深的 C 源域继续推进。

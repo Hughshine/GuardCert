@@ -276,3 +276,8 @@ native-memory-layout-copy: memory-unified-compiler
 native-memory-layout-sequence: memory-unified-compiler
 	python3 scripts/native_memory_layout_sequence.py
 	python3 scripts/native_memory_layout_sequence_paths.py
+
+.PHONY: native-memory-affine-access
+native-memory-affine-access: memory-unified-compiler
+	python3 scripts/native_memory_affine_access.py
+	python3 scripts/native_memory_affine_access_paths.py
