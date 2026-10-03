@@ -10,31 +10,34 @@ From Guard Require Import CompCertStoreSchedule CompCertMemoryActions Rectangula
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles
   GuardMemoryPolyhedral GuardMemoryLoops GuardMemoryArrayBackend GuardMemoryArrayFamilyBackend
   GuardMemorySequenceLoops GuardMemoryClightRectangles GuardMemoryValidatedRectangles
-  GuardMemoryCrossArray GuardMemoryCrossInstruction.
+  GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
 
 Inductive named_array_operation :=
 | NamedArrayOperation (mode : rectangle_memory_mode) (shape : rectangle_shape) (array : ident)
-| NamedCrossArrayOperation (shape : rectangle_shape) (write_array read_array : ident).
+| NamedCrossArrayOperation (shape : rectangle_shape) (write_array read_array : ident)
+| NamedCopyArrayOperation (shape : rectangle_shape) (write_array read_array : ident).
 Definition named_operation_shape operation :=
-  match operation with NamedArrayOperation _ shape _ | NamedCrossArrayOperation shape _ _ => shape end.
+  match operation with NamedArrayOperation _ shape _ | NamedCrossArrayOperation shape _ _ | NamedCopyArrayOperation shape _ _ => shape end.
 Definition named_operation_array operation :=
-  match operation with NamedArrayOperation _ _ array | NamedCrossArrayOperation _ array _ => array end.
+  match operation with NamedArrayOperation _ _ array | NamedCrossArrayOperation _ array _ | NamedCopyArrayOperation _ array _ => array end.
 Definition named_operation_arrays operation :=
   match operation with
   | NamedArrayOperation _ _ array => [array]
-  | NamedCrossArrayOperation _ write_array read_array => [write_array;read_array] end.
+  | NamedCrossArrayOperation _ write_array read_array | NamedCopyArrayOperation _ write_array read_array => [write_array;read_array] end.
 Definition named_operation_layout base operation := same_array_layout base (named_operation_shape operation).
 Definition named_operation_statement row column operation :=
   match operation with
   | NamedArrayOperation mode shape array => mode_statement mode shape array row column
-  | NamedCrossArrayOperation shape write_array read_array => memory_cross_update shape write_array read_array row column end.
+  | NamedCrossArrayOperation shape write_array read_array => memory_cross_update shape write_array read_array row column
+  | NamedCopyArrayOperation shape write_array read_array => memory_copy_statement shape write_array read_array row column end.
 Definition named_operation_instruction operation :=
   match operation with
   | NamedArrayOperation mode shape array => mode_instruction mode shape array
-  | NamedCrossArrayOperation shape write_array read_array => memory_cross_instruction shape write_array read_array end.
+  | NamedCrossArrayOperation shape write_array read_array => memory_cross_instruction shape write_array read_array
+  | NamedCopyArrayOperation shape write_array read_array => memory_copy_instruction shape write_array read_array end.
 Definition named_operation_physical ge locals i j operation before after :=
   match operation with
   | NamedArrayOperation mode shape array => exists block,
@@ -42,7 +45,11 @@ Definition named_operation_physical ge locals i j operation before after :=
   | NamedCrossArrayOperation shape write_array read_array => exists write_block read_block,
       rect_array_binding shape ge locals write_array write_block /\
       rect_array_binding shape ge locals read_array read_block /\
-      memory_action_run (memory_cross_action shape write_block read_block i j) before after end.
+      memory_action_run (memory_cross_action shape write_block read_block i j) before after
+  | NamedCopyArrayOperation shape write_array read_array => exists write_block read_block,
+      rect_array_binding shape ge locals write_array write_block /\
+      rect_array_binding shape ge locals read_array read_block /\
+      memory_action_run (memory_copy_action shape write_block read_block i j) before after end.
 Inductive named_array_operations_physical ge locals i j : list named_array_operation -> mem -> mem -> Prop :=
 | named_array_operations_physical_nil : forall memory, named_array_operations_physical ge locals i j [] memory memory
 | named_array_operations_physical_cons : forall operation operations before middle final,
@@ -53,22 +60,22 @@ Lemma named_array_operations_body_normal operations row column body :
   flatten_region body = map (named_operation_statement row column) operations -> normal_statement body = true.
 Proof.
   intro FLAT; apply flatten_normal_certificate; rewrite FLAT; apply Forall_map,Forall_forall;
-    intros [mode shape array|shape write_array read_array] MEMBER;
-    [apply mode_normal|reflexivity].
+    intros [mode shape array|shape write_array read_array|shape write_array read_array] MEMBER;
+    [apply mode_normal|reflexivity|reflexivity].
 Qed.
 Lemma named_array_operations_body_quiet operations row column body :
   flatten_region body = map (named_operation_statement row column) operations -> quiet_statement body = true.
 Proof.
   intro FLAT; apply flatten_quiet_certificate; rewrite FLAT; apply Forall_map,Forall_forall;
-    intros [mode shape array|shape write_array read_array] MEMBER;
-    [apply mode_quiet|reflexivity].
+    intros [mode shape array|shape write_array read_array|shape write_array read_array] MEMBER;
+    [apply mode_quiet|reflexivity|reflexivity].
 Qed.
 Lemma named_array_operations_body_writes operations row column body :
   flatten_region body = map (named_operation_statement row column) operations -> writes_only [] body.
 Proof.
   intro FLAT; apply flatten_writes_certificate; rewrite FLAT; apply Forall_map,Forall_forall;
-    intros [mode shape array|shape write_array read_array] MEMBER;
-    [apply mode_writes|constructor].
+    intros [mode shape array|shape write_array read_array|shape write_array read_array] MEMBER;
+    [apply mode_writes|constructor|constructor].
 Qed.
 Lemma named_operation_clight_inverse base operation row column fe ge locals i j temps memory after final :
   rectangle_layout_valid base -> named_operation_layout base operation ->
@@ -79,7 +86,7 @@ Lemma named_operation_clight_inverse base operation row column fe ge locals i j 
   named_operation_physical ge locals i j operation memory final /\ after = temps.
 Proof.
   intros VALID [EXTENT STRIDE] INDEX READ_INDEX ROW COLUMN RUN.
-  destruct operation as [mode shape array|shape write_array read_array]; cbn in EXTENT,STRIDE |- *.
+  destruct operation as [mode shape array|shape write_array read_array|shape write_array read_array]; cbn in EXTENT,STRIDE |- *.
   - destruct (@mode_clight_inverse_any mode shape
       ltac:(eapply same_array_layout_valid; [exact VALID|split; assumption])
       fe ge locals array row column i j temps memory after final
@@ -87,6 +94,12 @@ Proof.
       ROW COLUMN RUN) as [[block [ARRAY POINT]] TEMPS].
     split; [exists block; split; assumption|exact TEMPS].
   - destruct (@memory_cross_update_inverse shape
+      ltac:(eapply same_array_layout_valid; [exact VALID|split; assumption])
+      fe ge locals temps memory write_array read_array row column i j E0 after final Out_normal
+      ROW COLUMN ltac:(rewrite EXTENT,STRIDE; exact INDEX) RUN)
+      as [write_block [read_block [WRITE [READ [_ [TEMPS [_ POINT]]]]]]].
+    split; [exists write_block,read_block; repeat split; assumption|exact TEMPS].
+  - destruct (@memory_copy_statement_inverse shape
       ltac:(eapply same_array_layout_valid; [exact VALID|split; assumption])
       fe ge locals temps memory write_array read_array row column i j E0 after final Out_normal
       ROW COLUMN ltac:(rewrite EXTENT,STRIDE; exact INDEX) RUN)

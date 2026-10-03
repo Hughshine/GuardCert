@@ -41,11 +41,11 @@ GUARDCERT_LOOP_CANDIDATE="$PWD/examples/loop-candidates/skew-inner.sexp" \
   -stdlib build/compcert-memory-unified/runtime -S examples/native_memory_multiarray.c
 ```
 
-局部和完整编译器证明已编译；71 个内存适配模块和 7 个 lowering 模块的全量审计
+局部和完整编译器证明已编译；73 个内存适配模块和 7 个 lowering 模块的全量审计
 已经通过。指令桥保持 7 项继承假设，验证器保持 12 项，完整编译器保持 42 项并集，
 没有新增全局公理。`build/native-memory-affine-maps/report.json` 已记录十三组通过的配置，
-每组 3302 行输出与 GCC 和独立模型一致；其中也包括斜向域的错误参数拒绝回归。
-合法映射实际命中八个支持函数，内层反转命中七个，行首读取依赖使三数组函数被拒绝。
+每组 4022 行输出与 GCC 和独立模型一致；其中也包括斜向域的错误参数拒绝回归。
+合法映射实际命中十个支持函数，内层反转命中九个，行首读取依赖使三数组函数被拒绝。
 错误映射、辅助边界溢出和故障证书均拒绝。测试也检查实际基址比较及公开 iterator 修复。
 这扩展了候选侧的表示能力；源 C 仍限于已核对的矩形同布局数组操作，一般仿射 C 源
 边界、邻居访问与指针切片仍需继续实现。

@@ -77,13 +77,27 @@ void multi_cross_neighbor(int n,int m) {
   for(;i<n;++i) {for(j=0;j<m;++j) {a[i*10+j]=i*37+j+7;b[i*10+j]=a[i*10+j+1]+(i*11+j+19);}}
   emit("neighbor-a",a,120,i,j);emit("neighbor-b",b,120,i,j);
 }
+void multi_copy_read_only(int n,int m) {
+  int a[120],b[120],i=0,j=99,k;for(k=0;k<120;++k) {
+    a[k]=k%3==0?2147483647:(k%3==1?(-2147483647-1):k*3+1);b[k]=-777;
+  }
+  for(;i<n;++i) {for(j=0;j<m;++j) {b[i*10+j]=a[i*10+j];}}
+  emit("copy-a",a,120,i,j);emit("copy-b",b,120,i,j);
+}
+void multi_copy_chain(int n,int m) {
+  int a[120],b[120],c[120],i=0,j=99,k;for(k=0;k<120;++k) {a[k]=-999;b[k]=-777;c[k]=-555;}
+  for(;i<n;++i) {for(j=0;j<m;++j) {a[i*10+j]=i*37+j+7;b[i*10+j]=a[i*10+j];c[i*10+j]=b[i*10+j];}}
+  emit("copy-chain-a",a,120,i,j);emit("copy-chain-b",b,120,i,j);emit("copy-chain-c",c,120,i,j);
+}
 int main(void) {
   int n,m;for(n=0;n<=12;++n) {for(m=0;m<=10;++m) {
     multi_two(0,n,m);multi_three(0,n,m);multi_global(n,m);multi_enclosing(n,m);
     multi_two(2,n,m);multi_three(2,n,m);
     multi_cross_read(n,m);multi_cross_read_only(n,m);multi_cross_chain(n,m);multi_cross_global(n,m);
+    multi_copy_read_only(n,m);multi_copy_chain(n,m);
   }}
   multi_two(0,-1,10);multi_three(0,5,-1);multi_other_layout(12,7);multi_cross_neighbor(10,9);
   multi_cross_read(-1,10);multi_cross_read_only(3,-1);
+  multi_copy_read_only(3,-1);multi_copy_chain(-1,10);
   return 0;
 }

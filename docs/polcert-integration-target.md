@@ -54,6 +54,8 @@
 
 [同数组混合读写列表](memory-mixed-statement-tiling.md) 的完整 C 源解码、一般候选 load/store 编码和完整程序定理已闭合；源语法目前是纯写、原地更新和行首读取的任意非空组合。它复用实际多语句 validator，不把语句独立性留给调用方。实际入口已通过五组块大小、5325 个正动态矩形、10 个实际快路函数及五条拒绝路线的原生验证。
 
-[一般 Loop 与外部候选](memory-general-loop-candidates.md)、[点坐标对应](memory-point-coordinate-correspondence.md)和[语义域等价／统一入口](memory-semantic-domain-alignment.md)补全实际提取的双向执行以及外部候选完整 C 接入。[多个实际数组对象](memory-multiple-array-objects.md)已提供基于实际 block 的非别名证明、范围后短路的基址检查、具体源和候选桥及统一 Csem→Asm 定理；跨数组同单元读取与只读数组也已进入源登记表和相同依赖检查；当前专用内存审计覆盖 71 个适配模块和 7 个 lowering 模块。上述早期报告记录各自入口的范围，不作为一般 C 源已经完整覆盖的结论。
+[一般 Loop 与外部候选](memory-general-loop-candidates.md)、[点坐标对应](memory-point-coordinate-correspondence.md)和[语义域等价／统一入口](memory-semantic-domain-alignment.md)补全实际提取的双向执行以及外部候选完整 C 接入。[多个实际数组对象](memory-multiple-array-objects.md)已提供基于实际 block 的非别名证明、范围后短路的基址检查、具体源和候选桥及统一 Csem→Asm 定理；跨数组同单元读取与只读数组也已进入源登记表和相同依赖检查；当前专用内存审计覆盖 73 个适配模块和 7 个 lowering 模块。上述早期报告记录各自入口的范围，不作为一般 C 源已经完整覆盖的结论。
 
 [整数平移、剪切与组合坐标映射](memory-affine-iterator-maps.md)已进入完整编译器；实际候选包括斜向遍历、负向剪切、平移后交换和内层反转。点同构保证表示对应，依赖验证另行决定调度是否合法，辅助机器边界另行检查。一般 C 源边界、任意仿射源访问和指针缓冲区仍是后续工作。
+
+[直接数组复制](memory-direct-array-copy.md)也已进入统一完整程序路径，支持只读输入与三数组复制链，且对 Vundef 和整数赋值的区别作了具体证明。

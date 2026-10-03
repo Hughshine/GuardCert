@@ -32,6 +32,13 @@ Definition propose_named_array_operation row bound column inner_bound store : op
       | Some package => Some (NamedCrossArrayOperation
           (described_shape (package_description package)) (described_array (package_description package)) read_array)
       | None => None end
+    | Sassign lhs (Ederef (Ebinop Oadd (Evar read_array _) _ _) _) =>
+      match describe_memory_rectangle (frontend_counted_loop row bound
+        (rectangle_outer_body column inner_bound
+          (Sassign lhs (rect_value (RectangleShape 1 1 37 7) row column)))) with
+      | Some package => Some (NamedCopyArrayOperation
+          (described_shape (package_description package)) (described_array (package_description package)) read_array)
+      | None => None end
     | _ => None end
   end.
 Fixpoint propose_named_array_operations row bound column inner_bound stores : option (list named_array_operation) :=

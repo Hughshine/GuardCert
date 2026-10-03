@@ -1,7 +1,8 @@
 # 多个实际数组对象的 guarded 循环变换
 
 统一入口现在支持矩形循环中的多个实际数组对象。每条源语句可以是纯写、读取自身单元后
-更新、读取本数组的行首后更新，或 `b[index] = a[index] + payload` 的跨数组读取；
+更新、读取本数组的行首后更新、`b[index] = a[index] + payload` 的跨数组读取，
+或直接复制 `b[index] = a[index]`；
 语句列表、数组数量与各语句的算术系数由源 AST 决定。
 目前这些数组使用相同的 extent 和 stride。任意指针切片尚未进入这份 C 源识别器。
 
@@ -58,19 +59,21 @@ GUARDCERT_LOOP_CANDIDATE="$PWD/examples/loop-candidates/interchange.sexp" \
   -stdlib build/compcert-memory-unified/runtime -S examples/native_memory_multiarray.c
 ```
 
-65 个具体内存适配模块和 7 个 lowering 模块已完成重新编译和假设审计。指令桥保持原有
+73 个具体内存适配模块和 7 个 lowering 模块已完成重新编译和假设审计。指令桥保持原有
 7 项假设，实际 validator 保持 12 项，完整编译器保持 CompCert 与 validator 的 42 项
 并集，没有新增全局公理。原生测试的报告单独位于
 `build/native-memory-multiarray/report.json`，覆盖两个／三个数组、全局数组、外层循环、
 零迭代、非零入口 iterator、实际仿射与分块候选、证书／资源拒绝和源回退。
-当前十六组配置已通过，每组 3302 行完整输出与 GCC 和独立模型逐项一致。identity、
-interchange、冗余条件和四种块宽命中八个支持函数；fission 命中七个，行首读取依赖
+当前十六组配置已通过，每组 4022 行完整输出与 GCC 和独立模型逐项一致。identity、
+interchange、冗余条件和四种块宽命中十个支持函数；fission 命中九个，行首读取依赖
 使三数组函数被拒绝。只读输入、三数组跨读取链和全局跨数组访问都实际进入快路。
 反转跨数组依赖、删除全部语句和邻居索引的源提案都安全拒绝；仅保留第 0 条语句
-在单语句只读输入函数上合法接受。基址检查与公开 iterator 修复也从实际 Clight 检查。
+在两个单语句只读输入函数上合法接受。基址检查与公开 iterator 修复也从实际 Clight 检查。
 既有统一入口的十二组仿射、五组分块和五条分块拒绝回归也通过，每组 1564 行输出
 与 GCC 和独立模型一致；其中原来被拒绝的跨数组同单元读取函数现在实际进入快路。
 
 这个实现扩展的是实际数组对象的完整程序路径。一般 C 源的嵌套仿射边界、邻居读取、
 不同数组布局的共同范围检查以及任意缓冲区的重叠检查仍需继续闭合；不能从一般 IR
 提取定理推出这些 C 语法已经被识别。
+
+[直接数组复制](memory-direct-array-copy.md)进一步接通了实际整数赋值与部分 IR action 的对应，以及包含整数极值的完整程序测试。

@@ -8,7 +8,7 @@ From Guard Require Import CompCertMemoryActions CompCertStoreSchedule Rectangula
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles
   GuardMemoryLoops GuardMemorySequenceLoops GuardMemoryClightRectangles GuardMemoryArrayFamilyBackend
   GuardMemoryMultipleArrays GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryNamedOperations
-  GuardMemoryCrossArray GuardMemoryCrossInstruction.
+  GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -62,16 +62,37 @@ Proof.
   pose proof (@Mem.load_valid_access _ _ _ _ _ READ) as [PERMISSION ALIGN].
   eapply Mem.perm_implies; [apply PERMISSION; change (0 <= 0 < 4); lia|constructor].
 Qed.
+Lemma memory_copy_physical_store shape write_block read_block i j before after :
+  memory_action_run (memory_copy_action shape write_block read_block i j) before after ->
+  exists value, Mem.store Mint32 before write_block (4*(i*rectangle_stride shape+j)) value = Some after.
+Proof. intros [inputs [value [_ [_ STORE]]]]; exists value; exact STORE. Qed.
+Lemma memory_copy_base_read_valid shape write_block read_block before after :
+  memory_action_run (memory_copy_action shape write_block read_block 0 0) before after ->
+  Mem.valid_pointer before read_block 0 = true.
+Proof.
+  intros [inputs [value [LOAD [_ STORE]]]].
+  unfold memory_copy_action in LOAD; cbn in LOAD.
+  change (match Mem.load Mint32 before read_block (4*(0*rectangle_stride shape+0)) with
+    | Some old => Some [old] | None => None end = Some inputs) in LOAD.
+  replace (4*(0*rectangle_stride shape+0)) with 0 in LOAD by ring.
+  destruct (Mem.load Mint32 before read_block 0) eqn:READ; [|discriminate].
+  apply Mem.valid_pointer_nonempty_perm.
+  pose proof (@Mem.load_valid_access _ _ _ _ _ READ) as [PERMISSION ALIGN].
+  eapply Mem.perm_implies; [apply PERMISSION; change (0 <= 0 < 4); lia|constructor].
+Qed.
 Lemma named_operation_physical_store ge locals operation i j before after :
   named_operation_physical ge locals i j operation before after ->
   exists block value, Mem.store Mint32 before block
     (4*(i*rectangle_stride (named_operation_shape operation)+j)) value = Some after.
 Proof.
-  destruct operation as [mode shape array|shape write_array read_array]; cbn.
+  destruct operation as [mode shape array|shape write_array read_array|shape write_array read_array]; cbn.
   - intros [block [_ RUN]]; destruct (@memory_mode_physical_store _ _ _ _ _ _ _ RUN) as [value STORE].
     exists block,value; exact STORE.
   - intros [write_block [read_block [_ [_ RUN]]]];
     destruct (@memory_cross_physical_store _ _ _ _ _ _ _ RUN) as [value STORE].
+    exists write_block,value; exact STORE.
+  - intros [write_block [read_block [_ [_ RUN]]]];
+    destruct (@memory_copy_physical_store _ _ _ _ _ _ _ RUN) as [value STORE].
     exists write_block,value; exact STORE.
 Qed.
 Lemma named_operation_base_bindings base ge locals operation before after :
@@ -80,7 +101,7 @@ Lemma named_operation_base_bindings base ge locals operation before after :
   forall array, In array (named_operation_arrays operation) ->
   exists block, rect_array_binding base ge locals array block /\ Mem.valid_pointer before block 0 = true.
 Proof.
-  intros [EXTENT STRIDE]; destruct operation as [mode shape array|shape write_array read_array];
+  intros [EXTENT STRIDE]; destruct operation as [mode shape array|shape write_array read_array|shape write_array read_array];
     cbn in EXTENT,STRIDE |- *.
   - intros [block [BINDING RUN]] variable [SAME|BAD]; [subst variable|contradiction].
     exists block; split.
@@ -98,6 +119,18 @@ Proof.
     + exists read_block; split.
       * unfold rect_array_binding,rect_array_type in *; rewrite EXTENT in READ; exact READ.
       * eapply memory_cross_base_read_valid; exact RUN.
+  - intros [write_block [read_block [WRITE [READ RUN]]]] variable [SAME|[SAME|BAD]];
+      [subst variable|subst variable|contradiction].
+    + exists write_block; split.
+      * unfold rect_array_binding,rect_array_type in *; rewrite EXTENT in WRITE; exact WRITE.
+      * destruct (@memory_copy_physical_store _ _ _ _ _ _ _ RUN) as [value STORE].
+        replace (4*(0*rectangle_stride shape+0)) with 0 in STORE by ring.
+        apply Mem.valid_pointer_nonempty_perm.
+        pose proof (@Mem.store_valid_access_3 _ _ _ _ _ _ STORE) as [PERMISSION ALIGN].
+        eapply Mem.perm_implies; [apply PERMISSION; change (0 <= 0 < 4); lia|constructor].
+    + exists read_block; split.
+      * unfold rect_array_binding,rect_array_type in *; rewrite EXTENT in READ; exact READ.
+      * eapply memory_copy_base_read_valid; exact RUN.
 Qed.
 Lemma named_array_operations_bindings base ge locals operations before after :
   Forall (named_operation_layout base) operations ->
@@ -184,7 +217,7 @@ Lemma named_operation_registry_execution base operation entries ge locals i j be
      (RuntimeState (memory_array_registry entries) after)).
 Proof.
   intros UNIQUE [EXTENT STRIDE] ARRAYS INDEX READ_INDEX.
-  destruct operation as [mode shape array|shape write_array read_array]; cbn in EXTENT,STRIDE,ARRAYS |- *.
+  destruct operation as [mode shape array|shape write_array read_array|shape write_array read_array]; cbn in EXTENT,STRIDE,ARRAYS |- *.
   - destruct (ARRAYS array ltac:(cbn; auto)) as [entry [ENTRY [ID [ENTRY_EXTENT ARRAY]]]].
     assert (BINDING : rect_array_binding shape ge locals array (memory_array_block entry)).
     { unfold rect_array_binding,rect_array_type; rewrite EXTENT; exact ARRAY. }
@@ -206,6 +239,26 @@ Proof.
     { unfold rect_array_binding,rect_array_type; rewrite EXTENT; exact READ_ARRAY. }
     rewrite <- WRITE_ID,<- READ_ID.
     rewrite (@memory_cross_registry_execution entries write_entry read_entry shape i j before after UNIQUE
+      WRITE_ENTRY READ_ENTRY ltac:(rewrite EXTENT; exact WRITE_EXTENT)
+      ltac:(rewrite EXTENT; exact READ_EXTENT) ltac:(rewrite EXTENT,STRIDE; exact INDEX)).
+    split.
+    + intros [write_block [read_block [WRITE [READ POINT]]]].
+      rewrite WRITE_ID in WRITE; rewrite READ_ID in READ.
+      assert (WRITE_SAME : write_block = memory_array_block write_entry)
+        by (eapply rect_array_binding_unique; eauto).
+      assert (READ_SAME : read_block = memory_array_block read_entry)
+        by (eapply rect_array_binding_unique; eauto).
+      subst write_block read_block; exact POINT.
+    + intro POINT; exists (memory_array_block write_entry),(memory_array_block read_entry).
+      split; [rewrite WRITE_ID; exact WRITE_BINDING|]; split; [rewrite READ_ID; exact READ_BINDING|exact POINT].
+  - destruct (ARRAYS write_array ltac:(cbn; auto)) as [write_entry [WRITE_ENTRY [WRITE_ID [WRITE_EXTENT WRITE_ARRAY]]]].
+    destruct (ARRAYS read_array ltac:(cbn; auto)) as [read_entry [READ_ENTRY [READ_ID [READ_EXTENT READ_ARRAY]]]].
+    assert (WRITE_BINDING : rect_array_binding shape ge locals write_array (memory_array_block write_entry)).
+    { unfold rect_array_binding,rect_array_type; rewrite EXTENT; exact WRITE_ARRAY. }
+    assert (READ_BINDING : rect_array_binding shape ge locals read_array (memory_array_block read_entry)).
+    { unfold rect_array_binding,rect_array_type; rewrite EXTENT; exact READ_ARRAY. }
+    rewrite <- WRITE_ID,<- READ_ID.
+    rewrite (@memory_copy_registry_execution entries write_entry read_entry shape i j before after UNIQUE
       WRITE_ENTRY READ_ENTRY ltac:(rewrite EXTENT; exact WRITE_EXTENT)
       ltac:(rewrite EXTENT; exact READ_EXTENT) ltac:(rewrite EXTENT,STRIDE; exact INDEX)).
     split.

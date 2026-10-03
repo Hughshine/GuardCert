@@ -52,4 +52,3 @@ Proof.
 Qed.
 
 Print Assumptions check_memory_named_mapped_region_sound.
-
