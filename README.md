@@ -39,7 +39,7 @@
 
 [原生矩阵循环交换](docs/native-matrix-interchange.md) 已进一步接入完整 Csem→Asm：动态检查 `i == 0 && n == 2 && m == 2` 后，将行顺序改成列顺序，否则执行原循环。实际 CompCert 内存重排证书保留完整内存和所有退出 temporaries；条件的读取安全性从源执行推导。五个实际 guard、九组输入、局部／全局数组、外围 goto／循环、未初始化但不被读取的内层边界及拒绝例子均通过原生验证。该入口只支持一个 2×2 仿射 store 模板，未调用 PolOpt，未声称性能改善。
 
-[动态矩形循环交换](docs/dynamic-rectangles.md) 将源对应和循环重建推广到任意运行时行列数，编译器从数组长度与跨度导出短路 guard；通用核在语言提供可交换性质后证明符号化域的重排，无需枚举运行时点。独立 `RectangularCompiler.compile_rectangular_regions` 接入完整 Csem→Asm 定理，`make native-rectangular` 提取并验证两种布局的 225 个正矩形、7 组回退及外围上下文。此实例仍限于独立仿射写入和内置循环交换，未实现一般调度或分块。
+[动态矩形循环交换（含同格子读改写）](docs/dynamic-rectangles.md) 将源对应和循环重建推广到任意运行时行列数，编译器从数组长度与跨度导出短路 guard；通用核在语言提供可交换性质后证明符号化域的重排，无需枚举运行时点。独立 `RectangularCompiler.compile_rectangular_regions` 接入完整 Csem→Asm 定理，`make native-rectangular` 提取并验证两种布局的 225 个正矩形、7 组回退及外围上下文。此实例仍限于独立仿射写入和内置循环交换，未实现一般调度或分块。
 
 [辅助变量与循环分块](docs/private-stripmine.md) 让局部变换引入 private temporaries，并证明完整程序只需在源标识符上保留 temporary 值。`StripmineCompiler.compile_stripmine_regions` 实现任意核对后的正块大小的 strip-mining，包含动态尾块；循环体允许普通数组读写、多条语句、分支、真实依赖与指针别名。辅助边界无溢出前提经同一检查合成器产生，检查失败保留原循环。`make native-stripmine` 提取实际 C→Asm 入口并验证不同块大小、源 counter 出口、完整数组及调用／goto／switch 上下文。一般仿射调度及带依赖重排的多维 tiling 仍未实现。
 

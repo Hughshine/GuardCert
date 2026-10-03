@@ -1,5 +1,18 @@
 # 本轮验证记录
 
+## 2026-10-02：真实数组读取与写入的重排
+
+新增 `CompCertMemoryActions`、`RectangularMemorySchedule`、`ClightRectangularUpdate`、区域证书与选择器。真实 Mem.load 的结果作为纯计算操作数，Bernstein 三项不相交条件证明加载值保持与 Mem.store 交换，最终内存是精确相等；Clight 数组读改写的执行解码／编码闭合了具体规则。选择器核对完整读写 AST，已接入 `RectangularCompiler`，并由 `StripmineCompiler` 组合。
+
+矩形编译器重新提取和构建后，原生套件通过 225 个纯写正矩形及 345 个读改写正矩形；13 个函数实际命中 guard 和交换候选。全部数组格子、iterator 出口与 GCC 和独立 Python 模型一致；覆盖显式赋值、复合赋值、全局数组、goto、外围循环、短路未定义边界和回退。读取其他格子的形状被拒绝。报告为 `build/native-rectangular/report.json`，提取日志为 `build/readwrite-compiler-build.log`。
+
+顺序分块编译器也重新提取、构建并运行：8 个块宽的既有依赖／别名套件通过；块宽 7 下交换与分块组合又覆盖上述 225 个纯写和 345 个读改写矩形，13 个函数同时命中交换与分块。报告为 `build/native-stripmine/report.json`，提取日志为 `build/readwrite-stripmine-build.log`。
+
+读写独立性的布尔编码证明闭合；语言实例的假设集合仍为 7 个继承项，完整矩形编译器仍恰好等于 CompCert 基线的 35 个假设。审计记录实际 Mem.load、Mem.store 和完整出口对应，没有新增全局公理。`make proof compcert-bridge` 完整重编译当前核心与桥接文件，退出码 0；复用 vendor CompCert 的既有 `.vo`，没有重新清理上游。日志为 `build/readwrite-full-proof.log`。新增的保行顺序调度核随后单独编译并审计为闭合，`RectangularRowSchedule` 的真实内存实例单独编译并审计为 5 个继承项；两者尚未由该条日志覆盖。
+
+这一步尚未覆盖一般仿射域、任意候选调度或保留顺序的跨迭代依赖。
+
+
 ## 2026-10-02：真实 C 前端整个 for-loop 的版本化
 
 新增 `ClightFrontendLoopProtocol.v` 和 `ClightFrontendRegion.v`，直接证明 CompCert 为简单 signed32 `for` 生成的顺序／skip 包装。完整 AST 检查绑定计数器、上界、递增、类型及属性；语言实例提供真实执行的小步覆盖、下降度量和完成重建。它复用既有宿主、性质原子、检查编码和条件合成，不依赖未经证明的归一化。

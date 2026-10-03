@@ -16,6 +16,13 @@ for (; i < n; ++i) {
 }
 ```
 
+也接受同一格子的读改写：
+
+```c
+a[i * 10 + j] = a[i * 10 + j] + (i * 37 + j + 7);
+/* += (i * 37 + j + 7) 由前端生成同一已检查的形状。 */
+```
+
 检查的逻辑条件是：
 
 ```c
@@ -40,7 +47,7 @@ for (j = 0; j < m; ++j) {
 
 令数组长度为 `A`、行跨度为 `S`。静态检查要求 `0 < S <= A <= Int.max_signed`，且 `4*A <= Ptrofs.max_unsigned`。运行时前提为 `0 < n <= A/S`、`0 < m <= S` 和 `i == 0`。
 
-这些条件保证每个点满足 `0 <= i*S+j < A`，地址下标的乘加不回绕，指针偏移可表示。不同点的下标不同，因此它们的四字节写入不相交。语言实例提供真实 `Mem.store` 的交换定理；通用调度核组合这个性质，得到整个矩形的顺序交换证明。
+这些条件保证每个点满足 `0 <= i*S+j < A`，地址下标的乘加不回绕，指针偏移可表示。不同点的下标不同，因此它们的四字节写入不相交。语言实例提供真实 `Mem.store` 的交换定理。对于读改写，`CompCertMemoryActions` 从实际 `Mem.load` 取得操作数，纯计算产生待写值；三项 Bernstein 条件分别核对 write/write、write/read 和 read/write 不相交。每个点只读取自己写入的格子，因此不同点的三项条件都成立。通用调度核组合交换性质，得到整个矩形的顺序交换证明。
 
 写入值仍使用相同的 CompCert `Int.mul`、`Int.add` 和 `Int.repr`，每个点在两种顺序中产生相同的机器值。这里没有把 payload 运算替换成数学整数运算，也没有添加 payload 不溢出的前提。
 
@@ -53,6 +60,8 @@ for (j = 0; j < m; ++j) {
 | 语义无关调度核 | `SchedulePermutation.independent_permutation_certificate` | 指令排列加可交换性质产生调度证书；状态、指令和独立性由语言提供 |
 | 参数化域 | `rectangular_order_permutation`、`rectangular_schedule` | 任意矩形的行列顺序对应；嵌套迭代与调度执行双向对应 |
 | CompCert 内存实例 | `rectangle_interchange_preserves_memory` | 在列宽不超过跨度时，交换保持完整 `Mem`，包括未写区域和权限 |
+| 读写内存实例 | `independent_memory_actions_reorder`、`rectangle_memory_interchange_preserves_memory` | 保留实际读取的值与完整 `Mem`；从读写独立性证明交换 |
+| 真实读改写 | `rect_update_inverse`、`rect_update_evaluation`、`rectangle_update_region_rule` | 实际 Clight 赋值与 Mem.load/计算/Mem.store 双向对应；完整 AST 核对读地址、写地址、运算与类型 |
 | 真实单层循环 | `frontend_parametric_decode`、`frontend_parametric_encode` | 任意次数的 Clight 循环与语言提供的 body 关系对应，并保留声明的 temporary frame |
 | 真实嵌套循环 | `rectangle_source_decode`、`rectangle_target_encode` | 动态矩形迭代、内层重置和循环出口与真实 Clight 对应 |
 | 检查编码 | `rectangle_guard_primitives` | 通过的检查建立所需前提；源执行允许的入口上检查可安全求值 |
@@ -69,12 +78,12 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make native-rectangula
 
 编译器输出在 `build/compcert-rectangular/ccomp`。使用普通 CompCert 参数即可编译 C；`-dclight` 导出插入检查和交换后的循环。
 
-原生套件 `examples/native_rectangular.c` 测试两种布局的 225 个正矩形，以及重叠写入、非零初始下标、空内层、空外层和 signed 极值路径。它逐元素比较数组与 `i`、`j` 的出口，并分别与独立 Python 执行模型和 GCC 结果比较。套件还核对实际 Clight 中的 guard、两种循环顺序和单份源回退。
+原生套件 `examples/native_rectangular.c` 测试两种布局的 225 个正矩形，另测试读改写的 345 个正矩形，以及重叠写入、非零初始下标、空内层、空外层和 signed 极值路径。它逐元素比较数组与 `i`、`j` 的出口，并分别与独立 Python 执行模型和 GCC 结果比较。套件还核对实际 Clight 中的 guard、两种循环顺序和单份源回退。
 
-上下文覆盖局部数组、全局数组、`goto` 和外围循环。零次外层执行测试未初始化的内层边界。依赖内存的 RHS、volatile 数组和无效跨度必须被拒绝。结果保存在 `build/native-rectangular/report.json`。
+上下文覆盖局部数组、全局数组、`goto` 和外围循环。零次外层执行测试未初始化的内层边界。读取其他格子的 RHS、volatile 数组和无效跨度必须被拒绝。同格子读改写及复合赋值均实际命中。结果保存在 `build/native-rectangular/report.json`。
 
 ## 与完整多面体能力的距离
 
-目前实现的是动态矩形上的一种非恒等仿射调度，循环体限于一个纯仿射值的独立写入。它已闭合源解码、条件生成、内存重排、候选重建和完整程序证明。
+目前实现的是动态矩形上的一种非恒等仿射调度，循环体限于一个纯仿射值的独立写入或同格子读改写。它已闭合源解码、条件生成、内存重排、候选重建和完整程序证明。
 
-任意仿射域、多个读写语句的依赖验证、人工或外部提出的一般仿射调度、skewing、分块、ISS、指针数组的 alias 检查仍未实现。当前选择器内置循环交换，没有调用 Pluto 或 PolOpt，没有进行性能测量。后续分块需要新旧迭代点的对应证明、边界运算检查和辅助变量出口证明，不能仅靠排列证明宣称完成。
+任意仿射域、多个读写语句的依赖验证、保序的跨迭代读写依赖、人工或外部提出的一般仿射调度、skewing、带重排的多维分块、ISS、指针数组的 alias 检查仍未实现。顺序 strip-mining 已通过 private temporary 宿主接入，并与上述交换和读改写组合验证，见 [private-stripmine.md](private-stripmine.md)。当前选择器内置循环交换，没有调用 Pluto 或 PolOpt，没有进行性能测量。后续分块需要新旧迭代点的对应证明、边界运算检查和辅助变量出口证明，不能仅靠排列证明宣称完成。

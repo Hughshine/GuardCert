@@ -67,10 +67,13 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v \
                   theories/ClightIndexedStores.v theories/ClightSharedRegion.v \
                   theories/ClightScheduledMatrix.v theories/ScheduledRegionCompiler.v \
-                  theories/RectangularSchedule.v theories/RectangularIteration.v \
+                  theories/ScheduleInterleave.v theories/RectangularSchedule.v theories/RectangularIteration.v \
                   theories/ClightParametricLoops.v theories/ClightRectangularStore.v \
                   theories/ClightRectangularLoops.v theories/ClightRectangularGuard.v \
-                  theories/ClightRectangularRegion.v theories/ClightRectangularSelector.v theories/RectangularCompiler.v \
+                  theories/ClightRectangularRegion.v theories/ClightRectangularSelector.v \
+                  theories/CompCertMemoryActions.v theories/RectangularMemorySchedule.v theories/RectangularRowSchedule.v \
+                  theories/ClightRectangularUpdate.v theories/ClightRectangularUpdateRegion.v theories/ClightRectangularUpdateSelector.v \
+                  theories/RectangularCompiler.v \
                   theories/ClightTempFootprint.v theories/ClightTempScope.v theories/ClightProjectedExecution.v \
                   theories/ClightPrivateRegion.v theories/ClightPrivateRegionProof.v theories/ClightPrivatePool.v \
                   theories/ClightPrivateRule.v theories/CountedStripmine.v theories/ClightStripmineLoops.v \

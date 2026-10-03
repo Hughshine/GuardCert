@@ -43,6 +43,8 @@ def main():
         report = json.loads((ROOT / "build" / "stripmine-proof-report.json").read_text())
         if (report["status"] != "compiled" or report["additional_global_axioms"]
                 or report["whole_program_theorem"] != entrypoint + "_correct"
+                or set(report["sources"]) != {str(path.relative_to(ROOT))
+                    for path in (ROOT / "theories").glob("*.v")}
                 or any(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
                        for path, expected in report["sources"].items())):
             raise SystemExit("rebuild and audit the strip-mining proof before extraction")
@@ -52,6 +54,8 @@ def main():
         report = json.loads((ROOT / "build" / "rectangular-proof-report.json").read_text())
         if (report["status"] != "compiled" or report["additional_global_axioms"]
                 or report["whole_program_theorem"] != entrypoint + "_correct"
+                or set(report["sources"]) != {str(path.relative_to(ROOT))
+                    for path in (ROOT / "theories").glob("*.v")}
                 or any(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
                        for path, expected in report["sources"].items())):
             raise SystemExit("rebuild and audit the rectangular proof before extraction")
@@ -61,6 +65,8 @@ def main():
         report = json.loads((ROOT / "build" / "scheduled-matrix-proof-report.json").read_text())
         if (report["status"] != "compiled" or report["additional_global_axioms"]
                 or report["whole_program_theorem"] != "ScheduledRegionCompiler.compile_scheduled_regions_correct"
+                or set(report["sources"]) != {str(path.relative_to(ROOT))
+                    for path in (ROOT / "theories").glob("*.v")}
                 or any(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
                        for path, expected in report["sources"].items())):
             raise SystemExit("rebuild and audit the finite scheduling proof before extraction")

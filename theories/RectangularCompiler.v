@@ -3,19 +3,22 @@ From compcert.cfrontend Require Import Clight Csyntax Csem.
 From compcert.driver Require Import Compiler Complements.
 From Guard Require Import ClightGuard ClightNoWrap ClightCondition ClightTreeExamples
   ClightSameAddress ClightSignedCancel ClightRegionRewrite ClightStructuredProgress
-  AdaptiveRegionCompiler ClightRectangularSelector.
+  AdaptiveRegionCompiler ClightRectangularSelector ClightRectangularUpdateSelector.
 
 Definition select_rectangular_regions (source : Clight.statement) : option Clight.statement :=
   match select_rectangle_interchange source with
   | Some target => Some target
-  | None => select_progress_regions source
+  | None => match select_rectangle_update_interchange source with
+    | Some target => Some target | None => select_progress_regions source end
   end.
 Lemma select_rectangular_regions_sound source target :
   select_rectangular_regions source = Some target -> region_contract source target.
 Proof.
   unfold select_rectangular_regions; destruct (select_rectangle_interchange source) as [selected|] eqn:RECT.
   - intro TARGET; inversion TARGET; subst; eapply select_rectangle_interchange_sound; exact RECT.
-  - apply select_progress_regions_sound.
+  - destruct (select_rectangle_update_interchange source) as [selected|] eqn:UPDATE.
+    + intro TARGET; inversion TARGET; subst; eapply select_rectangle_update_interchange_sound; exact UPDATE.
+    + apply select_progress_regions_sound.
 Qed.
 
 Definition compile_rectangular_regions := compile_with_adaptive_regions structured_progress_supported

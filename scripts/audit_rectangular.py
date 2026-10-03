@@ -8,26 +8,39 @@ from audit_compiler import names
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "build" / "rectangular-assumptions"
-MODULES = ["SchedulePermutation", "RectangularSchedule", "RectangularIteration", "ClightParametricLoops",
+MODULES = ["SchedulePermutation", "ScheduleInterleave", "RectangularSchedule", "RectangularIteration", "ClightParametricLoops",
            "ClightRectangularStore", "ClightRectangularLoops", "ClightRectangularGuard",
-           "ClightRectangularRegion", "ClightRectangularSelector", "RectangularCompiler"]
+           "ClightRectangularRegion", "ClightRectangularSelector", "CompCertMemoryActions",
+           "RectangularMemorySchedule", "RectangularRowSchedule", "ClightRectangularUpdate", "ClightRectangularUpdateRegion",
+           "ClightRectangularUpdateSelector", "RectangularCompiler"]
 
 
 def main():
     WORK.mkdir(parents=True, exist_ok=True)
     source = WORK / "Audit.v"
     source.write_text("""From compcert.driver Require Import Compiler.
-From Guard Require Import AbstractSchedule SchedulePermutation RectangularSchedule RectangularIteration
+From Guard Require Import AbstractSchedule SchedulePermutation ScheduleInterleave RectangularSchedule RectangularIteration
  ClightParametricLoops ClightRectangularGuard ClightRectangularLoops ClightRectangularRegion
- ClightRectangularSelector RectangularCompiler.
+ ClightRectangularSelector CompCertMemoryActions RectangularMemorySchedule RectangularRowSchedule
+ ClightRectangularUpdate ClightRectangularUpdateRegion ClightRectangularUpdateSelector RectangularCompiler.
 Goal True. idtac "RECT_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "RECT_KERNEL_BEGIN". exact I. Qed.
 Print Assumptions SchedulePermutation.independent_permutation_certificate.
 Print Assumptions SchedulePermutation.rectangular_order_permutation.
+Print Assumptions ScheduleInterleave.rectangular_row_order_certificate.
 Print Assumptions RectangularIteration.rectangular_schedule.
+Print Assumptions CompCertMemoryActions.memory_actions_independentb_correct.
+Print Assumptions RectangularRowSchedule.zseq_nodup.
 Goal True. idtac "RECT_INSTANCE_BEGIN". exact I. Qed.
 Print Assumptions RectangularSchedule.rectangle_interchange_preserves_memory.
+Print Assumptions CompCertMemoryActions.independent_memory_actions_reorder.
+Print Assumptions RectangularMemorySchedule.rectangle_memory_interchange_preserves_memory.
+Print Assumptions RectangularRowSchedule.rectangle_row_interchange_preserves_memory.
+Print Assumptions ClightRectangularUpdate.rect_update_inverse.
+Print Assumptions ClightRectangularUpdate.rect_update_evaluation.
+Print Assumptions ClightRectangularUpdateRegion.rectangle_update_local.
+Print Assumptions ClightRectangularUpdateSelector.select_rectangle_update_interchange_sound.
 Print Assumptions ClightParametricLoops.frontend_parametric_decode.
 Print Assumptions ClightParametricLoops.frontend_parametric_encode.
 Print Assumptions ClightRectangularGuard.rectangle_guard_primitives.
@@ -60,9 +73,11 @@ Goal True. idtac "RECT_END". exact I. Qed.
         "instance_assumptions": sorted(names(instance)),
         "whole_program_assumptions": sorted(names(compiler)), "additional_global_axioms": [],
         "whole_program_theorem": "RectangularCompiler.compile_rectangular_regions_correct",
-        "scope": "dynamic positive rectangular loops with affine independent signed32 stores",
+        "scope": "dynamic positive rectangular loops with affine independent signed32 stores or own-cell read-modify-write",
         "runtime_trip_counts_enumerated_by_compiler": False,
-        "actual_mem_store_execution": True, "exact_complete_memory_equality": True,
+        "actual_mem_store_execution": True, "actual_mem_load_execution": True,
+        "bernstein_read_write_independence": True,
+        "cross_iteration_dependent_reads_accepted": False, "exact_complete_memory_equality": True,
         "exact_complete_temporary_exit": True, "source_justified_conditional_check_domain": True,
         "full_ast_binding_checked": True, "guard_limits_derived_from_layout": True,
         "polcert_or_cinstr_instance_imported": False, "polopt_called": False,
