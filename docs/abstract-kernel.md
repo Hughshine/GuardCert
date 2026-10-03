@@ -63,6 +63,8 @@ if (x <= 2147483647U) {       /* validity: 检查提供正证据 */
 
 条件代码也不必局限于一棵复制后续分支的树。`memory_check_statement_execution` 暴露保持入口状态的检查语句契约，接受时正常完成，拒绝时返回 `break`。顺序组合定理和 `memory_private_rule_sequential_sound` 将这个契约接到既有性质公式、片段规则与完整程序宿主。当前多指针生成器使用顺序检查和共享回退；具体编译与原生验证状态见 [多指针检查](memory-multiple-pointer-guards.md)。
 
+`StatefulGuard.v` 随后把有状态检查的组合提升到独立的语言接口。语言选择状态、观察和执行关系，并证明条件构造器在检查后状态执行所选命令。编码器证明安全执行域、公共状态关系和接受后的前提；局部候选证明与源观察运输由实例提供。`StatefulGuardComposition.v` 的短路合取还要求域稳定、关系可组合，以及第二个检查保留第一个性质。两个核心模块均没有全局公理，拒绝不表示前提为假。具体 Clight 实例及 `memory_projected_private_rule_stateful_sound` 实际进入[一般仿射地址扫描](memory-affine-alias-scans.md)的编译证明，后续整程序进展仍由语言宿主建立。
+
 ## PolCert 的对接边界
 
 v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳定性，以及 Bernstein 读写条件下的交换证明。`PolCertSchedule.v` 已直接使用这一真实模块实例化 `AbstractSchedule`，证明有限相邻交换证书保持结果模状态等价。它不解释地址，也不是多面体 schedule validator。
@@ -79,9 +81,9 @@ v10 的 `Opt_prepared_correct` 当前是“目标 Loop 终止执行 → 存在�
 
 `PolCertOptimizer.v` 已直接调用真实 `Opt_prepared` 并消费其正确性证明。适配器使用现有 `PolIRs.Loop`；metadata 通过已证明的相等检查核对，失败时返回原 Loop 程序。该入口沿用上游 alarm monad 的成功返回契约。复现与精确边界见 [优化器适配](../adapters/polcert-optimizer/README.md)。
 
-目前已接通的真实 Clight 宿主包括表达式、有限多语句区域及严格计数循环；动态数组双写的调度包已经进入完整程序与提取路径。跨数组 alias 检查和实际 PolOpt 的完整程序链仍未接通。条件树直接嵌入会复制叶子代码，可能需要后续共享 continuation 降低代码体积。本轮没有性能收益或原生多面体优化的实验结论。
+早期真实 Clight 宿主包括表达式、有限多语句区域及严格计数循环，动态数组双写的调度包随后进入完整程序与提取路径。当前自建多面体路线已接通跨数组 alias 检查、真实源／候选执行、一般仿射候选及二维 tiling，见[统一内存编译器](../adapters/compcert-memory/README.md)。实际 `Opt_prepared` 的旧 wrapped 入口仍没有完整的具体 C 桥接；用户允许必要地重实现 PolCert 的基本功能，因此它不是当前路线的验收条件。顺序检查与共享回退已用于减少条件树的复制。已有原生功能验证，没有性能收益结论。
 
-[直接矩阵路线](native-matrix-interchange.md) 已运行一个 2×2 循环交换及[外部有限顺序的展开候选](untrusted-point-schedules.md)，完整保存实际内存和所有退出 temporaries。动态条件的安全读取域来自源执行，通用检查编译器及调度检查器实际复用。它们是固定源域的端到端原型；没有一般动态 affine 调度、tiling 或性能结论。
+[早期直接矩阵路线](native-matrix-interchange.md)运行一个 2×2 循环交换及[外部有限顺序的展开候选](untrusted-point-schedules.md)，完整保存实际内存和所有退出 temporaries。动态条件的安全读取域来自源执行，通用检查编译器及调度检查器实际复用。它们是固定源域的端到端原型；一般动态仿射调度与 tiling 的后续证据见上述统一内存编译器，不能用早期入口的结果替代。
 
 `PolCertAffineClight.v` 和 `PolCertAffineGuard.v` 已补出数学整数与 signed32 的表达式桥接：静态区间检查覆盖常量、变量、加法及常量乘法的每个中间值；实际 Clight 范围 guard 的接受建立输入区间，布尔测试 lowering 保持实际 Loop 的求值。这些定理消费已证明的性质接口，没有向通用核心加入整数语义。详细契约和不支持的运算见 [仿射桥接](polcert-affine-clight.md)。
 

@@ -25,7 +25,7 @@
 
 ## 原型
 
-当前主线是 `AbstractGuard.v` / `SemanticFacts.v`：通用核不内置整数或内存语义，语言实例提供性质、检查原语与条件选择。`ClightCondition.v` 将生成的条件树降低成实际 Clight 控制流，表达式与语句宿主接到完整程序模拟，`AdaptiveRegionCompiler.v` 接到 C→Asm。overflow 取消规则已使用这个路径。`ResidualGuard.v` 提供有证书的静态消去，尚未进入原生驱动；`AbstractSchedule.v` 的性质驱动交换链及可执行检查器已进入实际矩阵优化的原生证明链。详细接口与 PolCert 尚需的桥接见 [abstract-kernel.md](docs/abstract-kernel.md)。
+当前主线是 `AbstractGuard.v` / `SemanticFacts.v`：通用核不内置整数或内存语义，语言实例提供性质、检查原语与条件选择。`ClightCondition.v` 将生成的条件树降低成实际 Clight 控制流，表达式与语句宿主接到完整程序模拟，`AdaptiveRegionCompiler.v` 接到 C→Asm。overflow 取消规则已使用这个路径。`StatefulGuard.v` 进一步允许检查改变私有状态，由语言实例提供公共状态关系、源观察运输和条件构造证明；一般仿射地址扫描已实际通过它接入统一完整程序入口。`ResidualGuard.v` 提供有证书的静态消去，尚未进入原生驱动；`AbstractSchedule.v` 的性质驱动交换链及可执行检查器已进入实际矩阵优化的原生证明链。详细接口与 PolCert 尚需的桥接见 [abstract-kernel.md](docs/abstract-kernel.md)。
 
 [同地址读取实例](docs/clight-same-address.md) 在这一端到端路径上增加内存性质维度：源 load 建立检查有效性，运行时 `p == q` 允许后端消除重复读取。原生检查覆盖快路、回退、unsigned 边界及 signed／volatile 排除。
 
@@ -136,3 +136,5 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 [显式源元数据的候选接口](docs/memory-source-metadata.md)消除访问式未使用某些循环维度、或遗漏稳定参数时的调度维数猜测。完整程序定理对任意候选提议器继续成立；269 个适配模块和七个 lowering 模块全量审计通过，九组完整汇编配置和六组分支诊断通过，`make native-memory-source-metadata` 可复现。
 
 [循环式 alias guard](docs/memory-loop-alias-guards.md)允许检查修改私有计数器和标志，并证明检查后的状态满足候选前提。一个计数轴、两个指针及逐元素访问已接入完整 C→Asm 入口，检查代码不按循环上界展开。当前扫描为 O(n²)，逻辑窗口为 1024。[坐标反射](docs/memory-coordinate-reflection.md)随后接入一维反向执行及反射和平移的组合：280 个适配模块和七个 lowering 模块全量审计、1200 次完整汇编调用及 600 次分支诊断通过，`make native-memory-loop-alias` 可复现。
+
+[一般一维仿射地址扫描](docs/memory-affine-alias-scans.md)随后接入非单位步长、递减／常量下标和多个指针，并实际实例化有状态的语言无关核心。293 个适配模块、七个 lowering 模块和两个抽象核心模块的全量审计通过，完整编译器仍为原有 42 项假设；2696 次完整汇编调用和 1366 次分支诊断通过。新路径至多构造 32 条原始访问之间的 O(A²n²) 检查，资源超限继续尝试旧路径；检查接受也必须有独立的调度依赖证书。`make native-memory-affine-alias` 可复现。

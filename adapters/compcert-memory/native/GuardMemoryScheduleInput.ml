@@ -21,12 +21,13 @@ let rec natural_size = function
 let coordinate_axis dimensions arity syntax =
   let open GuardMemoryCandidate in
   match syntax with
-  | List [Atom "coordinate"; position] ->
+  | List [Atom (("coordinate" | "negative-coordinate") as direction); position] ->
       let position = small position in
       if position >= dimensions || dimensions > 16 || arity > 32
       then invalid_arg "coordinate schedule axis";
       let coefficients = List.init arity (fun _ -> Atom "0") @
-        List.init dimensions (fun index -> Atom (if index=position then "1" else "0")) in
+        List.init dimensions (fun index -> Atom (if index=position
+          then (if direction="negative-coordinate" then "-1" else "1") else "0")) in
       List [Atom "affine"; List coefficients; Atom "0"]
   | _ -> syntax
 

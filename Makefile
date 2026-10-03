@@ -5,7 +5,8 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRest
            theories/SilentRegionProtocol.v \
            theories/PolCertCompat.v \
            theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
-           theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
+           theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v \
+           theories/StatefulGuard.v theories/StatefulGuardComposition.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
         guarded-compiler scheduled-compiler rectangular-compiler stripmine-compiler native-demo native-schedules native-rectangular native-stripmine check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
@@ -341,3 +342,8 @@ native-memory-source-metadata: memory-unified-compiler
 native-memory-loop-alias: memory-unified-compiler
 	python3 scripts/native_memory_loop_alias.py
 	python3 scripts/native_memory_loop_alias_paths.py
+
+.PHONY: native-memory-affine-alias
+native-memory-affine-alias: memory-unified-compiler
+	python3 scripts/native_memory_affine_alias.py
+	python3 scripts/native_memory_affine_alias_paths.py

@@ -108,3 +108,5 @@ theories/ClightStripmineGuard.v
 theories/ClightStripmineRegion.v
 theories/ClightStripmineSelector.v
 theories/StripmineCompiler.v
+theories/StatefulGuard.v
+theories/StatefulGuardComposition.v

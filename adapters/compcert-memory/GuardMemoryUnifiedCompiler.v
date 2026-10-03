@@ -19,7 +19,7 @@ From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler 
   GuardMemoryScheduledCompiler GuardMemoryParametricSyntax GuardMemoryParametricCompiler
   GuardMemoryLayoutCopySyntax GuardMemoryLayoutCopyCompiler
   GuardMemoryParametricRegion GuardMemoryParametricRegionInstances GuardMemoryParametricRegionCompiler GuardMemoryParametricWidthSearch
-  GuardMemoryTripleSyntax GuardMemoryTripleCompiler GuardMemoryRecursiveSyntax GuardMemoryRecursiveCompiler GuardMemoryPointerSyntax GuardMemoryPointerCompiler GuardMemoryScalarPointerSyntax GuardMemoryScalarPointerCompiler GuardMemoryScalarArraySyntax GuardMemoryScalarArrayCompiler GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerCompiler GuardMemoryLinearPointerSyntax GuardMemoryLinearPointerPair GuardMemoryLinearPointerCompiler.
+  GuardMemoryTripleSyntax GuardMemoryTripleCompiler GuardMemoryRecursiveSyntax GuardMemoryRecursiveCompiler GuardMemoryPointerSyntax GuardMemoryPointerCompiler GuardMemoryScalarPointerSyntax GuardMemoryScalarPointerCompiler GuardMemoryScalarArraySyntax GuardMemoryScalarArrayCompiler GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerCompiler GuardMemoryLinearPointerSyntax GuardMemoryLinearPointerPair GuardMemoryLinearPointerCompiler GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerCompiler.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -90,11 +90,38 @@ Proof.
   - apply mayReturn_pure in RUN; discriminate.
   - eapply check_memory_linear_pointer_scheduled_package_sound; exact RUN.
 Qed.
+Definition check_memory_affine_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
+  match describe_memory_affine_pointer_region source with
+  | Some package => match propose (memory_multi_pointer_unified_request (affine_pointer_region package)) with
+      | Some (GuardedAffineCandidate candidate swaps) =>
+          check_memory_affine_pointer_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
+      | Some (GuardedMappedCandidate candidate steps) =>
+          check_memory_affine_pointer_mapped_package live pool package candidate steps
+      | Some (GuardedScheduleCandidate schedules steps) =>
+          check_memory_affine_pointer_scheduled_package live pool package schedules steps
+      | _ => CoreAlarmed.Base.pure None end
+  | None => CoreAlarmed.Base.pure None end.
+Theorem check_memory_affine_pointer_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_affine_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_affine_pointer_unified_region; destruct (describe_memory_affine_pointer_region source) as [package|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct (propose (memory_multi_pointer_unified_request (affine_pointer_region package))) as [candidate|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct candidate; intro RUN.
+  - eapply check_memory_affine_pointer_mapped_package_sound; exact RUN.
+  - eapply check_memory_affine_pointer_mapped_package_sound; exact RUN.
+  - apply mayReturn_pure in RUN; discriminate.
+  - eapply check_memory_affine_pointer_scheduled_package_sound; exact RUN.
+Qed.
 Definition check_memory_multi_pointer_unified_region live pool propose source :=
   BIND target <- check_memory_linear_pointer_unified_region live pool propose source -;
   match target with
   | Some target => CoreAlarmed.Base.pure (Some target)
-  | None => check_memory_finite_multi_pointer_unified_region live pool propose source end.
+  | None => BIND target <- check_memory_affine_pointer_unified_region live pool propose source -;
+      match target with
+      | Some target => CoreAlarmed.Base.pure (Some target)
+      | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end.
 Theorem check_memory_multi_pointer_unified_region_sound live pool propose source target :
   mayReturn (check_memory_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
 Proof.
@@ -102,7 +129,10 @@ Proof.
     bind_imp_destruct RUN candidate CHECK; destruct candidate as [candidate|].
   - apply mayReturn_pure in RUN; inversion RUN; subst;
       eapply check_memory_linear_pointer_unified_region_sound; exact CHECK.
-  - eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
+  - bind_imp_destruct RUN affine AFFINE; destruct affine as [affine|].
+    + apply mayReturn_pure in RUN; inversion RUN; subst;
+        eapply check_memory_affine_pointer_unified_region_sound; exact AFFINE.
+    + eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
 Qed.
 Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=
   GuardedMemoryRequest (memory_scalar_pointer_region_instructions package)
