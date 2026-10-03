@@ -11,6 +11,7 @@ From Guard Require Import ClightGuard ClightCondition ClightPrivateRule ClightPr
   ClightStructuredProgress ClightRectangularSelector ClightRectangularStore
   ClightRectangularGuard ClightRectangularRegion ClightRectangularLoops GuardCompiler
   ClightFrontendLoopProtocol ClightFrontendRegion ClightStraightLine ClightSharedRegion ClightSyntaxEquality.
+From GuardMemory Require Import GuardMemoryRecursiveSource GuardMemoryAffineSourceContext.
 From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight GuardMemoryTiledCompiler
   GuardMemoryArrayFamilyBackend GuardMemoryOperationsClight GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler
   GuardMemoryInstr GuardMemoryLoops GuardMemoryProposedClight GuardMemoryProposedCompiler
@@ -29,10 +30,21 @@ Inductive guarded_memory_candidate :=
 | GuardedMappedCandidate (candidate : L.stmt) (steps : list memory_affine_reindex)
 | GuardedTilingCandidate (rows columns : Z)
 | GuardedScheduleCandidate (schedules : list (list (list Z * Z))) (steps : list memory_affine_reindex).
-Definition guarded_memory_proposer := list memory_instruction -> option guarded_memory_candidate.
+(** Proposal metadata comes from the checked source package. The context arity
+    counts loop bounds and stable parameters, including unused columns.
+    Correctness remains quantified over every untrusted proposer. *)
+Record guarded_memory_request := GuardedMemoryRequest {
+  request_instructions : list memory_instruction;
+  request_coordinates : nat;
+  request_context_arity : nat
+}.
+Definition guarded_memory_proposer := guarded_memory_request -> option guarded_memory_candidate.
+Definition memory_multi_pointer_unified_request source (package : memory_multi_pointer_region_package source) :=
+  GuardedMemoryRequest (memory_multi_pointer_region_instructions package)
+    (length (memory_nest_iterators (multi_pointer_region_nest package))) (length (memory_multi_pointer_region_context package)).
 Definition check_memory_multi_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_multi_pointer_region source with
-  | Some package => match propose (memory_multi_pointer_region_instructions package) with
+  | Some package => match propose (memory_multi_pointer_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
           check_memory_multi_pointer_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
       | Some (GuardedMappedCandidate candidate steps) =>
@@ -46,7 +58,7 @@ Theorem check_memory_multi_pointer_unified_region_sound live pool propose source
 Proof.
   unfold check_memory_multi_pointer_unified_region; destruct (describe_memory_multi_pointer_region source) as [package|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
-  destruct (propose (memory_multi_pointer_region_instructions package)) as [candidate|];
+  destruct (propose (memory_multi_pointer_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct candidate; intro RUN.
   - eapply check_memory_multi_pointer_mapped_region_sound; exact RUN.
@@ -54,9 +66,12 @@ Proof.
   - eapply check_memory_multi_pointer_tiled_region_sound; exact RUN.
   - eapply check_memory_multi_pointer_scheduled_region_sound; exact RUN.
 Qed.
+Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=
+  GuardedMemoryRequest (memory_scalar_pointer_region_instructions package)
+    (length (memory_nest_iterators (scalar_pointer_region_nest package))) (length (memory_scalar_pointer_region_context package)).
 Definition check_memory_scalar_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_scalar_pointer_region source with
-  | Some package => match propose (memory_scalar_pointer_region_instructions package) with
+  | Some package => match propose (memory_scalar_pointer_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
           check_memory_scalar_pointer_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
       | Some (GuardedMappedCandidate candidate steps) =>
@@ -70,7 +85,7 @@ Theorem check_memory_scalar_pointer_unified_region_sound live pool propose sourc
 Proof.
   unfold check_memory_scalar_pointer_unified_region; destruct (describe_memory_scalar_pointer_region source) as [package|];
     [|apply check_memory_multi_pointer_unified_region_sound].
-  destruct (propose (memory_scalar_pointer_region_instructions package)) as [candidate|];
+  destruct (propose (memory_scalar_pointer_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct candidate; intro RUN.
   - eapply check_memory_scalar_pointer_mapped_region_sound; exact RUN.
@@ -78,9 +93,12 @@ Proof.
   - eapply check_memory_scalar_pointer_tiled_region_sound; exact RUN.
   - eapply check_memory_scalar_pointer_scheduled_region_sound; exact RUN.
 Qed.
+Definition memory_pointer_unified_request source (package : memory_pointer_region_package source) :=
+  GuardedMemoryRequest (memory_pointer_region_instructions package)
+    (length (memory_nest_iterators (pointer_region_nest package))) (length (memory_nest_bounds (pointer_region_nest package))).
 Definition check_memory_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_pointer_region source with
-  | Some package => match propose (memory_pointer_region_instructions package) with
+  | Some package => match propose (memory_pointer_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
           check_memory_pointer_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
       | Some (GuardedMappedCandidate candidate steps) =>
@@ -94,7 +112,7 @@ Theorem check_memory_pointer_unified_region_sound live pool propose source targe
 Proof.
   unfold check_memory_pointer_unified_region; destruct (describe_memory_pointer_region source) as [package|];
     [|apply check_memory_scalar_pointer_unified_region_sound].
-  destruct (propose (memory_pointer_region_instructions package)) as [candidate|];
+  destruct (propose (memory_pointer_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct candidate; intro RUN.
   - eapply check_memory_pointer_mapped_region_sound; exact RUN.
@@ -102,9 +120,12 @@ Proof.
   - eapply check_memory_pointer_tiled_region_sound; exact RUN.
   - eapply check_memory_pointer_scheduled_region_sound; exact RUN.
 Qed.
+Definition memory_scalar_array_unified_request source (package : memory_scalar_array_region_package source) :=
+  GuardedMemoryRequest (memory_scalar_array_region_instructions package)
+    (length (memory_nest_iterators (scalar_array_region_nest package))) (length (memory_scalar_array_region_context package)).
 Definition check_memory_scalar_array_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_scalar_array_region source with
-  | Some package => match propose (memory_scalar_array_region_instructions package) with
+  | Some package => match propose (memory_scalar_array_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
           check_memory_scalar_array_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
       | Some (GuardedMappedCandidate candidate steps) =>
@@ -118,7 +139,7 @@ Theorem check_memory_scalar_array_unified_region_sound live pool propose source 
 Proof.
   unfold check_memory_scalar_array_unified_region; destruct (describe_memory_scalar_array_region source) as [package|];
     [|apply check_memory_pointer_unified_region_sound].
-  destruct (propose (memory_scalar_array_region_instructions package)) as [candidate|];
+  destruct (propose (memory_scalar_array_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct candidate; intro RUN.
   - eapply check_memory_scalar_array_mapped_region_sound; exact RUN.
@@ -126,9 +147,12 @@ Proof.
   - eapply check_memory_scalar_array_tiled_region_sound; exact RUN.
   - eapply check_memory_scalar_array_scheduled_region_sound; exact RUN.
 Qed.
+Definition memory_recursive_unified_request source (package : memory_recursive_region_package source) :=
+  GuardedMemoryRequest (memory_recursive_region_instructions package)
+    (length (memory_nest_iterators (recursive_region_nest package))) (length (memory_nest_bounds (recursive_region_nest package))).
 Definition check_memory_recursive_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_recursive_region source with
-  | Some package => match propose (memory_recursive_region_instructions package) with
+  | Some package => match propose (memory_recursive_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
           check_memory_recursive_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
       | Some (GuardedMappedCandidate candidate steps) =>
@@ -142,7 +166,7 @@ Theorem check_memory_recursive_unified_region_sound live pool propose source tar
 Proof.
   unfold check_memory_recursive_unified_region; destruct (describe_memory_recursive_region source) as [package|];
     [|apply check_memory_scalar_array_unified_region_sound].
-  destruct (propose (memory_recursive_region_instructions package)) as [candidate|];
+  destruct (propose (memory_recursive_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct candidate; intro RUN.
   - eapply check_memory_recursive_mapped_region_sound; exact RUN.
@@ -150,9 +174,12 @@ Proof.
   - eapply check_memory_recursive_tiled_region_sound; exact RUN.
   - eapply check_memory_recursive_scheduled_region_sound; exact RUN.
 Qed.
+Definition memory_triple_unified_request source (package : memory_triple_region_package source) :=
+  GuardedMemoryRequest (memory_triple_region_instructions package)
+    3%nat 3%nat.
 Definition check_memory_triple_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_triple_region source with
-  | Some package => match propose (memory_triple_region_instructions package) with
+  | Some package => match propose (memory_triple_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
           check_memory_triple_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
       | Some (GuardedMappedCandidate candidate steps) =>
@@ -166,7 +193,7 @@ Theorem check_memory_triple_unified_region_sound live pool propose source target
 Proof.
   unfold check_memory_triple_unified_region; destruct (describe_memory_triple_region source) as [package|];
     [|apply check_memory_recursive_unified_region_sound].
-  destruct (propose (memory_triple_region_instructions package)) as [candidate|];
+  destruct (propose (memory_triple_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct candidate; intro RUN.
   - eapply check_memory_triple_mapped_region_sound; exact RUN.
@@ -174,10 +201,13 @@ Proof.
   - eapply check_memory_triple_tiled_region_sound; exact RUN.
   - eapply check_memory_triple_scheduled_region_sound; exact RUN.
 Qed.
+Definition memory_layout_copy_unified_request source (package : memory_layout_copy_package source) :=
+  GuardedMemoryRequest (memory_layout_copy_package_instructions package)
+    2%nat (length (memory_source_context (rectangle_row (layout_copy_description package)) (rectangle_bound (layout_copy_description package)) (layout_copy_expression package))).
 Definition check_memory_layout_copy_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_layout_copy source with
   | Some package =>
-    match propose (memory_layout_copy_package_instructions package) with
+    match propose (memory_layout_copy_unified_request package) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_layout_copy_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
     | Some (GuardedMappedCandidate candidate steps) =>
@@ -193,7 +223,7 @@ Proof.
   unfold check_memory_layout_copy_unified_region.
   destruct (describe_memory_layout_copy source) as [package|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
-  destruct (propose (memory_layout_copy_package_instructions package)) as [candidate|];
+  destruct (propose (memory_layout_copy_unified_request package)) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_layout_copy_mapped_region_sound; exact CHECK.
@@ -201,10 +231,13 @@ Proof.
   - eapply check_memory_layout_copy_tiled_region_sound; exact CHECK.
   - eapply check_memory_layout_copy_scheduled_region_sound; exact CHECK.
 Qed.
+Definition memory_parametric_unified_request source (package : memory_parametric_region_package source) :=
+  GuardedMemoryRequest (memory_parametric_region_instructions package)
+    2%nat (length (memory_source_context (rectangle_row (parametric_region_description package)) (rectangle_bound (parametric_region_description package)) (parametric_region_expression package))).
 Definition check_memory_parametric_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_parametric_region source with
   | Some package =>
-    match propose (memory_parametric_region_instructions package) with
+    match propose (memory_parametric_unified_request package) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_parametric_with_widths
         (fun describe source => check_memory_parametric_region_conditioned live pool describe
@@ -232,7 +265,7 @@ Proof.
   unfold check_memory_parametric_unified_region.
   destruct (describe_memory_parametric_region source) as [package|];
     [|apply check_memory_triple_unified_region_sound].
-  destruct (propose (memory_parametric_region_instructions package)) as [candidate|];
+  destruct (propose (memory_parametric_unified_request package)) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_parametric_with_widths_sound; [|exact CHECK].
@@ -244,10 +277,13 @@ Proof.
   - eapply check_memory_parametric_with_widths_sound; [|exact CHECK].
     intros describe original chosen ACCEPT; eapply check_memory_parametric_region_scheduled_sound; exact ACCEPT.
 Qed.
+Definition memory_ragged_unified_request source (package : memory_ragged_package source) :=
+  GuardedMemoryRequest (map named_operation_instruction (ragged_operations package))
+    2%nat 2%nat.
 Definition check_memory_ragged_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_ragged source with
   | Some package =>
-    match propose (map named_operation_instruction (ragged_operations package)) with
+    match propose (memory_ragged_unified_request package) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_ragged_mapped_region live pool
         (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
@@ -264,7 +300,7 @@ Proof.
   unfold check_memory_ragged_unified_region.
   destruct (describe_memory_ragged source) as [package|];
     [|apply check_memory_parametric_unified_region_sound].
-  destruct (propose (map named_operation_instruction (ragged_operations package))) as [candidate|];
+  destruct (propose (memory_ragged_unified_request package)) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_ragged_mapped_region_sound; exact CHECK.
@@ -272,10 +308,13 @@ Proof.
   - eapply check_memory_ragged_tiled_region_sound; exact CHECK.
   - eapply check_memory_ragged_scheduled_region_sound; exact CHECK.
 Qed.
+Definition memory_named_unified_request source (package : memory_named_package source) :=
+  GuardedMemoryRequest (map named_operation_instruction (named_operations package))
+    2%nat 2%nat.
 Definition check_memory_named_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_named source with
   | Some package =>
-    match propose (map named_operation_instruction (named_operations package)) with
+    match propose (memory_named_unified_request package) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_named_affine_region live pool (fun _ => Some (candidate,swaps)) source
     | Some (GuardedMappedCandidate candidate steps) =>
@@ -291,7 +330,7 @@ Proof.
   unfold check_memory_named_unified_region.
   destruct (describe_memory_named source) as [package|];
     [|apply check_memory_ragged_unified_region_sound].
-  destruct (propose (map named_operation_instruction (named_operations package))) as [candidate|];
+  destruct (propose (memory_named_unified_request package)) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_named_affine_region_sound; exact CHECK.
@@ -299,10 +338,13 @@ Proof.
   - eapply check_memory_named_tiled_region_sound; exact CHECK.
   - eapply check_memory_named_scheduled_region_sound; exact CHECK.
 Qed.
+Definition memory_unified_request source (package : memory_operations_package source) :=
+  GuardedMemoryRequest (map (operation_instruction 3%positive) (operations_list package))
+    2%nat 2%nat.
 Definition check_memory_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_operations source with
   | Some package =>
-    match propose (map (operation_instruction 3%positive) (operations_list package)) with
+    match propose (memory_unified_request package) with
     | Some (GuardedAffineCandidate candidate swaps) =>
       check_memory_proposed_region live pool (fun _ => Some (candidate,swaps)) source
     | Some (GuardedMappedCandidate candidate steps) =>
@@ -320,7 +362,7 @@ Proof.
   unfold check_memory_unified_region.
   destruct (describe_memory_operations source) as [package|];
     [|apply check_memory_named_unified_region_sound].
-  destruct (propose (map (operation_instruction 3%positive) (operations_list package))) as [candidate|];
+  destruct (propose (memory_unified_request package)) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
   - eapply check_memory_proposed_region_sound; exact CHECK.

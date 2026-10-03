@@ -112,3 +112,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 Signed affine source accesses now use a proved lower and upper box check. The 241-module audit retains the existing 42 whole-compiler assumptions. Thirteen assembly configurations and ten branch diagnostics (5463 calls) passed; see [the signed access record](../../docs/memory-signed-affine-access.md) for the compiler hash and the distinction between assembly checks and instrumented Clight diagnostics. Multiple pointer inputs still require a new source and backend instance.
 
 [多指针源与动态分离检查](../../docs/memory-multiple-pointer-guards.md)接入多个稳定 `int *` 参数、各自的实际读写访问、活动访问权限与对齐证明、受限视图中的依赖验证、真实候选 lowering 及同一完整程序定理。全量审计为 269 个适配模块和七个 lowering 模块；完整编译器仍为 42 项原有假设。11 组完整汇编配置及九组／5256 次调用的分支诊断通过，`make native-memory-multi-pointer` 可复现。
+
+[候选源元数据](../../docs/memory-source-metadata.md)由各源包提供实际维数和完整参数前缀，便利坐标调度不再从访问系数反推 ABI。269 个适配模块及七个 lowering 模块的全量审计、九组／828 次完整汇编调用和六组／72 次分支调用通过，编译器保持原有 42 项假设。

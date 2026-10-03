@@ -588,6 +588,7 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "multi_pointer_guard_synthesized_from_activated_source_footprint": True,
         "multi_pointer_guard_only_evaluates_active_source_addresses": True,
         "multi_pointer_compact_sequential_guard_lowering_proved": True,
+        "candidate_request_has_explicit_source_coordinates_and_context_arity": True,
         "multi_pointer_guard_continuations_not_distributed_through_tree": True,
         "multi_pointer_dynamic_separation_implies_restricted_nonalias": True,
         "multi_pointer_source_capabilities_derived_from_real_loads_and_stores": True,

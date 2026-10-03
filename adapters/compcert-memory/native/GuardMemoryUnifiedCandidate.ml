@@ -12,13 +12,16 @@ let affine_step =
       (natural (small target),natural (small source),GuardMemoryNumbers.import_integer (integer factor))
   | _ -> invalid_arg "affine index-map step"
 
-let propose instructions =
+let propose request =
+  let instructions = request.GuardMemoryUnifiedCompiler.request_instructions in
+  let dimensions = GuardMemoryScheduleInput.natural_size request.GuardMemoryUnifiedCompiler.request_coordinates in
+  let arity = GuardMemoryScheduleInput.natural_size request.GuardMemoryUnifiedCompiler.request_context_arity in
   try match Lazy.force GuardMemoryCandidate.template with
     | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "schedule";
              GuardMemoryCandidate.List axes; GuardMemoryCandidate.List steps]) ->
       if List.length steps > 32 then invalid_arg "schedule index-map limit";
       Some (GuardMemoryUnifiedCompiler.GuardedScheduleCandidate
-        (GuardMemoryScheduleInput.instantiate instructions axes,List.map affine_step steps))
+        (GuardMemoryScheduleInput.instantiate dimensions arity instructions axes,List.map affine_step steps))
     | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "schedule-list";
              GuardMemoryCandidate.List schedules; GuardMemoryCandidate.List steps]) ->
       if List.length steps > 32 then invalid_arg "schedule index-map limit";

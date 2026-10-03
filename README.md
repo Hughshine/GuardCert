@@ -132,3 +132,5 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 [signed 仿射源地址](docs/memory-signed-affine-access.md) 通过 241 个适配模块及七个 lowering 模块的完整编译与假设审计，完整程序端点仍继承 42 项原有假设。13 组实际汇编配置和 10 组分支诊断（5463 次调用）通过；检查覆盖反向依赖链的正确回退、中间回绕和最终合法地址。
 
 [多指针活动访问检查](docs/memory-multiple-pointer-guards.md)通过 269 个适配模块及七个 lowering 模块的完整编译与假设审计，完整程序端点仍继承 42 项原有假设。11 组完整汇编配置和九组分支诊断（5256 次调用）通过；`make native-memory-multi-pointer` 可复现。检查支持同一 block 中的不重叠切片和交错访问，依赖或地址条件失败时回退。当前枚举最多 64 个潜在访问条目，只读别名仍保守拒绝。
+
+[显式源元数据的候选接口](docs/memory-source-metadata.md)消除访问式未使用某些循环维度、或遗漏稳定参数时的调度维数猜测。完整程序定理对任意候选提议器继续成立；269 个适配模块和七个 lowering 模块全量审计通过，九组完整汇编配置和六组分支诊断通过，`make native-memory-source-metadata` 可复现。
