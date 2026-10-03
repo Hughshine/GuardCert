@@ -19,7 +19,7 @@ From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler 
   GuardMemoryScheduledCompiler GuardMemoryParametricSyntax GuardMemoryParametricCompiler
   GuardMemoryLayoutCopySyntax GuardMemoryLayoutCopyCompiler
   GuardMemoryParametricRegion GuardMemoryParametricRegionInstances GuardMemoryParametricRegionCompiler GuardMemoryParametricWidthSearch
-  GuardMemoryTripleSyntax GuardMemoryTripleCompiler GuardMemoryRecursiveSyntax GuardMemoryRecursiveCompiler GuardMemoryPointerSyntax GuardMemoryPointerCompiler GuardMemoryScalarPointerSyntax GuardMemoryScalarPointerCompiler GuardMemoryScalarArraySyntax GuardMemoryScalarArrayCompiler GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerCompiler.
+  GuardMemoryTripleSyntax GuardMemoryTripleCompiler GuardMemoryRecursiveSyntax GuardMemoryRecursiveCompiler GuardMemoryPointerSyntax GuardMemoryPointerCompiler GuardMemoryScalarPointerSyntax GuardMemoryScalarPointerCompiler GuardMemoryScalarArraySyntax GuardMemoryScalarArrayCompiler GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerCompiler GuardMemoryLinearPointerSyntax GuardMemoryLinearPointerPair GuardMemoryLinearPointerCompiler.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -42,7 +42,7 @@ Definition guarded_memory_proposer := guarded_memory_request -> option guarded_m
 Definition memory_multi_pointer_unified_request source (package : memory_multi_pointer_region_package source) :=
   GuardedMemoryRequest (memory_multi_pointer_region_instructions package)
     (length (memory_nest_iterators (multi_pointer_region_nest package))) (length (memory_multi_pointer_region_context package)).
-Definition check_memory_multi_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
+Definition check_memory_finite_multi_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_multi_pointer_region source with
   | Some package => match propose (memory_multi_pointer_unified_request package) with
       | Some (GuardedAffineCandidate candidate swaps) =>
@@ -53,10 +53,10 @@ Definition check_memory_multi_pointer_unified_region live pool (propose : guarde
       | Some (GuardedScheduleCandidate schedules steps) => check_memory_multi_pointer_scheduled_region live pool schedules steps source
       | None => CoreAlarmed.Base.pure None end
   | None => CoreAlarmed.Base.pure None end.
-Theorem check_memory_multi_pointer_unified_region_sound live pool propose source target :
-  mayReturn (check_memory_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Theorem check_memory_finite_multi_pointer_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_finite_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
 Proof.
-  unfold check_memory_multi_pointer_unified_region; destruct (describe_memory_multi_pointer_region source) as [package|];
+  unfold check_memory_finite_multi_pointer_unified_region; destruct (describe_memory_multi_pointer_region source) as [package|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct (propose (memory_multi_pointer_unified_request package)) as [candidate|];
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
@@ -65,6 +65,44 @@ Proof.
   - eapply check_memory_multi_pointer_mapped_region_sound; exact RUN.
   - eapply check_memory_multi_pointer_tiled_region_sound; exact RUN.
   - eapply check_memory_multi_pointer_scheduled_region_sound; exact RUN.
+Qed.
+Definition check_memory_linear_pointer_unified_region live pool (propose : guarded_memory_proposer) source :=
+  match describe_memory_linear_pointer_pair source with
+  | Some package => match propose (memory_multi_pointer_unified_request (linear_pointer_region (linear_pointer_pair_region package))) with
+      | Some (GuardedAffineCandidate candidate swaps) =>
+          check_memory_linear_pointer_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
+      | Some (GuardedMappedCandidate candidate steps) =>
+          check_memory_linear_pointer_mapped_package live pool package candidate steps
+      | Some (GuardedScheduleCandidate schedules steps) =>
+          check_memory_linear_pointer_scheduled_package live pool package schedules steps
+      | _ => CoreAlarmed.Base.pure None end
+  | None => CoreAlarmed.Base.pure None end.
+Theorem check_memory_linear_pointer_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_linear_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_linear_pointer_unified_region; destruct (describe_memory_linear_pointer_pair source) as [package|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct (propose (memory_multi_pointer_unified_request (linear_pointer_region (linear_pointer_pair_region package)))) as [candidate|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct candidate; intro RUN.
+  - eapply check_memory_linear_pointer_mapped_package_sound; exact RUN.
+  - eapply check_memory_linear_pointer_mapped_package_sound; exact RUN.
+  - apply mayReturn_pure in RUN; discriminate.
+  - eapply check_memory_linear_pointer_scheduled_package_sound; exact RUN.
+Qed.
+Definition check_memory_multi_pointer_unified_region live pool propose source :=
+  BIND target <- check_memory_linear_pointer_unified_region live pool propose source -;
+  match target with
+  | Some target => CoreAlarmed.Base.pure (Some target)
+  | None => check_memory_finite_multi_pointer_unified_region live pool propose source end.
+Theorem check_memory_multi_pointer_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_multi_pointer_unified_region; intro RUN;
+    bind_imp_destruct RUN candidate CHECK; destruct candidate as [candidate|].
+  - apply mayReturn_pure in RUN; inversion RUN; subst;
+      eapply check_memory_linear_pointer_unified_region_sound; exact CHECK.
+  - eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
 Qed.
 Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=
   GuardedMemoryRequest (memory_scalar_pointer_region_instructions package)

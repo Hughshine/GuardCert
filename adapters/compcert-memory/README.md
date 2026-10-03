@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 269 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 279 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -114,3 +114,5 @@ Signed affine source accesses now use a proved lower and upper box check. The 24
 [多指针源与动态分离检查](../../docs/memory-multiple-pointer-guards.md)接入多个稳定 `int *` 参数、各自的实际读写访问、活动访问权限与对齐证明、受限视图中的依赖验证、真实候选 lowering 及同一完整程序定理。全量审计为 269 个适配模块和七个 lowering 模块；完整编译器仍为 42 项原有假设。11 组完整汇编配置及九组／5256 次调用的分支诊断通过，`make native-memory-multi-pointer` 可复现。
 
 [候选源元数据](../../docs/memory-source-metadata.md)由各源包提供实际维数和完整参数前缀，便利坐标调度不再从访问系数反推 ABI。269 个适配模块及七个 lowering 模块的全量审计、九组／828 次完整汇编调用和六组／72 次分支调用通过，编译器保持原有 42 项假设。
+
+[私有状态与循环式 alias guard](../../docs/memory-loop-alias-guards.md)通过 `memory_projected_private_rule` 和检查执行接口证明公共临时变量及内存保持不变，接受时在检查后的状态建立候选前提。实际源足迹的双指针扫描接入同一完整程序端点。279 个适配模块和七个 lowering 模块的全量审计、八组／800 次完整汇编调用和三组／300 次分支调用通过；完整编译器仍为原有 42 项假设。当前支持一轴逐元素访问，guard cap 为 1024，O(n²) 扫描，一维反向候选仍拒绝。

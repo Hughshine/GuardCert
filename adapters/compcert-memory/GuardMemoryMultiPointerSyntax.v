@@ -42,10 +42,10 @@ Record memory_multi_pointer_region_package source := MemoryMultiPointerRegionPac
 Definition memory_multi_pointer_region_instructions source (package : memory_multi_pointer_region_package source) :=
   memory_pad_instructions (length (multi_pointer_region_scalars package))
     (map memory_nary_compute_instruction (multi_pointer_region_code package)).
-Definition check_memory_multi_pointer_region source (nest : memory_source_nest) (cap : Z) (pointers : list ident) (extent : Z) (scalars : list ident) (operations : list memory_nary_compute)
+Definition check_memory_multi_pointer_region_with_resource (finite_guard : bool) source (nest : memory_source_nest) (cap : Z) (pointers : list ident) (extent : Z) (scalars : list ident) (operations : list memory_nary_compute)
   : option (memory_multi_pointer_region_package source).
 Proof.
-  destruct ((Z.pow cap (Z.of_nat (length (memory_nest_iterators nest))) *
+  destruct (negb finite_guard || (Z.pow cap (Z.of_nat (length (memory_nest_iterators nest))) *
     Z.of_nat (fold_right (fun operation total => S (length (memory_nary_compute_reads operation))+total)%nat 0%nat operations) <=? 64)) eqn:RESOURCE; [|exact None].
   destruct (statement_eq source (memory_nest_source nest)) as [SOURCE|]; [|exact None].
   destruct (list_eq_dec peq (memory_nest_iterators nest) []) as [|NONEMPTY]; [exact None|].
@@ -93,6 +93,7 @@ Proof.
       (@memory_nest_shapes_check_sound nest SHAPES) (@memory_nest_fresh_check_sound nest FRESH)
       LIMIT WINDOW PROTECTED (@memory_identifiers_unique_check_sound _ UNIQUE) SCALAR_STABLE SCALAR_USED OPS CERT COVERED BODY))).
 Defined.
+Definition check_memory_multi_pointer_region := check_memory_multi_pointer_region_with_resource true.
 Definition describe_memory_multi_pointer_region_with_cap requested source :=
   let nest := propose_memory_source_nest (progress_syntax_size source) source in
   let extent := 1024 in

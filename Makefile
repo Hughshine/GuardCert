@@ -336,3 +336,8 @@ native-memory-multi-pointer: memory-unified-compiler
 native-memory-source-metadata: memory-unified-compiler
 	python3 scripts/native_memory_source_metadata.py
 	python3 scripts/native_memory_source_metadata_paths.py
+
+.PHONY: native-memory-loop-alias
+native-memory-loop-alias: memory-unified-compiler
+	python3 scripts/native_memory_loop_alias.py
+	python3 scripts/native_memory_loop_alias_paths.py
