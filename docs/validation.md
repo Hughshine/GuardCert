@@ -1,5 +1,16 @@
 # 本轮验证记录
 
+## 2026-10-02：保留跨迭代依赖顺序的真实循环交换
+
+`ScheduleInterleave.rectangular_row_order_certificate` 保留每行内部的操作顺序，仅要求不同行之间可以交换，证明闭合。`RectangularRowSchedule` 将这一证书接到真实 Mem.load/Mem.store；`ClightIndexedArray` 允许语言实例提供任意纯 signed32 索引的类型、值与范围，得到实际数组读取的双向对应。具体行首读取、源循环解码、候选编码、条件规则与完整 AST 选择器已接入两个真实编译器。
+
+重新提取／构建矩形与顺序分块编译器，新增 225 个行内依赖的正矩形；与此前 225 个纯写和 345 个同格子读改写一起通过。19 个函数实际命中 guard 和交换；块宽 7 的组合路径同时命中分块。所有数组格子、iterator 出口、GCC 与独立模型一致；8 个块宽的既有依赖／别名／上下文回归也通过。对角读取 `(i+1)*S+j-1` 被拒绝，并核对了对它无条件交换会产生不同数组结果。报告仍为 `build/native-rectangular/report.json` 和 `build/native-stripmine/report.json`，提取日志为 `build/row-dependency-compiler-build.log` 与 `build/row-dependency-stripmine-build.log`。
+
+`make proof compcert-bridge` 完整重编译当前核心与全部标准桥接文件，退出码 0，日志为 `build/row-dependency-full-proof.log`；上游 CompCert `.vo` 复用，没有再次清理上游。
+
+假设审计为通用核闭合、语言实例继承 7 项、两个完整程序入口恰好继承 CompCert 基线的 35 项，没有新增全局公理。一般依赖关系、多个语句、非矩形仿射域和外部仿射调度仍需推进。
+
+
 ## 2026-10-02：真实数组读取与写入的重排
 
 新增 `CompCertMemoryActions`、`RectangularMemorySchedule`、`ClightRectangularUpdate`、区域证书与选择器。真实 Mem.load 的结果作为纯计算操作数，Bernstein 三项不相交条件证明加载值保持与 Mem.store 交换，最终内存是精确相等；Clight 数组读改写的执行解码／编码闭合了具体规则。选择器核对完整读写 AST，已接入 `RectangularCompiler`，并由 `StripmineCompiler` 组合。

@@ -104,14 +104,17 @@ def check_rectangular_composition():
                 "rectangle_update_dynamic": (12, 10), "rectangle_update_other_layout": (15, 7),
                 "rectangle_update_goto": (12, 10), "rectangle_update_global": (12, 10),
                 "rectangle_update_enclosing_loop": (12, 10), "rectangle_update_unread_bound": (12, 10),
-                "rectangle_update_compound": (12, 10)}
+                "rectangle_update_compound": (12, 10),
+                "rectangle_row_dynamic": (12, 10), "rectangle_row_other_layout": (15, 7),
+                "rectangle_row_goto": (12, 10), "rectangle_row_global": (12, 10),
+                "rectangle_row_enclosing_loop": (12, 10), "rectangle_row_unread_bound": (12, 10)}
     for name, limits in accepted.items():
         body = function_body(dump, name)
         if (not rectangle.selected(body, *limits) or not re.search(r"\$\d+ = \$i \+ 7;", body)
                 or not re.search(r"\$\d+ = \$j \+ 7;", body)):
             raise SystemExit(f"composed interchange and candidate/fallback strip-mining missing in {name}")
     (directory / "output.txt").write_text(actual)
-    return {"status": "passed", "positive_rectangles": 225, "positive_read_modify_write_rectangles": 345,
+    return {"status": "passed", "positive_rectangles": 225, "positive_read_modify_write_rectangles": 345, "positive_row_dependency_rectangles": 225,
             "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
             "actual_interchange_and_stripmining_of_both_candidate_and_fallback_checked": True,
             "complete_array_and_exit_values_match_independent_fixture_and_gcc": True}

@@ -33,7 +33,7 @@ def selected(body, outer_limit, stride):
 
 
 def snapshot(tag, start, n, m, extent=120, stride=10, coefficient=37, bias=7,
-             dependent=False, repeats=1, update=False):
+             dependent=False, repeats=1, update=False, row_read=False, diagonal=False):
     cells, j = [-999] * extent, 99
     for _ in range(repeats):
         i = start
@@ -43,7 +43,9 @@ def snapshot(tag, start, n, m, extent=120, stride=10, coefficient=37, bias=7,
                 index = i * stride + j
                 if not 0 <= index < extent:
                     raise AssertionError("test would access outside its array")
-                cells[index] = (cells[0] if dependent else cells[index] if update else 0) + i * coefficient + j + bias
+                read = (cells[0] if dependent else cells[index] if update else cells[i * stride] if row_read
+                        else cells[(i+1) * stride + j-1] if diagonal else 0)
+                cells[index] = read + i * coefficient + j + bias
                 j += 1
             i += 1
     return f"{tag} {i} {j} " + " ".join(map(str, cells)) + "\n"
@@ -74,6 +76,16 @@ def expected_output():
             expected += snapshot(tag, 0, n, m, repeats=2 if tag == "update_enclosing" else 1, update=True)
     expected += "update_unread 99 99 99\n"
     expected += snapshot("update_neighbor", 0, 3, 4, dependent=True)
+    expected += "".join(snapshot("row_dynamic", 0, n, m, row_read=True)
+                        for n in range(1, 13) for m in range(1, 11))
+    expected += "".join(snapshot("row_other", 0, n, m, 105, 7, -11, -3, row_read=True)
+                        for n in range(1, 16) for m in range(1, 8))
+    expected += "".join(snapshot("row_dynamic", *case, row_read=True) for case in FALLBACK_INPUTS)
+    for n, m in [(5, 4), (2, 11)]:
+        for tag in ["row_goto", "row_global", "row_enclosing"]:
+            expected += snapshot(tag, 0, n, m, repeats=2 if tag == "row_enclosing" else 1, row_read=True)
+    expected += "row_unread 99 99 99\n"
+    expected += snapshot("diagonal", 0, 3, 4, diagonal=True)
     return expected
 
 
@@ -102,17 +114,28 @@ def main():
                 "rectangle_update_dynamic": (12, 10), "rectangle_update_other_layout": (15, 7),
                 "rectangle_update_goto": (12, 10), "rectangle_update_global": (12, 10),
                 "rectangle_update_enclosing_loop": (12, 10), "rectangle_update_unread_bound": (12, 10),
-                "rectangle_update_compound": (12, 10)}
+                "rectangle_update_compound": (12, 10),
+                "rectangle_row_dynamic": (12, 10), "rectangle_row_other_layout": (15, 7),
+                "rectangle_row_goto": (12, 10), "rectangle_row_global": (12, 10),
+                "rectangle_row_enclosing_loop": (12, 10), "rectangle_row_unread_bound": (12, 10)}
     for name, (limit, stride) in accepted.items():
         body = function_body(dump, name)
         if not selected(body, limit, stride):
             raise SystemExit(f"dynamic interchange or derived guard missing in {name}\n{body}")
         if body.count("switch (0)") != 1:
             raise SystemExit(f"shared fallback missing in {name}")
-    refused = ["rectangle_dependent", "rectangle_volatile", "rectangle_invalid_layout", "rectangle_update_neighbor"]
+    refused = ["rectangle_dependent", "rectangle_volatile", "rectangle_invalid_layout", "rectangle_update_neighbor", "rectangle_diagonal_dependency"]
     for name in refused:
         if selected(function_body(dump, name), 12, 10):
             raise SystemExit(f"unsupported body accepted: {name}")
+    original_diagonal = snapshot("diagonal", 0, 3, 4, diagonal=True)
+    swapped_cells = [-999] * 120
+    for j in range(4):
+        for i in range(3):
+            swapped_cells[i*10+j] = swapped_cells[(i+1)*10+j-1] + i*37+j+7
+    swapped_diagonal = "diagonal 3 4 " + " ".join(map(str, swapped_cells)) + "\n"
+    if original_diagonal == swapped_diagonal:
+        raise SystemExit("negative diagonal fixture does not expose a reordering bug")
     stamp = json.loads((COMPILER.parent / ".guard-build.json").read_text())
     if (stamp["proved_entrypoint"] != "RectangularCompiler.compile_rectangular_regions"
             or stamp["compiler_sha256"] != hashlib.sha256(COMPILER.read_bytes()).hexdigest()):
@@ -122,7 +145,7 @@ def main():
         "status": "passed", "proved_entrypoint": stamp["proved_entrypoint"],
         "compiler_sha256": stamp["compiler_sha256"],
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
-        "positive_dynamic_rectangles": 225, "positive_read_modify_write_rectangles": 345, "fallback_inputs": FALLBACK_INPUTS,
+        "positive_dynamic_rectangles": 225, "positive_read_modify_write_rectangles": 345, "positive_row_dependency_rectangles": 225, "fallback_inputs": FALLBACK_INPUTS,
         "every_array_cell_and_complete_iterator_exit_checked": True,
         "gcc_behavior_matches": True, "independent_model_matches": True,
         "actual_clight_guarded_interchange_checked": accepted,
@@ -133,12 +156,14 @@ def main():
         "memory_dependency_volatile_and_invalid_layout_refused": refused,
         "real_mem_loads_preserved_under_interchange": True,
         "compound_assignment_checked": True,
+        "within_row_dependencies_preserved": True,
+        "incorrect_diagonal_reordering_refused": True,
         "runtime_trip_counts_enumerated_by_compiler": False,
         "polopt_called": False, "general_affine_schedule_or_tiling_supported": False,
         "performance_measured": False,
     }, indent=2) + "\n")
     print("Native rectangle interchange passed: 225 dynamic rectangles, 7 fallback inputs, "
-          "345 read-modify-write rectangles, 13 guarded functions; every cell, iterator exits, contexts and refusals checked")
+          "345 read-modify-write and 225 row-dependency rectangles, 19 guarded functions; every cell and source exit checked")
 
 
 if __name__ == "__main__":

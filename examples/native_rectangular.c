@@ -172,6 +172,72 @@ void rectangle_update_neighbor(int n, int m) {
   emit("update_neighbor", a, 120, i, j);
 }
 
+void rectangle_row_dynamic(int i, int n, int m) {
+  int a[120], j = 99, k;
+  for (k = 0; k < 120; ++k) a[k] = -999;
+  for (; i < n; ++i) {
+    for (j = 0; j < m; ++j) a[i * 10 + j] = a[i * 10] + (i * 37 + j + 7);
+  }
+  emit("row_dynamic", a, 120, i, j);
+}
+
+void rectangle_row_other_layout(int i, int n, int m) {
+  int a[105], j = 99, k;
+  for (k = 0; k < 105; ++k) a[k] = -999;
+  for (; i < n; ++i) {
+    for (j = 0; j < m; ++j) a[i * 7 + j] = a[i * 7] + (i * -11 + j + -3);
+  }
+  emit("row_other", a, 105, i, j);
+}
+
+void rectangle_row_goto(int n, int m) {
+  int a[120], i = 0, j = 99, k;
+  for (k = 0; k < 120; ++k) a[k] = -999;
+  goto work;
+work:
+  for (; i < n; ++i) {
+    for (j = 0; j < m; ++j) a[i * 10 + j] = a[i * 10] + (i * 37 + j + 7);
+  }
+  emit("row_goto", a, 120, i, j);
+}
+
+void rectangle_row_global(int n, int m) {
+  int i = 0, j = 99, k;
+  for (k = 0; k < 120; ++k) global_rectangle[k] = -999;
+  for (; i < n; ++i) {
+    for (j = 0; j < m; ++j) global_rectangle[i * 10 + j] = global_rectangle[i * 10] + (i * 37 + j + 7);
+  }
+  emit("row_global", global_rectangle, 120, i, j);
+}
+
+void rectangle_row_enclosing_loop(int n, int m) {
+  int a[120], i = 0, j = 99, k, repeat;
+  for (k = 0; k < 120; ++k) a[k] = -999;
+  for (repeat = 0; repeat < 2; ++repeat) {
+    for (i = 0; i < n; ++i) {
+      for (j = 0; j < m; ++j) a[i * 10 + j] = a[i * 10] + (i * 37 + j + 7);
+    }
+  }
+  emit("row_enclosing", a, 120, i, j);
+}
+
+int rectangle_row_unread_bound(int i, int n) {
+  int a[120], j = 99, m;
+  for (; i < n; ++i) {
+    for (j = 0; j < m; ++j) a[i * 10 + j] = a[i * 10] + (i * 37 + j + 7);
+  }
+  return j;
+}
+
+void rectangle_diagonal_dependency(int n, int m) {
+  int a[120], i = 0, j = 99, k;
+  for (k = 0; k < 120; ++k) a[k] = -999;
+  for (; i < n; ++i) {
+    for (j = 0; j < m; ++j) a[i * 10 + j] = a[(i + 1) * 10 + j - 1] + (i * 37 + j + 7);
+  }
+  emit("diagonal", a, 120, i, j);
+}
+
 int main(void) {
   int n, m, i;
   for (n = 1; n <= 12; ++n)
@@ -213,5 +279,23 @@ int main(void) {
   printf("update_unread %d %d %d\n", rectangle_update_unread_bound(0, 0),
     rectangle_update_unread_bound(1, 0), rectangle_update_unread_bound(INT_MAX, INT_MAX));
   rectangle_update_neighbor(3, 4);
+  for (n = 1; n <= 12; ++n)
+    for (m = 1; m <= 10; ++m) rectangle_row_dynamic(0, n, m);
+  for (n = 1; n <= 15; ++n)
+    for (m = 1; m <= 7; ++m) rectangle_row_other_layout(0, n, m);
+  rectangle_row_dynamic(0, 2, 11);
+  rectangle_row_dynamic(1, 4, 5);
+  rectangle_row_dynamic(0, 13, 0);
+  rectangle_row_dynamic(0, 3, -1);
+  rectangle_row_dynamic(0, 0, INT_MAX);
+  rectangle_row_dynamic(INT_MAX, INT_MAX, INT_MIN);
+  rectangle_row_dynamic(INT_MIN, INT_MIN, INT_MAX);
+  for (i = 0; i < 2; ++i) {
+    n = i ? 2 : 5; m = i ? 11 : 4;
+    rectangle_row_goto(n, m); rectangle_row_global(n, m); rectangle_row_enclosing_loop(n, m);
+  }
+  printf("row_unread %d %d %d\n", rectangle_row_unread_bound(0, 0),
+    rectangle_row_unread_bound(1, 0), rectangle_row_unread_bound(INT_MAX, INT_MAX));
+  rectangle_diagonal_dependency(3, 4);
   return 0;
 }

@@ -90,6 +90,10 @@ theories/RectangularRowSchedule.v
 theories/ClightRectangularUpdate.v
 theories/ClightRectangularUpdateRegion.v
 theories/ClightRectangularUpdateSelector.v
+theories/ClightIndexedArray.v
+theories/ClightRectangularRowUpdate.v
+theories/ClightRectangularRowRegion.v
+theories/ClightRectangularRowSelector.v
 theories/RectangularCompiler.v
 theories/ClightTempFootprint.v
 theories/ClightTempScope.v

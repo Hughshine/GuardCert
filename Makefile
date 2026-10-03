@@ -73,6 +73,7 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightRectangularRegion.v theories/ClightRectangularSelector.v \
                   theories/CompCertMemoryActions.v theories/RectangularMemorySchedule.v theories/RectangularRowSchedule.v \
                   theories/ClightRectangularUpdate.v theories/ClightRectangularUpdateRegion.v theories/ClightRectangularUpdateSelector.v \
+                  theories/ClightIndexedArray.v theories/ClightRectangularRowUpdate.v theories/ClightRectangularRowRegion.v theories/ClightRectangularRowSelector.v \
                   theories/RectangularCompiler.v \
                   theories/ClightTempFootprint.v theories/ClightTempScope.v theories/ClightProjectedExecution.v \
                   theories/ClightPrivateRegion.v theories/ClightPrivateRegionProof.v theories/ClightPrivatePool.v \

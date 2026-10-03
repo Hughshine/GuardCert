@@ -12,7 +12,8 @@ MODULES = ["SchedulePermutation", "ScheduleInterleave", "RectangularSchedule", "
            "ClightRectangularStore", "ClightRectangularLoops", "ClightRectangularGuard",
            "ClightRectangularRegion", "ClightRectangularSelector", "CompCertMemoryActions",
            "RectangularMemorySchedule", "RectangularRowSchedule", "ClightRectangularUpdate", "ClightRectangularUpdateRegion",
-           "ClightRectangularUpdateSelector", "RectangularCompiler"]
+           "ClightRectangularUpdateSelector", "ClightIndexedArray", "ClightRectangularRowUpdate",
+           "ClightRectangularRowRegion", "ClightRectangularRowSelector", "RectangularCompiler"]
 
 
 def main():
@@ -22,7 +23,8 @@ def main():
 From Guard Require Import AbstractSchedule SchedulePermutation ScheduleInterleave RectangularSchedule RectangularIteration
  ClightParametricLoops ClightRectangularGuard ClightRectangularLoops ClightRectangularRegion
  ClightRectangularSelector CompCertMemoryActions RectangularMemorySchedule RectangularRowSchedule
- ClightRectangularUpdate ClightRectangularUpdateRegion ClightRectangularUpdateSelector RectangularCompiler.
+ ClightRectangularUpdate ClightRectangularUpdateRegion ClightRectangularUpdateSelector
+ ClightIndexedArray ClightRectangularRowUpdate ClightRectangularRowRegion ClightRectangularRowSelector RectangularCompiler.
 Goal True. idtac "RECT_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "RECT_KERNEL_BEGIN". exact I. Qed.
@@ -41,6 +43,10 @@ Print Assumptions ClightRectangularUpdate.rect_update_inverse.
 Print Assumptions ClightRectangularUpdate.rect_update_evaluation.
 Print Assumptions ClightRectangularUpdateRegion.rectangle_update_local.
 Print Assumptions ClightRectangularUpdateSelector.select_rectangle_update_interchange_sound.
+Print Assumptions ClightIndexedArray.indexed_array_load_inverse.
+Print Assumptions ClightRectangularRowUpdate.rect_row_update_inverse.
+Print Assumptions ClightRectangularRowRegion.rectangle_row_update_local.
+Print Assumptions ClightRectangularRowSelector.select_rectangle_row_update_interchange_sound.
 Print Assumptions ClightParametricLoops.frontend_parametric_decode.
 Print Assumptions ClightParametricLoops.frontend_parametric_encode.
 Print Assumptions ClightRectangularGuard.rectangle_guard_primitives.
@@ -73,11 +79,12 @@ Goal True. idtac "RECT_END". exact I. Qed.
         "instance_assumptions": sorted(names(instance)),
         "whole_program_assumptions": sorted(names(compiler)), "additional_global_axioms": [],
         "whole_program_theorem": "RectangularCompiler.compile_rectangular_regions_correct",
-        "scope": "dynamic positive rectangular loops with affine independent signed32 stores or own-cell read-modify-write",
+        "scope": "dynamic positive rectangular loops with affine independent signed32 stores, own-cell read-modify-write, or row-base reads with preserved within-row dependences",
         "runtime_trip_counts_enumerated_by_compiler": False,
         "actual_mem_store_execution": True, "actual_mem_load_execution": True,
         "bernstein_read_write_independence": True,
-        "cross_iteration_dependent_reads_accepted": False, "exact_complete_memory_equality": True,
+        "cross_iteration_dependent_reads_accepted": "row-base reads; per-row source order preserved",
+        "arbitrary_dependency_patterns_accepted": False, "exact_complete_memory_equality": True,
         "exact_complete_temporary_exit": True, "source_justified_conditional_check_domain": True,
         "full_ast_binding_checked": True, "guard_limits_derived_from_layout": True,
         "polcert_or_cinstr_instance_imported": False, "polopt_called": False,
