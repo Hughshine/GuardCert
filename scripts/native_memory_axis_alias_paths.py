@@ -8,7 +8,7 @@ from native_memory_affine_endpoints_paths import count_pointer_tests
 from native_memory_affine_alias import check_build
 import native_memory_axis_alias as fixture
 
-def diagnostic(name,configuration,previous=False):
+def diagnostic(name,configuration,previous=False,boundary=False):
     work=fixture.WORK/('before' if previous else 'after')/name
     functions=configuration['guarded_functions']
     source=mark_functions((work/(fixture.SOURCE.stem+'.light.c')).read_text(),functions)
@@ -27,7 +27,8 @@ def diagnostic(name,configuration,previous=False):
             comparisons=0
             if valid:
                 points=len(fixture.source_points(args)[0])
-                comparisons=(12 if which==2 else 2)*points*points
+                pair_count=12 if which==2 else 2
+                comparisons=pair_count*((2**dimensions)*points if boundary else points*points)
             total_tests+=comparisons
             invoke=f'guard_branch_hits[{index}]=0; '
             if not previous:invoke+=f'guard_address_tests[{index}]=0; '
@@ -43,6 +44,7 @@ def diagnostic(name,configuration,previous=False):
     return {'source_function_calls':len(calls),'actual_fast_path_calls':fast,'fallback_calls':fallback,
         'actual_fast_calls_above_prior_common_bound':above_old_cap,
         'actual_pointer_comparisons':None if previous else total_tests,'selected_calls':selected,
+        'address_check_strategy':'unmeasured historical compiler' if previous else 'equal-vector boundary masks' if boundary else 'full active pair rectangles',
         'full_arrays_and_public_counters_match_model':True,
         'empty_nested_loop_public_exits_and_null_pointer_calls_checked':True}
 
@@ -51,15 +53,18 @@ def main():
     report=json.loads((fixture.WORK/('before-report.json' if args.previous else 'report.json')).read_text())
     assert report['status']=='passed'
     assert report['source_sha256']==hashlib.sha256(fixture.SOURCE.read_bytes()).hexdigest()
+    boundary=False
     if not args.previous:
         stamp=check_build();assert report['compiler_sha256']==stamp['compiler_sha256']
         assert report['full_configuration_suite']
-    results={name:diagnostic(name,c,args.previous) for name,c in report['configurations'].items()
+        proof=json.loads((fixture.ROOT/'build/guard-memory-proof-report.json').read_text())
+        boundary=proof.get('multi_axis_loop_alias_guard_boundary_strategy_proved',False)
+    results={name:diagnostic(name,c,args.previous,boundary) for name,c in report['configurations'].items()
         if c['guarded_functions'] and name not in ['invalid-coordinate','resource-limit','invalid-certificate']}
     witness=[2,0,0,2,2,1,1,-7,11]
     assert fixture.separated(witness)
     assert fixture.output_model(witness)!=fixture.output_model(witness,fission=True)
-    result={'status':'passed','compiler_sha256':report['compiler_sha256'],'configurations':results,
+    result={'status':'passed','compiler_sha256':report['compiler_sha256'],'source_sha256':report['source_sha256'],'configurations':results,
         'fission_dependence_witness':{'input':witness,'nonalias_does_not_remove_same_pointer_dependence':True},
         'scope':'GCC execution of instrumented Clight print; branch decisions and exact address-query counts separate from complete CompCert assembly evidence'}
     (fixture.WORK/('before-branch-report.json' if args.previous else 'branch-report.json')).write_text(json.dumps(result,indent=2)+'\n')

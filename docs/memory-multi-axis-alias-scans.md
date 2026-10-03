@@ -1,5 +1,7 @@
 # 多轴活动访问扫描
 
+本文记录 `3e14333` 的完整矩形两侧枚举实现及编译器 `6180edd256e46d6a4ff8852a661e8aeb6691ecf45bbd537ba4b2ef224ce881a2` 的验证。后续[多轴边界扫描](memory-axis-boundary-scans.md)已替换同系数访问对的检查；以下平方查询数和代码体积属于此历史基线。`make native-memory-axis-alias` 运行当前实现。
+
 此扩展沿用[有状态语言核心](memory-affine-alias-scans.md)，把动态 NonAlias 检查从单个计数轴推广到任意有限深度的规范矩形源循环。每个轴有独立的实际动态上界；多个轴也可以共享上界变量。候选仍消费已有的局部内存与依赖证明，统一入口通过同一个 `projected_region_contract` 接到 Csem→Asm。
 
 ## 给编译器一个候选
@@ -73,7 +75,7 @@ mapped、直接生成的 affine schedule 和外层二维 tiling 都使用同一�
 
 同一编译器已重跑旧多指针的 3069 次完整汇编调用及 5256 次分支诊断、一维端点的 1687／964 次、一般仿射的 2696／1366 次及逐元素路径的 1200／600 次。连同新例子，共 12922 次完整 CompCert 汇编调用和 10321 次独立分支诊断通过。
 
-报告位于 `build/native-memory-axis-alias/`：`before-report.json`／`before-branch-report.json` 是旧版，`report.json`／`branch-report.json` 是新版。完整 CompCert 汇编与 GCC 加标记 Clight 诊断分别报告。
+工作报告目录为 `build/native-memory-axis-alias/`，每次当前编译器重跑都会覆盖 `report.json`／`branch-report.json`。本文 `6180edd…` 基线的完整报告另保存在 `/tmp/guard-axis-verified/native-memory-axis-alias/`，并备份到 `build/native-memory-axis-boundary/before-report.json`／`before-branch-report.json`；原 `before-report.json`／`before-branch-report.json` 是更早的三配置编译器基线。完整 CompCert 汇编与 GCC 加标记 Clight 诊断分别报告。
 
 ## 仍未覆盖
 

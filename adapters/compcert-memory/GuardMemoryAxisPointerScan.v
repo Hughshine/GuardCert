@@ -7,7 +7,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryRectangles GuardMe
   GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerProjectedCandidate GuardMemoryLinearPointerSyntax
   GuardMemoryNaryAffineAccess GuardMemoryNaryAffineExpressions GuardMemoryBooleanScan GuardMemoryFootprintCapabilities
   GuardMemoryRecursiveSource GuardMemoryAffinePointerPairs.
-From GuardMemory Require Import GuardMemoryAxisPointerFootprint GuardMemoryAxisPointerPairs GuardMemoryAffineAxisPairScan.
+From GuardMemory Require Import GuardMemoryAxisPointerFootprint GuardMemoryAxisPointerPairs GuardMemoryAffineAxisPairScan GuardMemoryAxisPairChoice.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -16,8 +16,9 @@ Fixpoint memory_axis_access_pairs_statement layout left_counters right_counters 
   match pairs with
   | [] => Sskip
   | (first,second)::rest => Ssequence
-      (memory_affine_axis_pair_statement layout left_counters right_counters flag bounds
+      (memory_affine_axis_pair_choice_statement layout left_counters right_counters flag bounds
         (memory_nary_access_array first) (memory_nary_access_array second)
+        (memory_nary_access_index first) (memory_nary_access_index second)
         (memory_nary_access_expression first) (memory_nary_access_expression second))
       (memory_axis_access_pairs_statement layout left_counters right_counters flag bounds rest)
   end.
@@ -73,7 +74,7 @@ Proof.
       - apply in_or_app; left; exact MEMBER.
       - cbn in MEMBER; destruct MEMBER as [<-|[<-|MEMBER]];
           apply in_or_app; right; [apply in_or_app; left; exact FIRST_ID|apply in_or_app; left; exact SECOND_ID|exact MEMBER]. }
-    destruct (@memory_affine_axis_pair_execution (memory_nary_access_expression first) (memory_nary_access_expression second)
+    destruct (@memory_affine_axis_pair_choice_execution (memory_nary_access_expression first) (memory_nary_access_expression second)
       (memory_nary_access_index first) (memory_nary_access_index second)
       (memory_nest_iterators (multi_pointer_region_nest package)) left_counters right_counters
       (memory_nest_bounds (multi_pointer_region_nest package)) counts

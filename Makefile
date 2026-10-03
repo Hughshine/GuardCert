@@ -357,3 +357,7 @@ native-memory-affine-endpoints: memory-unified-compiler
 native-memory-axis-alias: memory-unified-compiler
 	python3 scripts/native_memory_axis_alias.py
 	python3 scripts/native_memory_axis_alias_paths.py
+
+.PHONY: native-memory-axis-pair-choice
+native-memory-axis-pair-choice: native-memory-multi-pointer
+	python3 scripts/native_memory_axis_pair_choice_paths.py

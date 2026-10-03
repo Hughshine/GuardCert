@@ -32,6 +32,8 @@ MODULES[-1:-1] = LOOP_ALIAS_MODULES
 AFFINE_ALIAS_MODULES = ['GuardMemoryStatefulLanguage', 'GuardMemoryStatefulEntry', 'GuardMemoryStatefulRule', 'GuardMemoryStatefulComposition', 'GuardMemoryAffineRenaming', 'GuardMemoryAffineRangeAddress', 'GuardMemoryAffinePairScan', 'GuardMemoryAffineEndpointMath', 'GuardMemoryAffineEndpointCells', 'GuardMemoryAffineEndpointScan', 'GuardMemoryAffinePairChoice', 'GuardMemoryAffinePointerSyntax', 'GuardMemoryAffinePointerPairs', 'GuardMemoryAffinePointerScan', 'GuardMemoryAffinePointerFrame', 'GuardMemoryAffinePointerGuard', 'GuardMemoryAffinePointerCompiler']
 MODULES[-1:-1] = AFFINE_ALIAS_MODULES
 AXIS_ALIAS_MODULES = ['GuardMemoryBooleanRectangle', 'GuardMemoryBooleanRectangleExecution', 'GuardMemoryAffineAxisRenaming', 'GuardMemoryAffineAxisAddress', 'GuardMemoryAffineAxisPairScan', 'GuardMemoryAxisPointerFootprint', 'GuardMemoryAxisPointerPairs', 'GuardMemoryAxisPointerScan', 'GuardMemoryAxisPointerFrame', 'GuardMemoryAxisPointerGuard', 'GuardMemoryAxisPointerCompiler', 'GuardMemoryAxisPointerServices', 'GuardMemoryAxisPointerDescribe']
+AXIS_BOUNDARY_MODULES = ['GuardMemoryAxisBoundaryMath', 'GuardMemoryAxisRepeatedRenaming', 'GuardMemoryAxisRepeatedAddress', 'GuardMemoryAxisBoundaryNames', 'GuardMemoryAxisBoundaryCells', 'GuardMemoryAxisBoundaryTest', 'GuardMemoryAxisBoundaryScan', 'GuardMemoryAxisBoundaryMasks', 'GuardMemoryAxisBoundaryPair', 'GuardMemoryAxisPairChoice']
+AXIS_ALIAS_MODULES[6:6] = AXIS_BOUNDARY_MODULES
 MODULES[-1:-1] = AXIS_ALIAS_MODULES
 STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
@@ -89,6 +91,7 @@ From GuardMemory Require Import GuardMemoryPointerCellComparison GuardMemoryFoot
 From GuardMemory Require Import GuardMemoryProjectedCondition GuardMemoryCrossPointerSeparation GuardMemoryBooleanScan GuardMemoryPointerRangeScan GuardMemoryMultiPointerProjectedCandidate GuardMemoryLinearPointerSyntax GuardMemoryLinearPointerPair GuardMemoryLoopGuardFrame GuardMemoryLinearPointerGuard GuardMemoryLinearPointerCompiler.
 From GuardMemory Require Import GuardMemoryAffineEndpointMath GuardMemoryAffineEndpointCells GuardMemoryAffineEndpointScan GuardMemoryAffinePairChoice.
 From GuardMemory Require Import GuardMemoryBooleanRectangle GuardMemoryBooleanRectangleExecution GuardMemoryAffineAxisRenaming GuardMemoryAffineAxisAddress GuardMemoryAffineAxisPairScan GuardMemoryAxisPointerFootprint GuardMemoryAxisPointerPairs GuardMemoryAxisPointerScan GuardMemoryAxisPointerFrame GuardMemoryAxisPointerGuard GuardMemoryAxisPointerCompiler GuardMemoryAxisPointerServices GuardMemoryAxisPointerDescribe.
+From GuardMemory Require Import GuardMemoryAxisBoundaryMath GuardMemoryAxisRepeatedRenaming GuardMemoryAxisRepeatedAddress GuardMemoryAxisBoundaryNames GuardMemoryAxisBoundaryCells GuardMemoryAxisBoundaryTest GuardMemoryAxisBoundaryScan GuardMemoryAxisBoundaryMasks GuardMemoryAxisBoundaryPair GuardMemoryAxisPairChoice.
 From GuardMemory Require Import GuardMemoryStatefulLanguage GuardMemoryStatefulEntry GuardMemoryStatefulRule GuardMemoryStatefulComposition GuardMemoryAffineRenaming GuardMemoryAffineRangeAddress GuardMemoryAffinePairScan GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePointerScan GuardMemoryAffinePointerFrame GuardMemoryAffinePointerGuard GuardMemoryAffinePointerCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -109,6 +112,11 @@ Print Assumptions memory_affine_axis_rename_layout.
 Print Assumptions memory_axis_pointer_runtime_footprint.
 Print Assumptions memory_axis_pointer_accesses_encoding.
 Print Assumptions memory_axis_access_pair_check_frame.
+Print Assumptions memory_axis_boundary_check_complete.
+Print Assumptions memory_axis_boundary_masks_length.
+Print Assumptions memory_axis_boundary_names_bindings.
+Print Assumptions memory_affine_axis_boundary_pair_exact.
+Print Assumptions memory_axis_boundary_masks_valid.
 Goal True. idtac "MEM_PHYSICAL_REGISTRY". exact I. Qed.
 Print Assumptions flat_array_locations_nonalias.
 Print Assumptions memory_pointer_buffer_locations_nonalias.
@@ -498,6 +506,13 @@ Print Assumptions memory_affine_pointer_guard_execution.
 Print Assumptions check_memory_affine_pointer_mapped_package_sound.
 Print Assumptions check_memory_affine_pointer_scheduled_package_sound.
 Print Assumptions memory_boolean_rectangle_execution.
+Print Assumptions memory_affine_axis_repeated_renamed_evaluation.
+Print Assumptions memory_affine_axis_repeated_address_binding.
+Print Assumptions memory_affine_axis_boundary_test_evaluation.
+Print Assumptions memory_affine_axis_boundary_mask_execution.
+Print Assumptions memory_affine_axis_boundary_masks_execution.
+Print Assumptions memory_affine_axis_boundary_pair_execution.
+Print Assumptions memory_affine_axis_pair_choice_execution.
 Print Assumptions memory_affine_axis_renamed_evaluation.
 Print Assumptions memory_affine_axis_address_binding.
 Print Assumptions memory_affine_axis_pair_execution.
@@ -557,7 +572,9 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "affine_loop_alias_guard_linear_strategy_scope": "equal affine slopes or either affine slope zero; one private counted loop with two source-derived endpoint comparisons per cross-pointer access pair; arbitrary signed slopes and modular pointer offsets",
         "multi_axis_loop_alias_guard_proved": True,
         "multi_axis_loop_alias_guard_csem_asm_route_proved": True,
-        "multi_axis_loop_alias_guard_scope": "any finite canonical rectangular counted nest, independent signed32 bounds including shared bound identifiers; signed affine source-coordinate pointer addresses; two private counter vectors and one flag; all cross-pointer access pairs scanned over the active source rectangle; raw-access budget 32, logical window 1024, certified cap search [1024,64,32,16,8,4,1]; mapped, generated-schedule and two-dimensional tiling candidates; quadratic in the number of active points",
+        "multi_axis_loop_alias_guard_boundary_strategy_proved": True,
+        "multi_axis_loop_alias_guard_boundary_strategy_scope": "equal full affine coefficient vectors; modular physical-pointer offsets; static Boolean masks and one private active-rectangle scan per mask, using source-capable boundary coordinates; exactly the previous full-pair Boolean result under source capabilities; 2^d times P comparisons per raw cross-pointer access pair; other coefficient vectors retain the quadratic scan",
+        "multi_axis_loop_alias_guard_scope": "any finite canonical rectangular counted nest, independent signed32 bounds including shared bound identifiers; signed affine source-coordinate pointer addresses; two private counter vectors and one flag; all cross-pointer access pairs scanned over the active source rectangle; raw-access budget 32, logical window 1024, certified cap search [1024,64,32,16,8,4,1]; mapped, generated-schedule and two-dimensional tiling candidates; equal coefficient vectors use 2^d boundary rectangles times active points; other pairs remain quadratic in the number of active points",
 
         "affine_loop_alias_guard_scope": "one canonical counted axis, any finite set of accessed pointer identifiers and signed affine coordinate expressions, finite read/write operation lists and stable RHS scalars; actual source-derived valid aligned addresses; all cross-pointer access pairs scanned with three private temporaries; cap derived from logical window 1024 and checked address ranges; mapped and generated-schedule candidates",
         "physical_flat_array_nonalias_global_axioms": [],
