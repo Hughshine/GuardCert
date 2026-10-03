@@ -267,3 +267,7 @@ native-memory-schedules: memory-unified-compiler
 native-memory-parametric: memory-unified-compiler
 	python3 scripts/native_memory_parametric.py
 	python3 scripts/native_memory_parametric_context.py
+
+.PHONY: native-memory-layout-copy
+native-memory-layout-copy: memory-unified-compiler
+	python3 scripts/native_memory_layout_copy.py

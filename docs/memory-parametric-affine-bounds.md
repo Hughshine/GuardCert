@@ -8,7 +8,7 @@
 for (; i < N; ++i) {
     K = 2*i + M - P;
     for (j = 0; j < K; ++j)
-        B[20*i+j] = A[20*i+j];
+        B[i*20+j] = A[i*20+j];
 }
 ```
 
@@ -58,10 +58,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make native-memory-parametric
 
 测试输入为 `examples/native_memory_parametric.c`，独立模型与编译执行脚本为 `scripts/native_memory_parametric.py`。结果保存于 `build/native-memory-parametric/report.json`。每组检查完整数组内容、公开 `i/j/K`、参数和外围上下文；GCC 参考与独立模型共有 4,378 行输出。错误域映射、错误维数、过大系数、证书故障和资源耗尽也在测试范围内。
 
-当前验证包含主测试十五组配置，每组 4,378 行输出。identity、interchange、fission、shift、skew 和四组二维块大小均接受十个预期函数。非线性边界、无符号 cast、计数器耦合、错误映射、过大系数、错误证书和资源耗尽均保留原片段。缺少语句调度的提案只在静态语句数量匹配时接受。
+提交 `c2bd5dd` 的验证包含主测试十五组配置，每组 4,378 行输出。identity、interchange、fission、shift、skew 和四组二维块大小均接受十个预期函数。非线性边界、无符号 cast、计数器耦合、错误映射、过大系数、错误证书和资源耗尽均保留原片段。缺少语句调度的提案只在静态语句数量匹配时接受。
 
 另一个完整程序 `examples/native_memory_parametric_context.c` 检查一个参数、四个参数、乘零参数读取和重复参数消除。八组配置各比较 2,531 行输出，并覆盖三组块大小和两条故障回退。旧调度回归二十六组及非矩形回归二十一组也通过；新增的 `K=M-i` 已由这条语义路径接受。
 
-证明审计重新编译 107 个内存适配模块和七个 lowering 模块，完整程序端点仍继承 CompCert 与 validator 的原有 42 项假设并集。实际约束搜索实现不作为正确性前提：不受信任的 Fourier–Motzkin 搜索现在优先利用等式消元，返回的每份证书仍由提取的 LCF 检查。资源耗尽与伪造证书测试使用同一个搜索实现。
+该提交的证明审计重新编译 107 个内存适配模块和七个 lowering 模块，完整程序端点仍继承 CompCert 与 validator 的原有 42 项假设并集。实际约束搜索实现不作为正确性前提：不受信任的 Fourier–Motzkin 搜索现在优先利用等式消元，返回的每份证书仍由提取的 LCF 检查。资源耗尽与伪造证书测试使用同一个搜索实现。
 
-这条接入扩大了 C 上界语法，尚未覆盖任意嵌套循环域、一般仿射源访问、不同数组布局或指针缓冲区。
+这条接入扩大了 C 上界语法，尚未覆盖任意嵌套循环域、一般仿射源访问、不同数组布局的混合操作或指针缓冲区。不同数组间单条复制已由[独立布局实例](memory-different-array-layouts.md)接入。

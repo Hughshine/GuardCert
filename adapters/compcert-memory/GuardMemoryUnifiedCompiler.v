@@ -15,7 +15,8 @@ From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler 
   GuardMemoryArrayFamilyBackend GuardMemoryOperationsClight GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler
   GuardMemoryInstr GuardMemoryLoops GuardMemoryProposedClight GuardMemoryProposedCompiler
   GuardMemoryNamedOperations GuardMemoryNamedCompiler GuardMemoryAffineReindex GuardMemoryNamedMappedCompiler GuardMemoryNamedRaggedCompiler
-  GuardMemoryScheduledCompiler GuardMemoryParametricSyntax GuardMemoryParametricCompiler.
+  GuardMemoryScheduledCompiler GuardMemoryParametricSyntax GuardMemoryParametricCompiler
+  GuardMemoryLayoutCopySyntax GuardMemoryLayoutCopyCompiler.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -27,6 +28,33 @@ Inductive guarded_memory_candidate :=
 | GuardedTilingCandidate (rows columns : Z)
 | GuardedScheduleCandidate (schedules : list (list (list Z * Z))) (steps : list memory_affine_reindex).
 Definition guarded_memory_proposer := list memory_instruction -> option guarded_memory_candidate.
+Definition check_memory_layout_copy_unified_region live pool (propose : guarded_memory_proposer) source :=
+  match describe_memory_layout_copy source with
+  | Some package =>
+    match propose (memory_layout_copy_package_instructions package) with
+    | Some (GuardedAffineCandidate candidate swaps) =>
+      check_memory_layout_copy_mapped_region live pool (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
+    | Some (GuardedMappedCandidate candidate steps) =>
+      check_memory_layout_copy_mapped_region live pool (fun _ => Some (candidate,steps)) source
+    | Some (GuardedTilingCandidate rows columns) => check_memory_layout_copy_tiled_region live pool rows columns source
+    | Some (GuardedScheduleCandidate schedules steps) => check_memory_layout_copy_scheduled_region live pool schedules steps source
+    | None => CoreAlarmed.Base.pure None end
+  | None => CoreAlarmed.Base.pure None end.
+Theorem check_memory_layout_copy_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_layout_copy_unified_region live pool propose source) (Some target) ->
+  projected_region_contract live source target.
+Proof.
+  unfold check_memory_layout_copy_unified_region.
+  destruct (describe_memory_layout_copy source) as [package|];
+    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (propose (memory_layout_copy_package_instructions package)) as [candidate|];
+    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct candidate; intro CHECK.
+  - eapply check_memory_layout_copy_mapped_region_sound; exact CHECK.
+  - eapply check_memory_layout_copy_mapped_region_sound; exact CHECK.
+  - eapply check_memory_layout_copy_tiled_region_sound; exact CHECK.
+  - eapply check_memory_layout_copy_scheduled_region_sound; exact CHECK.
+Qed.
 Definition check_memory_parametric_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_parametric source with
   | Some package =>
@@ -38,14 +66,14 @@ Definition check_memory_parametric_unified_region live pool (propose : guarded_m
     | Some (GuardedTilingCandidate rows columns) => check_memory_parametric_tiled_region live pool rows columns source
     | Some (GuardedScheduleCandidate schedules steps) => check_memory_parametric_scheduled_region live pool schedules steps source
     | None => CoreAlarmed.Base.pure None end
-  | None => CoreAlarmed.Base.pure None end.
+  | None => check_memory_layout_copy_unified_region live pool propose source end.
 Theorem check_memory_parametric_unified_region_sound live pool propose source target :
   mayReturn (check_memory_parametric_unified_region live pool propose source) (Some target) ->
   projected_region_contract live source target.
 Proof.
   unfold check_memory_parametric_unified_region.
   destruct (describe_memory_parametric source) as [package|];
-    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+    [|apply check_memory_layout_copy_unified_region_sound].
   destruct (propose (map named_operation_instruction (parametric_operations package))) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.

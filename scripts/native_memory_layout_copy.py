@@ -1,0 +1,130 @@
+"""Check heterogeneous array layouts in the complete guarded C compiler."""
+from pathlib import Path
+import hashlib
+import json
+import os
+import re
+import subprocess
+from native_zero_trip import function_body
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / 'examples/native_memory_layout_copy.c'
+COMPILER = ROOT / 'build/compcert-memory-unified/ccomp'
+WORK = ROOT / 'build/native-memory-layout-copy'
+ENTRY = 'GuardMemoryUnifiedCompiler.compile_memory_unified_regions'
+LAYOUTS = {
+    'layout_growing': (220, 22, 170, 17),
+    'layout_descending': (170, 17, 220, 22),
+    'layout_constant': (210, 21, 140, 14),
+    'layout_global': (240, 24, 180, 18),
+    'layout_context': (150, 15, 200, 20),
+    'layout_same_extent': (240, 24, 240, 20),
+    'layout_nonlinear': (220, 22, 170, 17),
+    'layout_neighbor': (220, 22, 170, 17),
+    'layout_alias': (240, 24, 240, 20),
+}
+REFUSED = {'layout_nonlinear', 'layout_neighbor', 'layout_alias'}
+ACCEPTED = set(LAYOUTS) - REFUSED
+
+
+def model(name, start, n, m, p):
+    read_extent, read_stride, write_extent, write_stride = LAYOUTS[name]
+    a = [2147483647 if x % 3 == 0 else -2147483648 if x % 3 == 1 else x*3+1
+         for x in range(read_extent)]
+    b = [-777] * write_extent
+    i, j, k = start, 99, 55
+    for _ in range(2 if name == 'layout_context' else 1):
+        if name == 'layout_context':
+            i = start
+        while i < n:
+            k = m-2*i+p if name == 'layout_descending' else m+p if name == 'layout_constant' else i*i+m-p if name == 'layout_nonlinear' else 2*i+m-p
+            j = 0
+            while j < k:
+                wi = i*write_stride+j
+                ri = i*read_stride+j+(name == 'layout_neighbor')
+                assert 0 <= wi < write_extent and 0 <= ri < read_extent
+                b[wi] = b[ri] if name == 'layout_alias' else a[ri]
+                j += 1
+            i += 1
+    return ''.join(f'{name}-{suffix} {i} {j} {k} {m} {p} ' + ' '.join(map(str, values)) + '\n'
+                   for suffix, values in [('a', a), ('b', b)])
+
+
+def expected_output():
+    output = ''.join(model(name, 0, n, m, p) for n in range(6)
+                     for m in range(-1, 7) for p in range(-2, 3) for name in LAYOUTS)
+    for name in LAYOUTS:
+        output += model(name, 2, 4, 5, 1)
+        output += model(name, 0, -2, 2147483647, -2147483648)
+        output += model(name, 0, 0, -2147483648, 2147483647)
+    return output + model('layout_growing', 0, 4, 100, 99) + model('layout_context', 0, 4, 100, 99)
+
+
+def compile_run(name, environment, reference):
+    work = WORK/name
+    work.mkdir(parents=True, exist_ok=True)
+    result = subprocess.run([str(COMPILER), '-conf', str(COMPILER.parent/'compcert.ini'),
+        '-stdlib', str(COMPILER.parent/'runtime'), '-dclight', '-S', '-o', str(work/'layouts.s'), str(SOURCE)],
+        cwd=work, env=os.environ | environment, text=True, capture_output=True, check=True, timeout=240)
+    (work/'compiler-output.txt').write_text(result.stdout+result.stderr)
+    subprocess.run(['gcc', str(work/'layouts.s'), '-o', str(work/'layouts')], check=True, capture_output=True)
+    output = subprocess.check_output([str(work/'layouts')], text=True)
+    assert output == reference, name
+    (work/'output.txt').write_text(output)
+    dumps = list(work.glob('*.light.c'))
+    assert len(dumps) == 1
+    return dumps[0].read_text()
+
+
+def main():
+    stamp = json.loads((COMPILER.parent/'.guard-build.json').read_text())
+    assert stamp['proved_entrypoint'] == ENTRY
+    assert stamp['compiler_sha256'] == hashlib.sha256(COMPILER.read_bytes()).hexdigest()
+    for path, expected in (stamp['proof_sources'] | stamp['native_sources']).items():
+        assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest() == expected, path
+    WORK.mkdir(parents=True, exist_ok=True)
+    subprocess.run(['gcc', '-O0', str(SOURCE), '-o', str(WORK/'gcc-reference')], check=True, capture_output=True)
+    reference = subprocess.check_output([str(WORK/'gcc-reference')], text=True)
+    assert reference == expected_output()
+    (WORK/'gcc-output.txt').write_text(reference)
+    templates = ROOT/'examples/parametric-candidates'
+    cases = [(name, templates/(name+'.sexp'), {}, ACCEPTED)
+             for name in ['identity', 'interchange', 'fission', 'shift', 'skew']]
+    cases += [(name, templates/(name+'.sexp'), {}, set())
+              for name in ['wrong-map', 'wrong-dimension', 'overflow-coefficient']]
+    for rows, columns in [(1, 1), (2, 3), (4, 4), (17, 13)]:
+        name = f'tile-{rows}-{columns}'
+        path = WORK/(name+'.sexp'); path.write_text(f'(tile {rows} {columns})\n')
+        cases.append((name, path, {}, ACCEPTED))
+    cases += [(name, templates/'identity.sexp', extra, set()) for name, extra in [
+        ('resource-limit', {'GUARDCERT_FM_ROWS': '0'}),
+        ('invalid-certificate', {'GUARDCERT_ORACLE_FAULT': 'top-certificate'})]]
+    configurations = {}
+    for name, path, extra, expected in cases:
+        dump = compile_run(name, {'GUARDCERT_LOOP_CANDIDATE': str(path)} | extra, reference)
+        observed = {function for function in ACCEPTED if 'switch (0)' in function_body(dump, function)}
+        assert observed == expected, (name, observed, expected)
+        for function in observed:
+            body = function_body(dump, function)
+            assert '$i = $n;' in body and '$j = $k;' in body, (name, function, 'public exit')
+            assert re.search(r'if \([^\n]* != [^\n]*\)', body), (name, function, 'safe comparison')
+            start = body.index('switch (0)')
+            fast = body[start:body.index('continue;', start)]
+            _, read_stride, _, write_stride = LAYOUTS[function]
+            for stride in [read_stride, write_stride]:
+                assert re.search(rf'\*\s*{stride}\b', fast), (name, function, stride, 'candidate physical layout')
+        for function in REFUSED:
+            assert 'switch (0)' not in function_body(dump, function), (name, function)
+        configurations[name] = {'guarded_functions': sorted(observed), 'full_output_lines': len(reference.splitlines()),
+            'gcc_and_independent_model_match': True, 'template_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+        print(name, sorted(observed), flush=True)
+    (WORK/'report.json').write_text(json.dumps({'status': 'passed', 'proved_entrypoint': ENTRY,
+        'compiler_sha256': stamp['compiler_sha256'], 'source_sha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
+        'configurations': configurations, 'separate_read_and_write_array_layouts': True,
+        'both_physical_strides_checked_in_generated_fast_path': True,
+        'parameterized_affine_bound_and_exact_public_exits': True,
+        'arbitrary_source_accesses_supported': False}, indent=2)+'\n')
+
+
+if __name__ == '__main__':
+    main()
