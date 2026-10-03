@@ -1,0 +1,5 @@
+(reindex (0)
+ (loop (constant 0) (sum (sum (var 0) (var 1)) (constant -1))
+  (loop (constant 0) (var 1)
+   (guard (le (var 1) (sum (sum (var 0) (var 3)) (constant -1)))
+    (each (instr current ((var 0) (var 1))))))))

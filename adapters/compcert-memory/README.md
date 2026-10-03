@@ -81,3 +81,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [多个实际数组对象](../../docs/memory-multiple-array-objects.md)已有源执行、候选后端、安全基址检查与完整程序定理。`make native-memory-multiarray` 使用统一编译器验证两／三数组、全局与外层循环、候选接受和源回退；当前 C 源包括同布局对象的三类矩形操作、跨数组同单元读取、只读输入和[直接数组复制](../../docs/memory-direct-array-copy.md)。
 
 [仿射 iterator 对应](../../docs/memory-affine-iterator-maps.md)提供候选坐标的交换、平移、剪切及其组合；它们已进入同一完整编译器证明。`make native-memory-affine-maps` 检查实际 C 程序中的候选接受、依赖拒绝及机器边界拒绝。
+
+[非矩形 C 源循环](../../docs/memory-nonrectangular-source.md)支持实际 `K=i+M; j<K` 的循环边界，证明宽度前提的安全编码和 `i/j/K` 的源出口对应。`make native-memory-ragged` 运行统一完整程序入口；当前完整审计覆盖 81 个内存适配模块和 7 个 lowering 模块。

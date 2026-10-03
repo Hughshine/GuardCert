@@ -14,7 +14,7 @@ From Guard Require Import ClightGuard ClightCondition ClightPrivateRule ClightPr
 From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight GuardMemoryTiledCompiler
   GuardMemoryArrayFamilyBackend GuardMemoryOperationsClight GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler
   GuardMemoryInstr GuardMemoryLoops GuardMemoryProposedClight GuardMemoryProposedCompiler
-  GuardMemoryNamedOperations GuardMemoryNamedCompiler GuardMemoryAffineReindex GuardMemoryNamedMappedCompiler.
+  GuardMemoryNamedOperations GuardMemoryNamedCompiler GuardMemoryAffineReindex GuardMemoryNamedMappedCompiler GuardMemoryNamedRaggedCompiler.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -25,6 +25,32 @@ Inductive guarded_memory_candidate :=
 | GuardedMappedCandidate (candidate : L.stmt) (steps : list memory_affine_reindex)
 | GuardedTilingCandidate (rows columns : Z).
 Definition guarded_memory_proposer := list memory_instruction -> option guarded_memory_candidate.
+Definition check_memory_ragged_unified_region live pool (propose : guarded_memory_proposer) source :=
+  match describe_memory_ragged source with
+  | Some package =>
+    match propose (map named_operation_instruction (ragged_operations package)) with
+    | Some (GuardedAffineCandidate candidate swaps) =>
+      check_memory_ragged_mapped_region live pool
+        (fun _ => Some (candidate,map MemoryReindexSwap swaps)) source
+    | Some (GuardedMappedCandidate candidate steps) =>
+      check_memory_ragged_mapped_region live pool (fun _ => Some (candidate,steps)) source
+    | Some (GuardedTilingCandidate _ _) => CoreAlarmed.Base.pure None
+    | None => CoreAlarmed.Base.pure None end
+  | None => CoreAlarmed.Base.pure None end.
+Theorem check_memory_ragged_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_ragged_unified_region live pool propose source) (Some target) ->
+  projected_region_contract live source target.
+Proof.
+  unfold check_memory_ragged_unified_region.
+  destruct (describe_memory_ragged source) as [package|];
+    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (propose (map named_operation_instruction (ragged_operations package))) as [candidate|];
+    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct candidate; intro CHECK.
+  - eapply check_memory_ragged_mapped_region_sound; exact CHECK.
+  - eapply check_memory_ragged_mapped_region_sound; exact CHECK.
+  - apply mayReturn_pure in CHECK; discriminate.
+Qed.
 Definition check_memory_named_unified_region live pool (propose : guarded_memory_proposer) source :=
   match describe_memory_named source with
   | Some package =>
@@ -35,14 +61,14 @@ Definition check_memory_named_unified_region live pool (propose : guarded_memory
       check_memory_named_mapped_region live pool (fun _ => Some (candidate,steps)) source
     | Some (GuardedTilingCandidate rows columns) => check_memory_named_tiled_region live pool rows columns source
     | None => CoreAlarmed.Base.pure None end
-  | None => CoreAlarmed.Base.pure None end.
+  | None => check_memory_ragged_unified_region live pool propose source end.
 Theorem check_memory_named_unified_region_sound live pool propose source target :
   mayReturn (check_memory_named_unified_region live pool propose source) (Some target) ->
   projected_region_contract live source target.
 Proof.
   unfold check_memory_named_unified_region.
   destruct (describe_memory_named source) as [package|];
-    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+    [|apply check_memory_ragged_unified_region_sound].
   destruct (propose (map named_operation_instruction (named_operations package))) as [candidate|];
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   destruct candidate; intro CHECK.
