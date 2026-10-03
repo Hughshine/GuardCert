@@ -64,11 +64,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 118 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 119 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
-当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。一般 C 仿射源提取、邻居／更广仿射访问、不同布局和指针缓冲区仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
+当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。一般 C 仿射源提取、邻居／更广仿射访问、不同布局混合列表和指针缓冲区仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
 
 `make native-memory-operations` 构建同数组混合读写列表的完整 C 分块入口，`build/native-memory-operations/report.json` 记录五组块大小、5325 个正动态矩形、10 个实际快路函数与五条拒绝路线；每组 1564 行完整数组及公开 iterator 输出与 GCC 和独立模型一致。证明与当前源语法范围见 [混合列表证明链](../../docs/memory-mixed-statement-tiling.md)。
 
@@ -88,3 +88,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [源调度到实际代码生成](../../docs/memory-schedule-generation.md)接入相同统一编译器：不受信任的候选只提交每条源指令的仿射调度，源域、指令和访问来自实际提取；生成出的 Loop 再经独立域与依赖检查。`make native-memory-schedules` 验证矩形和非矩形两类源的各 13 组配置，分别逐组比较 4,022 和 1,385 行完整程序输出。交换、分裂、平移和剪切的实际快路，以及错误映射、资源耗尽和错误证书下的源回退均通过。
 
 [参数化仿射 C 上界](../../docs/memory-parametric-affine-bounds.md)使用实际源表达式读取构造参数环境，证明数学编码、端点范围检查、短路求值安全、真实源执行及候选出口修复。统一入口支持 `2*i+M-P`、`M-2*i+P` 等边界和不限于两个的稳定参数。源访问仍沿用同布局数组的已证明形式；[不同数组布局](../../docs/memory-different-array-layouts.md)的一条复制已接入，支持各自的固定长度和步长；不同布局的混合操作及更广访问仍需扩展。
+
+[同一数组的布局重映射](../../docs/memory-same-array-layouts.md) 使用一个实际对象登记两个不同步长的访问函数，使真实跨迭代依赖进入相同验证器，并接入完整程序端点。

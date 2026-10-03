@@ -22,8 +22,10 @@ LAYOUTS = {
     'layout_nonlinear': (220, 22, 170, 17),
     'layout_neighbor': (220, 22, 170, 17),
     'layout_alias': (240, 24, 240, 20),
+    'layout_alias_descending': (240, 20, 240, 24),
 }
-REFUSED = {'layout_nonlinear', 'layout_neighbor', 'layout_alias'}
+REFUSED = {'layout_nonlinear', 'layout_neighbor'}
+ALIASED = {'layout_alias', 'layout_alias_descending'}
 ACCEPTED = set(LAYOUTS) - REFUSED
 
 
@@ -31,19 +33,19 @@ def model(name, start, n, m, p):
     read_extent, read_stride, write_extent, write_stride = LAYOUTS[name]
     a = [2147483647 if x % 3 == 0 else -2147483648 if x % 3 == 1 else x*3+1
          for x in range(read_extent)]
-    b = [-777] * write_extent
+    b = [x*5+2 for x in range(write_extent)] if name in ALIASED else [-777] * write_extent
     i, j, k = start, 99, 55
     for _ in range(2 if name == 'layout_context' else 1):
         if name == 'layout_context':
             i = start
         while i < n:
-            k = m-2*i+p if name == 'layout_descending' else m+p if name == 'layout_constant' else i*i+m-p if name == 'layout_nonlinear' else 2*i+m-p
+            k = m-2*i+p if name in {'layout_descending', 'layout_alias_descending'} else m+p if name == 'layout_constant' else i*i+m-p if name == 'layout_nonlinear' else 2*i+m-p
             j = 0
             while j < k:
                 wi = i*write_stride+j
                 ri = i*read_stride+j+(name == 'layout_neighbor')
                 assert 0 <= wi < write_extent and 0 <= ri < read_extent
-                b[wi] = b[ri] if name == 'layout_alias' else a[ri]
+                b[wi] = b[ri] if name in ALIASED else a[ri]
                 j += 1
             i += 1
     return ''.join(f'{name}-{suffix} {i} {j} {k} {m} {p} ' + ' '.join(map(str, values)) + '\n'
@@ -57,7 +59,32 @@ def expected_output():
         output += model(name, 2, 4, 5, 1)
         output += model(name, 0, -2, 2147483647, -2147483648)
         output += model(name, 0, 0, -2147483648, 2147483647)
+    output += model('layout_alias', 0, 5, 9, 0) + model('layout_alias_descending', 0, 5, 19, 0)
     return output + model('layout_growing', 0, 4, 100, 99) + model('layout_context', 0, 4, 100, 99)
+
+
+def dependence_counterexamples():
+    witnesses = {}
+    for name, n, m in [('layout_alias', 5, 9), ('layout_alias_descending', 5, 19)]:
+        _, read_stride, _, write_stride = LAYOUTS[name]
+        points = [(i, j) for i in range(n) for j in range(
+            m-2*i if name.endswith('descending') else 2*i+m)]
+        def execute(order):
+            values = [x*5+2 for x in range(240)]
+            for i, j in order:
+                values[write_stride*i+j] = values[read_stride*i+j]
+            return values
+        source = execute(points)
+        orders = {'interchange': sorted(points, key=lambda point: (point[1], point[0]))}
+        for rows, columns in [(2, 3), (4, 4), (17, 13)]:
+            orders[f'tile-{rows}-{columns}'] = sorted(points, key=lambda point:
+                (point[0]//rows, point[1]//columns, point[0], point[1]))
+        for candidate, order in orders.items():
+            different = [index for index, (before, after) in enumerate(zip(source, execute(order)))
+                         if before != after]
+            assert different, (name, candidate, 'expected actual dependency violation')
+            witnesses[name+'/'+candidate] = {'n': n, 'm': m, 'p': 0, 'different_cells': different}
+    return witnesses
 
 
 def compile_run(name, environment, reference):
@@ -88,17 +115,18 @@ def main():
     assert reference == expected_output()
     (WORK/'gcc-output.txt').write_text(reference)
     templates = ROOT/'examples/parametric-candidates'
-    cases = [(name, templates/(name+'.sexp'), {}, ACCEPTED)
+    cases = [(name, templates/(name+'.sexp'), {}, ACCEPTED - (ALIASED if name == 'interchange' else set()))
              for name in ['identity', 'interchange', 'fission', 'shift', 'skew']]
     cases += [(name, templates/(name+'.sexp'), {}, set())
               for name in ['wrong-map', 'wrong-dimension', 'overflow-coefficient']]
-    for rows, columns in [(1, 1), (2, 3), (4, 4), (17, 13)]:
+    for rows, columns in [(1, 1), (1, 3), (2, 3), (4, 4), (17, 13)]:
         name = f'tile-{rows}-{columns}'
         path = WORK/(name+'.sexp'); path.write_text(f'(tile {rows} {columns})\n')
-        cases.append((name, path, {}, ACCEPTED))
+        cases.append((name, path, {}, ACCEPTED - (ALIASED if rows > 1 else set())))
     cases += [(name, templates/'identity.sexp', extra, set()) for name, extra in [
         ('resource-limit', {'GUARDCERT_FM_ROWS': '0'}),
         ('invalid-certificate', {'GUARDCERT_ORACLE_FAULT': 'top-certificate'})]]
+    witnesses = dependence_counterexamples()
     configurations = {}
     for name, path, extra, expected in cases:
         dump = compile_run(name, {'GUARDCERT_LOOP_CANDIDATE': str(path)} | extra, reference)
@@ -107,7 +135,8 @@ def main():
         for function in observed:
             body = function_body(dump, function)
             assert '$i = $n;' in body and '$j = $k;' in body, (name, function, 'public exit')
-            assert re.search(r'if \([^\n]* != [^\n]*\)', body), (name, function, 'safe comparison')
+            if function not in ALIASED:
+                assert re.search(r'if \([^\n]* != [^\n]*\)', body), (name, function, 'safe comparison')
             start = body.index('switch (0)')
             fast = body[start:body.index('continue;', start)]
             _, read_stride, _, write_stride = LAYOUTS[function]
@@ -122,6 +151,9 @@ def main():
         'compiler_sha256': stamp['compiler_sha256'], 'source_sha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         'configurations': configurations, 'separate_read_and_write_array_layouts': True,
         'both_physical_strides_checked_in_generated_fast_path': True,
+        'same_array_remapping_uses_one_registry_entry': True,
+        'actual_cross_iteration_dependencies_checked': True,
+        'rejected_candidate_execution_counterexamples': witnesses,
         'parameterized_affine_bound_and_exact_public_exits': True,
         'arbitrary_source_accesses_supported': False}, indent=2)+'\n')
 

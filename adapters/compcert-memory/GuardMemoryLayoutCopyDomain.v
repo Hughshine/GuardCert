@@ -8,7 +8,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryL
   GuardMemoryRegistryBackend GuardMemoryRegistryGuard GuardMemoryAffineSourceExpressions GuardMemoryAffineSourceValuation
   GuardMemoryAffineSourceContext GuardMemoryAffineSourceLoop GuardMemoryParametricSourceClight
   GuardMemoryParametricWidth GuardMemoryParametricGuard GuardMemoryParametricSourceDomain
-  GuardMemoryCommonLayout GuardMemoryLayoutCopy GuardMemoryLayoutCopyRegistry GuardMemoryLayoutCopySource.
+  GuardMemoryCommonLayout GuardMemoryLayoutCopy GuardMemoryLayoutCopyRegistry GuardMemoryCopyLayoutRegistry GuardMemoryLayoutCopySource.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -17,7 +17,7 @@ Variable write_shape read_shape : rectangle_shape.
 Hypothesis WVALID : rectangle_layout_valid write_shape.
 Hypothesis RVALID : rectangle_layout_valid read_shape.
 Variable write_array read_array : ident.
-Hypothesis DISTINCT : write_array <> read_array.
+Hypothesis COMPATIBLE : memory_copy_layout_compatible write_shape read_shape write_array read_array.
 Let base := memory_common_layout write_shape read_shape.
 Let VALID : rectangle_layout_valid base := memory_common_layout_valid WVALID RVALID.
 Variable row bound column inner_bound : ident.
@@ -44,7 +44,7 @@ Hypothesis LOWER : compile_memory_source_width (rectangle_stride base) row
 
 Theorem memory_layout_copy_source_domain fe ge locals le memory after final :
   exec_stmt fe ge locals le memory (frontend_counted_loop row bound outer_body) E0 after final Out_normal ->
-  memory_source_guard_domain base (memory_layout_copy_descriptors write_shape read_shape write_array read_array) row bound
+  memory_source_guard_domain base (memory_copy_layout_descriptors write_shape read_shape write_array read_array) row bound
     (memory_source_context row bound expression) bounds expression (Entry ge locals le memory).
 Proof.
   intro SOURCE.
@@ -98,7 +98,7 @@ Proof.
   { intros identifier MEMBER; apply memory_source_affine_parameter_member in MEMBER.
     destruct (WORDS ZERO (proj1 NRANGE) identifier (proj1 MEMBER)) as [word LOOK].
     cbn [entry_temps] in LOOK; unfold valuation,temp_word; rewrite LOOK,Int.repr_signed; reflexivity. }
-  destruct (@memory_layout_copy_source_decode write_shape read_shape WVALID RVALID write_array read_array DISTINCT row bound column inner_bound expression
+  destruct (@memory_layout_copy_source_decode write_shape read_shape WVALID RVALID write_array read_array COMPATIBLE row bound column inner_bound expression
     (memory_source_context row bound expression) encoded ENCODE body outer_body RN RC NC RK NK CK SC SK BODY OUTER
     fe ge locals le memory after final rows (map valuation (memory_source_other_parameters row bound expression)) valuation
     ZERO ltac:(rewrite RZ,Int.repr_signed; exact NLOOK) PARAM_WORDS CONTEXT

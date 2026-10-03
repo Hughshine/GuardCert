@@ -65,9 +65,16 @@ void layout_neighbor(int start,int n,int m,int p) {
 void layout_alias(int start,int n,int m,int p) {
   int a[240],b[240];int i=start,j=99,k=55,x,r;
   for(x=0;x<240;++x) a[x]=x%3==0?2147483647:(x%3==1?(-2147483647-1):x*3+1);
-  for(x=0;x<240;++x) b[x]=-777;
+  for(x=0;x<240;++x) b[x]=x*5+2;
   for(;i<n;++i) { k=2*i+m-p;for(j=0;j<k;++j) { b[i*20+j]=b[i*24+j]; } }
   emit("layout_alias","a",a,240,i,j,k,m,p);emit("layout_alias","b",b,240,i,j,k,m,p);
+}
+void layout_alias_descending(int start,int n,int m,int p) {
+  int a[240],b[240];int i=start,j=99,k=55,x,r;
+  for(x=0;x<240;++x) a[x]=x%3==0?2147483647:(x%3==1?(-2147483647-1):x*3+1);
+  for(x=0;x<240;++x) b[x]=x*5+2;
+  for(;i<n;++i) { k=m-2*i+p;for(j=0;j<k;++j) { b[i*24+j]=b[i*20+j]; } }
+  emit("layout_alias_descending","a",a,240,i,j,k,m,p);emit("layout_alias_descending","b",b,240,i,j,k,m,p);
 }
 int main(void) { int n,m,p;for(n=0;n<=5;++n) for(m=-1;m<=6;++m) for(p=-2;p<=2;++p) {
   layout_growing(0,n,m,p);
@@ -79,6 +86,7 @@ int main(void) { int n,m,p;for(n=0;n<=5;++n) for(m=-1;m<=6;++m) for(p=-2;p<=2;++
   layout_nonlinear(0,n,m,p);
   layout_neighbor(0,n,m,p);
   layout_alias(0,n,m,p);
+  layout_alias_descending(0,n,m,p);
 }
   layout_growing(2,4,5,1);layout_growing(0,-2,2147483647,(-2147483647-1));layout_growing(0,0,(-2147483647-1),2147483647);
   layout_descending(2,4,5,1);layout_descending(0,-2,2147483647,(-2147483647-1));layout_descending(0,0,(-2147483647-1),2147483647);
@@ -89,4 +97,6 @@ int main(void) { int n,m,p;for(n=0;n<=5;++n) for(m=-1;m<=6;++m) for(p=-2;p<=2;++
   layout_nonlinear(2,4,5,1);layout_nonlinear(0,-2,2147483647,(-2147483647-1));layout_nonlinear(0,0,(-2147483647-1),2147483647);
   layout_neighbor(2,4,5,1);layout_neighbor(0,-2,2147483647,(-2147483647-1));layout_neighbor(0,0,(-2147483647-1),2147483647);
   layout_alias(2,4,5,1);layout_alias(0,-2,2147483647,(-2147483647-1));layout_alias(0,0,(-2147483647-1),2147483647);
+  layout_alias_descending(2,4,5,1);layout_alias_descending(0,-2,2147483647,(-2147483647-1));layout_alias_descending(0,0,(-2147483647-1),2147483647);
+  layout_alias(0,5,9,0);layout_alias_descending(0,5,19,0);
 layout_growing(0,4,100,99);layout_context(0,4,100,99);return 0;}

@@ -12,7 +12,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryL
   GuardMemoryAffineSourceContext GuardMemoryAffineSourceLoop GuardMemoryParametricLoops GuardMemoryParametricSourceClight
   GuardMemoryNamedParametricSource GuardMemoryParametricWidth GuardMemoryParametricGuard
   GuardMemoryParametricSourceDomain GuardMemoryParametricChecker GuardMemoryParametricRestore GuardMemoryParametricCandidate
-  GuardMemoryCommonLayout GuardMemoryLayoutCopy GuardMemoryLayoutCopyInstruction GuardMemoryLayoutCopyRegistry
+  GuardMemoryCommonLayout GuardMemoryLayoutCopy GuardMemoryLayoutCopyInstruction GuardMemoryLayoutCopyRegistry GuardMemoryCopyLayoutRegistry
   GuardMemoryLayoutCopySource GuardMemoryLayoutCopyDomain GuardMemoryParametricInstructionChecker.
 Import ListNotations.
 Set Implicit Arguments.
@@ -23,10 +23,10 @@ Variable write_shape read_shape : rectangle_shape.
 Hypothesis WVALID : rectangle_layout_valid write_shape.
 Hypothesis RVALID : rectangle_layout_valid read_shape.
 Variable write_array read_array : ident.
-Hypothesis DISTINCT : write_array <> read_array.
+Hypothesis COMPATIBLE : memory_copy_layout_compatible write_shape read_shape write_array read_array.
 Let base := memory_common_layout write_shape read_shape.
 Let VALID : rectangle_layout_valid base := memory_common_layout_valid WVALID RVALID.
-Let descriptors := memory_layout_copy_descriptors write_shape read_shape write_array read_array.
+Let descriptors := memory_copy_layout_descriptors write_shape read_shape write_array read_array.
 Let instructions := [memory_layout_copy_instruction write_shape read_shape write_array read_array].
 Variable row bound column inner_bound : ident.
 Variable expression : memory_source_affine.
@@ -66,7 +66,7 @@ Theorem memory_layout_copy_candidate_local fe ge locals le memory after final :
     temp_agree live after target.
 Proof.
   intros ACCEPT SOURCE.
-  pose proof (@memory_layout_copy_source_domain write_shape read_shape WVALID RVALID write_array read_array DISTINCT row bound column inner_bound expression encoded ENCODE
+  pose proof (@memory_layout_copy_source_domain write_shape read_shape WVALID RVALID write_array read_array COMPATIBLE row bound column inner_bound expression encoded ENCODE
     body outer_body RN RC NC RK NK CK SC SK BODY OUTER bounds width_tree LOWER fe ge locals le memory after final SOURCE) as DOMAIN.
   pose proof (@memory_source_guard_sound base descriptors row bound
     (memory_source_other_parameters row bound expression) bounds expression width_tree (Entry ge locals le memory)
@@ -100,7 +100,7 @@ Proof.
     memory_source_affine_math (memory_source_set_valuation valuation row i) expression).
   { intro i; exact (@memory_source_loop_expression_value expression row
       (memory_source_context row bound expression) encoded valuation i ENCODE). }
-  destruct (@memory_layout_copy_source_decode write_shape read_shape WVALID RVALID write_array read_array DISTINCT row bound column inner_bound expression
+  destruct (@memory_layout_copy_source_decode write_shape read_shape WVALID RVALID write_array read_array COMPATIBLE row bound column inner_bound expression
     (memory_source_context row bound expression) encoded ENCODE body outer_body RN RC NC RK NK CK SC SK BODY OUTER
     fe ge locals le memory after final rows parameters valuation
     ZERO ltac:(rewrite RZ,NVALUE,Int.repr_signed; exact NLOOK) PARAM_WORDS ltac:(rewrite RZ; exact CONTEXT)
@@ -158,7 +158,7 @@ Proof.
       (memory_source_context row bound expression) bounds expression width_tree LOWER;
     private_rule_formula := Fact tt |}.
   - intros temps p locals le memory after final RUN.
-    exact (@memory_layout_copy_source_domain write_shape read_shape WVALID RVALID write_array read_array DISTINCT row bound column inner_bound expression encoded ENCODE
+    exact (@memory_layout_copy_source_domain write_shape read_shape WVALID RVALID write_array read_array COMPATIBLE row bound column inner_bound expression encoded ENCODE
       body outer_body RN RC NC RK NK CK SC SK BODY OUTER bounds width_tree LOWER
       (adapter_entry temps) (globalenv p) locals le memory after final RUN).
   - intros temps p locals le memory after final SCOPE RUN ACCEPT.

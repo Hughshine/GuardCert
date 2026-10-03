@@ -8,7 +8,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryL
   GuardMemoryMultipleArrays GuardMemoryRegistryBackend GuardMemoryNamedOperations GuardMemoryNamedRegistrySource
   GuardMemoryAffineSourceExpressions GuardMemoryAffineSourceValuation GuardMemoryAffineSourceLoop
   GuardMemoryParametricLoops GuardMemoryParametricSourceClight GuardMemoryCommonLayout
-  GuardMemoryLayoutCopy GuardMemoryLayoutCopyInstruction GuardMemoryLayoutCopyRegistry.
+  GuardMemoryLayoutCopy GuardMemoryLayoutCopyInstruction GuardMemoryLayoutCopyRegistry GuardMemoryCopyLayoutRegistry.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -41,7 +41,7 @@ Variable write_shape read_shape : rectangle_shape.
 Hypothesis WVALID : rectangle_layout_valid write_shape.
 Hypothesis RVALID : rectangle_layout_valid read_shape.
 Variable write_array read_array : ident.
-Hypothesis DISTINCT : write_array <> read_array.
+Hypothesis COMPATIBLE : memory_copy_layout_compatible write_shape read_shape write_array read_array.
 Let base := memory_common_layout write_shape read_shape.
 Let VALID : rectangle_layout_valid base := memory_common_layout_valid WVALID RVALID.
 Let instruction := memory_layout_copy_instruction write_shape read_shape write_array read_array.
@@ -74,7 +74,7 @@ Theorem memory_layout_copy_source_decode fe ge locals le memory after final rows
   0 < L.eval_expr (0::Z.of_nat rows::parameters) encoded ->
   exec_stmt fe ge locals le memory (frontend_counted_loop row bound outer_body) E0 after final Out_normal ->
   exists entries,
-    Forall2 (memory_descriptor_binding ge locals) (memory_layout_copy_descriptors write_shape read_shape write_array read_array) entries /\
+    Forall2 (memory_descriptor_binding ge locals) (memory_copy_layout_descriptors write_shape read_shape write_array read_array) entries /\
     NoDup (map memory_array_id entries) /\
     Forall (fun entry => Mem.valid_pointer memory (memory_array_block entry) 0 = true) entries /\
     L.loop_semantics (memory_parametric_sequence encoded [instruction])
@@ -131,7 +131,7 @@ Proof.
     rows parameters encoded memory final) in ITER.
   destruct (@memory_parametric_first mem (fun i j => memory_layout_copy_point ge locals write_shape read_shape write_array read_array i j)
     rows parameters encoded memory final RP FIRST ITER) as [first HEAD].
-  destruct (@memory_layout_copy_registry write_shape read_shape write_array read_array ge locals memory first WVALID RVALID DISTINCT HEAD)
+  destruct (@memory_copy_layout_registry write_shape read_shape write_array read_array ge locals memory first WVALID RVALID COMPATIBLE HEAD)
     as [entries [ARRAYS [UNIQUE POINTERS]]].
   exists entries; split; [exact ARRAYS|]; split; [exact UNIQUE|]; split; [exact POINTERS|]; split; [|exact EXIT].
   apply (proj1 (@memory_parametric_sequence_lift (memory_array_registry entries)
@@ -141,7 +141,7 @@ Proof.
     ltac:(intros i j before next I J;
       destruct (INDEX i j I J) as [WRITE_INDEX READ_INDEX];
       rewrite memory_layout_copy_singleton_point;
-      apply memory_layout_copy_point_execution; assumption))).
+      apply memory_copy_layout_point_execution; assumption))).
   exact ITER.
 Qed.
 End SOURCE.

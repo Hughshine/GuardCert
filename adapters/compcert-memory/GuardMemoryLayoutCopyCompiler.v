@@ -9,7 +9,7 @@ From GuardMemory Require Import GuardMemoryInstr GuardMemoryLoops GuardMemoryArr
   GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryAffineSourceExpressions GuardMemoryAffineSourceContext
   GuardMemoryAffineSourceLoop GuardMemoryParametricSyntax GuardMemoryParametricWidth GuardMemoryParametricGuard
   GuardMemoryParametricChecker GuardMemoryParametricCandidate GuardMemoryParametricLoops GuardMemoryParametricTiling GuardMemoryScheduleProducer GuardMemoryCommonLayout GuardMemoryLayoutCopyInstruction
-  GuardMemoryLayoutCopyRegistry GuardMemoryLayoutCopyCandidate GuardMemoryLayoutCopySyntax
+  GuardMemoryLayoutCopyRegistry GuardMemoryCopyLayoutRegistry GuardMemoryLayoutCopyCandidate GuardMemoryLayoutCopySyntax
   GuardMemoryParametricInstructionChecker GuardMemoryParametricInstructionTiling GuardMemoryParametricCompiler GuardMemoryRegistryBackend.
 Import CoreAlarmed ListNotations PrivateRegion.
 Set Implicit Arguments.
@@ -19,10 +19,12 @@ Definition memory_layout_copy_package_instructions source (package : memory_layo
   [memory_layout_copy_instruction (layout_copy_write_shape package) (layout_copy_read_shape package)
     (layout_copy_write_array package) (layout_copy_read_array package)].
 Definition memory_layout_copy_package_descriptors source (package : memory_layout_copy_package source) :=
-  memory_layout_copy_descriptors (layout_copy_write_shape package) (layout_copy_read_shape package)
+  memory_copy_layout_descriptors (layout_copy_write_shape package) (layout_copy_read_shape package)
     (layout_copy_write_array package) (layout_copy_read_array package).
+Definition memory_layout_copy_package_arrays source (package : memory_layout_copy_package source) :=
+  map memory_descriptor_variable (memory_layout_copy_package_descriptors package).
 Definition compile_memory_layout_copy_candidate ws rs wa ra row bound expression bounds live pool candidate :=
-  compile_memory_registry_loop (memory_layout_copy_descriptors ws rs wa ra)
+  compile_memory_registry_loop (memory_copy_layout_descriptors ws rs wa ra)
     (memory_source_context row bound expression) bounds live pool candidate.
 Definition memory_layout_copy_target source (package : memory_layout_copy_package source) width_tree code :=
   let d := layout_copy_description package in let expression := layout_copy_expression package in
@@ -56,13 +58,13 @@ Theorem memory_layout_copy_target_sound source (package : memory_layout_copy_pac
   projected_region_contract live source (memory_layout_copy_target package width_tree code).
 Proof.
   destruct package as [d expression ws rs wa ra CERT]; cbn; intros ENCODE COMPILE LOWER CHECK.
-  destruct CERT as [SOURCE BODY OUTER RN RC NC RK NK CK SC SK COMMON WVALID RVALID DISTINCT]; subst source.
+  destruct CERT as [SOURCE BODY OUTER RN RC NC RK NK CK SC SK COMMON WVALID RVALID COMPATIBLE]; subst source.
   unfold memory_layout_copy_target,rectangle_described_source,
     memory_layout_copy_package_descriptors,memory_layout_copy_package_instructions,compile_memory_layout_copy_candidate in *; cbn in *.
   rewrite COMMON in COMPILE,LOWER,CHECK |- *.
   change (projected_region_contract live
     (frontend_counted_loop (rectangle_row d) (rectangle_bound d) (rectangle_described_outer_body d))
-    (generated_private_region (@memory_layout_copy_candidate_rule ws rs WVALID RVALID wa ra DISTINCT
+    (generated_private_region (@memory_layout_copy_candidate_rule ws rs WVALID RVALID wa ra COMPATIBLE
       (rectangle_row d) (rectangle_bound d) (rectangle_column d) (rectangle_inner_bound d) expression encoded ENCODE
       (rectangle_inner_body d) (rectangle_described_outer_body d) RN RC NC RK NK CK SC SK BODY OUTER
       (memory_parametric_bounds (memory_common_layout ws rs) (rectangle_row d) (rectangle_bound d) expression)
@@ -82,7 +84,7 @@ Definition check_memory_layout_copy_mapped_region live pool
     | Some encoded,Some (candidate,steps),Some width_tree =>
       match compile_memory_layout_copy_candidate (layout_copy_write_shape package) (layout_copy_read_shape package) (layout_copy_write_array package) (layout_copy_read_array package)
         (rectangle_row d) (rectangle_bound d) expression bounds live pairs candidate with
-      | Some code => BIND valid <- checked_parametric_instruction_candidate (described_shape d) (memory_layout_copy_package_instructions package) [layout_copy_write_array package;layout_copy_read_array package]
+      | Some code => BIND valid <- checked_parametric_instruction_candidate (described_shape d) (memory_layout_copy_package_instructions package) (memory_layout_copy_package_arrays package)
         (rectangle_row d) context bounds expression encoded candidate steps -;
         pure (if valid then Some (memory_layout_copy_target package width_tree code) else None)
       | None => pure None end
@@ -127,7 +129,7 @@ Definition check_memory_layout_copy_scheduled_region live pool schedules steps s
     let instructions := memory_layout_copy_package_instructions package in
     let context := memory_source_context (rectangle_row d) (rectangle_bound d) expression in
     let bounds := memory_parametric_bounds (described_shape d) (rectangle_row d) (rectangle_bound d) expression in
-    let vars := map (fun array => (array,tt)) (context++[layout_copy_write_array package;layout_copy_read_array package]) in
+    let vars := map (fun array => (array,tt)) (context++(memory_layout_copy_package_arrays package)) in
     match memory_source_loop_expression (rectangle_row d) context expression with
     | Some encoded => BIND candidate <- memory_generate_scheduled_loop
         (memory_parametric_assumed_loop (described_shape d) (rectangle_row d) context bounds expression
@@ -167,7 +169,7 @@ Definition check_memory_layout_copy_tiled_region live pool rows columns source :
         encoded (rectangle_stride (described_shape d)) rows columns true in
       match compile_memory_layout_copy_candidate (layout_copy_write_shape package) (layout_copy_read_shape package) (layout_copy_write_array package) (layout_copy_read_array package)
         (rectangle_row d) (rectangle_bound d) expression bounds live pairs candidate with
-      | Some code => BIND valid <- checked_parametric_instruction_tiling (described_shape d) (memory_layout_copy_package_instructions package) [layout_copy_write_array package;layout_copy_read_array package]
+      | Some code => BIND valid <- checked_parametric_instruction_tiling (described_shape d) (memory_layout_copy_package_instructions package) (memory_layout_copy_package_arrays package)
         (rectangle_row d) context bounds expression encoded rows columns -;
         pure (if valid then Some (memory_layout_copy_target package width_tree code) else None)
       | None => pure None end

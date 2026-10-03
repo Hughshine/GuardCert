@@ -6,7 +6,7 @@ From Guard Require Import ClightSyntaxEquality ClightLoopSyntax ClightFrontendLo
   ClightRectangularStore ClightRectangularSelector ClightRectangularLoops.
 From GuardMemory Require Import GuardMemoryNamedOperations GuardMemoryNamedCompiler GuardMemoryArrayFamilyBackend GuardMemoryAffineSourceExpressions
   GuardMemoryAffineSourceReifier GuardMemoryAffineSourceValuation GuardMemoryAffineSourceContext GuardMemoryAffineSourceLoop GuardMemoryParametricSourceClight
-  GuardMemoryLayoutCopy GuardMemoryCommonLayout.
+  GuardMemoryLayoutCopy GuardMemoryCommonLayout GuardMemoryCopyLayoutRegistry.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -55,7 +55,7 @@ Record memory_layout_copy_certificate source d expression write_shape read_shape
   layout_copy_common : described_shape d = memory_common_layout write_shape read_shape;
   layout_copy_write_layout : rectangle_layout_valid write_shape;
   layout_copy_read_layout : rectangle_layout_valid read_shape;
-  layout_copy_arrays_distinct : write_array <> read_array
+  layout_copy_arrays_compatible : memory_copy_layout_compatible write_shape read_shape write_array read_array
 }.
 Definition check_memory_layout_copy source d expression write_shape read_shape write_array read_array : option (memory_layout_copy_certificate source d expression write_shape read_shape write_array read_array).
 Proof.
@@ -75,9 +75,16 @@ Proof.
   destruct (in_dec peq (rectangle_inner_bound d) (memory_source_affine_parameters (rectangle_row d) expression)) as [|SK]; [exact None|].
   destruct (rectangle_layout_check write_shape) eqn:WL; [|exact None].
   destruct (rectangle_layout_check read_shape) eqn:RL; [|exact None].
-  destruct (peq write_array read_array) as [|ARRAYS]; [exact None|].
-  destruct (rectangle_shape_eq (described_shape d) (memory_common_layout write_shape read_shape)) as [COMMON|]; [|exact None].
-  exact (Some (@MemoryLayoutCopyCertificate source d expression write_shape read_shape write_array read_array
+  destruct (peq write_array read_array) as [SAME|DIFFERENT].
+  - destruct (Z.eq_dec (rectangle_extent write_shape) (rectangle_extent read_shape)) as [EXTENT|]; [|exact None].
+    assert (ARRAYS : memory_copy_layout_compatible write_shape read_shape write_array read_array) by (right; exact EXTENT).
+    destruct (rectangle_shape_eq (described_shape d) (memory_common_layout write_shape read_shape)) as [COMMON|]; [|exact None].
+    exact (Some (@MemoryLayoutCopyCertificate source d expression write_shape read_shape write_array read_array
+      SOURCE BODY OUTER RN RC NC RK NK CK SC SK COMMON
+      (@rectangle_layout_check_sound write_shape WL) (@rectangle_layout_check_sound read_shape RL) ARRAYS)).
+  - assert (ARRAYS : memory_copy_layout_compatible write_shape read_shape write_array read_array) by (left; exact DIFFERENT).
+    destruct (rectangle_shape_eq (described_shape d) (memory_common_layout write_shape read_shape)) as [COMMON|]; [|exact None].
+    exact (Some (@MemoryLayoutCopyCertificate source d expression write_shape read_shape write_array read_array
     SOURCE BODY OUTER RN RC NC RK NK CK SC SK COMMON
     (@rectangle_layout_check_sound write_shape WL) (@rectangle_layout_check_sound read_shape RL) ARRAYS)).
 Defined.
