@@ -22,9 +22,9 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryOperationsCompiler", "GuardMemoryExtractorTrace", "GuardMemoryTraceUniqueness",
            "GuardMemoryExtractorCoverage", "GuardMemoryExtractorOrder", "GuardMemoryPointIsomorphism", "GuardMemoryDomainNormalization", "GuardMemoryExtractorProgress",
            "GuardMemoryCoordinateSwap", "GuardMemoryCoordinateShift", "GuardMemoryCoordinateSkew", "GuardMemoryReindexedExtractor",
-           "GuardMemoryDomainAlignment", "GuardMemoryEquivalentDomainsExtractor", "GuardMemoryAffineReindex", "GuardMemoryAffineMappedExtractor",
+           "GuardMemoryDomainAlignment", "GuardMemoryExtractedTiling", "GuardMemoryEquivalentDomainsExtractor", "GuardMemoryAffineReindex", "GuardMemoryAffineMappedExtractor",
            "GuardMemoryProposedClight", "GuardMemoryProposedCompiler",
-           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryCrossArray", "GuardMemoryCrossInstruction", "GuardMemoryCopyArray", "GuardMemoryCopyInstruction", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryNamedMappedChecker", "GuardMemoryNamedMappedCompiler", "GuardMemoryVariableCounterExit", "GuardMemoryRaggedLoops", "GuardMemoryRaggedClight", "GuardMemoryRaggedGuard", "GuardMemoryNamedRaggedSource", "GuardMemoryNamedRaggedCandidate", "GuardMemoryNamedRaggedChecker", "GuardMemoryNamedRaggedCompiler", "GuardMemoryUnifiedCompiler"]
+           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryCrossArray", "GuardMemoryCrossInstruction", "GuardMemoryCopyArray", "GuardMemoryCopyInstruction", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryNamedMappedChecker", "GuardMemoryNamedMappedCompiler", "GuardMemoryVariableCounterExit", "GuardMemoryRaggedLoops", "GuardMemoryRaggedClight", "GuardMemoryRaggedGuard", "GuardMemoryRaggedBackend", "GuardMemoryNamedRaggedSource", "GuardMemoryNamedRaggedCandidate", "GuardMemoryNamedRaggedChecker", "GuardMemoryTileRangeTrimming", "GuardMemoryRaggedTiling", "GuardMemoryNamedRaggedTiling", "GuardMemoryNamedRaggedCompiler", "GuardMemoryUnifiedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -64,9 +64,9 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemorySequencePolyhedral GuardMemorySequenceOrder GuardMemorySequenceExecution
   GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
   GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
-  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryCoordinateShift GuardMemoryCoordinateSkew GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryEquivalentDomainsExtractor GuardMemoryAffineReindex GuardMemoryAffineMappedExtractor
+  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryCoordinateShift GuardMemoryCoordinateSkew GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryExtractedTiling GuardMemoryEquivalentDomainsExtractor GuardMemoryAffineReindex GuardMemoryAffineMappedExtractor
   GuardMemoryProposedClight GuardMemoryProposedCompiler
-  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryNamedMappedChecker GuardMemoryNamedMappedCompiler GuardMemoryVariableCounterExit GuardMemoryRaggedLoops GuardMemoryRaggedClight GuardMemoryRaggedGuard GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker GuardMemoryNamedRaggedCompiler GuardMemoryUnifiedCompiler.
+  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryNamedMappedChecker GuardMemoryNamedMappedCompiler GuardMemoryVariableCounterExit GuardMemoryRaggedLoops GuardMemoryRaggedClight GuardMemoryRaggedGuard GuardMemoryRaggedBackend GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker GuardMemoryTileRangeTrimming GuardMemoryRaggedTiling GuardMemoryNamedRaggedTiling GuardMemoryNamedRaggedCompiler GuardMemoryUnifiedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -140,6 +140,8 @@ Print Assumptions memory_ragged_source_guard_domain.
 Print Assumptions named_array_operations_ragged_source_decode.
 Print Assumptions memory_ragged_width_exact.
 Print Assumptions memory_ragged_guard_primitives.
+Print Assumptions memory_ragged_parameter_bounds.
+Print Assumptions memory_ragged_tile_trimming.
 Print Assumptions memory_named_array_candidate_rule.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
@@ -165,6 +167,8 @@ Print Assumptions checked_named_affine_candidate_correct.
 Print Assumptions validated_memory_affine_mapped_domain_loops_at.
 Print Assumptions checked_named_mapped_candidate_correct.
 Print Assumptions checked_named_ragged_candidate_correct.
+Print Assumptions validated_memory_extracted_tiling_loops_at.
+Print Assumptions checked_named_ragged_tiling_correct.
 Print Assumptions checked_named_tiled_candidate_correct.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
@@ -191,6 +195,7 @@ Print Assumptions memory_ragged_array_candidate_local.
 Print Assumptions memory_ragged_named_source_domain.
 Print Assumptions memory_ragged_array_candidate_rule.
 Print Assumptions check_memory_ragged_mapped_region_sound.
+Print Assumptions check_memory_ragged_tiled_region_sound.
 Print Assumptions check_memory_ragged_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.

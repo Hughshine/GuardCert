@@ -64,11 +64,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译四十八个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 86 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
-一般 C 源提取、多数组语句与更广的点坐标对应，以及更一般 tiling 的完整 C 程序保证仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；独立检查器直接读取候选 PolyLang 程序，内置 C 编译入口构造限定矩形、单数组混合读写语句列表和静态仿射条件域的交换或二维 tiling 候选。外部 Loop 文件入口已经单独接通，当前仍使用矩形混合列表的完整源识别。没有一般多面体 C 编译器或性能结果。
+当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。一般 C 仿射源提取、邻居／更广仿射访问、不同布局和指针缓冲区仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
 
 `make native-memory-operations` 构建同数组混合读写列表的完整 C 分块入口，`build/native-memory-operations/report.json` 记录五组块大小、5325 个正动态矩形、10 个实际快路函数与五条拒绝路线；每组 1564 行完整数组及公开 iterator 输出与 GCC 和独立模型一致。证明与当前源语法范围见 [混合列表证明链](../../docs/memory-mixed-statement-tiling.md)。
 
@@ -82,4 +82,4 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 
 [仿射 iterator 对应](../../docs/memory-affine-iterator-maps.md)提供候选坐标的交换、平移、剪切及其组合；它们已进入同一完整编译器证明。`make native-memory-affine-maps` 检查实际 C 程序中的候选接受、依赖拒绝及机器边界拒绝。
 
-[非矩形 C 源循环](../../docs/memory-nonrectangular-source.md)支持实际 `K=i+M; j<K` 的循环边界，证明宽度前提的安全编码和 `i/j/K` 的源出口对应。`make native-memory-ragged` 运行统一完整程序入口；当前完整审计覆盖 81 个内存适配模块和 7 个 lowering 模块。
+[非矩形 C 源循环](../../docs/memory-nonrectangular-source.md)支持实际 `K=i+M; j<K` 的循环边界，证明宽度前提的安全编码和 `i/j/K` 的源出口对应，并接通实际二维分块；生成代码以除法向上取整计算块数，空迭代裁剪有执行等价证明。`make native-memory-ragged` 运行统一完整程序入口；当前完整审计覆盖 86 个内存适配模块和 7 个 lowering 模块。

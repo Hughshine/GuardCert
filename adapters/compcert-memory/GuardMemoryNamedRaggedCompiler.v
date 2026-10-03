@@ -10,7 +10,7 @@ From Guard Require Import ClightCondition ClightPureExpr ClightPrivateRule Cligh
   ClightFrontendRegion ClightStraightLine ClightSharedRegion ClightSyntaxEquality.
 From GuardMemory Require Import GuardMemoryInstr GuardMemoryLoops GuardMemoryNamedOperations GuardMemoryNamedRegistrySource
   GuardMemoryArrayFamilyBackend GuardMemoryTiledCompiler GuardMemoryNamedCompiler GuardMemoryNamedCandidate GuardMemoryAffineReindex GuardMemoryRaggedClight
-  GuardMemoryRaggedGuard GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker.
+  GuardMemoryRaggedGuard GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker GuardMemoryRaggedBackend GuardMemoryRaggedTiling GuardMemoryNamedRaggedTiling.
 Import CoreAlarmed ListNotations PrivateRegion.
 Import Clight.
 Set Implicit Arguments.
@@ -97,7 +97,7 @@ Definition memory_ragged_target source (package : memory_ragged_package source) 
     (memory_ragged_candidate code (rectangle_row d) (rectangle_bound d)
       (rectangle_column d) (rectangle_inner_bound d) (ragged_parameter package)) source.
 Theorem memory_ragged_target_sound source (package : memory_ragged_package source) live pairs candidate width_tree code :
-  compile_named_array_candidate (described_shape (ragged_description package)) (ragged_operations package)
+  compile_named_ragged_array_candidate (described_shape (ragged_description package)) (ragged_operations package)
     (rectangle_bound (ragged_description package)) (ragged_parameter package) live pairs candidate = Some code ->
   compile_memory_ragged_width (described_shape (ragged_description package))
     (rectangle_bound (ragged_description package)) (ragged_parameter package) = Some width_tree ->
@@ -123,7 +123,7 @@ Definition check_memory_ragged_mapped_region live pool
     match propose (map named_operation_instruction (ragged_operations package)),
       compile_memory_ragged_width (described_shape d) (rectangle_bound d) (ragged_parameter package) with
     | Some (candidate,steps),Some width_tree =>
-      match compile_named_array_candidate (described_shape d) (ragged_operations package)
+      match compile_named_ragged_array_candidate (described_shape d) (ragged_operations package)
           (rectangle_bound d) (ragged_parameter package) live pairs candidate with
       | Some code => BIND valid <- checked_named_ragged_candidate (described_shape d) (ragged_operations package)
           (rectangle_bound d) (ragged_parameter package) candidate steps -;
@@ -143,7 +143,7 @@ Proof.
   destruct (compile_memory_ragged_width (described_shape (ragged_description package))
     (rectangle_bound (ragged_description package)) (ragged_parameter package)) as [width_tree|] eqn:LOWER;
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
-  destruct (compile_named_array_candidate (described_shape (ragged_description package)) (ragged_operations package)
+  destruct (compile_named_ragged_array_candidate (described_shape (ragged_description package)) (ragged_operations package)
     (rectangle_bound (ragged_description package)) (ragged_parameter package) live pairs candidate) as [code|] eqn:COMPILE;
     [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
   intro CHECK; bind_imp_destruct CHECK valid VALID; apply mayReturn_pure in CHECK.
@@ -152,3 +152,43 @@ Proof.
   eapply checked_named_ragged_candidate_correct; exact VALID.
 Qed.
 Print Assumptions check_memory_ragged_mapped_region_sound.
+
+Definition check_memory_ragged_tiled_region live pool rows columns source : CoreAlarmed.Base.imp (option statement) :=
+  match Z_lt_dec 0 rows,Z_lt_dec 0 columns,private_counter_pairs pool,describe_memory_ragged source with
+  | left _,left _,Some pairs,Some package =>
+    let d := ragged_description package in
+    let candidate := memory_ragged_tiled_loop (map named_operation_instruction (ragged_operations package)) rows columns true in
+    match compile_memory_ragged_width (described_shape d) (rectangle_bound d) (ragged_parameter package) with
+    | Some width_tree =>
+      match compile_named_ragged_array_candidate (described_shape d) (ragged_operations package)
+        (rectangle_bound d) (ragged_parameter package) live pairs candidate with
+      | Some code => BIND valid <- checked_named_ragged_tiling (described_shape d) (ragged_operations package)
+          (rectangle_bound d) (ragged_parameter package) rows columns -;
+        pure (if valid then Some (memory_ragged_target package width_tree code) else None)
+      | None => pure None end
+    | None => pure None end
+  | _,_,_,_ => pure None end.
+Theorem check_memory_ragged_tiled_region_sound live pool rows columns source target :
+  mayReturn (check_memory_ragged_tiled_region live pool rows columns source) (Some target) ->
+  projected_region_contract live source target.
+Proof.
+  unfold check_memory_ragged_tiled_region.
+  destruct (Z_lt_dec 0 rows); [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (Z_lt_dec 0 columns); [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (private_counter_pairs pool) as [pairs|]; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (describe_memory_ragged source) as [package|]; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (compile_memory_ragged_width (described_shape (ragged_description package))
+    (rectangle_bound (ragged_description package)) (ragged_parameter package)) as [width_tree|] eqn:LOWER;
+    [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  destruct (compile_named_ragged_array_candidate (described_shape (ragged_description package)) (ragged_operations package)
+    (rectangle_bound (ragged_description package)) (ragged_parameter package) live pairs
+    (memory_ragged_tiled_loop (map named_operation_instruction (ragged_operations package)) rows columns true))
+    as [code|] eqn:COMPILE; [|intro CHECK; apply mayReturn_pure in CHECK; discriminate].
+  intro CHECK; bind_imp_destruct CHECK valid VALID; apply mayReturn_pure in CHECK.
+  destruct valid; [inversion CHECK; subst target|discriminate].
+  apply memory_ragged_target_sound with (pairs := pairs)
+    (candidate := memory_ragged_tiled_loop (map named_operation_instruction (ragged_operations package)) rows columns true);
+    [exact COMPILE|exact LOWER|].
+  eapply checked_named_ragged_tiling_correct; eassumption.
+Qed.
+Print Assumptions check_memory_ragged_tiled_region_sound.

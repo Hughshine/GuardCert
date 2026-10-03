@@ -9,7 +9,7 @@ From Guard Require Import AbstractGuard SemanticFacts CompCertMemoryEquivalence
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryLoops GuardMemoryArrayBackend
   GuardMemoryTiledClight GuardMemoryMultipleArrays GuardMemoryRegistryBackend GuardMemoryRegistryGuard GuardMemoryNamedOperations
   GuardMemoryNamedRegistrySource GuardMemoryNamedCandidate GuardMemoryRaggedLoops GuardMemoryRaggedClight
-  GuardMemoryRaggedGuard GuardMemoryNamedRaggedSource.
+  GuardMemoryRaggedGuard GuardMemoryNamedRaggedSource GuardMemoryRaggedBackend.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -84,7 +84,7 @@ Variable live : list ident.
 Variable pool : list (ident * ident).
 Variable candidate : L.stmt.
 Variable code : statement.
-Hypothesis COMPILE : compile_named_array_candidate base operations bound parameter live pool candidate = Some code.
+Hypothesis COMPILE : compile_named_ragged_array_candidate base operations bound parameter live pool candidate = Some code.
 Hypothesis CANDIDATE : memory_ragged_candidate_certificate base operations candidate.
 Variable width_tree : decision_tree.
 Hypothesis LOWER : compile_memory_ragged_width base bound parameter = Some width_tree.
@@ -121,10 +121,10 @@ Proof.
   pose proof (@CANDIDATE N M (RuntimeState (memory_array_registry entries) memory)
     (RuntimeState (memory_array_registry entries) final) NB MB WIDTH NONALIAS LOOP) as TARGET.
   destruct (@compile_memory_registry_loop_correct (named_array_descriptors base operations) entries fe ge locals ARRAYS
-    [bound;parameter] (rectangle_tiled_bounds base) live pool candidate code [N;M] le
+    [bound;parameter] (memory_ragged_positive_bounds base) live pool candidate code [N;M] le
     (RuntimeState (memory_array_registry entries) memory) (RuntimeState (memory_array_registry entries) final) memory
     COMPILE ltac:(apply rectangle_tiled_parameter_view; assumption)
-    ltac:(apply rectangle_tiled_parameter_bounds; lia) TARGET eq_refl)
+    ltac:(apply memory_ragged_parameter_bounds; lia) TARGET eq_refl)
     as [private_temps [private_memory [VIEW [FRAME EXEC]]]].
   unfold memory_registry_view in VIEW; inversion VIEW; subst private_memory.
   exists (PTree.set row (Vint (Int.repr N)) (memory_ragged_settle column inner_bound M (N-1) private_temps)); split.

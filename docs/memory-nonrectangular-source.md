@@ -68,6 +68,27 @@ composes the shared region replacement with CompCert's front and back ends,
 producing a backward simulation from the actual Csem program to assembly.
 The source fallback and containing functions remain covered by that theorem.
 
+## Nonrectangular tiling
+
+`GuardMemoryExtractedTiling` checks both actual Loop extractions. It attaches
+source-to-tile witnesses to the candidate, checks the correspondence of all
+instruction arguments and accesses, proves integer domain equivalence, and
+runs the existing dependence validator. Its endpoint constructs candidate
+execution from source execution with the same physical CompCert memory.
+
+The affine validation representation may contain empty tile iterations.
+`GuardMemoryTileRangeTrimming` and `GuardMemoryRaggedTiling` prove that removing
+those iterations leaves the execution trace unchanged. Generated Clight uses
+`ceil(N / bi)` row tiles and `ceil((N+M-1) / bj)` column tiles. Both sizes must
+be positive; all generated arithmetic is checked by the lowering backend.
+The source range and width guard establish positive parameter intervals for
+this backend, including the unit tile case.
+
+`checked_named_ragged_tiling_correct` gives the candidate certificate for the
+efficient Loop. `check_memory_ragged_tiled_region_sound` consumes it in the
+same shared guarded fragment host. The unified entry routes `(tile bi bj)`
+proposals through this checker for recognized nonrectangular source loops.
+
 ## Reproduction
 
 ```sh
@@ -81,17 +102,19 @@ compares complete output with both GCC and an independent execution model. It
 also checks the generated Clight to distinguish accepted transformations from
 successful fallback executions.
 
-The fresh audit compiles 81 memory modules and the seven lowering modules. It
+The fresh audit compiles 86 memory modules and the seven lowering modules. It
 retains the existing 7 instruction assumptions, 12 validator assumptions and
-42 assumptions for the CompCert/validator union. The 12 nonrectangular native
+42 assumptions for the CompCert/validator union. The 21 nonrectangular native
 configurations each match all 1,385 output lines. Identity, interchange,
-fission, shift and skew are accepted on all seven source functions. Incorrect
+fission, shift, skew and four tile sizes are accepted on all seven source
+functions. Tile sizes `(1,1)`, `(2,3)`, `(4,4)` and `(17,13)` exercise unit,
+partial and oversized tiles. Incorrect
 domains, incorrect skew maps, missing statements, reversed dependent writes,
-resource exhaustion and invalid oracle certificates fall back. The original
+nonpositive or overflowing tile widths, resource exhaustion and invalid oracle
+certificates fall back. The original
 16 multiarray configurations each still match all 4,022 output lines.
 
 This source extension is a bounded affine family. The generic Loop extractor
-handles a wider affine grammar than this C recognizer. General source
-recognition and tiling of nonrectangular regions remain separate obligations;
-no successful affine proposal should be reported as evidence that those
-obligations have been discharged.
+handles a wider affine grammar than this C recognizer. General C source recognition, more general affine source accesses and pointer
+buffers remain separate obligations. The supported nonrectangular family and
+its actual tiling path do not establish arbitrary affine C source coverage.

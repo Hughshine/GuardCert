@@ -85,6 +85,17 @@ def main():
               ['wrong-domain','rectangle-domain','wrong-skew','drop-all-statements','reverse-dependent']]
     cases += [(name,templates/'interchange.sexp',extra,set()) for name,extra in
               [('resource-limit',{'GUARDCERT_FM_ROWS':'0'}),('invalid-certificate',{'GUARDCERT_ORACLE_FAULT':'top-certificate'})]]
+    for rows,columns in [(1,1),(2,3),(4,4),(17,13)]:
+        name=f'tile-{rows}-{columns}'; path=WORK/(name+'.sexp')
+        path.write_text(f'(tile {rows} {columns})\n')
+        cases.append((name,path,{},ACCEPTED))
+    for name,rows,columns,extra in [
+        ('tile-zero-width',0,4,{}),('tile-negative-width',4,-3,{}),
+        ('tile-overflow-width',2**31-1,4,{}),
+        ('tile-resource-limit',4,4,{'GUARDCERT_FM_ROWS':'0'}),
+        ('tile-invalid-certificate',4,4,{'GUARDCERT_ORACLE_FAULT':'top-certificate'})]:
+        path=WORK/(name+'.sexp');path.write_text(f'(tile {rows} {columns})\n')
+        cases.append((name,path,extra,set()))
     for name,path,extra,expected in cases:
         dump=compile_run(name,{'GUARDCERT_LOOP_CANDIDATE':str(path)}|extra)
         for function in ACCEPTED:
@@ -96,12 +107,17 @@ def main():
                 if function!='ragged_write':
                     assert re.search(r'if \([^\n]* != [^\n]*\)',body),(name,function,'actual alias checks')
                 assert '$n <= ' in body and '$m <= 10' in body,(name,function,'runtime range checks')
+                if name.startswith('tile-'):
+                    rows,columns=map(int,name.split('-')[1:])
+                    assert re.search(rf'/ {rows}\b',body),(name,function,'ceil row tile count')
+                    assert re.search(rf'/ {columns}\b',body),(name,function,'ceil column tile count')
         assert 'switch (0)' not in function_body(dump,'ragged_other_bound'),(name,'other bound')
         configurations[name]={'guarded_functions':sorted(expected),'full_output_lines':len(reference.splitlines()),
                               'arrays_and_i_j_k_exits_match':True}
     report={'status':'passed','proved_entrypoint':ENTRY,'configurations':configurations,
             'source_sha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'compiler_sha256':stamp['compiler_sha256'],
             'actual_nonrectangular_c_source':True,'all_source_modes_and_cross_array_copy':True,
+            'verified_nonrectangular_tiling':True,'ceil_tile_counts_in_actual_candidate':True,
             'gcc_and_independent_model_match':True,'runtime_width_failure_executions_match':True,
             'zero_negative_and_nonzero_entry_fallback_match':True,'general_affine_source_grammar_supported':False}
     (WORK/'report.json').write_text(json.dumps(report,indent=2)+'\n')
