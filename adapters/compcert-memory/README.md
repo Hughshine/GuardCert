@@ -64,11 +64,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 211 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 269 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
-当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。不同布局的混合操作列表、转置／缩放／散布访问、有源基址证据覆盖的非负邻居偏移，以及多读取整数计算已接入。[内层宽度条件搜索](../../docs/memory-inner-width-conditioning.md)随后接入复制链的实际分裂与安全回退。[三重 C 循环](../../docs/memory-three-level-loops.md)已接入矩阵乘法、非恒等调度和外层二维分块；[递归规范 C 源循环](../../docs/memory-recursive-source-loops.md)进一步接入任意有限维矩形源、相同依赖检查、调度生成及外层二维分块。[真实指针缓冲区](../../docs/memory-pointer-buffers.md)进一步接入一个稳定指针、非零基址、有限范围条件搜索和同一完整程序端点。更一般的深层仿射域、额外稳定计算参数及多个不同指针的别名条件继续推进。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
+当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。不同布局的混合操作列表、转置／缩放／散布访问、有源基址证据覆盖的非负邻居偏移，以及多读取整数计算已接入。[内层宽度条件搜索](../../docs/memory-inner-width-conditioning.md)随后接入复制链的实际分裂与安全回退。[三重 C 循环](../../docs/memory-three-level-loops.md)已接入矩阵乘法、非恒等调度和外层二维分块；[递归规范 C 源循环](../../docs/memory-recursive-source-loops.md)进一步接入任意有限维矩形源、相同依赖检查、调度生成及外层二维分块。[真实指针缓冲区](../../docs/memory-pointer-buffers.md)进一步接入一个稳定指针、非零基址、有限范围条件搜索和同一完整程序端点。稳定 RHS 标量、signed 仿射地址及多个不同指针的活动访问分离随后也已接通；当前边界见下方对应记录。更一般的深层仿射域、参数化访问及更宽的别名条件继续推进。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
 
 `make native-memory-operations` 构建同数组混合读写列表的完整 C 分块入口，`build/native-memory-operations/report.json` 记录五组块大小、5325 个正动态矩形、10 个实际快路函数与五条拒绝路线；每组 1564 行完整数组及公开 iterator 输出与 GCC 和独立模型一致。证明与当前源语法范围见 [混合列表证明链](../../docs/memory-mixed-statement-tiling.md)。
 
@@ -110,3 +110,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [稳定 RHS 标量参数](../../docs/memory-stable-scalar-parameters.md)随后接入指针与局部／全局固定数组。零列补齐的语义证明保持地址与 N+E 实参的一致，实际源执行提供标量类型，guard 不提前读取标量。当前全量审计为 240 个适配模块与七个 lowering 模块，完整编译器仍继承原有 42 项假设。两类各 16 组完整汇编配置通过，每组分别核对 196／672 行完整输出；各 10 组分支诊断分别核对 2626／2602 次调用，包含不同轴长度、负数及极值标量和未初始化标量的零次循环。旧指针路径 15 组完整配置及 10 组／586 次分支回归也通过。多个不同指针的重叠条件与更一般深层源域继续推进。
 
 Signed affine source accesses now use a proved lower and upper box check. The 241-module audit retains the existing 42 whole-compiler assumptions. Thirteen assembly configurations and ten branch diagnostics (5463 calls) passed; see [the signed access record](../../docs/memory-signed-affine-access.md) for the compiler hash and the distinction between assembly checks and instrumented Clight diagnostics. Multiple pointer inputs still require a new source and backend instance.
+
+[多指针源与动态分离检查](../../docs/memory-multiple-pointer-guards.md)接入多个稳定 `int *` 参数、各自的实际读写访问、活动访问权限与对齐证明、受限视图中的依赖验证、真实候选 lowering 及同一完整程序定理。全量审计为 269 个适配模块和七个 lowering 模块；完整编译器仍为 42 项原有假设。11 组完整汇编配置及九组／5256 次调用的分支诊断通过，`make native-memory-multi-pointer` 可复现。

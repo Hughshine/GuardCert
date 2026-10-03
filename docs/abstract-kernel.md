@@ -55,6 +55,14 @@ if (x <= 2147483647U) {       /* validity: 检查提供正证据 */
 
 这些 CompCert 定理继承上游假设；完整证明端点是形式化 Asm。外部解析、汇编、链接和 libc 的原生运行仍是执行检查。
 
+## CompCert 内存实例的后续进展
+
+下节保留早期适配路线及其当时边界。后续自建 CompCert 内存实例已经把实际源读取／写入、域与依赖验证、仿射候选、二维分块及完整程序定理连接起来；当前功能对照见 [多面体接入目标](polcert-integration-target.md)。
+
+多指针扩展继续采用同一分工：通用核消费性质与条件编码证据；CompCert 实例证明活动访问地址比较安全，以及接受时的物理单元分离；实际 INSTR 从分离性质提供 Bernstein 交换证据。条件合成器从源访问生成激活条件和地址比较，候选验证器再建立受限内存视图中的执行。框架无需内置地址或整数解释。
+
+条件代码也不必局限于一棵复制后续分支的树。`memory_check_statement_execution` 暴露保持入口状态的检查语句契约，接受时正常完成，拒绝时返回 `break`。顺序组合定理和 `memory_private_rule_sequential_sound` 将这个契约接到既有性质公式、片段规则与完整程序宿主。当前多指针生成器使用顺序检查和共享回退；具体编译与原生验证状态见 [多指针检查](memory-multiple-pointer-guards.md)。
+
 ## PolCert 的对接边界
 
 v10 `InstrTy.INSTR` 本身暴露 `NonAlias`、非别名保持、状态等价稳定性，以及 Bernstein 读写条件下的交换证明。`PolCertSchedule.v` 已直接使用这一真实模块实例化 `AbstractSchedule`，证明有限相邻交换证书保持结果模状态等价。它不解释地址，也不是多面体 schedule validator。

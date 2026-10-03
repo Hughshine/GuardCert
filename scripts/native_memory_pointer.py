@@ -20,7 +20,7 @@ METADATA = {name: 2 for name in ['pointer_two', 'pointer_context', 'pointer_wrap
     'pointer_chain', 'pointer_recurrence', 'pointer_nonlinear', 'pointer_scalar', 'pointer_multi']}
 METADATA |= {'pointer_three': 3, 'pointer_four': 4, 'pointer_undef': 3}
 STRIDES = {2: [8, 1], 3: [128, 16, 1], 4: [512, 64, 8, 1]}
-REFUSED = {'pointer_nonlinear', 'pointer_multi'}
+REFUSED = {'pointer_nonlinear'}
 SUPPORTED = set(METADATA) - REFUSED
 IDENTIFIERS = ['i', 'j', 'k', 't']
 BOUNDS = ['n', 'm', 'p', 'q']
@@ -180,9 +180,10 @@ def main():
             for identifier, bound in zip(IDENTIFIERS[:dimensions], BOUNDS):
                 actualbound = 'unused_bound' if fn == 'pointer_undef' and identifier == 'k' else bound
                 assert f'${identifier} = ${actualbound};' in fast, (name, fn, 'public counter exit', identifier)
-            values = re.findall(r'\$(?:n|m|p|q|unused_bound)\s*<=\s*(\d+)', fast)
-            assert len(values) >= dimensions, (name, fn, 'complete entry guard')
-            limits[fn] = min(map(int, values))
+            values = [re.search(r'\$'+('unused_bound' if fn == 'pointer_undef' and bound == 'p' else bound)
+                       +r'\s*<=\s*(\d+)', fast) for bound in BOUNDS[:dimensions]]
+            assert all(values), (name, fn, 'complete entry guard')
+            limits[fn] = min(int(value.group(1)) for value in values)
         configurations[name] = {'guarded_functions': sorted(observed), 'common_guard_cap': limits,
             'full_output_lines': len(reference.splitlines()), 'gcc_and_independent_model_match': True,
             'template_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}

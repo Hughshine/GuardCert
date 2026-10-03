@@ -22,7 +22,7 @@ METADATA = {name: 2 for name in ['scalar_axpy', 'scalar_context', 'scalar_wrap',
     'scalar_mutated', 'scalar_multi']}
 METADATA |= {'scalar_three': 3, 'scalar_four': 4}
 STRIDES = {2: [8, 1], 3: [128, 16, 1], 4: [512, 64, 8, 1]}
-REFUSED = {'scalar_nonlinear', 'scalar_mutated', 'scalar_multi'}
+REFUSED = {'scalar_nonlinear', 'scalar_mutated'}
 SUPPORTED = set(METADATA)-REFUSED
 IDENTIFIERS = ['i', 'j', 'k', 't']
 BOUNDS = ['n', 'm', 'p', 'q']
@@ -180,9 +180,9 @@ def main():
             fast = body[begin:body.index('continue;', begin)]
             for iterator, bound in zip(IDENTIFIERS[:METADATA[fn]], BOUNDS):
                 assert f'${iterator} = ${bound};' in fast, (name, fn, 'public counter exit', iterator)
-            values = re.findall(r'\$(?:n|m|p|q)\s*<=\s*(\d+)', fast)
-            assert len(values) >= METADATA[fn], (name, fn, 'complete count guard')
-            limits[fn] = min(map(int, values))
+            values = [re.search(r'\$'+bound+r'\s*<=\s*(\d+)', fast) for bound in BOUNDS[:METADATA[fn]]]
+            assert all(values), (name, fn, 'complete count guard')
+            limits[fn] = min(int(value.group(1)) for value in values)
             # Only counter/count temporaries appear in the entry guard. Parameters
             # may be used later by the candidate, after all count tests have passed.
             first_assignment = re.search(r'\$\d+\s*=', fast)

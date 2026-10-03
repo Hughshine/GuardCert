@@ -326,3 +326,8 @@ native-memory-scalar-array: memory-unified-compiler
 native-memory-signed: memory-unified-compiler
 	python3 scripts/native_memory_signed.py
 	python3 scripts/native_memory_signed_paths.py
+
+.PHONY: native-memory-multi-pointer
+native-memory-multi-pointer: memory-unified-compiler
+	python3 scripts/native_memory_multi_pointer.py
+	python3 scripts/native_memory_multi_pointer_paths.py

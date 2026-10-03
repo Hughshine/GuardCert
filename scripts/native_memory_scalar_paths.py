@@ -53,6 +53,8 @@ def main():
                 unequal = [[1,2],[2,1]] if depth == 2 else [[1,2,3],[3,1,2]] if depth == 3 else [[1,2,1,2],[2,1,2,1]]
                 inputs += [(9,0,counts,repeats if max(counts) <= cap else 0) for counts in unequal]
             for offset, start, counts, hits in inputs:
+                if function == 'scalar_multi' and counts[-1] > 1:
+                    hits = 0
                 for values in parameters:
                     calls.append(f'guard_branch_hits[{index}]=0; run_{function}('
                         + ','.join(map(str,[offset,start]+counts+values))+'); '

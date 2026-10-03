@@ -1,0 +1,175 @@
+From Stdlib Require Import List Bool ZArith Lia.
+From compcert.common Require Import AST.
+From compcert.cfrontend Require Import Clight.
+From polcert.lib Require Import ImpureAlarmConfig.
+From Vpl Require Import Impure.
+From Guard Require Import AbstractGuard SemanticFacts ClightCondition ClightPureExpr ClightPrivateRule ClightPrivateRegion
+  ClightPrivatePool ClightSharedRegion ClightRectangularSelector.
+From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryLoops GuardMemoryArrayBackend
+  GuardMemoryRegistryBackend GuardMemoryAffineReindex GuardMemoryScheduleProducer GuardMemoryRecursiveSource
+  GuardMemoryRecursiveSyntax GuardMemoryRecursiveGuard GuardMemoryRecursiveRestore GuardMemoryRecursiveCandidate
+  GuardMemoryRecursiveChecker GuardMemoryRecursiveTiling GuardMemoryNaryLoops GuardMemoryTiledCompiler
+  GuardMemoryPointerSyntax GuardMemoryPointerCandidate GuardMemoryPointerBackend GuardMemoryPointerConditionSearch
+  GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerCandidate GuardMemoryMultiPointerRegionGuard GuardMemoryMultiPointerBackend GuardMemoryScalarPointerBounds
+  GuardMemoryScalarChecker GuardMemoryScalarLoops GuardMemoryScalarTiling GuardMemoryScalarCandidates
+  GuardMemoryMultiPointerConditionSearch GuardMemorySequentialCondition GuardMemoryCompactAliasCondition.
+Import CoreAlarmed ListNotations PrivateRegion.
+Set Implicit Arguments.
+Local Open Scope Z_scope.
+
+Definition memory_multi_pointer_region_context source (package : memory_multi_pointer_region_package source) :=
+  memory_nest_bounds (multi_pointer_region_nest package)++multi_pointer_region_scalars package.
+Definition memory_multi_pointer_region_arity source (package : memory_multi_pointer_region_package source) :=
+  length (multi_pointer_region_scalars package).
+
+Definition compile_memory_multi_pointer_region_candidate source (package : memory_multi_pointer_region_package source) live pool candidate :=
+  compile_memory_multi_pointer_buffer_loop (multi_pointer_region_pointers package)
+    (memory_multi_pointer_region_context package)
+    (memory_scalar_pointer_static_bounds (length (memory_nest_iterators (multi_pointer_region_nest package)))
+      (multi_pointer_region_limit package) (memory_multi_pointer_region_arity package)) live pool candidate.
+Definition memory_multi_pointer_region_arrays source (package : memory_multi_pointer_region_package source) := multi_pointer_region_pointers package.
+Definition memory_multi_pointer_region_target source (package : memory_multi_pointer_region_package source) code :=
+  memory_sequential_guarded_statement (memory_multi_pointer_region_guard_statement package)
+    (memory_recursive_candidate code (multi_pointer_region_nest package)) source.
+Theorem memory_multi_pointer_region_target_sound source (package : memory_multi_pointer_region_package source) live pairs candidate code :
+  compile_memory_multi_pointer_region_candidate package live pairs candidate = Some code ->
+  memory_scalar_candidate_certificate (length (memory_nest_iterators (multi_pointer_region_nest package)))
+    (multi_pointer_region_limit package) (memory_multi_pointer_region_arity package) (memory_multi_pointer_region_instructions package)
+    (memory_multi_pointer_region_context package) candidate ->
+  projected_region_contract live source (memory_multi_pointer_region_target package code).
+Proof.
+  intros COMPILE CHECK.
+  unfold memory_multi_pointer_region_target.
+  eapply memory_private_rule_sequential_sound with
+    (rule := @memory_multi_pointer_candidate_rule source package live pairs candidate code COMPILE CHECK).
+  intros fe s DOMAIN.
+  change (memory_check_statement_execution fe s (memory_multi_pointer_region_guard_statement package)
+    (formula_accepts (decide_atom (memory_multi_pointer_region_guard_dimension package)) (Fact tt) s)).
+  replace (formula_accepts (decide_atom (memory_multi_pointer_region_guard_dimension package)) (Fact tt) s)
+    with (memory_multi_pointer_region_guard_accept package s) by
+    (unfold formula_accepts; cbn [formula_execute decide_atom memory_multi_pointer_region_guard_dimension positive_dimension checked_valid];
+      destruct (memory_multi_pointer_region_guard_accept package s); reflexivity).
+  apply memory_multi_pointer_region_guard_statement_execution; exact DOMAIN.
+Qed.
+Definition check_memory_multi_pointer_region_candidate live pool source (package : memory_multi_pointer_region_package source)
+  candidate (check : CoreAlarmed.Base.imp bool) : CoreAlarmed.Base.imp (option statement) :=
+  match private_counter_pairs pool with
+  | Some pairs => match compile_memory_multi_pointer_region_candidate package live pairs candidate with
+      | Some code => BIND valid <- check -;
+          pure (if valid then Some (memory_multi_pointer_region_target package code) else None)
+      | None => pure None end
+  | None => pure None end.
+Theorem check_memory_multi_pointer_region_candidate_sound live pool source (package : memory_multi_pointer_region_package source) candidate check target :
+  (mayReturn check true -> memory_scalar_candidate_certificate (length (memory_nest_iterators (multi_pointer_region_nest package)))
+    (multi_pointer_region_limit package) (memory_multi_pointer_region_arity package) (memory_multi_pointer_region_instructions package)
+    (memory_multi_pointer_region_context package) candidate) ->
+  mayReturn (check_memory_multi_pointer_region_candidate live pool package candidate check) (Some target) ->
+  projected_region_contract live source target.
+Proof.
+  intros CERT; unfold check_memory_multi_pointer_region_candidate.
+  destruct (private_counter_pairs pool) as [pairs|]; [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct (compile_memory_multi_pointer_region_candidate package live pairs candidate) as [code|] eqn:COMPILE;
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  intro RUN; bind_imp_destruct RUN valid VALID; apply mayReturn_pure in RUN;
+    destruct valid; [inversion RUN; subst target|discriminate].
+  eapply memory_multi_pointer_region_target_sound; [exact COMPILE|apply CERT; exact VALID].
+Qed.
+Section SERVICES.
+Variable describe : memory_multi_pointer_describer.
+Definition check_memory_multi_pointer_mapped_at live pool
+  (propose : list memory_instruction -> option (L.stmt*list memory_affine_reindex)) source :=
+  match describe source with
+  | Some package => match propose (memory_multi_pointer_region_instructions package) with
+      | Some (raw_candidate,steps) => let nest := multi_pointer_region_nest package in
+          let candidate := memory_carry_scalar_arguments 0 (length (memory_nest_iterators nest))
+            (memory_multi_pointer_region_arity package) raw_candidate in
+          check_memory_multi_pointer_region_candidate live pool package candidate
+            (checked_memory_scalar_candidate (length (memory_nest_iterators nest)) (multi_pointer_region_limit package)
+              (memory_multi_pointer_region_arity package) (memory_multi_pointer_region_instructions package)
+              (memory_multi_pointer_region_context package)
+              (memory_multi_pointer_region_arrays package) candidate steps)
+      | None => pure None end
+  | None => pure None end.
+Theorem check_memory_multi_pointer_mapped_at_sound live pool propose source target :
+  mayReturn (check_memory_multi_pointer_mapped_at live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_multi_pointer_mapped_at; destruct (describe source) as [package|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct (propose (memory_multi_pointer_region_instructions package)) as [[candidate steps]|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  apply check_memory_multi_pointer_region_candidate_sound; apply checked_memory_scalar_candidate_correct.
+Qed.
+Definition check_memory_multi_pointer_tiled_at live pool bi bj source :=
+  match describe source with
+  | Some package => let dimensions := length (memory_nest_iterators (multi_pointer_region_nest package)) in
+      if (2 <=? dimensions)%nat && (0 <? bi) && (0 <? bj) then
+        check_memory_multi_pointer_region_candidate live pool package
+          (memory_scalar_tiled_loop dimensions (memory_multi_pointer_region_arity package) (memory_multi_pointer_region_instructions package) bi bj true)
+          (checked_memory_scalar_tiling dimensions (multi_pointer_region_limit package) (memory_multi_pointer_region_arity package) (memory_multi_pointer_region_instructions package)
+            (memory_multi_pointer_region_context package) (memory_multi_pointer_region_arrays package) bi bj)
+      else pure None
+  | None => pure None end.
+Theorem check_memory_multi_pointer_tiled_at_sound live pool bi bj source target :
+  mayReturn (check_memory_multi_pointer_tiled_at live pool bi bj source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_multi_pointer_tiled_at; destruct (describe source) as [package|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  destruct ((2 <=? length (memory_nest_iterators (multi_pointer_region_nest package)))%nat && (0 <? bi) && (0 <? bj)) eqn:SIZE;
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  rewrite !andb_true_iff,Nat.leb_le,Z.ltb_lt,Z.ltb_lt in SIZE; destruct SIZE as [[DIMENSIONS BI] BJ].
+  apply check_memory_multi_pointer_region_candidate_sound; apply checked_memory_scalar_tiling_correct;
+    [unfold memory_multi_pointer_region_context, memory_multi_pointer_region_arity;
+      rewrite length_app; f_equal; symmetry; apply memory_nest_lengths|exact DIMENSIONS|exact BI|exact BJ].
+Qed.
+(** Generation uses count constraints only. Scalar machine ranges remain in the
+    independent validator; emitting their negated lower bound would overflow
+    at Int.min_signed and is unnecessary in the executable candidate. *)
+Definition check_memory_multi_pointer_scheduled_at live pool schedules steps source :=
+  match describe source with
+  | Some package => let nest := multi_pointer_region_nest package in let context := memory_multi_pointer_region_context package in
+      let vars := map (fun array => (array,tt)) (context++memory_multi_pointer_region_arrays package) in
+      BIND candidate <- memory_generate_scheduled_loop
+        (memory_recursive_assumed_loop (length (memory_nest_iterators nest)) (multi_pointer_region_limit package)
+          (memory_scalar_rectangle 0 (length (memory_nest_iterators nest)) (memory_multi_pointer_region_arity package)
+            (memory_multi_pointer_region_instructions package)),context,vars) schedules -;
+      match candidate with
+      | Some candidate => check_memory_multi_pointer_mapped_at live pool (fun _ => Some (candidate,steps)) source
+      | None => pure None end
+  | None => pure None end.
+Theorem check_memory_multi_pointer_scheduled_at_sound live pool schedules steps source target :
+  mayReturn (check_memory_multi_pointer_scheduled_at live pool schedules steps source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_multi_pointer_scheduled_at; destruct (describe source) as [package|];
+    [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+  intro RUN; bind_imp_destruct RUN candidate GENERATED; destruct candidate as [candidate|];
+    [eapply check_memory_multi_pointer_mapped_at_sound; exact RUN|apply mayReturn_pure in RUN; discriminate].
+Qed.
+End SERVICES.
+Definition memory_multi_pointer_search_caps : list Z := [8;4;3;2;1].
+Definition check_memory_multi_pointer_mapped_region live pool propose source :=
+  check_memory_multi_pointer_caps (fun describe => check_memory_multi_pointer_mapped_at describe live pool propose) memory_multi_pointer_search_caps source.
+Theorem check_memory_multi_pointer_mapped_region_sound live pool propose source target :
+  mayReturn (check_memory_multi_pointer_mapped_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  apply check_memory_multi_pointer_caps_sound; intros describe original chosen RUN.
+  eapply check_memory_multi_pointer_mapped_at_sound; exact RUN.
+Qed.
+Definition check_memory_multi_pointer_tiled_region live pool bi bj source :=
+  check_memory_multi_pointer_caps (fun describe => check_memory_multi_pointer_tiled_at describe live pool bi bj) memory_multi_pointer_search_caps source.
+Theorem check_memory_multi_pointer_tiled_region_sound live pool bi bj source target :
+  mayReturn (check_memory_multi_pointer_tiled_region live pool bi bj source) (Some target) -> projected_region_contract live source target.
+Proof.
+  apply check_memory_multi_pointer_caps_sound; intros describe original chosen RUN.
+  eapply check_memory_multi_pointer_tiled_at_sound; exact RUN.
+Qed.
+Definition check_memory_multi_pointer_scheduled_region live pool schedules steps source :=
+  check_memory_multi_pointer_caps (fun describe => check_memory_multi_pointer_scheduled_at describe live pool schedules steps) memory_multi_pointer_search_caps source.
+Theorem check_memory_multi_pointer_scheduled_region_sound live pool schedules steps source target :
+  mayReturn (check_memory_multi_pointer_scheduled_region live pool schedules steps source) (Some target) -> projected_region_contract live source target.
+Proof.
+  apply check_memory_multi_pointer_caps_sound; intros describe original chosen RUN.
+  eapply check_memory_multi_pointer_scheduled_at_sound; exact RUN.
+Qed.
+Print Assumptions check_memory_multi_pointer_mapped_region_sound.
+Print Assumptions check_memory_multi_pointer_tiled_region_sound.
+Print Assumptions check_memory_multi_pointer_scheduled_region_sound.
