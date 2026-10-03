@@ -347,3 +347,8 @@ native-memory-loop-alias: memory-unified-compiler
 native-memory-affine-alias: memory-unified-compiler
 	python3 scripts/native_memory_affine_alias.py
 	python3 scripts/native_memory_affine_alias_paths.py
+
+.PHONY: native-memory-affine-endpoints
+native-memory-affine-endpoints: memory-unified-compiler
+	python3 scripts/native_memory_affine_endpoints.py
+	python3 scripts/native_memory_affine_endpoints_paths.py

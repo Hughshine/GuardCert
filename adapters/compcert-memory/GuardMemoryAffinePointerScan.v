@@ -6,7 +6,7 @@ From Guard Require Import ClightCountedLoop ClightTempFrame.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryRectangles GuardMemoryMultiPointerCells
   GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerProjectedCandidate GuardMemoryLinearPointerSyntax
   GuardMemoryNaryAffineAccess GuardMemoryNaryAffineExpressions GuardMemoryBooleanScan GuardMemoryFootprintCapabilities.
-From GuardMemory Require Import GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePairScan.
+From GuardMemory Require Import GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePairScan GuardMemoryAffinePairChoice.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -14,9 +14,10 @@ Local Open Scope Z_scope.
 Fixpoint memory_affine_access_pairs_statement x y flag bound pairs := match pairs with
   | [] => Sskip
   | (first,second)::rest => Ssequence
-      (memory_affine_range_pair_statement x y flag bound
+      (memory_affine_pair_choice_statement x y flag bound
         (memory_nary_access_array first) (memory_nary_access_array second)
-        (memory_nary_access_expression first) (memory_nary_access_expression second))
+        (memory_nary_access_expression first) (memory_nary_access_expression second)
+        (memory_nary_access_index first) (memory_nary_access_index second))
       (memory_affine_access_pairs_statement x y flag bound rest)
   end.
 Definition memory_affine_pointer_pairs_valid source (package : memory_affine_pointer_package source) pairs :=
@@ -68,7 +69,7 @@ Proof.
       original current).
     { intros identifier MEMBER; apply FRAME; cbn in MEMBER; destruct MEMBER as [<-|[<-|MEMBER]];
       [apply in_or_app; left; exact FIRST_ID|apply in_or_app; left; exact SECOND_ID|exact MEMBER]. }
-    destruct (@memory_affine_range_pair_execution (memory_nary_access_expression first) (memory_nary_access_expression second)
+    destruct (@memory_affine_pair_choice_execution (memory_nary_access_expression first) (memory_nary_access_expression second)
       (memory_nary_access_index first) (memory_nary_access_index second) (affine_pointer_iterator package)
       fe ge locals original current memory (multi_pointer_region_window (affine_pointer_region package))
       (memory_nary_access_array first) (memory_nary_access_array second) x y flag (affine_pointer_bound package)

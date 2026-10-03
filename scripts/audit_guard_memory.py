@@ -29,7 +29,7 @@ MULTI_POINTER_MODULES = ['GuardMemoryPointerCellComparison', 'GuardMemoryFootpri
 MODULES[-1:-1] = MULTI_POINTER_MODULES
 LOOP_ALIAS_MODULES = ['GuardMemoryProjectedCondition', 'GuardMemoryCrossPointerSeparation', 'GuardMemoryBooleanScan', 'GuardMemoryPointerRangeScan', 'GuardMemoryMultiPointerProjectedCandidate', 'GuardMemoryLinearPointerSyntax', 'GuardMemoryLinearPointerPair', 'GuardMemoryLoopGuardFrame', 'GuardMemoryLinearPointerGuard', 'GuardMemoryLinearPointerCompiler']
 MODULES[-1:-1] = LOOP_ALIAS_MODULES
-AFFINE_ALIAS_MODULES = ['GuardMemoryStatefulLanguage', 'GuardMemoryStatefulEntry', 'GuardMemoryStatefulRule', 'GuardMemoryStatefulComposition', 'GuardMemoryAffineRenaming', 'GuardMemoryAffineRangeAddress', 'GuardMemoryAffinePairScan', 'GuardMemoryAffinePointerSyntax', 'GuardMemoryAffinePointerPairs', 'GuardMemoryAffinePointerScan', 'GuardMemoryAffinePointerFrame', 'GuardMemoryAffinePointerGuard', 'GuardMemoryAffinePointerCompiler']
+AFFINE_ALIAS_MODULES = ['GuardMemoryStatefulLanguage', 'GuardMemoryStatefulEntry', 'GuardMemoryStatefulRule', 'GuardMemoryStatefulComposition', 'GuardMemoryAffineRenaming', 'GuardMemoryAffineRangeAddress', 'GuardMemoryAffinePairScan', 'GuardMemoryAffineEndpointMath', 'GuardMemoryAffineEndpointCells', 'GuardMemoryAffineEndpointScan', 'GuardMemoryAffinePairChoice', 'GuardMemoryAffinePointerSyntax', 'GuardMemoryAffinePointerPairs', 'GuardMemoryAffinePointerScan', 'GuardMemoryAffinePointerFrame', 'GuardMemoryAffinePointerGuard', 'GuardMemoryAffinePointerCompiler']
 MODULES[-1:-1] = AFFINE_ALIAS_MODULES
 STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
@@ -85,6 +85,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryNamedMappedChecker GuardMemoryNamedMappedCompiler GuardMemoryVariableCounterExit GuardMemoryRaggedLoops GuardMemoryRaggedClight GuardMemoryRaggedGuard GuardMemoryRaggedBackend GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker GuardMemoryTileRangeTrimming GuardMemoryRaggedTiling GuardMemoryNamedRaggedTiling GuardMemoryNamedRaggedCompiler GuardMemoryScheduledCompiler GuardMemoryAffineSourceExpressions GuardMemoryAffineSourceReifier GuardMemoryAffineSourceValuation GuardMemoryAffineSourceLoop GuardMemoryAffineSourceContext GuardMemoryAffineSourceEndpoints GuardMemoryParametricSourceClight GuardMemoryParametricLoops GuardMemoryNamedParametricSource GuardMemoryParametricWidth GuardMemoryParametricRestore GuardMemoryParametricGuard GuardMemoryParametricSourceDomain GuardMemoryParametricSyntax GuardMemoryParametricChecker GuardMemoryParametricTiling GuardMemoryParametricCandidate GuardMemoryParametricCompiler GuardMemoryCommonLayout GuardMemoryLayoutCopy GuardMemoryLayoutCopyInstruction GuardMemoryLayoutCopyRegistry GuardMemoryCopyLayoutRegistry GuardMemoryLayoutCopySource GuardMemoryLayoutCopyDomain GuardMemoryParametricInstructionChecker GuardMemoryParametricInstructionTiling GuardMemoryLayoutCopyCandidate GuardMemoryLayoutCopySyntax GuardMemoryLayoutCopyCompiler GuardMemoryParametricBody GuardMemoryNamedBodyModel GuardMemoryLayoutCopyBodyModel GuardMemoryParametricBodyDomain GuardMemoryParametricBodyCandidate GuardMemoryParametricRegion GuardMemoryLayoutRegistry GuardMemoryLayoutCopyRegistryPoint GuardMemoryLayoutOperations GuardMemoryLayoutSequence GuardMemoryLayoutRanges GuardMemoryLayoutBodyModel GuardMemoryLayoutSyntax GuardMemoryAffineAccessExpressions GuardMemoryAffineAccess GuardMemoryAffineCopy GuardMemoryGeneralLayoutOperations GuardMemoryGeneralLayoutSequence GuardMemoryGeneralLayoutBodyModel GuardMemoryGeneralLayoutSyntax GuardMemoryAccessAnchors GuardMemoryOffsetAccessRanges GuardMemoryOffsetBodyModel GuardMemoryOffsetSyntax GuardMemorySourceValues GuardMemoryAffineReadRegistry GuardMemoryAffineCompute GuardMemoryComputeAnchors GuardMemoryComputeSequence GuardMemoryComputeBodyModel GuardMemoryComputeSyntax GuardMemoryParametricRegionInstances GuardMemoryParametricRegionCompiler GuardMemoryParametricRegionRestriction GuardMemoryParametricWidthSearch GuardMemorySettledCountedLoop GuardMemoryControlSettle GuardMemoryNaryAffineExpressions GuardMemoryNaryRanges GuardMemorySignedRanges GuardMemoryNaryAffineAccess GuardMemoryNaryAccessCheck GuardMemoryNarySourceValues GuardMemoryNaryReadRegistry GuardMemoryNaryCompute GuardMemoryNaryLoops GuardMemoryNaryAnchors GuardMemoryNarySequence GuardMemoryNaryComputeSyntax GuardMemoryNaryBodyModel GuardMemoryNaryLift GuardMemoryTripleSource GuardMemoryTripleWords GuardMemoryTripleBody GuardMemoryTripleSyntax GuardMemoryTripleGuard GuardMemoryTripleDomain GuardMemoryTripleRestore GuardMemoryTripleChecker GuardMemoryTripleTiling GuardMemoryTripleCandidate GuardMemoryTripleCompiler GuardMemoryRecursiveSource GuardMemoryRecursiveExecution GuardMemoryRecursiveBody GuardMemoryRecursiveSyntax GuardMemoryRecursiveGuard GuardMemoryRecursiveWords GuardMemoryRecursiveDomain GuardMemoryRecursiveRestore GuardMemoryRecursiveChecker GuardMemoryRecursiveTiling GuardMemoryRecursiveCandidate GuardMemoryRecursiveCompiler GuardMemoryBufferOffsets GuardMemoryFramedNested GuardMemoryRecursiveFramedExecution GuardMemoryRecursiveFirstLeaf GuardMemoryPointerAccess GuardMemoryPointerSourceAccess GuardMemorySourceValueInterface GuardMemoryPointerBackend GuardMemoryPointerNaryAccess GuardMemoryPointerCompute GuardMemoryPointerRegistry GuardMemoryPointerComputeSyntax GuardMemoryPointerSequence GuardMemoryPointerSyntax GuardMemoryPointerBody GuardMemoryPointerDomain GuardMemoryPointerCandidate GuardMemoryPointerConditionSearch GuardMemoryPointerCompiler GuardMemoryInstructionPadding GuardMemoryScalarLoops GuardMemorySourceParameters GuardMemoryScalarLift GuardMemoryScalarAccess GuardMemoryScalarChecker GuardMemoryScalarPointerCompute GuardMemoryScalarPointerRegistry GuardMemoryScalarPointerComputeSyntax GuardMemoryScalarPointerSequence GuardMemoryScalarPointerSyntax GuardMemoryScalarPointerBody GuardMemoryScalarPointerDomain GuardMemoryScalarPointerBounds GuardMemoryScalarPointerCandidate GuardMemoryScalarCandidates GuardMemoryScalarTiling GuardMemoryScalarPointerConditionSearch GuardMemoryScalarPointerCompiler GuardMemoryScalarArrayCompute GuardMemoryScalarArrayComputeSyntax GuardMemoryScalarArraySequence GuardMemoryScalarArrayAnchors GuardMemoryScalarArraySyntax GuardMemoryScalarArrayBody GuardMemoryScalarArrayDomain GuardMemoryScalarArrayCandidate GuardMemoryScalarArrayConditionSearch GuardMemoryScalarArrayCompiler GuardMemoryUnifiedCompiler.
 From GuardMemory Require Import GuardMemoryPointerCellComparison GuardMemoryFootprintRestriction GuardMemoryFootprintCapabilities GuardMemoryFiniteFootprint GuardMemoryFiniteAliasCondition GuardMemoryActivatedAliasCondition GuardMemoryMultiPointerCells GuardMemoryMultiPointerAccess GuardMemoryMultiPointerCompute GuardMemoryMultiPointerRegistry GuardMemoryMultiPointerSequence GuardMemoryMultiPointerIdentifiers GuardMemoryMultiPointerComputeSyntax GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerBody GuardMemoryMultiPointerDomain GuardMemoryMultiPointerBackend GuardMemoryRectangularFootprint GuardMemoryCoordinateActivation GuardMemoryActivatedRectangle GuardMemoryMultiPointerFootprint GuardMemoryMultiPointerRegionGuard GuardMemoryMultiPointerCandidate GuardMemoryMultiPointerConditionSearch GuardMemorySequentialCondition GuardMemoryCompactAliasCondition GuardMemoryMultiPointerCompiler GuardMemoryMultiPointerGuard.
 From GuardMemory Require Import GuardMemoryProjectedCondition GuardMemoryCrossPointerSeparation GuardMemoryBooleanScan GuardMemoryPointerRangeScan GuardMemoryMultiPointerProjectedCandidate GuardMemoryLinearPointerSyntax GuardMemoryLinearPointerPair GuardMemoryLoopGuardFrame GuardMemoryLinearPointerGuard GuardMemoryLinearPointerCompiler.
+From GuardMemory Require Import GuardMemoryAffineEndpointMath GuardMemoryAffineEndpointCells GuardMemoryAffineEndpointScan GuardMemoryAffinePairChoice.
 From GuardMemory Require Import GuardMemoryStatefulLanguage GuardMemoryStatefulEntry GuardMemoryStatefulRule GuardMemoryStatefulComposition GuardMemoryAffineRenaming GuardMemoryAffineRangeAddress GuardMemoryAffinePairScan GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePointerScan GuardMemoryAffinePointerFrame GuardMemoryAffinePointerGuard GuardMemoryAffinePointerCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -95,6 +96,11 @@ Print Assumptions GuardMemoryTilingValidator.checked_tiling_validate_poly_correc
 Goal True. idtac "MEM_STATEFUL_CORE". exact I. Qed.
 Print Assumptions stateful_guard_preservation.
 Print Assumptions projected_guard_conjunction.
+Goal True. idtac "MEM_AFFINE_GUARD_MATH". exact I. Qed.
+Print Assumptions memory_affine_endpoint_check_complete.
+Print Assumptions memory_affine_pair_fast_complete.
+Print Assumptions memory_affine_pair_choice_complete.
+Print Assumptions memory_affine_pair_choice_frame.
 Goal True. idtac "MEM_PHYSICAL_REGISTRY". exact I. Qed.
 Print Assumptions flat_array_locations_nonalias.
 Print Assumptions memory_pointer_buffer_locations_nonalias.
@@ -474,6 +480,8 @@ Print Assumptions memory_projected_private_rule_stateful_sound.
 Print Assumptions memory_source_affine_rename_evaluation.
 Print Assumptions memory_affine_range_address_binding.
 Print Assumptions memory_affine_range_pair_execution.
+Print Assumptions memory_affine_endpoint_pair_execution.
+Print Assumptions memory_affine_pair_choice_execution.
 Print Assumptions memory_affine_pointer_runtime_footprint.
 Print Assumptions memory_affine_pointer_accesses_encoding.
 Print Assumptions memory_affine_pointer_pairs_separation.
@@ -497,7 +505,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
     (WORK / "audit.log").write_text(result.stdout)
     cc, rest = result.stdout.split("MEM_CC_BASE", 1)[1].split("MEM_VALIDATOR_BASE", 1)
     baseline, rest = rest.split("MEM_STATEFUL_CORE", 1)
-    stateful_core, rest = rest.split("MEM_PHYSICAL_REGISTRY", 1)
+    stateful_core, rest = rest.split("MEM_AFFINE_GUARD_MATH", 1)
+    affine_guard_math, rest = rest.split("MEM_PHYSICAL_REGISTRY", 1)
     registry, rest = rest.split("MEM_INSTRUCTION", 1)
     instruction, rest = rest.split("MEM_ADAPTED_VALIDATOR", 1)
     adapted, rest = rest.split("MEM_REGION", 1)
@@ -505,6 +514,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
     compiler = rest.split("MEM_END", 1)[0]
     if names(stateful_core) or "Closed under the global context" not in stateful_core:
         raise SystemExit("unexpected abstract stateful core assumptions")
+    if names(affine_guard_math) or "Closed under the global context" not in affine_guard_math:
+        raise SystemExit("unexpected affine guard strategy assumptions")
     if names(registry) or "Closed under the global context" not in registry:
         raise SystemExit("unexpected physical-registry assumptions")
     if names(instruction) - names(cc) or names(adapted) != names(baseline):
@@ -522,6 +533,10 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "affine_loop_alias_guard_clight_execution_proved": True,
         "affine_loop_alias_guard_csem_asm_route_proved": True,
         "affine_loop_alias_guard_raw_access_limit": 32,
+        "affine_pair_strategy_math_global_axioms": [],
+        "affine_loop_alias_guard_linear_strategy_proved": True,
+        "affine_loop_alias_guard_linear_strategy_scope": "equal affine slopes or either affine slope zero; one private counted loop with two source-derived endpoint comparisons per cross-pointer access pair; arbitrary signed slopes and modular pointer offsets",
+
         "affine_loop_alias_guard_scope": "one canonical counted axis, any finite set of accessed pointer identifiers and signed affine coordinate expressions, finite read/write operation lists and stable RHS scalars; actual source-derived valid aligned addresses; all cross-pointer access pairs scanned with three private temporaries; cap derived from logical window 1024 and checked address ranges; mapped and generated-schedule candidates",
         "physical_flat_array_nonalias_global_axioms": [],
         "instruction_assumptions": sorted(names(instruction)),

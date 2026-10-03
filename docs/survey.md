@@ -8,6 +8,8 @@
 
 同日追加：COVE/cSTOKE（OOPSLA 2015）直接覆盖独立候选的条件推断与动态版本选择；Conditional Equivalence（2010 技术报告）提供程序演化的另一条需求线。CGO 因此是重要起点，并非唯一动机。人工/工具候选、CoreJIT/Alive2 区别和 Peek 的静态接口对照见 [候选条件化设计](candidate-conditioning.md)。
 
+2026-10-03 补充：[运行时 alias 检查的对照](runtime-alias-check-literature.md)核对 OOPSLA 2015 的 Runtime Pointer Disambiguation 和 LLVM／Polly 的当前实现。动态前提、区域版本化、区间检查及只读指针对免检均有先例；具体语言的检查求值安全、状态关系和完整程序证明才是当前实现需要分别交付的义务。
+
 ## 以用户指定的 CGO 2017 论文为主线
 
 用户给出的 ACM DOI `10.5555/3049832.3049864` 对应 **Optimistic Loop Optimization**，作者 Johannes Doerfert、Tobias Grosser、Sebastian Hack，CGO 2017，292–304 页。全文可从[作者提供的 PDF](https://pollylabs.org/publications/grosser-2017-Optimistic-Loop-Optimization.pdf) 阅读；[爱丁堡大学记录](https://www.research.ed.ac.uk/en/publications/optimistic-loop-optimization/)可交叉核对元数据。IEEE DOI 为 `10.1109/CGO.2017.7863748`。
@@ -23,6 +25,7 @@
 | 工作 | 对本问题的作用与边界 | 阅读依据 |
 | --- | --- | --- |
 | Cuervo Parrino、Narboux、Violard、Magaud，IMPACT 2012，[Dealing with arithmetic overflows in the polyhedral model](https://acohen.gitlabpages.inria.fr/impact/impact2012/workshop_IMPACT/cuervo.pdf) | oracle 提出参数条件，版本化代码由验证器检查；必须关注源与生成代码的控制算术。论文明确说验证器正确性证明尚未完成。Coq 实现不能自动等于正确性证明。 | 全文，重点 §§3、8 |
+| Alves 等，OOPSLA 2015，[Runtime Pointer Disambiguation](https://homepages.dcc.ufmg.br/~fernando/publications/papers/OOPSLA15.pdf)，DOI `10.1145/2814270.2814285` | 分配器元数据和静态生成的符号／多面体范围检查提供动态 nonalias，再版本化实际区域。既有主题已包含检查生成、私有变量及放置位置；不能把这些步骤本身视为新的框架贡献。 | §§2–4.3，重点 Fig. 13；§5.2.1 核对只读角色及检查成本 |
 | Doerfert、Hammacher、Streit、Hack，IMPACT 2013，[SPolly: Speculative Optimizations in the Polyhedral Model](https://www.st.cs.uni-saarland.de/publications/files/doerfert-impact-2013.pdf) | 运行时信息与函数特化可扩大可优化片段的范围；说明输入片段识别也可带假设。不是这里需要的 CompCert 上下文定理。 | 摘要与方案部分 |
 | Tristan、Leroy，PLDI 2009，[Verified Validation of Lazy Code Motion](https://xavierleroy.org/publi/validation-LCM.pdf) | CompCert 中已验证的翻译验证：复杂优化器可不受信任。其提前求值安全问题与 guard preload 密切相关，尤其不能把会失败的读取移到源程序发散之前。 | 摘要、引言 |
 | Tristan、Leroy，POPL 2010，[A Simple, Verified Validator for Software Pipelining](https://xavierleroy.org/publi/validation-softpipe.pdf) | 符号执行与活跃变量关系支持局部块验证。但 §6.2 将从展开块提升到真实循环的结果明确列为当时未在 Coq 中证明的部分。局部验证和完整循环证明必须分别验收。 | 全文重点 §6 |

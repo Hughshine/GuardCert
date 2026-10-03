@@ -115,10 +115,10 @@ Proof.
   - eapply check_memory_affine_pointer_scheduled_package_sound; exact RUN.
 Qed.
 Definition check_memory_multi_pointer_unified_region live pool propose source :=
-  BIND target <- check_memory_linear_pointer_unified_region live pool propose source -;
+  BIND target <- check_memory_affine_pointer_unified_region live pool propose source -;
   match target with
   | Some target => CoreAlarmed.Base.pure (Some target)
-  | None => BIND target <- check_memory_affine_pointer_unified_region live pool propose source -;
+  | None => BIND target <- check_memory_linear_pointer_unified_region live pool propose source -;
       match target with
       | Some target => CoreAlarmed.Base.pure (Some target)
       | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end.
@@ -128,10 +128,10 @@ Proof.
   unfold check_memory_multi_pointer_unified_region; intro RUN;
     bind_imp_destruct RUN candidate CHECK; destruct candidate as [candidate|].
   - apply mayReturn_pure in RUN; inversion RUN; subst;
-      eapply check_memory_linear_pointer_unified_region_sound; exact CHECK.
+      eapply check_memory_affine_pointer_unified_region_sound; exact CHECK.
   - bind_imp_destruct RUN affine AFFINE; destruct affine as [affine|].
     + apply mayReturn_pure in RUN; inversion RUN; subst;
-        eapply check_memory_affine_pointer_unified_region_sound; exact AFFINE.
+        eapply check_memory_linear_pointer_unified_region_sound; exact AFFINE.
     + eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
 Qed.
 Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=

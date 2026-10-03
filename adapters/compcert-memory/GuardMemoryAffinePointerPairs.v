@@ -8,7 +8,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryRectangles GuardMe
   GuardMemoryMultiPointerSyntax GuardMemoryMultiPointerProjectedCandidate GuardMemoryLinearPointerSyntax
   GuardMemoryNaryAffineAccess GuardMemoryNaryAffineExpressions GuardMemoryBooleanScan GuardMemoryFiniteFootprint
   GuardMemoryFiniteAliasCondition GuardMemoryFootprintCapabilities GuardMemoryFootprintRestriction GuardMemoryCrossPointerSeparation.
-From GuardMemory Require Import GuardMemoryAffinePointerSyntax GuardMemoryAffinePairScan.
+From GuardMemory Require Import GuardMemoryAffinePointerSyntax GuardMemoryAffinePairScan GuardMemoryAffinePairChoice.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -29,7 +29,7 @@ Proof.
     apply filter_In; split; [exact SECOND|apply negb_true_iff,Pos.eqb_neq; exact DIFFERENT].
 Qed.
 Definition memory_affine_access_pair_check locations count pair :=
-  memory_affine_range_pair_check locations count
+  memory_affine_pair_choice_check locations count
     (memory_nary_access_array (fst pair)) (memory_nary_access_array (snd pair))
     (memory_nary_access_index (fst pair)) (memory_nary_access_index (snd pair)).
 Definition memory_affine_pointer_pairs_check source (package : memory_affine_pointer_package source) locations count :=
@@ -79,7 +79,14 @@ Proof.
     unfold memory_affine_pointer_pairs_check in CHECK.
     apply forallb_forall with (x := (first_access,second_access)) in CHECK.
     2: { apply memory_affine_access_pair_member; repeat split; assumption. }
-    unfold memory_affine_access_pair_check,memory_affine_range_pair_check in CHECK; cbn [fst snd] in CHECK.
+    unfold memory_affine_access_pair_check in CHECK; cbn [fst snd] in CHECK.
+    assert (FULL : memory_affine_range_pair_check
+      (memory_multi_pointer_locations temps (multi_pointer_region_window (affine_pointer_region package))) count
+      (memory_nary_access_array first_access) (memory_nary_access_array second_access)
+      (memory_nary_access_index first_access) (memory_nary_access_index second_access) = true).
+    { eapply memory_affine_pair_choice_complete; [exact DISTINCT|exact POS| |exact CHECK].
+      intros index INDEX; split; eapply memory_affine_pointer_access_capability; eassumption. }
+    clear CHECK; rename FULL into CHECK; unfold memory_affine_range_pair_check in CHECK.
     rewrite memory_boolean_scan_member in CHECK; rewrite Z2Nat.id in CHECK by exact POS.
     specialize (CHECK i ltac:(lia)); rewrite memory_boolean_scan_member in CHECK;
       rewrite Z2Nat.id in CHECK by exact POS; specialize (CHECK j ltac:(lia)).
@@ -104,12 +111,8 @@ Lemma memory_affine_access_pair_check_frame original current extent count first 
   memory_affine_access_pair_check (memory_multi_pointer_locations current extent) count (first,second) =
   memory_affine_access_pair_check (memory_multi_pointer_locations original extent) count (first,second).
 Proof.
-  intro FRAME; unfold memory_affine_access_pair_check,memory_affine_range_pair_check; cbn [fst snd].
-  apply memory_boolean_scan_ext; intro i; apply memory_boolean_scan_ext; intro j.
-  unfold memory_cell_pair_address_check; destruct memory_cell_identity_dec; [reflexivity|].
-  unfold memory_multi_pointer_locations; cbn [arr_id point_cell].
-  rewrite (FRAME (memory_nary_access_array first) ltac:(cbn; auto)),
-    (FRAME (memory_nary_access_array second) ltac:(cbn; auto)); reflexivity.
+  intro FRAME; unfold memory_affine_access_pair_check; cbn [fst snd].
+  apply memory_affine_pair_choice_frame; exact FRAME.
 Qed.
 
 Print Assumptions memory_affine_pointer_access_capability.

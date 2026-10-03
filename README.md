@@ -138,3 +138,5 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 [循环式 alias guard](docs/memory-loop-alias-guards.md)允许检查修改私有计数器和标志，并证明检查后的状态满足候选前提。一个计数轴、两个指针及逐元素访问已接入完整 C→Asm 入口，检查代码不按循环上界展开。当前扫描为 O(n²)，逻辑窗口为 1024。[坐标反射](docs/memory-coordinate-reflection.md)随后接入一维反向执行及反射和平移的组合：280 个适配模块和七个 lowering 模块全量审计、1200 次完整汇编调用及 600 次分支诊断通过，`make native-memory-loop-alias` 可复现。
 
 [一般一维仿射地址扫描](docs/memory-affine-alias-scans.md)随后接入非单位步长、递减／常量下标和多个指针，并实际实例化有状态的语言无关核心。293 个适配模块、七个 lowering 模块和两个抽象核心模块的全量审计通过，完整编译器仍为原有 42 项假设；2696 次完整汇编调用和 1366 次分支诊断通过。新路径至多构造 32 条原始访问之间的 O(A²n²) 检查，资源超限继续尝试旧路径；检查接受也必须有独立的调度依赖证书。`make native-memory-affine-alias` 可复现。
+
+[仿射端点扫描](docs/memory-affine-endpoint-scans.md)随后为相同步长或常量访问选择单层检查，将这些访问对的检查次数从平方降为线性，其他访问对保留双层扫描。297 个适配模块、七个 lowering 模块及两个核心模块的全量审计通过，数学充分性与算法选择没有全局公理，完整编译器仍为原有 42 项假设。新例子通过 1687 次完整汇编调用及 964 次分支／精确比较计数诊断；一般仿射和逐元素循环的完整回归也在同一编译器上通过。`make native-memory-affine-endpoints` 可复现。多轴动态扫描及地址参数仍待实现。
