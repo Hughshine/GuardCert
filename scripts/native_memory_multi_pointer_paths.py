@@ -57,7 +57,10 @@ def inputs(name, cap):
     result = []
     for kind, p_offset, q_offset in [(0, 0, 0), (0, 3, 17), (1, 0, 0),
                                     (1, 0, 1), (1, 0, 4), (1, 3, 40), (2, 0, 0)]:
-        for n, m in [(1, 1), (1, 2), (2, 1), (2, 3), (3, 2), (3, 3), (4, 4), (cap+1, 1)]:
+        # Test the rejected bound on the contiguous axis.  The new guard can
+        # certify a logical window wider than this fixture's 256-cell buffers;
+        # (cap+1,1) would then make the source itself access outside allocation.
+        for n, m in [(1, 1), (1, 2), (2, 1), (2, 3), (3, 2), (3, 3), (4, 4), (1, cap+1)]:
             for alpha, beta in [(-7, 11), (-2147483648, 2147483647)]:
                 result.append([kind, p_offset, q_offset, 0, n, m, alpha, beta])
     result += [[3, 0, 0, 0, 0, -2147483648, 3, -7],

@@ -12,6 +12,7 @@ From Guard Require Import ClightGuard ClightCondition ClightPrivateRule ClightPr
   ClightRectangularGuard ClightRectangularRegion ClightRectangularLoops GuardCompiler
   ClightFrontendLoopProtocol ClightFrontendRegion ClightStraightLine ClightSharedRegion ClightSyntaxEquality.
 From GuardMemory Require Import GuardMemoryRecursiveSource GuardMemoryAffineSourceContext.
+From GuardMemory Require Import GuardMemoryAxisPointerServices GuardMemoryAxisPointerDescribe.
 From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight GuardMemoryTiledCompiler
   GuardMemoryArrayFamilyBackend GuardMemoryOperationsClight GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler
   GuardMemoryInstr GuardMemoryLoops GuardMemoryProposedClight GuardMemoryProposedCompiler
@@ -121,7 +122,19 @@ Definition check_memory_multi_pointer_unified_region live pool propose source :=
   | None => BIND target <- check_memory_linear_pointer_unified_region live pool propose source -;
       match target with
       | Some target => CoreAlarmed.Base.pure (Some target)
-      | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end.
+      | None => BIND target <- @check_memory_axis_pointer_caps source
+          (fun package => match propose (memory_multi_pointer_unified_request package) with
+            | Some (GuardedAffineCandidate candidate swaps) =>
+                check_memory_axis_pointer_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
+            | Some (GuardedMappedCandidate candidate steps) =>
+                check_memory_axis_pointer_mapped_package live pool package candidate steps
+            | Some (GuardedTilingCandidate rows columns) =>
+                check_memory_axis_pointer_tiled_package live pool package rows columns
+            | Some (GuardedScheduleCandidate schedules steps) =>
+                check_memory_axis_pointer_scheduled_package live pool package schedules steps
+            | None => CoreAlarmed.Base.pure None end) memory_axis_pointer_search_caps -;
+          match target with Some target => CoreAlarmed.Base.pure (Some target)
+            | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end end.
 Theorem check_memory_multi_pointer_unified_region_sound live pool propose source target :
   mayReturn (check_memory_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
 Proof.
@@ -132,7 +145,18 @@ Proof.
   - bind_imp_destruct RUN affine AFFINE; destruct affine as [affine|].
     + apply mayReturn_pure in RUN; inversion RUN; subst;
         eapply check_memory_linear_pointer_unified_region_sound; exact AFFINE.
-    + eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
+    + bind_imp_destruct RUN axis AXIS; destruct axis as [axis|].
+      * apply mayReturn_pure in RUN; inversion RUN; subst.
+        eapply check_memory_axis_pointer_caps_sound; [|exact AXIS].
+        intros package chosen CERT_ACCEPTED; cbn beta in CERT_ACCEPTED.
+        destruct (propose (memory_multi_pointer_unified_request package)) as [candidate|].
+        -- destruct candidate.
+           ++ eapply check_memory_axis_pointer_mapped_package_sound; exact CERT_ACCEPTED.
+           ++ eapply check_memory_axis_pointer_mapped_package_sound; exact CERT_ACCEPTED.
+           ++ eapply check_memory_axis_pointer_tiled_package_sound; exact CERT_ACCEPTED.
+           ++ eapply check_memory_axis_pointer_scheduled_package_sound; exact CERT_ACCEPTED.
+        -- apply mayReturn_pure in CERT_ACCEPTED; discriminate.
+      * eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
 Qed.
 Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=
   GuardedMemoryRequest (memory_scalar_pointer_region_instructions package)

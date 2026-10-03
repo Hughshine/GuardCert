@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 297 个适配模块、七个 lowering 模块和两个抽象有状态核心模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。抽象核心及物理数组 nonalias 均没有全局公理；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 310 个适配模块、七个 lowering 模块和两个抽象有状态核心模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。抽象核心及物理数组 nonalias 均没有全局公理；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -120,3 +120,5 @@ Signed affine source accesses now use a proved lower and upper box check. The 24
 [一般一维仿射地址扫描](../../docs/memory-affine-alias-scans.md)随后将这条路径推广到 signed 仿射下标、多指针和多赋值，至多构造 32 条原始访问的交叉检查。实际 CompCert 源访问提供地址有效性及对齐，接受后建立活动足迹的 NonAlias，再消费独立的调度依赖检查。新的语言无关 `StatefulGuard` 核心通过具体 Clight 实例和 `projected_region_contract` 接入同一 Csem→Asm 端点。293 个适配模块、七个 lowering 模块和两个核心模块全量审计通过，2696 次完整汇编调用及 1366 次分支诊断通过。当前检查为 O(A²n²)，多轴和带地址参数的扫描仍待扩展。
 
 [仿射端点扫描](../../docs/memory-affine-endpoint-scans.md)进一步替换相同步长或常量访问对的编码策略：单层私有循环检查实际源地址，接受推出原完整访问对检查。297 个适配模块、七个 lowering 模块和两个核心模块全量审计通过；端点充分性、算法选择与状态运输没有全局公理，完整编译器仍为原有 42 项假设。新例子通过 1687 次完整汇编调用和 964 次分支／比较计数诊断，同一编译器重跑一般仿射及逐元素循环回归。其他访问对仍为双层扫描，多轴和地址参数未因此得到支持。
+
+[多轴活动访问扫描](../../docs/memory-multi-axis-alias-scans.md)随后把动态检查推广到任意有限深度的规范矩形源，使用两份私有坐标向量查询实际源地址；mapped、调度生成及二维 tiling 继续使用同一候选与完整程序契约。310 个适配模块、七个 lowering 模块及两个核心模块全量审计通过，459 个证明源码哈希一致，完整编译器保持原有 42 项假设。14 组配置共 4270 次完整汇编调用和 2135 次分支／比较计数诊断通过；诊断包含 327 次超过旧共同上界的实际候选调用。此实现减少生成代码的展开，检查执行仍为活动点数的平方；共同次数上界、地址中的外部参数及更广的 C 源域仍是边界。`make native-memory-axis-alias` 可复现。

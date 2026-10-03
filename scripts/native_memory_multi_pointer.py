@@ -57,9 +57,11 @@ def execute(name, args, order=None):
             index = (2 if tiny else 8)*i+j
             def read(pointer, address):
                 assert pointer is not None
+                assert 0 <= pointer[1]+address < len(buffers[pointer[0]]), (name, args, pointer, address)
                 return buffers[pointer[0]][pointer[1]+address]
             def write(pointer, address, value):
                 assert pointer is not None
+                assert 0 <= pointer[1]+address < len(buffers[pointer[0]]), (name, args, pointer, address)
                 buffers[pointer[0]][pointer[1]+address] = word(value)
             if name in {'multi_copy', 'multi_tiny'}:
                 write(p, index, read(q, index)*alpha+beta)
