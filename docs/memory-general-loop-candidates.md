@@ -49,6 +49,6 @@ GUARDCERT_LOOP_CANDIDATE="$PWD/examples/loop-candidates/fission.sexp" \
 
 `make native-memory-loop-ir` 单独验证一般 IR，包含真实读写的融合／分裂、三维仿射域、非仿射拒绝和错误证书／资源耗尽。`make native-memory-proposed` 编译完整 C，检查外部文件产生的实际 Clight 快路、完整数组与公开 iterator，并与 GCC 和独立模型比较。报告位于 `build/native-memory-loop-ir/report.json` 和 `build/native-memory-proposed/report.json`；当前两份报告均通过：一般 IR 为 24 个提案、1632 次独立执行比较；完整 C 为十二组配置，每组 1564 行完整输出。identity 和 interchange 各命中 10 个函数，安全 fission 命中 8 个函数；行前缀依赖的两种源码布局在 fission 下被拒绝。所有数组与公开 iterator 与 GCC 和独立模型一致。错误证书、资源耗尽、缺少提案、删语句、更改域及非仿射候选均保留源程序。
 
-数组入口的物理 NonAlias 从 `flat_array_locations_nonalias` 闭合，不假定逻辑数组名称自动表示互不重叠的物理内存。多数组指针别名、一般 C 源提取和更广的点坐标对应仍需实现。外部入口现在支持[已经证明的点坐标交换](memory-point-coordinate-correspondence.md)，候选文件可提供 iterator 排列；参数坐标固定，候选时间顺序仍需通过依赖检查。[语义域等价与统一入口](memory-semantic-domain-alignment.md) 已支持不同约束写法的同域检查；更广的 affine 点对应继续实现。已有内置矩形交换与二维 tiling 入口继续使用其已经证明的具体对应。
+数组入口的物理 NonAlias 从 `flat_array_locations_nonalias` 闭合，不假定逻辑数组名称自动表示互不重叠的物理内存。独立的 proposed 入口仍限于单数组；[统一入口的多个实际数组对象](memory-multiple-array-objects.md)已有单独证明和验证。指针切片别名、一般 C 源提取和更广的点坐标对应仍需实现。外部入口现在支持[已经证明的点坐标交换](memory-point-coordinate-correspondence.md)，候选文件可提供 iterator 排列；参数坐标固定，候选时间顺序仍需通过依赖检查。[语义域等价与统一入口](memory-semantic-domain-alignment.md) 已支持不同约束写法的同域检查；更广的 affine 点对应继续实现。已有内置矩形交换与二维 tiling 入口继续使用其已经证明的具体对应。
 
 这条路径修复了锁定 ExtractorFrontend 的访问维度：系数补齐长度使用指令实参个数，而不是参数加循环深度。对应 ExtractorCorrect 的叶子表示同步更新；两份补丁、源锁定及 92 个依赖文件重新编译记录均保留在仓库和构建输出中。完整 C 编译定理继续继承 CompCert 与 validator 的 42 项假设并集，没有新增全局公理。

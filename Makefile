@@ -246,3 +246,7 @@ memory-unified-compiler: guard-memory-proof
 
 native-memory-unified: memory-unified-compiler
 	python3 scripts/native_memory_unified.py
+
+.PHONY: native-memory-multiarray
+native-memory-multiarray: memory-unified-compiler
+	python3 scripts/native_memory_multiarray.py

@@ -23,7 +23,8 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryExtractorCoverage", "GuardMemoryExtractorOrder", "GuardMemoryPointIsomorphism", "GuardMemoryDomainNormalization", "GuardMemoryExtractorProgress",
            "GuardMemoryCoordinateSwap", "GuardMemoryReindexedExtractor",
            "GuardMemoryDomainAlignment", "GuardMemoryEquivalentDomainsExtractor",
-           "GuardMemoryProposedClight", "GuardMemoryProposedCompiler", "GuardMemoryUnifiedCompiler"]
+           "GuardMemoryProposedClight", "GuardMemoryProposedCompiler",
+           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryUnifiedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -64,7 +65,8 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
   GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
   GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryEquivalentDomainsExtractor
-  GuardMemoryProposedClight GuardMemoryProposedCompiler GuardMemoryUnifiedCompiler.
+  GuardMemoryProposedClight GuardMemoryProposedCompiler
+  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryUnifiedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -73,6 +75,9 @@ Print Assumptions GuardMemoryValidator.validate_tiling_correct.
 Print Assumptions GuardMemoryTilingValidator.checked_tiling_validate_poly_correct.
 Goal True. idtac "MEM_PHYSICAL_REGISTRY". exact I. Qed.
 Print Assumptions flat_array_locations_nonalias.
+Print Assumptions memory_array_registry_nonalias.
+Print Assumptions memory_array_base_comparison.
+Print Assumptions memory_blocks_unique_correct.
 Goal True. idtac "MEM_INSTRUCTION". exact I. Qed.
 Print Assumptions GuardMemoryInstr.bc_condition_implie_permutbility.
 Print Assumptions GuardMemoryInstr.access_function_checker_correct.
@@ -109,6 +114,16 @@ Print Assumptions memory_point_isomorphism_execution.
 Print Assumptions memory_domain_normalization_execution.
 Print Assumptions memory_coordinate_swap_execution.
 Print Assumptions memory_reindexed_execution.
+Print Assumptions memory_array_separation_exact.
+Print Assumptions memory_registry_instruction_backend.
+Print Assumptions compile_memory_registry_loop_correct.
+Print Assumptions memory_instruction_registry_transfer.
+Print Assumptions named_array_operations_source_clight_iterations.
+Print Assumptions named_array_operations_registry.
+Print Assumptions memory_registry_guard_primitives.
+Print Assumptions named_array_operations_source_clight_decode.
+Print Assumptions memory_named_guard_primitives.
+Print Assumptions memory_named_array_candidate_rule.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -129,6 +144,8 @@ Print Assumptions validated_memory_reindexed_loops_at.
 Print Assumptions validated_memory_equivalent_domain_loops_at.
 Print Assumptions memory_check_domain_equivalence_correct.
 Print Assumptions memory_aligned_domains_execution.
+Print Assumptions checked_named_affine_candidate_correct.
+Print Assumptions checked_named_tiled_candidate_correct.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -146,6 +163,9 @@ Print Assumptions check_memory_operations_region_sound.
 Print Assumptions memory_proposed_array_operations_local.
 Print Assumptions check_memory_proposed_region_sound.
 Print Assumptions check_memory_unified_region_sound.
+Print Assumptions check_memory_named_affine_region_sound.
+Print Assumptions check_memory_named_tiled_region_sound.
+Print Assumptions check_memory_named_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -198,6 +218,11 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "unified_whole_program_entrypoint": "GuardMemoryUnifiedCompiler.compile_memory_unified_regions",
         "unified_whole_program_theorem": "GuardMemoryUnifiedCompiler.compile_memory_unified_regions_correct",
         "one_guarded_compiler_for_affine_and_tiling_candidates_proved": True,
+        "multiple_physical_arrays_registry_nonalias_closed": True,
+        "array_object_base_guard_encoding_proved": True,
+        "multiarray_actual_source_and_candidate_clight_bridge_proved": True,
+        "multiarray_unified_csem_asm_proved": True,
+        "multiarray_c_source_scope": "rectangular pure-write, own-cell and row-prefix statements on distinct actual array objects sharing a fixed layout; cross-array reads and pointer slices are not decoded",
         "untrusted_loop_candidate_csem_asm_proved": True,
         "untrusted_loop_candidate_c_source_scope": "canonical rectangular mixed statements on one fixed-layout array",
         "multiple_mixed_array_statements_tiling_csem_asm_proved": True,

@@ -77,3 +77,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [外部候选的点坐标对应](../../docs/memory-point-coordinate-correspondence.md) 已证明任意相邻 iterator 交换的组合及其真实提取接入，保护参数前缀，并继续核对候选内存依赖。
 
 [语义域等价与统一入口](../../docs/memory-semantic-domain-alignment.md) 用现有空域证书核对不同约束写法的整数点域，并证明候选域表示转换保留整个执行。`make native-memory-unified` 提取同一个完整 C 编译入口，接受外部仿射 Loop 或 `(tile rows columns)`；两条路径共用 guard、回退与完整程序宿主。
+
+[多个实际数组对象](../../docs/memory-multiple-array-objects.md)已有源执行、候选后端、安全基址检查与完整程序定理。`make native-memory-multiarray` 使用统一编译器验证两／三数组、全局与外层循环、候选接受和源回退；当前 C 源仍限于同布局对象各自的三类矩形操作。

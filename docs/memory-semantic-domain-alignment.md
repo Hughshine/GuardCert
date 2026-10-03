@@ -61,4 +61,4 @@ GUARDCERT_LOOP_CANDIDATE=/tmp/candidate.sexp \
 统一入口也已通过十二组仿射配置、五组二维块宽和五条分块拒绝路线，每组均检查这
 1564 行输出。两类提案实际使用同一份编译器可执行文件；报告位于
 `build/native-memory-unified/report.json`。
-多个物理数组、一般源 AST 提取、整数剪切与平移的坐标对应仍在继续实现。
+[多个实际数组对象](memory-multiple-array-objects.md)已接入统一入口。一般源 AST 提取、跨数组读取、指针切片以及整数剪切与平移的坐标对应仍在继续实现。

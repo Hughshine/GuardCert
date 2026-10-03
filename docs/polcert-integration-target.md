@@ -1,6 +1,6 @@
 # 多面体能力接入目标：以 PolCert 为功能参照
 
-2026-10-02 用户澄清：PolCert 是功能与证明架构的参照。允许为 CompCert 必要地重实现状态、IR、算法与证明，要求基本多面体功能达成一致，并通过统一的 guarded transformation 框架获得完整程序保证。调用现有 PolCert 源码不是验收条件。当前动态矩形交换与保持顺序的循环分块已进入完整程序路径；实际依赖检查、矩形纯写／原地更新／行前缀读取二维 tiling 和完整程序定理也已接通；静态仿射叶子条件的非矩形域也已接通完整 C 分块入口；同布局数组纯写／原地更新／行首读取的混合语句列表也已接通完整 C 分块；更一般仿射域、多数组列表与任意外部候选仍未达到完整目标。
+2026-10-02 用户澄清：PolCert 是功能与证明架构的参照。允许为 CompCert 必要地重实现状态、IR、算法与证明，要求基本多面体功能达成一致，并通过统一的 guarded transformation 框架获得完整程序保证。调用现有 PolCert 源码不是验收条件。当前动态矩形交换与保持顺序的循环分块已进入完整程序路径；实际依赖检查、矩形纯写／原地更新／行前缀读取二维 tiling 和完整程序定理也已接通；静态仿射叶子条件的非矩形域也已接通完整 C 分块入口；同布局数组纯写／原地更新／行首读取的混合语句列表也已接通完整 C 分块；一般仿射 Loop 的实际双向提取、外部候选的 iterator 对应与语义域等价已证明；统一完整程序入口消费外部仿射候选和二维 tiling。多个实际数组对象的矩形语句列表也已接入完整定理。一般 C 源边界、跨数组读取和任意指针切片等仍未达到完整目标。
 
 ## 所需链路
 
@@ -21,12 +21,12 @@
 
 | 能力 | 当前证据 | 尚需完成 |
 | --- | --- | --- |
-| 参数化循环提取与源对应 | 动态矩形、同布局混合读写语句列表与静态仿射 cut 的完整 AST、真实源执行解码与循环出口；另有参数化 Loop lowering 证明 | 一般嵌套仿射域与多数组语句的提取 |
-| 仿射调度及依赖验证 | 实际 Mem 的一般 validator 已提取执行，验证参数化域、多语句、重排与实际二维 tiling；三种矩形循环的 C 编译器已消费真实依赖检查 | 多数组及一般域的完整 C 源提取与候选接入 |
-| 循环生成与出口对应 | 实际动态矩形候选、精确 iterator 出口与完整程序宿主；另有嵌套 Loop lowering；private temporary 完整程序宿主已闭合 | 一般域和外部调度驱动的循环生成 |
+| 参数化循环提取与源对应 | 动态矩形、同布局混合读写语句列表与静态仿射 cut 的完整 AST、真实源执行解码与循环出口；任意成功提取的仿射 Loop 已有双向执行对应；多个实际数组对象的矩形列表已有真实源解码 | 一般 C 嵌套仿射域、跨数组读取和不同布局数组的源提取 |
+| 仿射调度及依赖验证 | 实际 Mem 的一般 validator 已提取执行，验证参数化域、多语句、重排与实际二维 tiling；统一 C 编译器消费外部 Loop／坐标排列／等价域与多个数组对象的实际依赖检查 | 一般 C 仿射域、跨数组读取和更广的坐标对应 |
+| 循环生成与出口对应 | 实际动态矩形候选、精确 iterator 出口与完整程序宿主；另有嵌套 Loop lowering；private temporary 完整程序宿主已闭合；外部仿射和二维 tiling 共用入口 | 一般 C 仿射域源识别、整数剪切与平移的点对应 |
 | 分块与域变换 | 任意正块大小的 strip-mining、尾块对应、辅助边界无溢出检查、private temporary 宿主与实际候选执行 | 更一般 tiling 与域变换；矩形纯写／原地更新／行前缀读取二维 tiling 已消费实际域与依赖证书 |
-| 前提编码与检查 | 从源布局生成的矩形边界检查、条件读取安全证明；可组合性质接口与动态仿射检查 | 一般候选所需前提的发现与编码；扩展 alias/layout 前提 |
-| 完整程序接入 | 实际 Clight 区域宿主与 Csem→Asm 定理；真实依赖检查的矩形路径已提取运行，故障 oracle 安全拒绝 | 继续闭合一般调度、多数组与更一般分块规则 |
+| 前提编码与检查 | 从源布局生成的矩形边界检查、条件读取安全证明；可组合性质接口与动态仿射检查；实际数组对象基址比较的完整编码与安全性 | 从任意源／候选发现前提；指针切片重叠与不同布局的前提 |
+| 完整程序接入 | 实际 Clight 区域宿主与 Csem→Asm 定理；真实依赖检查的矩形路径已提取运行，故障 oracle 安全拒绝 | 继续闭合一般 C 域、跨数组读取、指针缓冲区与更广域变换 |
 
 这张表比较的是能力和语义保证，不要求复制 PolCert 的表示或逐个函数。先闭合顺序的参数化仿射调度与分块路径，再按同一标准对照 ISS、更多 tiling 路线及其他已验证能力，明确支持与未支持项。并行扩展需要额外执行语义和后端证明，生成注释不能代替这一保证。
 
@@ -44,12 +44,14 @@
 4. 源对应、依赖保持、候选进展、机器算术与出口修复均有具体证明，完整程序定理不把核心义务留作未实例化字段。
 5. 实际提取的编译器生成可运行汇编，验证快路、回退及外围可观察结果，报告支持范围与假设。与 PolCert 的功能差距逐项更新。
 
-`compile_scheduled_regions` 和 CInstr 双写交换保留为验证条件与程序组合的回归实例。它们已证明的部分可以复用；动态矩形规则的实现与验证见 [dynamic-rectangles.md](dynamic-rectangles.md)；顺序分块与辅助变量接口见 [private-stripmine.md](private-stripmine.md)，一般仿射域与多数组源桥接仍需实现，矩形纯写／原地更新／行前缀读取二维 tiling 见 [memory-two-dimensional-tiling.md](memory-two-dimensional-tiling.md)。
+`compile_scheduled_regions` 和 CInstr 双写交换保留为验证条件与程序组合的回归实例。它们已证明的部分可以复用；动态矩形规则的实现与验证见 [dynamic-rectangles.md](dynamic-rectangles.md)；顺序分块与辅助变量接口见 [private-stripmine.md](private-stripmine.md)，一般 C 仿射域及更广的多数组源桥接仍需实现，矩形纯写／原地更新／行前缀读取二维 tiling 见 [memory-two-dimensional-tiling.md](memory-two-dimensional-tiling.md)。
 
 ## 一般 validator 的具体内存路线
 
-[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。三十七个模块已将三种完整矩形 Clight 交换、矩形、纯写语句列表和仿射条件域纯写二维 tiling 接到 Loop、PolyLang、依赖验证和候选执行；环境索引的端点保留实际入口参数值。`GuardMemoryCompiler.compile_memory_regions_correct` 是这条路径的完整 Csem→Asm 定理。
+[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。已有模块已将三种完整矩形 Clight 交换、矩形、纯写语句列表和仿射条件域纯写二维 tiling 接到 Loop、PolyLang、依赖验证和候选执行；环境索引的端点保留实际入口参数值。`GuardMemoryCompiler.compile_memory_regions_correct` 是这条路径的完整 Csem→Asm 定理。
 
 原生检查器已有 35 组提案及 1309 组独立执行比较，包含二维 tiling；完整 C 编译器已有 795 个正矩形及外围上下文、回退和故障 oracle 验证。[一般多语句 tiling 的正向执行端点](memory-multiple-statement-tiling.md) 已闭合，多语句纯写列表的 C bridge 也已通过完整定理及五组块大小、4125 个正动态矩形的实际程序测试，但这些模块仍不等于一般完整程序接入：任意嵌套仿射域、多数组列表、一般候选的 C 源／候选 bridge 尚未完成。二维 tiling 的矩形及静态仿射条件域纯写 C bridge 和完整程序定理已通过编译；条件域入口还有五组块大小、4800 个正动态域的真实快路、完整数组、计数器及拒绝验证，见 [memory-affine-conditional-domains.md](memory-affine-conditional-domains.md)。专用审计的完整编译器继承 CompCert 与 VPL validator 的并集 42 项假设，没有新增公理；默认动态矩形／分块编译器的 35 项基线不受这条可选路线影响。
 
 [同数组混合读写列表](memory-mixed-statement-tiling.md) 的完整 C 源解码、一般候选 load/store 编码和完整程序定理已闭合；源语法目前是纯写、原地更新和行首读取的任意非空组合。它复用实际多语句 validator，不把语句独立性留给调用方。实际入口已通过五组块大小、5325 个正动态矩形、10 个实际快路函数及五条拒绝路线的原生验证。
+
+[一般 Loop 与外部候选](memory-general-loop-candidates.md)、[点坐标对应](memory-point-coordinate-correspondence.md)和[语义域等价／统一入口](memory-semantic-domain-alignment.md)补全实际提取的双向执行以及外部候选完整 C 接入。[多个实际数组对象](memory-multiple-array-objects.md)已提供基于实际 block 的非别名证明、范围后短路的基址检查、具体源和候选桥及统一 Csem→Asm 定理；当前专用内存审计覆盖 63 个适配模块和 7 个 lowering 模块。上述早期报告记录各自入口的范围，不作为一般 C 源已经完整覆盖的结论。
