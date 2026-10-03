@@ -13,7 +13,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryLoops GuardMemoryPolyhedral GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
   GuardMemoryValidatedRectangles GuardMemoryTilingProgress GuardMemoryArrayBackend
   GuardMemoryTiledRectangles GuardMemoryTiledExecution GuardMemoryTiledClight GuardMemoryArrayFamilyBackend
-  GuardMemorySequenceLoops GuardMemorySequencePolyhedral GuardMemorySequenceExecution GuardMemorySequenceClight GuardMemoryOperationsClight GuardMemoryFlatArrayBackend GuardMemoryExtractorProgress GuardMemoryReindexedExtractor.
+  GuardMemorySequenceLoops GuardMemorySequencePolyhedral GuardMemorySequenceExecution GuardMemorySequenceClight GuardMemoryOperationsClight GuardMemoryFlatArrayBackend GuardMemoryExtractorProgress GuardMemoryReindexedExtractor GuardMemoryEquivalentDomainsExtractor.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -45,7 +45,7 @@ Proof.
 Qed.
 Definition checked_array_operations_candidate (base : rectangle_shape) operations candidate swaps :=
   let instructions := map (operation_instruction 3%positive) operations in
-  checked_memory_reindexed_loop_equivalence
+  checked_memory_equivalent_domain_loops
     (memory_array_assumed_loop base (memory_rectangle_sequence instructions),[1%positive;2%positive],[(1%positive,tt);(2%positive,tt);(3%positive,tt)])
     (memory_array_assumed_loop base candidate,[1%positive;2%positive],[(1%positive,tt);(2%positive,tt);(3%positive,tt)]) swaps.
 Definition compile_array_operations_candidate base (operations : list array_operation) array bound inner_bound live pool candidate :=
@@ -104,7 +104,7 @@ Proof.
       (RuntimeState (flat_array_locations 3%positive block (rectangle_extent d)) memory)
       (RuntimeState (flat_array_locations 3%positive block (rectangle_extent d)) final)).
   { apply memory_array_assumed_loop_execution; assumption. }
-  pose proof (proj1 (@validated_memory_reindexed_loops_at
+  pose proof (proj1 (@validated_memory_equivalent_domain_loops_at
     (memory_array_assumed_loop d (memory_rectangle_sequence (map (operation_instruction 3%positive) operations)))
     (memory_array_assumed_loop d candidate)
     [1%positive;2%positive] [(1%positive,tt);(2%positive,tt);(3%positive,tt)] swaps [M;N] _ _

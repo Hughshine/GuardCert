@@ -75,3 +75,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [一般 Loop 与外部候选](../../docs/memory-general-loop-candidates.md) 已接通任意成功提取的仿射 Loop/Seq/Guard 执行对应和不受信任的结构候选编译入口。`make native-memory-loop-ir` 验证一般 IR；`make native-memory-proposed` 验证实际 C→Asm 的候选接受与回退。当前 C 源识别仍是单数组矩形混合列表。候选检查消费运行时 guard 中已经证明的数组范围前提；域约束排序有整个多面体程序的表示等价证明。
 
 [外部候选的点坐标对应](../../docs/memory-point-coordinate-correspondence.md) 已证明任意相邻 iterator 交换的组合及其真实提取接入，保护参数前缀，并继续核对候选内存依赖。
+
+[语义域等价与统一入口](../../docs/memory-semantic-domain-alignment.md) 用现有空域证书核对不同约束写法的整数点域，并证明候选域表示转换保留整个执行。`make native-memory-unified` 提取同一个完整 C 编译入口，接受外部仿射 Loop 或 `(tile rows columns)`；两条路径共用 guard、回退与完整程序宿主。

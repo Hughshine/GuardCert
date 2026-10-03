@@ -238,3 +238,11 @@ memory-proposed-compiler: guard-memory-proof
 
 native-memory-proposed: memory-proposed-compiler
 	python3 scripts/native_memory_proposed.py
+
+.PHONY: memory-unified-compiler native-memory-unified
+memory-unified-compiler: guard-memory-proof
+	@python3 scripts/build_memory_compiler.py --unified > build/memory-unified-native-build.log 2>&1 || \
+	  { cat build/memory-unified-native-build.log; exit 1; }
+
+native-memory-unified: memory-unified-compiler
+	python3 scripts/native_memory_unified.py

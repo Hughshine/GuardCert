@@ -101,9 +101,9 @@ def encode_loop_program(program):
 
 def encode_request(request):
     mode = request.get("mode", "affine")
-    encode = encode_loop_program if mode in ("loops","loops-reindexed") else encode_program
+    encode = encode_loop_program if mode in ("loops","loops-reindexed","loops-domains") else encode_program
     arguments = [mode, encode(request["source"]), encode(request["candidate"])]
-    if mode == "loops-reindexed":
+    if mode in ("loops-reindexed","loops-domains"):
         arguments.append(request["swaps"])
     if mode in ("tiling", "tiling-equivalence"):
         arguments.append(request["witnesses"])

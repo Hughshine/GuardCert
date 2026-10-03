@@ -70,7 +70,22 @@ def fixtures():
     cube_domain = ["and",["le",1,var(0)],["le",var(0),5]]
     reindexed3 = request(program(guard(cube_domain,cube)),program(guard(cube_domain,reverse_cube)))
     reindexed3.update(mode="loops-reindexed",swaps=[0,1,0])
+    triangle_domain = ["and",["le",1,var(0)],["le",var(0),5]]
+    triangle_source = program(guard(triangle_domain,triangular))
+    triangle_target = program(guard(triangle_domain,loop(0,var(0),loop(var(0),var(1),
+        instruction([var(0),var(1)],coefficients=(10,1))))))
+    triangle_reindexed = request(triangle_source,triangle_target)
+    triangle_reindexed.update(mode="loops-domains",swaps=[0])
+    triangle_hole = copy.deepcopy(triangle_reindexed)
+    triangle_hole["candidate"]["body"]["body"]["body"]["lower"] = add(var(0),1)
+    redundant2 = request(program(guard(assumption,fused2),(1,2)),
+        program(guard(assumption,loop(0,var(0),loop(0,var(2),
+            guard(["le",0,var(0)],sequence(write2,update2))))),(1,2)))
+    redundant2.update(mode="loops-domains",swaps=[])
     return {
+        "triangular-interchange-with-equivalent-domain": (triangle_reindexed,True),
+        "triangular-diagonal-deleted": (triangle_hole,False),
+        "redundant-affine-domain-constraint": (redundant2,True),
         "reindexed-two-dimensional-interchange": (reindexed2,True),
         "interchange-missing-point-correspondence": (missing2,False),
         "reindexed-three-dimensional-coordinate-reversal": (reindexed3,True),
@@ -163,7 +178,7 @@ def main():
         result=validate(proposal)
         if result["accepted"] != expected or not result["alarm_free"]: raise AssertionError((name,result))
         results[name]=result
-        if expected or name in ["cross-iteration-dependent-fission","changed-domain"]:
+        if expected or name in ["cross-iteration-dependent-fission","changed-domain","triangular-diagonal-deleted"]:
             for n in range(-2,6):
                 for m in range(-1,5):
                     parameters=[n,m][:len(proposal["source"]["context"])]
@@ -173,7 +188,7 @@ def main():
                         if expected and before != after: raise AssertionError((name,parameters,seed))
                         if not expected and before != after: counterexamples.setdefault(name,{"parameters":parameters,"seed":seed})
                         comparisons+=1
-    assert len(counterexamples)==2
+    assert len(counterexamples)==3
     for name,environment in [("invalid-certificate",dict(os.environ,GUARDCERT_ORACLE_FAULT="top-certificate")),
                              ("resource-limit",dict(os.environ,GUARDCERT_FM_ROWS="0"))]:
         result=validate(fixtures()["loop-fusion-with-real-read-after-write"][0],environment=environment)

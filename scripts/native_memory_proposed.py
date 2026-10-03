@@ -101,11 +101,11 @@ def main():
     (WORK/"gcc-output.txt").write_text(reference)
     results = {}
     templates = ROOT / "examples" / "loop-candidates"
-    for name in ["identity","fission","interchange","missing-reindex","wrong-arguments","drop-statements","changed-domain","nonaffine",
+    for name in ["identity","fission","interchange","redundant-guard","missing-reindex","wrong-arguments","drop-statements","changed-domain","nonaffine",
                  "missing-proposal","resource-limit","invalid-certificate"]:
         environment = {"GUARDCERT_LOOP_CANDIDATE":str(templates/(name+".sexp"))}
         expected = set()
-        if name in ["identity","interchange"]: expected = set(ACCEPTED)
+        if name in ["identity","interchange","redundant-guard"]: expected = set(ACCEPTED)
         if name == "fission": expected = set(ACCEPTED)-{"operations_row_mixed","operations_other_layout"}
         if name == "resource-limit":
             environment = {"GUARDCERT_LOOP_CANDIDATE":str(templates/"fission.sexp"),"GUARDCERT_FM_ROWS":"0"}
@@ -122,7 +122,7 @@ def main():
                 candidate = body[checked.end():body.find("continue;",checked.end())]
                 counters = re.findall(r"for \(; 1; ([^ =;]+) = \1 \+ 1\)",candidate)
                 tag = function.removeprefix("operations_")
-                assert len(counters) == (2 if name in ["identity","interchange"] else 2*len(OPERATIONS[tag])),(name,function,counters)
+                assert len(counters) == (2 if name in ["identity","interchange","redundant-guard"] else 2*len(OPERATIONS[tag])),(name,function,counters)
                 assert "$i = $n;" in candidate and "$j = $m;" in candidate
         for function in REFUSED:
             assert "switch (0)" not in function_body(dump,function),(name,function)
@@ -137,7 +137,7 @@ def main():
               "iterator_coordinate_swaps_checked":True,"general_c_source_decoder_supported":False,"gcc_and_independent_model_match":True}
     (WORK/"report.json").write_text(json.dumps(report,indent=2)+"\n")
     print("Externally proposed Loop-to-C-to-Asm compiler passed: identity, real loop fission/interchange, "
-          "eleven configurations, unsafe dependence/domain/instruction proposals refused")
+          "twelve configurations, unsafe dependence/domain/instruction proposals refused")
 
 
 if __name__ == "__main__": main()

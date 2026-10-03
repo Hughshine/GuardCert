@@ -30,8 +30,8 @@ GUARDCERT_LOOP_CANDIDATE="$PWD/examples/loop-candidates/interchange.sexp" \
 
 Rocq 的 `memory_candidate_proposer` 当前返回 `option (Loop.stmt * list nat)`。候选及坐标对应都属于提议；完整 C 编译定理不要求生成器正确。若实际对应、域、实参或依赖检查不通过，保留源片段。
 
-独立验证器的 `loops-reindexed` 输入增加 `swaps` 数组。`make native-memory-loop-ir` 包含二维读写交换、缺少对应的安全拒绝、三维坐标反转，以及此前的融合／分裂和仿射域。当前一般 IR 报告为 21 个提案、1344 次独立执行比较，全部通过。完整 C 的测试脚本 `native_memory_proposed.py` 已通过十一组配置，每组 1564 行完整输出与 GCC 和独立模型一致；interchange 实际命中 10 个函数。它检查生成的真实交换循环、数组及公开 iterator。缺少 reindex 或错误实参的候选均被拒绝。
+独立验证器的 `loops-reindexed` 输入增加 `swaps` 数组。`make native-memory-loop-ir` 包含二维读写交换、缺少对应的安全拒绝、三维坐标反转，以及此前的融合／分裂和仿射域。当前一般 IR 报告为 24 个提案、1632 次独立执行比较，全部通过。完整 C 的测试脚本 `native_memory_proposed.py` 已通过十二组配置，每组 1564 行完整输出与 GCC 和独立模型一致；interchange 实际命中 10 个函数。它检查生成的真实交换循环、数组及公开 iterator。缺少 reindex 或错误实参的候选均被拒绝。
 
 ## 当前边界
 
-这条实例支持由相邻交换组成的维度排列。一般 affine shear、translation 和语义等价但约束集不同的域表示还需其他对应或域等价检查。点双射接口本身可以承载更广的对应；声明接口不等于已经实现那些实例。完整 C 源识别仍限于当前矩形混合读写列表。内置二维 tiling 路径继续使用其单独证明的 tile witness。
+这条实例支持由相邻交换组成的维度排列。[语义域等价检查](memory-semantic-domain-alignment.md) 已处理约束集不同但相互包含的域表示。一般 affine shear 和 translation 还需其他坐标对应。点双射接口本身可以承载更广的对应；声明接口不等于已经实现那些实例。完整 C 源识别仍限于当前矩形混合读写列表。内置二维 tiling 路径继续使用其单独证明的 tile witness。

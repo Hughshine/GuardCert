@@ -22,7 +22,8 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryOperationsCompiler", "GuardMemoryExtractorTrace", "GuardMemoryTraceUniqueness",
            "GuardMemoryExtractorCoverage", "GuardMemoryExtractorOrder", "GuardMemoryPointIsomorphism", "GuardMemoryDomainNormalization", "GuardMemoryExtractorProgress",
            "GuardMemoryCoordinateSwap", "GuardMemoryReindexedExtractor",
-           "GuardMemoryProposedClight", "GuardMemoryProposedCompiler"]
+           "GuardMemoryDomainAlignment", "GuardMemoryEquivalentDomainsExtractor",
+           "GuardMemoryProposedClight", "GuardMemoryProposedCompiler", "GuardMemoryUnifiedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -62,8 +63,8 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemorySequencePolyhedral GuardMemorySequenceOrder GuardMemorySequenceExecution
   GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
   GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
-  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryReindexedExtractor
-  GuardMemoryProposedClight GuardMemoryProposedCompiler.
+  GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryEquivalentDomainsExtractor
+  GuardMemoryProposedClight GuardMemoryProposedCompiler GuardMemoryUnifiedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -125,6 +126,9 @@ Print Assumptions validated_memory_multiple_tiling_progress_at.
 Print Assumptions validated_memory_sequence_tiling.
 Print Assumptions validated_memory_affine_loops_at.
 Print Assumptions validated_memory_reindexed_loops_at.
+Print Assumptions validated_memory_equivalent_domain_loops_at.
+Print Assumptions memory_check_domain_equivalence_correct.
+Print Assumptions memory_aligned_domains_execution.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -141,6 +145,7 @@ Print Assumptions memory_tiled_array_operations_local.
 Print Assumptions check_memory_operations_region_sound.
 Print Assumptions memory_proposed_array_operations_local.
 Print Assumptions check_memory_proposed_region_sound.
+Print Assumptions check_memory_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -148,6 +153,7 @@ Print Assumptions compile_memory_cut_regions_correct.
 Print Assumptions compile_memory_sequence_regions_correct.
 Print Assumptions compile_memory_operations_regions_correct.
 Print Assumptions compile_memory_proposed_regions_correct.
+Print Assumptions compile_memory_unified_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
     result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
@@ -189,6 +195,9 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "operations_whole_program_theorem": "GuardMemoryOperationsCompiler.compile_memory_operations_regions_correct",
         "proposed_whole_program_entrypoint": "GuardMemoryProposedCompiler.compile_memory_proposed_regions",
         "proposed_whole_program_theorem": "GuardMemoryProposedCompiler.compile_memory_proposed_regions_correct",
+        "unified_whole_program_entrypoint": "GuardMemoryUnifiedCompiler.compile_memory_unified_regions",
+        "unified_whole_program_theorem": "GuardMemoryUnifiedCompiler.compile_memory_unified_regions_correct",
+        "one_guarded_compiler_for_affine_and_tiling_candidates_proved": True,
         "untrusted_loop_candidate_csem_asm_proved": True,
         "untrusted_loop_candidate_c_source_scope": "canonical rectangular mixed statements on one fixed-layout array",
         "multiple_mixed_array_statements_tiling_csem_asm_proved": True,
@@ -235,6 +244,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "complete_csem_asm_rule_instantiated": False,
         "general_affine_loop_to_poly_execution_equivalence_proved": True,
         "general_loop_statement_scope": "arbitrary nesting of affine Loop, Seq and conjunctive affine Guard accepted by the actual extractor",
+        "semantically_equivalent_affine_domain_alignment_proved": True,
+        "domain_equivalence_uses_existing_emptiness_certificates": True,
         "adjacent_iterator_coordinate_permutation_proved": True,
         "externally_proposed_iterator_coordinate_swaps_consumed": True,
         "domain_constraint_order_normalization_proved": True,
