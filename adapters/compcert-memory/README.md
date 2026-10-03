@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 145 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 152 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -98,3 +98,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [真实仿射 C 下标](../../docs/memory-affine-source-accesses.md)已将加减和嵌套常数乘法构成的两变量访问编码为实际读写足迹。`make native-memory-affine-access` 在统一完整程序入口验证转置、缩放、散布、混合复制链和同数组依赖，以及未支持的 `while` 结构回退。
 
 [源证据与邻居偏移](../../docs/memory-anchored-offset-accesses.md)将一个对象的零地址访问证据用于该对象的不同偏移访问。`make native-memory-offset-access` 验证邻居读写、跨操作证据、调度与分块及依赖拒绝。
+
+[多个仿射读取与整数计算](../../docs/memory-affine-computations.md)已接入相同完整程序入口，源体包括有限多读取、加减乘、两个循环变量及非线性标量计算。`make native-memory-affine-compute` 验证 14 组汇编配置和五组分支诊断。

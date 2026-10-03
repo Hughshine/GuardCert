@@ -286,3 +286,8 @@ native-memory-affine-access: memory-unified-compiler
 native-memory-offset-access: memory-unified-compiler
 	python3 scripts/native_memory_offset_access.py
 	python3 scripts/native_memory_offset_access_paths.py
+
+.PHONY: native-memory-affine-compute
+native-memory-affine-compute: memory-unified-compiler
+	python3 scripts/native_memory_affine_compute.py
+	python3 scripts/native_memory_affine_compute_paths.py

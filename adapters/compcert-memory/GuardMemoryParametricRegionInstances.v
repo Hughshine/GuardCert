@@ -2,7 +2,7 @@ From Stdlib Require Import List.
 From compcert.cfrontend Require Import Clight.
 From Guard Require Import ClightRectangularStore ClightRectangularSelector.
 From GuardMemory Require Import GuardMemoryParametricBody GuardMemoryCommonLayout GuardMemoryNamedBodyModel GuardMemoryLayoutCopyBodyModel
-  GuardMemoryParametricSyntax GuardMemoryLayoutCopySyntax GuardMemoryParametricRegion GuardMemoryLayoutSyntax GuardMemoryGeneralLayoutSyntax GuardMemoryOffsetSyntax.
+  GuardMemoryParametricSyntax GuardMemoryLayoutCopySyntax GuardMemoryParametricRegion GuardMemoryLayoutSyntax GuardMemoryGeneralLayoutSyntax GuardMemoryOffsetSyntax GuardMemoryComputeSyntax.
 Set Implicit Arguments.
 Definition memory_named_parametric_region source (package : memory_parametric_package source) : memory_parametric_region_package source.
 Proof.
@@ -33,7 +33,9 @@ Definition describe_memory_parametric_region source :=
       | Some package => Some package
       | None => match describe_memory_general_layout_region source with
         | Some package => Some package
-        | None => describe_memory_offset_region source end end end
+        | None => match describe_memory_offset_region source with
+          | Some package => Some package
+          | None => describe_memory_compute_region source end end end end
   end.
 Print Assumptions memory_named_parametric_region.
 Print Assumptions memory_copy_parametric_region.
