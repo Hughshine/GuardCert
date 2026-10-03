@@ -1,5 +1,14 @@
 # 本轮验证记录
 
+## 2026-10-02：以真实 CompCert Mem 实例化一般多面体 validator
+
+`adapters/compcert-memory/` 的四个模块通过 Rocq 编译与专用假设审计。`GuardMemoryInstr` 完整实现实际 INSTR 接口，包括仿射 footprint 检查、真实 Mem.load／纯计算／Mem.store、状态稳定性、NonAlias 保持和 Bernstein 交换。物理数组 registry 的 nonalias 定理闭合；没有使用旧 CState.valid。实际 Clight 纯数组写入已能解码到这一具体指令关系，具有真实内存和 temp 出口证据。
+
+实际一般仿射与 tiling validator 已具体实例化；仿射提案的双向检查产生执行等价，从源执行得到候选进展。四个适配模块均重新编译；上游 92 文件 optimizer profile 复用既有构建，未在此次审计重编译。日志为 `build/guard-memory-assumptions/build.log` 与 `audit.log`，报告为 `build/guard-memory-proof-report.json`。
+
+语言实例的合并假设为 7 个 CompCert 继承项；具体 validator 与适配端点为相同的 12 个继承项，包括 VPL 的已检查 oracle 接口。这个集合不是默认 C→Asm 编译器的 35 项。新文件没有新增全局公理或未证明的 INSTR 字段。一般 validator 尚未提取执行，完整循环 decoder/encoder、guard 规则与 Csem→Asm 实例仍未闭合。详细接口与边界见 [真实内存多面体实例](../adapters/compcert-memory/README.md)。
+
+
 ## 2026-10-02：保留跨迭代依赖顺序的真实循环交换
 
 `ScheduleInterleave.rectangular_row_order_certificate` 保留每行内部的操作顺序，仅要求不同行之间可以交换，证明闭合。`RectangularRowSchedule` 将这一证书接到真实 Mem.load/Mem.store；`ClightIndexedArray` 允许语言实例提供任意纯 signed32 索引的类型、值与范围，得到实际数组读取的双向对应。具体行首读取、源循环解码、候选编码、条件规则与完整 AST 选择器已接入两个真实编译器。

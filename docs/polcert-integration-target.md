@@ -22,7 +22,7 @@
 | 能力 | 当前证据 | 尚需完成 |
 | --- | --- | --- |
 | 参数化循环提取与源对应 | 动态矩形的完整 AST、真实源执行解码与循环出口；另有参数化 Loop lowering 证明 | 一般嵌套仿射域与多个语句的提取 |
-| 仿射调度及依赖验证 | 任意大小矩形的符号化交换证书、真实 Mem.load/Mem.store 的 Bernstein 三项条件、同格子读改写及保留行内依赖的行首读取；另有有限点检查器 | 一般仿射调度证书、多语句依赖与一般依赖关系的保序验证 |
+| 仿射调度及依赖验证 | 任意大小矩形的符号化交换证书、真实 Mem.load/Mem.store 的 Bernstein 三项条件、同格子读改写及保留行内依赖的行首读取；另有有限点检查器 | 一般 validator 已具体实例化到实际 Mem；继续其原生执行、完整循环 bridge、多语句与一般候选接入 |
 | 循环生成与出口对应 | 实际动态矩形候选、精确 iterator 出口与完整程序宿主；另有嵌套 Loop lowering；private temporary 完整程序宿主已闭合 | 一般域和外部调度驱动的循环生成 |
 | 分块与域变换 | 任意正块大小的 strip-mining、尾块对应、辅助边界无溢出检查、private temporary 宿主与实际候选执行 | 带重排的多维 tiling、一般域变换及相应依赖证书 |
 | 前提编码与检查 | 从源布局生成的矩形边界检查、条件读取安全证明；可组合性质接口与动态仿射检查 | 一般候选所需前提的发现与编码；扩展 alias/layout 前提 |
@@ -45,3 +45,9 @@
 5. 实际提取的编译器生成可运行汇编，验证快路、回退及外围可观察结果，报告支持范围与假设。与 PolCert 的功能差距逐项更新。
 
 `compile_scheduled_regions` 和 CInstr 双写交换保留为验证条件与程序组合的回归实例。它们已证明的部分可以复用；动态矩形规则的实现与验证见 [dynamic-rectangles.md](dynamic-rectangles.md)；顺序分块与辅助变量接口见 [private-stripmine.md](private-stripmine.md)，一般仿射域、读写依赖验证及多维 tiling 仍需实现。
+
+## 一般 validator 的具体内存路线
+
+[GuardMemoryInstr](../adapters/compcert-memory/README.md) 已提供完全证明的实际 INSTR 实例，直接消费 CompCert Mem.load/计算/Mem.store，并具体实例化一般仿射和 tiling validator。它不使用旧 CState.valid；平面数组的物理 nonalias 是闭合证明。实际 Clight 的单个数组写入已接到此语义。仿射双向验证已给出实际执行等价，可建立候选进展。
+
+这些模块不等于一般完整程序接入：原生 validator、完整循环的源解码／候选编码、前提检查及出口对应仍需实现。专用审计继承具体 VPL validator 的 12 项假设；默认动态矩形／分块编译器的 35 项基线不受这条可选路线影响。

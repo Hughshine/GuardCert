@@ -179,5 +179,8 @@ polcert-optimizer-proof: check-compcert
 	python3 scripts/polcert_core.py build --profile optimizer --target driver/PolOptCorrect.v --clean
 	python3 scripts/polcert_core.py optimizer-adapter --profile optimizer
 
+guard-memory-proof: polcert-optimizer-proof
+	python3 scripts/audit_guard_memory.py
+
 clean:
 	@python3 scripts/clean.py
