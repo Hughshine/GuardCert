@@ -14,7 +14,7 @@
 
 `memory_parametric_body_model` 为实际源语言提供五类证据：循环体控制与 temporary 写入范围；源体到单点执行关系的解码；首个实际执行点提供的对象登记与地址有效性；物理单点执行与内存指令列表的对应；这些性质适用的行列范围。地址公式和具体 load/store 语法留在语言实例中。
 
-`memory_parametric_body_source_decode`、`memory_parametric_body_source_domain` 和 `memory_parametric_body_candidate_rule` 从这些证据构造源循环对应、guard 安全及候选执行。当前有两个已实例化并由完整编译器消费的模型：同布局的读写混合列表，以及独立读写布局的一条复制，后者包含同一对象的不同步长访问。这些模型不是未证明的占位接口。
+`memory_parametric_body_source_decode`、`memory_parametric_body_source_domain` 和 `memory_parametric_body_candidate_rule` 从这些证据构造源循环对应、guard 安全及候选执行。在 `4adeeca` 中有两个已实例化并由完整编译器消费的模型：同布局的读写混合列表，以及独立读写布局的一条复制，后者包含同一对象的不同步长访问。这些模型不是未证明的占位接口。
 
 `memory_parametric_region_package` 将模型、完整源 AST、稳定参数和控制变量证书交给通用检查器。统一 C→Asm 编译入口实际调用上述服务，其结果继续由 `compile_memory_unified_regions_correct` 提升到完整 Csem→Asm 正确性。核心 guarded transformation 框架的语言实例化原则不因此改变。
 
@@ -26,4 +26,6 @@
 
 当前条件语言由参数区间、仿射上界的安全端点条件和实际对象关系组成；不支持任意关系式条件发现、一般指针切片重叠或中途恢复。永久为假的条件在逻辑上可能安全，本接口不提供一般可满足性证明；实例的测试必须同时报告实际快分支可达与反例回退，不能只计生成了几个 guard。
 
-本阶段完整 Rocq 审计通过：127 个适配模块和 7 个 lowering 模块，完整编译器仍继承 42 项原有假设。使用同一个新编译器的 15 组布局配置、15 组参数化配置和 8 组外围上下文配置全部通过。四种条件化配置分别验证了两个同数组函数的实际快分支可达、已知依赖反例回退、零次执行和非零起始计数器回退；完整汇编输出另与 GCC 和独立源模型一致。
+本阶段（`4adeeca`）完整 Rocq 审计通过：127 个适配模块和 7 个 lowering 模块，完整编译器仍继承 42 项原有假设。使用同一个新编译器的 15 组布局配置、15 组参数化配置和 8 组外围上下文配置全部通过。四种条件化配置分别验证了两个同数组函数的实际快分支可达、已知依赖反例回退、零次执行和非零起始计数器回退；完整汇编输出另与 GCC 和独立源模型一致。
+
+后续[不同布局操作序列](memory-layout-operation-lists.md)为同一接口增加具体实例，操作列表中每次读写保留自己的布局，统一编译器继续消费上述候选条件搜索。

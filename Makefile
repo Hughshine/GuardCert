@@ -271,3 +271,8 @@ native-memory-parametric: memory-unified-compiler
 .PHONY: native-memory-layout-copy
 native-memory-layout-copy: memory-unified-compiler
 	python3 scripts/native_memory_layout_copy.py
+
+.PHONY: native-memory-layout-sequence
+native-memory-layout-sequence: memory-unified-compiler
+	python3 scripts/native_memory_layout_sequence.py
+	python3 scripts/native_memory_layout_sequence_paths.py
