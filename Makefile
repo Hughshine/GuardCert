@@ -306,3 +306,8 @@ native-memory-triple: memory-unified-compiler
 native-memory-recursive: memory-unified-compiler
 	python3 scripts/native_memory_recursive.py
 	python3 scripts/native_memory_recursive_paths.py
+
+.PHONY: native-memory-pointer
+native-memory-pointer: memory-unified-compiler
+	python3 scripts/native_memory_pointer.py
+	python3 scripts/native_memory_pointer_paths.py
