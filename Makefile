@@ -1,14 +1,14 @@
 ROCQ ?= rocq
 ROCQFLAGS ?=
 SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRestriction.v theories/ResidualGuard.v \
-           theories/AbstractSchedule.v theories/AbstractScheduleChecker.v theories/EndpointBridge.v theories/BilateralTransport.v \
+           theories/AbstractSchedule.v theories/AbstractScheduleChecker.v theories/SchedulePermutation.v theories/EndpointBridge.v theories/BilateralTransport.v \
            theories/SilentRegionProtocol.v \
            theories/PolCertCompat.v \
            theories/GuardedRegion.v theories/CheckedGuard.v theories/Examples.v \
            theories/Presumption.v theories/Synthesis.v theories/ConditionalRewrite.v
 
 .PHONY: all proof demo check fetch-compcert compcert-proof check-compcert compcert-bridge \
-        guarded-compiler scheduled-compiler native-demo native-schedules check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
+        guarded-compiler scheduled-compiler rectangular-compiler native-demo native-schedules native-rectangular check-integration polcert-proof polcert-affine-proof polcert-loop-proof \
         polcert-dynamic-proof polcert-nested-proof polcert-memory-proof \
         polcert-optimizer-proof polcert-store-native clean
 all: check
@@ -66,7 +66,11 @@ BRIDGE_SOURCES := theories/CompCertArithmetic.v theories/CompCertMemoryEquivalen
                   theories/ClightMatrixLoops.v theories/ClightMatrixRegion.v theories/ClightMatrixSelector.v \
                   theories/AdaptiveRegionCompiler.v theories/ClightAdaptiveExamples.v theories/ClightNestedProgressExamples.v \
                   theories/ClightIndexedStores.v theories/ClightSharedRegion.v \
-                  theories/ClightScheduledMatrix.v theories/ScheduledRegionCompiler.v
+                  theories/ClightScheduledMatrix.v theories/ScheduledRegionCompiler.v \
+                  theories/RectangularSchedule.v theories/RectangularIteration.v \
+                  theories/ClightParametricLoops.v theories/ClightRectangularStore.v \
+                  theories/ClightRectangularLoops.v theories/ClightRectangularGuard.v \
+                  theories/ClightRectangularRegion.v theories/ClightRectangularSelector.v theories/RectangularCompiler.v
 
 compcert-bridge:
 	@set -eu; for src in $(BRIDGE_SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard $(COMPCERT_FLAGS) "$$src"; done
@@ -111,7 +115,15 @@ scheduled-compiler: check-compcert
 native-schedules: scheduled-compiler
 	python3 scripts/native_scheduled_matrix.py
 
-check-integration: native-demo native-schedules
+check-integration: native-demo native-schedules native-rectangular
+
+rectangular-compiler: check-compcert
+	python3 scripts/audit_rectangular.py
+	@python3 scripts/build_compiler.py --rectangular-loop > build/rectangular-native-build.log 2>&1 || \
+	  { cat build/rectangular-native-build.log; exit 1; }
+
+native-rectangular: rectangular-compiler
+	python3 scripts/native_rectangular.py
 
 POLCERT_SOURCE ?=
 POLCERT_SOURCE_ARG = $(if $(POLCERT_SOURCE),--source "$(POLCERT_SOURCE)",)

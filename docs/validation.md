@@ -404,3 +404,17 @@ Rocq 例子验证接受、重合下标、越界、源 AST 不匹配和前端结�
 原生套件再次覆盖全部 24 个合法排列、七个错误提案、五个函数上下文及四个 parser 拒绝，并额外要求每个接受区域的 Clight dump 只有一个原外层循环。输出数组和及出口变量仍匹配 GCC 与独立预期；每个点的地址／payload 顺序也在实际 IR 中核对。完整物理内存相等是 Rocq 定理，不把数组和输出检查当作全内存观测。
 
 与已提交 `6b3db97` 的相同 fixture 相比，`matrix_dynamic` 从 353 降至 221 字节；其余四个函数分别为 284→222、258→201、309→240、341→212 字节。所有 24 个合法顺序中每个函数大小相同。比较报告在 `build/shared-fallback-comparison/report.json`，记录两个编译器 SHA-256；没有运行时间或普遍代码体积定理。只有参数化点顺序路径使用新 lowering，其他路径保留原生成方式。十七份 proof 报告的源码哈希逐项核对一致。
+
+## 2026-10-02：动态矩形循环交换与完整程序闭合
+
+新增十个证明模块，执行 `make proof compcert-bridge`，全部独立核与 CompCert 接入文件重新编译，退出码 0；CompCert 依赖使用此前已编译的锁定工具链。日志为 `build/rectangular-full-proof.log`。本轮没有重建 PolCert 适配依赖。
+
+任意大小矩形的行列排列、嵌套迭代与调度对应、实际 Clight 的任意次数循环编解码、完整 temporary frame、真实数组 store 与 guard 读取安全性分别证明。`RectangularCompiler.compile_rectangular_regions_correct` 将这些具体义务接到完整 Csem→Asm。源码提取器获取数组长度、常量跨度和仿射 payload，完整 AST 核对后才生成共享回退区域。编译器不枚举运行时点。
+
+`audit_rectangular.py` 核对通用排列和迭代核没有全局公理，实例仅继承七项既有假设，完整编译器仍与原 CompCert 的 35 项假设一致。`build/rectangular-proof-report.json` 记录定理、范围与所有框架源码摘要。实际编译器由 `build_compiler.py --rectangular-loop` 从已审计入口提取。
+
+原生套件验证长度／跨度为 120／10 和 105／7 的全部 225 个正矩形。每个数组元素、未写元素及循环变量出口同时匹配独立 Python 模型和 GCC。另有七组主要回退输入，包括列宽超过跨度但实际源访问仍在数组内的重叠写入；测试验证保留源顺序的结果。实际 Clight dump 核对六个函数的交换顺序、布局导出的短路 guard 和单份源回退。
+
+测试还覆盖负系数和偏置、全局数组、外围 goto／循环、未初始化且源不读取的内层边界，以及依赖内存的 RHS、volatile 数组和无效跨度的拒绝。报告为 `build/native-rectangular/report.json`。既有提取编译器上的矩阵、嵌套区域和有限点调度回归也通过，后者覆盖 24 个合法排列和七个错误提案。
+
+当前规则限于动态矩形上的独立仿射写入和内置循环交换；未调用 PolOpt／Pluto，未实现一般 affine schedule、多语句依赖验证或分块，也未测量性能。支持范围与接口见 [dynamic-rectangles.md](dynamic-rectangles.md)。

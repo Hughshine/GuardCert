@@ -74,3 +74,13 @@ theories/ClightFrontendLoopProtocol.v
 theories/ClightFrontendRegion.v
 theories/AdaptiveRegionCompiler.v
 theories/ClightAdaptiveExamples.v
+theories/SchedulePermutation.v
+theories/RectangularSchedule.v
+theories/RectangularIteration.v
+theories/ClightParametricLoops.v
+theories/ClightRectangularStore.v
+theories/ClightRectangularLoops.v
+theories/ClightRectangularGuard.v
+theories/ClightRectangularRegion.v
+theories/ClightRectangularSelector.v
+theories/RectangularCompiler.v

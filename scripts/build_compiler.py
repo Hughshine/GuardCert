@@ -32,8 +32,19 @@ def main():
                         help="build the optional compiler proved with actual CInstr store commutation")
     variant.add_argument("--matrix-schedule", action="store_true",
                          help="build the compiler accepting untrusted GUARDCERT_POINT_ORDER proposals")
+    variant.add_argument("--rectangular-loop", action="store_true",
+                         help="build the compiler for guarded dynamic rectangle interchange")
     args = parser.parse_args()
-    if args.matrix_schedule:
+    if args.rectangular_loop:
+        entrypoint, import_name = "RectangularCompiler.compile_rectangular_regions", "RectangularCompiler"
+        WORK = ROOT / "build" / "compcert-rectangular"
+        report = json.loads((ROOT / "build" / "rectangular-proof-report.json").read_text())
+        if (report["status"] != "compiled" or report["additional_global_axioms"]
+                or report["whole_program_theorem"] != entrypoint + "_correct"
+                or any(hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != expected
+                       for path, expected in report["sources"].items())):
+            raise SystemExit("rebuild and audit the rectangular proof before extraction")
+    elif args.matrix_schedule:
         entrypoint, import_name = "ScheduledRegionCompiler.compile_scheduled_regions", "ScheduledRegionCompiler"
         WORK = ROOT / "build" / "compcert-scheduled"
         report = json.loads((ROOT / "build" / "scheduled-matrix-proof-report.json").read_text())

@@ -2,9 +2,9 @@
 
 2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
 
-当前主线是以 PolCert 为功能与证明架构参照，在 CompCert 中实现有动态前提的多面体变换，并闭合完整程序保证。允许为机器语义重实现状态、IR、算法和证明；验收看基本功能与语义保证，见 [多面体接入目标](polcert-integration-target.md)。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动；[原生矩阵循环交换](native-matrix-interchange.md) 又完成一个带安全动态检查的 2×2 仿射 store 模板，重排实际 Mem.store 并保留完整出口，五个函数通过原生验证。下一步是扩展调度证书与候选来源，减少固定模板的实例证明；private temporary、一般 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
+当前主线是以 PolCert 为功能与证明架构参照，在 CompCert 中实现有动态前提的多面体变换，并闭合完整程序保证。允许为机器语义重实现状态、IR、算法和证明；验收看基本功能与语义保证，见 [多面体接入目标](polcert-integration-target.md)。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动；[原生矩阵循环交换](native-matrix-interchange.md) 又完成一个带安全动态检查的 2×2 仿射 store 模板，重排实际 Mem.store 并保留完整出口，五个函数通过原生验证。[动态矩形循环交换](dynamic-rectangles.md) 已分离任意大小域与 body 编解码接口，并从数组布局生成运行时检查，闭合源执行到完整程序的证明。下一步是扩展 body、调度证书与候选来源；private temporary、一般 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
 
-[可执行有限调度检查器](schedule-checker.md) 与[外部点顺序入口](untrusted-point-schedules.md) 已扩展候选来源：工具只提交自然数点序列，检查器构造交换证书，语言编码器生成真实 Clight 展开代码并修复精确出口。参数化完整程序定理不信任提案；原生测试覆盖全部 24 个四点排列与七个错误提案。源域仍固定为 2×2，因此下一步应分离通用矩形域／body 编解码接口、加入读改写依赖及动态域对应证书，而不是把有限排列检查称为一般多面体编译器。
+[可执行有限调度检查器](schedule-checker.md) 与[外部点顺序入口](untrusted-point-schedules.md) 已扩展候选来源：工具只提交自然数点序列，检查器构造交换证书，语言编码器生成真实 Clight 展开代码并修复精确出口。参数化完整程序定理不信任提案；原生测试覆盖全部 24 个四点排列与七个错误提案。该有限点入口的源域仍固定为 2×2。新的动态矩形规则已闭合通用矩形域／body 编解码和域对应，继续加入读改写依赖及一般候选调度；有限排列检查和内置矩形交换各有明确范围。
 
 [树形原子检查接口](clight-signed-cancellation.md) 已接入相同完整程序宿主：signed32 的乘法取消实例使用 signed64 检查并保留溢出输入的回退。它和实际 Loop 动态合成共用公式合成器；这项复用没有闭合多语句循环区域的完整程序链。
 
