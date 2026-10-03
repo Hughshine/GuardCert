@@ -45,3 +45,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/native_memory
 非法块大小、辅助边界溢出、资源耗尽和错误证书这五条路线均拒绝候选并执行原程序。当前范围外的读改写、多数组、偏移写及临时变量赋值列表也在完整程序上验证了源回退。这里没有性能测量。
 
 完整依赖目标为 `make native-memory-sequences`。本入口尚未支持多数组、读改写列表、条件域中的多语句、一般嵌套仿射边界或任意外部调度。前面的 PolyLang 多语句进展定理比这个 C 识别器更广。
+
+同数组上混合纯写、原地更新和行首读取的语句列表现已通过独立完整入口接通，见 [混合读写列表](memory-mixed-statement-tiling.md)。本路径的纯写入口仍保持原有范围。

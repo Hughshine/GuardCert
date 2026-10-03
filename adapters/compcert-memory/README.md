@@ -1,6 +1,6 @@
 # 基于 CompCert Mem 的具体多面体指令实例
 
-这个适配实例将一般多面体 validator 的 `INSTR` 参数具体化为实际 CompCert 内存。`GuardMemoryCompiler.compile_memory_regions` 已将真实源循环、实际多面体依赖检查、guard、候选循环与原片段回退接到完整 Csem→Asm 定理。完整 C 输入的交换路径支持三种矩形循环体；`GuardMemoryTiledCompiler.compile_memory_tiled_regions` 另支持矩形纯写、原地更新和行前缀读取的二维分块、尾块和公开 iterator 出口修复。`GuardMemoryCutCompiler.compile_memory_cut_regions` 支持仿射叶子条件选择出的三角形、斜切等迭代域，并已接通完整定理和实际分块。`GuardMemorySequenceCompiler.compile_memory_sequence_regions` 已支持同布局数组上的非空纯写语句列表，保留每条语句的编号与先后顺序并接通完整 C 分块定理。独立 IR 检查器支持更一般的仿射提案与二维 tiling。支持范围分别记录。
+这个适配实例将一般多面体 validator 的 `INSTR` 参数具体化为实际 CompCert 内存。`GuardMemoryCompiler.compile_memory_regions` 已将真实源循环、实际多面体依赖检查、guard、候选循环与原片段回退接到完整 Csem→Asm 定理。完整 C 输入的交换路径支持三种矩形循环体；`GuardMemoryTiledCompiler.compile_memory_tiled_regions` 另支持矩形纯写、原地更新和行前缀读取的二维分块、尾块和公开 iterator 出口修复。`GuardMemoryCutCompiler.compile_memory_cut_regions` 支持仿射叶子条件选择出的三角形、斜切等迭代域，并已接通完整定理和实际分块。`GuardMemorySequenceCompiler.compile_memory_sequence_regions` 已支持同布局数组上的非空纯写语句列表，保留每条语句的编号与先后顺序并接通完整 C 分块定理。`GuardMemoryOperationsCompiler.compile_memory_operations_regions` 进一步支持同数组的非空混合纯写／原地更新／行首读取列表，获得完整 Csem→Asm 分块定理。独立 IR 检查器支持更一般的仿射提案与二维 tiling。支持范围分别记录。
 
 ## 已证明的接口
 
@@ -64,8 +64,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译三十四个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。脚本重编译三十七个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
-一般嵌套仿射域、混合读写或多数组语句与任意候选的 C 编码，更一般 tiling 的完整 C 程序保证仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；独立检查器直接读取候选 PolyLang 程序，完整 C 编译器自行构造限定矩形、纯写语句列表和静态仿射条件域的源与交换或二维 tiling 候选。没有一般多面体 C 编译器或性能结果。
+一般嵌套仿射域、多数组语句与任意候选的 C 编码，更一般 tiling 的完整 C 程序保证仍需闭合。OpenScop export 与 scheduler callbacks 当前安全拒绝；独立检查器直接读取候选 PolyLang 程序，完整 C 编译器自行构造限定矩形、单数组混合读写语句列表和静态仿射条件域的源与交换或二维 tiling 候选。没有一般多面体 C 编译器或性能结果。
+
+`make native-memory-operations` 构建同数组混合读写列表的完整 C 分块入口，`build/native-memory-operations/report.json` 记录五组块大小、5325 个正动态矩形、10 个实际快路函数与五条拒绝路线；每组 1564 行完整数组及公开 iterator 输出与 GCC 和独立模型一致。证明与当前源语法范围见 [混合列表证明链](../../docs/memory-mixed-statement-tiling.md)。

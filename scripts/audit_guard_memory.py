@@ -18,7 +18,8 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryCutTiledClight", "GuardMemoryCutCompiler", "GuardMemoryTilingMultipleProgress", "GuardMemoryArrayFamilyBackend", "GuardMemoryIndexedTrace",
            "GuardMemorySequenceLoops", "GuardMemorySequenceClight", "GuardMemorySequencePolyhedral",
            "GuardMemorySequenceOrder", "GuardMemorySequenceExecution", "GuardMemorySequenceTiledClight",
-           "GuardMemorySequenceCompiler"]
+           "GuardMemorySequenceCompiler", "GuardMemoryOperationsClight", "GuardMemoryOperationsTiledClight",
+           "GuardMemoryOperationsCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -56,7 +57,8 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryCutTiledClight GuardMemoryCutCompiler GuardMemoryTilingMultipleProgress
   GuardMemoryArrayFamilyBackend GuardMemoryIndexedTrace GuardMemorySequenceLoops GuardMemorySequenceClight
   GuardMemorySequencePolyhedral GuardMemorySequenceOrder GuardMemorySequenceExecution
-  GuardMemorySequenceTiledClight GuardMemorySequenceCompiler.
+  GuardMemorySequenceTiledClight GuardMemorySequenceCompiler GuardMemoryOperationsClight
+  GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -87,6 +89,7 @@ Print Assumptions array_family_source_clight_decode.
 Print Assumptions array_family_backend.
 Print Assumptions indexed_memory_loop_execution.
 Print Assumptions memory_sequence_tiled_loop_points.
+Print Assumptions array_operations_source_clight_decode.
 Print Assumptions flat_array_instruction_backend.
 Print Assumptions compile_memory_flat_array_loop_within_correct.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
@@ -116,11 +119,14 @@ Print Assumptions check_memory_cut_region_sound.
 Print Assumptions memory_tiled_array_family_local.
 Print Assumptions memory_mode_tiled_rectangle_local.
 Print Assumptions check_memory_sequence_region_sound.
+Print Assumptions memory_tiled_array_operations_local.
+Print Assumptions check_memory_operations_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
 Print Assumptions compile_memory_cut_regions_correct.
 Print Assumptions compile_memory_sequence_regions_correct.
+Print Assumptions compile_memory_operations_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
     result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
@@ -158,6 +164,10 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "tiling_whole_program_theorem": "GuardMemoryTiledCompiler.compile_memory_tiled_regions_correct",
         "sequence_whole_program_entrypoint": "GuardMemorySequenceCompiler.compile_memory_sequence_regions",
         "sequence_whole_program_theorem": "GuardMemorySequenceCompiler.compile_memory_sequence_regions_correct",
+        "operations_whole_program_entrypoint": "GuardMemoryOperationsCompiler.compile_memory_operations_regions",
+        "operations_whole_program_theorem": "GuardMemoryOperationsCompiler.compile_memory_operations_regions_correct",
+        "multiple_mixed_array_statements_tiling_csem_asm_proved": True,
+        "operations_c_source_scope": "nonempty list of pure writes, own-cell updates and row-prefix updates on one fixed-layout array",
         "multiple_pure_array_statements_tiling_csem_asm_proved": True,
         "sequence_c_source_scope": "nonempty pure-write statement list on one fixed-layout array",
         "whole_program_acceptance": "alarm-free mayReturn with OK assembly program",

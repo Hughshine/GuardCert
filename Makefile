@@ -219,3 +219,11 @@ native-memory-sequences: memory-sequence-compiler
 
 clean:
 	@python3 scripts/clean.py
+
+.PHONY: memory-operations-compiler native-memory-operations
+memory-operations-compiler: guard-memory-proof
+	@python3 scripts/build_memory_compiler.py --operations > build/memory-operations-native-build.log 2>&1 || \
+	  { cat build/memory-operations-native-build.log; exit 1; }
+
+native-memory-operations: memory-operations-compiler
+	python3 scripts/native_memory_operations.py

@@ -16,7 +16,7 @@
 - `GuardMemoryModeTiledClight` 连接三种真实源 Clight 执行、验证结果、上述通用数组后端和公开 iterator 出口；`encoded_private_rule` 复用性质编码与完整程序片段宿主。原纯写 bridge `GuardMemoryTiledClight` 仍由其他具体实例复用。
 - `GuardMemoryTiledCompiler` 检查源 AST、分配私有 temporary、消费证书，再连接 SimplExpr、SimplLocals、片段替换及 CompCert 后端。
 
-完整程序宿主保护所有源标识符上的 temporary 值和精确 Mem，允许候选改变新增私有状态，并覆盖调用、goto、switch 与外围循环。依赖检查、范围检查或源匹配失败时保留源片段。这个入口支持三类矩形循环体的二维分块。纯写语句列表的多语句 C 分块另见 [多语句路径](memory-multiple-statement-tiling.md)，静态仿射条件域见 [条件域路径](memory-affine-conditional-domains.md)。任意仿射域、混合读写列表及一般外部调度仍未闭合。
+完整程序宿主保护所有源标识符上的 temporary 值和精确 Mem，允许候选改变新增私有状态，并覆盖调用、goto、switch 与外围循环。依赖检查、范围检查或源匹配失败时保留源片段。这个入口支持三类矩形循环体的二维分块。纯写语句列表的多语句 C 分块另见 [多语句路径](memory-multiple-statement-tiling.md)，静态仿射条件域见 [条件域路径](memory-affine-conditional-domains.md)。混合列表见 [混合读写证明链](memory-mixed-statement-tiling.md)。任意仿射域、多数组及一般外部调度仍未闭合。
 
 ```sh
 opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_memory.py
