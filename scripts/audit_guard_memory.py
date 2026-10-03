@@ -8,7 +8,9 @@ from audit_compiler import names
 import polcert_core
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "GuardMemoryPolyhedral"]
+MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "GuardMemoryPolyhedral",
+           "GuardMemoryLoops", "GuardMemoryClightRectangles", "GuardMemoryPolyhedralRectangles",
+           "GuardMemoryValidatedRectangles", "GuardMemoryCompiler"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
 WORK = ROOT / "build" / "guard-memory-assumptions"
 
@@ -30,12 +32,15 @@ def main():
     (WORK / "build.log").write_text("\n".join(logs))
     audit = WORK / "Audit.v"
     audit.write_text("""From compcert.driver Require Import Compiler.
-From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral.
+From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral
+  GuardMemoryLoops GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
+  GuardMemoryValidatedRectangles GuardMemoryCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
 Print Assumptions GuardMemoryValidator.validate_correct.
 Print Assumptions GuardMemoryValidator.validate_tiling_correct.
+Print Assumptions GuardMemoryTilingValidator.checked_tiling_validate_poly_correct.
 Goal True. idtac "MEM_PHYSICAL_REGISTRY". exact I. Qed.
 Print Assumptions flat_array_locations_nonalias.
 Goal True. idtac "MEM_INSTRUCTION". exact I. Qed.
@@ -44,10 +49,25 @@ Print Assumptions GuardMemoryInstr.access_function_checker_correct.
 Print Assumptions resolved_instruction_execution.
 Print Assumptions rect_memory_write_execution.
 Print Assumptions rect_memory_write_clight_decode.
+Print Assumptions rect_memory_update_execution.
+Print Assumptions rect_memory_row_update_execution.
+Print Assumptions memory_rectangle_loop_iterations.
+Print Assumptions memory_rectangle_lift.
+Print Assumptions memory_rectangle_source_clight_decode.
+Print Assumptions memory_rectangle_candidate_clight_encode.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
+Print Assumptions guarded_memory_checked_tiling_refines.
 Print Assumptions validated_memory_equivalence.
+Print Assumptions validated_memory_equivalence_at.
+Print Assumptions validated_memory_rectangle_interchange.
+Goal True. idtac "MEM_REGION". exact I. Qed.
+Print Assumptions memory_validated_rectangle_local.
+Print Assumptions memory_validated_rectangle_rule.
+Print Assumptions check_memory_region_sound.
+Goal True. idtac "MEM_COMPILER". exact I. Qed.
+Print Assumptions compile_memory_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
     result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
@@ -57,21 +77,29 @@ Goal True. idtac "MEM_END". exact I. Qed.
     baseline, rest = rest.split("MEM_PHYSICAL_REGISTRY", 1)
     registry, rest = rest.split("MEM_INSTRUCTION", 1)
     instruction, rest = rest.split("MEM_ADAPTED_VALIDATOR", 1)
-    adapted = rest.split("MEM_END", 1)[0]
+    adapted, rest = rest.split("MEM_REGION", 1)
+    region, rest = rest.split("MEM_COMPILER", 1)
+    compiler = rest.split("MEM_END", 1)[0]
     if names(registry) or "Closed under the global context" not in registry:
         raise SystemExit("unexpected physical-registry assumptions")
     if names(instruction) - names(cc) or names(adapted) != names(baseline):
         raise SystemExit("concrete memory adapter adds unexpected global assumptions")
+    expected = names(cc) | names(baseline)
+    if names(region) - expected or names(compiler) != expected:
+        raise SystemExit("memory compiler differs from the CompCert and concrete validator union")
     sources = [DIRECTORY / (module + ".v") for module in MODULES]
-    sources += [ROOT / "theories" / module for module in
-                ["CompCertMemoryActions.v", "CompCertStoreSchedule.v", "ClightRectangularStore.v",
-                 "ClightRectangularRegion.v"]]
+    sources += sorted((ROOT / "theories").glob("*.v"))
     result = {
         "status": "compiled", "checked_modules": MODULES,
         "physical_flat_array_nonalias_global_axioms": [],
         "instruction_assumptions": sorted(names(instruction)),
         "actual_validator_baseline_assumptions": sorted(names(baseline)),
         "concrete_validator_assumptions": sorted(names(adapted)),
+        "memory_region_assumptions": sorted(names(region)),
+        "whole_program_assumptions": sorted(names(compiler)),
+        "whole_program_entrypoint": "GuardMemoryCompiler.compile_memory_regions",
+        "whole_program_theorem": "GuardMemoryCompiler.compile_memory_regions_correct",
+        "whole_program_acceptance": "alarm-free mayReturn with OK assembly program",
         "additional_global_axioms": [],
         "concrete_instr_module": "GuardMemoryInstr.GuardMemoryInstr",
         "actual_compcert_mem_load_store_execution": True,
@@ -82,8 +110,16 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "pure_payload_operations": ["constant", "parameter", "loaded value", "Int.add", "Int.sub", "Int.mul"],
         "actual_clight_store_to_instr_decoder_instantiated": True,
         "actual_affine_and_tiling_validator_instantiated": True,
+        "actual_point_space_tiling_checker_instantiated": True,
         "bidirectional_affine_validation_establishes_progress": True,
-        "native_validator_extracted_and_executed": False,
+        "native_validator_validation_report": "build/native-memory-validator/report.json",
+        "canonical_rectangle_clight_to_loop_decoder_instantiated": True,
+        "canonical_rectangle_loop_to_clight_encoder_instantiated": True,
+        "canonical_rectangle_memory_modes": ["pure write", "own-cell update", "row-prefix update"],
+        "canonical_rectangle_public_exit": "exact full temporary environment and Mem",
+        "canonical_rectangle_clight_poly_bridge_instantiated": True,
+        "canonical_rectangle_dependence_csem_asm_rule_instantiated": True,
+        "polyhedral_parameters_preserved_by_validator": True,
         "complete_source_loop_decoder_instantiated": False,
         "complete_candidate_loop_encoder_instantiated": False,
         "complete_csem_asm_rule_instantiated": False,
@@ -95,7 +131,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
     }
     (ROOT / "build" / "guard-memory-proof-report.json").write_text(json.dumps(result, indent=2) + "\n")
     print(f"Concrete Mem INSTR compiled: physical nonalias closed, {len(names(instruction))} inherited "
-          f"instruction and {len(names(adapted))} unchanged concrete-validator assumptions")
+          f"instruction, {len(names(adapted))} unchanged validator and {len(names(compiler))} "
+          "CompCert/validator union compiler assumptions")
 
 
 if __name__ == "__main__":

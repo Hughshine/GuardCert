@@ -89,7 +89,10 @@ def expected_output():
     return expected
 
 
-def main():
+def main(compiler=COMPILER, work=WORK,
+         expected_entrypoint="RectangularCompiler.compile_rectangular_regions"):
+    global COMPILER, WORK
+    COMPILER, WORK = Path(compiler), Path(work)
     WORK.mkdir(parents=True, exist_ok=True)
     run(COMPILER, "-conf", COMPILER.parent / "compcert.ini", "-stdlib",
         COMPILER.parent / "runtime", "-dclight", "-S", "-o", WORK / "rectangle.s", SOURCE)
@@ -137,7 +140,7 @@ def main():
     if original_diagonal == swapped_diagonal:
         raise SystemExit("negative diagonal fixture does not expose a reordering bug")
     stamp = json.loads((COMPILER.parent / ".guard-build.json").read_text())
-    if (stamp["proved_entrypoint"] != "RectangularCompiler.compile_rectangular_regions"
+    if (stamp["proved_entrypoint"] != expected_entrypoint
             or stamp["compiler_sha256"] != hashlib.sha256(COMPILER.read_bytes()).hexdigest()):
         raise SystemExit("unexpected compiler entrypoint or changed executable")
     (WORK / "output.txt").write_text(actual)

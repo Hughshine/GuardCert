@@ -1,5 +1,5 @@
 From Stdlib Require Import List Bool String.
-From polcert.src Require Import PolyLang OpenScop AffineValidator ISSWitness TilingWitness.
+From polcert.src Require Import PolyLang OpenScop AffineValidator TilingValidator ISSWitness TilingWitness.
 From polcert.polygen Require Import PolIRs Loop PolyLoop Result.
 From Vpl Require Import Impure.
 From polcert.lib Require Import ImpureAlarmConfig.
@@ -38,6 +38,22 @@ Definition infer_tiling_witness_scops (_ _ : OpenScop) : result (list statement_
   Err "supply a tiling witness explicitly"%string.
 End GuardMemoryIRs.
 Module GuardMemoryValidator := AffineValidator GuardMemoryIRs.
+Module GuardMemoryTilingValidator := TilingValidator GuardMemoryIRs.
+
+(** This entry checks the point-space change and the schedule. The historical
+    AffineValidator.validate_tiling entry below only reorders an already
+    witness-aware point space. *)
+Theorem guarded_memory_checked_tiling_refines source candidate witnesses initial final :
+  mayReturn (GuardMemoryTilingValidator.checked_tiling_validate_poly source candidate witnesses) true ->
+  GuardMemoryIRs.PolyLang.instance_list_semantics candidate initial final ->
+  GuardMemoryIRs.PolyLang.instance_list_semantics source initial final.
+Proof.
+  intros VALIDATED EXEC.
+  destruct (GuardMemoryTilingValidator.checked_tiling_validate_poly_correct
+    source candidate witnesses initial final VALIDATED EXEC) as [source_final [SOURCE SAME]].
+  unfold GuardMemoryIRs.State.eq, GuardMemoryInstr.State.eq in SAME; subst source_final; exact SOURCE.
+Qed.
+Print Assumptions guarded_memory_checked_tiling_refines.
 
 Theorem guarded_memory_validate_refines source candidate initial final :
   mayReturn (GuardMemoryValidator.validate source candidate) true ->
@@ -90,3 +106,34 @@ Proof.
   split; [apply guarded_memory_validate_refines; exact FORWARD|apply guarded_memory_validate_refines; exact BACKWARD].
 Qed.
 Print Assumptions validated_memory_equivalence.
+
+(** The physical InitEnv interface only fixes the number of parameters. A
+    Clight bridge must retain their values, so use this environment-indexed
+    endpoint rather than existentially repackaging instance_list_semantics. *)
+Theorem validated_memory_equivalence_at source candidate parameters initial final :
+  List.length (snd (fst source)) = List.length parameters ->
+  List.length (snd (fst candidate)) = List.length parameters ->
+  GuardMemoryInstr.NonAlias initial ->
+  mayReturn (validate_memory_equivalence source candidate) true ->
+  (GuardMemoryIRs.PolyLang.poly_instance_list_semantics parameters source initial final <->
+   GuardMemoryIRs.PolyLang.poly_instance_list_semantics parameters candidate initial final).
+Proof.
+  destruct source as [[source_pis source_context] source_vars].
+  destruct candidate as [[candidate_pis candidate_context] candidate_vars].
+  intros SOURCE_LENGTH CANDIDATE_LENGTH NONALIAS VALID.
+  destruct (validate_memory_equivalence_results VALID) as [BACKWARD FORWARD].
+  split; intro EXEC.
+  - destruct (@GuardMemoryValidator.validate_correct'
+      (candidate_pis, candidate_context, candidate_vars) (source_pis, source_context, source_vars)
+      candidate_context source_context candidate_pis source_pis candidate_vars source_vars
+      parameters initial final true FORWARD eq_refl eq_refl eq_refl CANDIDATE_LENGTH NONALIAS EXEC)
+      as [result [RUN SAME]].
+    unfold GuardMemoryIRs.State.eq, GuardMemoryInstr.State.eq in SAME; subst result; exact RUN.
+  - destruct (@GuardMemoryValidator.validate_correct'
+      (source_pis, source_context, source_vars) (candidate_pis, candidate_context, candidate_vars)
+      source_context candidate_context source_pis candidate_pis source_vars candidate_vars
+      parameters initial final true BACKWARD eq_refl eq_refl eq_refl SOURCE_LENGTH NONALIAS EXEC)
+      as [result [RUN SAME]].
+    unfold GuardMemoryIRs.State.eq, GuardMemoryInstr.State.eq in SAME; subst result; exact RUN.
+Qed.
+Print Assumptions validated_memory_equivalence_at.

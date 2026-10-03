@@ -1,5 +1,13 @@
 # 本轮验证记录
 
+## 2026-10-02：真实多面体检查器消费到完整 C→Asm
+
+`scripts/audit_guard_memory.py` 重编译九个适配模块，闭合完整矩形 Clight→Loop→PolyLang 源对应、参数值保留、实际依赖验证、候选进展与精确公共出口；`GuardMemoryCompiler.compile_memory_regions_correct` 编译通过。物理 nonalias 没有全局假设；完整编译器假设精确等于 CompCert 与实际 validator 的并集 42 项，没有新增全局公理。本次复用上游 optimizer profile 的既有构建，没有重编译全部 92 文件。日志为 `build/memory-loop-audit.log`，详细报告为 `build/guard-memory-proof-report.json`。
+
+独立 validator 与完整编译器均实际提取、构建并运行；两者共用非可信且有资源上限的 Fourier–Motzkin 证书搜索，由实际提取的 VPL LCF 验证证书。独立检查器通过 25 组提案和 847 组独立执行比较，包括非矩形域、多语句、实际新增点空间坐标的二维 tiling、非法域与访问提案拒绝。报告为 `build/native-memory-validator/report.json`，日志为 `build/memory-validator-build.log` 与 `build/native-memory-validator.log`。
+
+实际入口 `GuardMemoryCompiler.compile_memory_regions` 上的 C 原生测试通过 225 个纯写、345 个同格子读改写和 225 个行内依赖正矩形；19 个函数命中真实 guard 与交换候选。全部数组格子、iterator 出口与 GCC 及独立模型一致。额外强制错误证书、将 FM 资源上限设为零，编译器拒绝交换且编译后的源行为一致。报告为 `build/native-memory-compiler/report.json`，提取日志为 `build/memory-compiler-native-build.log`，执行日志为 `build/native-memory-compiler.log`。这条完整 C 路径仍限三种矩形循环，一般域、多语句与多维 tiling 的完整 C bridge 未完成。
+
 ## 2026-10-02：以真实 CompCert Mem 实例化一般多面体 validator
 
 `adapters/compcert-memory/` 的四个模块通过 Rocq 编译与专用假设审计。`GuardMemoryInstr` 完整实现实际 INSTR 接口，包括仿射 footprint 检查、真实 Mem.load／纯计算／Mem.store、状态稳定性、NonAlias 保持和 Bernstein 交换。物理数组 registry 的 nonalias 定理闭合；没有使用旧 CState.valid。实际 Clight 纯数组写入已能解码到这一具体指令关系，具有真实内存和 temp 出口证据。

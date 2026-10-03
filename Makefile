@@ -182,5 +182,18 @@ polcert-optimizer-proof: check-compcert
 guard-memory-proof: polcert-optimizer-proof
 	python3 scripts/audit_guard_memory.py
 
+.PHONY: guard-memory-proof memory-validator native-memory-validator memory-compiler native-memory-compiler
+memory-validator: guard-memory-proof
+	python3 scripts/build_memory_validator.py
+
+native-memory-validator: memory-validator
+	python3 scripts/native_memory_validator.py
+
+memory-compiler: guard-memory-proof
+	python3 scripts/build_memory_compiler.py
+
+native-memory-compiler: memory-compiler
+	python3 scripts/native_memory_compiler.py
+
 clean:
 	@python3 scripts/clean.py

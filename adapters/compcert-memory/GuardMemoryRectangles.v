@@ -6,6 +6,8 @@ From polcert.src Require Import PolyBase.
 From polcert.lib Require Import Linalg.
 From Guard Require Import CompCertMemoryActions CompCertStoreSchedule RectangularSchedule
   ClightRectangularStore ClightRectangularRegion.
+From Guard Require Import RectangularMemorySchedule RectangularRowSchedule
+  ClightRectangularUpdate ClightRectangularRowUpdate.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr.
 Import ListNotations.
 Set Implicit Arguments.
@@ -101,3 +103,103 @@ Proof.
 Qed.
 Print Assumptions rect_memory_write_execution.
 Print Assumptions rect_memory_write_clight_decode.
+
+Definition rect_read_payload_expression d := AddValue (LoadedValue 0) (rect_payload_expression d).
+Lemma rect_read_payload_expression_value d i j old :
+  evaluate_value [i;j] [old] (rect_read_payload_expression d) = rect_update_compute d i j [old].
+Proof.
+  unfold rect_read_payload_expression; cbn [evaluate_value].
+  rewrite rect_payload_expression_value; destruct old; reflexivity.
+Qed.
+Definition rect_memory_update d array :=
+  MemoryInstruction (rect_write_access d array) [rect_write_access d array] (rect_read_payload_expression d).
+Definition rect_row_access d array : AccessFunction := (array,[([rectangle_stride d;0],0)]).
+Lemma rect_row_cell d array i j : exact_cell (rect_row_access d array) [i;j] =
+  point_cell array (i * rectangle_stride d).
+Proof.
+  change (point_cell array (rectangle_stride d * i + (0*j + 0) + 0) = point_cell array (i * rectangle_stride d)).
+  f_equal; ring.
+Qed.
+Definition rect_memory_row_update d array :=
+  MemoryInstruction (rect_write_access d array) [rect_row_access d array] (rect_read_payload_expression d).
+
+Lemma singleton_load_inputs location memory inputs :
+  load_locations [location] memory = Some inputs -> exists old, inputs = [old].
+Proof.
+  cbn [load_locations]; destruct (location_load location memory); try discriminate.
+  intro EQ; inversion EQ; eauto.
+Qed.
+
+Lemma rect_memory_update_execution d array block i j before after :
+  0 <= i * rectangle_stride d + j < rectangle_extent d ->
+  (GuardMemoryInstr.instr_semantics (rect_memory_update d array) [i;j]
+    (memory_write_cells (rect_memory_update d array) [i;j])
+    (memory_read_cells (rect_memory_update d array) [i;j])
+    (RuntimeState (flat_array_locations array block (rectangle_extent d)) before)
+    (RuntimeState (flat_array_locations array block (rectangle_extent d)) after) <->
+   memory_action_run (rect_update_action d block i j) before after).
+Proof.
+  intro BOUND.
+  rewrite (@resolved_instruction_execution (rect_memory_update d array) [i;j]
+    (flat_array_locations array block (rectangle_extent d))
+    (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))
+    [MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j))] before after).
+  - unfold rect_update_action, rectangle_memory_action, rectangle_location.
+    cbn [fst snd memory_reads memory_write memory_compute].
+    change (memory_action_run (MemoryAction
+      [MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j))]
+      (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))
+      (fun inputs => evaluate_value [i;j] inputs (rect_read_payload_expression d))) before after <->
+      memory_action_run (MemoryAction [MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j))]
+      (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))
+      (rect_update_compute d i j)) before after).
+    split; intros [inputs [value [LOAD [COMPUTE STORE]]]].
+    + destruct (@singleton_load_inputs _ _ _ LOAD) as [old EQ]; subst inputs.
+      exists [old],value; split; [exact LOAD|]; split; [|exact STORE].
+      cbn [memory_compute] in COMPUTE; rewrite rect_read_payload_expression_value in COMPUTE; exact COMPUTE.
+    + destruct (@singleton_load_inputs _ _ _ LOAD) as [old EQ]; subst inputs.
+      exists [old],value; split; [exact LOAD|]; split; [|exact STORE].
+      cbn [memory_compute]; rewrite rect_read_payload_expression_value; exact COMPUTE.
+  - change (flat_array_locations array block (rectangle_extent d) (exact_cell (rect_write_access d array) [i;j]) = Some (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))).
+    rewrite rect_write_cell; apply flat_array_location_at; exact BOUND.
+  - unfold memory_read_cells, rect_memory_update; cbn [instruction_reads map resolve_cells].
+    rewrite rect_write_cell, flat_array_location_at by exact BOUND; reflexivity.
+Qed.
+
+Lemma rect_memory_row_update_execution d array block i j before after :
+  0 <= i * rectangle_stride d + j < rectangle_extent d ->
+  0 <= i * rectangle_stride d < rectangle_extent d ->
+  (GuardMemoryInstr.instr_semantics (rect_memory_row_update d array) [i;j]
+    (memory_write_cells (rect_memory_row_update d array) [i;j])
+    (memory_read_cells (rect_memory_row_update d array) [i;j])
+    (RuntimeState (flat_array_locations array block (rectangle_extent d)) before)
+    (RuntimeState (flat_array_locations array block (rectangle_extent d)) after) <->
+   memory_action_run (rect_row_update_action d block i j) before after).
+Proof.
+  intros WRITE_BOUND READ_BOUND.
+  rewrite (@resolved_instruction_execution (rect_memory_row_update d array) [i;j]
+    (flat_array_locations array block (rectangle_extent d))
+    (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))
+    [MemoryLocation Mint32 block (4 * (i * rectangle_stride d))] before after).
+  - unfold rect_row_update_action, rectangle_row_action, rectangle_location.
+    cbn [fst snd memory_reads memory_write memory_compute]; rewrite Z.add_0_r.
+    change (memory_action_run (MemoryAction [MemoryLocation Mint32 block (4 * (i * rectangle_stride d))]
+      (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))
+      (fun inputs => evaluate_value [i;j] inputs (rect_read_payload_expression d))) before after <->
+      memory_action_run (MemoryAction [MemoryLocation Mint32 block (4 * (i * rectangle_stride d))]
+      (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))
+      (rect_update_compute d i j)) before after).
+    split; intros [inputs [value [LOAD [COMPUTE STORE]]]].
+    + destruct (@singleton_load_inputs _ _ _ LOAD) as [old EQ]; subst inputs.
+      exists [old],value; split; [exact LOAD|]; split; [|exact STORE].
+      cbn [memory_compute] in COMPUTE; rewrite rect_read_payload_expression_value in COMPUTE; exact COMPUTE.
+    + destruct (@singleton_load_inputs _ _ _ LOAD) as [old EQ]; subst inputs.
+      exists [old],value; split; [exact LOAD|]; split; [|exact STORE].
+      cbn [memory_compute]; rewrite rect_read_payload_expression_value; exact COMPUTE.
+  - change (flat_array_locations array block (rectangle_extent d) (exact_cell (rect_write_access d array) [i;j]) = Some (MemoryLocation Mint32 block (4 * (i * rectangle_stride d + j)))).
+    rewrite rect_write_cell; apply flat_array_location_at; exact WRITE_BOUND.
+  - unfold memory_read_cells, rect_memory_row_update; cbn [instruction_reads map resolve_cells].
+    rewrite rect_row_cell, flat_array_location_at by exact READ_BOUND; reflexivity.
+Qed.
+Print Assumptions rect_memory_update_execution.
+Print Assumptions rect_memory_row_update_execution.
