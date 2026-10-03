@@ -118,3 +118,5 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 ```
 
 `make proof` 编译独立语义核；`make demo` 运行两个独立执行模型及实际 Rocq 提取的调度检查器。`make check-compcert` 还完成 CompCert proof 构建与接入文件编译。`make check-integration` 进一步审计实际驱动定理的假设，提取默认、有限点调度、动态矩形及分块入口，构建四个编译器并运行八组默认 C 原生套件、点调度、动态矩形及分块套件，没有全局安装。已有 Python 模型不是 Rocq 提取产物；原生示例使用的编译器来自实际提取。版本、条件 AST 与原生结果在 `build/compiler.txt`、`build/synthesized-conditions.json` 和各个 `build/native-*/` 目录，包括 `build/native-nested-regions/`、`build/native-matrix-interchange/`、`build/native-scheduled-matrix/` 、`build/native-rectangular/` 与 `build/native-stripmine/`。
+
+[实际多面体候选的条件搜索](docs/memory-candidate-conditioning.md)在默认域失败后提出更小的外层次数区间，逐个重新核对域、依赖、机器代码与 guard，接入相同完整 C→Asm 入口；运行诊断同时核对快分支可达和依赖反例回退。

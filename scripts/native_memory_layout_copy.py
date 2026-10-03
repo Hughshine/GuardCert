@@ -27,6 +27,7 @@ LAYOUTS = {
 REFUSED = {'layout_nonlinear', 'layout_neighbor'}
 ALIASED = {'layout_alias', 'layout_alias_descending'}
 ACCEPTED = set(LAYOUTS) - REFUSED
+CONDITION_CAPS = {'interchange': 2, 'tile-2-3': 2, 'tile-4-4': 2, 'tile-17-13': 2}
 
 
 def model(name, start, n, m, p):
@@ -103,6 +104,57 @@ def compile_run(name, environment, reference):
     return dumps[0].read_text()
 
 
+def diagnose_fast_paths(name, dump):
+    """Diagnostic only: repair printer conventions and count successful branches.
+
+    The actual CompCert assembly is checked separately against GCC and the model.
+    This GCC build of an instrumented pretty-print is not a proof endpoint.
+    """
+    cap = CONDITION_CAPS[name]
+    instrumented = dump
+    for index, function in enumerate(sorted(ALIASED)):
+        body = function_body(dump, function)
+        assert re.search(rf'if \(\$n <= {cap}\)', body), (name, function, cap, 'synthesized count interval')
+        assert 'continue;' in body
+        marked = body.replace('continue;', f'guard_branch_hits[{index}]++; continue;', 1)
+        assert instrumented.count(body) == 1
+        instrumented = instrumented.replace(body, marked, 1)
+    def repair_parameters(match):
+        prefix, parameters = match.group(1).split('(', 1)
+        parameters = parameters[:-1]
+        names = []
+        for parameter in parameters.split(','):
+            found = re.search(r'([a-zA-Z_][a-zA-Z_0-9]*)\s*$', parameter)
+            if found and found.group(1) != 'void':
+                names.append(found.group(1))
+        for identifier in names:
+            parameters = re.sub(r'\b'+re.escape(identifier)+r'\b', '$'+identifier, parameters)
+        return prefix+'('+parameters+')\n{'
+    instrumented = re.sub(r'^([^;\n]+\([^;\n]*\))\n\{', repair_parameters, instrumented, flags=re.M)
+    instrumented = instrumented.replace('for (; 1; ({ break; }))',
+        'for (int guard_once=0; guard_once<1; ++guard_once)')
+    instrumented, renamed = re.subn(r'int main\(void\)(\s*\{)', r'int guard_original_main(void)\1', instrumented)
+    assert renamed == 1
+    calls, reference = [], ''
+    for index, function in enumerate(sorted(ALIASED)):
+        m = 19 if function.endswith('descending') else 9
+        for start, n, expected_hit in [(0, cap, 1), (0, 5, 0), (0, 0, 0), (2, 4, 0)]:
+            calls.append(f'guard_branch_hits[{index}]=0; {function}({start},{n},{m},0); '
+                         f'if (guard_branch_hits[{index}]!={expected_hit}) return {20+len(calls)};')
+            reference += model(function, start, n, m, 0)
+    instrumented = 'int guard_branch_hits[2];\n'+instrumented+'\nint main(void) {\n'+'\n'.join(calls)+'\nreturn 0; }\n'
+    work = WORK/name
+    source = work/'branch-diagnostic.c'; source.write_text(instrumented)
+    subprocess.run(['gcc', '-Wno-builtin-declaration-mismatch', '-Wno-discarded-qualifiers', str(source),
+                    '-o', str(work/'branch-diagnostic')], check=True, capture_output=True)
+    output = subprocess.check_output([str(work/'branch-diagnostic')], text=True)
+    assert output == reference, (name, 'instrumented pretty-print diagnostic')
+    (work/'branch-diagnostic-output.txt').write_text(output)
+    return {'outer_count_upper': cap, 'successful_branch_hits_checked': True,
+            'unsafe_count_zero_trip_and_nonzero_start_fallback_checked': True,
+            'scope': 'GCC execution of instrumented Clight pretty-print; actual CompCert assembly checked separately'}
+
+
 def main():
     stamp = json.loads((COMPILER.parent/'.guard-build.json').read_text())
     assert stamp['proved_entrypoint'] == ENTRY
@@ -115,14 +167,14 @@ def main():
     assert reference == expected_output()
     (WORK/'gcc-output.txt').write_text(reference)
     templates = ROOT/'examples/parametric-candidates'
-    cases = [(name, templates/(name+'.sexp'), {}, ACCEPTED - (ALIASED if name == 'interchange' else set()))
+    cases = [(name, templates/(name+'.sexp'), {}, ACCEPTED)
              for name in ['identity', 'interchange', 'fission', 'shift', 'skew']]
     cases += [(name, templates/(name+'.sexp'), {}, set())
               for name in ['wrong-map', 'wrong-dimension', 'overflow-coefficient']]
     for rows, columns in [(1, 1), (1, 3), (2, 3), (4, 4), (17, 13)]:
         name = f'tile-{rows}-{columns}'
         path = WORK/(name+'.sexp'); path.write_text(f'(tile {rows} {columns})\n')
-        cases.append((name, path, {}, ACCEPTED - (ALIASED if rows > 1 else set())))
+        cases.append((name, path, {}, ACCEPTED))
     cases += [(name, templates/'identity.sexp', extra, set()) for name, extra in [
         ('resource-limit', {'GUARDCERT_FM_ROWS': '0'}),
         ('invalid-certificate', {'GUARDCERT_ORACLE_FAULT': 'top-certificate'})]]
@@ -142,10 +194,11 @@ def main():
             _, read_stride, _, write_stride = LAYOUTS[function]
             for stride in [read_stride, write_stride]:
                 assert re.search(rf'\*\s*{stride}\b', fast), (name, function, stride, 'candidate physical layout')
+        branch_diagnostic = diagnose_fast_paths(name, dump) if name in CONDITION_CAPS else None
         for function in REFUSED:
             assert 'switch (0)' not in function_body(dump, function), (name, function)
         configurations[name] = {'guarded_functions': sorted(observed), 'full_output_lines': len(reference.splitlines()),
-            'gcc_and_independent_model_match': True, 'template_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+            'gcc_and_independent_model_match': True, 'conditioned_branch_diagnostic': branch_diagnostic, 'template_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
         print(name, sorted(observed), flush=True)
     (WORK/'report.json').write_text(json.dumps({'status': 'passed', 'proved_entrypoint': ENTRY,
         'compiler_sha256': stamp['compiler_sha256'], 'source_sha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
@@ -153,7 +206,7 @@ def main():
         'both_physical_strides_checked_in_generated_fast_path': True,
         'same_array_remapping_uses_one_registry_entry': True,
         'actual_cross_iteration_dependencies_checked': True,
-        'rejected_candidate_execution_counterexamples': witnesses,
+        'candidate_execution_counterexamples_outside_synthesized_condition': witnesses,
         'parameterized_affine_bound_and_exact_public_exits': True,
         'arbitrary_source_accesses_supported': False}, indent=2)+'\n')
 

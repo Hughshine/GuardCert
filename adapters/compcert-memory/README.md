@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 119 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 127 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -90,3 +90,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [参数化仿射 C 上界](../../docs/memory-parametric-affine-bounds.md)使用实际源表达式读取构造参数环境，证明数学编码、端点范围检查、短路求值安全、真实源执行及候选出口修复。统一入口支持 `2*i+M-P`、`M-2*i+P` 等边界和不限于两个的稳定参数。源访问仍沿用同布局数组的已证明形式；[不同数组布局](../../docs/memory-different-array-layouts.md)的一条复制已接入，支持各自的固定长度和步长；不同布局的混合操作及更广访问仍需扩展。
 
 [同一数组的布局重映射](../../docs/memory-same-array-layouts.md) 使用一个实际对象登记两个不同步长的访问函数，使真实跨迭代依赖进入相同验证器，并接入完整程序端点。
+
+[候选条件搜索](../../docs/memory-candidate-conditioning.md)由真实源循环体语义模型支撑：默认参数域验证失败后，对同一候选重新核对较小的外层次数区间，证明检查编码、分支安全和完整程序正确性。同布局混合列表与独立读写布局复制均为实际实例。
