@@ -88,7 +88,7 @@ def main():
     for rows,columns in [(1,1),(2,3),(4,4),(17,13)]:
         name=f'tile-{rows}-{columns}'; path=WORK/(name+'.sexp')
         path.write_text(f'(tile {rows} {columns})\n')
-        cases.append((name,path,{},ACCEPTED))
+        cases.append((name,path,{},ACCEPTED|{'ragged_other_bound'}))
     for name,rows,columns,extra in [
         ('tile-zero-width',0,4,{}),('tile-negative-width',4,-3,{}),
         ('tile-overflow-width',2**31-1,4,{}),
@@ -111,7 +111,7 @@ def main():
                     rows,columns=map(int,name.split('-')[1:])
                     assert re.search(rf'/ {rows}\b',body),(name,function,'ceil row tile count')
                     assert re.search(rf'/ {columns}\b',body),(name,function,'ceil column tile count')
-        assert 'switch (0)' not in function_body(dump,'ragged_other_bound'),(name,'other bound')
+        assert ('switch (0)' in function_body(dump,'ragged_other_bound')) == ('ragged_other_bound' in expected),(name,'other bound')
         configurations[name]={'guarded_functions':sorted(expected),'full_output_lines':len(reference.splitlines()),
                               'arrays_and_i_j_k_exits_match':True}
     report={'status':'passed','proved_entrypoint':ENTRY,'configurations':configurations,

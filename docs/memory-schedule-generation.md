@@ -96,7 +96,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make native-memory-schedules
 
 ## Validation
 
-The current proof audit recompiles 89 memory adapters and seven lowering
+At commit `66222fb`, the proof audit recompiled 89 memory adapters and seven lowering
 modules. Instruction proofs retain their seven inherited assumptions; the
 validator retains twelve; the complete compiler retains exactly the 42-item
 CompCert/validator union. No code-generation, normalization or sorting axiom
@@ -121,3 +121,10 @@ suite, including efficient division-based tiling and its fallback cases.
 The older affine-map, multiarray and unified regression suites passed during
 this change. These are bounded source families; general affine C bounds,
 neighboring accesses, different layouts and pointer buffers remain in progress.
+
+The subsequent [parametric affine-bound extension](memory-parametric-affine-bounds.md)
+adds signed affine inner C bounds and arbitrary parameter-context lengths to
+the same schedule and whole-program path. Its proof audit recompiles 107
+memory adapters and seven lowering modules. The results above record the
+original source grammar at `66222fb`; the newer grammar and its regressions
+are documented separately.

@@ -21,7 +21,7 @@ def main():
     for path,expected in (stamp['proof_sources']|stamp['native_sources']).items():
         assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==expected,path
     configurations={}
-    for family,module,accepted in [('arrays',arrays,arrays.ACCEPTED),('ragged',ragged,ragged.ACCEPTED)]:
+    for family,module,accepted in [('arrays',arrays,arrays.ACCEPTED),('ragged',ragged,ragged.ACCEPTED|{'ragged_other_bound'})]:
         module.WORK=WORK/family;module.WORK.mkdir(parents=True,exist_ok=True)
         subprocess.run(['gcc','-O0',str(module.SOURCE),'-o',str(module.WORK/'gcc-reference')],
                        check=True,capture_output=True)
@@ -33,7 +33,7 @@ def main():
         cases += [(name,{},set()) for name in ['wrong-map','empty-schedule','overflow-coefficient']]
         cases += [('reverse-dependent',{},
                    {'multi_cross_read_only','multi_copy_read_only'} if family=='arrays'
-                   else {'ragged_write','ragged_copy'})]
+                   else {'ragged_write','ragged_copy','ragged_other_bound'})]
         cases += [('constant-schedule',{},None),('explicit-identity',{},
                   {'multi_two','multi_global','multi_enclosing','multi_cross_chain','multi_copy_chain'}
                   if family=='arrays' else {'ragged_two','ragged_prefix','ragged_chain','ragged_context'})]
@@ -54,9 +54,9 @@ def main():
                     observed.add(function)
                     assert '$i = $n;' in body,(family,name,function,'public row exit')
                     assert ('$j = $k;' if family=='ragged' else '$j = $m;') in body, (family,name,function,'public column exit')
-                    if family=='arrays' or function!='ragged_write':
+                    if family=='arrays' or function not in {'ragged_write', 'ragged_other_bound'}:
                         assert re.search(r'if \([^\n]* != [^\n]*\)',body), (family,name,function,'safe actual array comparison')
-            refused=arrays.REFUSED if family=='arrays' else {'ragged_other_bound'}
+            refused=arrays.REFUSED if family=='arrays' else set()
             for function in refused:
                 assert 'switch (0)' not in module.function_body(dump,function),(family,name,function)
             configurations[family][name]={'guarded_functions':sorted(observed),

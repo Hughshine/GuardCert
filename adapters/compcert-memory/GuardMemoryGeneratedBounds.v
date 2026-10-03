@@ -1,4 +1,4 @@
-From Stdlib Require Import List ZArith.
+From Stdlib Require Import List Bool ZArith.
 From GuardMemory Require Import GuardMemoryLoops.
 Import ListNotations.
 Set Implicit Arguments.
@@ -7,14 +7,45 @@ Local Open Scope Z_scope.
 (** Clearing positive integer division in comparisons avoids asking the affine
     extractor or the signed backend to execute a possibly negative quotient.
     Any changed domain still has to pass the independent integer-domain check. *)
+Fixpoint memory_generated_division_free expression :=
+  match expression with
+  | L.Constant _ | L.Var _ => true
+  | L.Sum first second | L.Min first second | L.Max first second =>
+    memory_generated_division_free first && memory_generated_division_free second
+  | L.Mult _ value => memory_generated_division_free value
+  | L.Div _ _ | L.Mod _ _ => false end.
+Fixpoint memory_generated_floor expression : option (L.expr*Z*Z*L.expr) :=
+  match expression with
+  | L.Div value divisor => if (0 <? divisor) && memory_generated_division_free value
+      then Some (value,divisor,1,L.Constant 0) else None
+  | L.Sum first second =>
+    match memory_generated_floor first with
+    | Some (value,divisor,factor,rest) => if memory_generated_division_free second
+        then Some (value,divisor,factor,L.Sum rest second) else None
+    | None => match memory_generated_floor second with
+      | Some (value,divisor,factor,rest) => if memory_generated_division_free first
+          then Some (value,divisor,factor,L.Sum first rest) else None
+      | None => None end end
+  | L.Mult factor value => option_map (fun '(numerator,divisor,coefficient,rest) =>
+      (numerator,divisor,factor*coefficient,L.Mult factor rest)) (memory_generated_floor value)
+  | _ => None end.
+Definition memory_generated_difference first second := L.Sum first (L.Mult (-1) second).
+Definition memory_generated_floor_at_most value divisor expression :=
+  L.LE value (L.Sum (L.Mult divisor expression) (L.Constant (divisor-1))).
 Definition memory_generated_le first second :=
-  match first,second with
-  | L.Div value divisor,_ =>
-    if 0 <? divisor then
-      L.LE value (L.Sum (L.Mult divisor second) (L.Constant (divisor-1)))
+  match memory_generated_floor first,memory_generated_floor second with
+  | Some (value,divisor,factor,rest),_ =>
+    if memory_generated_division_free second then
+      if factor =? 1 then memory_generated_floor_at_most value divisor (memory_generated_difference second rest)
+      else if factor =? -1 then L.LE (L.Mult divisor (memory_generated_difference rest second)) value
+      else L.LE first second
     else L.LE first second
-  | _,L.Div value divisor =>
-    if 0 <? divisor then L.LE (L.Mult divisor first) value else L.LE first second
+  | None,Some (value,divisor,factor,rest) =>
+    if memory_generated_division_free first then
+      if factor =? 1 then L.LE (L.Mult divisor (memory_generated_difference first rest)) value
+      else if factor =? -1 then memory_generated_floor_at_most value divisor (memory_generated_difference rest first)
+      else L.LE first second
+    else L.LE first second
   | _,_ => L.LE first second end.
 Fixpoint memory_generated_affine_test test :=
   match test with

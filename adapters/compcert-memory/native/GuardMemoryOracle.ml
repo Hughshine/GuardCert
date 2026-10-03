@@ -99,6 +99,34 @@ let select_variable rows =
     if cost < score then (variable, cost) else best)
       counts (fst (Variables.min_binding counts), max_int))
 
+(* Opposite non-strict inequalities encode an equality. Eliminate with that
+   equality first: each remaining row needs one positive linear combination,
+   rather than the full positive-by-negative Fourier-Motzkin product. Every
+   combination still carries the certificate checked by the extracted LCF. *)
+let equality_pivot rows =
+  let table = Hashtbl.create (List.length rows) in
+  let counts = List.fold_left (fun counts row ->
+    Variables.fold (fun variable _ counts ->
+      Variables.add variable (1 + Option.value (Variables.find_opt variable counts)
+        ~default:0) counts) row.coefficients counts) Variables.empty rows in
+  List.iter (fun row ->
+    if not row.strict then Hashtbl.replace table
+      (Variables.bindings row.coefficients) row) rows;
+  List.fold_left (fun best row ->
+    if row.strict then best else
+    let opposite = Variables.bindings (Variables.map Q.neg row.coefficients) in
+    match Hashtbl.find_opt table opposite with
+    | Some other when Q.equal row.bound (Q.neg other.bound) ->
+      Variables.fold (fun variable value best ->
+        let score = Variables.find variable counts in
+        match best with
+        | Some (_, _, _, old_score) when old_score >= score -> best
+        | _ ->
+          let positive, negative =
+            if Q.sign value > 0 then row, other else other, row in
+          Some (variable, positive, negative, score)) row.coefficients best
+    | _ -> best) None rows
+
 let search input =
   let operations = ref 0 in
   let tick () = incr operations; if !operations > operation_limit then raise Search_limit in
@@ -108,18 +136,30 @@ let search input =
     | None ->
       let rows = compact input.lcf rows in
       if rows = [] then None else begin
-        let variable = select_variable rows in
-        let positive, other = List.partition (fun row -> Q.sign (coefficient variable row) > 0) rows in
-        let negative, zero = List.partition (fun row -> Q.sign (coefficient variable row) < 0) other in
-        if List.length positive * List.length negative + List.length zero > row_limit
-        then raise Search_limit;
-        let derived = List.fold_left (fun result first ->
-          List.fold_left (fun result second ->
-            tick ();
-            let first_coefficient = coefficient variable first in
-            let first = scale input.lcf (Q.neg (coefficient variable second)) first in
-            let second = scale input.lcf first_coefficient second in
-            combine input.lcf first second :: result) result negative) zero positive in
+        let derived = match equality_pivot rows with
+        | Some (variable, positive, negative, _) ->
+          List.map (fun row ->
+            let value = coefficient variable row in
+            if Q.equal value Q.zero then row else begin
+              tick ();
+              let pivot = if Q.sign value > 0 then negative else positive in
+              let factor = Q.abs (coefficient variable pivot) in
+              combine input.lcf (scale input.lcf factor row)
+                (scale input.lcf (Q.abs value) pivot)
+            end) rows
+        | None ->
+          let variable = select_variable rows in
+          let positive, other = List.partition (fun row -> Q.sign (coefficient variable row) > 0) rows in
+          let negative, zero = List.partition (fun row -> Q.sign (coefficient variable row) < 0) other in
+          if List.length positive * List.length negative + List.length zero > row_limit
+          then raise Search_limit;
+          List.fold_left (fun result first ->
+            List.fold_left (fun result second ->
+              tick ();
+              let first_coefficient = coefficient variable first in
+              let first = scale input.lcf (Q.neg (coefficient variable second)) first in
+              let second = scale input.lcf first_coefficient second in
+              combine input.lcf first second :: result) result negative) zero positive in
         eliminate derived
       end
   in

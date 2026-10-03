@@ -24,7 +24,7 @@ MODULES = ["GuardMemoryRuntime", "GuardMemoryInstr", "GuardMemoryRectangles", "G
            "GuardMemoryCoordinateSwap", "GuardMemoryCoordinateShift", "GuardMemoryCoordinateSkew", "GuardMemoryReindexedExtractor",
            "GuardMemoryDomainAlignment", "GuardMemoryExtractedTiling", "GuardMemoryEquivalentDomainsExtractor", "GuardMemoryAffineReindex", "GuardMemoryAffineMappedExtractor",
            "GuardMemoryProposedClight", "GuardMemoryProposedCompiler", "GuardMemoryGeneratedBounds", "GuardMemoryScheduleProducer",
-           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryCrossArray", "GuardMemoryCrossInstruction", "GuardMemoryCopyArray", "GuardMemoryCopyInstruction", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryNamedMappedChecker", "GuardMemoryNamedMappedCompiler", "GuardMemoryVariableCounterExit", "GuardMemoryRaggedLoops", "GuardMemoryRaggedClight", "GuardMemoryRaggedGuard", "GuardMemoryRaggedBackend", "GuardMemoryNamedRaggedSource", "GuardMemoryNamedRaggedCandidate", "GuardMemoryNamedRaggedChecker", "GuardMemoryTileRangeTrimming", "GuardMemoryRaggedTiling", "GuardMemoryNamedRaggedTiling", "GuardMemoryNamedRaggedCompiler", "GuardMemoryScheduledCompiler", "GuardMemoryUnifiedCompiler"]
+           "GuardMemoryMultipleArrays", "GuardMemoryArraySeparation", "GuardMemoryRegistryBackend", "GuardMemoryRegistryTransfer", "GuardMemoryCrossArray", "GuardMemoryCrossInstruction", "GuardMemoryCopyArray", "GuardMemoryCopyInstruction", "GuardMemoryNamedOperations", "GuardMemoryNamedRegistrySource", "GuardMemoryRegistryGuard", "GuardMemoryNamedClight", "GuardMemoryNamedGuard", "GuardMemoryNamedCandidate", "GuardMemoryNamedChecker", "GuardMemoryNamedCompiler", "GuardMemoryNamedMappedChecker", "GuardMemoryNamedMappedCompiler", "GuardMemoryVariableCounterExit", "GuardMemoryRaggedLoops", "GuardMemoryRaggedClight", "GuardMemoryRaggedGuard", "GuardMemoryRaggedBackend", "GuardMemoryNamedRaggedSource", "GuardMemoryNamedRaggedCandidate", "GuardMemoryNamedRaggedChecker", "GuardMemoryTileRangeTrimming", "GuardMemoryRaggedTiling", "GuardMemoryNamedRaggedTiling", "GuardMemoryNamedRaggedCompiler", "GuardMemoryScheduledCompiler", "GuardMemoryAffineSourceExpressions", "GuardMemoryAffineSourceReifier", "GuardMemoryAffineSourceValuation", "GuardMemoryAffineSourceLoop", "GuardMemoryAffineSourceContext", "GuardMemoryAffineSourceEndpoints", "GuardMemoryParametricSourceClight", "GuardMemoryParametricLoops", "GuardMemoryNamedParametricSource", "GuardMemoryParametricWidth", "GuardMemoryParametricRestore", "GuardMemoryParametricGuard", "GuardMemoryParametricSourceDomain", "GuardMemoryParametricSyntax", "GuardMemoryParametricChecker", "GuardMemoryParametricTiling", "GuardMemoryParametricCandidate", "GuardMemoryParametricCompiler", "GuardMemoryUnifiedCompiler"]
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -66,7 +66,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryR
   GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler GuardMemoryExtractorTrace GuardMemoryTraceUniqueness
   GuardMemoryExtractorCoverage GuardMemoryExtractorOrder GuardMemoryPointIsomorphism GuardMemoryDomainNormalization GuardMemoryExtractorProgress GuardMemoryCoordinateSwap GuardMemoryCoordinateShift GuardMemoryCoordinateSkew GuardMemoryReindexedExtractor GuardMemoryDomainAlignment GuardMemoryExtractedTiling GuardMemoryEquivalentDomainsExtractor GuardMemoryAffineReindex GuardMemoryAffineMappedExtractor
   GuardMemoryProposedClight GuardMemoryProposedCompiler GuardMemoryGeneratedBounds GuardMemoryScheduleProducer
-  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryNamedMappedChecker GuardMemoryNamedMappedCompiler GuardMemoryVariableCounterExit GuardMemoryRaggedLoops GuardMemoryRaggedClight GuardMemoryRaggedGuard GuardMemoryRaggedBackend GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker GuardMemoryTileRangeTrimming GuardMemoryRaggedTiling GuardMemoryNamedRaggedTiling GuardMemoryNamedRaggedCompiler GuardMemoryScheduledCompiler GuardMemoryUnifiedCompiler.
+  GuardMemoryMultipleArrays GuardMemoryArraySeparation GuardMemoryRegistryBackend GuardMemoryRegistryTransfer GuardMemoryCrossArray GuardMemoryCrossInstruction GuardMemoryCopyArray GuardMemoryCopyInstruction GuardMemoryNamedOperations GuardMemoryNamedRegistrySource GuardMemoryRegistryGuard GuardMemoryNamedClight GuardMemoryNamedGuard GuardMemoryNamedCandidate GuardMemoryNamedChecker GuardMemoryNamedCompiler GuardMemoryNamedMappedChecker GuardMemoryNamedMappedCompiler GuardMemoryVariableCounterExit GuardMemoryRaggedLoops GuardMemoryRaggedClight GuardMemoryRaggedGuard GuardMemoryRaggedBackend GuardMemoryNamedRaggedSource GuardMemoryNamedRaggedCandidate GuardMemoryNamedRaggedChecker GuardMemoryTileRangeTrimming GuardMemoryRaggedTiling GuardMemoryNamedRaggedTiling GuardMemoryNamedRaggedCompiler GuardMemoryScheduledCompiler GuardMemoryAffineSourceExpressions GuardMemoryAffineSourceReifier GuardMemoryAffineSourceValuation GuardMemoryAffineSourceLoop GuardMemoryAffineSourceContext GuardMemoryAffineSourceEndpoints GuardMemoryParametricSourceClight GuardMemoryParametricLoops GuardMemoryNamedParametricSource GuardMemoryParametricWidth GuardMemoryParametricRestore GuardMemoryParametricGuard GuardMemoryParametricSourceDomain GuardMemoryParametricSyntax GuardMemoryParametricChecker GuardMemoryParametricTiling GuardMemoryParametricCandidate GuardMemoryParametricCompiler GuardMemoryUnifiedCompiler.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -143,6 +143,24 @@ Print Assumptions memory_ragged_guard_primitives.
 Print Assumptions memory_ragged_parameter_bounds.
 Print Assumptions memory_ragged_tile_trimming.
 Print Assumptions memory_named_array_candidate_rule.
+Print Assumptions memory_source_affine_evaluation.
+Print Assumptions memory_source_affine_defined_words.
+Print Assumptions memory_source_affine_decode.
+Print Assumptions memory_source_affine_row_extrema.
+Print Assumptions memory_source_affine_iteration_value.
+Print Assumptions memory_source_loop_expression_value.
+Print Assumptions memory_source_context_typed.
+Print Assumptions memory_source_endpoints_sound.
+Print Assumptions memory_parametric_source_decode.
+Print Assumptions memory_parametric_source_words.
+Print Assumptions memory_parametric_sequence_lift.
+Print Assumptions named_array_operations_parametric_source_decode.
+Print Assumptions compile_memory_source_width_sound.
+Print Assumptions memory_parametric_restore_execution.
+Print Assumptions memory_source_guard_primitives.
+Print Assumptions memory_parametric_named_source_domain.
+Print Assumptions memory_parametric_tile_trimming.
+Print Assumptions memory_parametric_array_candidate_rule.
 Goal True. idtac "MEM_ADAPTED_VALIDATOR". exact I. Qed.
 Print Assumptions guarded_memory_validate_refines.
 Print Assumptions guarded_memory_validate_tiling_refines.
@@ -172,6 +190,8 @@ Print Assumptions checked_named_ragged_tiling_correct.
 Print Assumptions memory_attempt_codegen_accept.
 Print Assumptions memory_checked_generated_loop_certificate.
 Print Assumptions checked_named_tiled_candidate_correct.
+Print Assumptions checked_named_parametric_candidate_correct.
+Print Assumptions checked_named_parametric_tiling_correct.
 Goal True. idtac "MEM_REGION". exact I. Qed.
 Print Assumptions memory_validated_rectangle_local.
 Print Assumptions memory_validated_rectangle_rule.
@@ -201,6 +221,10 @@ Print Assumptions check_memory_ragged_tiled_region_sound.
 Print Assumptions check_memory_ragged_scheduled_region_sound.
 Print Assumptions check_memory_named_scheduled_region_sound.
 Print Assumptions check_memory_ragged_unified_region_sound.
+Print Assumptions check_memory_parametric_mapped_region_sound.
+Print Assumptions check_memory_parametric_scheduled_region_sound.
+Print Assumptions check_memory_parametric_tiled_region_sound.
+Print Assumptions check_memory_parametric_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -316,6 +340,12 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "general_loop_endpoint_preserves_exact_entry_parameters_and_mem": True,
         "general_loop_endpoint_is_complete_c_source_decoder": False,
         "external_scheduler_connected": False,
+        "parametric_affine_inner_c_bound_decoded": True,
+        "affine_bound_eager_reads_and_machine_encoding_proved": True,
+        "affine_parameter_guard_short_circuit_safety_proved": True,
+        "affine_bound_endpoint_condition_synthesis_proved": True,
+        "affine_inner_bound_tiling_csem_asm_proved": True,
+        "parametric_c_source_scope": "signed affine inner upper bounds, zero initial counters, named fixed-layout arrays and existing mixed statements; first row nonempty and all rows within layout required for fast path",
         "sources": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                     for path in sources},
         "upstream_profile": "build/polcert-optimizer-report.json",

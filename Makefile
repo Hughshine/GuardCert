@@ -262,3 +262,8 @@ native-memory-ragged: memory-unified-compiler
 .PHONY: native-memory-schedules
 native-memory-schedules: memory-unified-compiler
 	python3 scripts/native_memory_schedules.py
+
+.PHONY: native-memory-parametric
+native-memory-parametric: memory-unified-compiler
+	python3 scripts/native_memory_parametric.py
+	python3 scripts/native_memory_parametric_context.py
