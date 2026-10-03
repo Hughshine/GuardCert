@@ -13,11 +13,11 @@ void width_chain(int start,int n,int m,int p) {
   for(x=0;x<480;++x) a[x]=x*3+1;
   for(x=0;x<500;++x) b[x]=x*5+2;
   for(x=0;x<600;++x) c[x]=-777;
-  
+
   for(;i<n;++i) { k=m-p;
     for(j=0;j<k;++j) { b[i*20+j]=a[j*17+i]; c[i*24+j+1]=b[i*20+j]; c[i*24+j]=c[i*24+j+1]; b[i*20+j]=b[i*20+j+1]; }
   }
-  
+
   emit("width_chain","a",a,480,i,j,k,m,p);
   emit("width_chain","b",b,500,i,j,k,m,p);
   emit("width_chain","c",c,600,i,j,k,m,p);
@@ -29,12 +29,12 @@ void width_context(int start,int n,int m,int p) {
   for(x=0;x<480;++x) a[x]=x*3+1;
   for(x=0;x<500;++x) b[x]=x*5+2;
   for(x=0;x<600;++x) c[x]=-777;
-  
+
   for(r=0;r<2;++r) { i=start;
   for(;i<n;++i) { k=m-p;
     for(j=0;j<k;++j) { b[i*20+j]=a[j*17+i]; c[i*24+j+1]=b[i*20+j]; c[i*24+j]=c[i*24+j+1]; b[i*20+j]=b[i*20+j+1]; }
   }
-  
+
   }
   emit("width_context","a",a,480,i,j,k,m,p);
   emit("width_context","b",b,500,i,j,k,m,p);

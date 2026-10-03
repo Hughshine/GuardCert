@@ -70,7 +70,8 @@ def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=F
         if tiling or cuts or sequences or operations else "(GuardMemoryCompiler.compile_memory_regions csyntax)").replace("ENTRY_PLACEHOLDER", ENTRY)
     if proposed or unified:
         proposer = "GuardMemoryUnifiedCandidate.propose" if unified else "GuardMemoryCandidate.propose"
-        invocation = "(" + ENTRY + " " + proposer + " (GuardMemoryCandidate.natural 8) csyntax)"
+        private_count = 16 if unified else 8
+        invocation = "(" + ENTRY + " " + proposer + " (GuardMemoryCandidate.natural " + str(private_count) + ") csyntax)"
     replacement = """(let outcome = ref None in
       ImpureConfig.Core.Base.bind INVOCATION
         (fun (result, alarm_free) -> outcome := Some (result, alarm_free); ());

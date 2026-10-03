@@ -79,7 +79,7 @@ def main():
             assert '$i = $n;' in fast and '$j = $k;' in fast,(name,fn,'public exit')
             bounds=re.findall(r'\$n\s*<=\s*(\d+)',fast); assert bounds
             limits[fn]=min(map(int,bounds))
-        
+
         configurations[name]={'guarded_functions':sorted(observed),'outer_count_guard_upper':limits,
             'full_output_lines':len(reference.splitlines()),'gcc_and_independent_model_match':True,
             'template_sha256':hashlib.sha256(path.read_bytes()).hexdigest()}

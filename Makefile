@@ -296,3 +296,8 @@ native-memory-affine-compute: memory-unified-compiler
 native-memory-conditioned-width: memory-unified-compiler
 	python3 scripts/native_memory_conditioned_width.py
 	python3 scripts/native_memory_conditioned_width_paths.py
+
+.PHONY: native-memory-triple
+native-memory-triple: memory-unified-compiler
+	python3 scripts/native_memory_triple.py
+	python3 scripts/native_memory_triple_paths.py

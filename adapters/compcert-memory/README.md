@@ -64,11 +64,11 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 154 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 180 个适配模块和七个 lowering 模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。物理数组 nonalias 闭合；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
-当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。不同布局的混合操作列表、转置／缩放／散布访问、有源基址证据覆盖的非负邻居偏移，以及多读取整数计算已接入。[内层宽度条件搜索](../../docs/memory-inner-width-conditioning.md)随后接入复制链的实际分裂与安全回退。更深的 C 嵌套域及指针缓冲区继续推进。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
+当前统一入口已支持限定的动态矩形和非矩形源族、多个实际数组对象、跨数组同单元读取及复制、组合仿射坐标映射和二维分块。不同布局的混合操作列表、转置／缩放／散布访问、有源基址证据覆盖的非负邻居偏移，以及多读取整数计算已接入。[内层宽度条件搜索](../../docs/memory-inner-width-conditioning.md)随后接入复制链的实际分裂与安全回退。[三重 C 循环](../../docs/memory-three-level-loops.md)已接入矩阵乘法、非恒等调度和外层二维分块；任意维单点模型已证明，C 源入口目前到三层。更深的 C 域、额外稳定计算参数及指针缓冲区继续推进。OpenScop export 与 scheduler callbacks 当前安全拒绝；没有一般 C 源覆盖或性能结果。各早期入口的证据按下述文档分别记录。
 
 `make native-memory-operations` 构建同数组混合读写列表的完整 C 分块入口，`build/native-memory-operations/report.json` 记录五组块大小、5325 个正动态矩形、10 个实际快路函数与五条拒绝路线；每组 1564 行完整数组及公开 iterator 输出与 GCC 和独立模型一致。证明与当前源语法范围见 [混合列表证明链](../../docs/memory-mixed-statement-tiling.md)。
 
@@ -100,3 +100,5 @@ make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/wo
 [源证据与邻居偏移](../../docs/memory-anchored-offset-accesses.md)将一个对象的零地址访问证据用于该对象的不同偏移访问。`make native-memory-offset-access` 验证邻居读写、跨操作证据、调度与分块及依赖拒绝。
 
 [多个仿射读取与整数计算](../../docs/memory-affine-computations.md)已接入相同完整程序入口，源体包括有限多读取、加减乘、两个循环变量及非线性标量计算。`make native-memory-affine-compute` 验证 14 组汇编配置和五组分支诊断。
+
+[三重 C 循环与矩阵乘法](../../docs/memory-three-level-loops.md)从实际三层 Clight AST 解码为三维 Loop，证明条件式的边界读取定义性、零点内存证据、短路 guard、候选执行与三个公开计数器出口。`make native-memory-triple` 验证 13 组汇编配置、每组 2811 行输出和七组分支诊断。
