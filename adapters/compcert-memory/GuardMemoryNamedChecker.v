@@ -13,7 +13,7 @@ Local Open Scope Z_scope.
 Definition checked_named_affine_candidate base operations bound inner_bound candidate swaps :=
   let instructions := map named_operation_instruction operations in
   let context := [bound;inner_bound] in
-  let vars := map (fun array => (array,tt)) (context++map named_operation_array operations) in
+  let vars := map (fun array => (array,tt)) (context++flat_map named_operation_arrays operations) in
   checked_memory_equivalent_domain_loops
     (memory_array_assumed_loop base (memory_rectangle_sequence instructions),context,vars)
     (memory_array_assumed_loop base candidate,context,vars) swaps.
@@ -27,7 +27,7 @@ Proof.
   apply (proj1 (@validated_memory_equivalent_domain_loops_at
     (memory_array_assumed_loop base (memory_rectangle_sequence (map named_operation_instruction operations)))
     (memory_array_assumed_loop base candidate) [bound;inner_bound]
-    (map (fun array => (array,tt)) ([bound;inner_bound]++map named_operation_array operations))
+    (map (fun array => (array,tt)) ([bound;inner_bound]++flat_map named_operation_arrays operations))
     swaps [M;N] initial final eq_refl NONALIAS CHECK)).
   apply memory_array_assumed_loop_execution; assumption.
 Qed.

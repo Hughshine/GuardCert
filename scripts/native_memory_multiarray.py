@@ -14,8 +14,9 @@ SOURCE = ROOT / "examples" / "native_memory_multiarray.c"
 COMPILER = ROOT / "build" / "compcert-memory-unified" / "ccomp"
 WORK = ROOT / "build" / "native-memory-multiarray"
 ENTRY = "GuardMemoryUnifiedCompiler.compile_memory_unified_regions"
-ACCEPTED = {"multi_two","multi_three","multi_global","multi_enclosing"}
-REFUSED = {"multi_other_layout","multi_cross_read"}
+ACCEPTED = {"multi_two","multi_three","multi_global","multi_enclosing",
+            "multi_cross_read","multi_cross_read_only","multi_cross_chain","multi_cross_global"}
+REFUSED = {"multi_other_layout","multi_cross_neighbor"}
 
 
 def model(tag,start,n,m):
@@ -40,21 +41,36 @@ def model(tag,start,n,m):
     return "".join(f"{tag}-{name} {i} {j} "+" ".join(map(str,values))+"\n" for name,values in arrays)
 
 
+def cross_model(tag,n,m):
+    a = [k*3+1 for k in range(120)] if tag == "read" else [-999]*120
+    b,c = [-777]*120,[-555]*120
+    i,j = 0,99
+    while i < n:
+        j = 0
+        while j < m:
+            index = i*10+j
+            if tag != "read": a[index] = i*37+j+7
+            b[index] = a[index+1 if tag == "neighbor" else index]+i*11+j+19
+            if tag == "chain": c[index] = b[index]+i*23+j+3
+            j += 1
+        i += 1
+    arrays = [("a",a),("b",b)]+([("c",c)] if tag == "chain" else [])
+    return "".join(f"{tag}-{name} {i} {j} "+" ".join(map(str,values))+"\n" for name,values in arrays)
+
+
 def expected_output():
     result = ""
     for n in range(13):
         for m in range(11):
             result += model("two",0,n,m)+model("three",0,n,m)+model("global",0,n,m)+model("enclosing",0,n,m)
             result += model("two",2,n,m)+model("three",2,n,m)
+            result += "".join(cross_model(tag,n,m) for tag in ["cross","read","chain","cross-global"])
     result += model("two",0,-1,10)+model("three",0,5,-1)
     a,b = [-999]*120,[-777]*105
     for i in range(12):
         for j in range(7): a[i*10+j]=i*37+j+7;b[i*7+j]=i*11+j+19
     result += "layout-a 12 7 "+" ".join(map(str,a))+"\nlayout-b 12 7 "+" ".join(map(str,b))+"\n"
-    a,b = [-999]*120,[-777]*120
-    for i in range(12):
-        for j in range(10): a[i*10+j]=i*37+j+7;b[i*10+j]=a[i*10+j]+i*11+j+19
-    return result+"cross-a 12 10 "+" ".join(map(str,a))+"\ncross-b 12 10 "+" ".join(map(str,b))+"\n"
+    return result+cross_model("neighbor",10,9)+cross_model("cross",-1,10)+cross_model("read",3,-1)
 
 
 def compile_run(name,environment):
@@ -92,8 +108,9 @@ def main():
     for name,extra in [("resource-limit",{"GUARDCERT_FM_ROWS":"0"}),
                        ("invalid-certificate",{"GUARDCERT_ORACLE_FAULT":"top-certificate"})]:
         cases.append((name,templates/"fission.sexp",extra,set()))
-    cases += [(name,templates/(name+".sexp"),{},set()) for name in
-              ["wrong-arguments","changed-domain","drop-statements","missing-proposal"]]
+    cases += [(name,templates/(name+".sexp"),{},
+               {"multi_cross_read_only"} if name == "drop-statements" else set()) for name in
+              ["wrong-arguments","changed-domain","drop-statements","drop-all-statements","missing-proposal","reverse-dependent"]]
     for name,path,extra,expected in cases:
         dump = compile_run(name,{"GUARDCERT_LOOP_CANDIDATE":str(path)}|extra)
         for function in ACCEPTED:
@@ -111,7 +128,8 @@ def main():
               "source_sha256":hashlib.sha256(SOURCE.read_bytes()).hexdigest(),"compiler_sha256":stamp["compiler_sha256"],
               "actual_multiple_compcert_array_objects":True,"actual_safe_base_comparisons_emitted":True,
               "two_and_three_arrays":True,"global_and_enclosing_contexts":True,
-              "gcc_and_independent_model_match":True,"cross_array_source_reads_supported":False,
+              "gcc_and_independent_model_match":True,"cross_array_source_reads_supported":True,
+              "read_only_array_registered_and_guarded":True,"unsafe_reversed_cross_dependence_refused":True,
               "arbitrary_pointer_slice_aliasing_supported":False}
     (WORK/"report.json").write_text(json.dumps(report,indent=2)+"\n")
     print(f"Multiple physical arrays passed: {len(cases)} configurations, {len(reference.splitlines())} output lines each")

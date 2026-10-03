@@ -2,52 +2,96 @@ From Stdlib Require Import List ZArith Lia.
 From compcert.lib Require Import Maps Integers Coqlib.
 From compcert.common Require Import AST Values Memory Events.
 From compcert.cfrontend Require Import Ctypes Clight ClightBigstep.
-From Guard Require Import CompCertStoreSchedule RectangularSchedule RectangularIteration
+From Guard Require Import CompCertStoreSchedule CompCertMemoryActions RectangularSchedule RectangularIteration
   ClightCondition ClightNoWrap ClightTempFrame ClightFiniteRegion ClightStraightLine
   ClightLoopSyntax ClightFrontendLoopProtocol ClightRectangularStore ClightRectangularGuard
   ClightRectangularLoops ClightRectangularRegion ClightRegionProgress ClightCountedLoop
   ClightFrontendRegion ClightZeroTrip ClightFramedLoop ClightLoopExecution.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles
   GuardMemoryPolyhedral GuardMemoryLoops GuardMemoryArrayBackend GuardMemoryArrayFamilyBackend
-  GuardMemorySequenceLoops GuardMemoryClightRectangles GuardMemoryValidatedRectangles.
+  GuardMemorySequenceLoops GuardMemoryClightRectangles GuardMemoryValidatedRectangles
+  GuardMemoryCrossArray GuardMemoryCrossInstruction.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
 
-Record named_array_operation := NamedArrayOperation {
-  named_operation_mode : rectangle_memory_mode;
-  named_operation_shape : rectangle_shape;
-  named_operation_array : ident
-}.
-Definition named_operation_layout base (operation : named_array_operation) := same_array_layout base (named_operation_shape operation).
-Definition named_operation_statement row column (operation : named_array_operation) :=
-  mode_statement (named_operation_mode operation) (named_operation_shape operation) (named_operation_array operation) row column.
-Definition named_operation_instruction (operation : named_array_operation) :=
-  mode_instruction (named_operation_mode operation) (named_operation_shape operation) (named_operation_array operation).
+Inductive named_array_operation :=
+| NamedArrayOperation (mode : rectangle_memory_mode) (shape : rectangle_shape) (array : ident)
+| NamedCrossArrayOperation (shape : rectangle_shape) (write_array read_array : ident).
+Definition named_operation_shape operation :=
+  match operation with NamedArrayOperation _ shape _ | NamedCrossArrayOperation shape _ _ => shape end.
+Definition named_operation_array operation :=
+  match operation with NamedArrayOperation _ _ array | NamedCrossArrayOperation _ array _ => array end.
+Definition named_operation_arrays operation :=
+  match operation with
+  | NamedArrayOperation _ _ array => [array]
+  | NamedCrossArrayOperation _ write_array read_array => [write_array;read_array] end.
+Definition named_operation_layout base operation := same_array_layout base (named_operation_shape operation).
+Definition named_operation_statement row column operation :=
+  match operation with
+  | NamedArrayOperation mode shape array => mode_statement mode shape array row column
+  | NamedCrossArrayOperation shape write_array read_array => memory_cross_update shape write_array read_array row column end.
+Definition named_operation_instruction operation :=
+  match operation with
+  | NamedArrayOperation mode shape array => mode_instruction mode shape array
+  | NamedCrossArrayOperation shape write_array read_array => memory_cross_instruction shape write_array read_array end.
+Definition named_operation_physical ge locals i j operation before after :=
+  match operation with
+  | NamedArrayOperation mode shape array => exists block,
+      rect_array_binding shape ge locals array block /\ mode_physical mode shape block i j before after
+  | NamedCrossArrayOperation shape write_array read_array => exists write_block read_block,
+      rect_array_binding shape ge locals write_array write_block /\
+      rect_array_binding shape ge locals read_array read_block /\
+      memory_action_run (memory_cross_action shape write_block read_block i j) before after end.
 Inductive named_array_operations_physical ge locals i j : list named_array_operation -> mem -> mem -> Prop :=
 | named_array_operations_physical_nil : forall memory, named_array_operations_physical ge locals i j [] memory memory
-| named_array_operations_physical_cons : forall operation operations before middle final block,
-    rect_array_binding (named_operation_shape operation) ge locals (named_operation_array operation) block ->
-    mode_physical (named_operation_mode operation) (named_operation_shape operation) block i j before middle ->
+| named_array_operations_physical_cons : forall operation operations before middle final,
+    named_operation_physical ge locals i j operation before middle ->
     named_array_operations_physical ge locals i j operations middle final ->
     named_array_operations_physical ge locals i j (operation::operations) before final.
 Lemma named_array_operations_body_normal operations row column body :
   flatten_region body = map (named_operation_statement row column) operations -> normal_statement body = true.
 Proof.
   intro FLAT; apply flatten_normal_certificate; rewrite FLAT; apply Forall_map,Forall_forall;
-    intros [mode shape array] MEMBER; apply mode_normal.
+    intros [mode shape array|shape write_array read_array] MEMBER;
+    [apply mode_normal|reflexivity].
 Qed.
 Lemma named_array_operations_body_quiet operations row column body :
   flatten_region body = map (named_operation_statement row column) operations -> quiet_statement body = true.
 Proof.
   intro FLAT; apply flatten_quiet_certificate; rewrite FLAT; apply Forall_map,Forall_forall;
-    intros [mode shape array] MEMBER; apply mode_quiet.
+    intros [mode shape array|shape write_array read_array] MEMBER;
+    [apply mode_quiet|reflexivity].
 Qed.
 Lemma named_array_operations_body_writes operations row column body :
   flatten_region body = map (named_operation_statement row column) operations -> writes_only [] body.
 Proof.
   intro FLAT; apply flatten_writes_certificate; rewrite FLAT; apply Forall_map,Forall_forall;
-    intros [mode shape array] MEMBER; apply mode_writes.
+    intros [mode shape array|shape write_array read_array] MEMBER;
+    [apply mode_writes|constructor].
+Qed.
+Lemma named_operation_clight_inverse base operation row column fe ge locals i j temps memory after final :
+  rectangle_layout_valid base -> named_operation_layout base operation ->
+  0 <= i*rectangle_stride base+j < rectangle_extent base ->
+  0 <= i*rectangle_stride base < rectangle_extent base ->
+  temps ! row = Some (Vint (Int.repr i)) -> temps ! column = Some (Vint (Int.repr j)) ->
+  exec_stmt fe ge locals temps memory (named_operation_statement row column operation) E0 after final Out_normal ->
+  named_operation_physical ge locals i j operation memory final /\ after = temps.
+Proof.
+  intros VALID [EXTENT STRIDE] INDEX READ_INDEX ROW COLUMN RUN.
+  destruct operation as [mode shape array|shape write_array read_array]; cbn in EXTENT,STRIDE |- *.
+  - destruct (@mode_clight_inverse_any mode shape
+      ltac:(eapply same_array_layout_valid; [exact VALID|split; assumption])
+      fe ge locals array row column i j temps memory after final
+      ltac:(rewrite EXTENT,STRIDE; exact INDEX) ltac:(rewrite EXTENT,STRIDE; exact READ_INDEX)
+      ROW COLUMN RUN) as [[block [ARRAY POINT]] TEMPS].
+    split; [exists block; split; assumption|exact TEMPS].
+  - destruct (@memory_cross_update_inverse shape
+      ltac:(eapply same_array_layout_valid; [exact VALID|split; assumption])
+      fe ge locals temps memory write_array read_array row column i j E0 after final Out_normal
+      ROW COLUMN ltac:(rewrite EXTENT,STRIDE; exact INDEX) RUN)
+      as [write_block [read_block [WRITE [READ [_ [TEMPS [_ POINT]]]]]]].
+    split; [exists write_block,read_block; repeat split; assumption|exact TEMPS].
 Qed.
 Lemma named_array_operations_tail_inverse base operations row column fe ge locals i j temps memory after final :
   rectangle_layout_valid base -> Forall (named_operation_layout base) operations ->
@@ -58,16 +102,12 @@ Lemma named_array_operations_tail_inverse base operations row column fe ge local
     temps memory after final -> named_array_operations_physical ge locals i j operations memory final /\ after = temps.
 Proof.
   intros VALID LAYOUTS INDEX READ_INDEX ROW COLUMN.
-  revert temps memory after final ROW COLUMN; induction LAYOUTS as [|[mode shape array] operations LAYOUT LAYOUTS IH];
+  revert temps memory after final ROW COLUMN; induction LAYOUTS as [|operation operations LAYOUT LAYOUTS IH];
     intros temps memory after final ROW COLUMN RUN; cbn in RUN; inversion RUN; subst.
   - split; [constructor|reflexivity].
-  - destruct LAYOUT as [EXTENT STRIDE]; cbn in EXTENT,STRIDE.
-    match goal with HEAD : exec_stmt _ _ _ _ _ (named_operation_statement _ _ _) _ _ _ _ |- _ =>
-      destruct (@mode_clight_inverse_any mode shape
-        ltac:(eapply same_array_layout_valid; [exact VALID|split; assumption])
-        fe ge locals array row column i j temps memory _ _
-        ltac:(rewrite EXTENT,STRIDE; exact INDEX) ltac:(rewrite EXTENT,STRIDE; exact READ_INDEX)
-        ROW COLUMN HEAD) as [[block [ARRAY POINT]] TEMPS]; subst end.
+  - match goal with HEAD : exec_stmt _ _ _ _ _ (named_operation_statement _ _ _) _ _ _ _ |- _ =>
+      destruct (@named_operation_clight_inverse base operation row column fe ge locals i j temps memory _ _
+        VALID LAYOUT INDEX READ_INDEX ROW COLUMN HEAD) as [POINT TEMPS]; subst end.
     match goal with TAIL : tail_execution _ _ _ _ _ _ _ _ |- _ =>
       destruct (IH _ _ _ _ ROW COLUMN TAIL) as [REST EXIT] end.
     split; [econstructor; eauto|exact EXIT].

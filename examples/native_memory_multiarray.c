@@ -53,11 +53,37 @@ void multi_cross_read(int n,int m) {
   for(;i<n;++i) {for(j=0;j<m;++j) {a[i*10+j]=i*37+j+7;b[i*10+j]=a[i*10+j]+(i*11+j+19);}}
   emit("cross-a",a,120,i,j);emit("cross-b",b,120,i,j);
 }
+void multi_cross_read_only(int n,int m) {
+  int a[120],b[120],i=0,j=99,k;for(k=0;k<120;++k) {a[k]=k*3+1;b[k]=-777;}
+  for(;i<n;++i) {for(j=0;j<m;++j) {b[i*10+j]=a[i*10+j]+(i*11+j+19);}}
+  emit("read-a",a,120,i,j);emit("read-b",b,120,i,j);
+}
+void multi_cross_chain(int n,int m) {
+  int a[120],b[120],c[120],i=0,j=99,k;for(k=0;k<120;++k) {a[k]=-999;b[k]=-777;c[k]=-555;}
+  for(;i<n;++i) {for(j=0;j<m;++j) {
+    a[i*10+j]=i*37+j+7;
+    b[i*10+j]=a[i*10+j]+(i*11+j+19);
+    c[i*10+j]=b[i*10+j]+(i*23+j+3);
+  }}
+  emit("chain-a",a,120,i,j);emit("chain-b",b,120,i,j);emit("chain-c",c,120,i,j);
+}
+void multi_cross_global(int n,int m) {
+  int i=0,j=99,k;for(k=0;k<120;++k) {ga[k]=-999;gb[k]=-777;}
+  for(;i<n;++i) {for(j=0;j<m;++j) {ga[i*10+j]=i*37+j+7;gb[i*10+j]=ga[i*10+j]+(i*11+j+19);}}
+  emit("cross-global-a",ga,120,i,j);emit("cross-global-b",gb,120,i,j);
+}
+void multi_cross_neighbor(int n,int m) {
+  int a[120],b[120],i=0,j=99,k;for(k=0;k<120;++k) {a[k]=-999;b[k]=-777;}
+  for(;i<n;++i) {for(j=0;j<m;++j) {a[i*10+j]=i*37+j+7;b[i*10+j]=a[i*10+j+1]+(i*11+j+19);}}
+  emit("neighbor-a",a,120,i,j);emit("neighbor-b",b,120,i,j);
+}
 int main(void) {
   int n,m;for(n=0;n<=12;++n) {for(m=0;m<=10;++m) {
     multi_two(0,n,m);multi_three(0,n,m);multi_global(n,m);multi_enclosing(n,m);
     multi_two(2,n,m);multi_three(2,n,m);
+    multi_cross_read(n,m);multi_cross_read_only(n,m);multi_cross_chain(n,m);multi_cross_global(n,m);
   }}
-  multi_two(0,-1,10);multi_three(0,5,-1);multi_other_layout(12,7);multi_cross_read(12,10);
+  multi_two(0,-1,10);multi_three(0,5,-1);multi_other_layout(12,7);multi_cross_neighbor(10,9);
+  multi_cross_read(-1,10);multi_cross_read_only(3,-1);
   return 0;
 }

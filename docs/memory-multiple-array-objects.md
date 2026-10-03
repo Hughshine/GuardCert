@@ -1,9 +1,9 @@
 # 多个实际数组对象的 guarded 循环变换
 
 统一入口现在支持矩形循环中的多个实际数组对象。每条源语句可以是纯写、读取自身单元后
-更新，或读取本数组的行首后更新；语句列表、数组数量与各语句的算术系数由源 AST 决定。
-目前这些数组使用相同的 extent 和 stride。`b[index] = a[index] + payload` 的跨数组读取
-和任意指针切片尚未进入这份 C 源识别器。
+更新、读取本数组的行首后更新，或 `b[index] = a[index] + payload` 的跨数组读取；
+语句列表、数组数量与各语句的算术系数由源 AST 决定。
+目前这些数组使用相同的 extent 和 stride。任意指针切片尚未进入这份 C 源识别器。
 
 ## 物理内存前提与实际条件
 
@@ -32,6 +32,11 @@ block 列表是否无重复。`GuardMemoryNamedGuard` 把它放在范围检查�
 `GuardMemoryNamedRegistrySource` 保留语句顺序与实际 memory action；
 `GuardMemoryNamedClight` 将整个源循环接到同一参数、同一实际 Mem 的 Loop 执行。
 重复出现的同一数组会在 registry 中去重，重复语句的位置仍由提取器区分。
+登记表收集每条语句使用的所有数组，包括仅被读取的输入。`GuardMemoryCrossArray`
+证明实际跨数组 Clight 语句与分离的 load/store action 双向对应；
+`GuardMemoryCrossInstruction` 将同一 action 接到实际 registry 的指令执行。
+非别名前提只排除不同逻辑数组意外共享物理位置；跨语句读写同一逻辑数组形成的依赖
+仍由实际多面体验证器检查。
 
 候选后端 `GuardMemoryRegistryBackend` 按每条指令的读写数组选取各自的 Clight 变量，
 执行实际读取、整数计算和写入。`compile_memory_registry_loop_correct` 保留整个
@@ -53,15 +58,19 @@ GUARDCERT_LOOP_CANDIDATE="$PWD/examples/loop-candidates/interchange.sexp" \
   -stdlib build/compcert-memory-unified/runtime -S examples/native_memory_multiarray.c
 ```
 
-63 个具体内存适配模块和 7 个 lowering 模块已完成重新编译和假设审计。指令桥保持原有
+65 个具体内存适配模块和 7 个 lowering 模块已完成重新编译和假设审计。指令桥保持原有
 7 项假设，实际 validator 保持 12 项，完整编译器保持 CompCert 与 validator 的 42 项
 并集，没有新增全局公理。原生测试的报告单独位于
 `build/native-memory-multiarray/report.json`，覆盖两个／三个数组、全局数组、外层循环、
 零迭代、非零入口 iterator、实际仿射与分块候选、证书／资源拒绝和源回退。
-报告已通过十四组配置，每组 2011 行完整输出与 GCC 和独立模型逐项一致。identity、
-interchange、冗余条件和四种块宽命中四个支持函数；fission 命中三个函数，三数组的
-行首读取依赖导致该候选被拒绝。基址比较和公开 iterator 修复也从实际 Clight 检查。
+当前十六组配置已通过，每组 3302 行完整输出与 GCC 和独立模型逐项一致。identity、
+interchange、冗余条件和四种块宽命中八个支持函数；fission 命中七个，行首读取依赖
+使三数组函数被拒绝。只读输入、三数组跨读取链和全局跨数组访问都实际进入快路。
+反转跨数组依赖、删除全部语句和邻居索引的源提案都安全拒绝；仅保留第 0 条语句
+在单语句只读输入函数上合法接受。基址检查与公开 iterator 修复也从实际 Clight 检查。
+既有统一入口的十二组仿射、五组分块和五条分块拒绝回归也通过，每组 1564 行输出
+与 GCC 和独立模型一致；其中原来被拒绝的跨数组同单元读取函数现在实际进入快路。
 
-这个实现扩展的是实际数组对象的完整程序路径。一般 C 源的嵌套仿射边界、跨数组读取、
+这个实现扩展的是实际数组对象的完整程序路径。一般 C 源的嵌套仿射边界、邻居读取、
 不同数组布局的共同范围检查以及任意缓冲区的重叠检查仍需继续闭合；不能从一般 IR
 提取定理推出这些 C 语法已经被识别。

@@ -1,7 +1,7 @@
 From Stdlib Require Import List Bool ZArith.
 From compcert.lib Require Import Coqlib.
 From compcert.common Require Import AST Errors Smallstep.
-From compcert.cfrontend Require Import Ctypes Clight Csyntax Csem Cstrategy SimplExpr SimplExprproof
+From compcert.cfrontend Require Import Ctypes Cop Clight Csyntax Csem Cstrategy SimplExpr SimplExprproof
   SimplLocals SimplLocalsproof.
 From compcert.driver Require Import Compiler.
 From polcert.lib Require Import ImpureAlarmConfig.
@@ -20,31 +20,39 @@ Import Clight.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
 
+Definition propose_named_array_operation row bound column inner_bound store : option named_array_operation :=
+  match describe_memory_rectangle (frontend_counted_loop row bound
+    (rectangle_outer_body column inner_bound store)) with
+  | Some package => Some (NamedArrayOperation (package_mode package)
+      (described_shape (package_description package)) (described_array (package_description package)))
+  | None => match store with
+    | Sassign lhs (Ebinop Oadd (Ederef (Ebinop Oadd (Evar read_array _) _ _) _) payload _) =>
+      match describe_memory_rectangle (frontend_counted_loop row bound
+        (rectangle_outer_body column inner_bound (Sassign lhs payload))) with
+      | Some package => Some (NamedCrossArrayOperation
+          (described_shape (package_description package)) (described_array (package_description package)) read_array)
+      | None => None end
+    | _ => None end
+  end.
 Fixpoint propose_named_array_operations row bound column inner_bound stores : option (list named_array_operation) :=
   match stores with
   | [] => Some []
   | store::rest =>
-    match describe_memory_rectangle (frontend_counted_loop row bound
-      (rectangle_outer_body column inner_bound store)),
+    match propose_named_array_operation row bound column inner_bound store,
       propose_named_array_operations row bound column inner_bound rest with
-    | Some package,Some shapes => Some (NamedArrayOperation (package_mode package) (described_shape (package_description package)) (described_array (package_description package))::shapes)
+    | Some operation,Some operations => Some (operation::operations)
     | _,_ => None end
   end.
 Definition propose_named_array_operations_region source : option (rectangle_description * list named_array_operation) :=
   match propose_frontend_shape source with
   | Some (row,bound,outer_body) => match flatten_region outer_body with
     | [Sset column _;inner_loop] => match propose_frontend_shape inner_loop with
-      | Some (_,inner_bound,inner_body) => match flatten_region inner_body with
-        | store::rest =>
-          match describe_memory_rectangle (frontend_counted_loop row bound
-            (rectangle_outer_body column inner_bound store)),
-            propose_named_array_operations row bound column inner_bound (store::rest) with
-          | Some package,Some shapes =>
-            let d := package_description package in Some
-            (RectangleDescription (described_shape d) (described_array d) row bound column inner_bound
-              inner_body outer_body,shapes)
-          | _,_ => None end
-        | [] => None end
+      | Some (_,inner_bound,inner_body) =>
+        match propose_named_array_operations row bound column inner_bound (flatten_region inner_body) with
+        | Some (operation::operations) => Some
+            (RectangleDescription (named_operation_shape operation) (named_operation_array operation)
+              row bound column inner_bound inner_body outer_body,operation::operations)
+        | _ => None end
       | None => None end
     | _ => None end
   | None => None end.
