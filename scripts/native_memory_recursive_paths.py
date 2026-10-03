@@ -41,6 +41,9 @@ def main():
                     (0,[0]+[-2147483648]*(dimensions-1),0),(1,[2]*dimensions,0),
                     (0,[1]*(dimensions-1)+[cap+1],0)]
                 inputs.extend((0,[2]*axis+[0]+[-2147483648]*(dimensions-axis-1),0) for axis in range(1,dimensions))
+                unequal=[[1+(axis%2) for axis in range(dimensions)],
+                    [2-(axis%2) for axis in range(dimensions)]]
+                inputs.extend((0,counts,hits if max(counts)<=cap else 0) for counts in unequal)
             for start,counts,hit in inputs:
                 calls.append(f'guard_branch_hits[{index}]=0; {function}({start},'+','.join(map(str,counts))+'); '
                     f'if (guard_branch_hits[{index}]!={hit}) return {20+len(calls)};')
@@ -63,6 +66,7 @@ def main():
             'every_zero_trip_dimension_and_nonzero_start_fallback_checked':bool(functions),
             'uninitialized_inner_bound_short_circuit_checked':bool(set(functions)&ZERO_ONLY),
             'insufficient_private_pool_source_result_checked':configuration.startswith('tile-') or configuration=='identity-9',
+            'unequal_axis_counts_checked':bool(set(functions)-ZERO_ONLY),
             'source_function_calls':len(calls)}
         print(configuration,'recursive branch selection checked',flush=True)
     (WORK/'branch-report.json').write_text(json.dumps({'status':'passed','compiler_sha256':report['compiler_sha256'],

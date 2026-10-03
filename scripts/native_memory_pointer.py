@@ -8,7 +8,7 @@ import os
 import re
 import subprocess
 from native_zero_trip import function_body
-from native_memory_recursive import loop_template, schedule_template
+from native_memory_recursive import loop_template
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'examples/native_memory_pointer.c'
@@ -20,7 +20,7 @@ METADATA = {name: 2 for name in ['pointer_two', 'pointer_context', 'pointer_wrap
     'pointer_chain', 'pointer_recurrence', 'pointer_nonlinear', 'pointer_scalar', 'pointer_multi']}
 METADATA |= {'pointer_three': 3, 'pointer_four': 4, 'pointer_undef': 3}
 STRIDES = {2: [8, 1], 3: [128, 16, 1], 4: [512, 64, 8, 1]}
-REFUSED = {'pointer_nonlinear', 'pointer_scalar', 'pointer_multi'}
+REFUSED = {'pointer_nonlinear', 'pointer_multi'}
 SUPPORTED = set(METADATA) - REFUSED
 IDENTIFIERS = ['i', 'j', 'k', 't']
 BOUNDS = ['n', 'm', 'p', 'q']
@@ -106,9 +106,9 @@ def templates():
     result |= {f'interchange-{depth}': loop_template(depth, [1, 0]+list(range(2, depth)))
         for depth in [2, 3, 4]}
     result |= {'reverse-last-2': loop_template(2, reverse=True),
-        'schedule-identity-2': schedule_template(2),
-        'schedule-interchange-2': schedule_template(2, swap=True),
-        'schedule-fission-2': schedule_template(2, fission=True),
+        'schedule-identity-2': '(schedule ((coordinate 0) (coordinate 1) ordinal) ())',
+        'schedule-interchange-2': '(schedule ((coordinate 1) (coordinate 0) ordinal) ((swap 0)))',
+        'schedule-fission-2': '(schedule (ordinal (coordinate 0) (coordinate 1)) ())',
         'tile-2-3': '(tile 2 3)', 'tile-4-4': '(tile 4 4)', 'tile-17-13': '(tile 17 13)'}
     return result
 

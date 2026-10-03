@@ -11,8 +11,42 @@ let axis ordinal =
      GuardMemoryNumbers.import_integer (integer bias))
   | _ -> invalid_arg "schedule axis"
 
+(* A coordinate axis is a convenience proposal for the decoded instruction
+   ABI: original coordinates, then stable scalar values. No result of this
+   inference is trusted; the generated candidate is checked independently. *)
+let rec natural_size = function
+  | Datatypes.O -> 0
+  | Datatypes.S rest -> 1 + natural_size rest
+
+let rec parameter_arity = function
+  | GuardMemoryRuntime.ParameterValue position -> 1 + natural_size position
+  | GuardMemoryRuntime.AddValue (first,second)
+  | GuardMemoryRuntime.SubValue (first,second)
+  | GuardMemoryRuntime.MulValue (first,second) ->
+      max (parameter_arity first) (parameter_arity second)
+  | _ -> 0
+
+let coordinate_axis instructions syntax =
+  let open GuardMemoryCandidate in
+  match syntax with
+  | List [Atom "coordinate"; position] ->
+      let dimensions = List.fold_left (fun largest instruction ->
+        List.fold_left (fun largest (coefficients,_) -> max largest (List.fold_left (fun (index,used) coefficient ->
+            (index+1,if coefficient=BinNums.Z0 then used else index+1)) (0,0) coefficients |> snd))
+          largest (snd instruction.GuardMemoryInstr.instruction_write)) 0 instructions in
+      let arity = List.fold_left (fun largest instruction ->
+        max largest (parameter_arity instruction.GuardMemoryInstr.instruction_value)) dimensions instructions in
+      let position = small position in
+      if position < 0 || position >= dimensions || dimensions > 16 || arity > 32
+      then invalid_arg "coordinate schedule axis";
+      let coefficients = List.init arity (fun _ -> Atom "0") @
+        List.init dimensions (fun index -> Atom (if index=position then "1" else "0")) in
+      List [Atom "affine"; List coefficients; Atom "0"]
+  | _ -> syntax
+
 let instantiate instructions axes =
   if List.length instructions > 32 || List.length axes > 16 then invalid_arg "schedule size limit";
+  let axes = List.map (coordinate_axis instructions) axes in
   List.mapi (fun ordinal _ -> List.map (axis ordinal) axes) instructions
 
 let explicit schedules =

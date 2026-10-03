@@ -48,6 +48,8 @@ def main():
                     (9, 1, [2]*depth, 0), (9, 0, [1]*(depth-1)+[cap+1], 0)]
                 inputs.extend((-1, 0, [2]*axis+[0]+[-2147483648]*(depth-axis-1), 0)
                     for axis in range(depth))
+                unequal = [[1, 2], [2, 1]] if depth == 2 else [[1, 2, 3], [3, 1, 2]] if depth == 3 else [[1, 2, 1, 2], [2, 1, 2, 1]]
+                inputs.extend((9, 0, counts, repeats if max(counts) <= cap else 0) for counts in unequal)
             for offset, start, counts, hits in inputs:
                 calls.append(f'guard_branch_hits[{index}]=0; run_{function}('
                     + ','.join(map(str, [offset, start]+counts))+'); '
@@ -81,6 +83,7 @@ def main():
             'one_element_allocation_fast_path_checked': tiny_checked,
             'uninitialized_deep_bound_short_circuit_checked': 'pointer_undef' in functions,
             'complete_caller_buffers_and_public_counters_checked': True,
+            'unequal_axis_counts_checked': True,
             'source_function_calls': len(calls)}
         print(configuration, 'pointer branch selection checked', flush=True)
     (WORK/'branch-report.json').write_text(json.dumps({'status': 'passed',
