@@ -16,7 +16,7 @@ make native-guardcert
 
 The resulting executable is `build/compcert-guardcert/ccomp`. It uses the normal CompCert driver options. `GUARDCERT_AFFINE_MODE` selects the deep affine candidate policy; `GUARDCERT_AFFINE_PROFILE=inferred` derives checked bounds and address windows from the source. `GUARDCERT_LOOP_CANDIDATE` names the candidate file for the rectangular memory service. These settings propose data; they cannot bypass either checker.
 
-The proof audit compiles 96 prototype modules. In the same Rocq environment, the unified whole-program theorem has exactly the original whole-program theorem's 42 global assumptions. The audit reports no new global axioms. The extraction stamp records the entry point, executable digest, 707 proof-source digests, and eight native-source digests.
+The proof audit compiles 98 prototype modules. In the same Rocq environment, the unified whole-program theorem has exactly the original whole-program theorem's 42 global assumptions. The audit reports no new global axioms. The extraction stamp records the entry point, executable digest, 709 proof-source digests, and eight native-source digests.
 
 `native_guardcert.py` constructs one C program containing the five deep affine kernels, six signed multi-pointer rectangular kernels, and both scalar examples. Six candidate configurations each execute 988 calls, giving 5,928 actual assembly calls. Every run compares all array cells and public loop controls with independent word-level models and a GCC reference. The configurations cover disabled loop candidates, identity, interchange, tiling, an incorrect deep tiling witness, and an oracle resource limit.
 
@@ -25,5 +25,7 @@ The proof audit compiles 96 prototype modules. In the same Rocq environment, the
 The deep affine service handles multiple stable pointers by scanning the actual source domain with private control variables. It compares every cross-pointer pair of actual source accesses. Source execution supplies the permissions needed to prove these comparisons safe. Acceptance establishes non-aliasing on the actual source footprint, which is enough for the candidate validator. The scanner preserves memory and public temporaries; rejection executes the original source.
 
 The [external candidate interface](external-affine-candidates.md) exports checked source requests and imports concrete Loop IR candidates. The same source-domain guard and candidate checker consume their results. Request matching, parsing and candidate generation remain untrusted.
+
+The optional [condition-search compiler](deep-affine-condition-search.md) tries a finite family of source range proposals for the same candidate. It has its own extracted entry point and complete-program theorem. The default compiler above retains its single-proposal behavior.
 
 The source and candidate must satisfy the checked syntax and range interfaces. Scanning has quadratic cost in source points and access sites. The deep service also restores public control values by replaying pure source control after the transformed memory computation. That replay has a cost proportional to source control iterations, so these results establish behavior preservation without claiming a speedup.

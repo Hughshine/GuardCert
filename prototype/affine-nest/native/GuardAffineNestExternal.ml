@@ -53,7 +53,15 @@ let request_syntax request syntax instructions =
     list [atom "pointers";list (List.map positive request.AffineNestCheckedCompiler.affine_requested_pointers)];
     list [atom "axes";list (List.map (fun (low,high) -> list [integer low;integer high]) request.AffineNestCheckedCompiler.affine_requested_axes)];
     list [atom "instructions";list (List.map instruction instructions)];list [atom "source";syntax]]
-let request_text request syntax instructions = render (request_syntax request syntax instructions) ^ "\n"
+let source_identity request syntax instructions =
+  let fields = match request_syntax request syntax instructions with
+    | C.List (_::fields) -> fields | _ -> assert false in
+  let fields = List.filter (function C.List (C.Atom "axes"::_) -> false | _ -> true) fields in
+  Digest.to_hex (Digest.string (render (list (atom "affine-source"::fields))))
+let request_text request syntax instructions =
+  let fields = match request_syntax request syntax instructions with
+    | C.List fields -> fields | _ -> assert false in
+  render (list (fields @ [list [atom "source-identity";atom (source_identity request syntax instructions)]])) ^ "\n"
 let fingerprint request syntax instructions = Digest.to_hex (Digest.string (request_text request syntax instructions))
 let export_request request syntax instructions =
   match Sys.getenv_opt "GUARDCERT_AFFINE_REQUEST_DIR" with
@@ -82,6 +90,8 @@ let propose request source instructions =
   let rec choose = function
     | C.List [C.Atom "request";C.Atom identity;syntax] ->
         if identity = fingerprint request source instructions then choose syntax else None
+    | C.List [C.Atom "source";C.Atom identity;syntax] ->
+        if identity = source_identity request source instructions then choose syntax else None
     | C.List [C.Atom "rank";rank;syntax] -> if C.small rank = dimensions then choose syntax else None
     | C.List (C.Atom "choices"::choices) ->
         let rec first = function [] -> None | item::rest -> match choose item with Some _ as result -> result | None -> first rest in

@@ -21,14 +21,7 @@ let range_policy () = {
   AffineNestRangeProposal.affine_policy_address_upper = configured_integer "GUARDCERT_AFFINE_ADDRESS_HIGH" "33";
 }
 
-let describe live pool source =
-  let result = try
-    AffineNestMultiProposal.affine_reserve_multi_scans
-      (fun live pool source ->
-    if Sys.getenv_opt "GUARDCERT_AFFINE_PROFILE" = Some "inferred"
-    then AffineNestRangeProposal.affine_source_range_proposal (range_policy ()) live pool source
-    else AffineNestPropose.affine_default_source_proposal live pool source) live pool source
-    with Invalid_argument _ | Failure _ | Stack_overflow -> None in
+let remember live pool result =
   (match result with
    | None -> ()
    | Some (parameters, proposal) ->
@@ -37,6 +30,29 @@ let describe live pool source =
        diagnostic (Printf.sprintf "GUARDCERT_AFFINE_SOURCE depth=%d pointers=%d" axes
          (List.length proposal.AffineNestGuardPackage.affine_proposed_pointers)));
   result
+
+let describe live pool source =
+  let result = try
+    AffineNestMultiProposal.affine_reserve_multi_scans
+      (fun live pool source ->
+        if Sys.getenv_opt "GUARDCERT_AFFINE_PROFILE" = Some "inferred"
+        then AffineNestRangeProposal.affine_source_range_proposal (range_policy ()) live pool source
+        else AffineNestPropose.affine_default_source_proposal live pool source) live pool source
+    with Invalid_argument _ | Failure _ | Stack_overflow -> None in
+  remember live pool result
+
+let describe_single_iteration live pool source =
+  let result = try
+    let policy = { (range_policy ()) with
+      AffineNestRangeProposal.affine_policy_root_floor = integer 0;
+      AffineNestRangeProposal.affine_policy_root_cap = integer 1 } in
+    AffineNestMultiProposal.affine_reserve_multi_scans
+      (AffineNestRangeProposal.affine_source_range_proposal policy) live pool source
+    with Invalid_argument _ | Failure _ | Stack_overflow -> None in
+  remember live pool result
+let describes () =
+  if Sys.getenv_opt "GUARDCERT_AFFINE_CONDITION_SEARCH" = Some "disabled" then [describe]
+  else [describe;describe_single_iteration]
 
 let rec split_source headers = function
   | L.Loop (lower,upper,body) -> split_source ((lower,upper)::headers) body

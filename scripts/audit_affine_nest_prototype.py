@@ -34,7 +34,8 @@ MODULES = [
     "AffineNestScanNamedExecution", "AffineNestScanPair", "AffineNestScanSeparation", "AffineNestScanSequence",
     "AffineNestScanAll", "AffineNestMultiStaticPackage", "AffineNestPackageScanFootprint", "AffineNestPackageScanAccesses",
     "AffineNestMultiPresumption", "AffineNestMultiCandidateLocal", "AffineNestMultiGuardExecution", "AffineNestMultiRegion",
-    "AffineNestMultiCheckedCompiler", "AffineNestMultiProposal", "AffineNestUnifiedCompiler", "AffineNestAudit",
+    "AffineNestMultiCheckedCompiler", "AffineNestMultiProposal", "AffineNestUnifiedCompiler",
+    "GuardedCandidateChoice", "AffineNestConditionedCompiler", "AffineNestAudit",
 ]
 
 
@@ -63,7 +64,7 @@ def main():
     log = log_path.read_text()
     markers = ["AFFINE_SYNTAX_BEGIN", "AFFINE_BASELINE_BEGIN", "AFFINE_SOURCE_BEGIN",
                "AFFINE_EXIT_BEGIN", "AFFINE_CHECKED_BASELINE_BEGIN", "AFFINE_CHECKED_BEGIN",
-               "AFFINE_WHOLE_BASELINE_BEGIN", "AFFINE_WHOLE_BEGIN", "AFFINE_UNIFIED_BEGIN", "AFFINE_AUDIT_END"]
+               "AFFINE_WHOLE_BASELINE_BEGIN", "AFFINE_WHOLE_BEGIN", "AFFINE_UNIFIED_BEGIN", "AFFINE_CONDITIONED_BEGIN", "AFFINE_AUDIT_END"]
     sections = {markers[i]: log.split(markers[i], 1)[1].split(markers[i + 1], 1)[0]
                 for i in range(len(markers) - 1)}
     baseline = names(sections["AFFINE_BASELINE_BEGIN"])
@@ -78,6 +79,7 @@ def main():
     assert len(whole_baseline) == 42
     assert names(sections["AFFINE_WHOLE_BEGIN"]) == whole_baseline
     assert names(sections["AFFINE_UNIFIED_BEGIN"]) == whole_baseline
+    assert names(sections["AFFINE_CONDITIONED_BEGIN"]) == whole_baseline
     report = {
         "status": "compiled",
         "scope": "incomplete deeper-affine source prototype: checked complete ASTs, dependencies and "
@@ -121,6 +123,9 @@ def main():
         "unified_whole_program_entrypoint": "AffineNestUnifiedCompiler.compile_guardcert",
         "unified_whole_program_theorem": "AffineNestUnifiedCompiler.compile_guardcert_correct",
         "unified_whole_program_assumptions_match_baseline": True,
+        "conditioned_whole_program_entrypoint": "AffineNestConditionedCompiler.compile_guardcert_conditions",
+        "conditioned_whole_program_theorem": "AffineNestConditionedCompiler.compile_guardcert_conditions_correct",
+        "conditioned_whole_program_assumptions_match_baseline": True,
         "same_as_current_checked_region_assumptions": True,
         "same_as_current_whole_program_assumptions": True,
         "single_pointer_candidate_route_only": False,

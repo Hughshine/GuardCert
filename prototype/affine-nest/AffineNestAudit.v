@@ -18,6 +18,7 @@ From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFoot
   AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
 From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
 From GuardAffineNest Require Import AffineNestUnifiedCompiler.
+From GuardAffineNest Require Import GuardedCandidateChoice AffineNestConditionedCompiler.
 From GuardAffineNest Require Import AffineNestSiteSwap AffineNestSitePermutation AffineNestSiteChecker AffineNestBoundedSiteChecker.
 From GuardAffineNest Require Import AffineNestScanModel AffineNestScanPoints AffineNestScanSeparation
   AffineNestScanExecution AffineNestScanAll AffineNestMultiStaticPackage AffineNestPackageScanFootprint
@@ -32,6 +33,7 @@ Print Assumptions affine_scan_points_exact.
 Print Assumptions affine_scan_separation_sound.
 Print Assumptions check_affine_multi_static_package.
 Print Assumptions affine_reserve_multi_scans.
+Print Assumptions first_checked_candidate_sound.
 Print Assumptions inferred_three_level_ranges_accepted.
 Print Assumptions overflowing_inferred_child_range_refused.
 Print Assumptions invalid_configured_root_range_refused.
@@ -171,6 +173,7 @@ Print Assumptions check_affine_region_sound.
 Print Assumptions check_affine_multi_region_sound.
 Print Assumptions validated_affine_site_domain_loops_at.
 Print Assumptions checked_affine_bounded_site_candidate_correct.
+Print Assumptions check_conditioned_region_sound.
 Print Assumptions checked_affine_regions_sound.
 Goal True. idtac "AFFINE_WHOLE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions compile_memory_unified_regions_correct.
@@ -178,4 +181,6 @@ Goal True. idtac "AFFINE_WHOLE_BEGIN". exact I. Qed.
 Print Assumptions compile_affine_regions_correct.
 Goal True. idtac "AFFINE_UNIFIED_BEGIN". exact I. Qed.
 Print Assumptions compile_guardcert_correct.
+Goal True. idtac "AFFINE_CONDITIONED_BEGIN". exact I. Qed.
+Print Assumptions compile_guardcert_conditions_correct.
 Goal True. idtac "AFFINE_AUDIT_END". exact I. Qed.

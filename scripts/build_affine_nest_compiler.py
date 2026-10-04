@@ -29,16 +29,24 @@ def main():
     global WORK, ENTRY
     parser = argparse.ArgumentParser()
     parser.add_argument("--unified", action="store_true")
+    parser.add_argument("--conditioned", action="store_true")
     args = parser.parse_args()
+    if args.conditioned:
+        args.unified = True
     if args.unified:
         WORK = ROOT / "build" / "compcert-guardcert"
         ENTRY = "AffineNestUnifiedCompiler.compile_guardcert"
+    if args.conditioned:
+        WORK = ROOT / "build" / "compcert-guardcert-conditioned"
+        ENTRY = "AffineNestConditionedCompiler.compile_guardcert_conditions"
     polcert_core.select_profile("optimizer")
     proof_path = ROOT / "build" / "affine-nest-foundation-prototype-report.json"
     proof = json.loads(proof_path.read_text())
     baseline = json.loads((ROOT / "build" / "guard-memory-proof-report.json").read_text())
     sources = {**baseline["sources"], **proof["sources"]}
     proof_entry = "unified_whole_program_entrypoint" if args.unified else "whole_program_entrypoint"
+    if args.conditioned:
+        proof_entry = "conditioned_whole_program_entrypoint"
     if (proof["status"] != "compiled" or proof.get(proof_entry) != ENTRY
             or proof["new_global_axioms"] or not proof["same_as_current_whole_program_assumptions"]
             or any(sha(ROOT / filename) != digest for filename, digest in sources.items())):
@@ -53,7 +61,8 @@ def main():
     needle = "(Compiler.transf_c_program csyntax)"
     if original.count(needle) != 1:
         raise SystemExit("unexpected CompCert driver entry")
-    invocation = (ENTRY + " GuardAffineNestCandidate.describe GuardAffineNestCandidate.propose "
+    source_policy = "(GuardAffineNestCandidate.describes ())" if args.conditioned else "GuardAffineNestCandidate.describe"
+    invocation = (ENTRY + " " + source_policy + " GuardAffineNestCandidate.propose "
         + ("GuardMemoryUnifiedCandidate.propose " if args.unified else "")
         + "(GuardMemoryCandidate.natural 32) csyntax")
     replacement = """(let outcome = ref None in
@@ -82,6 +91,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
     extraction = WORK / "extract_affine.v"
     extraction.write_text("From GuardAffineNest Require Import AffineNestWholeCompiler AffineNestPropose AffineNestRangeProposal AffineNestMultiProposal.\n"
         + ("From GuardAffineNest Require Import AffineNestUnifiedCompiler.\n" if args.unified else "")
+        + ("From GuardAffineNest Require Import AffineNestConditionedCompiler.\n" if args.conditioned else "")
         + "From GuardMemory Require Import GuardMemoryScalarTiling.\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"

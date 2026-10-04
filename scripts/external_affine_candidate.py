@@ -81,9 +81,13 @@ def candidate(request,mode,delta):
     return ['map-index',steps,transformed]
 
 
-def generate(directory,output,mode,delta):
+def generate(directory,output,mode,delta,source_match=False):
     files=sorted(directory.glob('*.sexp')); assert files,'no checked affine requests'
-    choices=[['request',path.stem,candidate(parse(path.read_text()),mode,delta)] for path in files]
+    choices=[]
+    for path in files:
+        request=parse(path.read_text());fields={field[0]:field[1] for field in request[1:]}
+        tag,identity=('source',fields['source-identity']) if source_match else ('request',path.stem)
+        choices.append([tag,identity,candidate(request,mode,delta)])
     output.write_text(render(['choices',*choices])+'\n')
     return len(choices)
 
@@ -93,7 +97,8 @@ def main():
     parser.add_argument('requests',type=Path);parser.add_argument('output',type=Path)
     parser.add_argument('--mode',choices=['identity','shift-root','wrong-map','drop-point','fission','reverse-fission'],default='shift-root')
     parser.add_argument('--delta',type=int,default=1)
+    parser.add_argument('--source-match',action='store_true')
     args=parser.parse_args()
-    print('wrote',generate(args.requests,args.output,args.mode,args.delta),'untrusted candidates')
+    print('wrote',generate(args.requests,args.output,args.mode,args.delta,args.source_match),'untrusted candidates')
 
 if __name__=='__main__':main()
