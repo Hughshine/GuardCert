@@ -1,5 +1,7 @@
 # 仿射地址参数的 guarded transformation
 
+本文记录 `1b6e3fd` 阶段的能力及验证数据。该版本的测试源为七个核、568 次调用；随后[固定地址参数的边界扫描](memory-parameter-boundary-scans.md)扩展为八个核、637 次调用，并使用同一新源重新建立前后对照。本文中的完整扫描成本及历史报告不能视作后续版本的当前结果。历史证据保存在 `/tmp/guard-address-parameters-verified`。
+
 这条路线处理实际指针循环中稳定的地址参数。例如 `p[16*i+j+u+32] = q[16*i+j+v+33]*alpha+i*beta+j`。`i,j` 是循环坐标，`u,v` 是地址参数，`alpha,beta` 是普通 RHS 标量。地址参数现在进入源表示、运行时检查、依赖验证和候选机器 lowering 的同一语义接口。
 
 ## 用户入口和运行行为
@@ -44,7 +46,7 @@
 
 `examples/native_memory_address_parameters.c` 有七个源核及 568 次调用，涵盖一至三维地址参数、负地址系数、连续写依赖、同一个参数同时用于地址和 RHS、未使用参数，以及外层空循环中的未定义地址参数。GCC 执行与独立机器整数模型已一致；模型对每次物理读写断言缓冲区内索引，比较完整缓冲区和公共游标。
 
-上一阶段 `4d1c5fd` 的编译器快照（SHA-256 `2a98b41c32034cac344a6b087f9ea5d21592668303136fc702d6c894ea5864ac`）已经完成相同源的一至三维直接候选和二维分块四组配置，共 2272 次完整汇编调用。结果一致，但这四组配置均未在七个核中产生 guarded transformation。报告是 `build/native-memory-address-parameters/before-report.json`。这是新增能力的对照基线，不是新入口运行通过的证据。
+上一阶段 `4d1c5fd` 的编译器快照（SHA-256 `2a98b41c32034cac344a6b087f9ea5d21592668303136fc702d6c894ea5864ac`）已经完成当时相同七核源的一至三维直接候选和二维分块四组配置，共 2272 次完整汇编调用。结果一致，但这四组配置均未在七个核中产生 guarded transformation。历史报告是 `/tmp/guard-address-parameters-verified/address-parameters-before-report.json`。这是新增能力的对照基线，不是新入口运行通过的证据。
 
 新入口的 13 组配置完成 7384 次完整 CompCert 汇编调用，全部与 GCC 和独立机器整数模型一致；包括直接一至三维候选、交换、源序／交换／fission 调度、两种块大小、无效坐标、资源限制和错误证书。源 SHA-256 为 `423531c840f6581aa999c81c43e1605dcc0765d120030bd965f6d7f02aafe685`。
 

@@ -44,6 +44,11 @@ void param_undefined2(int *p,int *q,int start,int n,int m,int s,int u,int v,int 
     p[16*i+j+local_u+32]=q[16*i+j+local_v+33]*alpha+i*beta+j;
   param_out_i=i;param_out_j=j;param_out_k=k;
 }
+void param_different1(int *p,int *q,int start,int n,int m,int s,int u,int v,int alpha,int beta) {
+  int i=start,j=77,k=91;
+  for(;i<n;i++) p[2*i+u+32]=q[3*i+v+33]*alpha+i*beta;
+  param_out_i=i;param_out_j=j;param_out_k=k;
+}
 void parameter_run(int which,int kind,int start,int n,int m,int s,int u,int v,int alpha,int beta) {
   int a[4096],b[4096],*p=a+256,*q=b+256,i;
   for(i=0;i<4096;i++){a[i]=3*i+1;b[i]=5*i+7;}
@@ -58,7 +63,8 @@ void parameter_run(int which,int kind,int start,int n,int m,int s,int u,int v,in
   else if(which==3)param_mixed2(p,q,start,n,m,s,u,v,alpha,beta);
   else if(which==4)param_copy3(p,q,start,n,m,s,u,v,alpha,beta);
   else if(which==5)param_linear1(p,q,start,n,m,s,u,v,alpha,beta);
-  else param_undefined2(p,q,start,n,m,s,u,v,alpha,beta);
+  else if(which==6)param_undefined2(p,q,start,n,m,s,u,v,alpha,beta);
+  else param_different1(p,q,start,n,m,s,u,v,alpha,beta);
   printf("%d %d %d %d %d %d %d %d %d %d %d %d %d",which,kind,start,n,m,s,u,v,alpha,beta,
     param_out_i,param_out_j,param_out_k);
   for(i=0;i<4096;i++)printf(" %d %d",a[i],b[i]);
@@ -633,5 +639,74 @@ int main(void) {
   parameter_run(6,0,0,3,2,2,3,7,(-2147483647-1),2147483647);
   parameter_run(6,5,0,0,2,2,(-2147483647-1),2147483647,(-2147483647-1),2147483647);
   parameter_run(6,5,0,(-2147483647-1),2,2,(-2147483647-1),2147483647,-7,11);
+  parameter_run(7,0,0,0,1,1,3,7,-7,11);
+  parameter_run(7,0,0,1,1,1,3,7,-7,11);
+  parameter_run(7,0,0,2,1,1,3,7,-7,11);
+  parameter_run(7,0,0,8,1,1,3,7,-7,11);
+  parameter_run(7,0,0,32,1,1,3,7,-7,11);
+  parameter_run(7,0,0,465,1,1,3,7,-7,11);
+  parameter_run(7,0,0,466,1,1,3,7,-7,11);
+  parameter_run(7,1,0,0,1,1,3,7,-7,11);
+  parameter_run(7,1,0,1,1,1,3,7,-7,11);
+  parameter_run(7,1,0,2,1,1,3,7,-7,11);
+  parameter_run(7,1,0,8,1,1,3,7,-7,11);
+  parameter_run(7,1,0,32,1,1,3,7,-7,11);
+  parameter_run(7,1,0,465,1,1,3,7,-7,11);
+  parameter_run(7,1,0,466,1,1,3,7,-7,11);
+  parameter_run(7,2,0,0,1,1,3,7,-7,11);
+  parameter_run(7,2,0,1,1,1,3,7,-7,11);
+  parameter_run(7,2,0,2,1,1,3,7,-7,11);
+  parameter_run(7,2,0,8,1,1,3,7,-7,11);
+  parameter_run(7,2,0,32,1,1,3,7,-7,11);
+  parameter_run(7,2,0,465,1,1,3,7,-7,11);
+  parameter_run(7,2,0,466,1,1,3,7,-7,11);
+  parameter_run(7,3,0,0,1,1,3,7,-7,11);
+  parameter_run(7,3,0,1,1,1,3,7,-7,11);
+  parameter_run(7,3,0,2,1,1,3,7,-7,11);
+  parameter_run(7,3,0,8,1,1,3,7,-7,11);
+  parameter_run(7,3,0,32,1,1,3,7,-7,11);
+  parameter_run(7,3,0,465,1,1,3,7,-7,11);
+  parameter_run(7,3,0,466,1,1,3,7,-7,11);
+  parameter_run(7,4,0,0,1,1,3,7,-7,11);
+  parameter_run(7,4,0,1,1,1,3,7,-7,11);
+  parameter_run(7,4,0,2,1,1,3,7,-7,11);
+  parameter_run(7,4,0,8,1,1,3,7,-7,11);
+  parameter_run(7,4,0,32,1,1,3,7,-7,11);
+  parameter_run(7,4,0,465,1,1,3,7,-7,11);
+  parameter_run(7,4,0,466,1,1,3,7,-7,11);
+  parameter_run(7,0,0,3,2,2,0,0,-7,11);
+  parameter_run(7,1,0,3,2,2,0,0,-7,11);
+  parameter_run(7,3,0,3,2,2,0,0,-7,11);
+  parameter_run(7,0,0,3,2,2,1,0,-7,11);
+  parameter_run(7,1,0,3,2,2,1,0,-7,11);
+  parameter_run(7,3,0,3,2,2,1,0,-7,11);
+  parameter_run(7,0,0,3,2,2,0,1,-7,11);
+  parameter_run(7,1,0,3,2,2,0,1,-7,11);
+  parameter_run(7,3,0,3,2,2,0,1,-7,11);
+  parameter_run(7,0,0,3,2,2,63,63,-7,11);
+  parameter_run(7,1,0,3,2,2,63,63,-7,11);
+  parameter_run(7,3,0,3,2,2,63,63,-7,11);
+  parameter_run(7,0,0,3,2,2,64,1,-7,11);
+  parameter_run(7,1,0,3,2,2,64,1,-7,11);
+  parameter_run(7,3,0,3,2,2,64,1,-7,11);
+  parameter_run(7,0,0,3,2,2,1,64,-7,11);
+  parameter_run(7,1,0,3,2,2,1,64,-7,11);
+  parameter_run(7,3,0,3,2,2,1,64,-7,11);
+  parameter_run(7,0,0,3,2,2,65,65,-7,11);
+  parameter_run(7,1,0,3,2,2,65,65,-7,11);
+  parameter_run(7,3,0,3,2,2,65,65,-7,11);
+  parameter_run(7,0,0,3,2,2,-1,0,-7,11);
+  parameter_run(7,1,0,3,2,2,-1,0,-7,11);
+  parameter_run(7,3,0,3,2,2,-1,0,-7,11);
+  parameter_run(7,0,0,3,2,2,0,-1,-7,11);
+  parameter_run(7,1,0,3,2,2,0,-1,-7,11);
+  parameter_run(7,3,0,3,2,2,0,-1,-7,11);
+  parameter_run(7,0,0,3,2,2,-17,-17,-7,11);
+  parameter_run(7,1,0,3,2,2,-17,-17,-7,11);
+  parameter_run(7,3,0,3,2,2,-17,-17,-7,11);
+  parameter_run(7,0,1,3,2,2,3,7,(-2147483647-1),2147483647);
+  parameter_run(7,0,0,3,2,2,3,7,(-2147483647-1),2147483647);
+  parameter_run(7,5,0,0,2,2,(-2147483647-1),2147483647,(-2147483647-1),2147483647);
+  parameter_run(7,5,0,(-2147483647-1),2,2,(-2147483647-1),2147483647,-7,11);
   return 0;
 }

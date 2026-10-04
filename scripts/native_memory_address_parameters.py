@@ -12,9 +12,9 @@ from native_zero_trip import function_body
 ROOT=common.ROOT
 SOURCE=ROOT/'examples/native_memory_address_parameters.c'
 WORK=ROOT/'build/native-memory-address-parameters'
-NAMES=['param_copy2','param_negative2','param_chain2','param_mixed2','param_copy3','param_linear1','param_undefined2']
-DIMENSIONS=[2,2,2,2,3,1,2]
-PARAMETER_NAMES=[['u','v'],['u','v'],['u','v'],['u'],['u','v'],['u','v'],['local_u','local_v']]
+NAMES=['param_copy2','param_negative2','param_chain2','param_mixed2','param_copy3','param_linear1','param_undefined2','param_different1']
+DIMENSIONS=[2,2,2,2,3,1,2,1]
+PARAMETER_NAMES=[['u','v'],['u','v'],['u','v'],['u'],['u','v'],['u','v'],['local_u','local_v'],['u','v']]
 BOUND_NAMES=['n','m','s']
 BUFFER_SIZE=4096
 
@@ -52,6 +52,7 @@ def accesses(which,coordinates,u,v):
     if which==1:return [('p',1023-16*i-j-u),('q',1022-16*i-j-v)]
     if which==4:return [('p',64*i+8*j+k+u+16),('q',64*i+8*j+k+v+16)]
     if which==5:return [('p',2*i+u+32),('q',2*i+v+33)]
+    if which==7:return [('p',2*i+u+32),('q',3*i+v+33)]
     if which==3:return [('p',16*i+j+u+32),('q',16*i+j+u+33)]
     if which==2:return [('p',16*i+j+u+32),('q',16*i+j+v+32),('q',16*i+j+v+33)]
     return [('p',16*i+j+u+32),('q',16*i+j+v+33)]
@@ -116,6 +117,7 @@ def observed_functions(dump):
             'address_parameter_identifiers':parameter_identifiers,
             'address_parameter_caps':[limits[x]+1 for x in parameter_identifiers],
             'whole_source_region':len(count_identifiers)==DIMENSIONS[which],'body_bytes':len(body.encode())}
+        found[fn]['coordinate_coefficient_vectors_equal']=which!=7
     return found
 
 
@@ -143,6 +145,7 @@ def main():
     else:
         stamp=common.check_build();proof=json.loads((ROOT/'build/guard-memory-proof-report.json').read_text())
         assert proof['pointer_affine_address_parameters_csem_asm_proved']
+        assert proof['pointer_affine_address_parameter_boundary_scans_csem_asm_proved']
     options=[(name,syntax,{}) for name,syntax in templates().items()]
     options += [(name,templates()['schedule-interchange-2'],extra) for name,extra in [
         ('resource-limit',{'GUARDCERT_FM_ROWS':'0'}),('invalid-certificate',{'GUARDCERT_ORACLE_FAULT':'top-certificate'})]]
@@ -152,7 +155,8 @@ def main():
         if name not in selected:continue
         dump,cb,ab=common.compile_run(SOURCE,WORK/('before' if args.previous_compiler else 'after')/name,'(per-axis '+syntax+')',extra,reference)
         found=observed_functions(dump)
-        if args.previous_compiler or extra or name=='invalid-coordinate':assert not found,(name,found)
+        address_support=not args.previous_compiler or 'adapters/compcert-memory/GuardMemoryParamAxisCompiler.v' in stamp['proof_sources']
+        if not address_support or extra or name=='invalid-coordinate':assert not found,(name,found)
         else:
             expected={fn for fn,d in zip(NAMES,DIMENSIONS) if d>=2} if name.startswith('tile') else {fn for fn,d in zip(NAMES,DIMENSIONS) if d==int(name[-1])}
             assert expected<=set(found),(name,found)

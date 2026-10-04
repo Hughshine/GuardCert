@@ -69,7 +69,7 @@ def diagnostic(name,configuration,previous=False):
                         if which==2:cells['q'].add((block,base+write+1))
                 entered=int(valid and not(cells['p']&cells['q']))
                 points=math.prod(counts);pairs=12 if which==2 else 2
-                tested=pairs*(points**2 if parameters else 2**len(caps)*points) if valid else 0
+                tested=pairs*(2**len(caps))*points if valid else 0
                 hits+=entered;comparisons+=tested;rejected+=1-entered
                 entry_records.append({'outer_coordinates':list(prefix),'actual_fast_path':bool(entered),'actual_pointer_comparisons':tested})
             fast+=int(hits>0);fallback+=int(hits==0);queries+=comparisons
@@ -83,7 +83,7 @@ def diagnostic(name,configuration,previous=False):
         'actual_fast_path_region_entries':fast_entries,'fallback_region_entries':fallback_entries,
         'nested_region_source_calls':nested_calls,'actual_pointer_comparisons':queries,'selected_calls':selected,
         'full_arrays_and_public_counters_match_model':True,
-        'scope':'instrumented Clight; whole vector regions retain boundary scans, newly supported parameterized inner regions use fixed-parameter full scans; complete assembly execution reported separately'}
+        'scope':'instrumented Clight; equal coordinate coefficients use boundary scans for whole and parameterized inner regions; complete assembly execution reported separately'}
 
 
 def main():

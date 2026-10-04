@@ -10,6 +10,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryRectangles GuardMe
 From GuardMemory Require Import GuardMemoryAxisPointerFootprint GuardMemoryAxisPointerPairs GuardMemoryAffineAxisPairScan GuardMemoryAxisPairChoice.
 From GuardMemory Require Import GuardMemoryRecursiveDomain.
 From GuardMemory Require Import GuardMemoryParamPointerSyntax GuardMemoryParamPointerProjectedCandidate GuardMemoryParamAxisFootprint GuardMemoryParamAxisPairs GuardMemoryParamAxisPairScan.
+From GuardMemory Require Import GuardMemoryParamAxisPairChoice.
 Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -18,8 +19,9 @@ Fixpoint memory_param_axis_access_pairs_statement layout left_counters right_cou
   match pairs with
   | [] => Sskip
   | (first,second)::rest => Ssequence
-      (memory_param_affine_axis_pair_statement layout left_counters right_counters parameters flag bounds
+      (memory_param_affine_axis_pair_choice_statement layout left_counters right_counters parameters flag bounds
         (memory_nary_access_array first) (memory_nary_access_array second)
+        (memory_nary_access_index first) (memory_nary_access_index second)
         (memory_nary_access_expression first) (memory_nary_access_expression second))
       (memory_param_axis_access_pairs_statement layout left_counters right_counters parameters flag bounds rest)
   end.
@@ -87,7 +89,7 @@ Proof.
         + apply in_or_app; right; apply in_or_app; left; exact FIRST_ID.
         + apply in_or_app; right; apply in_or_app; left; exact SECOND_ID.
         + exact MEMBER. }
-    destruct (@memory_param_affine_axis_pair_execution (memory_nary_access_expression first) (memory_nary_access_expression second)
+    destruct (@memory_param_affine_axis_pair_choice_execution (memory_nary_access_expression first) (memory_nary_access_expression second)
       (memory_nary_access_index first) (memory_nary_access_index second)
       (memory_nest_iterators (param_pointer_region_nest package)++param_pointer_region_parameters package) left_counters right_counters
       (param_pointer_region_parameters package) (memory_nest_bounds (param_pointer_region_nest package)) counts
@@ -115,6 +117,9 @@ Proof.
     + intro BAD; apply FLAG_FRESH,EXPAND; exact BAD.
     + exact WORDS.
     + exact PARAM_WORDS.
+    + unfold memory_recursive_parameters; apply Forall_forall.
+      intros value MEMBER; apply in_map_iff in MEMBER as [identifier [<- MEMBER]].
+      unfold signed_range; apply Int.signed_range.
     + eapply temp_agree_weaken; [exact EXPAND|exact FRAME].
     + exact FLAG.
     + intros coordinates COORDINATES; split; eapply memory_param_axis_pointer_access_capability;

@@ -38,6 +38,8 @@ MODULES[-1:-1] = AXIS_ALIAS_MODULES
 VECTOR_AXIS_MODULES = ['GuardMemoryVectorBounds', 'GuardMemoryVectorDomain', 'GuardMemoryVectorGuard', 'GuardMemoryVectorChecker', 'GuardMemoryVectorPointerBounds', 'GuardMemoryVectorPointerSyntax', 'GuardMemoryVectorPointerBody', 'GuardMemoryVectorPointerDomain', 'GuardMemoryVectorTiling', 'GuardMemoryVectorPointerFootprint', 'GuardMemoryVectorPointerProjectedCandidate', 'GuardMemoryVectorAxisFootprint', 'GuardMemoryVectorAxisPairs', 'GuardMemoryVectorAxisScan', 'GuardMemoryVectorRuntimeFrame', 'GuardMemoryVectorAxisFrame', 'GuardMemoryVectorAxisGuard', 'GuardMemoryVectorAxisCompiler', 'GuardMemoryVectorAxisServices', 'GuardMemoryVectorAxisDescribe']
 MODULES[-1:-1] = VECTOR_AXIS_MODULES
 ADDRESS_PARAM_MODULES = ['GuardMemoryPointerDefinedIndex', 'GuardMemoryPointerSourceWords', 'GuardMemoryParamAxisPairScan', 'GuardMemoryParameterRanges', 'GuardMemoryParamPointerSyntax', 'GuardMemoryParamPointerBody', 'GuardMemoryParamPointerDomain', 'GuardMemoryParamPointerHeader', 'GuardMemoryParamPointerBounds', 'GuardMemoryParamPointerProjectedCandidate', 'GuardMemoryParamPointerFootprint', 'GuardMemoryParamAxisFootprint', 'GuardMemoryParamAxisPairs', 'GuardMemoryParamAxisScan', 'GuardMemoryParamRuntimeFrame', 'GuardMemoryParamAxisFrame', 'GuardMemoryParamAxisGuard', 'GuardMemoryParamAxisCompiler', 'GuardMemoryParamAxisServices', 'GuardMemoryParamAxisDescribe']
+PARAM_BOUNDARY_MODULES = ['GuardMemoryParamBoundaryMath', 'GuardMemoryParamBoundaryCells', 'GuardMemoryParamBoundaryTest', 'GuardMemoryParamBoundaryScan', 'GuardMemoryParamBoundaryMasks', 'GuardMemoryParamBoundaryPair', 'GuardMemoryParamAxisPairChoice']
+ADDRESS_PARAM_MODULES[ADDRESS_PARAM_MODULES.index('GuardMemoryParamAxisScan'):ADDRESS_PARAM_MODULES.index('GuardMemoryParamAxisScan')] = PARAM_BOUNDARY_MODULES
 MODULES[-1:-1] = ADDRESS_PARAM_MODULES
 STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
@@ -98,6 +100,7 @@ From GuardMemory Require Import GuardMemoryBooleanRectangle GuardMemoryBooleanRe
 From GuardMemory Require Import GuardMemoryAxisBoundaryMath GuardMemoryAxisRepeatedRenaming GuardMemoryAxisRepeatedAddress GuardMemoryAxisBoundaryNames GuardMemoryAxisBoundaryCells GuardMemoryAxisBoundaryTest GuardMemoryAxisBoundaryScan GuardMemoryAxisBoundaryMasks GuardMemoryAxisBoundaryPair GuardMemoryAxisPairChoice.
 From GuardMemory Require Import GuardMemoryStatefulLanguage GuardMemoryStatefulEntry GuardMemoryStatefulRule GuardMemoryStatefulComposition GuardMemoryAffineRenaming GuardMemoryAffineRangeAddress GuardMemoryAffinePairScan GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePointerScan GuardMemoryAffinePointerFrame GuardMemoryAffinePointerGuard GuardMemoryAffinePointerCompiler.
 From GuardMemory Require Import GuardMemoryVectorBounds GuardMemoryVectorDomain GuardMemoryVectorGuard GuardMemoryVectorChecker GuardMemoryVectorPointerBounds GuardMemoryVectorPointerSyntax GuardMemoryVectorPointerBody GuardMemoryVectorPointerDomain GuardMemoryVectorTiling GuardMemoryVectorPointerFootprint GuardMemoryVectorPointerProjectedCandidate GuardMemoryVectorAxisFootprint GuardMemoryVectorAxisPairs GuardMemoryVectorAxisScan GuardMemoryVectorRuntimeFrame GuardMemoryVectorAxisFrame GuardMemoryVectorAxisGuard GuardMemoryVectorAxisCompiler GuardMemoryVectorAxisServices GuardMemoryVectorAxisDescribe.
+From GuardMemory Require Import GuardMemoryParamBoundaryMath GuardMemoryParamBoundaryCells GuardMemoryParamBoundaryTest GuardMemoryParamBoundaryScan GuardMemoryParamBoundaryMasks GuardMemoryParamBoundaryPair GuardMemoryParamAxisPairChoice.
 From GuardMemory Require Import GuardMemoryPointerDefinedIndex GuardMemoryPointerSourceWords GuardMemoryParamAxisPairScan GuardMemoryParameterRanges GuardMemoryParamPointerSyntax GuardMemoryParamPointerBody GuardMemoryParamPointerDomain GuardMemoryParamPointerHeader GuardMemoryParamPointerBounds GuardMemoryParamPointerProjectedCandidate GuardMemoryParamPointerFootprint GuardMemoryParamAxisFootprint GuardMemoryParamAxisPairs GuardMemoryParamAxisScan GuardMemoryParamRuntimeFrame GuardMemoryParamAxisFrame GuardMemoryParamAxisGuard GuardMemoryParamAxisCompiler GuardMemoryParamAxisServices GuardMemoryParamAxisDescribe.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -133,6 +136,12 @@ Print Assumptions memory_vector_encoder_count_scalar_ranges.
 Print Assumptions memory_vector_bounds_accept_temp_frame.
 Print Assumptions memory_vector_guard_accept_temp_frame.
 Print Assumptions check_memory_param_pointer_region.
+Print Assumptions memory_param_boundary_specialize_value.
+Print Assumptions memory_param_boundary_overlap.
+Print Assumptions memory_param_rectangle_active_ext.
+Print Assumptions memory_param_axis_full_specialize.
+Print Assumptions memory_param_axis_boundary_specialize.
+Print Assumptions memory_param_axis_boundary_pair_exact.
 Print Assumptions memory_parameter_range_sound.
 Print Assumptions memory_parameter_ranges_sound.
 Print Assumptions memory_param_validator_count_parameter_scalar_ranges.
@@ -584,6 +593,11 @@ Print Assumptions memory_param_pointer_projected_candidate_rule.
 Print Assumptions memory_param_pointer_source_footprint.
 Print Assumptions memory_param_axis_pointer_runtime_footprint.
 Print Assumptions memory_param_axis_pointer_pairs_separation.
+Print Assumptions memory_param_affine_axis_boundary_test_evaluation.
+Print Assumptions memory_param_affine_axis_boundary_mask_execution.
+Print Assumptions memory_param_affine_axis_boundary_masks_execution.
+Print Assumptions memory_param_affine_axis_boundary_pair_execution.
+Print Assumptions memory_param_affine_axis_pair_choice_execution.
 Print Assumptions memory_param_affine_axis_pair_execution.
 Print Assumptions memory_param_axis_access_pairs_execution.
 Print Assumptions memory_param_axis_pointer_guard_execution.
@@ -644,10 +658,13 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "multi_axis_per_axis_bounds_source_and_guard_proved": True,
         "multi_axis_per_axis_bounds_candidate_and_lowering_proved": True,
         "multi_axis_per_axis_bounds_csem_asm_proved": True,
+        "pointer_affine_address_parameter_boundary_scans_proved": True,
+        "pointer_affine_address_parameter_boundary_scans_csem_asm_proved": True,
+        "pointer_affine_address_parameter_boundary_scans_scope": "fixed actual address parameters; boundary masks over active coordinate axes only; compare coordinate coefficient prefixes, allowing different parameter coefficients; exact full-check equivalence under source-derived physical capabilities; 2^d P for equal coordinate coefficients and full P^2 otherwise; same cap profiles, candidates and whole-program contract; no unconditional speedup or raw-pair deduplication",
         "pointer_affine_address_parameters_source_and_guard_proved": True,
         "pointer_affine_address_parameters_candidate_and_lowering_proved": True,
         "pointer_affine_address_parameters_csem_asm_proved": True,
-        "pointer_affine_address_parameters_scope": "opt-in per-axis candidate template; one or more canonical rectangular axes; one or more stable signed address temporaries with checked nonnegative finite intervals; independent source package checks, source-derived conditional word types and physical cells; private scans retain fixed parameter values and iterate only active coordinates; mapped and scheduled candidates and outer-two-axis tiling; full signed RHS scalars remain separate; finite parameter cap profiles and greedy axis caps; no allocation extent assumption; full pair scans, no parameterized strides or negative address parameter fast path",
+        "pointer_affine_address_parameters_scope": "opt-in per-axis candidate template; one or more canonical rectangular axes; one or more stable signed address temporaries with checked nonnegative finite intervals; independent source package checks, source-derived conditional word types and physical cells; private scans retain fixed parameter values and iterate only active coordinates; mapped and scheduled candidates and outer-two-axis tiling; full signed RHS scalars remain separate; finite parameter cap profiles and greedy axis caps; no allocation extent assumption; boundary scans for equal coordinate coefficient prefixes, full pair scans otherwise; no parameterized strides or negative address parameter fast path",
         "multi_axis_per_axis_bounds_scope": "opt-in per-axis candidate template; canonical rectangular counted pointer sources; individually checked positive signed caps, greedy source-access box proposal and finite single-axis tightening; actual source-derived word/read/write capabilities, short-circuit check encoding, stable RHS scalars, mapped and scheduled candidates and outer-two-axis tiling; no logical-window allocation assumption",
         "multi_axis_loop_alias_guard_boundary_strategy_proved": True,
         "multi_axis_loop_alias_guard_boundary_strategy_scope": "equal full affine coefficient vectors; modular physical-pointer offsets; static Boolean masks and one private active-rectangle scan per mask, using source-capable boundary coordinates; exactly the previous full-pair Boolean result under source capabilities; 2^d times P comparisons per raw cross-pointer access pair; other coefficient vectors retain the quadratic scan",
