@@ -26,7 +26,7 @@ MODULES = [
     "AffineNestPackageDecode", "AffineNestSingleFootprint", "AffineNestPackageRanges", "AffineNestShadowTransport",
     "AffineNestCandidateLocal", "AffineNestRegion", "AffineNestStaticPackage", "AffineNestStaticExamples",
     "AffineNestCandidateEvidence", "AffineNestCheckedCompiler", "AffineNestWholeCompiler", "AffineNestPropose", "AffineNestProposeExamples",
-    "AffineNestRangeProposal", "AffineNestRangeProposalExamples", "AffineNestAudit",
+    "AffineNestRangeProposal", "AffineNestRangeProposalExamples", "AffineNestUnifiedCompiler", "AffineNestAudit",
 ]
 
 
@@ -55,7 +55,7 @@ def main():
     log = log_path.read_text()
     markers = ["AFFINE_SYNTAX_BEGIN", "AFFINE_BASELINE_BEGIN", "AFFINE_SOURCE_BEGIN",
                "AFFINE_EXIT_BEGIN", "AFFINE_CHECKED_BASELINE_BEGIN", "AFFINE_CHECKED_BEGIN",
-               "AFFINE_WHOLE_BASELINE_BEGIN", "AFFINE_WHOLE_BEGIN", "AFFINE_AUDIT_END"]
+               "AFFINE_WHOLE_BASELINE_BEGIN", "AFFINE_WHOLE_BEGIN", "AFFINE_UNIFIED_BEGIN", "AFFINE_AUDIT_END"]
     sections = {markers[i]: log.split(markers[i], 1)[1].split(markers[i + 1], 1)[0]
                 for i in range(len(markers) - 1)}
     baseline = names(sections["AFFINE_BASELINE_BEGIN"])
@@ -69,6 +69,7 @@ def main():
     whole_baseline = names(sections["AFFINE_WHOLE_BASELINE_BEGIN"])
     assert len(whole_baseline) == 42
     assert names(sections["AFFINE_WHOLE_BEGIN"]) == whole_baseline
+    assert names(sections["AFFINE_UNIFIED_BEGIN"]) == whole_baseline
     report = {
         "status": "compiled",
         "scope": "incomplete deeper-affine source prototype: checked complete ASTs, dependencies and "
@@ -108,6 +109,9 @@ def main():
         "whole_program_theorem_compiled": True,
         "whole_program_entrypoint": "AffineNestWholeCompiler.compile_affine_regions",
         "whole_program_theorem": "AffineNestWholeCompiler.compile_affine_regions_correct",
+        "unified_whole_program_entrypoint": "AffineNestUnifiedCompiler.compile_guardcert",
+        "unified_whole_program_theorem": "AffineNestUnifiedCompiler.compile_guardcert_correct",
+        "unified_whole_program_assumptions_match_baseline": True,
         "same_as_current_checked_region_assumptions": True,
         "same_as_current_whole_program_assumptions": True,
         "single_pointer_candidate_route_only": True,

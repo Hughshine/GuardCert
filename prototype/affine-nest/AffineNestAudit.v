@@ -17,6 +17,7 @@ From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFoot
   AffineNestShadowTransport AffineNestCandidateLocal AffineNestRegion AffineNestStaticPackage AffineNestStaticExamples
   AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
 From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
+From GuardAffineNest Require Import AffineNestUnifiedCompiler.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
 Print Assumptions affine_infer_axis_ranges.
 Print Assumptions affine_infer_address_window.
@@ -153,4 +154,6 @@ Goal True. idtac "AFFINE_WHOLE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions compile_memory_unified_regions_correct.
 Goal True. idtac "AFFINE_WHOLE_BEGIN". exact I. Qed.
 Print Assumptions compile_affine_regions_correct.
+Goal True. idtac "AFFINE_UNIFIED_BEGIN". exact I. Qed.
+Print Assumptions compile_guardcert_correct.
 Goal True. idtac "AFFINE_AUDIT_END". exact I. Qed.

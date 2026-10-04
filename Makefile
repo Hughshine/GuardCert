@@ -412,3 +412,11 @@ native-affine-nest:
 native-affine-nest-ranges:
 	python3 scripts/native_affine_nest_ranges.py
 	python3 scripts/native_affine_nest_ranges_paths.py
+
+.PHONY: guardcert-compiler native-guardcert
+guardcert-compiler:
+	python3 scripts/build_affine_nest_compiler.py --unified
+
+native-guardcert:
+	python3 scripts/native_guardcert.py
+	python3 scripts/native_guardcert_paths.py

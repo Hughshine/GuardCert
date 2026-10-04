@@ -29,7 +29,8 @@ def guard_test_counters(source,functions):
         source=source.replace(body,changed,1)
     return f'unsigned long long guard_address_tests[{max(1,len(functions))}];\nunsigned long long guard_parameter_tests[{max(1,len(functions))}];\n'+source
 
-def diagnostic(name,configuration):
+def diagnostic(name,configuration,fixture=f):
+    f=fixture
     work=f.WORK/name;functions=configuration['guarded_functions']
     source=guard_test_counters(mark_functions((work/(f.SOURCE.stem+'.light.c')).read_text(),functions),functions)
     calls=[];expected='';fast=fallback=entries=fast_entries=negative_root=negative_parameter=negative_index=undefined_entries=parameter_queries=pointer_queries=shared_disjoint=alias_refusals=0;selected={}

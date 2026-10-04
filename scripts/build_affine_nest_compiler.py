@@ -1,5 +1,6 @@
 """Extract and build the checked deeper-affine whole-program prototype."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import shutil
@@ -25,12 +26,20 @@ def run(*arguments):
 
 
 def main():
+    global WORK, ENTRY
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--unified", action="store_true")
+    args = parser.parse_args()
+    if args.unified:
+        WORK = ROOT / "build" / "compcert-guardcert"
+        ENTRY = "AffineNestUnifiedCompiler.compile_guardcert"
     polcert_core.select_profile("optimizer")
     proof_path = ROOT / "build" / "affine-nest-foundation-prototype-report.json"
     proof = json.loads(proof_path.read_text())
     baseline = json.loads((ROOT / "build" / "guard-memory-proof-report.json").read_text())
     sources = {**baseline["sources"], **proof["sources"]}
-    if (proof["status"] != "compiled" or proof.get("whole_program_entrypoint") != ENTRY
+    proof_entry = "unified_whole_program_entrypoint" if args.unified else "whole_program_entrypoint"
+    if (proof["status"] != "compiled" or proof.get(proof_entry) != ENTRY
             or proof["new_global_axioms"] or not proof["same_as_current_whole_program_assumptions"]
             or any(sha(ROOT / filename) != digest for filename, digest in sources.items())):
         raise SystemExit("recompile and audit the current affine-nest prototype before extraction")
@@ -45,7 +54,8 @@ def main():
     if original.count(needle) != 1:
         raise SystemExit("unexpected CompCert driver entry")
     invocation = (ENTRY + " GuardAffineNestCandidate.describe GuardAffineNestCandidate.propose "
-        "(GuardMemoryCandidate.natural 32) csyntax")
+        + ("GuardMemoryUnifiedCandidate.propose " if args.unified else "")
+        + "(GuardMemoryCandidate.natural 32) csyntax")
     replacement = """(let outcome = ref None in
       ImpureConfig.Core.Base.bind (INVOCATION)
         (fun (result, alarm_free) -> outcome := Some (result, alarm_free); ());
@@ -71,7 +81,8 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
 '''
     extraction = WORK / "extract_affine.v"
     extraction.write_text("From GuardAffineNest Require Import AffineNestWholeCompiler AffineNestPropose AffineNestRangeProposal.\n"
-        "From GuardMemory Require Import GuardMemoryScalarTiling.\n"
+        + ("From GuardAffineNest Require Import AffineNestUnifiedCompiler.\n" if args.unified else "")
+        + "From GuardMemory Require Import GuardMemoryScalarTiling.\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
         + extraction_text.replace("Separate Extraction\n", mappings + "\nSeparate Extraction " + ENTRY
@@ -91,6 +102,9 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         ("GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml", "GuardMemoryCandidate.ml")]
     native_sources.append(DIRECTORY / "native" / "GuardAffineNestCandidate.ml")
     native_sources.append(DIRECTORY / "native" / "GuardAffineNestTiling.ml")
+    if args.unified:
+        native_sources += [ADAPTER / "native" / name for name in
+                           ("GuardMemoryScheduleInput.ml", "GuardMemoryUnifiedCandidate.ml")]
     for path in native_sources:
         name = "GuardMemoryNumbers.ml" if path.name == "GuardMemoryNumbersCompCert.ml" else path.name
         shutil.copy2(path, WORK / "extraction" / name)

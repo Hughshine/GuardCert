@@ -62,7 +62,7 @@ def guard_accepts(args):
             and (fixture.DEPTHS[which] == 2 or -8 <= p <= 8))
 
 
-def diagnostic(name, configuration):
+def diagnostic(name, configuration,fixture=fixture):
     work = fixture.WORK / name
     names = [fn for fn, facts in configuration["functions"].items() if facts["guarded"]]
     source = marked_source((work / (fixture.SOURCE.stem + ".light.c")).read_text(), names)
