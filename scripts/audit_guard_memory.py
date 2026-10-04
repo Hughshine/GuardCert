@@ -35,6 +35,8 @@ AXIS_ALIAS_MODULES = ['GuardMemoryBooleanRectangle', 'GuardMemoryBooleanRectangl
 AXIS_BOUNDARY_MODULES = ['GuardMemoryAxisBoundaryMath', 'GuardMemoryAxisRepeatedRenaming', 'GuardMemoryAxisRepeatedAddress', 'GuardMemoryAxisBoundaryNames', 'GuardMemoryAxisBoundaryCells', 'GuardMemoryAxisBoundaryTest', 'GuardMemoryAxisBoundaryScan', 'GuardMemoryAxisBoundaryMasks', 'GuardMemoryAxisBoundaryPair', 'GuardMemoryAxisPairChoice']
 AXIS_ALIAS_MODULES[6:6] = AXIS_BOUNDARY_MODULES
 MODULES[-1:-1] = AXIS_ALIAS_MODULES
+VECTOR_AXIS_MODULES = ['GuardMemoryVectorBounds', 'GuardMemoryVectorDomain', 'GuardMemoryVectorGuard', 'GuardMemoryVectorChecker', 'GuardMemoryVectorPointerBounds', 'GuardMemoryVectorPointerSyntax', 'GuardMemoryVectorPointerBody', 'GuardMemoryVectorPointerDomain', 'GuardMemoryVectorTiling', 'GuardMemoryVectorPointerFootprint', 'GuardMemoryVectorPointerProjectedCandidate', 'GuardMemoryVectorAxisFootprint', 'GuardMemoryVectorAxisPairs', 'GuardMemoryVectorAxisScan', 'GuardMemoryVectorRuntimeFrame', 'GuardMemoryVectorAxisFrame', 'GuardMemoryVectorAxisGuard', 'GuardMemoryVectorAxisCompiler', 'GuardMemoryVectorAxisServices', 'GuardMemoryVectorAxisDescribe']
+MODULES[-1:-1] = VECTOR_AXIS_MODULES
 STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
@@ -93,6 +95,7 @@ From GuardMemory Require Import GuardMemoryAffineEndpointMath GuardMemoryAffineE
 From GuardMemory Require Import GuardMemoryBooleanRectangle GuardMemoryBooleanRectangleExecution GuardMemoryAffineAxisRenaming GuardMemoryAffineAxisAddress GuardMemoryAffineAxisPairScan GuardMemoryAxisPointerFootprint GuardMemoryAxisPointerPairs GuardMemoryAxisPointerScan GuardMemoryAxisPointerFrame GuardMemoryAxisPointerGuard GuardMemoryAxisPointerCompiler GuardMemoryAxisPointerServices GuardMemoryAxisPointerDescribe.
 From GuardMemory Require Import GuardMemoryAxisBoundaryMath GuardMemoryAxisRepeatedRenaming GuardMemoryAxisRepeatedAddress GuardMemoryAxisBoundaryNames GuardMemoryAxisBoundaryCells GuardMemoryAxisBoundaryTest GuardMemoryAxisBoundaryScan GuardMemoryAxisBoundaryMasks GuardMemoryAxisBoundaryPair GuardMemoryAxisPairChoice.
 From GuardMemory Require Import GuardMemoryStatefulLanguage GuardMemoryStatefulEntry GuardMemoryStatefulRule GuardMemoryStatefulComposition GuardMemoryAffineRenaming GuardMemoryAffineRangeAddress GuardMemoryAffinePairScan GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePointerScan GuardMemoryAffinePointerFrame GuardMemoryAffinePointerGuard GuardMemoryAffinePointerCompiler.
+From GuardMemory Require Import GuardMemoryVectorBounds GuardMemoryVectorDomain GuardMemoryVectorGuard GuardMemoryVectorChecker GuardMemoryVectorPointerBounds GuardMemoryVectorPointerSyntax GuardMemoryVectorPointerBody GuardMemoryVectorPointerDomain GuardMemoryVectorTiling GuardMemoryVectorPointerFootprint GuardMemoryVectorPointerProjectedCandidate GuardMemoryVectorAxisFootprint GuardMemoryVectorAxisPairs GuardMemoryVectorAxisScan GuardMemoryVectorRuntimeFrame GuardMemoryVectorAxisFrame GuardMemoryVectorAxisGuard GuardMemoryVectorAxisCompiler GuardMemoryVectorAxisServices GuardMemoryVectorAxisDescribe.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
 Goal True. idtac "MEM_VALIDATOR_BASE". exact I. Qed.
@@ -117,6 +120,15 @@ Print Assumptions memory_axis_boundary_masks_length.
 Print Assumptions memory_axis_boundary_names_bindings.
 Print Assumptions memory_affine_axis_boundary_pair_exact.
 Print Assumptions memory_axis_boundary_masks_valid.
+Print Assumptions memory_vector_bounds_sound.
+Print Assumptions memory_register_range_monotone.
+Print Assumptions memory_vector_bounds_domain_from_uniform.
+Print Assumptions memory_vector_parameter_data.
+Print Assumptions memory_vector_guard_sound.
+Print Assumptions memory_vector_validator_count_scalar_ranges.
+Print Assumptions memory_vector_encoder_count_scalar_ranges.
+Print Assumptions memory_vector_bounds_accept_temp_frame.
+Print Assumptions memory_vector_guard_accept_temp_frame.
 Goal True. idtac "MEM_PHYSICAL_REGISTRY". exact I. Qed.
 Print Assumptions flat_array_locations_nonalias.
 Print Assumptions memory_pointer_buffer_locations_nonalias.
@@ -524,6 +536,26 @@ Print Assumptions check_memory_axis_pointer_scheduled_package_sound.
 Print Assumptions check_memory_axis_pointer_tiled_package_sound.
 Print Assumptions check_memory_axis_pointer_caps_sound.
 Print Assumptions check_memory_affine_pointer_unified_region_sound.
+Print Assumptions memory_vector_source_bound_words.
+Print Assumptions memory_vector_bounds_exact.
+Print Assumptions memory_vector_guard_exact.
+Print Assumptions check_memory_vector_pointer_region.
+Print Assumptions memory_vector_pointer_source_first_capability.
+Print Assumptions memory_vector_pointer_body_source_decode.
+Print Assumptions memory_vector_pointer_source_under_ranges.
+Print Assumptions memory_vector_pointer_region_source_domain.
+Print Assumptions memory_vector_pointer_source_runtime_domain.
+Print Assumptions memory_vector_pointer_projected_candidate_rule.
+Print Assumptions checked_memory_bounded_candidate_correct.
+Print Assumptions checked_memory_bounded_tiling_correct.
+Print Assumptions memory_vector_axis_access_pairs_execution.
+Print Assumptions memory_vector_axis_pointer_guard_execution.
+Print Assumptions check_memory_vector_axis_pointer_region_candidate_sound.
+Print Assumptions check_memory_vector_axis_pointer_mapped_package_sound.
+Print Assumptions check_memory_vector_axis_pointer_scheduled_package_sound.
+Print Assumptions check_memory_vector_axis_pointer_tiled_package_sound.
+Print Assumptions check_memory_vector_axis_profiles_sound.
+Print Assumptions check_memory_vector_axis_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -572,6 +604,10 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "affine_loop_alias_guard_linear_strategy_scope": "equal affine slopes or either affine slope zero; one private counted loop with two source-derived endpoint comparisons per cross-pointer access pair; arbitrary signed slopes and modular pointer offsets",
         "multi_axis_loop_alias_guard_proved": True,
         "multi_axis_loop_alias_guard_csem_asm_route_proved": True,
+        "multi_axis_per_axis_bounds_source_and_guard_proved": True,
+        "multi_axis_per_axis_bounds_candidate_and_lowering_proved": True,
+        "multi_axis_per_axis_bounds_csem_asm_proved": True,
+        "multi_axis_per_axis_bounds_scope": "opt-in per-axis candidate template; canonical rectangular counted pointer sources; individually checked positive signed caps, greedy source-access box proposal and finite single-axis tightening; actual source-derived word/read/write capabilities, short-circuit check encoding, stable RHS scalars, mapped and scheduled candidates and outer-two-axis tiling; no logical-window allocation assumption",
         "multi_axis_loop_alias_guard_boundary_strategy_proved": True,
         "multi_axis_loop_alias_guard_boundary_strategy_scope": "equal full affine coefficient vectors; modular physical-pointer offsets; static Boolean masks and one private active-rectangle scan per mask, using source-capable boundary coordinates; exactly the previous full-pair Boolean result under source capabilities; 2^d times P comparisons per raw cross-pointer access pair; other coefficient vectors retain the quadratic scan",
         "multi_axis_loop_alias_guard_scope": "any finite canonical rectangular counted nest, independent signed32 bounds including shared bound identifiers; signed affine source-coordinate pointer addresses; two private counter vectors and one flag; all cross-pointer access pairs scanned over the active source rectangle; raw-access budget 32, logical window 1024, certified cap search [1024,64,32,16,8,4,1]; mapped, generated-schedule and two-dimensional tiling candidates; equal coefficient vectors use 2^d boundary rectangles times active points; other pairs remain quadratic in the number of active points",

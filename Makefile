@@ -361,3 +361,8 @@ native-memory-axis-alias: memory-unified-compiler
 .PHONY: native-memory-axis-pair-choice
 native-memory-axis-pair-choice: native-memory-multi-pointer
 	python3 scripts/native_memory_axis_pair_choice_paths.py
+
+.PHONY: native-memory-axis-bounds
+native-memory-axis-bounds: memory-unified-compiler
+	python3 scripts/native_memory_axis_bounds.py
+	python3 scripts/native_memory_axis_bounds_paths.py

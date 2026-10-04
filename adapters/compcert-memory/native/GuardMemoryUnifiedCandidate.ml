@@ -18,7 +18,14 @@ let propose request =
   let instructions = request.GuardMemoryUnifiedCompiler.request_instructions in
   let dimensions = GuardMemoryScheduleInput.natural_size request.GuardMemoryUnifiedCompiler.request_coordinates in
   let arity = GuardMemoryScheduleInput.natural_size request.GuardMemoryUnifiedCompiler.request_context_arity in
-  try match Lazy.force GuardMemoryCandidate.template with
+  try
+    let syntax = match Lazy.force GuardMemoryCandidate.template with
+      | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "per-axis"; syntax]) ->
+          if not request.GuardMemoryUnifiedCompiler.request_per_axis_bounds then
+            invalid_arg "per-axis candidate requires a checked vector source package";
+          Some syntax
+      | syntax -> if request.GuardMemoryUnifiedCompiler.request_per_axis_bounds then None else syntax in
+    match syntax with
     | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "schedule";
              GuardMemoryCandidate.List axes; GuardMemoryCandidate.List steps]) ->
       if List.length steps > 32 then invalid_arg "schedule index-map limit";
@@ -38,7 +45,7 @@ let propose request =
       Some (GuardMemoryUnifiedCompiler.GuardedTilingCandidate
         (GuardMemoryNumbers.import_integer (GuardMemoryCandidate.integer rows),
          GuardMemoryNumbers.import_integer (GuardMemoryCandidate.integer columns)))
-    | _ -> match GuardMemoryCandidate.propose instructions with
+    | _ -> match GuardMemoryCandidate.propose_template instructions syntax with
       | Some (candidate,swaps) -> Some (GuardMemoryUnifiedCompiler.GuardedAffineCandidate (candidate,swaps))
       | None -> None
   with Invalid_argument _ | Failure _ | Sys_error _ | Stack_overflow -> None
