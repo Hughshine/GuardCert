@@ -381,3 +381,8 @@ native-memory-parameter-versions: memory-unified-compiler
 native-memory-prefilter-versions: memory-unified-compiler
 	python3 scripts/native_memory_parameter_versions.py --prefilter
 	python3 scripts/native_memory_parameter_versions_paths.py --prefilter
+
+.PHONY: native-memory-started-regions
+native-memory-started-regions: memory-unified-compiler
+	python3 scripts/native_memory_started_regions.py
+	python3 scripts/native_memory_started_regions_paths.py
