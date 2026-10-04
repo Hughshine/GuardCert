@@ -53,4 +53,4 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make clean
 opam exec --root=/tmp/guard-opam --switch=guard -- make check-integration
 ```
 
-目前已完成 unsigned32 no-wrap、变量除数等式及 Truth 条件的编码与实际 Clight lowering，分支／表达式版本化的完整程序仿真，以及 `Csem → Asm` backward simulation。提取入口为 `compile_common_rewrites`，运行两个 C 示例；详见 [rewrite 接口](common-rewrites.md) 和 [接入说明](compcert-integration.md)。完整 DSL 和真实内存条件的 lowering 仍未完成。
+上述 `check-integration` 对应早期分支／表达式接入，提取入口为 `compile_common_rewrites`；其 C 示例和证明是独立的基线检查。当前统一入口是 `AffineNestUnifiedCompiler.compile_guardcert`，已连接深层单／多指针循环、实际源足迹检查与标量 rewrite。先完成既有适配器的 `make guard-memory-proof`，再在同一 Rocq 环境运行 `make affine-nest-prototype-proof` 和 `make guardcert-compiler`；具体执行命令见[使用说明](api-usage.md)和[统一编译器](unified-guardcert-compiler.md)。当前证明／运行记录与未完成的表达能力见[2026-10-04 交付记录](research-checkpoint-2026-10-04.md)，不能由早期目标的通过代替。
