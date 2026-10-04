@@ -11,13 +11,20 @@ import native_memory_affine_alias as common
 ROOT=fixture.ROOT
 SOURCE=fixture.SOURCE
 WORK=ROOT/'build/native-memory-parameter-versions'
+PREFILTER_WORK=ROOT/'build/native-memory-prefilter-versions'
 
 
-def observed_versions(dump):
+def observed_versions(dump,prefilter=False):
     found={}
     for which,fn in enumerate(fixture.NAMES):
         body=function_body(dump,fn)
         starts=[m.start() for m in re.finditer(r'switch \(0\)',body)]
+        if prefilter:
+            assert len(starts)%2==0,(fn,starts)
+            for outer,inner in zip(starts[::2],starts[1::2]):
+                cheap=body[outer:inner]
+                assert '$p' not in cheap and '$q' not in cheap,(fn,cheap)
+            starts=starts[1::2]
         versions=[]
         for start in starts:
             end=body.index('continue;',start);guard=body[start:end]
@@ -46,12 +53,15 @@ def observed_versions(dump):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cases')
+    parser.add_argument('--prefilter',action='store_true')
     args=parser.parse_args()
+    work=PREFILTER_WORK if args.prefilter else WORK
     stamp=common.check_build()
     proof=json.loads((ROOT/'build/guard-memory-proof-report.json').read_text())
     assert proof['memory_parameter_version_families_csem_asm_proved']
+    if args.prefilter:assert proof['memory_guard_prefilter_csem_asm_proved']
     inputs=fixture.full_inputs()
-    reference=common.checked_reference(SOURCE,WORK,''.join(fixture.output_model(a) for a in inputs))
+    reference=common.checked_reference(SOURCE,work,''.join(fixture.output_model(a) for a in inputs))
     options=[(name,syntax,{}) for name,syntax in fixture.templates().items()]
     options += [(name,fixture.templates()['schedule-interchange-2'],extra) for name,extra in [
         ('resource-limit',{'GUARDCERT_FM_ROWS':'0'}),('invalid-certificate',{'GUARDCERT_ORACLE_FAULT':'top-certificate'})]]
@@ -60,8 +70,10 @@ def main():
     configurations={}
     for name,syntax,extra in options:
         if name not in selected:continue
-        dump,cb,ab=common.compile_run(SOURCE,WORK/name,'(versions (per-axis '+syntax+'))',extra,reference)
-        found=observed_versions(dump)
+        template='(versions (per-axis '+syntax+'))'
+        if args.prefilter:template='(prefilter '+template+')'
+        dump,cb,ab=common.compile_run(SOURCE,work/name,template,extra,reference)
+        found=observed_versions(dump,args.prefilter)
         if extra or name=='invalid-coordinate':assert not found,(name,found)
         else:
             expected={fn for fn,d in zip(fixture.NAMES,fixture.DIMENSIONS) if d>=2} if name.startswith('tile') else {fn for fn,d in zip(fixture.NAMES,fixture.DIMENSIONS) if d==int(name[-1])}
@@ -81,8 +93,9 @@ def main():
     result={'status':'passed','compiler_sha256':stamp['compiler_sha256'],
         'source_sha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'configurations':configurations,
         'full_configuration_suite':not bool(args.cases),
+        'prefiltered':args.prefilter,
         'scope':'complete CompCert assembly execution; checked parameter-profile guard families with original-source fallback, real arrays and public exits; branch and version choice instrumentation reported separately'}
-    (WORK/('smoke-report.json' if args.cases else 'report.json')).write_text(json.dumps(result,indent=2)+'\n')
+    (work/('smoke-report.json' if args.cases else 'report.json')).write_text(json.dumps(result,indent=2)+'\n')
 
 
 if __name__=='__main__':main()

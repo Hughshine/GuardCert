@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 372 个适配模块、七个 lowering 模块和三个抽象有状态核心模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。抽象核心及物理数组 nonalias 均没有全局公理；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 376 个适配模块、七个 lowering 模块和三个抽象有状态核心模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。抽象核心及物理数组 nonalias 均没有全局公理；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -133,3 +133,5 @@ Signed affine source accesses now use a proved lower and upper box check. The 24
 [固定地址参数的边界扫描](../../docs/memory-parameter-boundary-scans.md)再加入七个模块，证明相同坐标系数前缀的边界检查与原完整检查相等；参数后缀可以不同，参数不成为额外扫描轴。367 模块／516 源码哈希的全量审计和完整程序证明通过，仍为原有 42 项假设。相同八核源的前后版本各通过 8281 次完整汇编调用，4288 次逐入口分支诊断的接受与回退一致，查询 `1,128,338 → 231,952`；不同坐标系数继续完整扫描，小输入仍可能更贵。新版本也通过 6230 次逐轴完整汇编调用和 12922 次普通入口完整汇编回归。
 
 [多个运行时条件方案](../../docs/memory-version-families.md)已接入语义无关的抽象核心、实际 Clight 检查／候选组件及统一 Csem→Asm 端点。不同方案可使用不同的定义域、前提和状态关系，检查失败通过源观察保持证明衔接到下一方案。当前实例在五个地址参数 cap 组中各取首个验证通过方案；372 个适配模块、三个核心模块和 522 个证明源码哈希全量审计通过，完整程序仍为原有 42 项假设。相同源码的前后版本各完成 8281 次完整汇编调用，4288 次分支诊断的候选调用 `1336 → 1810`，新增 474 次且没有丢失既有接受；查询 `231952 → 735722`，代码也增大。普通和单方案入口已完成同一新编译器回归。`make native-memory-parameter-versions` 可复现；该阶段不提供最弱条件或运行时间加速保证。
+
+[检查前缀与提前回退](../../docs/memory-prefiltered-versions.md)随后也进入实际编译器：已认证完整检查的廉价前缀拒绝时尝试下一方案，前缀接受而地址检查拒绝时回到源片段。376 个适配模块、三个抽象核心和 526 个证明源码哈希全量审计通过，完整程序仍为原有 42 项假设。同源前后版本各通过 8281 次完整汇编调用；4288 次分支诊断保留相同 1810 次候选调用和 4330 个候选片段入口，查询 `735722 → 653276`，减少约 11.2%，但代码文本增大。普通和单方案完整回归及旧多方案定向回归通过。`make native-memory-prefilter-versions` 可复现；通用证明保证源观察保持，不保证任意异质方案的接受范围保持或运行时间加速。

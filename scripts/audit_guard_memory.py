@@ -43,6 +43,8 @@ ADDRESS_PARAM_MODULES[ADDRESS_PARAM_MODULES.index('GuardMemoryParamAxisScan'):AD
 MODULES[-1:-1] = ADDRESS_PARAM_MODULES
 VERSION_MODULES = ['GuardMemoryStatefulVersions', 'GuardMemoryVersionFamily', 'GuardMemoryParamVersionComponents', 'GuardMemoryParamVersionServices', 'GuardMemoryParamVersionGroups']
 MODULES[-1:-1] = VERSION_MODULES
+PREFILTER_MODULES = ['GuardMemoryCheckPrefix', 'GuardMemoryPrefilterVersions', 'GuardMemoryPrefilterComponents', 'GuardMemoryPrefilterGroups']
+MODULES[-1:-1] = PREFILTER_MODULES
 STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition', 'StatefulGuardVersions']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
@@ -104,6 +106,7 @@ From GuardMemory Require Import GuardMemoryStatefulLanguage GuardMemoryStatefulE
 From GuardMemory Require Import GuardMemoryVectorBounds GuardMemoryVectorDomain GuardMemoryVectorGuard GuardMemoryVectorChecker GuardMemoryVectorPointerBounds GuardMemoryVectorPointerSyntax GuardMemoryVectorPointerBody GuardMemoryVectorPointerDomain GuardMemoryVectorTiling GuardMemoryVectorPointerFootprint GuardMemoryVectorPointerProjectedCandidate GuardMemoryVectorAxisFootprint GuardMemoryVectorAxisPairs GuardMemoryVectorAxisScan GuardMemoryVectorRuntimeFrame GuardMemoryVectorAxisFrame GuardMemoryVectorAxisGuard GuardMemoryVectorAxisCompiler GuardMemoryVectorAxisServices GuardMemoryVectorAxisDescribe.
 From GuardMemory Require Import GuardMemoryParamBoundaryMath GuardMemoryParamBoundaryCells GuardMemoryParamBoundaryTest GuardMemoryParamBoundaryScan GuardMemoryParamBoundaryMasks GuardMemoryParamBoundaryPair GuardMemoryParamAxisPairChoice.
 From GuardMemory Require Import GuardMemoryStatefulVersions GuardMemoryVersionFamily GuardMemoryParamVersionComponents GuardMemoryParamVersionServices GuardMemoryParamVersionGroups.
+From GuardMemory Require Import GuardMemoryCheckPrefix GuardMemoryPrefilterVersions GuardMemoryPrefilterComponents GuardMemoryPrefilterGroups.
 From GuardMemory Require Import GuardMemoryPointerDefinedIndex GuardMemoryPointerSourceWords GuardMemoryParamAxisPairScan GuardMemoryParameterRanges GuardMemoryParamPointerSyntax GuardMemoryParamPointerBody GuardMemoryParamPointerDomain GuardMemoryParamPointerHeader GuardMemoryParamPointerBounds GuardMemoryParamPointerProjectedCandidate GuardMemoryParamPointerFootprint GuardMemoryParamAxisFootprint GuardMemoryParamAxisPairs GuardMemoryParamAxisScan GuardMemoryParamRuntimeFrame GuardMemoryParamAxisFrame GuardMemoryParamAxisGuard GuardMemoryParamAxisCompiler GuardMemoryParamAxisServices GuardMemoryParamAxisDescribe.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -623,6 +626,14 @@ Print Assumptions check_memory_param_axis_pointer_tiled_package_components_sound
 Print Assumptions collect_memory_param_version_groups_sound.
 Print Assumptions compile_memory_param_version_groups_sound.
 Print Assumptions check_memory_param_version_unified_region_sound.
+Print Assumptions memory_check_tree_parse_sound.
+Print Assumptions memory_check_tree_decode.
+Print Assumptions memory_projected_tree_prefix.
+Print Assumptions memory_verified_guarded_rule.
+Print Assumptions memory_prefilter_components_valid.
+Print Assumptions memory_prefilter_component_list_sound.
+Print Assumptions compile_memory_param_prefilter_groups_sound.
+Print Assumptions check_memory_param_prefilter_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -665,6 +676,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "stateful_core_instantiated_in_clight_projected_region_contract": True,
         "stateful_version_families_proved": True,
         "memory_parameter_version_families_csem_asm_proved": True,
+        "memory_guard_prefilter_csem_asm_proved": True,
+        "memory_guard_prefilter_scope": "opt-in prefilter versions per-axis template; recognize a decision-tree prefix of a certified stateful check; derive defined execution and unchanged registers/memory from the original encoding; prefix refusal tries the next version, prefix acceptance executes the original guarded candidate including its source fallback; preserves source observations for arbitrary certified components, no general acceptance or cost guarantee",
         "memory_parameter_version_families_scope": "opt-in versions per-axis candidate template; finite heterogeneous abstract guard versions share source observations but may have different domains, presumptions and frames; actual Clight check/candidate components certified from checked source packages and real candidate certificates; first statically validated profile in each address-cap group 64,16,8,4,1; sequential runtime choice and final original-source fallback; mapped, scheduled and outer-two-axis tiling candidates; no weakest-condition or optimal-box guarantee, no shared alias-result cache",
         "affine_loop_alias_guard_clight_execution_proved": True,
         "affine_loop_alias_guard_csem_asm_route_proved": True,

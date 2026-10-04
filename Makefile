@@ -376,3 +376,8 @@ native-memory-address-parameters: memory-unified-compiler
 native-memory-parameter-versions: memory-unified-compiler
 	python3 scripts/native_memory_parameter_versions.py
 	python3 scripts/native_memory_parameter_versions_paths.py
+
+.PHONY: native-memory-prefilter-versions
+native-memory-prefilter-versions: memory-unified-compiler
+	python3 scripts/native_memory_parameter_versions.py --prefilter
+	python3 scripts/native_memory_parameter_versions_paths.py --prefilter

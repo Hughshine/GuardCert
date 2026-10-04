@@ -18,13 +18,16 @@ def c_literal(value):
     return '(-2147483647-1)' if value==-2147483648 else str(value)
 
 
-def instrument(dump,functions):
+def instrument(dump,functions,prefilter=False):
     source=printer_for_gcc(dump)
     marker='\nint guard_original_main(void)\n{';assert marker in source
     source=source[:source.index(marker)]
     for fn_index,(fn,metadata) in enumerate(functions.items()):
         body=function_body(source,fn)
         starts=[m.start() for m in re.finditer(r'switch \(0\)',body)]
+        if prefilter:
+            assert len(starts)==2*len(metadata['versions']),(fn,starts)
+            starts=starts[1::2]
         assert len(starts)==len(metadata['versions']),(fn,starts)
         edits=[]
         for version_index,start in enumerate(starts):
@@ -52,9 +55,9 @@ def instrument(dump,functions):
     return f'int guard_version_hits[{slots}][5];\nunsigned long long guard_version_queries[{slots}][5];\n'+source
 
 
-def diagnostic(name,configuration,work):
+def diagnostic(name,configuration,work,prefilter=False):
     functions=configuration['guarded_functions']
-    source=instrument((work/(fixture.SOURCE.stem+'.light.c')).read_text(),functions)
+    source=instrument((work/(fixture.SOURCE.stem+'.light.c')).read_text(),functions,prefilter)
     calls=[];expected='';selected={};fast=fallback=fast_entries=fallback_entries=0
     histogram=[0]*5;query_histogram=[0]*5;later_calls=nested_calls=undefined_entries=0
     for fn_index,(fn,metadata) in enumerate(functions.items()):
@@ -88,6 +91,7 @@ def diagnostic(name,configuration,work):
                         'parameter_ranges_evaluated':count_valid,'parameter_range_accepts':parameter_valid if count_valid else None,
                         'actual_fast_path':bool(entered),'actual_pointer_comparisons':tested})
                     if entered:chosen=version_index;break
+                    if prefilter and valid:break
                 parameters=[values[x] for x in versions[0]['address_parameter_identifiers']]
                 entries.append({'outer_coordinates':list(prefix),'address_parameters':parameters if defined else None,
                     'address_parameters_defined':defined,'selected_version':chosen,'version_checks':observations})
@@ -116,17 +120,21 @@ def diagnostic(name,configuration,work):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--smoke',action='store_true');args=parser.parse_args()
-    stamp=check_build();report=json.loads((fixture.WORK/('smoke-report.json' if args.smoke else 'report.json')).read_text())
+    parser=argparse.ArgumentParser();parser.add_argument('--smoke',action='store_true')
+    parser.add_argument('--prefilter',action='store_true');args=parser.parse_args()
+    work=fixture.PREFILTER_WORK if args.prefilter else fixture.WORK
+    stamp=check_build();report=json.loads((work/('smoke-report.json' if args.smoke else 'report.json')).read_text())
     assert report['status']=='passed' and report['compiler_sha256']==stamp['compiler_sha256']
     if not args.smoke:assert report['full_configuration_suite']
     assert report['source_sha256']==hashlib.sha256(fixture.SOURCE.read_bytes()).hexdigest()
-    results={name:diagnostic(name,c,fixture.WORK/name) for name,c in report['configurations'].items() if c['guarded_functions']}
+    assert report.get('prefiltered',False)==args.prefilter
+    results={name:diagnostic(name,c,work/name,args.prefilter) for name,c in report['configurations'].items() if c['guarded_functions']}
     assert sum(c['calls_using_later_versions'] for c in results.values())>0
     result={'status':'passed','compiler_sha256':report['compiler_sha256'],'source_sha256':report['source_sha256'],
         'configurations':results,'full_configuration_suite':report['full_configuration_suite'],
+        'prefiltered':args.prefilter,
         'scope':'GCC execution of instrumented Clight; actual per-version branch hits, pointer query counts and full public source effects; complete CompCert assembly execution checked separately'}
-    (fixture.WORK/('smoke-branch-report.json' if args.smoke else 'branch-report.json')).write_text(json.dumps(result,indent=2)+'\n')
+    (work/('smoke-branch-report.json' if args.smoke else 'branch-report.json')).write_text(json.dumps(result,indent=2)+'\n')
 
 
 if __name__=='__main__':main()
