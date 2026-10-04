@@ -430,3 +430,8 @@ native-affine-nest-multiple-pointers:
 native-affine-nest-external:
 	python3 scripts/native_affine_nest_external.py
 	python3 scripts/native_affine_nest_external_paths.py
+
+.PHONY: native-affine-nest-fission
+native-affine-nest-fission:
+	python3 scripts/native_affine_nest_fission.py
+	python3 scripts/native_affine_nest_fission_paths.py

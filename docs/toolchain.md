@@ -1,6 +1,6 @@
 # CompCert 与 Rocq 基线
 
-核对日期：2026-10-02。官方[下载页](https://compcert.org/download.html)和 [v3.18 发布记录](https://github.com/AbsInt/CompCert/releases/tag/v3.18)均将 CompCert 3.18 列为最新 release。这里锁定 release，而不跟随 master。
+核对日期：2026-10-04。官方[下载页](https://compcert.org/download.html)和 [v3.18 发布记录](https://github.com/AbsInt/CompCert/releases/tag/v3.18)均将 CompCert 3.18 列为最新 release。这里锁定 release，而不跟随 master。
 
 | 项目 | 本轮实际使用 |
 | --- | --- |

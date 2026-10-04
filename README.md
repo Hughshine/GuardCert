@@ -7,6 +7,10 @@
 研究对象还包括人工或工具给出候选后，由框架寻找成立条件、生成检查与回退。COVE/cSTOKE、Peek、Chamois、Icing 和 CoreJIT 已覆盖这条链的不同部分；当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。有限外层次数条件搜索已在实际多面体候选上实现；任意关系式条件推断和新颖性仍需进一步支持。
 
 - [文献与需求](docs/survey.md)：已有工作解决了哪些部分，以及候选研究空隙。
+- [统一完整程序编译器](docs/unified-guardcert-compiler.md)：同一 Csem→Asm 入口连接深层仿射循环、矩形循环和条件标量 rewrite。
+- [深层多指针变换](docs/deep-affine-multiple-pointers.md)：实际源域地址扫描、前提编码、候选和回退，以及完整程序证明。
+- [外部候选接口](docs/external-affine-candidates.md)：导出实际源，导入人工或工具生成的 Loop IR，自动生成守卫并独立验证候选。
+- [深层多语句与分裂](docs/deep-affine-fission.md)：静态站点排列、本轮及未来迭代依赖、原片段回退。
 - [跨领域 survey](docs/survey-general.md)：重构、修复、合约、更新、enforcement、近似和超性质等场景的区别。
 - [已有覆盖与研究定位](docs/research-position.md)：CompCert 主线、verified peephole 和最接近工作的对比；值得检验的具体问题。
 - [从候选到带检查的程序](docs/candidate-conditioning.md)：人工/机器候选、COVE、条件等价，以及与 CoreJIT、Alive2 和 Peek 的区别。

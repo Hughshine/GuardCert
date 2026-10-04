@@ -178,6 +178,10 @@ let propose request =
               | AffineNestCandidateEvidence.AffineIndexEvidence steps ->
                   let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
                   before,after
+              | AffineNestCandidateEvidence.AffineSiteEvidence (steps,positions) ->
+                  let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
+                  (match AffineNestSitePermutation.affine_site_permutation positions after with
+                   | Some ordered -> before,ordered | None -> before,[])
               | AffineNestCandidateEvidence.AffineTilingEvidence witnesses ->
                   let (after,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program target in
                   (match GuardMemoryExtractedTiling.memory_attach_tiling_instructions (nat (List.length context)) before after witnesses with

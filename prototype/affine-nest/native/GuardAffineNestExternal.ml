@@ -90,5 +90,12 @@ let propose request source instructions =
         if List.length steps > 32 then invalid_arg "affine candidate reindex limit";
         Some (C.instantiate_at instructions None syntax,
               AffineNestCandidateEvidence.AffineIndexEvidence (List.map affine_step steps))
+    | C.List [C.Atom "site-order";C.List positions;syntax] ->
+        if List.length positions > 64 then invalid_arg "affine static site permutation limit";
+        (match choose syntax with
+         | Some (candidate,AffineNestCandidateEvidence.AffineIndexEvidence steps) ->
+             Some (candidate,AffineNestCandidateEvidence.AffineSiteEvidence
+               (steps,List.map (fun position -> C.natural (C.small position)) positions))
+         | _ -> None)
     | syntax -> Some (C.instantiate_at instructions None syntax,AffineNestCandidateEvidence.AffineIndexEvidence []) in
   match Lazy.force template with None -> None | Some syntax -> choose syntax

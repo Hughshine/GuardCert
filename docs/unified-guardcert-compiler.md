@@ -16,7 +16,7 @@ make native-guardcert
 
 The resulting executable is `build/compcert-guardcert/ccomp`. It uses the normal CompCert driver options. `GUARDCERT_AFFINE_MODE` selects the deep affine candidate policy; `GUARDCERT_AFFINE_PROFILE=inferred` derives checked bounds and address windows from the source. `GUARDCERT_LOOP_CANDIDATE` names the candidate file for the rectangular memory service. These settings propose data; they cannot bypass either checker.
 
-The proof audit compiles 92 prototype modules. In the same Rocq environment, the unified whole-program theorem has exactly the original whole-program theorem's 42 global assumptions. The audit reports no new global axioms. The extraction stamp records the entry point, executable digest, 703 proof-source digests, and eight native-source digests.
+The proof audit compiles 96 prototype modules. In the same Rocq environment, the unified whole-program theorem has exactly the original whole-program theorem's 42 global assumptions. The audit reports no new global axioms. The extraction stamp records the entry point, executable digest, 707 proof-source digests, and eight native-source digests.
 
 `native_guardcert.py` constructs one C program containing the five deep affine kernels, six signed multi-pointer rectangular kernels, and both scalar examples. Six candidate configurations each execute 988 calls, giving 5,928 actual assembly calls. Every run compares all array cells and public loop controls with independent word-level models and a GCC reference. The configurations cover disabled loop candidates, identity, interchange, tiling, an incorrect deep tiling witness, and an oracle resource limit.
 

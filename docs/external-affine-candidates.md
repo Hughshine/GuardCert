@@ -37,7 +37,7 @@ build/compcert-guardcert/ccomp \
 
 文件可以是单个候选，也可以是 `(choices ...)`。`(request DIGEST candidate)` 根据导出的请求选择条目；`(rank N candidate)` 按轴数选择条目。摘要只服务匹配，不绕过语义检查。候选 Loop 语法复用现有解析器的 `loop`、`seq`、`guard`、`instr`、仿射表达式、常量除法、取模及 min/max。实际后端和验证器可能拒绝其中不支持的实例。
 
-`(map-index (steps...) candidate)` 可以提议 `swap`、`shift`、`skew` 和 `reflect`。这些是坐标对应描述，由提取的映射、域和依赖检查器核对。当前文件接口返回重索引候选；内置分块路线仍使用已有分块描述接口。
+`(map-index (steps...) candidate)` 可以提议 `swap`、`shift`、`skew` 和 `reflect`。`(site-order (positions...) candidate)` 提议静态指令列表中的相邻交换，按源站点恢复对应，同时保留候选的实际时间戳。坐标对应、站点排列、域与依赖均由提取的检查器核对。[循环分裂实例](deep-affine-fission.md) 展示该接口处理多语句依赖；内置分块路线仍使用已有分块描述接口。
 
 条件合成来自实际源与经过检查的区间提议，而不是要求外部文件自行写一个可信 guard。检查器接受候选之后才安装整数检查、实际源足迹的地址分离扫描、候选执行和原片段回退。公开循环出口值仍由纯源控制重放恢复。这个接口支持人或外部算法提出变换，不要求信任提出变换的算法。
 

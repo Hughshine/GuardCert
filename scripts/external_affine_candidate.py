@@ -57,7 +57,16 @@ def fission(source,reverse=False):
         raise ValueError('unsupported source statement '+node[0])
     order=sites(source)
     if reverse:order.reverse()
-    return ['seq',*[keep(source,site) for site in order]]
+    result=['seq',*[keep(source,site) for site in order]]
+    if reverse:
+        swaps=[];current=list(reversed(range(len(order))))
+        for destination in range(len(current)):
+            position=current.index(destination)
+            while position>destination:
+                first=position-1;current[first],current[position]=current[position],current[first]
+                swaps.append(str(first));position-=1
+        result=['site-order',swaps,result]
+    return result
 
 
 def candidate(request,mode,delta):

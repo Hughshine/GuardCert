@@ -18,6 +18,7 @@ From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFoot
   AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
 From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
 From GuardAffineNest Require Import AffineNestUnifiedCompiler.
+From GuardAffineNest Require Import AffineNestSiteSwap AffineNestSitePermutation AffineNestSiteChecker AffineNestBoundedSiteChecker.
 From GuardAffineNest Require Import AffineNestScanModel AffineNestScanPoints AffineNestScanSeparation
   AffineNestScanExecution AffineNestScanAll AffineNestMultiStaticPackage AffineNestPackageScanFootprint
   AffineNestMultiPresumption AffineNestMultiCandidateLocal AffineNestMultiGuardExecution AffineNestMultiRegion
@@ -157,6 +158,8 @@ Print Assumptions affine_multi_guard_nonalias.
 Print Assumptions affine_multi_candidate_local.
 Print Assumptions affine_multi_guard_execution.
 Print Assumptions affine_multi_guarded_region_sound.
+Print Assumptions affine_site_swap_execution.
+Print Assumptions affine_site_permutation_execution.
 Goal True. idtac "AFFINE_EXIT_BEGIN". exact I. Qed.
 Print Assumptions affine_exit_statement_execution.
 Print Assumptions affine_source_shadow_exit.
@@ -166,6 +169,8 @@ Print Assumptions check_memory_window_unified_region_sound.
 Goal True. idtac "AFFINE_CHECKED_BEGIN". exact I. Qed.
 Print Assumptions check_affine_region_sound.
 Print Assumptions check_affine_multi_region_sound.
+Print Assumptions validated_affine_site_domain_loops_at.
+Print Assumptions checked_affine_bounded_site_candidate_correct.
 Print Assumptions checked_affine_regions_sound.
 Goal True. idtac "AFFINE_WHOLE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions compile_memory_unified_regions_correct.

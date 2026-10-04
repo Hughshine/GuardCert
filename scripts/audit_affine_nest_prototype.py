@@ -25,6 +25,7 @@ MODULES = [
     "AffineNestGuardPackage", "AffineNestPackageGuard", "AffineNestPackageExamples", "AffineNestPackageWords",
     "AffineNestPackageDecode", "AffineNestSingleFootprint", "AffineNestPackageRanges", "AffineNestShadowTransport",
     "AffineNestCandidateLocal", "AffineNestRegion", "AffineNestStaticPackage", "AffineNestStaticExamples",
+    "AffineNestSiteSwap", "AffineNestSitePermutation", "AffineNestSiteChecker", "AffineNestBoundedSiteChecker",
     "AffineNestCandidateEvidence", "AffineNestCheckedCompiler", "AffineNestWholeCompiler", "AffineNestPropose", "AffineNestProposeExamples",
     "AffineNestRangeProposal", "AffineNestRangeProposalExamples",
     "AffineNestScanModel", "AffineNestScanSyntax", "AffineNestScanWords", "AffineNestScanLoop",
