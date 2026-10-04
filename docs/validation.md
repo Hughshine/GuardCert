@@ -1,5 +1,7 @@
 # 本轮验证记录
 
+本页按日期保存早期里程碑与当时的验证边界，部分构建路径随后被新阶段复用。当前编译器、证明模块／源码数量、实际执行记录及保存证据见[2026-10-04 交付记录](research-checkpoint-2026-10-04.md)；不要汇总下面不同二进制的历史调用数作为当前版本的测试数量。
+
 ## 2026-10-02：新增 tile 坐标的源到候选进展
 
 `GuardMemoryTilingProgress` 证明源点到新增 tile 坐标点的构造、投影逆映射、有限实例列表覆盖与唯一性，以及单点执行和原时间戳保持。`before_to_retiled_old_progress` 从源执行构造 retiled 执行；`validated_memory_single_tiling_progress_at` 消费结构及双向调度检查，为单条多面体语句的任意合法 witness 建立候选进展，保留入口参数和最终完整状态。十个适配模块重编译与审计通过，假设仍为原有具体 validator 的 12 项，完整 C 编译器仍为 42 项并集。日志为 `build/memory-tiling-progress.log` 与 `build/memory-tiling-audit.log`。

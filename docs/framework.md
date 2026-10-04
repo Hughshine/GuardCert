@@ -1,6 +1,6 @@
 # 问题定义与证明框架
 
-本页描述已经实现的入口 fallback 主线。跨领域调查后的候选接口见 [框架扩展设计](framework-extension.md)，新颖性边界见 [研究定位](research-position.md)；其中设计义务不代表已完成证明。
+本页保留 2026-10-02 的入口 fallback 定义、早期接口草案及独立宏转移模型。当前实际接口见[使用说明](api-usage.md)，真实循环与共享核心的连接见[核心实例](deep-affine-core-interface.md)，最新功能与证据见[交付记录](research-checkpoint-2026-10-04.md)。跨领域调查后的候选接口见 [框架扩展设计](framework-extension.md)，新颖性边界见 [研究定位](research-position.md)；其中设计义务不代表已完成证明。
 
 2026-10-02 更新：presumption 编码与 condition 合成已成为核心接口，详见 [分类与合成说明](presumptions.md)。真实 Clight 分支与表达式适配器已接入 `Csem → Asm` 正确性，并提取运行了 C 示例；新表达式接口解释完整入口快照，支持四个 rewrite 及严格表达式上下文提升。真实 Mem 的无别名 load-hoisting 已有局部端点证明，尚未接入 Clight。详见 [常见 rewrite 接口](common-rewrites.md) 和 [接入说明](compcert-integration.md)。独立语义核仍采用有限宏转移。
 

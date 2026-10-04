@@ -1,6 +1,6 @@
 # 由语言实例提供性质与条件选择
 
-当前实际驱动是 `AdaptiveRegionCompiler.compile_progress_regions`，在既有表达式／分支 passes 前组合了 [区域进展宿主](region-protocol.md)。`encoded_region_rule` 复用相同的性质维度和条件合成接口；本文后面的 `TreeCompiler` 路径保留为此前表达式接入阶段。
+当前统一驱动是 `AffineNestUnifiedCompiler.compile_guardcert`，将深层单／多指针循环、矩形内存服务与标量 rewrite 接入同一 Csem→Asm 端点，见[统一编译器](unified-guardcert-compiler.md)。本文保留各阶段的性质接口与证明路线。早期 `AdaptiveRegionCompiler.compile_progress_regions` 在表达式／分支 passes 前组合[区域进展宿主](region-protocol.md)，`encoded_region_rule` 复用相同的性质维度和条件合成接口；后面的 `TreeCompiler` 路径属于更早的表达式接入阶段。
 
 这条实现路径把整数、内存、地址及 overflow 表示移出了通用核心。核心处理前提公式和证据；具体语言负责给出检查代码、条件选择的含义，以及替换如何进入该语言的完整程序证明。这里区分已编译的接口与尚未接通的 PolCert 适配。
 

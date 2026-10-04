@@ -1,6 +1,6 @@
 # 真实 CompCert 接入
 
-最新路径已将通用性质接口生成的短路条件树接入 Clight 宿主，并提取 `RegionCompiler.compile_property_regions` 作为当前 Driver 入口。实际 overflow 取消规则使用这条路径，完整程序定理仍为 `Csem → Asm` backward simulation。新增有限语句区域宿主与局部证书接口见 [clight-statement-regions.md](clight-statement-regions.md)。其他接口、验证结果及未完成的 PolCert 适配见 [abstract-kernel.md](abstract-kernel.md) 和 [validation.md](validation.md)。下面记录的 `compile_common_rewrites` 是上一阶段的可用入口。
+本文记录 2026-10-02 的分支、表达式和有限语句接入阶段。当前统一入口为 `AffineNestUnifiedCompiler.compile_guardcert`，见[统一编译器](unified-guardcert-compiler.md)和[2026-10-04 交付记录](research-checkpoint-2026-10-04.md)。早期 `RegionCompiler.compile_property_regions` 将通用性质接口生成的短路条件树接入 Clight；下面的 `compile_common_rewrites` 属于更早的表达式阶段。这些入口均有各自的 `Csem → Asm` backward simulation，不能把历史运行记录当作当前二进制的验证。
 
 2026-10-02：已实现 Clight 分支版本化 pass，并证明扩展编译器从原始 CompCert C 到 Asm 的 backward simulation。提取后的编译器实际编译了 C 文件，生成汇编经 GCC 汇编、链接后运行，输出与 GCC 编译的原程序一致。工具链仍为已锁定 CompCert v3.18、Rocq 9.2.0。
 
