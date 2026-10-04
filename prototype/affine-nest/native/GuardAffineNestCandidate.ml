@@ -187,11 +187,16 @@ let propose request =
          (context @ proposal.AffineNestGuardPackage.affine_proposed_pointers) in
        let extract loop = GuardMemoryExtractorTrace.MemoryExtractor.extractor
          ((GuardMemoryVectorChecker.memory_bounded_assumed_loop bounds loop,context),variables) in
-       let source = match evidence with
-         | AffineNestCandidateEvidence.AffineSplitEvidence(conditions,_,_) ->
-             AffineNestDomainSplit.affine_partitioned_sources conditions
-               request.AffineNestCheckedCompiler.affine_requested_loop
-         | _ -> request.AffineNestCheckedCompiler.affine_requested_loop in
+       let rec tail source candidate = function
+         | AffineNestCandidateEvidence.AffineDomainEvidence(conditions,nested) ->
+             tail (AffineNestDomainSplit.affine_partitioned_sources conditions source) candidate nested
+         | AffineNestCandidateEvidence.AffineChainEvidence(middle,_,second) -> tail middle candidate second
+         | AffineNestCandidateEvidence.AffinePartitionTargetEvidence(_,base,nested) -> tail source base nested
+         | AffineNestCandidateEvidence.AffineSplitEvidence(conditions,steps,positions) ->
+             AffineNestDomainSplit.affine_partitioned_sources conditions source,candidate,
+               AffineNestCandidateEvidence.AffineSiteEvidence(steps,positions)
+         | evidence -> source,candidate,evidence in
+       let source,candidate,evidence = tail request.AffineNestCheckedCompiler.affine_requested_loop candidate evidence in
        (match extract source,extract candidate with
         | Result.Okk source,Result.Okk target ->
             let (before,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program source in
@@ -211,7 +216,10 @@ let propose request =
                   let (after,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program target in
                   (match GuardMemoryExtractedTiling.memory_attach_tiling_instructions (nat (List.length context)) before after witnesses with
                    | Some attached -> List.map (GuardMemoryExtractedTiling.PL.current_view_pi (nat (List.length context))) attached,after
-                   | None -> [],after) in
+                   | None -> [],after)
+              | AffineNestCandidateEvidence.AffineDomainEvidence _
+              | AffineNestCandidateEvidence.AffineChainEvidence _
+              | AffineNestCandidateEvidence.AffinePartitionTargetEvidence _ -> before,[] in
             let aligned,alarm_free = GuardMemoryDomainAlignment.memory_align_domains expected after in
             diagnostic (Printf.sprintf "GUARDCERT_AFFINE_EXTRACT source=%d target=%d aligned=%b alarm_free=%b"
               (List.length before) (List.length after) (aligned<>None) alarm_free)

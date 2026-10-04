@@ -1,9 +1,22 @@
 """Inspect actual unified guards; separate from the unmodified assembly runs."""
-import json
+import json,shutil
 from types import SimpleNamespace
 import native_guardcert as combined
 import native_affine_nest_paths as deep_paths
 import native_memory_signed_multiple_pointers_paths as rectangular_paths
+
+def preserve_diagnostic(name,kind,row):
+    work=combined.WORK/name
+    source=work/'branch-diagnostic.c'
+    output=work/('branch-output.txt' if kind=='deep' else 'branch-diagnostic-output.txt')
+    saved_source=work/(kind+'-branch-diagnostic.c')
+    saved_output=work/(kind+'-branch-output.txt')
+    shutil.copy2(source,saved_source);shutil.copy2(output,saved_output)
+    binary=work/'branch-diagnostic'
+    if binary.exists():shutil.copy2(binary,work/(kind+'-branch-diagnostic'))
+    row.update({'diagnostic_source_file':saved_source.name,'diagnostic_output_file':saved_output.name,
+        'diagnostic_source_sha256':combined.sha(saved_source),'diagnostic_output_sha256':combined.sha(saved_output)})
+    return row
 
 def main():
     stamp = combined.check_build()
@@ -17,10 +30,10 @@ def main():
         if row['deep_guarded_functions']:
             configuration = {'functions':{fn:{'guarded':fn in row['deep_guarded_functions']}
                              for fn in deep.NAMES}}
-            observed['deep'] = deep_paths.diagnostic(name,configuration,fixture=deep)
+            observed['deep'] = preserve_diagnostic(name,'deep',deep_paths.diagnostic(name,configuration,fixture=deep))
         if row['rectangular_guarded_functions']:
             configuration = {'guarded_functions':row['rectangular_guarded_functions']}
-            observed['rectangular'] = rectangular_paths.diagnostic(name,configuration,fixture=rectangular)
+            observed['rectangular'] = preserve_diagnostic(name,'rectangular',rectangular_paths.diagnostic(name,configuration,fixture=rectangular))
         if observed:
             configurations[name] = observed
     assert configurations

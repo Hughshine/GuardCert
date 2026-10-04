@@ -6,8 +6,11 @@
 
 研究对象还包括人工或工具给出候选后，由框架寻找成立条件、生成检查与回退。COVE/cSTOKE、Peek、Chamois、Icing 和 CoreJIT 已覆盖这条链的不同部分；当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。有限外层次数条件搜索已在实际多面体候选上实现；任意关系式条件推断和新颖性仍需进一步支持。
 
+- [当前交付与研究边界（2026-10-04）](docs/research-checkpoint-2026-10-04.md)：可运行产物、完整程序保证、当前验证数量、成本问题与未完成项。
 - [文献与需求](docs/survey.md)：已有工作解决了哪些部分，以及候选研究空隙。
 - [统一完整程序编译器](docs/unified-guardcert-compiler.md)：同一 Csem→Asm 入口连接深层仿射循环、矩形循环和条件标量 rewrite。
+- [接口与使用](docs/api-usage.md)：候选使用者、规则作者和语言实例各提供什么，以及框架给出什么证明。
+- [深层检查与候选成本](docs/deep-affine-cost.md)：实际计时揭示平方扫描与空点枚举的成本，区分行为证明和性能结果。
 - [深层多指针变换](docs/deep-affine-multiple-pointers.md)：实际源域地址扫描、前提编码、候选和回退，以及完整程序证明。
 - [外部候选接口](docs/external-affine-candidates.md)：导出实际源，导入人工或工具生成的 Loop IR，自动生成守卫并独立验证候选。
 - [深层多语句与分裂](docs/deep-affine-fission.md)：静态站点排列、本轮及未来迭代依赖、原片段回退。
@@ -16,6 +19,8 @@
 - [多个运行时版本](docs/deep-affine-runtime-versions.md)：逐轮检查当前程序、分配新私有名字，并在已有源回退位置安装后续 guard。
 - [变量乘除条件 rewrite](docs/variable-cancel-rewrite.md)：非零与溢出范围性质编码、短路检查、表达式上下文及两个完整编译入口。
 - [深层域切分](docs/deep-affine-domain-split.md)：完整切面覆盖、候选分组与执行顺序验证，共用原片段回退和完整程序定理。
+- [候选变换组合](docs/deep-affine-composition.md)：逐段检查中间片段，连接索引平移、完整分区与分块。
+- [深层矩阵累加](docs/deep-affine-accumulation.md)：实际读改写依赖、内层交换、数据回绕和重叠指针回退。
 - [跨领域 survey](docs/survey-general.md)：重构、修复、合约、更新、enforcement、近似和超性质等场景的区别。
 - [已有覆盖与研究定位](docs/research-position.md)：CompCert 主线、verified peephole 和最接近工作的对比；值得检验的具体问题。
 - [从候选到带检查的程序](docs/candidate-conditioning.md)：人工/机器候选、COVE、条件等价，以及与 CoreJIT、Alive2 和 Peek 的区别。
@@ -173,11 +178,11 @@ opam exec --root="$PWD/.toolchain/opam" --switch=guard -- make check
 
 [有符号窗口中的多指针](docs/memory-signed-multiple-pointers.md)进一步把多个实际稳定指针、负根和负地址参数接到同一完整程序端点。单指针使用已有静态分离，多个指针扫描本次源实际访问的跨指针单元；接受后还须通过独立依赖验证。461 个适配模块、七个 lowering 模块、三个核心模块和 611 个证明源码的干净全量审计通过，完整程序仍精确保持原有 42 项假设。14 种配置通过 9660 次汇编调用，11 组分支诊断完成 5644 次调用、6682 个实际候选入口。检查至多处理 32 条原始访问，完整扫描仍为 O(A²P²)，只读别名保守拒绝。`make native-memory-signed-multiple-pointers` 可复现。更一般深层仿射域、动态步长和 signed 版本族组合继续推进。
 
-[深层仿射原型](prototype/affine-nest/README.md)现在另有实际单指针编译入口：逐层上界可读取外层游标和稳定参数，
+[深层仿射原型](prototype/affine-nest/README.md)的初期单指针阶段记录如下；当前多指针与统一入口见上方链接。逐层上界可读取外层游标和稳定参数，
 从实际源执行推导安全 guard，检查候选域与真实依赖，恢复全部源控制出口，并接到 Csem→Asm。
 65 个独立模块与既有 611 个证明源码共同支撑提取入口，完整程序保持既有 42 项假设。
 二十四种配置完成 6,792 次实际汇编调用，另有 2,771 次实际 Clight 分支诊断；合法三层交换和前两轴分块被安装，
 真实依赖、错误域／映射／分块见证及验证器失败保留源片段。`make affine-nest-compiler native-affine-nest` 可复现。
-深层多指针和成本改善尚未实现；它暂未合并到上述正式统一驱动。
+该初期阶段尚未实现深层多指针或合并统一驱动；前两项已在后续阶段完成，成本改善仍待验证。
 子范围和地址窗口还可由实际源语法推导；较大 fixture 另完成 300 次汇编调用和 180 次分支诊断，
 观察到 70 次超过旧 cap 8 的快路调用。`make native-affine-nest-ranges` 可复现。

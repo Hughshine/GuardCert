@@ -475,3 +475,18 @@ native-variable-cancel-versions:
 native-affine-nest-affine-maps:
 	python3 scripts/native_affine_nest_affine_maps.py
 	python3 scripts/native_affine_nest_affine_maps_paths.py
+
+.PHONY: native-affine-nest-composition
+native-affine-nest-composition:
+	python3 scripts/native_affine_nest_composition.py
+	python3 scripts/native_affine_nest_composition_paths.py
+
+.PHONY: native-affine-nest-accumulation
+native-affine-nest-accumulation:
+	python3 scripts/native_affine_nest_accumulation.py
+	python3 scripts/native_affine_nest_accumulation_paths.py
+
+.PHONY: native-affine-nest-accumulation-cost
+native-affine-nest-accumulation-cost:
+	python3 scripts/native_affine_nest_accumulation_cost.py
+	python3 scripts/native_affine_nest_accumulation_cost.py --layout windows
