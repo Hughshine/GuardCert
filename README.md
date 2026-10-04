@@ -10,6 +10,7 @@
 - [文献与需求](docs/survey.md)：已有工作解决了哪些部分，以及候选研究空隙。
 - [统一完整程序编译器](docs/unified-guardcert-compiler.md)：同一 Csem→Asm 入口连接深层仿射循环、矩形循环和条件标量 rewrite。
 - [接口与使用](docs/api-usage.md)：候选使用者、规则作者和语言实例各提供什么，以及框架给出什么证明。
+- [保持相同前提的扫描精简](docs/deep-affine-scan-cost.md)：访问去重和单向比较的证明，以及实际检查成本。
 - [深层检查与候选成本](docs/deep-affine-cost.md)：实际计时揭示平方扫描与空点枚举的成本，区分行为证明和性能结果。
 - [深层多指针变换](docs/deep-affine-multiple-pointers.md)：实际源域地址扫描、前提编码、候选和回退，以及完整程序证明。
 - [外部候选接口](docs/external-affine-candidates.md)：导出实际源，导入人工或工具生成的 Loop IR，自动生成守卫并独立验证候选。

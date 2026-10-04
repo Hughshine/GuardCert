@@ -4,11 +4,28 @@ import argparse
 import external_affine_candidate as syntax
 
 MODES=['tile','partition-tile','partition-two-tile','shift-tile',
+       'double-tile','double-tile-wrong-second','double-tile-missing-second-box',
        'wrong-first','wrong-witness','wrong-target-partition','missing-box','resource-limit']
+
+def parameterized_address(tree,depth):
+    if not isinstance(tree,list) or not tree:return False
+    if tree[0]=='array':
+        return any(any(int(coefficient)!=0 for coefficient in coefficients[depth:])
+                   for coefficients,_ in tree[2])
+    return any(parameterized_address(child,depth) for child in tree)
 
 def proposal(fields,mode):
     source=fields['source'];depth=len(fields['axes'])
     tile=['tile-box','2','3']
+    if mode.startswith('double-tile'):
+        if depth!=2 or parameterized_address(fields['instructions'],depth):return None
+        axes=[list(pair) for pair in fields['axes']]
+        tile_axes=[[str(int(low)//width),str((int(high)+width-1)//width)]
+                   for (low,high),width in zip(axes,[2,3])]
+        if mode=='double-tile-missing-second-box':
+            tile_axes[0][1]=str(int(tile_axes[0][0])+1)
+        second='tile-box-wrong' if mode=='double-tile-wrong-second' else 'tile-box'
+        return ['chain',tile,[second,'2','2',tile_axes+axes]]
     if mode in ['tile','resource-limit']:return tile
     if mode=='wrong-witness':return ['tile-box-wrong','2','3']
     if mode=='wrong-target-partition':
@@ -35,7 +52,8 @@ def generate(directory,output,mode):
         request=syntax.parse(path.read_text())
         fields={field[0]:field[1] for field in request[1:]}
         if len(fields['axes'])<2:continue
-        choices.append(['request',path.stem,proposal(fields,mode)])
+        candidate=proposal(fields,mode)
+        if candidate is not None:choices.append(['request',path.stem,candidate])
     assert choices,'no multi-axis affine requests'
     output.write_text(syntax.render(['choices',*choices])+'\n')
     return len(choices)

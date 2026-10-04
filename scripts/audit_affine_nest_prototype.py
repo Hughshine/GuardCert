@@ -135,6 +135,8 @@ def main():
         "same_as_current_whole_program_assumptions": True,
         "single_pointer_candidate_route_only": False,
         "multiple_pointer_actual_source_scans_proved": True,
+        "symmetric_access_pair_filter_preserves_exact_guard_result": True,
+        "complete_access_descriptor_dedup_preserves_exact_guard_result": True,
         "multiple_pointer_presumption_encoding_proved": True,
         "multiple_pointer_candidate_and_fallback_region_proved": True,
         "actual_source_default_proposal_fixture_checked": True,

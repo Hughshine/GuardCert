@@ -2,11 +2,15 @@
 import argparse,json
 import affine_composed_candidate as producer
 import native_affine_nest_fission as fixture
+import native_affine_nest_fission_paths as conditions
 WORK=fixture.ROOT/'build/native-affine-nest-composition'
 
 def tile_points(args,shift=0):
     return sorted(fixture.source_points(args)[0],
                   key=lambda point:((point[0]+shift)//2,point[1]//3,*point))
+def double_tile_points(args):
+    return sorted(fixture.source_points(args)[0],
+        key=lambda point:((point[0]//2)//2,(point[1]//3)//2,point[0]//2,point[1]//3,*point))
 
 def main(start=None):
     fixture.WORK=WORK;fixture.generate();WORK.mkdir(parents=True,exist_ok=True)
@@ -16,6 +20,13 @@ def main(start=None):
     for shift in [0,1]:
         assert fixture.output_model(witness)!=fixture.output_model(
             witness,point_order=tile_points(witness,shift)),('future dependence',shift)
+    assert fixture.output_model(witness)!=fixture.output_model(witness,point_order=double_tile_points(witness))
+    overlap_witness=(0,0,0,3,40,2,-7)
+    assert fixture.output_model(overlap_witness)!=fixture.output_model(
+        overlap_witness,point_order=double_tile_points(overlap_witness))
+    for args in fixture.full_inputs():
+        if args[0] in [0,1] and all(conditions.accepts(args)):
+            assert fixture.output_model(args)==fixture.output_model(args,point_order=double_tile_points(args)),args
     missing_witness=(0,0,0,3,2,2,-7)
     missing_points=[point for point in tile_points(missing_witness) if point[0]<=0]
     assert fixture.output_model(missing_witness)!=fixture.output_model(missing_witness,point_order=missing_points)
@@ -40,6 +51,7 @@ def main(start=None):
         guarded={fn for fn,facts in row['functions'].items() if facts['guarded']}
         wanted=(set(fixture.NAMES)-{'fission_future2'} if mode in
                 ['tile','partition-tile','partition-two-tile','shift-tile'] else set())
+        if mode=='double-tile':wanted={'fission_independent2','fission_pointwise2'}
         assert guarded==wanted,(mode,guarded,wanted)
         configurations[mode]=row|{'request_count':count}
         (WORK/'partial-report.json').write_text(json.dumps(configurations,indent=2)+'\n')
@@ -49,6 +61,7 @@ def main(start=None):
         'source_sha256':fixture.memory.sha(fixture.SOURCE),'configurations':configurations,
         'unsafe_future_tile_word_model_witness':list(witness),
         'unsafe_target_partial_partition_word_model_witness':list(missing_witness),
+        'unsafe_double_tile_same_pointer_word_model_witness':list(overlap_witness),
         'scope':'actual assembly; complete arrays and public controls; every composition stage checked'},
         indent=2)+'\n')
 

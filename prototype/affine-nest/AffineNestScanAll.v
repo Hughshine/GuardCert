@@ -2,23 +2,45 @@ From Stdlib Require Import List Bool ZArith.
 From compcert.lib Require Import Maps Integers.
 From compcert.common Require Import AST Values Memory Events.
 From compcert.cfrontend Require Import Clight Ctypes ClightBigstep.
-From Guard Require Import ClightTempFrame ClightCountedLoop.
-From GuardMemory Require Import GuardMemoryRuntime GuardMemoryRectangles GuardMemoryNaryAffineAccess GuardMemoryAffineSourceExpressions
+From Guard Require Import ClightTempFrame ClightCountedLoop CompCertMemoryActions ClightRectangularStore.
+From GuardMemory Require Import GuardMemoryFiniteFootprint GuardMemoryFiniteAliasCondition GuardMemoryRuntime GuardMemoryRectangles GuardMemoryNaryAffineAccess GuardMemoryAffineSourceExpressions
   GuardMemoryBooleanScan GuardMemoryFootprintCapabilities GuardMemoryWindowCells.
 From GuardAffineNest Require Import AffineNestSyntax AffineNestExit AffineNestValuation AffineNestMathDomain
   AffineNestScanModel AffineNestScanNamespace AffineNestScanPair AffineNestScanAccesses AffineNestScanSeparation AffineNestScanSequence.
 Import ListNotations.
 Set Implicit Arguments.
 
+Definition memory_scan_expression_eq_dec (first second:memory_source_affine) : {first=second}+{first<>second}.
+Proof. decide equality; try apply Pos.eq_dec; apply Z.eq_dec. Defined.
+Definition memory_scan_shape_eq_dec (first second:rectangle_shape) : {first=second}+{first<>second}.
+Proof. decide equality; apply Z.eq_dec. Defined.
+Definition memory_scan_access_eq_dec (first second:memory_nary_access) : {first=second}+{first<>second}.
+Proof.
+  decide equality; try apply memory_scan_expression_eq_dec; try apply memory_scan_shape_eq_dec;
+    try apply Pos.eq_dec; decide equality; try apply Z.eq_dec; apply list_eq_dec; apply Z.eq_dec.
+Defined.
+(* Deduplicate complete descriptors, so all source-membership and permission
+   evidence can be reused without proving an address-expression equivalence. *)
+Definition affine_unique_scan_accesses accesses := nodup memory_scan_access_eq_dec accesses.
+Lemma affine_unique_scan_accesses_member first accesses :
+  In first (affine_unique_scan_accesses accesses) <-> In first accesses.
+Proof. apply nodup_In. Qed.
+
 Definition affine_scan_pairs (accesses:list memory_nary_access) :=
   flat_map(fun first=>map(fun second=>(first,second)) accesses) accesses.
+(* Address inequality is symmetric. Keep one direction for different pointer
+   identifiers; the result proof below preserves the full separation predicate. *)
+Definition affine_ordered_scan_pairs (accesses:list memory_nary_access) :=
+  filter(fun pair=>Z.ltb (Z.pos(memory_nary_access_array(fst pair)))
+    (Z.pos(memory_nary_access_array(snd pair))))(affine_scan_pairs (affine_unique_scan_accesses accesses)).
+
 Definition affine_scan_access_pair_code nest left right flag lower pair :=
   let '(first,second):=pair in
   if Pos.eqb(memory_nary_access_array first)(memory_nary_access_array second) then Sskip else
     affine_scan_pair_statement nest left right flag lower(memory_nary_access_array first)(memory_nary_access_array second)
       (memory_nary_access_expression first)(memory_nary_access_expression second).
 Definition affine_scan_all_code nest left right flag lower accesses :=
-  affine_scan_sequence(affine_scan_access_pair_code nest left right flag lower)(affine_scan_pairs accesses).
+  affine_scan_sequence(affine_scan_access_pair_code nest left right flag lower)(affine_ordered_scan_pairs accesses).
 
 Lemma affine_scan_pairs_member accesses first second :
   In(first,second)(affine_scan_pairs accesses) <-> In first accesses /\ In second accesses.
@@ -36,10 +58,70 @@ Proof.
   induction first; cbn; [reflexivity|rewrite forallb_app,MAPPED,IHfirst; reflexivity].
 Qed.
 
+Lemma memory_cell_pair_address_check_symmetric locations first second :
+  memory_cell_pair_address_check locations first second =
+  memory_cell_pair_address_check locations second first.
+Proof.
+  unfold memory_cell_pair_address_check.
+  destruct(memory_cell_identity_dec first second) as [SAME|DIFFERENT].
+  - subst second; destruct(memory_cell_identity_dec first first); congruence.
+  - destruct(memory_cell_identity_dec second first); [congruence|].
+    destruct(locations first), (locations second); try reflexivity.
+    rewrite Pos.eqb_sym,Z.eqb_sym; reflexivity.
+Qed.
+Lemma affine_scan_pair_result_symmetric nest valuation lower locations first second a b :
+  affine_scan_pair_result nest valuation lower locations first second a b =
+  affine_scan_pair_result nest valuation lower locations second first b a.
+Proof.
+  apply Bool.eq_true_iff_eq; unfold affine_scan_pair_result;
+    rewrite !affine_scan_result_points; split; intros CHECK outer OUTER;
+    apply affine_scan_result_points; intros inner INNER;
+    specialize(CHECK inner INNER);
+    pose proof(proj1(@affine_scan_result_points nest valuation lower _) CHECK outer OUTER) as PAIR;
+    rewrite memory_cell_pair_address_check_symmetric; exact PAIR.
+Qed.
+Lemma affine_scan_access_pair_result_symmetric nest valuation lower locations first second :
+  affine_scan_access_pair_result nest valuation lower locations first second =
+  affine_scan_access_pair_result nest valuation lower locations second first.
+Proof.
+  unfold affine_scan_access_pair_result.
+  rewrite (Pos.eqb_sym (memory_nary_access_array second)(memory_nary_access_array first)).
+  destruct(Pos.eqb (memory_nary_access_array first)(memory_nary_access_array second));
+    [reflexivity|apply affine_scan_pair_result_symmetric].
+Qed.
+
+Lemma affine_ordered_scan_pairs_result nest valuation lower locations accesses :
+  forallb(fun pair=>affine_scan_access_pair_result nest valuation lower locations(fst pair)(snd pair))
+    (affine_ordered_scan_pairs accesses)=affine_scan_separation_result nest valuation lower locations accesses.
+Proof.
+  apply Bool.eq_true_iff_eq; unfold affine_scan_separation_result; split; intro CHECK.
+  - apply forallb_forall; intros first FIRST; apply forallb_forall; intros second SECOND.
+    destruct(Z.lt_trichotomy (Z.pos(memory_nary_access_array first))
+      (Z.pos(memory_nary_access_array second))) as [ORDER|[SAME|REVERSE]].
+    + apply forallb_forall with(x:=(first,second)) in CHECK; [exact CHECK|].
+      unfold affine_ordered_scan_pairs; apply filter_In; split.
+      * apply affine_scan_pairs_member; split; apply affine_unique_scan_accesses_member; assumption.
+      * apply Z.ltb_lt; exact ORDER.
+    + injection SAME as SAME; unfold affine_scan_access_pair_result.
+      rewrite SAME,Pos.eqb_refl; reflexivity.
+    + rewrite affine_scan_access_pair_result_symmetric.
+      apply forallb_forall with(x:=(second,first)) in CHECK; [exact CHECK|].
+      unfold affine_ordered_scan_pairs; apply filter_In; split.
+      * apply affine_scan_pairs_member; split; apply affine_unique_scan_accesses_member; assumption.
+      * apply Z.ltb_lt; exact REVERSE.
+  - apply forallb_forall; intros [first second] MEMBER.
+    unfold affine_ordered_scan_pairs in MEMBER; apply filter_In in MEMBER as [MEMBER ORDER].
+    apply affine_scan_pairs_member in MEMBER as [FIRST SECOND];
+    apply (proj1(@affine_unique_scan_accesses_member first accesses)) in FIRST;
+    apply (proj1(@affine_unique_scan_accesses_member second accesses)) in SECOND.
+    apply forallb_forall with(x:=first) in CHECK; [|exact FIRST].
+    apply forallb_forall with(x:=second) in CHECK; [exact CHECK|exact SECOND].
+Qed.
+
 Lemma affine_scan_all_result nest valuation lower locations accesses :
   affine_scan_sequence_result(fun pair=>affine_scan_access_pair_result nest valuation lower locations(fst pair)(snd pair))
-    (affine_scan_pairs accesses)=affine_scan_separation_result nest valuation lower locations accesses.
-Proof. rewrite affine_scan_sequence_forall; unfold affine_scan_pairs,affine_scan_separation_result; apply affine_scan_pairs_forall. Qed.
+    (affine_ordered_scan_pairs accesses)=affine_scan_separation_result nest valuation lower locations accesses.
+Proof. rewrite affine_scan_sequence_forall; apply affine_ordered_scan_pairs_result. Qed.
 Print Assumptions affine_scan_all_result.
 
 Theorem affine_scan_all_execution iterator bound expression body child parameters live left right flag
@@ -68,7 +150,10 @@ Proof.
   cbn zeta; intros DEPENDENCIES PARAMETERS ROOT LOW HIGH DOMAIN WORDS ROOT_WORD FRAME FLAG ACCESS CAPABLE.
   unfold affine_scan_all_code; rewrite <-affine_scan_all_result.
   eapply affine_scan_sequence_execution with(original:=original); [|exact FRAME|exact FLAG].
-  intros [first second] MEMBER temps good CURRENT GOOD; apply affine_scan_pairs_member in MEMBER as [FIRST SECOND].
+  intros [first second] MEMBER temps good CURRENT GOOD; unfold affine_ordered_scan_pairs in MEMBER;
+  apply filter_In in MEMBER as [MEMBER ORDER]; apply affine_scan_pairs_member in MEMBER as [FIRST SECOND];
+    apply (proj1(@affine_unique_scan_accesses_member first accesses)) in FIRST;
+    apply (proj1(@affine_unique_scan_accesses_member second accesses)) in SECOND.
   unfold affine_scan_access_pair_code; cbn [fst snd].
   unfold affine_scan_access_pair_result; destruct(Pos.eqb(memory_nary_access_array first)(memory_nary_access_array second)) eqn:SAME.
   - exists temps; rewrite andb_true_r; repeat split; auto using exec_Sskip,temp_agree_refl.

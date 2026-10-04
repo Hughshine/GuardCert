@@ -9,6 +9,7 @@ from native_affine_nest_multiple_pointers_paths import marked_source
 
 WORK=fixture.ROOT/'build/native-affine-nest-accumulation-cost'
 LAYOUT='pointers'
+N=4
 MODES=['source','identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile',
        'parametric-tile','partition-parametric-tile']
 
@@ -25,6 +26,7 @@ def generate():
     prefix=fixture.SOURCE.read_text().split('void accumulation_case',1)[0]
     prefix+='\n#include <stdlib.h>\n#include <time.h>\nint A[2048],B[2048],C[2048];\n'
     main='int main(int argc,char **argv){int x,r,repetitions=argc>1?atoi(argv[1]):100;clock_t before,after;unsigned checksum=0;for(x=0;x<2048;x++){A[x]=3*x+1;B[x]=5*x-7;C[x]=2147483647-11*x;}before=clock();for(r=0;r<repetitions;r++)affine_accumulation(A+256,B+256,C+256,0,4,2,3);after=clock();for(x=0;x<2048;x++)checksum=checksum+(unsigned)A[x];printf("%d %lu %lu %u %d %d %d %d %d\\n",repetitions,(unsigned long)(after-before),(unsigned long)CLOCKS_PER_SEC,checksum,out_i,out_j,out_k,out_K,out_L);return 0;}\n'
+    main=main.replace(',0,4,2,3)',f',0,{N},2,3)')
     source.write_text(layout_text(prefix+main));return source
 
 def environment(extra):
@@ -52,14 +54,15 @@ def checksum(repetitions):
     a=[3*x+1 for x in range(2048)]
     if LAYOUT=='windows':
         for x in range(512):a[512+x]=5*x-7;a[1024+x]=2**31-1-11*x
-    for i,j,k in fixture.points_and_exit((0,0,4,2,3))[0]:
+    for i,j,k in fixture.points_and_exit((0,0,N,2,3))[0]:
         a[256+32*i+j]+=repetitions*(5*(256+32*i+k)-7)*(2**31-1-11*(256+32*k+j))
     return sum(a)%2**32
 
 def sample(name,repetitions):
     output=subprocess.check_output([str(WORK/name),str(repetitions)],text=True,timeout=60)
     count,ticks,frequency,value,*controls=map(int,output.split())
-    assert count==repetitions and value==checksum(repetitions) and controls==[4,5,3,5,3],output
+    expected_controls=list(fixture.points_and_exit((0,0,N,2,3))[1])
+    assert count==repetitions and value==checksum(repetitions) and controls==expected_controls,output
     assert frequency>0 and ticks>=0
     return {'repetitions':count,'ticks':ticks,'ticks_per_second':frequency,
             'seconds_per_call':ticks/frequency/count,'output':output.strip()}
@@ -69,17 +72,38 @@ def observe_fast(name):
     dump=re.sub(r'^int main\([^;\n]*\);\n','',dump,flags=re.M)
     source=marked_source(dump+'\nint main(void)\n{\nreturn 0;\n}\n',['affine_accumulation'])
     source+='\nint main(void){int x;for(x=0;x<2048;x++){A[x]=3*x+1;B[x]=5*x-7;C[x]=2147483647-11*x;}guard_fast[0]=0;guard_fallback[0]=0;affine_accumulation(A+256,B+256,C+256,0,4,2,3);return guard_fast[0]!=1 || guard_fallback[0]!=0;}\n'
+    source=source.replace(',0,4,2,3)',f',0,{N},2,3)')
+    comparisons=[0]
+    def instrument(match):
+        expression=match.group(1)
+        if '!=' not in expression:return match.group(0)
+        assert re.search(r'\$[abc]\s*\+',expression),expression
+        comparisons[0]+=1
+        return 'if ((guard_alias_comparisons++, ! ('+expression+'))) {'
+    source=re.sub(r'if \(! \(([^;]+?)\)\) \{',instrument,source)
+    expected_tests=3 if LAYOUT=='pointers' else 0
+    assert comparisons[0]==expected_tests,(name,comparisons[0])
+    expected_comparisons=expected_tests*len(fixture.points_and_exit((0,0,N,2,3))[0])**2
+    source='unsigned long guard_alias_comparisons;\n'+source
+    source=source.replace('return guard_fast[0]!=1 || guard_fallback[0]!=0;',
+        'printf("%lu\\n",guard_alias_comparisons);return guard_fast[0]!=1 || guard_fallback[0]!=0;')
     path=WORK/(name+'-diagnostic.c');path.write_text(layout_text(source))
     binary=WORK/(name+'-diagnostic')
     subprocess.run(['gcc','-O0','-fwrapv','-Wno-builtin-declaration-mismatch',str(path),'-o',str(binary)],check=True,capture_output=True)
-    subprocess.run([str(binary)],check=True,timeout=60)
-    return {'fast':1,'fallback':0,'diagnostic_source_sha256':fixture.compiler.sha(path)}
+    output=subprocess.check_output([str(binary)],text=True,timeout=60)
+    assert int(output)==expected_comparisons,(name,output,expected_comparisons)
+    saved=WORK/(name+'-diagnostic-output.txt');saved.write_text(output)
+    return {'fast':1,'fallback':0,'static_address_tests':comparisons[0],
+        'actual_address_comparisons':int(output),'diagnostic_source_sha256':fixture.compiler.sha(path),
+        'diagnostic_output_sha256':fixture.compiler.sha(saved)}
 
 def main():
-    global WORK,LAYOUT
+    global WORK,LAYOUT,N
     parser=argparse.ArgumentParser();parser.add_argument('--layout',choices=['pointers','windows'],default='pointers')
-    LAYOUT=parser.parse_args().layout
+    parser.add_argument('--n',type=int,choices=[1,2,3,4,6],default=4)
+    args=parser.parse_args();LAYOUT,N=args.layout,args.n
     if LAYOUT=='windows':WORK=fixture.ROOT/'build/native-affine-nest-accumulation-window-cost'
+    if N!=4:WORK=WORK.with_name(WORK.name+f'-n{N}')
     WORK.mkdir(parents=True,exist_ok=True);stamp=fixture.compiler.check_build();source=generate()
     requests=WORK/'requests';requests.mkdir(exist_ok=True)
     rows={'source':compile_one(source,'source',{'GUARDCERT_AFFINE_MODE':'disabled',
@@ -112,6 +136,8 @@ def main():
     for row in rows.values():row['relative_cpu_cost']=row['median_seconds_per_call']/baseline
     (WORK/'report.json').write_text(json.dumps({'status':'passed','compiler_sha256':stamp['compiler_sha256'],
         'source_sha256':fixture.compiler.sha(source),'layout':LAYOUT,'configurations':rows,
-        'scope':'empirical CPU cost of one small disjoint accumulation kernel, n=4,m=2,p=3; separate from correctness call counts'},indent=2)+'\n')
+        'input':{'start':0,'n':N,'m':2,'p':3},
+        'source_points':len(fixture.points_and_exit((0,0,N,2,3))[0]),
+        'scope':'empirical CPU cost of one small disjoint accumulation kernel; separate from correctness call counts'},indent=2)+'\n')
 
 if __name__=='__main__':main()
