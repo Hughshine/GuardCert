@@ -16,7 +16,13 @@ MODULES = [
     "AffineNestBoundEncoding", "AffineNestEncodingExamples", "AffineNestMemoryProjection",
     "AffineNestLeafModel", "AffineNestFirstLeaf", "AffineNestUsedWords", "AffineNestLeafLoop",
     "AffineNestLoopProjection", "AffineNestValuation", "AffineNestExpressionTail", "AffineNestMathDomain",
-    "AffineNestSourceDecode", "AffineNestLeafDecode", "AffineNestRealDecode", "AffineNestAudit",
+    "AffineNestSourceDecode", "AffineNestLeafDecode", "AffineNestRealDecode",
+    "AffineNestProfile", "AffineNestProfileSound", "AffineNestProfileExamples", "AffineNestBoundWords", "AffineNestGuardWords",
+    "AffineNestProbeRenaming", "AffineNestProbe", "AffineNestProbeExecution", "AffineNestProbeStage",
+    "AffineNestProbePartialExecution", "AffineNestProbeFrame", "AffineNestProbeInitialize", "AffineNestInitializedProbeFrame",
+    "AffineNestGuardParameterCheck", "AffineNestGuardDomain", "AffineNestNumericGuard", "AffineNestNumericExecution",
+    "AffineNestDomainGuard", "AffineNestAcceptedDomain", "AffineNestSourceGuard", "AffineNestNamespace",
+    "AffineNestGuardPackage", "AffineNestPackageGuard", "AffineNestPackageExamples", "AffineNestPackageWords", "AffineNestAudit",
 ]
 
 
@@ -61,8 +67,10 @@ def main():
                  "bound correspondence; actual source memory projection and independently checked real "
                  "leaf memory/instruction correspondence; source-derived used-word definitions and "
                  "actual Loop leaf argument semantics; recursive real source/IR correspondence under an "
-                 "explicit integer domain, discharged by the checked real leaf and complete source shape; "
-                 "runtime encoding and whole-program candidate integration remain open",
+                 "integer domain, discharged by a checked source-derived runtime guard package; "
+                 "safe private first-path probing, lazy parameter definitions, signed interval checks, "
+                 "namespace validation and an actual three-level memory-store fixture; "
+                 "candidate and whole-program compiler integration remain open",
         "modules": MODULES,
         "sources": {str((DIRECTORY / (m + ".v")).relative_to(ROOT)): sha(DIRECTORY / (m + ".v"))
                     for m in MODULES},
@@ -77,6 +85,12 @@ def main():
         "used_leaf_word_definitions_proved": True,
         "complete_nested_source_ir_correspondence_proved": True,
         "nested_source_ir_requires_explicit_integer_domain": True,
+        "checked_profile_implies_nested_integer_domain": True,
+        "source_derived_runtime_guard_execution_proved": True,
+        "accepted_runtime_guard_implies_nested_integer_domain": True,
+        "private_namespace_checked": True,
+        "real_three_level_memory_guard_package_fixture_checked": True,
+        "first_full_source_path_required_by_guard_policy": True,
         "nested_guarded_compiler_route_compiled": False,
         "whole_program_theorem_compiled": False,
         "transformed_native_execution_checked": False,
@@ -84,7 +98,7 @@ def main():
     (ROOT / "build" / "affine-nest-foundation-prototype-report.json").write_text(
         json.dumps(report, indent=2) + "\n")
     print(f"Compiled {len(MODULES)} prototype modules; existing six source assumptions preserved. "
-          "Conditional nested source/IR correspondence compiled; runtime checks and whole-program integration remain open.")
+          "Source-derived runtime guard compiled; candidate and whole-program compiler integration remain open.")
 
 
 if __name__ == "__main__":

@@ -8,6 +8,11 @@ From GuardAffineNest Require Import AffineNestLoopEncoding AffineNestBoundEncodi
 From GuardAffineNest Require Import AffineNestMemoryProjection AffineNestLeafModel AffineNestFirstLeaf AffineNestUsedWords AffineNestLeafLoop.
 From GuardAffineNest Require Import AffineNestLoopProjection AffineNestValuation AffineNestExpressionTail
   AffineNestMathDomain AffineNestSourceDecode AffineNestLeafDecode AffineNestRealDecode.
+From GuardAffineNest Require Import AffineNestProfile AffineNestProfileSound AffineNestProfileExamples AffineNestBoundWords AffineNestGuardWords
+  AffineNestProbeRenaming AffineNestProbe AffineNestProbeExecution AffineNestProbeStage AffineNestProbePartialExecution
+  AffineNestProbeFrame AffineNestProbeInitialize AffineNestInitializedProbeFrame AffineNestGuardParameterCheck AffineNestGuardDomain
+  AffineNestNumericGuard AffineNestNumericExecution AffineNestDomainGuard AffineNestAcceptedDomain AffineNestSourceGuard
+  AffineNestNamespace AffineNestGuardPackage AffineNestPackageGuard AffineNestPackageExamples AffineNestPackageWords.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
 Print Assumptions affine_nest_shapes_check_sound.
 Print Assumptions affine_nest_dependencies_check_sound.
@@ -46,6 +51,31 @@ Print Assumptions affine_loop_expression_tail_value.
 Print Assumptions affine_math_domain.
 Print Assumptions affine_checked_leaf_code.
 Print Assumptions affine_checked_nest_loop.
+Print Assumptions check_affine_nest_full.
+Print Assumptions affine_checked_math_bound.
+Print Assumptions checked_affine_profile_domain.
+Print Assumptions three_level_signed_profile_accepted.
+Print Assumptions insufficient_child_cap_refused.
+Print Assumptions overflowing_child_bound_profile_refused.
+Print Assumptions mismatched_leaf_box_refused.
+Print Assumptions affine_first_headers_used_bound_word.
+Print Assumptions affine_renamed_view_extend_set.
+Print Assumptions affine_first_path_flag_exact.
+Print Assumptions affine_probe_stage_child_view.
+Print Assumptions affine_first_probe_writes.
+Print Assumptions affine_root_probe_initial_view.
+Print Assumptions check_affine_guard_parameters_sound.
+Print Assumptions affine_register_domains_word_view.
+Print Assumptions affine_register_domains_transport.
+Print Assumptions affine_numeric_guard_sound.
+Print Assumptions affine_numeric_guard_flag_frame.
+Print Assumptions affine_domain_guard_accepted.
+Print Assumptions check_affine_guard_namespace.
+Print Assumptions check_affine_guard_package.
+Print Assumptions real_three_level_memory_guard_package_accepted.
+Print Assumptions public_result_scratch_refused.
+Print Assumptions colliding_private_controls_refused.
+Print Assumptions unallocated_private_controls_refused.
 Goal True. idtac "AFFINE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions window_source_runtime_domain.
 Goal True. idtac "AFFINE_SOURCE_BEGIN". exact I. Qed.
@@ -68,6 +98,22 @@ Print Assumptions affine_bound_word_from_view.
 Print Assumptions affine_nest_source_decode.
 Print Assumptions affine_checked_leaf_decode.
 Print Assumptions affine_checked_nest_source_decode.
+Print Assumptions affine_source_guard_register_defined.
+Print Assumptions affine_renamed_bound_evaluation.
+Print Assumptions affine_probe_header_test.
+Print Assumptions affine_first_probe_execution.
+Print Assumptions affine_first_probe_partial_execution.
+Print Assumptions affine_first_probe_public_frame.
+Print Assumptions affine_initialized_first_probe_execution.
+Print Assumptions affine_initialized_probe_public_frame.
+Print Assumptions affine_source_guard_parameter_domains.
+Print Assumptions affine_numeric_guard_encoding.
+Print Assumptions affine_numeric_guard_execution.
+Print Assumptions affine_domain_guard_execution.
+Print Assumptions affine_source_domain_guard_execution.
+Print Assumptions affine_package_guard_execution.
+Print Assumptions affine_package_accepted_word_view.
+Print Assumptions affine_package_root_words.
 Goal True. idtac "AFFINE_EXIT_BEGIN". exact I. Qed.
 Print Assumptions affine_exit_statement_execution.
 Print Assumptions affine_source_shadow_exit.

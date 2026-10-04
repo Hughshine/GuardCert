@@ -132,7 +132,8 @@ Record affine_nest_description source parameters := AffineNestDescription {
   described_affine_root_expression : affine_root_expression_valid described_affine_nest;
   described_affine_parameters_fresh : affine_parameters_fresh parameters described_affine_nest
 }.
-Definition check_affine_nest source parameters (nest : affine_source_nest) : option (affine_nest_description source parameters).
+Definition check_affine_nest_full source parameters (nest : affine_source_nest) :
+  option {description : affine_nest_description source parameters | described_affine_nest description=nest}.
 Proof.
   destruct (statement_eq source (affine_nest_source nest)) as [EXACT|]; [|exact None].
   destruct (list_eq_dec peq (affine_nest_iterators nest) []) as [|NONEMPTY]; [exact None|].
@@ -141,13 +142,15 @@ Proof.
   destruct (affine_nest_dependencies_check [] parameters nest) eqn:READS; [|exact None].
   destruct (affine_root_expression_check nest) eqn:ROOT; [|exact None].
   destruct (affine_parameters_fresh_check parameters nest) eqn:PARAMETERS; [|exact None].
-  exact (Some (@AffineNestDescription source parameters nest EXACT NONEMPTY
+  exact (Some (exist _ (@AffineNestDescription source parameters nest EXACT NONEMPTY
     (@affine_nest_shapes_check_sound nest SHAPES)
     (@memory_identifiers_unique_check_sound _ FRESH)
     (@affine_nest_dependencies_check_sound [] parameters nest READS)
     (@affine_root_expression_check_sound nest ROOT)
-    (@affine_parameters_fresh_check_sound parameters nest PARAMETERS))).
+    (@affine_parameters_fresh_check_sound parameters nest PARAMETERS)) eq_refl)).
 Defined.
+Definition check_affine_nest source parameters nest : option(affine_nest_description source parameters) :=
+  match check_affine_nest_full source parameters nest with Some checked=>Some(proj1_sig checked)|None=>None end.
 Definition describe_affine_nest source parameters :=
   check_affine_nest source parameters (propose_affine_source_nest (progress_syntax_size source) source).
 Print Assumptions affine_nest_shapes_check_sound.

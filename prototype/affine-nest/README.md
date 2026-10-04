@@ -13,7 +13,7 @@ for (; i < n; ++i) {
   for (j = 0; j < K; ++j) {
     L = j + p;
     for (k = 0; k < L; ++k) {
-      a[16*i + 4*j + k] = a[16*i + 4*j + k] + alpha;
+      a[16*i + 4*j + k] = alpha;
     }
   }
 }
@@ -38,6 +38,21 @@ for (; i < n; ++i) {
 | `affine_source_used_leaf_word` | 首条完整源活动路径存在时，从实际源执行推导叶子所用稳定参数的整数定义性 |
 | `affine_leaf_sequence_semantics` | 源顺序坐标和稳定参数对应实际 Loop 叶子参数；辅助元数据不进入指令载荷 |
 | `affine_checked_nest_source_decode` | 完整源 AST 与真实读写叶子证书，在明确整数域前提下组合出任意深度源执行到 Loop 执行的对应，包括空子循环 |
+| `checked_affine_profile_domain` | 检查每层仿射表达式、坐标和参数的区间，推出所有实际活动点满足整数域前提 |
+| `affine_first_probe_partial_execution` | 实际私有探测代码只执行首条控制路径，避免读取尚未初始化的深层辅助变量 |
+| `affine_source_domain_guard_execution` | 从实际正常源执行推出 guard 安全执行、内存不变、公开寄存器不变；接受结果推出完整整数域 |
+| `check_affine_guard_package` | 独立检查完整源形状、真实叶子、区间配置、参数用途和私有名字；成功返回上述证明所需证书 |
+| `affine_package_guard_execution` | 已检查的数据包提供可执行 Clight guard 及其证明，调用者只需提供实际正常源执行 |
+
+`AffineNestPackageExamples.v` 中的三层例子执行真实数组写入；VM 检查确认合法包被接受，
+公开参数被当作结果 scratch、私有名字冲突和私有变量分配缺失均被拒绝。
+包的初版把所有稳定整数参数登记在几何布局中，数值表达式也可以读取这些参数。
+每个登记参数必须实际出现在根上界、子上界或叶子表达式中，避免无理由地提前读取参数。
+私有变量必须由外围函数分配；包检查名字的新鲜性，不负责修改函数的临时变量声明。
+
+guard 先复制已定义的根头部到私有变量，再逐层探测首条源控制路径；只有这条路径真正到达叶子，
+才读取全部登记参数并执行 signed 区间检查。首条完整路径为空时保守回退，即使后面的源行可能活动。
+这个策略保证正常源执行下检查代码自身安全，不声称条件最弱。
 
 纯控制重放可能执行与源同样多的控制迭代；当前没有成本改善定理。
 另一个末轮计算方案 `affine_exit_statement_execution` 只证明生成代码自身的执行，依赖其明确的定义域；
@@ -45,8 +60,8 @@ for (; i < n; ++i) {
 初版上界区间策略还保守要求中间运算不溢出，不保证最弱条件或全部合法表达式均被接受。
 
 深层源／IR 对应已经编译通过；它要求 `affine_math_domain`，该前提包含每层数学上界的 signed32 范围和实际活动叶子的地址区间。
-当前没有可执行且已证明的检查器保证这个前提，不能把该定理当作已经可调用的 guarded 编译入口。
-还需完成源活动性约束下的运行时条件编码、实际访问足迹与依赖验证、
+当前已有可执行且已证明的检查器保证这个前提，但还不是正式编译器中的 guarded 编译入口。
+还需完成实际访问足迹与依赖验证、
 候选机器执行，以及区域和 Csem→Asm 的组合。本原型不会改变正式编译器的候选入口或接受范围。
 
 先完成既有适配器的 `make guard-memory-proof`，然后在项目 Rocq 环境中运行：
@@ -55,7 +70,7 @@ for (; i < n; ++i) {
 make affine-nest-prototype-proof
 ```
 
-脚本检查既有证明源码哈希，再编译本目录全部 25 个模块并审计假设。报告为
+脚本检查既有证明源码哈希，再编译本目录全部 50 个模块并审计假设。报告为
 `build/affine-nest-foundation-prototype-report.json`；独立编译记录为
 `build/affine-nest-foundation-prototype-audit.log`。语法、表达式编码和结构 frame 没有全局公理；
 源与出口端点精确保持已有源定义域端点的六项 CompCert／标准库假设。
