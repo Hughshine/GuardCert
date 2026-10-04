@@ -37,7 +37,7 @@ build/compcert-guardcert/ccomp \
 
 文件可以是单个候选，也可以是 `(choices ...)`。`(request DIGEST candidate)` 根据导出的请求选择条目；`(rank N candidate)` 按轴数选择条目。摘要只服务匹配，不绕过语义检查。候选 Loop 语法复用现有解析器的 `loop`、`seq`、`guard`、`instr`、仿射表达式、常量除法、取模及 min/max。实际后端和验证器可能拒绝其中不支持的实例。
 
-`(map-index (steps...) candidate)` 可以提议 `swap`、`shift`、`skew` 和 `reflect`。`(site-order (positions...) candidate)` 提议静态指令列表中的相邻交换，按源站点恢复对应，同时保留候选的实际时间戳。坐标对应、站点排列、域与依赖均由提取的检查器核对。[循环分裂实例](deep-affine-fission.md) 展示该接口处理多语句依赖；内置分块路线仍使用已有分块描述接口。
+`(map-index (steps...) candidate)` 可以提议 `swap`、`shift`、`skew` 和 `reflect`。`(site-order (positions...) candidate)` 提议静态指令列表中的相邻交换，按源站点恢复对应，同时保留候选的实际时间戳。坐标对应、站点排列、域与依赖均由提取的检查器核对。[skew 与 reflection 的实际程序验证](deep-affine-coordinate-maps.md)提供正负系数和错误映射反例；[循环分裂实例](deep-affine-fission.md) 展示该接口处理多语句依赖；内置分块路线仍使用已有分块描述接口。
 
 `(split-domain (conditions...) candidate)` 可提交一到两个切面，把完整域分区和站点对应纳入检查。参见[域切分的构造、语义证明与实际程序验证](deep-affine-domain-split.md)。
 

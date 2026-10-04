@@ -35,9 +35,10 @@ def pointer_views(mode):
     if mode == 4: return [(0,CENTER),(0,CENTER+480),(0,CENTER+960)]
     return [(0,CENTER),(1,CENTER),(2,CENTER)]
 
-def output_model(args):
+def output_model(args,point_order=None):
     which,mode,_,_,_,_,alpha = args
     points,final = source_points(args)
+    if point_order is not None:points=point_order
     arrays = [[word(3*x+1+17*slot) for x in range(SIZE)] for slot in range(3)]
     views = pointer_views(mode)
     for point in points:

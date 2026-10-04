@@ -470,3 +470,8 @@ native-guardcert-versions:
 	python3 scripts/native_guardcert_versions.py
 native-variable-cancel-versions:
 	python3 scripts/native_variable_cancel_versions.py
+
+.PHONY: native-affine-nest-affine-maps
+native-affine-nest-affine-maps:
+	python3 scripts/native_affine_nest_affine_maps.py
+	python3 scripts/native_affine_nest_affine_maps_paths.py

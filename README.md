@@ -12,6 +12,7 @@
 - [外部候选接口](docs/external-affine-candidates.md)：导出实际源，导入人工或工具生成的 Loop IR，自动生成守卫并独立验证候选。
 - [深层多语句与分裂](docs/deep-affine-fission.md)：静态站点排列、本轮及未来迭代依赖、原片段回退。
 - [深层候选条件搜索](docs/deep-affine-condition-search.md)：为同一外部候选尝试有限源范围，独立验证并生成完整程序中的守卫。
+- [Skew 与 reflection](docs/deep-affine-coordinate-maps.md)：真实循环、负坐标、依赖拒绝及机器范围／守卫验证。
 - [多个运行时版本](docs/deep-affine-runtime-versions.md)：逐轮检查当前程序、分配新私有名字，并在已有源回退位置安装后续 guard。
 - [变量乘除条件 rewrite](docs/variable-cancel-rewrite.md)：非零与溢出范围性质编码、短路检查、表达式上下文及两个完整编译入口。
 - [深层域切分](docs/deep-affine-domain-split.md)：完整切面覆盖、候选分组与执行顺序验证，共用原片段回退和完整程序定理。
