@@ -43,6 +43,8 @@
 
 当前主线是 `AbstractGuard.v` / `SemanticFacts.v`：通用核不内置整数或内存语义，语言实例提供性质、检查原语与条件选择。`ClightCondition.v` 将生成的条件树降低成实际 Clight 控制流，表达式与语句宿主接到完整程序模拟，`AdaptiveRegionCompiler.v` 接到 C→Asm。overflow 取消规则已使用这个路径。`StatefulGuard.v` 进一步允许检查改变私有状态，由语言实例提供公共状态关系、源观察运输和条件构造证明；一般仿射地址扫描已实际通过它接入统一完整程序入口。`ResidualGuard.v` 提供有证书的静态消去，尚未进入原生驱动；`AbstractSchedule.v` 的性质驱动交换链及可执行检查器已进入实际矩阵优化的原生证明链。详细接口与 PolCert 尚需的桥接见 [abstract-kernel.md](docs/abstract-kernel.md)。
 
+下面记录各实现阶段及独立适配路线，边界与验证数量属于各自的保存版本。当前编译器的功能、证明与运行结果以[2026-10-04 交付记录](docs/research-checkpoint-2026-10-04.md)为准；单指针和多指针深层区域均已使用通用有状态核心。
+
 [同地址读取实例](docs/clight-same-address.md) 在这一端到端路径上增加内存性质维度：源 load 建立检查有效性，运行时 `p == q` 允许后端消除重复读取。原生检查覆盖快路、回退、unsigned 边界及 signed／volatile 排除。
 
 [树形原子检查与 signed 取消](docs/clight-signed-cancellation.md) 让一个性质原子由多步骤条件树实现，继续复用同一完整程序宿主。signed32 的 `(x*2)/2 → x` 已进入实际 C→Asm 驱动，使用 signed64 检查而在溢出时保留源式回绕行为。
@@ -115,7 +117,7 @@
 
 真实 passes 在 `SimplLocals` 后运行：分支版本化允许 guard 接受时进入原 else；表达式版本化允许 guard 接受时运行保持类型和值的候选。后者支持赋值右侧和 return，可提升到二元／单目运算及 cast。四个新实例是 `x/y→x>>1`、`x%y→x&1`（检查 y=2）、`(x+x)/2→x`（检查不回绕）和 `x-x→0`（Truth）。完整程序证明覆盖调用、外部事件、可能发散的循环、switch 和 goto。
 
-当前语句宿主覆盖有限静默区域和可嵌套的严格 signed32 计数循环，尚无任意候选 region 的关系式宿主、完整数组 non-alias 检查、preload 或完整 DSL lowering；真实 Mem 的 load-hoisting 证明尚未接入 Clight。同地址内存表达式 guard 已可执行。独立 `GuardedRegion.v` 模型仍采用总的有限宏转移，两条证明路径的边界见接入说明。
+实际源足迹的跨指针分离检查已接入受支持的矩形和深层仿射循环，并与候选及回退连接到完整程序定理。它仍采用保守的跨指针分离前提与平方扫描，不支持任意内存片段的别名检查。任意候选 region 的关系式条件发现、preload 和完整 DSL lowering 仍未覆盖；真实 Mem 的 load-hoisting 局部证明尚未接入 Clight。独立 `GuardedRegion.v` 模型采用总的有限宏转移，与实际 Clight 宿主的边界分别记录。
 
 ## 运行
 
