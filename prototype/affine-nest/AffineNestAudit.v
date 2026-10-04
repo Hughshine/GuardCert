@@ -1,4 +1,4 @@
-From GuardMemory Require Import GuardMemoryWindowRuntimeFootprint.
+From GuardMemory Require Import GuardMemoryWindowRuntimeFootprint GuardMemoryUnifiedCompiler.
 From GuardAffineNest Require Import AffineNestSyntax AffineNestWords AffineNestExit AffineNestExamples.
 From GuardAffineNest Require Import AffineNestSourceShape AffineNestFirstDomain.
 From GuardAffineNest Require Import AffineNestLoopTrace.
@@ -13,6 +13,9 @@ From GuardAffineNest Require Import AffineNestProfile AffineNestProfileSound Aff
   AffineNestProbeFrame AffineNestProbeInitialize AffineNestInitializedProbeFrame AffineNestGuardParameterCheck AffineNestGuardDomain
   AffineNestNumericGuard AffineNestNumericExecution AffineNestDomainGuard AffineNestAcceptedDomain AffineNestSourceGuard
   AffineNestNamespace AffineNestGuardPackage AffineNestPackageGuard AffineNestPackageExamples AffineNestPackageWords.
+From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFootprint AffineNestPackageRanges
+  AffineNestShadowTransport AffineNestCandidateLocal AffineNestRegion AffineNestStaticPackage AffineNestStaticExamples
+  AffineNestCheckedCompiler AffineNestWholeCompiler.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
 Print Assumptions affine_nest_shapes_check_sound.
 Print Assumptions affine_nest_dependencies_check_sound.
@@ -76,6 +79,15 @@ Print Assumptions real_three_level_memory_guard_package_accepted.
 Print Assumptions public_result_scratch_refused.
 Print Assumptions colliding_private_controls_refused.
 Print Assumptions unallocated_private_controls_refused.
+Print Assumptions affine_package_single_covered.
+Print Assumptions affine_package_validator_within.
+Print Assumptions affine_package_encoder_within.
+Print Assumptions affine_shadow_source_writes.
+Print Assumptions affine_statement_scope_check_sound.
+Print Assumptions check_affine_static_package.
+Print Assumptions real_three_level_static_package_accepted.
+Print Assumptions missing_private_bound_declaration_refused.
+Print Assumptions missing_guard_result_declaration_refused.
 Goal True. idtac "AFFINE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions window_source_runtime_domain.
 Goal True. idtac "AFFINE_SOURCE_BEGIN". exact I. Qed.
@@ -114,7 +126,21 @@ Print Assumptions affine_source_domain_guard_execution.
 Print Assumptions affine_package_guard_execution.
 Print Assumptions affine_package_accepted_word_view.
 Print Assumptions affine_package_root_words.
+Print Assumptions affine_package_source_decode.
+Print Assumptions affine_package_context_typed.
+Print Assumptions affine_single_candidate_local.
+Print Assumptions affine_guarded_region_sound.
 Goal True. idtac "AFFINE_EXIT_BEGIN". exact I. Qed.
 Print Assumptions affine_exit_statement_execution.
 Print Assumptions affine_source_shadow_exit.
+Print Assumptions affine_checked_shadow_transport.
+Goal True. idtac "AFFINE_CHECKED_BASELINE_BEGIN". exact I. Qed.
+Print Assumptions check_memory_window_unified_region_sound.
+Goal True. idtac "AFFINE_CHECKED_BEGIN". exact I. Qed.
+Print Assumptions check_affine_region_sound.
+Print Assumptions checked_affine_regions_sound.
+Goal True. idtac "AFFINE_WHOLE_BASELINE_BEGIN". exact I. Qed.
+Print Assumptions compile_memory_unified_regions_correct.
+Goal True. idtac "AFFINE_WHOLE_BEGIN". exact I. Qed.
+Print Assumptions compile_affine_regions_correct.
 Goal True. idtac "AFFINE_AUDIT_END". exact I. Qed.

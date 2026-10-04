@@ -22,7 +22,10 @@ MODULES = [
     "AffineNestProbePartialExecution", "AffineNestProbeFrame", "AffineNestProbeInitialize", "AffineNestInitializedProbeFrame",
     "AffineNestGuardParameterCheck", "AffineNestGuardDomain", "AffineNestNumericGuard", "AffineNestNumericExecution",
     "AffineNestDomainGuard", "AffineNestAcceptedDomain", "AffineNestSourceGuard", "AffineNestNamespace",
-    "AffineNestGuardPackage", "AffineNestPackageGuard", "AffineNestPackageExamples", "AffineNestPackageWords", "AffineNestAudit",
+    "AffineNestGuardPackage", "AffineNestPackageGuard", "AffineNestPackageExamples", "AffineNestPackageWords",
+    "AffineNestPackageDecode", "AffineNestSingleFootprint", "AffineNestPackageRanges", "AffineNestShadowTransport",
+    "AffineNestCandidateLocal", "AffineNestRegion", "AffineNestStaticPackage", "AffineNestStaticExamples",
+    "AffineNestCheckedCompiler", "AffineNestWholeCompiler", "AffineNestAudit",
 ]
 
 
@@ -50,7 +53,8 @@ def main():
                            cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
     log = log_path.read_text()
     markers = ["AFFINE_SYNTAX_BEGIN", "AFFINE_BASELINE_BEGIN", "AFFINE_SOURCE_BEGIN",
-               "AFFINE_EXIT_BEGIN", "AFFINE_AUDIT_END"]
+               "AFFINE_EXIT_BEGIN", "AFFINE_CHECKED_BASELINE_BEGIN", "AFFINE_CHECKED_BEGIN",
+               "AFFINE_WHOLE_BASELINE_BEGIN", "AFFINE_WHOLE_BEGIN", "AFFINE_AUDIT_END"]
     sections = {markers[i]: log.split(markers[i], 1)[1].split(markers[i + 1], 1)[0]
                 for i in range(len(markers) - 1)}
     baseline = names(sections["AFFINE_BASELINE_BEGIN"])
@@ -58,6 +62,12 @@ def main():
     assert not names(sections["AFFINE_SYNTAX_BEGIN"])
     assert names(sections["AFFINE_SOURCE_BEGIN"]) == baseline
     assert names(sections["AFFINE_EXIT_BEGIN"]) == baseline
+    checked_baseline = names(sections["AFFINE_CHECKED_BASELINE_BEGIN"])
+    assert len(checked_baseline) == 14
+    assert names(sections["AFFINE_CHECKED_BEGIN"]) == checked_baseline
+    whole_baseline = names(sections["AFFINE_WHOLE_BASELINE_BEGIN"])
+    assert len(whole_baseline) == 42
+    assert names(sections["AFFINE_WHOLE_BEGIN"]) == whole_baseline
     report = {
         "status": "compiled",
         "scope": "incomplete deeper-affine source prototype: checked complete ASTs, dependencies and "
@@ -70,14 +80,16 @@ def main():
                  "integer domain, discharged by a checked source-derived runtime guard package; "
                  "safe private first-path probing, lazy parameter definitions, signed interval checks, "
                  "namespace validation and an actual three-level memory-store fixture; "
-                 "candidate and whole-program compiler integration remain open",
+                 "checked single-pointer candidates, exact public exits, safe guard/fallback regions "
+                 "and a complete Csem-to-Asm compiler theorem; extraction and native execution remain open",
         "modules": MODULES,
         "sources": {str((DIRECTORY / (m + ".v")).relative_to(ROOT)): sha(DIRECTORY / (m + ".v"))
                     for m in MODULES},
         "objects": {m: sha(DIRECTORY / (m + ".vo")) for m in MODULES},
         "prerequisite_proof_report_sha256": sha(baseline_path),
         "assumptions": {"syntax_and_frames": [], "source_execution": sorted(baseline),
-                        "exit_execution": sorted(baseline)},
+                        "exit_execution": sorted(baseline), "checked_candidate_region": sorted(checked_baseline),
+                        "whole_program": sorted(whole_baseline)},
         "same_as_current_source_domain_assumptions": True,
         "new_global_axioms": [],
         "source_exit_shadow_equivalence_proved": True,
@@ -91,14 +103,19 @@ def main():
         "private_namespace_checked": True,
         "real_three_level_memory_guard_package_fixture_checked": True,
         "first_full_source_path_required_by_guard_policy": True,
-        "nested_guarded_compiler_route_compiled": False,
-        "whole_program_theorem_compiled": False,
+        "nested_guarded_compiler_route_compiled": True,
+        "whole_program_theorem_compiled": True,
+        "whole_program_entrypoint": "AffineNestWholeCompiler.compile_affine_regions",
+        "whole_program_theorem": "AffineNestWholeCompiler.compile_affine_regions_correct",
+        "same_as_current_checked_region_assumptions": True,
+        "same_as_current_whole_program_assumptions": True,
+        "single_pointer_candidate_route_only": True,
         "transformed_native_execution_checked": False,
     }
     (ROOT / "build" / "affine-nest-foundation-prototype-report.json").write_text(
         json.dumps(report, indent=2) + "\n")
     print(f"Compiled {len(MODULES)} prototype modules; existing six source assumptions preserved. "
-          "Source-derived runtime guard compiled; candidate and whole-program compiler integration remain open.")
+          "Checked guarded candidate and whole-program theorem compiled; extraction and native execution remain open.")
 
 
 if __name__ == "__main__":

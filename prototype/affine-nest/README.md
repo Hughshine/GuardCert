@@ -1,8 +1,8 @@
 # 深层仿射源循环原型
 
-这是尚未接入正式编译器的证明原型。正式 signed 单／多指针矩形路线见
-[有符号多指针文档](../../docs/memory-signed-multiple-pointers.md)。本目录没有完整程序定理，
-也没有候选变换的原生执行结果。
+这是独立的深层仿射编译器原型。正式 signed 单／多指针矩形路线见
+[有符号多指针文档](../../docs/memory-signed-multiple-pointers.md)。本目录已有单指针候选与完整程序定理，
+尚未提取和运行原生编译器，尚未改变正式统一编译器的接受范围。
 
 目标源形状是有限深度的 signed32 规范循环。片段根保留实际入口游标；子循环先求值仿射上界，
 再把其游标重置为零。子上界可以读取此前的外层游标和稳定参数，例如：
@@ -43,6 +43,12 @@ for (; i < n; ++i) {
 | `affine_source_domain_guard_execution` | 从实际正常源执行推出 guard 安全执行、内存不变、公开寄存器不变；接受结果推出完整整数域 |
 | `check_affine_guard_package` | 独立检查完整源形状、真实叶子、区间配置、参数用途和私有名字；成功返回上述证明所需证书 |
 | `affine_package_guard_execution` | 已检查的数据包提供可执行 Clight guard 及其证明，调用者只需提供实际正常源执行 |
+| `affine_package_source_decode` | guard 接受时，从真实源执行得到真实内存上的深层 Loop IR 执行；整数域和参数定义性均由包与 guard 推出 |
+| `affine_single_candidate_local` | 已验证的单指针候选经实际 Clight 后端执行，保持最终内存，并恢复相同公开出口 |
+| `affine_guarded_region_sound` | 实际 guard、接受候选和失败回退共同提供完整程序框架需要的 `projected_region_contract` |
+| `check_affine_static_package` | 进一步检查指针名字、窗口、源 IR、出口作用域及私有变量的实际分配 |
+| `check_affine_region_sound` | 不受信任的源描述和候选提议经实际依赖验证与后端检查后提供区域契约 |
+| `compile_affine_regions_correct` | 成功输出汇编的深层编译入口满足 `Csem → Asm` backward simulation |
 
 `AffineNestPackageExamples.v` 中的三层例子执行真实数组写入；VM 检查确认合法包被接受，
 公开参数被当作结果 scratch、私有名字冲突和私有变量分配缺失均被拒绝。
@@ -60,9 +66,12 @@ guard 先复制已定义的根头部到私有变量，再逐层探测首条源�
 初版上界区间策略还保守要求中间运算不溢出，不保证最弱条件或全部合法表达式均被接受。
 
 深层源／IR 对应已经编译通过；它要求 `affine_math_domain`，该前提包含每层数学上界的 signed32 范围和实际活动叶子的地址区间。
-当前已有可执行且已证明的检查器保证这个前提，但还不是正式编译器中的 guarded 编译入口。
-还需完成实际访问足迹与依赖验证、
-候选机器执行，以及区域和 Csem→Asm 的组合。本原型不会改变正式编译器的候选入口或接受范围。
+当前已有可执行且已证明的检查器保证这个前提。单指针路线还使用已验证的窗口非别名性质，
+调用实际多面体依赖验证器，生成并证明实际 Clight 候选，再组合到区域和 Csem→Asm。
+编译入口为 `AffineNestWholeCompiler.compile_affine_regions`；调用者传入不受信任的源描述器、
+不受信任的候选提议器和私有变量数量。它不要求调用者提供源执行／IR 对应证明或信任候选算法。
+还需提取编译器、实现可运行的提议策略，并验证实际非矩形调度的接受、拒绝、回退和完整程序执行。
+多指针深层路线仍未接通。本原型不会改变正式统一编译器的候选入口或接受范围。
 
 先完成既有适配器的 `make guard-memory-proof`，然后在项目 Rocq 环境中运行：
 
@@ -70,7 +79,8 @@ guard 先复制已定义的根头部到私有变量，再逐层探测首条源�
 make affine-nest-prototype-proof
 ```
 
-脚本检查既有证明源码哈希，再编译本目录全部 50 个模块并审计假设。报告为
+脚本检查既有证明源码哈希，再编译本目录全部 60 个模块并审计假设。报告为
 `build/affine-nest-foundation-prototype-report.json`；独立编译记录为
 `build/affine-nest-foundation-prototype-audit.log`。语法、表达式编码和结构 frame 没有全局公理；
-源与出口端点精确保持已有源定义域端点的六项 CompCert／标准库假设。
+源与出口端点精确保持已有源定义域端点的六项 CompCert／标准库假设；已检查区域端点和完整程序端点
+分别与正式统一编译器的 14 项和 42 项假设比较。
