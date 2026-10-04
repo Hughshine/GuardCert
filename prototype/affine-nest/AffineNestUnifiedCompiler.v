@@ -7,7 +7,7 @@ From Vpl Require Import Impure.
 From Guard Require Import ClightPrivateRegion ClightPrivatePool ClightTempFootprint GuardCompiler
   ClightGuard ClightGuardProof ClightNoWrap ClightTreeRewrite ClightTreeRewriteProof ClightSameAddress ClightSignedCancel.
 From GuardMemory Require Import GuardMemoryCompiler GuardMemoryTiledCompiler GuardMemoryUnifiedCompiler.
-From GuardAffineNest Require Import AffineNestCheckedCompiler AffineNestMultiCheckedCompiler.
+From GuardAffineNest Require Import AffineNestCheckedCompiler AffineNestMultiCheckedCompiler ClightVariableCancel.
 Import CoreAlarmed ListNotations PrivateRegion.
 Set Implicit Arguments.
 
@@ -50,14 +50,14 @@ Proof.
 Qed.
 
 Definition guardcert_scalar_rewrites program :=
-  ClightTreeRewrite.transform_program select_signed_memory_rewrites
+  ClightTreeRewrite.transform_program select_all_guardcert_rewrites
     (ClightGuard.transform_program select_no_wrap program).
 Lemma guardcert_scalar_rewrites_correct program :
   forward_simulation(Clight.semantics2 program)(Clight.semantics2(guardcert_scalar_rewrites program)).
 Proof.
   unfold guardcert_scalar_rewrites; eapply compose_forward_simulations.
   - apply ClightGuardProof.transform_program_correct2; exact select_no_wrap_sound.
-  - apply ClightTreeRewriteProof.transform_program_correct2; exact select_signed_memory_rewrites_sound.
+  - apply ClightTreeRewriteProof.transform_program_correct2; exact select_all_guardcert_rewrites_sound.
 Qed.
 
 Definition compile_guardcert describe propose_affine propose_memory private_count(program:Csyntax.program) : CoreAlarmed.Base.imp(res Asm.program) :=

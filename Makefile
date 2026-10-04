@@ -452,3 +452,8 @@ native-guardcert-conditioned:
 native-affine-nest-domain-split:
 	python3 scripts/native_affine_nest_domain_split.py
 	python3 scripts/native_affine_nest_domain_split_paths.py
+
+.PHONY: native-variable-cancel
+native-variable-cancel:
+	python3 scripts/native_variable_cancel.py
+	python3 scripts/native_variable_cancel_paths.py

@@ -17,7 +17,7 @@ From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFoot
   AffineNestShadowTransport AffineNestCandidateLocal AffineNestRegion AffineNestStaticPackage AffineNestStaticExamples
   AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
 From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
-From GuardAffineNest Require Import AffineNestUnifiedCompiler.
+From GuardAffineNest Require Import ClightVariableCancel AffineNestUnifiedCompiler.
 From GuardAffineNest Require Import GuardedCandidateChoice AffineNestConditionedCompiler.
 From GuardAffineNest Require Import AffineNestSiteSwap AffineNestSitePermutation AffineNestSiteChecker AffineNestBoundedSiteChecker.
 From GuardAffineNest Require Import AffineNestDomainSplit AffineNestSplitChecker.
@@ -26,6 +26,7 @@ From GuardAffineNest Require Import AffineNestScanModel AffineNestScanPoints Aff
   AffineNestMultiPresumption AffineNestMultiCandidateLocal AffineNestMultiGuardExecution AffineNestMultiRegion
   AffineNestMultiCheckedCompiler AffineNestMultiProposal.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
+Print Assumptions variable_cancel_value.
 Print Assumptions affine_complement_test_value.
 Print Assumptions affine_infer_axis_ranges.
 Print Assumptions affine_infer_address_window.
@@ -116,6 +117,8 @@ Print Assumptions actual_source_default_proposal_accepted.
 Goal True. idtac "AFFINE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions window_source_runtime_domain.
 Goal True. idtac "AFFINE_SOURCE_BEGIN". exact I. Qed.
+Print Assumptions variable_cancel_rule.
+Print Assumptions select_all_guardcert_rewrites_sound.
 Print Assumptions affine_partitioned_sources_execution.
 Print Assumptions affine_child_setup_decode.
 Print Assumptions affine_child_setup_read_words.

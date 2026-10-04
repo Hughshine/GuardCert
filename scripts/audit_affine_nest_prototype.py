@@ -35,7 +35,7 @@ MODULES = [
     "AffineNestScanNamedExecution", "AffineNestScanPair", "AffineNestScanSeparation", "AffineNestScanSequence",
     "AffineNestScanAll", "AffineNestMultiStaticPackage", "AffineNestPackageScanFootprint", "AffineNestPackageScanAccesses",
     "AffineNestMultiPresumption", "AffineNestMultiCandidateLocal", "AffineNestMultiGuardExecution", "AffineNestMultiRegion",
-    "AffineNestMultiCheckedCompiler", "AffineNestMultiProposal", "AffineNestUnifiedCompiler",
+    "AffineNestMultiCheckedCompiler", "AffineNestMultiProposal", "ClightVariableCancel", "AffineNestUnifiedCompiler",
     "GuardedCandidateChoice", "AffineNestConditionedCompiler", "AffineNestAudit",
 ]
 

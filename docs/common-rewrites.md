@@ -1,5 +1,7 @@
 # 常见 rewrite 的接口与接入
 
+2026-10-04 扩展：统一编译器已包括 signed32 [变量乘除条件 rewrite](variable-cancel-rewrite.md)，从两个语义原子自动生成短路检查，接入表达式上下文与 Csem→Asm，并运行接受、回退和不可达路径。下面保留 2026-10-02 的 unsigned 插件接口与证据；当前运行入口见[统一编译器](unified-guardcert-compiler.md)。
+
 2026-10-02：表达式 rewrite 已接入实际 Clight pass、`Csem → Asm` 定理和提取后的编译器。当前实例都针对确切的无属性 unsigned32 临时变量。它们验证框架的可用性，不代表这些小例子的运行时版本化一定能带来收益。
 
 ## 变换族与现有支持
