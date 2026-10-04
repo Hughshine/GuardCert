@@ -425,3 +425,8 @@ native-guardcert:
 native-affine-nest-multiple-pointers:
 	python3 scripts/native_affine_nest_multiple_pointers.py
 	python3 scripts/native_affine_nest_multiple_pointers_paths.py
+
+.PHONY: native-affine-nest-external
+native-affine-nest-external:
+	python3 scripts/native_affine_nest_external.py
+	python3 scripts/native_affine_nest_external_paths.py

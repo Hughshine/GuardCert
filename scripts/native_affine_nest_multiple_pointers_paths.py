@@ -49,8 +49,8 @@ def marked_source(dump,names):
     return declarations+source
 
 
-def diagnostic(name,configuration):
-    work=fixture.WORK/name
+def diagnostic(name,configuration,directory=fixture.WORK):
+    work=directory/name
     names=[fn for fn,facts in configuration['functions'].items() if facts['guarded']]
     source=marked_source((work/(fixture.SOURCE.stem+'.light.c')).read_text(),names)
     calls,expected,observations=[],[],[]

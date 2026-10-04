@@ -102,6 +102,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         ("GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml", "GuardMemoryCandidate.ml")]
     native_sources.append(DIRECTORY / "native" / "GuardAffineNestCandidate.ml")
     native_sources.append(DIRECTORY / "native" / "GuardAffineNestTiling.ml")
+    native_sources.append(DIRECTORY / "native" / "GuardAffineNestExternal.ml")
     if args.unified:
         native_sources += [ADAPTER / "native" / name for name in
                            ("GuardMemoryScheduleInput.ml", "GuardMemoryUnifiedCandidate.ml")]

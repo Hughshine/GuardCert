@@ -115,10 +115,14 @@ let propose_raw request =
   try
     let selected = mode () in
     let dimensions = List.length request.AffineNestCheckedCompiler.affine_requested_axes in
+    let syntax,instructions = GuardAffineNestExternal.source_syntax
+      request.AffineNestCheckedCompiler.affine_requested_loop in
+    GuardAffineNestExternal.export_request request syntax instructions;
     diagnostic (Printf.sprintf "GUARDCERT_AFFINE_REQUEST depth=%d mode=%s" dimensions selected);
     let order = List.init dimensions (fun index -> index) in
     let source = request.AffineNestCheckedCompiler.affine_requested_loop in
     match selected with
+    | "external" -> GuardAffineNestExternal.propose request syntax instructions
     | "disabled" -> None
     | "identity" -> mapped_candidate source []
     | "box" -> mapped_candidate (box_candidate request order true) []
@@ -147,7 +151,7 @@ let propose_raw request =
     | "noop-reindex" -> mapped_candidate source [GuardMemoryAffineReindex.MemoryReindexSwap (nat 99)]
     | "wrong-reindex" -> mapped_candidate source [GuardMemoryAffineReindex.MemoryReindexSwap (nat 0)]
     | _ -> None
-  with Invalid_argument _ | Failure _ | Stack_overflow -> None
+  with Invalid_argument _ | Failure _ | Sys_error _ | Stack_overflow -> None
 
 let propose request =
   let result = propose_raw request in

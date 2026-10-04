@@ -84,8 +84,8 @@ def generate():
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def compile_run(name,mode,extra,expected):
-    work=WORK/name; work.mkdir(parents=True,exist_ok=True)
+def compile_run(name,mode,extra,expected,directory=WORK):
+    work=directory/name; work.mkdir(parents=True,exist_ok=True)
     candidate=work/'candidate.sexp'; candidate.write_text('(interval (per-axis (schedule ((coordinate 99) ordinal) ())))\n')
     env={k:v for k,v in os.environ.items() if not k.startswith('GUARDCERT_')}
     env|={'GUARDCERT_AFFINE_MODE':mode,'GUARDCERT_AFFINE_PROFILE':'inferred',
