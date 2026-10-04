@@ -107,7 +107,11 @@ def templates():
         'schedule-fission-2':'(schedule (ordinal (coordinate 0) (coordinate 1)) ())',
         'schedule-reverse-1':'(schedule ((negative-coordinate 0) ordinal) ((reflect 0)))',
         'invalid-coordinate':'(schedule ((coordinate 8) ordinal) ())',
-        'unsupported-tile':'(tile 2 3)'})
+        'tile-2-3':'(tile 2 3)',
+        'tile-17-13':'(tile 17 13)',
+        'invalid-tile-zero':'(tile 0 3)',
+        'invalid-tile-negative':'(tile 2 -3)',
+        'unrepresentable-tile':'(tile 2147483649 3)'})
     return result
 
 def main():
@@ -116,7 +120,7 @@ def main():
     reference=common.checked_reference(SOURCE,WORK,''.join(output_model(row) for row in inputs))
     if args.reference_only:print('Signed source fixture:',len(inputs),'complete GCC outputs agree with the word model');return
     stamp=common.check_build();proof=json.loads((ROOT/'build/guard-memory-proof-report.json').read_text())
-    assert proof['memory_signed_window_csem_asm_proved']
+    assert proof['memory_signed_window_csem_asm_proved'] and proof['memory_signed_window_tiling_csem_asm_proved']
     proposals=templates();options=[(name,syntax,{}) for name,syntax in proposals.items()]
     options += [(name,proposals['schedule-interchange-2'],extra) for name,extra in
         [('resource-limit',{'GUARDCERT_FM_ROWS':'0'}),('invalid-certificate',{'GUARDCERT_ORACLE_FAULT':'top-certificate'})]]
@@ -126,13 +130,13 @@ def main():
         if name not in selected:continue
         dump,clight_bytes,assembly_bytes=common.compile_run(SOURCE,WORK/name,'(interval (per-axis '+syntax+'))',extra,reference)
         found=observed_functions(dump)
-        if extra or name in ['invalid-coordinate','unsupported-tile']:assert not found,(name,found)
+        if extra or name in ['invalid-coordinate','invalid-tile-zero','invalid-tile-negative','unrepresentable-tile']:assert not found,(name,found)
         else:
             if name=='schedule-reverse-1':
                 expected=set(NAMES[:2])
                 assert 'window_neighbor1' not in found,(name,found)
             else:
-                dimensions=2 if name.startswith('schedule') else int(name[-1])
+                dimensions=2 if name.startswith(('schedule','tile-')) else int(name[-1])
                 expected={fn for fn,d in zip(NAMES,DIMENSIONS) if d==dimensions}
             assert expected<=set(found),(name,expected,found)
             assert all(found[fn]['whole_source_region'] for fn in expected),(name,found)
@@ -143,7 +147,7 @@ def main():
         'source_sha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),'configurations':configurations,
         'full_configuration_suite':not bool(args.cases),
         'dependence_witness':{'input':witness,'separated_cells_do_not_allow_neighbor_reversal':True},
-        'scope':'complete CompCert assembly outputs for signed source roots, signed stable address parameters and signed logical indices; all array cells and public exits; accepted direct and scheduled candidates, genuine dependencies and fault or unsupported proposal fallback'}
+        'scope':'complete CompCert assembly outputs for signed source roots, signed stable address parameters and signed logical indices; all array cells and public exits; accepted direct, scheduled and signed-block tiled candidates, genuine dependencies and fault or malformed proposal fallback'}
     (WORK/('smoke-report.json' if args.cases else 'report.json')).write_text(json.dumps(report,indent=2)+'\n')
 
 if __name__=='__main__':main()

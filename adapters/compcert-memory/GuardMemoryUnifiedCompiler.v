@@ -41,7 +41,7 @@ Inductive guarded_memory_candidate :=
 From GuardMemory Require Import GuardMemoryStartedPackage GuardMemoryStartedPackageBuilder
   GuardMemoryStartedAxisCompiler GuardMemoryStartedAxisServices.
 From GuardMemory Require Import GuardMemoryWindowPackage GuardMemoryWindowStartedPackage GuardMemoryWindowPackageBounds
-  GuardMemoryWindowServices GuardMemoryWindowDescribe.
+  GuardMemoryWindowServices GuardMemoryWindowDescribe GuardMemoryWindowTilingServices.
 Record guarded_memory_request := BuildGuardedMemoryRequest {
   request_instructions : list memory_instruction;
   request_coordinates : nat;
@@ -306,6 +306,7 @@ Definition check_memory_window_unified_region live pool propose source :=
   @check_window_profiles source (fun package => match propose (memory_window_unified_request package) with
     | Some (GuardedAffineCandidate candidate swaps) => check_window_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
     | Some (GuardedMappedCandidate candidate steps) => check_window_mapped_package live pool package candidate steps
+    | Some (GuardedTilingCandidate rows columns) => check_window_tiled_package live pool package rows columns
     | Some (GuardedScheduleCandidate schedules steps) => check_window_scheduled_package live pool package schedules steps
     | _ => CoreAlarmed.Base.pure None end) (propose_window_profiles source).
 Theorem check_memory_window_unified_region_sound live pool propose source target :
@@ -316,7 +317,7 @@ Proof.
   - destruct candidate.
     + eapply check_window_mapped_package_sound; exact ACCEPT.
     + eapply check_window_mapped_package_sound; exact ACCEPT.
-    + apply mayReturn_pure in ACCEPT; discriminate.
+    + eapply check_window_tiled_package_sound; exact ACCEPT.
     + eapply check_window_scheduled_package_sound; exact ACCEPT.
   - apply mayReturn_pure in ACCEPT; discriminate.
 Qed.

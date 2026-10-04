@@ -107,9 +107,14 @@ let propose request =
       Some (GuardMemoryUnifiedCompiler.GuardedMappedCandidate
         (adapt_started_candidate request (GuardMemoryCandidate.instantiate_at instructions None syntax),List.map affine_step steps))
     | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "tile"; rows; columns]) ->
+      let rows = GuardMemoryCandidate.integer rows in
+      let columns = GuardMemoryCandidate.integer columns in
+      let limit = Z.of_string "2147483647" in
+      if Z.sign rows <= 0 || Z.sign columns <= 0 ||
+         Z.gt rows limit || Z.gt columns limit then None else
       Some (GuardMemoryUnifiedCompiler.GuardedTilingCandidate
-        (GuardMemoryNumbers.import_integer (GuardMemoryCandidate.integer rows),
-         GuardMemoryNumbers.import_integer (GuardMemoryCandidate.integer columns)))
+        (GuardMemoryNumbers.import_integer rows,
+         GuardMemoryNumbers.import_integer columns))
     | _ -> match GuardMemoryCandidate.propose_template instructions syntax with
       | Some (candidate,swaps) -> Some (GuardMemoryUnifiedCompiler.GuardedAffineCandidate (adapt_started_candidate request candidate,swaps))
       | None -> None
