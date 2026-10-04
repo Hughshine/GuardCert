@@ -386,3 +386,8 @@ native-memory-prefilter-versions: memory-unified-compiler
 native-memory-started-regions: memory-unified-compiler
 	python3 scripts/native_memory_started_regions.py
 	python3 scripts/native_memory_started_regions_paths.py
+
+.PHONY: native-memory-signed-windows
+native-memory-signed-windows: memory-unified-compiler
+	python3 scripts/native_memory_signed_windows.py
+	python3 scripts/native_memory_signed_windows_paths.py

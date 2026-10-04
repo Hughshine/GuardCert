@@ -40,6 +40,8 @@ Inductive guarded_memory_candidate :=
     Correctness remains quantified over every untrusted proposer. *)
 From GuardMemory Require Import GuardMemoryStartedPackage GuardMemoryStartedPackageBuilder
   GuardMemoryStartedAxisCompiler GuardMemoryStartedAxisServices.
+From GuardMemory Require Import GuardMemoryWindowPackage GuardMemoryWindowStartedPackage GuardMemoryWindowPackageBounds
+  GuardMemoryWindowServices GuardMemoryWindowDescribe.
 Record guarded_memory_request := BuildGuardedMemoryRequest {
   request_instructions : list memory_instruction;
   request_coordinates : nat;
@@ -49,10 +51,11 @@ Record guarded_memory_request := BuildGuardedMemoryRequest {
   request_per_axis_bounds : bool;
   request_runtime_versions : bool;
   request_guard_prefilter : bool;
-  request_source_loop : option L.stmt
+  request_source_loop : option L.stmt;
+  request_signed_window : option (Z * list (Z*Z) * Z * Z)
 }.
 Definition GuardedMemoryRequest instructions coordinates arity :=
-  BuildGuardedMemoryRequest instructions coordinates arity [] [] false false false None.
+  BuildGuardedMemoryRequest instructions coordinates arity [] [] false false false None None.
 Definition guarded_memory_proposer := guarded_memory_request -> option guarded_memory_candidate.
 Definition memory_multi_pointer_unified_request source (package : memory_multi_pointer_region_package source) :=
   GuardedMemoryRequest (memory_multi_pointer_region_instructions package)
@@ -132,7 +135,7 @@ Qed.
 Definition memory_vector_axis_unified_request source (package : memory_vector_pointer_region_package source) :=
   BuildGuardedMemoryRequest (memory_vector_pointer_region_instructions package)
     (length (memory_nest_iterators (vector_pointer_region_nest package)))
-    (length (memory_vector_pointer_region_context package)) (vector_pointer_region_limits package) [] true false false None.
+    (length (memory_vector_pointer_region_context package)) (vector_pointer_region_limits package) [] true false false None None.
 Definition check_memory_vector_axis_unified_region live pool propose source :=
   @check_memory_vector_axis_profiles source
     (fun package => match propose (memory_vector_axis_unified_request package) with
@@ -164,7 +167,7 @@ Definition memory_param_axis_unified_request source (package : memory_param_poin
   BuildGuardedMemoryRequest (memory_param_pointer_region_instructions package)
     (length (memory_nest_iterators (param_pointer_region_nest package)))
     (length (memory_param_pointer_region_context package)) (param_pointer_region_limits package)
-    (param_pointer_region_parameter_limits package) true false false None.
+    (param_pointer_region_parameter_limits package) true false false None None.
 Definition check_memory_param_axis_unified_region live pool propose source :=
   @check_memory_param_axis_profiles source
     (fun package => match propose (memory_param_axis_unified_request package) with
@@ -196,7 +199,7 @@ Definition memory_param_version_unified_request source (package : memory_param_p
   BuildGuardedMemoryRequest (memory_param_pointer_region_instructions package)
     (length (memory_nest_iterators (param_pointer_region_nest package)))
     (length (memory_param_pointer_region_context package)) (param_pointer_region_limits package)
-    (param_pointer_region_parameter_limits package) true true false None.
+    (param_pointer_region_parameter_limits package) true true false None None.
 Definition check_memory_param_version_unified_region live pool (propose : guarded_memory_proposer) source :=
   @compile_memory_param_version_groups source
     (fun package => match propose (memory_param_version_unified_request package) with
@@ -228,7 +231,7 @@ Definition memory_param_prefilter_unified_request source (package : memory_param
   BuildGuardedMemoryRequest (memory_param_pointer_region_instructions package)
     (length (memory_nest_iterators (param_pointer_region_nest package)))
     (length (memory_param_pointer_region_context package)) (param_pointer_region_limits package)
-    (param_pointer_region_parameter_limits package) true true true None.
+    (param_pointer_region_parameter_limits package) true true true None None.
 Definition check_memory_param_prefilter_unified_region live pool (propose : guarded_memory_proposer) source :=
   @compile_memory_param_prefilter_groups source
     (fun package => match propose (memory_param_prefilter_unified_request package) with
@@ -260,7 +263,7 @@ Definition memory_started_axis_unified_request source (package : memory_started_
   BuildGuardedMemoryRequest (memory_param_pointer_region_instructions (started_pointer_package package))
     (length (memory_nest_iterators (param_pointer_region_nest (started_pointer_package package))))
     (length (memory_started_pointer_region_context package)) (param_pointer_region_limits (started_pointer_package package))
-    (param_pointer_region_parameter_limits (started_pointer_package package)) true false false (Some (memory_started_pointer_loop package)).
+    (param_pointer_region_parameter_limits (started_pointer_package package)) true false false (Some (memory_started_pointer_loop package)) None.
 Definition check_memory_started_axis_unified_region live pool propose source :=
   @check_memory_param_axis_profiles source
     (fun original => match make_memory_started_pointer_package original with
@@ -292,6 +295,31 @@ Proof.
     + eapply check_memory_started_axis_pointer_scheduled_package_sound; exact ACCEPT.
   - apply mayReturn_pure in ACCEPT; discriminate.
 Qed.
+Definition memory_window_unified_request source (package : window_started_package source) :=
+  let base := window_started_base package in
+  BuildGuardedMemoryRequest (window_region_instructions base)
+    (length (memory_nest_iterators (window_region_nest base))) (length (window_package_context package))
+    (window_region_caps base) (map snd (window_region_parameter_bounds base)) true false false
+    (Some (window_package_loop package))
+    (Some (window_region_root_lower base,window_region_parameter_bounds base,window_region_lower base,window_region_upper base)).
+Definition check_memory_window_unified_region live pool propose source :=
+  @check_window_profiles source (fun package => match propose (memory_window_unified_request package) with
+    | Some (GuardedAffineCandidate candidate swaps) => check_window_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
+    | Some (GuardedMappedCandidate candidate steps) => check_window_mapped_package live pool package candidate steps
+    | Some (GuardedScheduleCandidate schedules steps) => check_window_scheduled_package live pool package schedules steps
+    | _ => CoreAlarmed.Base.pure None end) (propose_window_profiles source).
+Theorem check_memory_window_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_window_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_window_unified_region; intro RUN; eapply check_window_profiles_sound; [|exact RUN].
+  intros package chosen ACCEPT; cbn beta in ACCEPT; destruct (propose (memory_window_unified_request package)) as [candidate|].
+  - destruct candidate.
+    + eapply check_window_mapped_package_sound; exact ACCEPT.
+    + eapply check_window_mapped_package_sound; exact ACCEPT.
+    + apply mayReturn_pure in ACCEPT; discriminate.
+    + eapply check_window_scheduled_package_sound; exact ACCEPT.
+  - apply mayReturn_pure in ACCEPT; discriminate.
+Qed.
 Definition check_memory_multi_pointer_unified_region live pool propose source :=
   BIND target <- check_memory_affine_pointer_unified_region live pool propose source -;
   match target with
@@ -321,7 +349,9 @@ Definition check_memory_multi_pointer_unified_region live pool propose source :=
                             match target with Some target => CoreAlarmed.Base.pure (Some target)
                               | None => BIND target <- check_memory_started_axis_unified_region live pool propose source -;
                                 match target with Some target => CoreAlarmed.Base.pure (Some target)
-                                  | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end end end end end end end.
+                                  | None => BIND target <- check_memory_window_unified_region live pool propose source -;
+                                    match target with Some target => CoreAlarmed.Base.pure (Some target)
+                                      | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end end end end end end end end.
 Theorem check_memory_multi_pointer_unified_region_sound live pool propose source target :
   mayReturn (check_memory_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
 Proof.
@@ -358,7 +388,10 @@ Proof.
                  --- bind_imp_destruct RUN started STARTED; destruct started as [started|].
                      +++ apply mayReturn_pure in RUN; inversion RUN; subst;
                            eapply check_memory_started_axis_unified_region_sound; exact STARTED.
-                     +++ eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
+                     +++ bind_imp_destruct RUN window WINDOW; destruct window as [window|].
+                         *** apply mayReturn_pure in RUN; inversion RUN; subst;
+                               eapply check_memory_window_unified_region_sound; exact WINDOW.
+                         *** eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
 Qed.
 Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=
   GuardedMemoryRequest (memory_scalar_pointer_region_instructions package)
@@ -738,3 +771,5 @@ Print Assumptions check_memory_multi_pointer_unified_region_sound.
 Print Assumptions check_memory_vector_axis_unified_region_sound.
 
 Print Assumptions check_memory_started_axis_unified_region_sound.
+
+Print Assumptions check_memory_window_unified_region_sound.

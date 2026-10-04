@@ -43,6 +43,15 @@ let propose request =
   let arity = GuardMemoryScheduleInput.natural_size request.GuardMemoryUnifiedCompiler.request_context_arity in
   try
     let syntax = match Lazy.force GuardMemoryCandidate.template with
+      | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "interval";
+          GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "per-axis"; syntax]]) ->
+          if not request.GuardMemoryUnifiedCompiler.request_per_axis_bounds ||
+             request.GuardMemoryUnifiedCompiler.request_runtime_versions ||
+             request.GuardMemoryUnifiedCompiler.request_guard_prefilter ||
+             request.GuardMemoryUnifiedCompiler.request_source_loop = None ||
+             request.GuardMemoryUnifiedCompiler.request_signed_window = None then
+            invalid_arg "interval candidate requires a checked signed window source";
+          Some syntax
       | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "started";
           GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "per-axis"; syntax]]) ->
           if not request.GuardMemoryUnifiedCompiler.request_per_axis_bounds ||
@@ -50,6 +59,8 @@ let propose request =
              request.GuardMemoryUnifiedCompiler.request_guard_prefilter ||
              request.GuardMemoryUnifiedCompiler.request_source_loop = None then
             invalid_arg "started candidate requires a checked source loop";
+          if request.GuardMemoryUnifiedCompiler.request_signed_window <> None then
+            invalid_arg "started template does not select signed window source";
           Some syntax
       | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "prefilter";
           GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "versions";

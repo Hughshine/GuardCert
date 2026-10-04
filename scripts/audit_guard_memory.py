@@ -47,6 +47,8 @@ PREFILTER_MODULES = ['GuardMemoryCheckPrefix', 'GuardMemoryPrefilterVersions', '
 MODULES[-1:-1] = PREFILTER_MODULES
 STARTED_REGION_MODULES = ['GuardMemoryScalarContextTail', 'GuardMemoryStartedScalarLoop', 'GuardMemoryStartedPackage', 'GuardMemoryStartedFirstLeaf', 'GuardMemoryStartedSourceWords', 'GuardMemoryStartedHeader', 'GuardMemoryStartedPointerWords', 'GuardMemoryStartedPointerHeader', 'GuardMemoryStartedPointerBounds', 'GuardMemoryStartedFramedSource', 'GuardMemoryStartedScalarLift', 'GuardMemoryStartedPointerBody', 'GuardMemoryStartedPointerDomain', 'GuardMemoryStartedBooleanRectangle', 'GuardMemoryStartedFootprint', 'GuardMemoryStartedPointerFootprint', 'GuardMemoryBoundedSourceChecker', 'GuardMemoryStartedPointerCandidate', 'GuardMemoryStartedBooleanWrapper', 'GuardMemoryStartedBooleanPublic', 'GuardMemoryStartedPairScan', 'GuardMemoryStartedBooleanMember', 'GuardMemoryStartedAxisPairs', 'GuardMemoryStartedAxisScan', 'GuardMemoryStartedAxisFrame', 'GuardMemoryStartedAxisGuard', 'GuardMemoryStartedAxisCompiler', 'GuardMemoryBoundedSourceTiling', 'GuardMemoryStartedScalarTiling', 'GuardMemoryStartedAxisServices', 'GuardMemoryStartedPackageBuilder']
 MODULES[-1:-1] = STARTED_REGION_MODULES
+SIGNED_WINDOW_MODULES = ['GuardMemoryIntervalBox', 'GuardMemorySignedWindow', 'GuardMemoryWindowAccess', 'GuardMemoryWindowCompute', 'GuardMemoryWindowSyntax', 'GuardMemoryWindowPackage', 'GuardMemoryWindowStartedPackage', 'GuardMemoryIntervalGuard', 'GuardMemoryWindowParameterGuard', 'GuardMemoryWindowHeader', 'GuardMemoryWindowCells', 'GuardMemoryWindowRegistry', 'GuardMemoryWindowSequence', 'GuardMemoryWindowWords', 'GuardMemoryWindowFirstLeaf', 'GuardMemoryWindowSourceHeader', 'GuardMemoryWindowPackageHeader', 'GuardMemoryWindowStaticBounds', 'GuardMemoryWindowPackageBounds', 'GuardMemoryWindowBackend', 'GuardMemoryWindowSourceRanges', 'GuardMemoryWindowBody', 'GuardMemoryWindowSourceDomain', 'GuardMemoryWindowSingleRegistry', 'GuardMemoryWindowSingleFootprint', 'GuardMemoryWindowCandidate', 'GuardMemoryWindowCompiler', 'GuardMemoryWindowServices', 'GuardMemoryWindowCheck', 'GuardMemoryWindowSourceCheck', 'GuardMemoryWindowPackageBuilder', 'GuardMemoryWindowDescribe', 'GuardMemoryWindowExamples']
+MODULES[-1:-1] = SIGNED_WINDOW_MODULES
 STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition', 'StatefulGuardVersions']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
@@ -110,6 +112,7 @@ From GuardMemory Require Import GuardMemoryParamBoundaryMath GuardMemoryParamBou
 From GuardMemory Require Import GuardMemoryStatefulVersions GuardMemoryVersionFamily GuardMemoryParamVersionComponents GuardMemoryParamVersionServices GuardMemoryParamVersionGroups.
 From GuardMemory Require Import GuardMemoryCheckPrefix GuardMemoryPrefilterVersions GuardMemoryPrefilterComponents GuardMemoryPrefilterGroups.
 From GuardMemory Require Import GuardMemoryScalarContextTail GuardMemoryStartedScalarLoop GuardMemoryStartedPackage GuardMemoryStartedFirstLeaf GuardMemoryStartedSourceWords GuardMemoryStartedHeader GuardMemoryStartedPointerWords GuardMemoryStartedPointerHeader GuardMemoryStartedPointerBounds GuardMemoryStartedFramedSource GuardMemoryStartedScalarLift GuardMemoryStartedPointerBody GuardMemoryStartedPointerDomain GuardMemoryStartedBooleanRectangle GuardMemoryStartedFootprint GuardMemoryStartedPointerFootprint GuardMemoryBoundedSourceChecker GuardMemoryStartedPointerCandidate GuardMemoryStartedBooleanWrapper GuardMemoryStartedBooleanPublic GuardMemoryStartedPairScan GuardMemoryStartedBooleanMember GuardMemoryStartedAxisPairs GuardMemoryStartedAxisScan GuardMemoryStartedAxisFrame GuardMemoryStartedAxisGuard GuardMemoryStartedAxisCompiler GuardMemoryBoundedSourceTiling GuardMemoryStartedScalarTiling GuardMemoryStartedAxisServices GuardMemoryStartedPackageBuilder.
+From GuardMemory Require Import GuardMemoryWindowCandidate GuardMemoryWindowCompiler GuardMemoryIntervalBox GuardMemoryWindowPackageBuilder.
 From GuardMemory Require Import GuardMemoryPointerDefinedIndex GuardMemoryPointerSourceWords GuardMemoryParamAxisPairScan GuardMemoryParameterRanges GuardMemoryParamPointerSyntax GuardMemoryParamPointerBody GuardMemoryParamPointerDomain GuardMemoryParamPointerHeader GuardMemoryParamPointerBounds GuardMemoryParamPointerProjectedCandidate GuardMemoryParamPointerFootprint GuardMemoryParamAxisFootprint GuardMemoryParamAxisPairs GuardMemoryParamAxisScan GuardMemoryParamRuntimeFrame GuardMemoryParamAxisFrame GuardMemoryParamAxisGuard GuardMemoryParamAxisCompiler GuardMemoryParamAxisServices GuardMemoryParamAxisDescribe.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -649,6 +652,11 @@ Print Assumptions check_memory_started_axis_pointer_mapped_package_sound.
 Print Assumptions check_memory_started_axis_pointer_scheduled_package_sound.
 Print Assumptions check_memory_started_axis_pointer_tiled_package_sound.
 Print Assumptions check_memory_started_axis_unified_region_sound.
+Print Assumptions check_memory_window_unified_region_sound.
+Print Assumptions window_single_candidate_rule.
+Print Assumptions window_region_target_sound.
+Print Assumptions interval_window_box_exact.
+Print Assumptions make_window_region_package.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -659,9 +667,11 @@ Print Assumptions compile_memory_proposed_regions_correct.
 Print Assumptions compile_memory_unified_regions_correct.
 Goal True. idtac "MEM_END". exact I. Qed.
 """)
-    result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT, check=True,
+    result = subprocess.run(["rocq", "compile", *flags, str(audit)], cwd=ROOT,
                             text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     (WORK / "audit.log").write_text(result.stdout)
+    if result.returncode:
+        raise SystemExit(f"memory assumption audit failed; see {(WORK / 'audit.log').relative_to(ROOT)}")
     cc, rest = result.stdout.split("MEM_CC_BASE", 1)[1].split("MEM_VALIDATOR_BASE", 1)
     baseline, rest = rest.split("MEM_STATEFUL_CORE", 1)
     stateful_core, rest = rest.split("MEM_AFFINE_GUARD_MATH", 1)
@@ -691,6 +701,8 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "stateful_core_instantiated_in_clight_projected_region_contract": True,
         "stateful_version_families_proved": True,
         "memory_parameter_version_families_csem_asm_proved": True,
+        "memory_signed_window_csem_asm_proved": True,
+        "memory_signed_window_scope": "opt-in interval per-axis template; checked signed root lower bounds, signed stable address parameter intervals and signed logical index windows; actual CompCert source and candidate bridge, source-derived short-circuit header safety, static one-pointer cell separation, checked mapped and scheduled candidates, restored public exits; positive checked root upper bound and zero-reset inner loops; tiling and multiple pointer signed fast paths excluded",
         "memory_started_fragment_csem_asm_proved": True,
         "memory_started_fragment_scope": "opt-in started per-axis template; nonnegative runtime entry root below the checked upper bound, certified zero-reset inner loops, stable affine address parameters and signed RHS scalars; scan only actual started-domain access pairs, check direct mapped schedules and witness tiling, restore public source exits; negative roots and empty domains use source fallback",
         "memory_guard_prefilter_csem_asm_proved": True,
