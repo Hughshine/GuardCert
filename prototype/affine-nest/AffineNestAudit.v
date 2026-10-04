@@ -19,6 +19,7 @@ From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFoot
 From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
 From GuardAffineNest Require Import ClightVariableCancel AffineNestUnifiedCompiler.
 From GuardAffineNest Require Import GuardedCandidateChoice AffineNestConditionedCompiler.
+From GuardAffineNest Require Import AffineNestRuntimeVersions.
 From GuardAffineNest Require Import AffineNestSiteSwap AffineNestSitePermutation AffineNestSiteChecker AffineNestBoundedSiteChecker.
 From GuardAffineNest Require Import AffineNestDomainSplit AffineNestSplitChecker.
 From GuardAffineNest Require Import AffineNestScanModel AffineNestScanPoints AffineNestScanSeparation
@@ -190,4 +191,6 @@ Goal True. idtac "AFFINE_UNIFIED_BEGIN". exact I. Qed.
 Print Assumptions compile_guardcert_correct.
 Goal True. idtac "AFFINE_CONDITIONED_BEGIN". exact I. Qed.
 Print Assumptions compile_guardcert_conditions_correct.
+Goal True. idtac "AFFINE_VERSIONS_BEGIN". exact I. Qed.
+Print Assumptions compile_guardcert_versions_correct.
 Goal True. idtac "AFFINE_AUDIT_END". exact I. Qed.

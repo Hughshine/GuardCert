@@ -18,7 +18,7 @@ else
 
 条件是可证明的充分条件，未声称最弱。比如 `x=INT_MAX,y=2` 时，源表达式按 word 乘法得到 `-1`，直接返回 `x` 会改变结果，生成的范围检查会选择原表达式。`examples/native_variable_cancel.c` 还覆盖外围算术、相同操作数、除零的源前置分支以及由源短路控制使除法不可达的路径。
 
-2026-10-04 的完整 audit 编译 101 个模块，两个编译器 stamp 各记录 712 份证明源、8 份 native 源。`variable_cancel_value` 无假设，规则和递归 selector 沿用六条 Clight 源语义假设；两个整程序定理仍为已有 42 条假设，无新增全局公理。
+提交 `6441e0a`（2026-10-04）的完整 audit 编译 101 个模块，两个编译器 stamp 各记录 712 份证明源、8 份 native 源。`variable_cancel_value` 无假设，规则和递归 selector 沿用六条 Clight 源语义假设；两个整程序定理仍为已有 42 条假设，无新增全局公理。
 
 `make native-variable-cancel` 分别验证统一入口和条件搜索入口，各运行 602 次实际汇编调用，并与独立 Word 模型及 GCC `-fwrapv` 参照一致。独立的实际 Clight 分支插桩在每个入口观察到 200 次候选、175 次回退和 227 次源控制流未到达表达式；短路使除法不可达时，新 guard 的执行次数为零。汇编结果与 GCC 诊断分别记录，不混为同一证据。
 

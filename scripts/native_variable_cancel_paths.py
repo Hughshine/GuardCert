@@ -21,13 +21,13 @@ def instrument(dump):
         source=source.replace(body,changed,1)
     return 'int guard_fast[4],guard_fallback[4],guard_entries[4];\n'+source
 
-def main():
+def main(services=None):
     report=json.loads((fixture.WORK/'report.json').read_text());assert report['status']=='passed'
     configurations={}
     for name,row in report['configurations'].items():
         work=fixture.WORK/name;dump=work/'variable-cancel.light.c'
         assert fixture.compiler.sha(dump)==row['clight_sha256']
-        service=fixture.compiler if name=='unified' else fixture.conditioned
+        service=(services or {'unified':fixture.compiler,'conditioned':fixture.conditioned})[name]
         assert service.check_build()['compiler_sha256']==row['compiler_sha256']
         source=instrument(dump.read_text());calls=[];counts=collections.Counter()
         for args in fixture.inputs():

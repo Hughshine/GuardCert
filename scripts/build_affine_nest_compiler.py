@@ -30,8 +30,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--unified", action="store_true")
     parser.add_argument("--conditioned", action="store_true")
+    parser.add_argument("--versions", action="store_true")
     args = parser.parse_args()
-    if args.conditioned:
+    if args.conditioned and args.versions:
+        parser.error("choose one of --conditioned and --versions")
+    if args.conditioned or args.versions:
         args.unified = True
     if args.unified:
         WORK = ROOT / "build" / "compcert-guardcert"
@@ -39,6 +42,9 @@ def main():
     if args.conditioned:
         WORK = ROOT / "build" / "compcert-guardcert-conditioned"
         ENTRY = "AffineNestConditionedCompiler.compile_guardcert_conditions"
+    if args.versions:
+        WORK = ROOT / "build" / "compcert-guardcert-versions"
+        ENTRY = "AffineNestRuntimeVersions.compile_guardcert_versions"
     polcert_core.select_profile("optimizer")
     proof_path = ROOT / "build" / "affine-nest-foundation-prototype-report.json"
     proof = json.loads(proof_path.read_text())
@@ -47,6 +53,8 @@ def main():
     proof_entry = "unified_whole_program_entrypoint" if args.unified else "whole_program_entrypoint"
     if args.conditioned:
         proof_entry = "conditioned_whole_program_entrypoint"
+    if args.versions:
+        proof_entry = "versions_whole_program_entrypoint"
     if (proof["status"] != "compiled" or proof.get(proof_entry) != ENTRY
             or proof["new_global_axioms"] or not proof["same_as_current_whole_program_assumptions"]
             or any(sha(ROOT / filename) != digest for filename, digest in sources.items())):
@@ -62,6 +70,8 @@ def main():
     if original.count(needle) != 1:
         raise SystemExit("unexpected CompCert driver entry")
     source_policy = "(GuardAffineNestCandidate.describes ())" if args.conditioned else "GuardAffineNestCandidate.describe"
+    if args.versions:
+        source_policy = "(GuardAffineNestVersions.describes ())"
     invocation = (ENTRY + " " + source_policy + " GuardAffineNestCandidate.propose "
         + ("GuardMemoryUnifiedCandidate.propose " if args.unified else "")
         + "(GuardMemoryCandidate.natural 32) csyntax")
@@ -92,6 +102,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
     extraction.write_text("From GuardAffineNest Require Import AffineNestWholeCompiler AffineNestPropose AffineNestRangeProposal AffineNestMultiProposal.\n"
         + ("From GuardAffineNest Require Import AffineNestUnifiedCompiler.\n" if args.unified else "")
         + ("From GuardAffineNest Require Import AffineNestConditionedCompiler.\n" if args.conditioned else "")
+        + ("From GuardAffineNest Require Import AffineNestRuntimeVersions.\n" if args.versions else "")
         + "From GuardMemory Require Import GuardMemoryScalarTiling.\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
@@ -116,6 +127,8 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
     if args.unified:
         native_sources += [ADAPTER / "native" / name for name in
                            ("GuardMemoryScheduleInput.ml", "GuardMemoryUnifiedCandidate.ml")]
+    if args.versions:
+        native_sources.append(DIRECTORY / "native" / "GuardAffineNestVersions.ml")
     for path in native_sources:
         name = "GuardMemoryNumbers.ml" if path.name == "GuardMemoryNumbersCompCert.ml" else path.name
         shutil.copy2(path, WORK / "extraction" / name)

@@ -18,7 +18,7 @@ make native-guardcert
 
 The resulting executable is `build/compcert-guardcert/ccomp`. It uses the normal CompCert driver options. `GUARDCERT_AFFINE_MODE` selects the deep affine candidate policy; `GUARDCERT_AFFINE_PROFILE=inferred` derives checked bounds and address windows from the source. `GUARDCERT_LOOP_CANDIDATE` names the candidate file for the rectangular memory service. These settings propose data; they cannot bypass either checker.
 
-The proof audit compiles 101 prototype modules. In the same Rocq environment, the unified whole-program theorem has exactly the original whole-program theorem's 42 global assumptions. The audit reports no new global axioms. The extraction stamp records the entry point, executable digest, 712 proof-source digests, and eight native-source digests.
+The proof audit compiles 102 prototype modules. In the same Rocq environment, the unified whole-program theorem has exactly the original whole-program theorem's 42 global assumptions. The audit reports no new global axioms. The extraction stamp records the entry point, executable digest, 713 proof-source digests, and eight native-source digests.
 
 `native_guardcert.py` constructs one C program containing the five deep affine kernels, six signed multi-pointer rectangular kernels, and both scalar examples. Six candidate configurations each execute 988 calls, giving 5,928 actual assembly calls. Every run compares all array cells and public loop controls with independent word-level models and a GCC reference. The configurations cover disabled loop candidates, identity, interchange, tiling, an incorrect deep tiling witness, and an oracle resource limit.
 
@@ -28,7 +28,7 @@ The deep affine service handles multiple stable pointers by scanning the actual 
 
 The [external candidate interface](external-affine-candidates.md) exports checked source requests and imports concrete Loop IR candidates. The same source-domain guard and candidate checker consume their results. Request matching, parsing and candidate generation remain untrusted.
 
-The optional [condition-search compiler](deep-affine-condition-search.md) tries a finite family of source range proposals for the same candidate. It has its own extracted entry point and complete-program theorem. The default compiler above retains its single-proposal behavior.
+The optional [condition-search compiler](deep-affine-condition-search.md) tries a finite family of source range proposals for the same candidate. It has its own extracted entry point and complete-program theorem. The default compiler above retains its single-proposal behavior. A separate [runtime-version entry](deep-affine-runtime-versions.md) checks a sequence of current programs and can install another guarded version in an existing source fallback.
 
 [Domain partition evidence](deep-affine-domain-split.md) also supports candidates that split the original iteration domain into several parts. A proved source expansion establishes complete coverage; the existing validator checks the candidate's domains and execution order.
 

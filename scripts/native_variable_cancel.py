@@ -43,14 +43,14 @@ def generate():
         text+=f'printf("{which} {x} {y} %d\\n",{NAMES[which]}({args}));\n'
     source.write_text(text+'return 0;}\n');return source
 
-def main():
+def main(services=None):
     WORK.mkdir(parents=True,exist_ok=True);source=generate()
     expected=''.join(' '.join(map(str,[*row,model(row)]))+'\n' for row in inputs())
     compiler.rectangular.common.checked_reference(source,WORK,expected)
     configurations={}
     witnesses=[[0,2**31-1,2],[0,-2**31,2],[2,46341,0]]
     assert all(model(row)!=row[1] and expected_branch(row)=='fallback' for row in witnesses)
-    for name,service in [('unified',compiler),('conditioned',conditioned)]:
+    for name,service in services or [('unified',compiler),('conditioned',conditioned)]:
         stamp=service.check_build();work=WORK/name;work.mkdir(exist_ok=True)
         env={k:v for k,v in os.environ.items() if not k.startswith('GUARDCERT_')}
         env['GUARDCERT_AFFINE_MODE']='disabled'

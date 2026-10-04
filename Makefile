@@ -457,3 +457,16 @@ native-affine-nest-domain-split:
 native-variable-cancel:
 	python3 scripts/native_variable_cancel.py
 	python3 scripts/native_variable_cancel_paths.py
+
+.PHONY: guardcert-versions-compiler native-affine-nest-runtime-versions
+guardcert-versions-compiler:
+	python3 scripts/build_affine_nest_compiler.py --versions
+native-affine-nest-runtime-versions:
+	python3 scripts/native_affine_nest_runtime_versions.py
+	python3 scripts/native_affine_nest_runtime_versions_paths.py
+
+.PHONY: native-guardcert-versions native-variable-cancel-versions
+native-guardcert-versions:
+	python3 scripts/native_guardcert_versions.py
+native-variable-cancel-versions:
+	python3 scripts/native_variable_cancel_versions.py
