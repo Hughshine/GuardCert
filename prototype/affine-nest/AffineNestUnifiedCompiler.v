@@ -7,7 +7,7 @@ From Vpl Require Import Impure.
 From Guard Require Import ClightPrivateRegion ClightPrivatePool ClightTempFootprint GuardCompiler
   ClightGuard ClightGuardProof ClightNoWrap ClightTreeRewrite ClightTreeRewriteProof ClightSameAddress ClightSignedCancel.
 From GuardMemory Require Import GuardMemoryCompiler GuardMemoryTiledCompiler GuardMemoryUnifiedCompiler.
-From GuardAffineNest Require Import AffineNestCheckedCompiler.
+From GuardAffineNest Require Import AffineNestCheckedCompiler AffineNestMultiCheckedCompiler.
 Import CoreAlarmed ListNotations PrivateRegion.
 Set Implicit Arguments.
 
@@ -17,7 +17,10 @@ Definition check_guardcert_region live pool describe propose_affine propose_memo
   BIND candidate <- check_affine_region live pool describe propose_affine source -;
   match candidate with
   | Some target=>pure(Some target)
-  | None=>check_memory_unified_region live pool propose_memory source end.
+  | None=>BIND multiple <- check_affine_multi_region live pool describe propose_affine source -;
+    match multiple with
+    | Some target=>pure(Some target)
+    | None=>check_memory_unified_region live pool propose_memory source end end.
 Theorem check_guardcert_region_sound live pool describe propose_affine propose_memory source target :
   mayReturn(check_guardcert_region live pool describe propose_affine propose_memory source)(Some target) ->
   projected_region_contract live source target.
@@ -25,7 +28,9 @@ Proof.
   unfold check_guardcert_region; intro RUN; bind_imp_destruct RUN candidate CHECK.
   destruct candidate as [candidate|].
   - apply mayReturn_pure in RUN; inversion RUN; subst; eapply check_affine_region_sound; exact CHECK.
-  - eapply check_memory_unified_region_sound; exact RUN.
+  - bind_imp_destruct RUN multiple MULTIPLE; destruct multiple as [multiple|].
+    + apply mayReturn_pure in RUN; inversion RUN; subst; eapply check_affine_multi_region_sound; exact MULTIPLE.
+    + eapply check_memory_unified_region_sound; exact RUN.
 Qed.
 Fixpoint checked_guardcert_regions live pool describe propose_affine propose_memory sources := match sources with
   | []=>pure []

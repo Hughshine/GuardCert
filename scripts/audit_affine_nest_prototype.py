@@ -26,7 +26,14 @@ MODULES = [
     "AffineNestPackageDecode", "AffineNestSingleFootprint", "AffineNestPackageRanges", "AffineNestShadowTransport",
     "AffineNestCandidateLocal", "AffineNestRegion", "AffineNestStaticPackage", "AffineNestStaticExamples",
     "AffineNestCandidateEvidence", "AffineNestCheckedCompiler", "AffineNestWholeCompiler", "AffineNestPropose", "AffineNestProposeExamples",
-    "AffineNestRangeProposal", "AffineNestRangeProposalExamples", "AffineNestUnifiedCompiler", "AffineNestAudit",
+    "AffineNestRangeProposal", "AffineNestRangeProposalExamples",
+    "AffineNestScanModel", "AffineNestScanSyntax", "AffineNestScanWords", "AffineNestScanLoop",
+    "AffineNestScanExecution", "AffineNestScanAddress", "AffineNestScanPairTest", "AffineNestScanPoints",
+    "AffineNestScanFootprint", "AffineNestScanAccesses", "AffineNestScanCapabilities", "AffineNestScanNamespace",
+    "AffineNestScanNamedExecution", "AffineNestScanPair", "AffineNestScanSeparation", "AffineNestScanSequence",
+    "AffineNestScanAll", "AffineNestMultiStaticPackage", "AffineNestPackageScanFootprint", "AffineNestPackageScanAccesses",
+    "AffineNestMultiPresumption", "AffineNestMultiCandidateLocal", "AffineNestMultiGuardExecution", "AffineNestMultiRegion",
+    "AffineNestMultiCheckedCompiler", "AffineNestMultiProposal", "AffineNestUnifiedCompiler", "AffineNestAudit",
 ]
 
 
@@ -82,7 +89,8 @@ def main():
                  "integer domain, discharged by a checked source-derived runtime guard package; "
                  "safe private first-path probing, lazy parameter definitions, signed interval checks, "
                  "namespace validation and an actual three-level memory-store fixture; "
-                 "checked single-pointer candidates, exact public exits, safe guard/fallback regions "
+                 "checked single- and multiple-pointer candidates, scans of actual affine source accesses, "
+                 "exact public exits, safe guard/fallback regions "
                  "and a complete Csem-to-Asm compiler theorem; extraction and native evidence are audited separately",
         "modules": MODULES,
         "sources": {str((DIRECTORY / (m + ".v")).relative_to(ROOT)): sha(DIRECTORY / (m + ".v"))
@@ -114,7 +122,10 @@ def main():
         "unified_whole_program_assumptions_match_baseline": True,
         "same_as_current_checked_region_assumptions": True,
         "same_as_current_whole_program_assumptions": True,
-        "single_pointer_candidate_route_only": True,
+        "single_pointer_candidate_route_only": False,
+        "multiple_pointer_actual_source_scans_proved": True,
+        "multiple_pointer_presumption_encoding_proved": True,
+        "multiple_pointer_candidate_and_fallback_region_proved": True,
         "actual_source_default_proposal_fixture_checked": True,
         "native_execution_run_by_this_audit": False,
         "native_execution_report": "build/native-affine-nest/report.json",

@@ -23,16 +23,19 @@ let range_policy () = {
 
 let describe live pool source =
   let result = try
+    AffineNestMultiProposal.affine_reserve_multi_scans
+      (fun live pool source ->
     if Sys.getenv_opt "GUARDCERT_AFFINE_PROFILE" = Some "inferred"
     then AffineNestRangeProposal.affine_source_range_proposal (range_policy ()) live pool source
-    else AffineNestPropose.affine_default_source_proposal live pool source
+    else AffineNestPropose.affine_default_source_proposal live pool source) live pool source
     with Invalid_argument _ | Failure _ | Stack_overflow -> None in
   (match result with
    | None -> ()
    | Some (parameters, proposal) ->
        last_source := Some (live,pool,parameters,proposal);
        let axes = 1 + List.length proposal.AffineNestGuardPackage.affine_proposed_remaining in
-       diagnostic (Printf.sprintf "GUARDCERT_AFFINE_SOURCE depth=%d" axes));
+       diagnostic (Printf.sprintf "GUARDCERT_AFFINE_SOURCE depth=%d pointers=%d" axes
+         (List.length proposal.AffineNestGuardPackage.affine_proposed_pointers)));
   result
 
 let rec split_source headers = function

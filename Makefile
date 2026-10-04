@@ -420,3 +420,8 @@ guardcert-compiler:
 native-guardcert:
 	python3 scripts/native_guardcert.py
 	python3 scripts/native_guardcert_paths.py
+
+.PHONY: native-affine-nest-multiple-pointers
+native-affine-nest-multiple-pointers:
+	python3 scripts/native_affine_nest_multiple_pointers.py
+	python3 scripts/native_affine_nest_multiple_pointers_paths.py

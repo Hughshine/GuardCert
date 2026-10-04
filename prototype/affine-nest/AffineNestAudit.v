@@ -18,10 +18,19 @@ From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFoot
   AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
 From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
 From GuardAffineNest Require Import AffineNestUnifiedCompiler.
+From GuardAffineNest Require Import AffineNestScanModel AffineNestScanPoints AffineNestScanSeparation
+  AffineNestScanExecution AffineNestScanAll AffineNestMultiStaticPackage AffineNestPackageScanFootprint
+  AffineNestMultiPresumption AffineNestMultiCandidateLocal AffineNestMultiGuardExecution AffineNestMultiRegion
+  AffineNestMultiCheckedCompiler AffineNestMultiProposal.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
 Print Assumptions affine_infer_axis_ranges.
 Print Assumptions affine_infer_address_window.
 Print Assumptions affine_source_range_proposal.
+Print Assumptions affine_scan_result_points.
+Print Assumptions affine_scan_points_exact.
+Print Assumptions affine_scan_separation_sound.
+Print Assumptions check_affine_multi_static_package.
+Print Assumptions affine_reserve_multi_scans.
 Print Assumptions inferred_three_level_ranges_accepted.
 Print Assumptions overflowing_inferred_child_range_refused.
 Print Assumptions invalid_configured_root_range_refused.
@@ -141,6 +150,13 @@ Print Assumptions affine_package_source_decode.
 Print Assumptions affine_package_context_typed.
 Print Assumptions affine_single_candidate_local.
 Print Assumptions affine_guarded_region_sound.
+Print Assumptions affine_scan_execution.
+Print Assumptions affine_scan_all_execution.
+Print Assumptions affine_package_scan_capabilities.
+Print Assumptions affine_multi_guard_nonalias.
+Print Assumptions affine_multi_candidate_local.
+Print Assumptions affine_multi_guard_execution.
+Print Assumptions affine_multi_guarded_region_sound.
 Goal True. idtac "AFFINE_EXIT_BEGIN". exact I. Qed.
 Print Assumptions affine_exit_statement_execution.
 Print Assumptions affine_source_shadow_exit.
@@ -149,6 +165,7 @@ Goal True. idtac "AFFINE_CHECKED_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions check_memory_window_unified_region_sound.
 Goal True. idtac "AFFINE_CHECKED_BEGIN". exact I. Qed.
 Print Assumptions check_affine_region_sound.
+Print Assumptions check_affine_multi_region_sound.
 Print Assumptions checked_affine_regions_sound.
 Goal True. idtac "AFFINE_WHOLE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions compile_memory_unified_regions_correct.
