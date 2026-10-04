@@ -85,6 +85,12 @@ let box_candidate request permutation keep_domain =
   List.fold_right (fun axis body ->
     let floor,cap = List.nth axes axis in L.Loop (L.Constant floor,L.Constant cap,body)) permutation body
 
+let mapped_candidate candidate steps =
+  Some (candidate,AffineNestCandidateEvidence.AffineIndexEvidence steps)
+let tiled_candidate request boxed rows columns =
+  let candidate,witnesses = GuardAffineNestTiling.propose request boxed rows columns in
+  Some (candidate,AffineNestCandidateEvidence.AffineTilingEvidence witnesses)
+
 let propose_raw request =
   try
     let selected = mode () in
@@ -94,26 +100,39 @@ let propose_raw request =
     let source = request.AffineNestCheckedCompiler.affine_requested_loop in
     match selected with
     | "disabled" -> None
-    | "identity" -> Some (source,[])
-    | "box" -> Some (box_candidate request order true,[])
+    | "identity" -> mapped_candidate source []
+    | "box" -> mapped_candidate (box_candidate request order true) []
     | "interchange" when dimensions>=2 ->
         let permutation = 1::0::List.init (dimensions-2) (fun index->index+2) in
         let steps = if Sys.getenv_opt "GUARDCERT_AFFINE_REINDEX" = Some "none"
           then [] else permutation_steps permutation in
-        Some (box_candidate request permutation true,steps)
+        mapped_candidate (box_candidate request permutation true) steps
     | "reverse" ->
         let permutation = List.rev order in
-        Some (box_candidate request permutation true,permutation_steps permutation)
-    | "invalid-domain" -> Some (box_candidate request order false,[])
-    | "noop-reindex" -> Some (source,[GuardMemoryAffineReindex.MemoryReindexSwap (nat 99)])
-    | "wrong-reindex" -> Some (source,[GuardMemoryAffineReindex.MemoryReindexSwap (nat 0)])
+        mapped_candidate (box_candidate request permutation true) (permutation_steps permutation)
+    | "tile-2-3" -> tiled_candidate request (box_candidate request order true) 2 3
+    | "tile-17-13" -> tiled_candidate request (box_candidate request order true) 17 13
+    | "tile-1-1" -> tiled_candidate request (box_candidate request order true) 1 1
+    | "wrong-tiling-witness" ->
+        let boxed = box_candidate request order true in
+        let candidate,_ = GuardAffineNestTiling.propose request boxed 2 3 in
+        let _,wrong = GuardAffineNestTiling.propose request boxed 5 7 in
+        Some (candidate,AffineNestCandidateEvidence.AffineTilingEvidence wrong)
+    | "missing-tiling-witness" ->
+        let candidate,_ = GuardAffineNestTiling.propose request (box_candidate request order true) 2 3 in
+        Some (candidate,AffineNestCandidateEvidence.AffineTilingEvidence [])
+    | "invalid-tile-size" -> tiled_candidate request (box_candidate request order true) 0 3
+    | "oversized-tile-policy" -> tiled_candidate request (box_candidate request order true) 2048 2048
+    | "invalid-domain" -> mapped_candidate (box_candidate request order false) []
+    | "noop-reindex" -> mapped_candidate source [GuardMemoryAffineReindex.MemoryReindexSwap (nat 99)]
+    | "wrong-reindex" -> mapped_candidate source [GuardMemoryAffineReindex.MemoryReindexSwap (nat 0)]
     | _ -> None
   with Invalid_argument _ | Failure _ | Stack_overflow -> None
 
 let propose request =
   let result = propose_raw request in
   (match result,!last_source with
-   | Some (candidate,steps),Some (live,pool,parameters,proposal)
+   | Some (candidate,evidence),Some (live,pool,parameters,proposal)
        when Sys.getenv_opt "GUARDCERT_AFFINE_DIAGNOSTICS" = Some "1" ->
        let compiled = match GuardMemoryTiledCompiler.private_counter_pairs pool with
          | None -> false
@@ -131,8 +150,16 @@ let propose request =
        (match extract request.AffineNestCheckedCompiler.affine_requested_loop,extract candidate with
         | Result.Okk source,Result.Okk target ->
             let (before,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program source in
-            let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
-            let aligned,alarm_free = GuardMemoryDomainAlignment.memory_align_domains before after in
+            let expected,after = match evidence with
+              | AffineNestCandidateEvidence.AffineIndexEvidence steps ->
+                  let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
+                  before,after
+              | AffineNestCandidateEvidence.AffineTilingEvidence witnesses ->
+                  let (after,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program target in
+                  (match GuardMemoryExtractedTiling.memory_attach_tiling_instructions (nat (List.length context)) before after witnesses with
+                   | Some attached -> List.map (GuardMemoryExtractedTiling.PL.current_view_pi (nat (List.length context))) attached,after
+                   | None -> [],after) in
+            let aligned,alarm_free = GuardMemoryDomainAlignment.memory_align_domains expected after in
             diagnostic (Printf.sprintf "GUARDCERT_AFFINE_EXTRACT source=%d target=%d aligned=%b alarm_free=%b"
               (List.length before) (List.length after) (aligned<>None) alarm_free)
         | Result.Err error,_ -> diagnostic ("GUARDCERT_AFFINE_EXTRACT source_error=" ^ error)

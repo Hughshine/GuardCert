@@ -138,11 +138,11 @@ def compile_run(name, mode, extra, reference):
     environment = {key: value for key, value in os.environ.items()
                    if not key.startswith("GUARDCERT_")}
     environment |= {"GUARDCERT_AFFINE_MODE": mode, "GUARDCERT_AFFINE_DIAGNOSTICS": "1"} | extra
-    result = subprocess.run([str(COMPILER), "-conf", str(COMPILER.parent / "compcert.ini"),
-        "-stdlib", str(COMPILER.parent / "runtime"), "-dclight", "-S", "-o", str(work / "affine.s"),
-        str(SOURCE)], cwd=work, env=environment, text=True, capture_output=True, timeout=180)
-    (work / "compile.log").write_text(result.stdout + result.stderr)
-    assert result.returncode == 0, (name, result.stderr[-3000:])
+    with (work / "compile.log").open("w") as log:
+        result = subprocess.run([str(COMPILER), "-conf", str(COMPILER.parent / "compcert.ini"),
+            "-stdlib", str(COMPILER.parent / "runtime"), "-dclight", "-S", "-o", str(work / "affine.s"),
+            str(SOURCE)], cwd=work, env=environment, text=True, stdout=log, stderr=subprocess.STDOUT, timeout=180)
+    assert result.returncode == 0, (name, (work / "compile.log").read_text()[-3000:])
     subprocess.run(["gcc", "-no-pie", str(work / "affine.s"), "-o", str(work / "affine")],
                    check=True, capture_output=True)
     actual = subprocess.check_output([str(work / "affine")], text=True, timeout=120)
@@ -184,6 +184,11 @@ def main():
     stamp = check_build()
     configurations = [("disabled", "disabled", {}), ("identity", "identity", {}),
         ("box", "box", {}), ("interchange", "interchange", {}), ("reverse", "reverse", {}),
+        ("tile-2-3", "tile-2-3", {}), ("tile-17-13", "tile-17-13", {}), ("tile-1-1", "tile-1-1", {}),
+        ("wrong-tiling-witness", "wrong-tiling-witness", {}),
+        ("missing-tiling-witness", "missing-tiling-witness", {}),
+        ("invalid-tile-size", "invalid-tile-size", {}),
+        ("oversized-tile-policy", "oversized-tile-policy", {}),
         ("missing-reindex", "interchange", {"GUARDCERT_AFFINE_REINDEX": "none"}),
         ("invalid-domain", "invalid-domain", {}), ("wrong-reindex", "wrong-reindex", {}),
         ("noop-reindex", "noop-reindex", {}),
@@ -199,13 +204,14 @@ def main():
         result = compile_run(name, mode, extra, reference)
         accepted = [fn for fn, facts in result["functions"].items() if facts["guarded"]]
         print("Accepted guarded functions:", ", ".join(accepted) or "none", flush=True)
-        if name in ["box", "interchange", "reverse"]:
+        if name in ["box", "interchange", "reverse", "tile-2-3", "tile-17-13", "tile-1-1"]:
             assert result["functions"]["affine_triangular3"]["guarded"], (name, "three-level candidate absent")
         if name == "interchange":
             assert not result["functions"]["affine_chain2"]["guarded"], "unsafe dependent exchange accepted"
         if name == "noop-reindex":
             assert len(accepted) == len(NAMES), "out-of-range swaps are proved identity operations"
-        if name in ["disabled", "invalid-domain", "wrong-reindex", "resource-limit", "oracle-fault"]:
+        if name in ["disabled", "invalid-domain", "wrong-reindex", "resource-limit", "oracle-fault",
+                    "wrong-tiling-witness", "missing-tiling-witness", "invalid-tile-size", "oversized-tile-policy"]:
             assert not accepted, (name, accepted)
         results[name] = result
     report = {"status": "passed", "compiler_sha256": stamp["compiler_sha256"],
@@ -214,7 +220,7 @@ def main():
         "all_configurations_checked": not bool(args.cases), "configurations": results,
         "true_dependence_exchange_counterexample": list(witness),
         "scope": "actual complete CompCert assembly, source-derived guards, nonrectangular two/three-level memory nests, "
-                 "untrusted boxed/permuted candidates, complete arrays and all public control exits; single pointer"}
+                 "untrusted boxed/permuted/tiled candidates, complete arrays and all public control exits; single pointer"}
     (WORK / ("smoke-report.json" if args.cases else "report.json")).write_text(json.dumps(report, indent=2) + "\n")
 
 

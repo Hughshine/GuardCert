@@ -71,10 +71,11 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
 '''
     extraction = WORK / "extract_affine.v"
     extraction.write_text("From GuardAffineNest Require Import AffineNestWholeCompiler AffineNestPropose.\n"
+        "From GuardMemory Require Import GuardMemoryScalarTiling.\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
         + extraction_text.replace("Separate Extraction\n", mappings + "\nSeparate Extraction " + ENTRY
-            + " AffineNestPropose.affine_default_source_proposal LinTerm.LinQ.export CstrC.Cstr.isContrad\n"))
+            + " AffineNestPropose.affine_default_source_proposal GuardMemoryScalarTiling.memory_scalar_tiling_witness LinTerm.LinQ.export CstrC.Cstr.isContrad\n"))
     flags = [*polcert_core.load_flags(), "-Q", str(ADAPTER), "GuardMemory", "-Q", str(DIRECTORY), "GuardAffineNest"]
     for name in ("cparser", "export", "MenhirLib"):
         flags += ["-R", str(UPSTREAM / name), "MenhirLib" if name == "MenhirLib" else "compcert." + name]
@@ -89,6 +90,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
     native_sources = [ADAPTER / "native" / name for name in
         ("GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml", "GuardMemoryCandidate.ml")]
     native_sources.append(DIRECTORY / "native" / "GuardAffineNestCandidate.ml")
+    native_sources.append(DIRECTORY / "native" / "GuardAffineNestTiling.ml")
     for path in native_sources:
         name = "GuardMemoryNumbers.ml" if path.name == "GuardMemoryNumbersCompCert.ml" else path.name
         shutil.copy2(path, WORK / "extraction" / name)
