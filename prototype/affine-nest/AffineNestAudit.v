@@ -6,6 +6,8 @@ From GuardAffineNest Require Import AffineNestControlTransfer.
 From GuardAffineNest Require Import AffineNestShadowExit.
 From GuardAffineNest Require Import AffineNestLoopEncoding AffineNestBoundEncoding AffineNestEncodingExamples.
 From GuardAffineNest Require Import AffineNestMemoryProjection AffineNestLeafModel AffineNestFirstLeaf AffineNestUsedWords AffineNestLeafLoop.
+From GuardAffineNest Require Import AffineNestLoopProjection AffineNestValuation AffineNestExpressionTail
+  AffineNestMathDomain AffineNestSourceDecode AffineNestLeafDecode AffineNestRealDecode.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
 Print Assumptions affine_nest_shapes_check_sound.
 Print Assumptions affine_nest_dependencies_check_sound.
@@ -36,6 +38,14 @@ Print Assumptions affine_leaf_quiet.
 Print Assumptions affine_leaf_writes.
 Print Assumptions affine_first_child_frame.
 Print Assumptions affine_leaf_arguments_value.
+Print Assumptions affine_counted_memory_map_bounded.
+Print Assumptions affine_word_view_frame.
+Print Assumptions affine_word_view_update.
+Print Assumptions affine_valuation_loop_environment.
+Print Assumptions affine_loop_expression_tail_value.
+Print Assumptions affine_math_domain.
+Print Assumptions affine_checked_leaf_code.
+Print Assumptions affine_checked_nest_loop.
 Goal True. idtac "AFFINE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions window_source_runtime_domain.
 Goal True. idtac "AFFINE_SOURCE_BEGIN". exact I. Qed.
@@ -53,6 +63,11 @@ Print Assumptions affine_leaf_real_memory_decode.
 Print Assumptions affine_source_first_leaf.
 Print Assumptions affine_source_used_leaf_word.
 Print Assumptions affine_leaf_sequence_semantics.
+Print Assumptions affine_frontend_loop_projection.
+Print Assumptions affine_bound_word_from_view.
+Print Assumptions affine_nest_source_decode.
+Print Assumptions affine_checked_leaf_decode.
+Print Assumptions affine_checked_nest_source_decode.
 Goal True. idtac "AFFINE_EXIT_BEGIN". exact I. Qed.
 Print Assumptions affine_exit_statement_execution.
 Print Assumptions affine_source_shadow_exit.

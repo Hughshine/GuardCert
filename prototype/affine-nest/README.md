@@ -37,13 +37,16 @@ for (; i < n; ++i) {
 | `affine_leaf_real_memory_decode` | 已检查的真实叶子执行对应实际内存上的指令序列；叶子不修改 temporary |
 | `affine_source_used_leaf_word` | 首条完整源活动路径存在时，从实际源执行推导叶子所用稳定参数的整数定义性 |
 | `affine_leaf_sequence_semantics` | 源顺序坐标和稳定参数对应实际 Loop 叶子参数；辅助元数据不进入指令载荷 |
+| `affine_checked_nest_source_decode` | 完整源 AST 与真实读写叶子证书，在明确整数域前提下组合出任意深度源执行到 Loop 执行的对应，包括空子循环 |
 
 纯控制重放可能执行与源同样多的控制迭代；当前没有成本改善定理。
 另一个末轮计算方案 `affine_exit_statement_execution` 只证明生成代码自身的执行，依赖其明确的定义域；
 不能把它当作所有源循环的出口对应。通用出口对应由 `affine_source_shadow_exit` 提供。
 初版上界区间策略还保守要求中间运算不溢出，不保证最弱条件或全部合法表达式均被接受。
 
-叶子对应已经编译通过，但仍需把它沿整个深层嵌套域组合起来，完成源活动性约束下的运行时条件编码、实际访问足迹与依赖验证、
+深层源／IR 对应已经编译通过；它要求 `affine_math_domain`，该前提包含每层数学上界的 signed32 范围和实际活动叶子的地址区间。
+当前没有可执行且已证明的检查器保证这个前提，不能把该定理当作已经可调用的 guarded 编译入口。
+还需完成源活动性约束下的运行时条件编码、实际访问足迹与依赖验证、
 候选机器执行，以及区域和 Csem→Asm 的组合。本原型不会改变正式编译器的候选入口或接受范围。
 
 先完成既有适配器的 `make guard-memory-proof`，然后在项目 Rocq 环境中运行：
@@ -52,7 +55,7 @@ for (; i < n; ++i) {
 make affine-nest-prototype-proof
 ```
 
-脚本检查既有证明源码哈希，再编译本目录全部 18 个模块并审计假设。报告为
+脚本检查既有证明源码哈希，再编译本目录全部 25 个模块并审计假设。报告为
 `build/affine-nest-foundation-prototype-report.json`；独立编译记录为
 `build/affine-nest-foundation-prototype-audit.log`。语法、表达式编码和结构 frame 没有全局公理；
 源与出口端点精确保持已有源定义域端点的六项 CompCert／标准库假设。

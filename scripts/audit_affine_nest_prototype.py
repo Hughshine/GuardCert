@@ -14,7 +14,9 @@ MODULES = [
     "AffineNestSourceShape", "AffineNestFirstDomain", "AffineNestLoopTrace",
     "AffineNestControlTransfer", "AffineNestShadowExit", "AffineNestLoopEncoding",
     "AffineNestBoundEncoding", "AffineNestEncodingExamples", "AffineNestMemoryProjection",
-    "AffineNestLeafModel", "AffineNestFirstLeaf", "AffineNestUsedWords", "AffineNestLeafLoop", "AffineNestAudit",
+    "AffineNestLeafModel", "AffineNestFirstLeaf", "AffineNestUsedWords", "AffineNestLeafLoop",
+    "AffineNestLoopProjection", "AffineNestValuation", "AffineNestExpressionTail", "AffineNestMathDomain",
+    "AffineNestSourceDecode", "AffineNestLeafDecode", "AffineNestRealDecode", "AffineNestAudit",
 ]
 
 
@@ -58,8 +60,9 @@ def main():
                  "arbitrary-depth Loop bound encoding and conservative checked machine/mathematical "
                  "bound correspondence; actual source memory projection and independently checked real "
                  "leaf memory/instruction correspondence; source-derived used-word definitions and "
-                 "actual Loop leaf argument semantics; complete nested source/IR correspondence, runtime "
-                 "encoding and whole-program candidate integration remain open",
+                 "actual Loop leaf argument semantics; recursive real source/IR correspondence under an "
+                 "explicit integer domain, discharged by the checked real leaf and complete source shape; "
+                 "runtime encoding and whole-program candidate integration remain open",
         "modules": MODULES,
         "sources": {str((DIRECTORY / (m + ".v")).relative_to(ROOT)): sha(DIRECTORY / (m + ".v"))
                     for m in MODULES},
@@ -72,14 +75,16 @@ def main():
         "source_exit_shadow_equivalence_proved": True,
         "real_leaf_memory_decode_proved": True,
         "used_leaf_word_definitions_proved": True,
-        "complete_nested_source_ir_correspondence_proved": False,
+        "complete_nested_source_ir_correspondence_proved": True,
+        "nested_source_ir_requires_explicit_integer_domain": True,
+        "nested_guarded_compiler_route_compiled": False,
         "whole_program_theorem_compiled": False,
         "transformed_native_execution_checked": False,
     }
     (ROOT / "build" / "affine-nest-foundation-prototype-report.json").write_text(
         json.dumps(report, indent=2) + "\n")
     print(f"Compiled {len(MODULES)} prototype modules; existing six source assumptions preserved. "
-          "Source/IR, runtime checks and whole-program integration remain open.")
+          "Conditional nested source/IR correspondence compiled; runtime checks and whole-program integration remain open.")
 
 
 if __name__ == "__main__":
