@@ -15,7 +15,7 @@ From GuardAffineNest Require Import AffineNestProfile AffineNestProfileSound Aff
   AffineNestNamespace AffineNestGuardPackage AffineNestPackageGuard AffineNestPackageExamples AffineNestPackageWords.
 From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFootprint AffineNestPackageRanges
   AffineNestShadowTransport AffineNestCandidateLocal AffineNestRegion AffineNestStaticPackage AffineNestStaticExamples
-  AffineNestCheckedCompiler AffineNestWholeCompiler.
+  AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
 Print Assumptions affine_nest_shapes_check_sound.
 Print Assumptions affine_nest_dependencies_check_sound.
@@ -88,6 +88,8 @@ Print Assumptions check_affine_static_package.
 Print Assumptions real_three_level_static_package_accepted.
 Print Assumptions missing_private_bound_declaration_refused.
 Print Assumptions missing_guard_result_declaration_refused.
+Print Assumptions affine_default_source_proposal.
+Print Assumptions actual_source_default_proposal_accepted.
 Goal True. idtac "AFFINE_BASELINE_BEGIN". exact I. Qed.
 Print Assumptions window_source_runtime_domain.
 Goal True. idtac "AFFINE_SOURCE_BEGIN". exact I. Qed.

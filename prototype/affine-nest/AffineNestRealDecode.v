@@ -15,8 +15,8 @@ Definition affine_checked_nest_loop nest geometry scalars operations lower :=
 
 (** No source/IR correspondence is postulated here: the checked leaf and the
     checked complete source shape discharge every recursive adapter premise.
-    The integer domain still requires a proved runtime encoder before this
-    theorem can be used as an actual guarded compiler pass. *)
+    AffineNestPackageDecode discharges the integer domain using the checked
+    source-derived guard when composing the actual guarded compiler pass. *)
 Theorem affine_checked_nest_source_decode nest bounds window_lower window_upper geometry scalars pointers operations
   (certificate:affine_leaf_certificate (affine_nest_leaf nest) bounds window_lower window_upper
     (affine_nest_iterators nest++geometry) scalars pointers operations)

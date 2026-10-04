@@ -10,8 +10,9 @@ Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
 
-(** This semantic domain contains only integer facts. Its generated runtime
-    checker is still required; supplying the domain is not a compiler route. *)
+(** This semantic domain contains only integer facts. AffineNestPackageGuard
+    proves it from the generated runtime check, keeping this definition
+    separate from source syntax and the candidate dependence certificate. *)
 Fixpoint affine_math_domain bounds layout nest valuation lower : Prop := match nest with
   | AffineSourceLeaf _ => interval_ranges bounds (map valuation layout)
   | AffineSourceAxis iterator _ expression _ child =>

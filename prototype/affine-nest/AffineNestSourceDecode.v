@@ -48,7 +48,7 @@ Hypothesis LEAF_DECODE : forall prefix valuation temps memory after final,
 
 (** Recursive source-to-Loop composition. Its leaf premise is discharged by
     the independently checked real memory leaf adapter; its integer domain
-    still has to be supplied by a generated, proved runtime guard. *)
+    is discharged by the source-derived runtime guard in AffineNestPackageDecode. *)
 Theorem affine_nest_source_decode nest : forall prefix valuation lower lower_code code temps memory after final,
   coordinates=prefix++affine_nest_iterators nest ->
   affine_nest_leaf nest=source_leaf -> affine_nest_shapes nest -> NoDup(affine_nest_controls nest) ->

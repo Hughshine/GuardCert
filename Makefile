@@ -400,3 +400,11 @@ native-memory-signed-multiple-pointers: memory-unified-compiler
 .PHONY: affine-nest-prototype-proof
 affine-nest-prototype-proof:
 	python3 scripts/audit_affine_nest_prototype.py
+
+.PHONY: affine-nest-compiler native-affine-nest
+affine-nest-compiler:
+	python3 scripts/build_affine_nest_compiler.py
+
+native-affine-nest:
+	python3 scripts/native_affine_nest.py
+	python3 scripts/native_affine_nest_paths.py

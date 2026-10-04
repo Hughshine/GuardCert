@@ -1,0 +1,141 @@
+(* Both policies are untrusted. The extracted source, domain, dependence and
+   backend checks decide whether their result can enter a guarded region. *)
+module L = GuardMemoryLoops.L
+let nat = GuardMemoryCandidate.natural
+let rec natural_size = function Datatypes.O -> 0 | Datatypes.S rest -> 1 + natural_size rest
+let integer value = GuardMemoryNumbers.import_integer (Z.of_int value)
+let mode () = match Sys.getenv_opt "GUARDCERT_AFFINE_MODE" with Some value -> value | None -> "interchange"
+let diagnostic text = if Sys.getenv_opt "GUARDCERT_AFFINE_DIAGNOSTICS" = Some "1" then prerr_endline text
+let last_source = ref None
+
+let describe live pool source =
+  let result = AffineNestPropose.affine_default_source_proposal live pool source in
+  (match result with
+   | None -> ()
+   | Some (parameters, proposal) ->
+       last_source := Some (live,pool,parameters,proposal);
+       let axes = 1 + List.length proposal.AffineNestGuardPackage.affine_proposed_remaining in
+       diagnostic (Printf.sprintf "GUARDCERT_AFFINE_SOURCE depth=%d" axes));
+  result
+
+let rec split_source headers = function
+  | L.Loop (lower,upper,body) -> split_source ((lower,upper)::headers) body
+  | leaf -> List.rev headers, leaf
+
+(* Undo the candidate's loop-coordinate permutation for domain alignment.
+   These are suggestions to the proved point-space checker, not certificates
+   trusted by the driver. *)
+let permutation_steps permutation =
+  let current = Array.of_list permutation in
+  let steps = ref [] in
+  for destination = 0 to Array.length current - 1 do
+    let position = ref destination in
+    while !position < Array.length current && current.(!position) <> destination do
+      incr position
+    done;
+    if !position = Array.length current then invalid_arg "affine permutation";
+    while !position > destination do
+      let first = !position - 1 in
+      let saved = current.(first) in
+      current.(first) <- current.(!position); current.(!position) <- saved;
+      steps := GuardMemoryAffineReindex.MemoryReindexSwap (nat first) :: !steps;
+      decr position
+    done
+  done;
+  List.rev !steps
+
+let box_candidate request permutation keep_domain =
+  let headers, leaf = split_source [] request.AffineNestCheckedCompiler.affine_requested_loop in
+  let dimensions = List.length headers in
+  let axes = request.AffineNestCheckedCompiler.affine_requested_axes in
+  if List.length axes <> dimensions || List.length permutation <> dimensions then invalid_arg "affine box shape";
+  let position source_axis =
+    let rec search index = function
+      | [] -> invalid_arg "affine permutation"
+      | first::rest -> if first=source_axis then index else search (index+1) rest in
+    search 0 permutation in
+  let coordinate axis = L.Var (nat (dimensions-1-position axis)) in
+  let rec expression depth = function
+    | L.Var variable ->
+        let index = natural_size variable in
+        if index < depth then coordinate (depth-1-index)
+        else L.Var (nat (dimensions+index-depth))
+    | L.Sum (first,second) -> L.Sum (expression depth first,expression depth second)
+    | L.Mult (factor,value) -> L.Mult (factor,expression depth value)
+    | L.Div (value,divisor) -> L.Div (expression depth value,divisor)
+    | L.Mod (value,divisor) -> L.Mod (expression depth value,divisor)
+    | L.Min (first,second) -> L.Min (expression depth first,expression depth second)
+    | L.Max (first,second) -> L.Max (expression depth first,expression depth second)
+    | constant -> constant in
+  let rec statement = function
+    | L.Instr (instruction,arguments) -> L.Instr (instruction,List.map (expression dimensions) arguments)
+    | L.Seq statements -> L.Seq (sequence statements)
+    | _ -> invalid_arg "affine leaf is not a checked instruction sequence"
+  and sequence = function
+    | L.SNil -> L.SNil
+    | L.SCons (first,rest) -> L.SCons (statement first,sequence rest) in
+  let constraints = List.mapi (fun axis (lower,upper) ->
+    L.And (L.LE (expression axis lower,coordinate axis),
+      L.LE (coordinate axis,L.Sum (expression axis upper,L.Constant (integer (-1)))))) headers in
+  let domain = match constraints with
+    | [] -> invalid_arg "empty affine domain"
+    | first::rest -> List.fold_left (fun previous test -> L.And (previous,test)) first rest in
+  let leaf = statement leaf in
+  let body = if keep_domain then L.Guard (domain,leaf) else leaf in
+  List.fold_right (fun axis body ->
+    let floor,cap = List.nth axes axis in L.Loop (L.Constant floor,L.Constant cap,body)) permutation body
+
+let propose_raw request =
+  try
+    let selected = mode () in
+    let dimensions = List.length request.AffineNestCheckedCompiler.affine_requested_axes in
+    diagnostic (Printf.sprintf "GUARDCERT_AFFINE_REQUEST depth=%d mode=%s" dimensions selected);
+    let order = List.init dimensions (fun index -> index) in
+    let source = request.AffineNestCheckedCompiler.affine_requested_loop in
+    match selected with
+    | "disabled" -> None
+    | "identity" -> Some (source,[])
+    | "box" -> Some (box_candidate request order true,[])
+    | "interchange" when dimensions>=2 ->
+        let permutation = 1::0::List.init (dimensions-2) (fun index->index+2) in
+        let steps = if Sys.getenv_opt "GUARDCERT_AFFINE_REINDEX" = Some "none"
+          then [] else permutation_steps permutation in
+        Some (box_candidate request permutation true,steps)
+    | "reverse" ->
+        let permutation = List.rev order in
+        Some (box_candidate request permutation true,permutation_steps permutation)
+    | "invalid-domain" -> Some (box_candidate request order false,[])
+    | "noop-reindex" -> Some (source,[GuardMemoryAffineReindex.MemoryReindexSwap (nat 99)])
+    | "wrong-reindex" -> Some (source,[GuardMemoryAffineReindex.MemoryReindexSwap (nat 0)])
+    | _ -> None
+  with Invalid_argument _ | Failure _ | Stack_overflow -> None
+
+let propose request =
+  let result = propose_raw request in
+  (match result,!last_source with
+   | Some (candidate,steps),Some (live,pool,parameters,proposal)
+       when Sys.getenv_opt "GUARDCERT_AFFINE_DIAGNOSTICS" = Some "1" ->
+       let compiled = match GuardMemoryTiledCompiler.private_counter_pairs pool with
+         | None -> false
+         | Some pairs -> GuardMemoryWindowBackend.compile_window_multi_pointer_buffer_loop
+             proposal.AffineNestGuardPackage.affine_proposed_pointers
+             (AffineNestPackageDecode.affine_package_context parameters proposal)
+             (AffineNestPackageRanges.affine_package_encoder_bounds proposal) live pairs candidate <> None in
+       diagnostic (Printf.sprintf "GUARDCERT_AFFINE_BACKEND compiled=%b" compiled);
+       let context = AffineNestPackageDecode.affine_package_context parameters proposal in
+       let bounds = AffineNestPackageRanges.affine_package_validator_bounds proposal in
+       let variables = List.map (fun identifier -> identifier,())
+         (context @ proposal.AffineNestGuardPackage.affine_proposed_pointers) in
+       let extract loop = GuardMemoryExtractorTrace.MemoryExtractor.extractor
+         ((GuardMemoryVectorChecker.memory_bounded_assumed_loop bounds loop,context),variables) in
+       (match extract request.AffineNestCheckedCompiler.affine_requested_loop,extract candidate with
+        | Result.Okk source,Result.Okk target ->
+            let (before,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program source in
+            let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
+            let aligned,alarm_free = GuardMemoryDomainAlignment.memory_align_domains before after in
+            diagnostic (Printf.sprintf "GUARDCERT_AFFINE_EXTRACT source=%d target=%d aligned=%b alarm_free=%b"
+              (List.length before) (List.length after) (aligned<>None) alarm_free)
+        | Result.Err error,_ -> diagnostic ("GUARDCERT_AFFINE_EXTRACT source_error=" ^ error)
+        | _,Result.Err error -> diagnostic ("GUARDCERT_AFFINE_EXTRACT target_error=" ^ error))
+   | _ -> ());
+  result

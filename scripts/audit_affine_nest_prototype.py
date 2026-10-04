@@ -25,7 +25,7 @@ MODULES = [
     "AffineNestGuardPackage", "AffineNestPackageGuard", "AffineNestPackageExamples", "AffineNestPackageWords",
     "AffineNestPackageDecode", "AffineNestSingleFootprint", "AffineNestPackageRanges", "AffineNestShadowTransport",
     "AffineNestCandidateLocal", "AffineNestRegion", "AffineNestStaticPackage", "AffineNestStaticExamples",
-    "AffineNestCheckedCompiler", "AffineNestWholeCompiler", "AffineNestAudit",
+    "AffineNestCheckedCompiler", "AffineNestWholeCompiler", "AffineNestPropose", "AffineNestProposeExamples", "AffineNestAudit",
 ]
 
 
@@ -81,7 +81,7 @@ def main():
                  "safe private first-path probing, lazy parameter definitions, signed interval checks, "
                  "namespace validation and an actual three-level memory-store fixture; "
                  "checked single-pointer candidates, exact public exits, safe guard/fallback regions "
-                 "and a complete Csem-to-Asm compiler theorem; extraction and native execution remain open",
+                 "and a complete Csem-to-Asm compiler theorem; extraction and native evidence are audited separately",
         "modules": MODULES,
         "sources": {str((DIRECTORY / (m + ".v")).relative_to(ROOT)): sha(DIRECTORY / (m + ".v"))
                     for m in MODULES},
@@ -110,12 +110,14 @@ def main():
         "same_as_current_checked_region_assumptions": True,
         "same_as_current_whole_program_assumptions": True,
         "single_pointer_candidate_route_only": True,
-        "transformed_native_execution_checked": False,
+        "actual_source_default_proposal_fixture_checked": True,
+        "native_execution_run_by_this_audit": False,
+        "native_execution_report": "build/native-affine-nest/report.json",
     }
     (ROOT / "build" / "affine-nest-foundation-prototype-report.json").write_text(
         json.dumps(report, indent=2) + "\n")
     print(f"Compiled {len(MODULES)} prototype modules; existing six source assumptions preserved. "
-          "Checked guarded candidate and whole-program theorem compiled; extraction and native execution remain open.")
+          "Checked guarded candidate and whole-program theorem compiled; native evidence is reported separately.")
 
 
 if __name__ == "__main__":
