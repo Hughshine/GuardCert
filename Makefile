@@ -371,3 +371,8 @@ native-memory-axis-bounds: memory-unified-compiler
 native-memory-address-parameters: memory-unified-compiler
 	python3 scripts/native_memory_address_parameters.py
 	python3 scripts/native_memory_address_parameters_paths.py
+
+.PHONY: native-memory-parameter-versions
+native-memory-parameter-versions: memory-unified-compiler
+	python3 scripts/native_memory_parameter_versions.py
+	python3 scripts/native_memory_parameter_versions_paths.py

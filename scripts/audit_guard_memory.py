@@ -41,7 +41,9 @@ ADDRESS_PARAM_MODULES = ['GuardMemoryPointerDefinedIndex', 'GuardMemoryPointerSo
 PARAM_BOUNDARY_MODULES = ['GuardMemoryParamBoundaryMath', 'GuardMemoryParamBoundaryCells', 'GuardMemoryParamBoundaryTest', 'GuardMemoryParamBoundaryScan', 'GuardMemoryParamBoundaryMasks', 'GuardMemoryParamBoundaryPair', 'GuardMemoryParamAxisPairChoice']
 ADDRESS_PARAM_MODULES[ADDRESS_PARAM_MODULES.index('GuardMemoryParamAxisScan'):ADDRESS_PARAM_MODULES.index('GuardMemoryParamAxisScan')] = PARAM_BOUNDARY_MODULES
 MODULES[-1:-1] = ADDRESS_PARAM_MODULES
-STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition']
+VERSION_MODULES = ['GuardMemoryStatefulVersions', 'GuardMemoryVersionFamily', 'GuardMemoryParamVersionComponents', 'GuardMemoryParamVersionServices', 'GuardMemoryParamVersionGroups']
+MODULES[-1:-1] = VERSION_MODULES
+STATEFUL_CORE_MODULES = ['StatefulGuard', 'StatefulGuardComposition', 'StatefulGuardVersions']
 LOWERING_MODULES = ["ClightPositiveDivision", "PolCertLoopGuard", "PolCertAffineClight", "PolCertAffineGuard",
                     "PolCertCountedClight", "PolCertClightBody", "PolCertNestedClight"]
 DIRECTORY = ROOT / "adapters" / "compcert-memory"
@@ -78,7 +80,7 @@ def main():
     (WORK / "build.log").write_text("\n".join(logs))
     audit = WORK / "Audit.v"
     audit.write_text("""From compcert.driver Require Import Compiler.
-From Guard Require Import StatefulGuard StatefulGuardComposition.
+From Guard Require Import StatefulGuard StatefulGuardComposition StatefulGuardVersions.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryInstr GuardMemoryRectangles GuardMemoryPolyhedral
   GuardMemoryLoops GuardMemoryClightRectangles GuardMemoryPolyhedralRectangles
   GuardMemoryValidatedRectangles GuardMemoryCompiler GuardMemoryTilingProgress GuardMemoryArrayBackend
@@ -101,6 +103,7 @@ From GuardMemory Require Import GuardMemoryAxisBoundaryMath GuardMemoryAxisRepea
 From GuardMemory Require Import GuardMemoryStatefulLanguage GuardMemoryStatefulEntry GuardMemoryStatefulRule GuardMemoryStatefulComposition GuardMemoryAffineRenaming GuardMemoryAffineRangeAddress GuardMemoryAffinePairScan GuardMemoryAffinePointerSyntax GuardMemoryAffinePointerPairs GuardMemoryAffinePointerScan GuardMemoryAffinePointerFrame GuardMemoryAffinePointerGuard GuardMemoryAffinePointerCompiler.
 From GuardMemory Require Import GuardMemoryVectorBounds GuardMemoryVectorDomain GuardMemoryVectorGuard GuardMemoryVectorChecker GuardMemoryVectorPointerBounds GuardMemoryVectorPointerSyntax GuardMemoryVectorPointerBody GuardMemoryVectorPointerDomain GuardMemoryVectorTiling GuardMemoryVectorPointerFootprint GuardMemoryVectorPointerProjectedCandidate GuardMemoryVectorAxisFootprint GuardMemoryVectorAxisPairs GuardMemoryVectorAxisScan GuardMemoryVectorRuntimeFrame GuardMemoryVectorAxisFrame GuardMemoryVectorAxisGuard GuardMemoryVectorAxisCompiler GuardMemoryVectorAxisServices GuardMemoryVectorAxisDescribe.
 From GuardMemory Require Import GuardMemoryParamBoundaryMath GuardMemoryParamBoundaryCells GuardMemoryParamBoundaryTest GuardMemoryParamBoundaryScan GuardMemoryParamBoundaryMasks GuardMemoryParamBoundaryPair GuardMemoryParamAxisPairChoice.
+From GuardMemory Require Import GuardMemoryStatefulVersions GuardMemoryVersionFamily GuardMemoryParamVersionComponents GuardMemoryParamVersionServices GuardMemoryParamVersionGroups.
 From GuardMemory Require Import GuardMemoryPointerDefinedIndex GuardMemoryPointerSourceWords GuardMemoryParamAxisPairScan GuardMemoryParameterRanges GuardMemoryParamPointerSyntax GuardMemoryParamPointerBody GuardMemoryParamPointerDomain GuardMemoryParamPointerHeader GuardMemoryParamPointerBounds GuardMemoryParamPointerProjectedCandidate GuardMemoryParamPointerFootprint GuardMemoryParamAxisFootprint GuardMemoryParamAxisPairs GuardMemoryParamAxisScan GuardMemoryParamRuntimeFrame GuardMemoryParamAxisFrame GuardMemoryParamAxisGuard GuardMemoryParamAxisCompiler GuardMemoryParamAxisServices GuardMemoryParamAxisDescribe.
 Goal True. idtac "MEM_CC_BASE". exact I. Qed.
 Print Assumptions Compiler.transf_c_program_correct.
@@ -110,6 +113,7 @@ Print Assumptions GuardMemoryValidator.validate_tiling_correct.
 Print Assumptions GuardMemoryTilingValidator.checked_tiling_validate_poly_correct.
 Goal True. idtac "MEM_STATEFUL_CORE". exact I. Qed.
 Print Assumptions stateful_guard_preservation.
+Print Assumptions stateful_versions_preservation.
 Print Assumptions projected_guard_conjunction.
 Goal True. idtac "MEM_AFFINE_GUARD_MATH". exact I. Qed.
 Print Assumptions memory_affine_endpoint_check_complete.
@@ -607,6 +611,18 @@ Print Assumptions check_memory_param_axis_pointer_scheduled_package_sound.
 Print Assumptions check_memory_param_axis_pointer_tiled_package_sound.
 Print Assumptions check_memory_param_axis_profiles_sound.
 Print Assumptions check_memory_param_axis_unified_region_sound.
+Print Assumptions memory_projected_verified_version.
+Print Assumptions memory_version_family_sound.
+Print Assumptions memory_version_components_sound.
+Print Assumptions memory_version_components_nonempty_sound.
+Print Assumptions memory_param_axis_pointer_components_valid.
+Print Assumptions check_memory_param_axis_pointer_region_components_sound.
+Print Assumptions check_memory_param_axis_pointer_mapped_package_components_sound.
+Print Assumptions check_memory_param_axis_pointer_scheduled_package_components_sound.
+Print Assumptions check_memory_param_axis_pointer_tiled_package_components_sound.
+Print Assumptions collect_memory_param_version_groups_sound.
+Print Assumptions compile_memory_param_version_groups_sound.
+Print Assumptions check_memory_param_version_unified_region_sound.
 Goal True. idtac "MEM_COMPILER". exact I. Qed.
 Print Assumptions compile_memory_regions_correct.
 Print Assumptions compile_memory_tiled_regions_correct.
@@ -647,6 +663,9 @@ Goal True. idtac "MEM_END". exact I. Qed.
         "checked_stateful_core_modules": STATEFUL_CORE_MODULES,
         "stateful_core_global_axioms": [],
         "stateful_core_instantiated_in_clight_projected_region_contract": True,
+        "stateful_version_families_proved": True,
+        "memory_parameter_version_families_csem_asm_proved": True,
+        "memory_parameter_version_families_scope": "opt-in versions per-axis candidate template; finite heterogeneous abstract guard versions share source observations but may have different domains, presumptions and frames; actual Clight check/candidate components certified from checked source packages and real candidate certificates; first statically validated profile in each address-cap group 64,16,8,4,1; sequential runtime choice and final original-source fallback; mapped, scheduled and outer-two-axis tiling candidates; no weakest-condition or optimal-box guarantee, no shared alias-result cache",
         "affine_loop_alias_guard_clight_execution_proved": True,
         "affine_loop_alias_guard_csem_asm_route_proved": True,
         "affine_loop_alias_guard_raw_access_limit": 32,

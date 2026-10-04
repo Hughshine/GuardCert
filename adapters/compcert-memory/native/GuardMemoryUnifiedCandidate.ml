@@ -20,11 +20,19 @@ let propose request =
   let arity = GuardMemoryScheduleInput.natural_size request.GuardMemoryUnifiedCompiler.request_context_arity in
   try
     let syntax = match Lazy.force GuardMemoryCandidate.template with
+      | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "versions";
+          GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "per-axis"; syntax]]) ->
+          if not (request.GuardMemoryUnifiedCompiler.request_per_axis_bounds &&
+                  request.GuardMemoryUnifiedCompiler.request_runtime_versions) then
+            invalid_arg "version family requires a checked parameter source package";
+          Some syntax
       | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "per-axis"; syntax]) ->
-          if not request.GuardMemoryUnifiedCompiler.request_per_axis_bounds then
+          if not request.GuardMemoryUnifiedCompiler.request_per_axis_bounds ||
+             request.GuardMemoryUnifiedCompiler.request_runtime_versions then
             invalid_arg "per-axis candidate requires a checked vector source package";
           Some syntax
-      | syntax -> if request.GuardMemoryUnifiedCompiler.request_per_axis_bounds then None else syntax in
+      | syntax -> if request.GuardMemoryUnifiedCompiler.request_per_axis_bounds ||
+                     request.GuardMemoryUnifiedCompiler.request_runtime_versions then None else syntax in
     match syntax with
     | Some (GuardMemoryCandidate.List [GuardMemoryCandidate.Atom "schedule";
              GuardMemoryCandidate.List axes; GuardMemoryCandidate.List steps]) ->
