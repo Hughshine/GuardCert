@@ -396,3 +396,7 @@ native-memory-signed-windows: memory-unified-compiler
 native-memory-signed-multiple-pointers: memory-unified-compiler
 	python3 scripts/native_memory_signed_multiple_pointers.py
 	python3 scripts/native_memory_signed_multiple_pointers_paths.py
+
+.PHONY: affine-nest-prototype-proof
+affine-nest-prototype-proof:
+	python3 scripts/audit_affine_nest_prototype.py

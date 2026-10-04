@@ -1,0 +1,59 @@
+From GuardMemory Require Import GuardMemoryWindowRuntimeFootprint.
+From GuardAffineNest Require Import AffineNestSyntax AffineNestWords AffineNestExit AffineNestExamples.
+From GuardAffineNest Require Import AffineNestSourceShape AffineNestFirstDomain.
+From GuardAffineNest Require Import AffineNestLoopTrace.
+From GuardAffineNest Require Import AffineNestControlTransfer.
+From GuardAffineNest Require Import AffineNestShadowExit.
+From GuardAffineNest Require Import AffineNestLoopEncoding AffineNestBoundEncoding AffineNestEncodingExamples.
+From GuardAffineNest Require Import AffineNestMemoryProjection AffineNestLeafModel AffineNestFirstLeaf AffineNestUsedWords AffineNestLeafLoop.
+Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
+Print Assumptions affine_nest_shapes_check_sound.
+Print Assumptions affine_nest_dependencies_check_sound.
+Print Assumptions affine_root_expression_check_sound.
+Print Assumptions affine_parameters_fresh_check_sound.
+Print Assumptions check_affine_nest.
+Print Assumptions affine_exit_temps_other.
+Print Assumptions affine_nest_fresh_controls.
+Print Assumptions three_affine_levels_recognized.
+Print Assumptions forward_coordinate_dependency_refused.
+Print Assumptions mismatched_bound_assignment_refused.
+Print Assumptions mutated_parameter_registration_refused.
+Print Assumptions three_level_exit_values.
+Print Assumptions affine_nest_source_quiet.
+Print Assumptions affine_nest_source_writes.
+Print Assumptions affine_nest_body_writes.
+Print Assumptions affine_nest_body_normal.
+Print Assumptions affine_loop_expression_value.
+Print Assumptions affine_lower_nest_axis.
+Print Assumptions check_affine_bound_cap.
+Print Assumptions three_level_loop_uses_real_prefixes.
+Print Assumptions child_bounds_may_be_negative.
+Print Assumptions grandchild_uses_both_levels_and_parameters.
+Print Assumptions overflowing_bound_interval_refused.
+Print Assumptions check_affine_leaf.
+Print Assumptions affine_leaf_normal.
+Print Assumptions affine_leaf_quiet.
+Print Assumptions affine_leaf_writes.
+Print Assumptions affine_first_child_frame.
+Print Assumptions affine_leaf_arguments_value.
+Goal True. idtac "AFFINE_BASELINE_BEGIN". exact I. Qed.
+Print Assumptions window_source_runtime_domain.
+Goal True. idtac "AFFINE_SOURCE_BEGIN". exact I. Qed.
+Print Assumptions affine_child_setup_decode.
+Print Assumptions affine_child_setup_read_words.
+Print Assumptions affine_expression_word_value.
+Print Assumptions affine_source_first_header_domain.
+Print Assumptions affine_frontend_trace_decode.
+Print Assumptions affine_frontend_trace_encode.
+Print Assumptions affine_frontend_trace_last.
+Print Assumptions affine_frontend_control_transfer.
+Print Assumptions checked_affine_bound_exact.
+Print Assumptions affine_frontend_memory_projection.
+Print Assumptions affine_leaf_real_memory_decode.
+Print Assumptions affine_source_first_leaf.
+Print Assumptions affine_source_used_leaf_word.
+Print Assumptions affine_leaf_sequence_semantics.
+Goal True. idtac "AFFINE_EXIT_BEGIN". exact I. Qed.
+Print Assumptions affine_exit_statement_execution.
+Print Assumptions affine_source_shadow_exit.
+Goal True. idtac "AFFINE_AUDIT_END". exact I. Qed.
