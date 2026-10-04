@@ -391,3 +391,8 @@ native-memory-started-regions: memory-unified-compiler
 native-memory-signed-windows: memory-unified-compiler
 	python3 scripts/native_memory_signed_windows.py
 	python3 scripts/native_memory_signed_windows_paths.py
+
+.PHONY: native-memory-signed-multiple-pointers
+native-memory-signed-multiple-pointers: memory-unified-compiler
+	python3 scripts/native_memory_signed_multiple_pointers.py
+	python3 scripts/native_memory_signed_multiple_pointers_paths.py

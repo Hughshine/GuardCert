@@ -41,7 +41,7 @@ Inductive guarded_memory_candidate :=
 From GuardMemory Require Import GuardMemoryStartedPackage GuardMemoryStartedPackageBuilder
   GuardMemoryStartedAxisCompiler GuardMemoryStartedAxisServices.
 From GuardMemory Require Import GuardMemoryWindowPackage GuardMemoryWindowStartedPackage GuardMemoryWindowPackageBounds
-  GuardMemoryWindowServices GuardMemoryWindowDescribe GuardMemoryWindowTilingServices.
+  GuardMemoryWindowServices GuardMemoryWindowDescribe GuardMemoryWindowTilingServices GuardMemoryWindowAxisServices GuardMemoryWindowAxisTilingServices.
 Record guarded_memory_request := BuildGuardedMemoryRequest {
   request_instructions : list memory_instruction;
   request_coordinates : nat;
@@ -302,24 +302,46 @@ Definition memory_window_unified_request source (package : window_started_packag
     (window_region_caps base) (map snd (window_region_parameter_bounds base)) true false false
     (Some (window_package_loop package))
     (Some (window_region_root_lower base,window_region_parameter_bounds base,window_region_lower base,window_region_upper base)).
-Definition check_memory_window_unified_region live pool propose source :=
-  @check_window_profiles source (fun package => match propose (memory_window_unified_request package) with
+Definition check_memory_window_proposal live pool source (package : window_started_package source) proposal :=
+  let single := match window_region_pointers (window_started_base package) with [_] => true | _ => false end in
+  if single then match proposal with
     | Some (GuardedAffineCandidate candidate swaps) => check_window_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
     | Some (GuardedMappedCandidate candidate steps) => check_window_mapped_package live pool package candidate steps
     | Some (GuardedTilingCandidate rows columns) => check_window_tiled_package live pool package rows columns
     | Some (GuardedScheduleCandidate schedules steps) => check_window_scheduled_package live pool package schedules steps
-    | _ => CoreAlarmed.Base.pure None end) (propose_window_profiles source).
-Theorem check_memory_window_unified_region_sound live pool propose source target :
-  mayReturn (check_memory_window_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+    | None => CoreAlarmed.Base.pure None end
+  else match proposal with
+    | Some (GuardedAffineCandidate candidate swaps) => check_window_axis_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
+    | Some (GuardedMappedCandidate candidate steps) => check_window_axis_mapped_package live pool package candidate steps
+    | Some (GuardedTilingCandidate rows columns) => check_window_axis_tiled_package live pool package rows columns
+    | Some (GuardedScheduleCandidate schedules steps) => check_window_axis_scheduled_package live pool package schedules steps
+    | None => CoreAlarmed.Base.pure None end.
+Theorem check_memory_window_proposal_sound live pool source (package : window_started_package source) proposal target :
+  mayReturn (check_memory_window_proposal live pool package proposal) (Some target) -> projected_region_contract live source target.
 Proof.
-  unfold check_memory_window_unified_region; intro RUN; eapply check_window_profiles_sound; [|exact RUN].
-  intros package chosen ACCEPT; cbn beta in ACCEPT; destruct (propose (memory_window_unified_request package)) as [candidate|].
-  - destruct candidate.
+  unfold check_memory_window_proposal.
+  destruct (match window_region_pointers (window_started_base package) with [_] => true | _ => false end).
+  - destruct proposal as [candidate|]; [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+    destruct candidate; intro ACCEPT.
     + eapply check_window_mapped_package_sound; exact ACCEPT.
     + eapply check_window_mapped_package_sound; exact ACCEPT.
     + eapply check_window_tiled_package_sound; exact ACCEPT.
     + eapply check_window_scheduled_package_sound; exact ACCEPT.
-  - apply mayReturn_pure in ACCEPT; discriminate.
+  - destruct proposal as [candidate|]; [|intro RUN; apply mayReturn_pure in RUN; discriminate].
+    destruct candidate; intro ACCEPT.
+    + eapply check_window_axis_mapped_package_sound; exact ACCEPT.
+    + eapply check_window_axis_mapped_package_sound; exact ACCEPT.
+    + eapply check_window_axis_tiled_package_sound; exact ACCEPT.
+    + eapply check_window_axis_scheduled_package_sound; exact ACCEPT.
+Qed.
+Definition check_memory_window_unified_region live pool propose source :=
+  @check_window_profiles source (fun package => check_memory_window_proposal live pool package (propose (memory_window_unified_request package)))
+    (propose_window_profiles source).
+Theorem check_memory_window_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_window_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
+Proof.
+  unfold check_memory_window_unified_region; intro RUN; eapply check_window_profiles_sound; [|exact RUN].
+  intros package chosen ACCEPT; eapply check_memory_window_proposal_sound; exact ACCEPT.
 Qed.
 Definition check_memory_multi_pointer_unified_region live pool propose source :=
   BIND target <- check_memory_affine_pointer_unified_region live pool propose source -;
