@@ -70,12 +70,12 @@ Extract Constant PedraQBackend.add => "GuardMemoryOracle.add".
 Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed.Base.imp.
 '''
     extraction = WORK / "extract_affine.v"
-    extraction.write_text("From GuardAffineNest Require Import AffineNestWholeCompiler AffineNestPropose.\n"
+    extraction.write_text("From GuardAffineNest Require Import AffineNestWholeCompiler AffineNestPropose AffineNestRangeProposal.\n"
         "From GuardMemory Require Import GuardMemoryScalarTiling.\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
         + extraction_text.replace("Separate Extraction\n", mappings + "\nSeparate Extraction " + ENTRY
-            + " AffineNestPropose.affine_default_source_proposal GuardMemoryScalarTiling.memory_scalar_tiling_witness LinTerm.LinQ.export CstrC.Cstr.isContrad\n"))
+            + " AffineNestPropose.affine_default_source_proposal AffineNestRangeProposal.affine_source_range_proposal GuardMemoryScalarTiling.memory_scalar_tiling_witness LinTerm.LinQ.export CstrC.Cstr.isContrad\n"))
     flags = [*polcert_core.load_flags(), "-Q", str(ADAPTER), "GuardMemory", "-Q", str(DIRECTORY), "GuardAffineNest"]
     for name in ("cparser", "export", "MenhirLib"):
         flags += ["-R", str(UPSTREAM / name), "MenhirLib" if name == "MenhirLib" else "compcert." + name]

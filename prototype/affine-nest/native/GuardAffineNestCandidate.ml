@@ -8,8 +8,25 @@ let mode () = match Sys.getenv_opt "GUARDCERT_AFFINE_MODE" with Some value -> va
 let diagnostic text = if Sys.getenv_opt "GUARDCERT_AFFINE_DIAGNOSTICS" = Some "1" then prerr_endline text
 let last_source = ref None
 
+let configured_integer variable fallback =
+  let value = match Sys.getenv_opt variable with Some value -> value | None -> fallback in
+  if String.length value > 128 then invalid_arg "affine range policy integer";
+  GuardMemoryNumbers.import_integer (Z.of_string value)
+let range_policy () = {
+  AffineNestRangeProposal.affine_policy_root_floor = configured_integer "GUARDCERT_AFFINE_FLOOR" "-4";
+  AffineNestRangeProposal.affine_policy_root_cap = configured_integer "GUARDCERT_AFFINE_CAP" "8";
+  AffineNestRangeProposal.affine_policy_bound_lower = configured_integer "GUARDCERT_AFFINE_BOUND_LOW" "-8";
+  AffineNestRangeProposal.affine_policy_bound_upper = configured_integer "GUARDCERT_AFFINE_BOUND_HIGH" "9";
+  AffineNestRangeProposal.affine_policy_address_lower = configured_integer "GUARDCERT_AFFINE_ADDRESS_LOW" "-32";
+  AffineNestRangeProposal.affine_policy_address_upper = configured_integer "GUARDCERT_AFFINE_ADDRESS_HIGH" "33";
+}
+
 let describe live pool source =
-  let result = AffineNestPropose.affine_default_source_proposal live pool source in
+  let result = try
+    if Sys.getenv_opt "GUARDCERT_AFFINE_PROFILE" = Some "inferred"
+    then AffineNestRangeProposal.affine_source_range_proposal (range_policy ()) live pool source
+    else AffineNestPropose.affine_default_source_proposal live pool source
+    with Invalid_argument _ | Failure _ | Stack_overflow -> None in
   (match result with
    | None -> ()
    | Some (parameters, proposal) ->

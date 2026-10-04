@@ -16,7 +16,15 @@ From GuardAffineNest Require Import AffineNestProfile AffineNestProfileSound Aff
 From GuardAffineNest Require Import AffineNestPackageDecode AffineNestSingleFootprint AffineNestPackageRanges
   AffineNestShadowTransport AffineNestCandidateLocal AffineNestRegion AffineNestStaticPackage AffineNestStaticExamples
   AffineNestCheckedCompiler AffineNestWholeCompiler AffineNestPropose AffineNestProposeExamples.
+From GuardAffineNest Require Import AffineNestRangeProposal AffineNestRangeProposalExamples.
 Goal True. idtac "AFFINE_SYNTAX_BEGIN". exact I. Qed.
+Print Assumptions affine_infer_axis_ranges.
+Print Assumptions affine_infer_address_window.
+Print Assumptions affine_source_range_proposal.
+Print Assumptions inferred_three_level_ranges_accepted.
+Print Assumptions overflowing_inferred_child_range_refused.
+Print Assumptions invalid_configured_root_range_refused.
+Print Assumptions actual_three_level_inferred_caps.
 Print Assumptions affine_nest_shapes_check_sound.
 Print Assumptions affine_nest_dependencies_check_sound.
 Print Assumptions affine_root_expression_check_sound.

@@ -401,10 +401,14 @@ native-memory-signed-multiple-pointers: memory-unified-compiler
 affine-nest-prototype-proof:
 	python3 scripts/audit_affine_nest_prototype.py
 
-.PHONY: affine-nest-compiler native-affine-nest
+.PHONY: affine-nest-compiler native-affine-nest native-affine-nest-ranges
 affine-nest-compiler:
 	python3 scripts/build_affine_nest_compiler.py
 
 native-affine-nest:
 	python3 scripts/native_affine_nest.py
 	python3 scripts/native_affine_nest_paths.py
+
+native-affine-nest-ranges:
+	python3 scripts/native_affine_nest_ranges.py
+	python3 scripts/native_affine_nest_ranges_paths.py

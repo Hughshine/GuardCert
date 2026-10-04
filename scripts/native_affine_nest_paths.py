@@ -133,7 +133,8 @@ def main():
     assert report["compiler_sha256"] == stamp["compiler_sha256"]
     assert report["source_sha256"] == fixture.sha(fixture.SOURCE)
     selected = set(args.cases.split(",")) if args.cases else {
-        "identity", "box", "interchange", "reverse", "tile-2-3", "tile-17-13", "tile-1-1"}
+        "identity", "box", "interchange", "reverse", "tile-2-3", "tile-17-13", "tile-1-1",
+        "inferred-identity", "inferred-box", "inferred-interchange", "inferred-tile-2-3"}
     results = {name: diagnostic(name, configuration)
                for name, configuration in report["configurations"].items() if name in selected}
     assert set(results) == selected

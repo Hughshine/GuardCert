@@ -194,6 +194,10 @@ def main():
         ("noop-reindex", "noop-reindex", {}),
         ("resource-limit", "interchange", {"GUARDCERT_FM_ROWS": "0"}),
         ("oracle-fault", "interchange", {"GUARDCERT_ORACLE_FAULT": "top-certificate"})]
+    configurations += [("inferred-" + mode, mode, {"GUARDCERT_AFFINE_PROFILE": "inferred"})
+                       for mode in ["identity", "box", "interchange", "tile-2-3"]]
+    configurations += [("inferred-overflow", "interchange", {"GUARDCERT_AFFINE_PROFILE": "inferred", "GUARDCERT_AFFINE_CAP": "2147483647"}),
+                       ("inferred-invalid-root", "interchange", {"GUARDCERT_AFFINE_PROFILE": "inferred", "GUARDCERT_AFFINE_CAP": "-5"})]
     selected = set(args.cases.split(",")) if args.cases else {name for name, _, _ in configurations}
     assert selected <= {name for name, _, _ in configurations}
     results = {}
@@ -204,14 +208,16 @@ def main():
         result = compile_run(name, mode, extra, reference)
         accepted = [fn for fn, facts in result["functions"].items() if facts["guarded"]]
         print("Accepted guarded functions:", ", ".join(accepted) or "none", flush=True)
-        if name in ["box", "interchange", "reverse", "tile-2-3", "tile-17-13", "tile-1-1"]:
+        if name in ["box", "interchange", "reverse", "tile-2-3", "tile-17-13", "tile-1-1",
+                    "inferred-identity", "inferred-box", "inferred-interchange", "inferred-tile-2-3"]:
             assert result["functions"]["affine_triangular3"]["guarded"], (name, "three-level candidate absent")
-        if name == "interchange":
+        if name in ["interchange", "inferred-interchange"]:
             assert not result["functions"]["affine_chain2"]["guarded"], "unsafe dependent exchange accepted"
         if name == "noop-reindex":
             assert len(accepted) == len(NAMES), "out-of-range swaps are proved identity operations"
         if name in ["disabled", "invalid-domain", "wrong-reindex", "resource-limit", "oracle-fault",
-                    "wrong-tiling-witness", "missing-tiling-witness", "invalid-tile-size", "oversized-tile-policy"]:
+                    "wrong-tiling-witness", "missing-tiling-witness", "invalid-tile-size", "oversized-tile-policy",
+                    "inferred-overflow", "inferred-invalid-root"]:
             assert not accepted, (name, accepted)
         results[name] = result
     report = {"status": "passed", "compiler_sha256": stamp["compiler_sha256"],
