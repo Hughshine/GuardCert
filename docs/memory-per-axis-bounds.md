@@ -1,6 +1,6 @@
 # 每个循环轴使用自己的范围条件
 
-这条路线将[多轴边界扫描](memory-axis-boundary-scans.md)的共同 cap 替换为与源轴对齐的 cap 列表。源访问检查、运行时条件、候选依赖验证和候选机器 lowering 使用同一列表。源语言仍是规范矩形指针循环；地址外部参数和依赖外层的深层域没有因此接通。
+这条路线将[多轴边界扫描](memory-axis-boundary-scans.md)的共同 cap 替换为与源轴对齐的 cap 列表。源访问检查、运行时条件、候选依赖验证和候选机器 lowering 使用同一列表。该阶段源语言是规范矩形指针循环；地址外部参数和依赖外层的深层域没有因此接通。后续[仿射地址参数](memory-affine-address-parameters.md)另行接通稳定地址 temporary 和内层片段。
 
 ## 用户入口
 
@@ -63,3 +63,5 @@
 
 
 `make native-memory-axis-bounds` 运行当前编译器的完整汇编和分支诊断。旧快照比较使用 `scripts/native_memory_axis_bounds.py --previous-compiler /tmp/guard-boundary-verified/ccomp` 及 `scripts/native_memory_axis_bounds_paths.py --previous`；`scripts/compare_memory_axis_bounds.py` 对照同一源码的 profile、实际快路与回退以及查询数，并保留新增回退列表。历史快照是本次实验环境文件；已有 `before-report.json` 与 `before-branch-report.json` 才能运行比较。当前源码并不会重新生成旧编译器。
+
+后续参数路线允许为外层候选拒绝的源继续检查内层片段。因此当前回归脚本还记录片段根、实际 count 标识符、地址参数和每次入口；当前报告可能含额外内层 guard。上面的新旧覆盖与查询比较绑定 `4d1c5fd`／`2a98b41c…` 阶段。重跑历史比较需要当时的编译器和报告；当前报告的片段集合不同，不能冒充同一历史实验。

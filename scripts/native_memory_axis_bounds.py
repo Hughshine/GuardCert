@@ -39,12 +39,21 @@ def observed_functions(dump):
         if 'switch (0)' not in body:continue
         begin=body.index('switch (0)');end=body.index('continue;',begin)
         guard=body[begin:end]
-        caps=[]
-        for bound in BOUND_NAMES[:DIMENSIONS[which]]:
+        count_identifiers=re.findall(r'\bif\s*\(0\s*<\s*\$(\w+)\)',guard)
+        parameter_identifiers=re.findall(r'\bif\s*\(0\s*<=\s*\$(\w+)\)',guard)
+        root=re.search(r'\bif\s*\(\$(\w+)\s*==\s*0U?\)',guard)
+        assert count_identifiers and root,(fn,guard)
+        assert count_identifiers==BOUND_NAMES[DIMENSIONS[which]-len(count_identifiers):DIMENSIONS[which]],(fn,count_identifiers)
+        limits={}
+        for bound in count_identifiers+parameter_identifiers:
             matches=re.findall(r'\$'+bound+r'\s*<=\s*(\d+)',guard)
             assert matches and len(set(matches))==1,(fn,bound,matches)
-            caps.append(int(matches[0]))
-        found[fn]={'count_guard_caps':caps,'body_bytes':len(body.encode())}
+            limits[bound]=int(matches[0])
+        found[fn]={'count_guard_caps':[limits[x] for x in count_identifiers],
+            'count_identifiers':count_identifiers,'root_iterator':root[1],
+            'address_parameter_identifiers':parameter_identifiers,
+            'address_parameter_caps':[limits[x]+1 for x in parameter_identifiers],
+            'whole_source_region':len(count_identifiers)==DIMENSIONS[which],'body_bytes':len(body.encode())}
     return found
 
 
@@ -76,6 +85,7 @@ def main():
         else:
             expected=set(NAMES) if name.startswith('tile') else {fn for fn,d in zip(NAMES,DIMENSIONS) if d==int(name[-1])}
             assert expected<=set(found),(name,found)
+            assert all(found[fn]['whole_source_region'] for fn in expected),(name,found)
             if not args.previous_compiler:
                 assert any(len(set(v['count_guard_caps']))>1 for v in found.values()),(name,found)
         configurations[name]={'guarded_functions':found,'actual_calls':len(full_inputs()),

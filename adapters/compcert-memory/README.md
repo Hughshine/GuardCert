@@ -64,7 +64,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_guard_m
 make guard-memory-proof POLCERT_SOURCE=/home/hugh/research/polyhedral/polcert/work/verified-compilation-v10-driver
 ```
 
-详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 340 个适配模块、七个 lowering 模块和两个抽象有状态核心模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。抽象核心及物理数组 nonalias 均没有全局公理；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
+详细报告为 `build/guard-memory-proof-report.json`，构建和假设日志位于 `build/guard-memory-assumptions/`。当前脚本重编译 360 个适配模块、七个 lowering 模块和两个抽象有状态核心模块；直接调用脚本复用此前的 92 文件 PolCert optimizer proof profile，没有重新编译整个 profile。抽象核心及物理数组 nonalias 均没有全局公理；指令桥继承 7 项假设，具体 validator 与 tiling 进展端点继承其原有 12 项，完整编译器继承 CompCert 与 validator 的并集 42 项。审计要求完整编译器的集合精确等于该并集，没有新增全局公理。默认 C→Asm 编译器的 35 项集合不能直接套到这条路径上。
 
 ## 正在接通的边界
 
@@ -127,3 +127,5 @@ Signed affine source accesses now use a proved lower and upper box check. The 24
 [多轴仿射边界扫描](../../docs/memory-axis-boundary-scans.md)为相同完整系数向量的访问对提供等价检查算法。重叠见证经每轴共同平移到边界，实际源能力保证所有边界查询有效；10 个模块连接数学等价、机器地址求值、私有状态扫描与既有候选契约。320 个适配模块、七个 lowering 模块和两个核心模块全量审计通过，469 个证明源码哈希一致，完整编译器仍为原有 42 项假设。同一多轴诊断的 618 次快路和 1517 次回退不变，查询次数 `35,537,690 → 854,960`；小输入可能增加查询，代码体积随 `2^d` 个扫描增长。五套回归共 12922 次完整汇编调用和 10321 次既有分支诊断通过，算法选择另有 14 次查询计数诊断。共同 cap、地址参数、只读别名和更广深层域仍是后续工作。
 
 [逐轴范围条件](../../docs/memory-per-axis-bounds.md)加入 20 个模块，将独立轴 cap 从源检查传到实际短路 guard、候选证书、机器 lowering 和统一完整程序定理。源包独立重检未验证的 cap 提案，正常源执行提供检查所需的条件定义性和实际地址能力。340 个适配模块、七个 lowering 模块、两个核心模块全量审计通过，489 个证明源码哈希一致，完整编译器仍为原有 42 项假设。`(per-axis …)` 原生入口的 6230 次完整汇编调用和 3115 次分支诊断通过；新旧同一源码逐调用比较新增接受 502 次、新增回退 128 次，不保证接受范围扩大或执行加速。普通候选入口沿用现有路线。
+
+[仿射地址参数](../../docs/memory-affine-address-parameters.md)加入 20 个模块，将稳定地址参数纳入独立源检查、条件整数定义性、固定参数的活动足迹扫描、mapped／生成调度／分块候选及统一 Csem→Asm 端点。360 个适配模块、七个 lowering 模块、两个核心模块和 509 个证明源码哈希的全量审计通过，完整编译器仍精确为原有 42 项假设。同一提取编译器完成 7384 次完整汇编调用和 4219 次分支诊断，3819 次片段入口实际接受；当前参数范围为非负有限区间，使用完整访问对扫描。内层片段可以自动使用外层游标作为地址参数。

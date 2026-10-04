@@ -14,6 +14,7 @@ From Guard Require Import ClightGuard ClightCondition ClightPrivateRule ClightPr
 From GuardMemory Require Import GuardMemoryRecursiveSource GuardMemoryAffineSourceContext.
 From GuardMemory Require Import GuardMemoryAxisPointerServices GuardMemoryAxisPointerDescribe.
 From GuardMemory Require Import GuardMemoryVectorPointerSyntax GuardMemoryVectorAxisCompiler GuardMemoryVectorAxisServices GuardMemoryVectorAxisDescribe.
+From GuardMemory Require Import GuardMemoryParamPointerSyntax GuardMemoryParamAxisCompiler GuardMemoryParamAxisServices GuardMemoryParamAxisDescribe.
 From GuardMemory Require Import GuardMemoryClightRectangles GuardMemoryCompiler GuardMemoryTiledClight GuardMemoryTiledCompiler
   GuardMemoryArrayFamilyBackend GuardMemoryOperationsClight GuardMemoryOperationsTiledClight GuardMemoryOperationsCompiler
   GuardMemoryInstr GuardMemoryLoops GuardMemoryProposedClight GuardMemoryProposedCompiler
@@ -40,10 +41,11 @@ Record guarded_memory_request := BuildGuardedMemoryRequest {
   request_coordinates : nat;
   request_context_arity : nat;
   request_count_limits : list Z;
+  request_address_limits : list Z;
   request_per_axis_bounds : bool
 }.
 Definition GuardedMemoryRequest instructions coordinates arity :=
-  BuildGuardedMemoryRequest instructions coordinates arity [] false.
+  BuildGuardedMemoryRequest instructions coordinates arity [] [] false.
 Definition guarded_memory_proposer := guarded_memory_request -> option guarded_memory_candidate.
 Definition memory_multi_pointer_unified_request source (package : memory_multi_pointer_region_package source) :=
   GuardedMemoryRequest (memory_multi_pointer_region_instructions package)
@@ -123,7 +125,7 @@ Qed.
 Definition memory_vector_axis_unified_request source (package : memory_vector_pointer_region_package source) :=
   BuildGuardedMemoryRequest (memory_vector_pointer_region_instructions package)
     (length (memory_nest_iterators (vector_pointer_region_nest package)))
-    (length (memory_vector_pointer_region_context package)) (vector_pointer_region_limits package) true.
+    (length (memory_vector_pointer_region_context package)) (vector_pointer_region_limits package) [] true.
 Definition check_memory_vector_axis_unified_region live pool propose source :=
   @check_memory_vector_axis_profiles source
     (fun package => match propose (memory_vector_axis_unified_request package) with
@@ -151,6 +153,38 @@ Proof.
     + eapply check_memory_vector_axis_pointer_scheduled_package_sound; exact CERT_ACCEPTED.
   - apply mayReturn_pure in CERT_ACCEPTED; discriminate.
 Qed.
+Definition memory_param_axis_unified_request source (package : memory_param_pointer_region_package source) :=
+  BuildGuardedMemoryRequest (memory_param_pointer_region_instructions package)
+    (length (memory_nest_iterators (param_pointer_region_nest package)))
+    (length (memory_param_pointer_region_context package)) (param_pointer_region_limits package)
+    (param_pointer_region_parameter_limits package) true.
+Definition check_memory_param_axis_unified_region live pool propose source :=
+  @check_memory_param_axis_profiles source
+    (fun package => match propose (memory_param_axis_unified_request package) with
+      | Some (GuardedAffineCandidate candidate swaps) =>
+          check_memory_param_axis_pointer_mapped_package live pool package candidate (map MemoryReindexSwap swaps)
+      | Some (GuardedMappedCandidate candidate steps) =>
+          check_memory_param_axis_pointer_mapped_package live pool package candidate steps
+      | Some (GuardedTilingCandidate rows columns) =>
+          check_memory_param_axis_pointer_tiled_package live pool package rows columns
+      | Some (GuardedScheduleCandidate schedules steps) =>
+          check_memory_param_axis_pointer_scheduled_package live pool package schedules steps
+      | None => CoreAlarmed.Base.pure None end) (propose_memory_param_axis_profiles source).
+Theorem check_memory_param_axis_unified_region_sound live pool propose source target :
+  mayReturn (check_memory_param_axis_unified_region live pool propose source) (Some target) ->
+  projected_region_contract live source target.
+Proof.
+  unfold check_memory_param_axis_unified_region; intro RUN.
+  eapply check_memory_param_axis_profiles_sound; [|exact RUN].
+  intros package chosen CERT_ACCEPTED; cbn beta in CERT_ACCEPTED.
+  destruct (propose (memory_param_axis_unified_request package)) as [candidate|].
+  - destruct candidate.
+    + eapply check_memory_param_axis_pointer_mapped_package_sound; exact CERT_ACCEPTED.
+    + eapply check_memory_param_axis_pointer_mapped_package_sound; exact CERT_ACCEPTED.
+    + eapply check_memory_param_axis_pointer_tiled_package_sound; exact CERT_ACCEPTED.
+    + eapply check_memory_param_axis_pointer_scheduled_package_sound; exact CERT_ACCEPTED.
+  - apply mayReturn_pure in CERT_ACCEPTED; discriminate.
+Qed.
 Definition check_memory_multi_pointer_unified_region live pool propose source :=
   BIND target <- check_memory_affine_pointer_unified_region live pool propose source -;
   match target with
@@ -172,7 +206,9 @@ Definition check_memory_multi_pointer_unified_region live pool propose source :=
           match target with Some target => CoreAlarmed.Base.pure (Some target)
             | None => BIND target <- check_memory_vector_axis_unified_region live pool propose source -;
                 match target with Some target => CoreAlarmed.Base.pure (Some target)
-                  | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end end end.
+                  | None => BIND target <- check_memory_param_axis_unified_region live pool propose source -;
+                    match target with Some target => CoreAlarmed.Base.pure (Some target)
+                      | None => check_memory_finite_multi_pointer_unified_region live pool propose source end end end end end.
 Theorem check_memory_multi_pointer_unified_region_sound live pool propose source target :
   mayReturn (check_memory_multi_pointer_unified_region live pool propose source) (Some target) -> projected_region_contract live source target.
 Proof.
@@ -197,7 +233,10 @@ Proof.
       * bind_imp_destruct RUN vector VECTOR; destruct vector as [vector|].
         -- apply mayReturn_pure in RUN; inversion RUN; subst;
              eapply check_memory_vector_axis_unified_region_sound; exact VECTOR.
-        -- eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
+        -- bind_imp_destruct RUN parameters PARAMETERS; destruct parameters as [parameters|].
+           ++ apply mayReturn_pure in RUN; inversion RUN; subst;
+                eapply check_memory_param_axis_unified_region_sound; exact PARAMETERS.
+           ++ eapply check_memory_finite_multi_pointer_unified_region_sound; exact RUN.
 Qed.
 Definition memory_scalar_pointer_unified_request source (package : memory_scalar_pointer_region_package source) :=
   GuardedMemoryRequest (memory_scalar_pointer_region_instructions package)
