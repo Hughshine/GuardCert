@@ -39,6 +39,8 @@ build/compcert-guardcert/ccomp \
 
 `(map-index (steps...) candidate)` 可以提议 `swap`、`shift`、`skew` 和 `reflect`。`(site-order (positions...) candidate)` 提议静态指令列表中的相邻交换，按源站点恢复对应，同时保留候选的实际时间戳。坐标对应、站点排列、域与依赖均由提取的检查器核对。[循环分裂实例](deep-affine-fission.md) 展示该接口处理多语句依赖；内置分块路线仍使用已有分块描述接口。
 
+`(split-domain (conditions...) candidate)` 可提交一到两个切面，把完整域分区和站点对应纳入检查。参见[域切分的构造、语义证明与实际程序验证](deep-affine-domain-split.md)。
+
 `(source DIGEST candidate)` 按导出的 `source-identity` 匹配实际源 IR、参数和指令，不包括范围提案，因此可供[有限条件搜索](deep-affine-condition-search.md)在不同条件下重验同一个候选。工具参数 `--source-match` 生成此格式。摘要和匹配均不承担证明义务。
 
 条件合成来自实际源与经过检查的区间提议，而不是要求外部文件自行写一个可信 guard。检查器接受候选之后才安装整数检查、实际源足迹的地址分离扫描、候选执行和原片段回退。公开循环出口值仍由纯源控制重放恢复。这个接口支持人或外部算法提出变换，不要求信任提出变换的算法。

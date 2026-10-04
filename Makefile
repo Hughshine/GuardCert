@@ -447,3 +447,8 @@ native-affine-nest-condition-search:
 
 native-guardcert-conditioned:
 	python3 scripts/native_guardcert_conditioned.py
+
+.PHONY: native-affine-nest-domain-split
+native-affine-nest-domain-split:
+	python3 scripts/native_affine_nest_domain_split.py
+	python3 scripts/native_affine_nest_domain_split_paths.py

@@ -34,9 +34,10 @@ def source_points(args):
     final[0]=max(start,n);return points,final
 
 
-def output_model(args,order='source'):
+def output_model(args,order='source',point_order=None):
     which,mode,_,_,_,_,alpha=args
     points,final=source_points(args);beta=word(alpha+5)
+    if point_order is not None:points=point_order
     arrays=[[word(3*x+1+17*slot) for x in range(SIZE)] for slot in range(3)]
     views=memory.pointer_views(mode)
     operations=([(operation,point) for point in points for operation in [0,1]] if order=='source' else

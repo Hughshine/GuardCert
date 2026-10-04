@@ -107,5 +107,14 @@ let propose request source instructions =
              Some (candidate,AffineNestCandidateEvidence.AffineSiteEvidence
                (steps,List.map (fun position -> C.natural (C.small position)) positions))
          | _ -> None)
+    | C.List [C.Atom "split-domain";C.List conditions;syntax] ->
+        if List.length conditions > 2 then invalid_arg "affine split cut limit";
+        let conditions = List.map C.loop_test conditions in
+        (match choose syntax with
+         | Some (candidate,AffineNestCandidateEvidence.AffineIndexEvidence steps) ->
+             Some(candidate,AffineNestCandidateEvidence.AffineSplitEvidence(conditions,steps,[]))
+         | Some (candidate,AffineNestCandidateEvidence.AffineSiteEvidence(steps,positions)) ->
+             Some(candidate,AffineNestCandidateEvidence.AffineSplitEvidence(conditions,steps,positions))
+         | _ -> None)
     | syntax -> Some (C.instantiate_at instructions None syntax,AffineNestCandidateEvidence.AffineIndexEvidence []) in
   match Lazy.force template with None -> None | Some syntax -> choose syntax

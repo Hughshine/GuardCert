@@ -187,7 +187,12 @@ let propose request =
          (context @ proposal.AffineNestGuardPackage.affine_proposed_pointers) in
        let extract loop = GuardMemoryExtractorTrace.MemoryExtractor.extractor
          ((GuardMemoryVectorChecker.memory_bounded_assumed_loop bounds loop,context),variables) in
-       (match extract request.AffineNestCheckedCompiler.affine_requested_loop,extract candidate with
+       let source = match evidence with
+         | AffineNestCandidateEvidence.AffineSplitEvidence(conditions,_,_) ->
+             AffineNestDomainSplit.affine_partitioned_sources conditions
+               request.AffineNestCheckedCompiler.affine_requested_loop
+         | _ -> request.AffineNestCheckedCompiler.affine_requested_loop in
+       (match extract source,extract candidate with
         | Result.Okk source,Result.Okk target ->
             let (before,_),_ = GuardMemoryExtractorProgress.memory_normalize_poly_program source in
             let expected,after = match evidence with
@@ -195,6 +200,10 @@ let propose request =
                   let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
                   before,after
               | AffineNestCandidateEvidence.AffineSiteEvidence (steps,positions) ->
+                  let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
+                  (match AffineNestSitePermutation.affine_site_permutation positions after with
+                   | Some ordered -> before,ordered | None -> before,[])
+              | AffineNestCandidateEvidence.AffineSplitEvidence (_,steps,positions) ->
                   let (after,_),_ = GuardMemoryAffineReindex.memory_affine_reindex_poly_program steps target in
                   (match AffineNestSitePermutation.affine_site_permutation positions after with
                    | Some ordered -> before,ordered | None -> before,[])

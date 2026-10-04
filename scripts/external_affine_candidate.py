@@ -1,6 +1,6 @@
 """Construct untrusted external Loop candidates from checked request exports."""
 from pathlib import Path
-import argparse,re
+import argparse,re,itertools
 
 
 def parse(text):
@@ -69,12 +69,52 @@ def fission(source,reverse=False):
     return result
 
 
+def split_domain(source,count,reverse=False,drop=False,duplicate=False):
+    headers=[];body=source
+    while body[0]=='loop':headers.append(body[:3]);body=body[3]
+    depth=len(headers)
+    if depth<count:raise ValueError('not enough source axes for split')
+    conditions=[['le',['var',str(depth-1-axis)],['constant',str(axis)]] for axis in range(count)]
+    def piece(bits):
+        tests=[condition if bit else ['le',['sum',condition[2],['constant','1']],condition[1]]
+               for bit,condition in zip(bits,conditions)]
+        condition=tests[0]
+        for test in tests[1:]:condition=['and',condition,test]
+        result=['guard',condition,body]
+        for header in reversed(headers):result=[*header,result]
+        return result
+    bits=list(itertools.product([True,False],repeat=count))
+    order=list(range(len(bits)))
+    if reverse:order.reverse()
+    pieces=[piece(bits[index]) for index in order]
+    if drop:pieces.pop()
+    if duplicate:pieces.append(pieces[-1])
+    result=['seq',*pieces]
+    if reverse:
+        def sites(node):
+            if node[0]=='instr':return 1
+            if node[0]=='seq':return sum(sites(part) for part in node[1:])
+            raise ValueError('split source leaf shape')
+        width=sites(body);current=[index*width+site for index in order for site in range(width)]
+        swaps=[]
+        for destination in range(len(current)):
+            position=current.index(destination)
+            while position>destination:
+                first=position-1;current[first],current[position]=current[position],current[first]
+                swaps.append(str(first));position-=1
+        result=['site-order',swaps,result]
+    return ['split-domain',conditions,result]
+
+
 def candidate(request,mode,delta):
     assert request[0]=='affine-request'
     fields={field[0]:field[1] for field in request[1:]}
     source=fields['source']
     if mode=='identity':return source
     if mode in ['fission','reverse-fission']:return fission(source,mode=='reverse-fission')
+    if mode.startswith('split-'):
+        return split_domain(source,2 if mode=='split-two' else 1,
+            reverse=mode=='split-reverse',drop=mode=='split-drop',duplicate=mode=='split-duplicate')
     transformed=shift_root(source,delta)
     if mode=='drop-point':transformed[2]=['sum',transformed[2],['constant','-1']]
     steps=[] if mode=='wrong-map' else [['shift','0',str(-delta)]]
@@ -95,7 +135,8 @@ def generate(directory,output,mode,delta,source_match=False):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('requests',type=Path);parser.add_argument('output',type=Path)
-    parser.add_argument('--mode',choices=['identity','shift-root','wrong-map','drop-point','fission','reverse-fission'],default='shift-root')
+    parser.add_argument('--mode',choices=['identity','shift-root','wrong-map','drop-point','fission','reverse-fission',
+        'split-one','split-two','split-reverse','split-drop','split-duplicate'],default='shift-root')
     parser.add_argument('--delta',type=int,default=1)
     parser.add_argument('--source-match',action='store_true')
     args=parser.parse_args()
