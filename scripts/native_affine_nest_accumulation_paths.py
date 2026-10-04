@@ -19,7 +19,8 @@ def main():
     stamp=fixture.compiler.check_build();report=json.loads((fixture.WORK/'report.json').read_text())
     assert report['status']=='passed' and report['compiler_sha256']==stamp['compiler_sha256']
     rows={}
-    for name in ['identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile']:
+    for name in ['identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile',
+                 'parametric-tile','partition-parametric-tile']:
         work=fixture.WORK/name
         source=marked_source((work/(fixture.SOURCE.stem+'.light.c')).read_text(),['affine_accumulation'])
         calls=[];fast=fallback=shared=overlap=negative=0;observations=[]

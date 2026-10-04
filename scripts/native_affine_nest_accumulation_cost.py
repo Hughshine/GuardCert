@@ -9,7 +9,8 @@ from native_affine_nest_multiple_pointers_paths import marked_source
 
 WORK=fixture.ROOT/'build/native-affine-nest-accumulation-cost'
 LAYOUT='pointers'
-MODES=['source','identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile']
+MODES=['source','identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile',
+       'parametric-tile','partition-parametric-tile']
 
 def layout_text(text):
     if LAYOUT=='pointers':return text

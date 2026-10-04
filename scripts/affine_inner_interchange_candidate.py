@@ -59,10 +59,20 @@ def parametric_proposal(fields):
     return ['map-index',[['swap','1']],candidate]
 
 MODES=['inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile',
+       'parametric-tile','partition-parametric-tile','wrong-parametric-witness','dependent-header-tile',
        'wrong-first-tile','wrong-witness-tile']
 
 def composed_proposal(fields,mode,wrong=False):
     if mode=='inner-interchange-parametric':return parametric_proposal(fields)
+    if mode=='dependent-header-tile':
+        return ['tile-parametric','2','3'] if len(fields['axes'])==3 else None
+    if mode in ['parametric-tile','partition-parametric-tile','wrong-parametric-witness']:
+        first=parametric_proposal(fields)
+        if first is None:return None
+        tile=['tile-parametric-wrong' if mode=='wrong-parametric-witness' else 'tile-parametric','2','3']
+        if mode=='partition-parametric-tile':
+            tile=['partition-target',[['le',['var','0'],['constant','1']]],tile]
+        return ['chain',first,tile]
     first=proposal(fields,wrong or mode=='wrong-first-tile')
     if first is None or mode=='inner-interchange':return first
     axes=[fields['axes'][axis] for axis in [0,2,1]]

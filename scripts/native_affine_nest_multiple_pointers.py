@@ -1,4 +1,5 @@
 """Run actual compiled affine nests with distinct and overlapping pointer views."""
+from native_sources import atomic_write_text
 from pathlib import Path
 import hashlib, json, os, subprocess
 import native_affine_nest as deep
@@ -79,7 +80,7 @@ def generate():
         text+='if(which=='+str(which)+')'+name+'(a,b,c,start,n,m,p,alpha);\n'
     text+='printf("%d %d %d %d %d %d %d %d %d %d %d %d",which,mode,start,n,m,p,alpha,multi_i,multi_j,multi_k,multi_K,multi_L);for(x=0;x<32768;x++)printf(" %d",A[x]);for(x=0;x<32768;x++)printf(" %d",B[x]);for(x=0;x<32768;x++)printf(" %d",C[x]);printf("\\n");}\nint main(void){\n'
     text+=''.join('multi_case('+','.join(map(literal,row))+');\n' for row in full_inputs())
-    SOURCE.write_text(text+'return 0;}\n')
+    atomic_write_text(SOURCE,text+'return 0;}\n')
 
 
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()

@@ -1,4 +1,5 @@
 """Run true read-modify-write accumulation with an independently modeled order."""
+from native_sources import atomic_write_text
 import json,os,subprocess
 from pathlib import Path
 import affine_inner_interchange_candidate as producer
@@ -54,7 +55,7 @@ def generate():
     text+='if(mode==1){b=a;c=a;}if(mode==2){b=a+1;c=a+2;}if(mode==3){b=a+512;c=a+1024;}if(mode==4){b=a+32;c=a+64;}if(mode==5){a=0;b=0;c=0;}affine_accumulation(a,b,c,start,n,m,p);'
     text+='printf("%d %d %d %d %d %d %d %d %d %d",mode,start,n,m,p,out_i,out_j,out_k,out_K,out_L);for(x=0;x<2048;x++)printf(" %d",A[x]);for(x=0;x<2048;x++)printf(" %d",B[x]);for(x=0;x<2048;x++)printf(" %d",C[x]);printf("\\n");}\nint main(void){\n'
     text+=''.join('accumulation_case('+','.join(map(literal,row))+');\n' for row in inputs())
-    SOURCE.write_text(text+'return 0;}\n')
+    atomic_write_text(SOURCE,text+'return 0;}\n')
 
 def compile_run(name,extra,expected,export=False):
     work=WORK/name;work.mkdir(parents=True,exist_ok=True)
@@ -88,10 +89,13 @@ def main():
     requests=WORK/'requests';requests.mkdir(exist_ok=True)
     configurations={'export':compile_run('export',{'GUARDCERT_AFFINE_MODE':'disabled',
         'GUARDCERT_AFFINE_REQUEST_DIR':str(requests)},expected)}
-    accepted=['identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile']
+    accepted=['identity','inner-interchange','inner-interchange-parametric','interchange-tile','partition-interchange-tile',
+              'parametric-tile','partition-parametric-tile']
     for name,mode in [('identity','identity'),('inner-interchange','inner-interchange'),
                       ('inner-interchange-parametric','inner-interchange-parametric'),
                       ('interchange-tile','interchange-tile'),('partition-interchange-tile','partition-interchange-tile'),
+                      ('parametric-tile','parametric-tile'),('partition-parametric-tile','partition-parametric-tile'),
+                      ('wrong-parametric-witness','wrong-parametric-witness'),('dependent-header-tile','dependent-header-tile'),
                       ('wrong-first-tile','wrong-first-tile'),('wrong-witness-tile','wrong-witness-tile'),
                       ('wrong-map','wrong-map'),('resource-limit','inner-interchange')]:
         candidate=WORK/(name+'.sexp')

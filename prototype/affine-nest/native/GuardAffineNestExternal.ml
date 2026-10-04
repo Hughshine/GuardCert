@@ -142,6 +142,12 @@ let propose request source instructions =
                | body -> body in
              let candidate = if kind="partition-target-wrong" then drop_part expanded else expanded in
              Some(candidate,AffineNestCandidateEvidence.AffinePartitionTargetEvidence(conditions,base,evidence)))
+    | C.List [C.Atom tile;rows;columns] when tile="tile-parametric" || tile="tile-parametric-wrong" ->
+        let rows,columns=C.small rows,C.small columns in
+        let candidate,witnesses=GuardAffineNestTiling.propose_parametric request current rows columns in
+        let witnesses=if tile="tile-parametric-wrong" then
+          snd(GuardAffineNestTiling.propose_parametric request current (rows+1) (columns+1)) else witnesses in
+        Some(candidate,AffineNestCandidateEvidence.AffineTilingEvidence witnesses)
     | C.List (C.Atom tile::rows::columns::extra) when tile="tile-box" || tile="tile-box-wrong" ->
         let axes = match extra with
           | [] -> request.AffineNestCheckedCompiler.affine_requested_axes

@@ -16,3 +16,5 @@
 后续对照的具体问题：VLIM 的 guard 是静态适用性检查、逻辑前提还是注入的运行时代码？条件性 rewrite 是否生成原代码回退？其 statement lifting 对一般控制流、发散和状态关系有哪些要求？这些问题在取得全文和 artifact 前保持未决。
 
 2026-10-04 重新尝试公开全文链接：会议 PDF 仍为 HTTP 404，大学仓储页面直接访问仍为 HTTP 403；搜索索引可读。索引中的图 8 具体给出函数 rewrite 的顺序组合和自动推导正确性，图 9 给出首次成功的 AST 遍历；交换条件还讨论可交换的共享写入。`rewrite guard` 的描述包含归纳证明，但这仍不足以确认它是否产生实际检查与回退代码。当前新增的逐段候选证书是功能实现，不能以“组合本身”区别于这一先例。[会议论文索引](https://past.date-conference.com/proceedings-archive/2026/DATA/116.pdf)。
+
+2026-10-04 另核对了 [FRESCO 团队的公开项目页](https://fresco.gitlabpages.inria.fr/)与 [Capla 官方语言文档](https://fresco.gitlabpages.inria.fr/capla/language/index.html)。文档说明已验证的 Capla→CompCert 后端、未经验证的 C 输出以及 64 位目标限制。只读检出公开 Capla language 的 master `b7fa07585c36651b58d52c05fe6df1541a0089eb`，针对循环交换与 rewrite algebra 的源码定位尚未找到对应实现；没有构建该代码，也没有据此推断 VLIM artifact 或 runtime guard 的能力。这一检查只补充公开项目的定位，论文的上述问题仍未决。

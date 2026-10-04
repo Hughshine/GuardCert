@@ -1,4 +1,5 @@
 """Exercise actual deep affine multi-statement programs and imported fission."""
+from native_sources import atomic_write_text
 import json,os,subprocess
 from pathlib import Path
 import external_affine_candidate as producer
@@ -70,7 +71,7 @@ def generate():
     harness=re.sub(r'if\(which==4\)[^;]+;\n','',harness)
     text+='void multi_case'+harness+'int main(void){\n'
     text+=''.join('multi_case('+','.join(map(literal,row))+');\n' for row in full_inputs())
-    SOURCE.write_text(text+'return 0;}\n')
+    atomic_write_text(SOURCE,text+'return 0;}\n')
 
 
 def export_requests():

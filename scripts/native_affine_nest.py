@@ -1,4 +1,5 @@
 """Run the extracted deep-affine compiler against complete word-level outputs."""
+from native_sources import atomic_write_text
 from pathlib import Path
 import argparse
 import hashlib
@@ -114,7 +115,7 @@ def generate():
     for args in full_inputs():
         source += "affine_case(" + ",".join(literal(value) for value in args) + ");\n"
     source += "return 0;}\n"
-    SOURCE.write_text(source)
+    atomic_write_text(SOURCE,source)
 
 
 def sha(path):
