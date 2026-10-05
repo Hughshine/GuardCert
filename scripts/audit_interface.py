@@ -23,6 +23,7 @@ SOURCES = [
     ("prototype/interface/ReadonlyConditionComposition.v", 3),
     ("prototype/interface/ReadonlyBranching.v", 5),
     ("prototype/interface/ReadonlyPrefixScan.v", 1),
+    ("prototype/interface/ReadonlyProbeTree.v", 5),
 ]
 
 
@@ -43,10 +44,10 @@ def main():
     report = {
         "status": "compiled",
         "toolchain": subprocess.check_output(["rocq", "--version"], text=True).strip(),
-        "interface_modules_compiled": 13,
+        "interface_modules_compiled": 14,
         "existing_dependencies_recompiled": 3,
-        "new_interface_closed_endpoints": 49,
-        "readonly_rewrite_closed_endpoints": 40,
+        "new_interface_closed_endpoints": 54,
+        "readonly_rewrite_closed_endpoints": 45,
         "sources": {filename: hashlib.sha256((ROOT / filename).read_bytes()).hexdigest()
                     for filename, _ in SOURCES},
         "new_global_axioms": [],
@@ -59,10 +60,13 @@ def main():
                  "requirements, entry projection and conservative simplification, rectangular "
                  "address bounds and delinearization injectivity; dependency-ordered "
                  "read-only condition stages with stronger certified continuation domains; "
-                 "certified two-outcome branching and bounded active-prefix scans with erased witness invariants",
+                 "certified two-outcome branching and bounded active-prefix scans with erased witness invariants; "
+                 "language-independent partial probe trees and path-fact simplification preserving safety and results",
         "dependent_readonly_condition_composition_proved": True,
         "readonly_branch_classifiers_require_both_outcome_certificates": True,
         "bounded_prefix_scan_preserves_entry_and_advances_only_ghost_witnesses": True,
+        "probe_simplification_requires_only_opaque_keys_partial_tests_and_result_determinacy": True,
+        "probe_simplification_preserves_undefined_probe_avoidance": True,
         "region_selection_and_candidate_generation_are_user_supplied": True,
         "clight_adapter_included_in_this_audit": False,
         "context_and_check_safety_are_instance_obligations": True,

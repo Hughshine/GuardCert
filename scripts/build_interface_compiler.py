@@ -24,6 +24,7 @@ def main():
     instances.add_argument("--loaded-matrix", action="store_true", help="build prefix-safe loaded-bound 2x2 interchange")
     instances.add_argument("--loaded-rectangle", action="store_true", help="build prefix-safe dynamic loaded-bound rectangle interchange")
     instances.add_argument("--shared-loaded-rectangle", action="store_true", help="build the same dynamic rewrite with one shared candidate/fallback")
+    instances.add_argument("--simplified-rectangle", action="store_true", help="build the same shared rewrite after verified readonly probe simplification")
     instances.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
     instances.add_argument("--rectangle", action="store_true", help="build the dynamic rectangular store instance")
     instances.add_argument("--cells", action="store_true", help="build the guarded aligned-word store exchange")
@@ -38,7 +39,10 @@ def main():
     instances.add_argument("--equality", action="store_true", help="build guarded fixed-bound unsigned equality-exit normalization")
     instances.add_argument("--equality-head", action="store_true", help="build stepwise readonly equality-head rewriting without a loop rank")
     args = parser.parse_args()
-    if args.shared_loaded_rectangle:
+    if args.simplified_rectangle:
+        WORK = ROOT / "build/compcert-interface-simplified-rectangle"
+        ENTRY = "ClightSimplifiedRectangleCompiler.compile_simplified_rectangles"
+    elif args.shared_loaded_rectangle:
         WORK = ROOT / "build/compcert-interface-shared-loaded-rectangle"
         ENTRY = "ClightSharedLoadedRectangleCompiler.compile_shared_loaded_rectangles"
     elif args.loaded_rectangle:
@@ -88,7 +92,7 @@ def main():
         ENTRY = "ClightCommonRewriteCompiler.compile_common_rewrites"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    instance = ("shared_loaded_rectangle" if args.shared_loaded_rectangle else "loaded_rectangle" if args.loaded_rectangle else "loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
+    instance = ("simplified_rectangle" if args.simplified_rectangle else "shared_loaded_rectangle" if args.shared_loaded_rectangle else "loaded_rectangle" if args.loaded_rectangle else "loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
                 "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
                 "loaded_bound" if args.loaded_bound else "indexed_bound" if args.indexed_bound else

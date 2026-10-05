@@ -93,13 +93,17 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--common", action="store_true")
     modes.add_argument("--shared", action="store_true")
+    modes.add_argument("--simplified", action="store_true")
     args = parser.parse_args()
-    instance = "shared-loaded-rectangle" if args.shared else "common" if args.common else "loaded-rectangle"
-    entry = ("ClightSharedLoadedRectangleCompiler.compile_shared_loaded_rectangles" if args.shared else
+    joined = args.shared or args.simplified
+    instance = "simplified-rectangle" if args.simplified else "shared-loaded-rectangle" if args.shared else "common" if args.common else "loaded-rectangle"
+    entry = ("ClightSimplifiedRectangleCompiler.compile_simplified_rectangles" if args.simplified else
+             "ClightSharedLoadedRectangleCompiler.compile_shared_loaded_rectangles" if args.shared else
              "ClightCommonRewriteCompiler.compile_common_rewrites" if args.common
              else "ClightLoadedRectangleCompiler.compile_loaded_rectangles")
     compiler = ROOT / f"build/compcert-interface-{instance}/ccomp"
-    work = ROOT / ("build/interface-shared-loaded-rectangle-native" if args.shared
+    work = ROOT / ("build/interface-simplified-rectangle-native" if args.simplified else
+                   "build/interface-shared-loaded-rectangle-native" if args.shared
                    else f"build/interface-{instance}-loaded-rectangle-native")
     work.mkdir(parents=True, exist_ok=True)
     stamp = json.loads((compiler.parent / ".guard-build.json").read_text())
@@ -144,7 +148,7 @@ def main():
         snapshots = re.findall(r"(\$\w+) = \*\$rows;", body)
         if not snapshots:
             raise SystemExit(f"Cached candidate missing in {name}")
-        if args.shared:
+        if joined:
             if len(snapshots) != regions or body.count("if (! ($i < *$rows))") != regions:
                 raise SystemExit(f"Candidate/fallback must occur once per region in {name}")
             results = set(re.findall(r"if \((\$\w+)\)", body))
@@ -153,6 +157,8 @@ def main():
                     raise SystemExit(f"Shared Boolean is not a separate declared private temp in {name}")
             if len(results) != 1:
                 raise SystemExit(f"Shared Boolean dispatch missing in {name}")
+        if args.simplified and body.count("if (0 < *$rows)") != regions:
+            raise SystemExit(f"Previously established outer activity was not reused in {name}")
         for private in set(snapshots):
             if not re.search(r"int " + re.escape(private) + r";", body):
                 raise SystemExit(f"Fresh cache not declared in {name}")
@@ -186,8 +192,10 @@ def main():
         "runtime_guard_executes_ghost_prefix": False,
         "logical_condition_writes_private_temps": False,
         "readonly_condition_writes_private_temps": False,
-        "lowered_guard_writes_fresh_private_boolean": args.shared,
-        "shared_candidate_and_fallback": args.shared,
+        "lowered_guard_writes_fresh_private_boolean": joined,
+        "shared_candidate_and_fallback": joined,
+        "condition_simplification_uses_generic_partial_probe_semantics": args.simplified,
+        "condition_simplification_preserves_original_acceptance_and_definedness": args.simplified,
         "all_original_temps_and_memory_preserved": True,
         "uninitialized_inner_dimension_on_empty_outer_path_executed": True,
         "oversized_bound_shrinking_after_first_row_executed": True,

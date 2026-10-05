@@ -230,3 +230,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 ## 共享出口的生成适配层
 
 原 `readonly_projected_clight_rule` 可以交给 `ClightSharedProjectedCompiler`，它另外检查 candidate quiet 和新鲜的 private Boolean slot。实际检查树先保存结果，候选／回退各一份；Boolean 写入后的分支执行由 temp scope 运输，continuation 保护全部原 temps 和完整内存。原条件合成与局部调度证明直接复用。共享矩形入口通过相同 6,248 次调用，251 端点审计和十七种配置回归通过，25 份既有源码／Clight 摘要相同。具体实现／raw 与公开 state 的边界见 [共享出口](shared-guard-lowering.md)。
+
+只读条件的后处理接口已由 [探针简化](readonly-probe-simplification.md)接通：`ClightProbeTree.v` 把实际表达式决策树接到通用部分探针语义，`simplified_projected_rule` 保留原局部证书，仅替换 guard 及检查证书。`ClightSimplifiedRectangleCompiler.v` 再实例化已有共享编译宿主，具备完整 Csem→Asm 端点及实际 6,248 次 C 调用。简化使用语法相同表达式的路径结果，不能自动推广到不同算术表达式或非只读／非确定操作。

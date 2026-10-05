@@ -223,3 +223,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [动态内存上界矩形](clight-loaded-rectangle-case.md)进一步演示相同接口的组合：使用者提供当前行的真实解码和权限运输、整行接受后的 load 保持性、候选快照／调度及公开出口，框架复用两层前缀扫描和单次 projected rewrite。支持运行时行数／列数与静态 stride；独立／统一入口各通过 6,248 次调用，完整接口 242 端点审计无新增公理。该实例不要求核理解内存，但检查自身是否有定义仍必须由语言／规则作者证明。
 
 [共享出口生成](shared-guard-lowering.md)还表明逻辑条件与最终表示可以分层：相同只读证书和局部 rule 能消费于候选／回退各一份的 Clight 编译器。实现保存新鲜的 private Boolean，scope／frame 证明保护原 state 和 continuation；这需要显式证明，不能把 raw temp 写入自动称作完全状态不变。
+
+[只读探针树简化](readonly-probe-simplification.md)提供条件生成后的可复用适配：探针 key／部分 Boolean 语义由语言解释，接口要求固定入口结果确定及实际编译／安全对应。框架利用路径上真实测试结果消除相同探针，直接返回同一 D／P 的只读条件；原候选、局部证明和入口义务保持。矩形共享编译器已实际消费，保留接受范围并通过 6,248 次调用。它不提供任意 Prop 判定、不同表达式的算术推导或 effectful 检查消除。
