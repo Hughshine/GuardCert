@@ -7,7 +7,7 @@ from audit_compiler import names
 from audit_interface_clight import ROOT, sha, compcert_flags
 
 WORK = ROOT / "build/interface-compiler"
-MODULES = ["ClightReadonlyCompiler", "ClightPreloadCompiler"]
+MODULES = ["ClightReadonlyCompiler", "ClightPreloadCompiler", "ClightReadonlyMatrix"]
 ENDPOINTS = {
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_region_contract": "REGION",
@@ -17,9 +17,14 @@ ENDPOINTS = {
     "ClightPreloadCompiler.choose_preload_rewrite": "FRAGMENT",
     "ClightPreloadCompiler.trim_readonly_rule": "FRAGMENT",
     "ClightPreloadCompiler.compile_preload_rewrites_correct": "COMPILER",
+    "ClightReadonlyMatrix.readonly_matrix_condition": "FRAGMENT",
+    "ClightReadonlyMatrix.readonly_matrix_forward": "MEMORY_FRAGMENT",
+    "ClightReadonlyMatrix.readonly_matrix_rule": "MEMORY_FRAGMENT",
+    "ClightReadonlyMatrix.compile_readonly_matrix_correct": "COMPILER",
 }
 BASELINES = {
     "FRAGMENT": "ClightCondition.fragment_language",
+    "MEMORY": "Mem.mkmem_ext",
     "REGION": "ClightRegionRewrite.guarded_fragment_region_contract",
     "COMPILER": "Compiler.transf_c_program_correct",
 }
@@ -48,6 +53,7 @@ def main():
         print(f"Compiled {module}", flush=True)
     audit = WORK / "Audit.v"
     lines = ["From compcert.driver Require Import Compiler.",
+             "From compcert.common Require Import Memory.",
              "From Guard Require Import ClightCondition ClightRegionRewrite.",
              "From GuardInterface Require Import " + " ".join(MODULES) + "."]
     queries = {**BASELINES, **{f"CHECK_{i}": theorem for i, theorem in enumerate(ENDPOINTS)}}
@@ -63,6 +69,9 @@ def main():
     markers = [*queries, "END"]
     sections = {marker: names(result.stdout.split(marker + "\n", 1)[1].split(markers[i+1] + "\n", 1)[0])
                 for i, marker in enumerate(markers[:-1])}
+    # Equality of concrete CompCert memories reuses the upstream record
+    # extensionality lemma, whose proof uses CompCert's proof irrelevance.
+    sections["MEMORY_FRAGMENT"] = sections["FRAGMENT"] | sections["MEMORY"]
     checked = {}
     for i, (theorem, level) in enumerate(ENDPOINTS.items()):
         extra = sections[f"CHECK_{i}"] - sections[level]
@@ -75,17 +84,22 @@ def main():
     output = {
         "status": "compiled", "sources": sources,
         "prerequisite_clight_report_sha256": sha(prerequisite),
-        "baseline_assumptions": {level: sorted(sections[level]) for level in BASELINES},
+        "baseline_assumptions": {level: sorted(sections[level]) for level in [*BASELINES, "MEMORY_FRAGMENT"]},
         "endpoint_assumptions": checked, "additional_global_axioms": [],
         "whole_program_entrypoint": "ClightPreloadCompiler.compile_preload_rewrites",
         "whole_program_theorem": "ClightPreloadCompiler.compile_preload_rewrites_correct",
+        "whole_program_entrypoints": {
+            "preload": "ClightPreloadCompiler.compile_preload_rewrites",
+            "matrix": "ClightReadonlyMatrix.compile_readonly_matrix",
+        },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
         "clight_whole_program_equivalence_proved": False,
         "csem_to_asm_backward_simulation_proved": True,
         "boundary_mode": "exact trace, outcome, memory and all exit temporaries",
         "private_temporary_projection_supported": False,
-        "loop_interchange_migrated": False,
+        "fixed_2x2_loop_interchange_uses_new_api": True,
+        "general_loop_transformation_migrated": False,
         "native_execution_run": False,
     }
     (WORK / "report.json").write_text(json.dumps(output, indent=2) + "\n")

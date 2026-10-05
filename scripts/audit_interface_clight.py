@@ -19,6 +19,9 @@ MODULES = [
     "prototype/interface/ClightPreloadExample.v",
     "prototype/interface/ClightPreloadSynthesis.v",
     "prototype/interface/ClightAdministrative.v",
+    "prototype/interface/ClightQuietDeterminacy.v",
+    "prototype/interface/ClightLoopBridge.v",
+    "prototype/interface/ClightReadonlyTreeFacts.v",
 ]
 
 

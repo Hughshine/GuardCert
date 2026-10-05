@@ -1,4 +1,5 @@
 """Extract and build the read-only API fixture's proved C-to-assembly driver."""
+import argparse
 import json
 import shutil
 import subprocess
@@ -17,9 +18,17 @@ def run(*args):
 
 
 def main():
+    global WORK, ENTRY
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
+    args = parser.parse_args()
+    if args.matrix:
+        WORK = ROOT / "build/compcert-interface-matrix"
+        ENTRY = "ClightReadonlyMatrix.compile_readonly_matrix"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    if proof["status"] != "compiled" or proof["additional_global_axioms"] or proof["whole_program_entrypoint"] != ENTRY:
+    expected = proof["whole_program_entrypoints"]["matrix" if args.matrix else "preload"]
+    if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")
     for path, digest in proof["sources"].items():
         if sha(ROOT / path) != digest:
@@ -50,7 +59,7 @@ def main():
     if text.count("Separate Extraction\n") != 1:
         raise SystemExit("Unexpected upstream extraction roots")
     extraction = WORK / "extract_interface.v"
-    extraction.write_text("From GuardInterface Require Import ClightPreloadCompiler.\n"
+    extraction.write_text(f"From GuardInterface Require Import {ENTRY.split('.')[0]}.\n"
                           + text.replace("Separate Extraction\n", f"Separate Extraction {ENTRY}\n"))
     flags = compcert_flags()
     for i in range(len(flags) - 1):
