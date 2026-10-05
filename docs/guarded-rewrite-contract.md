@@ -186,3 +186,8 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 ```
 
 该检查编译十个接口模块和三个既有依赖，打印 40 个接口证明端点的闭合假设报告，其中只读 rewrite 扩展占 31 个；包括关系式 localization、有限替换序列、前提入口推导、域限制及完成性／确定性下的单向证明复用，以及隐藏私有出口的观察运输。日志及源码摘要位于 `build/interface/`。`make interface-clight-proof` 另审计真实只读 Clight 适配、frame／延迟读取案例及结构化片段确定性；投影 Clight 编译接口另支持新鲜候选私有 temp 的出口差异，并消费 scope／入口／continuation 证明；保护的集合目前是所有原程序 temps。具体责任与缺口见 [Clight 接入设计](clight-guarded-rewrite-design.md)及 [Optimistic Loop Optimization 验收账本](optimistic-loop-acceptance.md)。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。
+
+
+## 当前的组合使用者
+
+[ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 将已实现的分支、单元交换、循环交换、payload 快照和内存上界快照交给同一 projected host。精确出口规则经有证书的观察提升后，生成代码保持相同；使用者补充源 temps 写界。576 次调用／2880 行结果验证同一函数中的多次真实片段改写，详见 [组合使用者案例](clight-common-user-pass.md)。这项组合没有扩大各规则原有的循环形状或动态足迹覆盖。

@@ -120,6 +120,13 @@
 
 [ClightReadonlyLoadedTreeSynthesis.v](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v) 补上带 load 的 tree-valued 原子：validity／value 证书须给出入口域下的完成检查，实际表达式确定性将完成路径提升成所有可达节点安全，随后复用 Boolean 合成核。它不将负面结果或 unknown 自动视为可靠否定，也没有允许 guard 写私有 scratch。`make interface-loaded-bound-native` 的 514 次调用／514 行输出与 GCC 和独立模型一致，四处实际改写已确认，八组原生回归通过。完整使用者职责及反例见 [内存上界实例](clight-loaded-bound-case.md)。
 
+
+### 在同一个使用者 pass 中组合规则
+
+[ClightReadonlyRuleEmbedding.v](../prototype/interface/ClightReadonlyRuleEmbedding.v) 将已有精确出口规则提升到任意观察关系；使用者只需补充源 temps 写界。`exact_projected_replacement` 证明 guard／候选／回退代码没有改变。[ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 是组合选择器，将上述循环及标量规则放进同一 projected host，保留每次实际到达时的 guard 检查。
+
+`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。九组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
+
 ## 与已有 CompCert 路线的连接边界
 
 新增 [ClightReadonlyCompiler.v](../prototype/interface/ClightReadonlyCompiler.v) 提供 `readonly_clight_rule source`，绑定候选、合成条件、域／前提、只读证书、局部等价与源入口证明。使用者提供 `choose` 以及源进展分类证书；编译工具消费这些证书并复用既有区域宿主。`compile_readonly_rewrites_correct` 已证明完整 Csem→Asm 的 backward simulation。
@@ -155,7 +162,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-private-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-stable-load-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计七十六个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计八十二个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 

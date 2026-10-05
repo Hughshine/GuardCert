@@ -13,7 +13,8 @@ MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCom
            "ClightCountedLocalization", "ClightStableLoadBody", "ClightStableLoadGuard",
            "ClightReadonlyProjectedLoopRule", "ClightStableLoadLoop", "ClightStableLoadCompiler",
            "ClightStrictLoopProgress", "ClightStableLoopCondition", "ClightReadonlyLoadedTreeSynthesis",
-           "ClightLoadedBoundSyntax", "ClightLoadedBoundGuard", "ClightLoadedBoundLoop", "ClightLoadedBoundCompiler"]
+           "ClightLoadedBoundSyntax", "ClightLoadedBoundGuard", "ClightLoadedBoundLoop", "ClightLoadedBoundCompiler",
+           "ClightReadonlyRuleEmbedding", "ClightCommonRewriteCompiler"]
 ENDPOINTS = {
     "ClightReadonlyLoopRule.readonly_forward_loop_rule": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
@@ -91,6 +92,12 @@ ENDPOINTS = {
     "ClightLoadedBoundCompiler.loaded_bound_rule": "FRAGMENT",
     "ClightLoadedBoundCompiler.choose_loaded_bound": "FRAGMENT",
     "ClightLoadedBoundCompiler.compile_loaded_bounds_correct": "COMPILER",
+    "ClightReadonlyRuleEmbedding.exact_clight_local_observed": "FRAGMENT",
+    "ClightReadonlyRuleEmbedding.exact_readonly_as_projected": "FRAGMENT",
+    "ClightReadonlyRuleEmbedding.exact_projected_replacement": "FRAGMENT",
+    "ClightReadonlyRuleEmbedding.quiet_source_write_bound": "FRAGMENT",
+    "ClightCommonRewriteCompiler.choose_common_rewrite": "MEMORY_FRAGMENT",
+    "ClightCommonRewriteCompiler.compile_common_rewrites_correct": "COMPILER",
 }
 BASELINES = {
     "FRAGMENT": "ClightCondition.fragment_language",
@@ -168,6 +175,7 @@ def main():
             "private_candidate": "ClightPrivateCandidateCompiler.compile_private_candidate",
             "stable_load": "ClightStableLoadCompiler.compile_stable_loads",
             "loaded_bound": "ClightLoadedBoundCompiler.compile_loaded_bounds",
+            "common": "ClightCommonRewriteCompiler.compile_common_rewrites",
         },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
@@ -183,6 +191,8 @@ def main():
         "guarded_memory_loaded_loop_bound_supported": True,
         "memory_bound_source_progress_independent_of_load_stability": True,
         "readonly_formula_tree_atoms_may_contain_ordinary_loads": True,
+        "exact_rules_embed_without_changing_generated_code": True,
+        "common_user_pass_combines_exact_and_projected_rules": True,
         "projected_adapter_protects_all_original_program_temporaries": True,
         "fixed_2x2_loop_interchange_uses_new_api": True,
         "dynamic_rectangle_store_interchange_uses_new_api": True,

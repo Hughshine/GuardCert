@@ -58,4 +58,7 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 
 `ClightLoadedBoundCompiler.compile_loaded_bounds` 随后接入真正的 `i<*bound` 源循环，候选使用私有缓存上界。入口域来自实际头部／第一次 store；non-alias 后的稳定性消费每次实际 body，源进展用 signed 最大值证明且不假定上界稳定。新 tree-valued 条件证书允许普通 load，并由表达式确定性及检查完成性证明可达安全。`make interface-loaded-bound-native` 通过 514 次调用／514 行逐内存及 iterator 检查，包含 alias 改变次数、空路径 null 输出、只读 bound、signed 极值回退、goto 与外围循环；四处实际 guard／cache 循环头已确认，无限外围循环只编译和检查。别名反例保留一次迭代及输出 1，无 guard 候选则为 5。完整端点包含在 76 项编译接口审计内，未新增公理；八组原生实例已重建并回归通过。它尚未与二维调度组合。详见 [内存上界使用者证明](clight-loaded-bound-case.md)。
 
+
+`make interface-common-native` 用 `ClightCommonRewriteCompiler.compile_common_rewrites` 在同一函数中消费上述精确／私有规则。新的有证书嵌入保持精确规则生成的语句相同；源写界由结构化语法过近似核对。576 次调用、2880 行输出通过，四种实际循环交换、两个 store 分支、两处共享私有 pool 的快照和后续读取当前参数值的检查都已确认。九组原生回归在 82 端点审计下重建并通过。统一选择器继承既有内存记录的 proof irrelevance，没有新增公理。详见 [一个使用者 pass](clight-common-user-pass.md)。
+
 已有编译器的运行证据继续有效于它自己的协议；新接口的任何一项通过都不自动升级为旧编译器已迁移。这个账本随证明和执行结果更新。
