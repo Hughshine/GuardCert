@@ -159,7 +159,7 @@ Placement(C,S1,D)
 | --- | --- | --- | --- |
 | optimistic 循环重排、分配、分块 | 实例对应、冲突分离、控制／地址解释、合法交换 | 循环入口、退出游标、内存 frame、进展 | 数学实例的有限迭代重排；真实 Clight 2×2／动态矩形 store、读写更新、行内依赖及运行时 stride 的纯写交换已接完整编译；一般 affine／分块旧入口未迁移 |
 | 条件算术／死分支 | 指定算术运算的定义性／无溢出、局部表达式或控制等价 | 操作数已定义，guard 插入不改变求值路径，结果／出口保持 | 8-bit modulo 增量的条件分支删除 |
-| 重复 load 消除 | 相同位置、可读能力、中间写入不影响读取 | 源 load 的安全依据；普通读取的事件语义 | 新接口已有真实 payload／内存循环上界提升，使用单元 non-alias、前缀不变性及私有快照；源进展独立于稳定性；一般 load 消除仍需各自证明 |
+| 重复 load 消除 | 相同位置、可读能力、中间写入不影响读取 | 源 load 的安全依据；普通读取的事件语义 | 新接口已有固定单元／有界 indexed 写足迹下的 payload 提升和内存循环上界提升，使用 non-alias、前缀不变性及私有快照；源进展独立于稳定性；一般 load 消除仍需各自证明 |
 | 实现／布局特化 | 身份、布局、稳定性及调用等价 | 环境、调用行为、异常、版本稳定 | 后续案例，尚无新宿主 |
 
 这些模式共享前提 AST、安全只读检查、frame 和上下文库，但局部定理的形状不同：算术重写不需要实例排列；循环重排不能只靠表达式等价。第一主线仍是 optimistic loop transformation，优先验证多面体候选的实际实例对应和依赖义务。
@@ -193,3 +193,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 将已实现的分支、单元交换、循环交换、payload 快照和内存上界快照交给同一 projected host。精确出口规则经有证书的观察提升后，生成代码保持相同；使用者补充源 temps 写界。576 次调用／2880 行结果验证同一函数中的多次真实片段改写，详见 [组合使用者案例](clight-common-user-pass.md)。这项组合没有扩大各规则原有的循环形状或动态足迹覆盖。
 
 运行时 stride 的规则随后也接入该 pass：[使用者案例](clight-runtime-stride-case.md) 展示具体的读取域、64 位检查编码、body 不变式、局部执行对应和完整程序端点。345 次调用／342 行输出通过；独立 stride 入口与统一 pass 都确认实际候选保留参数 stride、空路径延迟读取及后一次 rewrite 使用修改后的入口。框架共享检查合成和局部到全局连接；布局维度事实和实际内存交换仍由这个语言实例提供。
+
+[有界动态 indexed 足迹](clight-indexed-load-case.md) 又证明循环写 `out[i]` 时的参数读取稳定性。实际源执行逐点建立权限，条件覆盖所有活动地址，non-alias 接受后才缓存 load；1095 次调用／2188 行结果在独立入口和统一 pass 上通过。默认上限 16、O(cap) 地址比较、17 个生成候选出口均明确记录；这不等于一般无界区间／仿射足迹分析。

@@ -125,7 +125,7 @@
 
 [ClightReadonlyRuleEmbedding.v](../prototype/interface/ClightReadonlyRuleEmbedding.v) 将已有精确出口规则提升到任意观察关系；使用者只需补充源 temps 写界。`exact_projected_replacement` 证明 guard／候选／回退代码没有改变。[ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 是组合选择器，将上述循环及标量规则放进同一 projected host，保留每次实际到达时的 guard 检查。
 
-`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。十组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
+`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。十一组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
 
 ## 与已有 CompCert 路线的连接边界
 
@@ -147,6 +147,8 @@
 
 ## 多次替换与验证
 
+[动态 indexed footprint](clight-indexed-load-case.md) 随后补上有界的数组写足迹消费。源实际 store 逐点给出入口权限，条件只比较活动地址，接受后才证明参数 load 的前缀稳定性；默认 cap=16，超出时回退。它允许同对象非活动参数单元、不同对象和 const 参数，独立入口／统一 pass 均通过 1095 次调用／2188 行逐单元检查。只读树生成 17 个候选出口；这项代码大小成本与最多 16 次地址比较分开记录，尚无共享候选 lowering 或性能测量。
+
 [运行时 stride 使用者案例](clight-runtime-stride-case.md) 使用原始出口接口接入真正的 `i*stride+j` 二维交换。用户提供实际源／候选、完整语法证书和 body 不写 stride 的证明；框架条件树消费已认证的维度原子，生成 signed64 乘积界检查。源执行证明入口读取域，检查自身的乘法精确性另外证明；候选保留 runtime stride。`compile_runtime_strides_correct` 接到完整 Csem→Asm，统一 pass 也消费相同规则。345 次调用／342 行输出、九处实际 guard、未初始化参数的空路径及连续 rewrite 之间的参数修改通过；见 `make interface-runtime-stride-native`。
 
 [RewriteComposition.v](../prototype/interface/RewriteComposition.v) 的每一步绑定真实中间程序、上下文和替换。单步程序等价按传递性组成有限序列等价。一次替换可能改变下一次的入口不变量或布局，因此后续步骤重新提交相应证书。
@@ -165,9 +167,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-stable-load-na
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-loaded-bound-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-runtime-stride-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-load-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百零二个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百一十九个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 

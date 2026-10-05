@@ -136,6 +136,8 @@ def main():
         "gcc_behavior_matches": True, "independent_model_matches": True,
         "parameter_stride_supported_by_compiler": True,
         "parameter_stride_exercised_in_this_fixture": False, "general_array_range_alias_checks_supported": False,
+        "bounded_indexed_write_footprint_supported_by_compiler": True,
+        "indexed_footprint_exercised_in_this_fixture": False,
         "performance_measured": False,
     }, indent=2) + "\n")
     print(f"Common guarded user pass passed: 576 calls, one function with scalar and loop rewrites; {len(actual.splitlines())} lines checked")

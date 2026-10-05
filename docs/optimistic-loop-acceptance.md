@@ -10,7 +10,7 @@
 | §4.2 | 控制／地址的机器算术与整数模型对应 | 动态矩形范围条件、登记文本位置的入口推导、实际 Int／Ptrofs 地址对应及循环消费；初始化溢出反例 | 一般初始化／非仿射条件；带 preload 的实际范围合成 |
 | §4.3 | 有界实例域 | 条件前提和入口推导接口 | 带等式退出的实际循环及拒绝／发散路径 |
 | §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件 | 参数 stride 的更新／复杂依赖、内存边界与多维组合 |
-| §4.6 | 活动访问区间不重叠 | 实际 Mint32 non-alias 原子、源定义性／对齐推导、store 交换与 frame、整个参数 load 提升循环；旧路线的多个指针检查 | 新只读条件下的动态循环足迹区间检查及调度消费 |
+| §4.6 | 活动访问区间不重叠 | 实际 Mint32 单元交换及 frame；有界动态 indexed 写足迹的只读分离检查和整个参数 load 提升；旧路线的多个指针检查 | 廉价无界区间／一般仿射足迹检查及二维调度消费 |
 | §5 | 条件简化与保守近似 | `entry_derivation`、强化条件证书；从固定数组布局导出动态范围并生成实际 guard | 外部求解器输出的可核对表示与更一般投影 |
 | §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；普通 load 原子及公式合成；参数 stride 的 signed64 乘积检查无回绕证明、延迟读取和完整程序 | 带算术检查和依赖 preload 的组合合成实例 |
 
@@ -62,5 +62,7 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 `make interface-common-native` 用 `ClightCommonRewriteCompiler.compile_common_rewrites` 在同一函数中消费上述精确／私有规则。新的有证书嵌入保持精确规则生成的语句相同；源写界由结构化语法过近似核对。576 次调用、2880 行输出通过，四种实际循环交换、两个 store 分支、两处共享私有 pool 的快照和后续读取当前参数值的检查都已确认。九组原生回归在 82 端点审计下重建并通过。统一选择器继承既有内存记录的 proof irrelevance，没有新增公理。详见 [一个使用者 pass](clight-common-user-pass.md)。
 
 `make interface-runtime-stride-native` 随后消费 `ClightRuntimeStrideCompiler.compile_runtime_strides`：实际源／候选均保留 `i*stride+j`，使用有证书的 `i=0 ∧ 0<n ∧ 0<m ∧ 0<stride ∧ m≤stride ∧ (int64)n*stride≤extent`。检查自身的 signed64 乘积精确性、空轴上延迟读取参数、局部执行对应、内存重排和完整 Csem→Asm 已证明。345 次函数调用／342 行输出与 GCC 及逐单元模型一致，330 个参数网格输入中 108 个满足 guard；九处实际改写区域通过，包括两次改写间修改 stride。重叠行、零 stride 和 signed 极值的合法源输入保留回退行为；未初始化内层 bound／stride 的空路径通过。统一 pass 对相同 fixture 也通过，完整编译接口现审计 102 个端点，无新增公理。此例不含参数 stride 的 RMW、一般指针足迹或二维内存上界组合；详见 [使用者证明](clight-runtime-stride-case.md)。
+
+`make interface-indexed-load-native` 随后将 `out[i]=*parameter+(unsigned)i+1U` 的参数 load 提升接入新只读接口。源实际执行导出每个活动 word 的入口写权限及参数读取值；guard 只比较 `parameter` 与活动的 `out+k`，接受后逐轮证明实际 load 不变。默认 cap=16，检查最多 16 个地址，超 cap 保留源；同对象非活动单元和不同对象可接受，部分重叠回退。独立入口和统一 pass 均通过 1095 次调用／2188 行逐单元及 iterator 验证；1050 次同对象网格中 528 个输入满足 guard。const 参数、null 空路径、unsigned 数据回绕和外围上下文均通过。完整编译接口现审计 119 个端点、十一组原生实例重建通过，无新增公理。这是有界活动单元分离而非廉价一般区间检查；只读树提前成功会生成 17 个候选出口，未测量性能。详见 [使用者证明](clight-indexed-load-case.md)。
 
 已有编译器的运行证据继续有效于它自己的协议；新接口的任何一项通过都不自动升级为旧编译器已迁移。这个账本随证明和执行结果更新。

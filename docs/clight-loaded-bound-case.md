@@ -57,7 +57,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-loaded-bound-n
 
 验收使用提取编译器处理 C fixture，再核对 Clight 中的实际 guard、候选 cache 循环头及原始内存循环头回退；原生输出与 GCC 和独立逐次内存模型比较。外围无限循环只编译及检查内部改写，不执行。
 
-实际验收通过 514 次调用／514 行输出：252 个别名输入、252 个同 block 分离输入、三个空路径 null 输出调用、四个 readonly bound 调用和三个 signed 极值回退。四处实际 guard／cache 循环头已确认；volatile bound、不同 body、不同增量和非严格比较被拒绝。当前十组原生实例在同一 102 端点审计下重建并通过，报告绑定源码、编译器、Clight 和汇编摘要。
+实际验收通过 514 次调用／514 行输出：252 个别名输入、252 个同 block 分离输入、三个空路径 null 输出调用、四个 readonly bound 调用和三个 signed 极值回退。四处实际 guard／cache 循环头已确认；volatile bound、不同 body、不同增量和非严格比较被拒绝。当前十一组原生实例在同一 119 端点审计下重建并通过，报告绑定源码、编译器、Clight 和汇编摘要。
 
 别名反例为 `i=0,*bound=5,out=bound`。源第一次写入 1，下一次头部拒绝，最终 iterator 和输出都是 1；省略 guard 的缓存候选两者都会为 5。这是必须保留的源行为，不能将“bound 不变”放进入口域而排除该输入。
 

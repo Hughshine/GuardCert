@@ -5,7 +5,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightRegionProgress ClightStructuredProgress.
 From GuardInterface Require Import ClightReadonlyCompiler ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding
   ClightPreloadCompiler ClightReadonlyMatrix ClightReadonlyLoopUpdates ClightReadonlyCellSwap
-  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler.
+  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler.
 Set Implicit Arguments.
 
 (** This is a user pass combining existing rules. Selection priority and
@@ -23,11 +23,13 @@ Definition choose_common_exact source : option (readonly_clight_rule source) :=
 Definition choose_common_rewrite live pool source : option (readonly_projected_clight_rule live source) :=
   match choose_loaded_bound live pool source with
   | Some rule => Some rule
-  | None => match choose_stable_load live pool source with
+  | None => match choose_indexed_default live pool source with
+    | Some rule => Some rule
+    | None => match choose_stable_load live pool source with
     | Some rule => Some rule
     | None => match choose_common_exact source with
       | Some rule => embed_quiet_exact_rule live rule
-      | None => None end end end.
+      | None => None end end end end.
 Definition common_progress_supported source := loaded_progress_supported source || structured_progress_supported source.
 Theorem common_progress_supported_sound source : common_progress_supported source = true ->
   exists MODEL : region_progress source, True.
