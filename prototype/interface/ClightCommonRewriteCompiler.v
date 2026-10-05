@@ -5,13 +5,15 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightRegionProgress ClightStructuredProgress.
 From GuardInterface Require Import ClightReadonlyCompiler ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding
   ClightPreloadCompiler ClightReadonlyMatrix ClightReadonlyLoopUpdates ClightReadonlyCellSwap
-  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler ClightEqualityCompiler ClightReadonlyTestCompiler ClightEqualityHeadCompiler ClightLoadedMatrixCompiler ClightLoadedMatrixSyntax ClightLoadedRectangleCompiler ClightLoadedStrideCompiler ClightMixedLoadedProgress ClightDualLoadedUnitCompiler ClightDualLoadedMatrixCompiler.
+  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler ClightEqualityCompiler ClightReadonlyTestCompiler ClightEqualityHeadCompiler ClightLoadedMatrixCompiler ClightLoadedMatrixSyntax ClightLoadedRectangleCompiler ClightLoadedStrideCompiler ClightMixedLoadedProgress ClightDualLoadedUnitCompiler ClightDualLoadedMatrixCompiler ClightDualRepeatedCompiler.
 Set Implicit Arguments.
 
 (** This is a user pass combining existing rules. Selection priority and
     traversal remain outside the generic guarded-rewrite framework. *)
 Definition choose_common_exact source : option (readonly_clight_rule source) :=
-  match choose_dual_unit source with
+  match choose_dual_repeat source with
+  | Some rule => Some rule
+  | None => match choose_dual_unit source with
   | Some rule => Some rule
   | None => match choose_equality_loop source with
   | Some rule => Some rule
@@ -23,7 +25,7 @@ Definition choose_common_exact source : option (readonly_clight_rule source) :=
     | Some rule => Some rule
     | None => match choose_cell_pair source with
       | Some rule => Some rule
-      | None => choose_preload_rewrite source end end end end end end.
+      | None => choose_preload_rewrite source end end end end end end end.
 Definition choose_common_rewrite live pool source : option (readonly_projected_clight_rule live source) :=
   match choose_dual_matrix live pool source with
   | Some rule => Some rule

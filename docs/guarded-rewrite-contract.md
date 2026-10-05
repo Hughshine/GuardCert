@@ -231,3 +231,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [双内存上界实例](clight-dual-loaded-unit-case.md)展示另一条实际使用路径：使用者给出源／一次写入候选，规则作者用顺序只读条件把前一阶段的活动证据传给下一次读取的安全域，再分别消费两个 non-alias 性质保持 loaded bounds。语言提供嵌套进展和头部／store 的实际执行证明；框架原有精确出口宿主及综合 pass 直接安装规则并连接完整 Csem→Asm。条件的 ghost 原完成见证不会在提取后的运行时被查询。
 
 [双内存上界的数组交换](clight-dual-loaded-matrix-case.md)又消费相同 projected rule 和完整程序宿主。使用者逐点保留两层真实 tail，两个分离检查全部通过后才建立下一点；语言实例分别交付两个读取的稳定性、头部 invariant／body invariant 和实际 store 重排。一个新鲜 cache 在两项上界都为 2 的接受域中供两层候选头部复用。该固定模板没有扩大语义无关核，也没有把两维动态矩形或任意 body 的局部证明自动化。
+
+[双动态上界的幂等写入化简](clight-dual-repeated-store-case.md)展示局部证明不必来自置换：语言交付第一次实际 store 后的固定点，规则作者构造两层真实执行并保留原 counter 出口，框架仍消费同一只读条件与局部等价。任意正 signed32 尺寸的实例已接到完整编译；这里的 Source→Candidate 正确性包含实际字节 memory、trace 和全部 temps，不能仅凭 memory 幂等性删除 volatile 事件或忽略循环出口。

@@ -6,7 +6,7 @@
 
 | 参照 | 需求 | 新接口证据 | 尚缺 |
 | --- | --- | --- | --- |
-| §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升；源前缀安全的 indexed 上界检查；non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子；[动态内存行数／列数与矩形交换](clight-loaded-rectangle-case.md)；[参数 stride 的有界布局组合](clight-loaded-stride-case.md)；[双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)；[双 loaded 的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md) | 一般两维动态数组调度、一般大布局 stride、多个依赖 preload |
+| §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升；源前缀安全的 indexed 上界检查；non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子；[动态内存行数／列数与矩形交换](clight-loaded-rectangle-case.md)；[参数 stride 的有界布局组合](clight-loaded-stride-case.md)；[双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)；[双 loaded 的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md)；[一般正尺寸的双 loaded 幂等写入化简](clight-dual-repeated-store-case.md) | 一般两维动态数组调度、一般大布局 stride、多个依赖 preload |
 | §4.2 | 控制／地址的机器算术与整数模型对应 | 动态矩形范围条件、登记文本位置的入口推导、实际 Int／Ptrofs 地址对应及循环消费；初始化溢出反例 | 一般初始化／非仿射条件；带 preload 的实际范围合成 |
 | §4.3 | 有界实例域 | 固定寄存器上界、单位 unsigned 自增的实际 `!=→<`；接受范围不变式、模距离源进展、unsigned 回绕 fallback 与完整编译 | 一般 stride／变化目标的整段有限域或调度；与多维调度组合 |
 | §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件；动态 memory-bound 行数和列数的实际交换；extent≤12 的全部合法正参数 stride 布局、枚举完备性与原地址运输；两个 loaded 维度的固定 2×2 实际地址及交换 | 参数 stride 的更新／复杂依赖、一般两个动态内存维度、更大布局／一般指针 stride 的 memory-bound 组合 |
@@ -94,3 +94,5 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 [两个变化内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)又接通实际双上界源协议、按活动路径延迟的两个普通读取、两项 non-alias 稳定性和完整原始出口。`i=0,*rows=*columns=1` 且输出分离时，候选消除循环；alias 引发额外行／列则原循环回退。独立／统一入口各通过 3,035 次调用、七处实际 region；297 端点审计无新增全局公理，二十种配置回归通过，29 份旧 source／Clight 摘要相同。这个受限实例解决双 preload 的实际读取时机和协议接入，但没有完成两维动态数组调度、多个依赖 preload 或复杂 body。下一步逐点源 cursor 必须同时保存真实内层 tail 和外层 tail；检查当前写入与两个 bound 分离后才推进，不能预设整行 stable。
 
 [双内存上界的真实数组交换](clight-dual-loaded-matrix-case.md)随后消费上述逐点路线：当前点两项检查通过才推进内层 tail，跨行再消费实际退出与保存的外层 tail。两项 loaded bounds 都为 2 时共享一个候选 cache，实际写序变为 `[0,2,1,3]`，保留全部公开 counter 和真实 memory。独立共享入口与统一直接入口各通过 22,303 次调用／七处 actual region，模型、GCC 和无诊断的 GCC UBSan 一致；317 端点审计无新增全局公理。21 种配置全部回归通过，33 份原生报告绑定当前产物，相对 `2181c5f` 的 31 份已有 source／Clight 摘要相同。本阶段补上固定 2×2 的双 loaded 调度，一般动态两维、多个依赖 preload、大布局／复杂 body 和 affine／tiling 主接口迁移仍是验收缺口。
+
+[任意正尺寸的双 loaded 幂等写入化简](clight-dual-repeated-store-case.md)进一步消费两个真实读取的活动域、两项 non-alias、语言提供的 store 固定点和完整 counter 出口。`i=0, *rows>0, *columns>0` 且输出分离时，候选写零一次并读取稳定 bound 来恢复出口；alias 写零导致 counter=1 的反例按源回退。两入口各通过 3,035 次调用／七处实际 region，GCC UBSan 无诊断；333 端点审计、22 种配置回归通过，35 份报告绑定当前产物，相对 `c711ed9` 的 33 份已有 source／Clight 摘要相同。这个例子支持任意正 signed32 尺寸，却没有提供数组 footprint／调度或任意 body；它扩大了条件化循环 rewrite 的实例，而没有将多面体主线缺口标为完成。
