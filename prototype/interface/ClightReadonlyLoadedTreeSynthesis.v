@@ -32,6 +32,30 @@ Proof.
 
 Qed.
 
+(** Positive check packaging also applies to trees containing ordinary loads.
+    A completed path on every domain entry replaces the scalar-purity premise;
+    a refused check remains unknown rather than certifying a complement. *)
+Definition positive_readonly_tree_primitives {A I} property accept
+  (SOUND : forall a s, I s -> accept a s = true -> property a s)
+  (trees : A -> decision_tree)
+  (TOTAL : forall a s, I s -> decision_run s (trees a) (accept a s)) :
+  check_primitives decision_test_language I
+    (decide_atom (@positive_dimension clight_entry A I property accept SOUND)).
+Proof.
+  refine (@CheckPrimitives clight_entry A decision_test_language I
+    (decide_atom (@positive_dimension clight_entry A I property accept SOUND)) trees
+    (fun _ => Decision true) _ _).
+  - intros a s b DOMAIN; cbn [decision_test_language].
+    assert (EXACT : decision_run s (trees a) b <-> b = accept a s).
+    { split; [intro RUN; eapply readonly_decision_determinate; [exact RUN|apply TOTAL; exact DOMAIN]|
+        intro SAME; subst; apply TOTAL; exact DOMAIN]. }
+    rewrite EXACT; cbn [positive_dimension decide_atom]; destruct (accept a s); reflexivity.
+  - intros a s b expected DOMAIN ACCEPTED; cbn [decision_test_language].
+    cbn [positive_dimension decide_atom] in ACCEPTED.
+    destruct (accept a s); try discriminate; injection ACCEPTED as SAME; subst expected.
+    split; [intro RUN; inversion RUN; reflexivity|intro SAME; subst; constructor].
+Defined.
+
 Definition synthesized_loaded_tree_condition fe O (observe : fragment_observation -> O -> Prop) A I
   (D : property_dimension clight_entry A I)
   (P : check_primitives decision_test_language I (decide_atom D)) premise :
@@ -50,3 +74,4 @@ Proof.
 Defined.
 Print Assumptions readonly_decision_run_safe.
 Print Assumptions synthesized_loaded_tree_condition.
+Print Assumptions positive_readonly_tree_primitives.

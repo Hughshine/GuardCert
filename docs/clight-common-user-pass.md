@@ -14,14 +14,15 @@
 
 [ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 的选择顺序为：
 
-1. 内存中的循环上界快照；
-2. 带有界动态 indexed 写足迹的参数 load 提升；
-3. 固定单元 payload 参数的循环 load 提升；
-4. 固定 2×2 交换；
-5. 运行时 stride 的二维纯写交换；
-6. 固定 stride 的动态矩形 store、读写更新及保留行内依赖的交换；
-7. 两个 non-alias 单元的 store 交换；
-8. 带延迟读取检查的分支 rewrite。
+1. 带源前缀安全 indexed 检查的内存上界快照；
+2. 固定单元写入下的内存循环上界快照；
+3. 带有界动态 indexed 写足迹的 payload 参数 load 提升；
+4. 固定单元 payload 参数的循环 load 提升；
+5. 固定 2×2 交换；
+6. 运行时 stride 的二维纯写交换；
+7. 固定 stride 的动态矩形 store、读写更新及保留行内依赖的交换；
+8. 两个 non-alias 单元的 store 交换；
+9. 带延迟读取检查的分支 rewrite。
 
 选择器返回的都是绑定实际源语句的有证书规则。现有精确规则经上述嵌入，共用 projected host；带快照的规则直接使用投影接口。使用者可以改变选择顺序或加入自己的规则，语法遍历与资源选择仍由这个 pass 决定。
 
@@ -39,7 +40,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 
 C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩形循环、2×2 模板、条件分支中的两个 store pair、延迟读取分支，以及内存上界循环。参数 snapshot 和上界 snapshot 使用同一新鲜 pool temp，实际出现于两个不同的程序位置。
 
-实际提取和执行通过 576 次调用、2880 行输出。Clight 中分别确认 store、RMW、行内依赖和 2×2 的四处 `j` 外层／`i` 内层候选，两个条件分支均有真正交换后的 store；两次快照确实使用同一个私有 temp。十一组原生实例在当前 119 端点审计下重建并全部通过。
+实际提取和执行通过 576 次调用、2880 行输出。Clight 中分别确认 store、RMW、行内依赖和 2×2 的四处 `j` 外层／`i` 内层候选，两个条件分支均有真正交换后的 store；两次快照确实使用同一个私有 temp。十二组原生实例在当前 139 端点审计下重建并全部通过。
 
 程序在后续 store 覆盖之前输出 payload 结果，避免较早循环的错误被覆盖掩盖；输出每一组循环的公开 iterator 出口及全部数组单元。后续两个 store pair 分别将 parameter 写成 0 或 22，随后分支必须使用当前值，检验 guard 的放置。非别名和别名输入同时覆盖普通 payload 与会改变循环次数的 bound。
 
@@ -50,3 +51,5 @@ C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩�
 它又在 [动态 indexed footprint fixture](clight-indexed-load-case.md) 上通过 1095 次调用／2188 行输出：同一对象的非活动参数单元、不同对象和 const 参数均可进入有界扫描候选，部分重叠及超 cap 输入回退。这是该完整端点的第三个程序；上面的混合规则函数没有 indexed 写足迹。当前 cap=16，生成树有 17 个候选出口，检查成本和代码大小分别记录。
 
 这个组合不增加各规则独立的语法／语义覆盖：一般动态数组足迹、内存边界与多维调度的组合，以及参数 stride 的更复杂 body 仍是 [主线验收账本](optimistic-loop-acceptance.md) 中的缺口。没有性能测量。
+
+第四个程序是 [源前缀安全的 indexed 内存上界](clight-indexed-bound-case.md)：1079 次调用／2154 行输出通过。它在 alias 写入可能提前结束源循环时，沿已通过的检查前缀证明下一次比较安全；不会假定完整入口上界对应的 footprint 有效。三元素数组中入口上界 8 和 INT_MAX 均合法回退并保留三次源迭代。上面的混合规则函数仍没有这个模板；统一 pass 的覆盖由四个实际程序共同记录。

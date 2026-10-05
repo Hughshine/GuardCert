@@ -5,7 +5,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightRegionProgress ClightStructuredProgress.
 From GuardInterface Require Import ClightReadonlyCompiler ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding
   ClightPreloadCompiler ClightReadonlyMatrix ClightReadonlyLoopUpdates ClightReadonlyCellSwap
-  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler.
+  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler.
 Set Implicit Arguments.
 
 (** This is a user pass combining existing rules. Selection priority and
@@ -21,7 +21,9 @@ Definition choose_common_exact source : option (readonly_clight_rule source) :=
       | Some rule => Some rule
       | None => choose_preload_rewrite source end end end end.
 Definition choose_common_rewrite live pool source : option (readonly_projected_clight_rule live source) :=
-  match choose_loaded_bound live pool source with
+  match choose_indexed_bound_default live pool source with
+  | Some rule => Some rule
+  | None => match choose_loaded_bound live pool source with
   | Some rule => Some rule
   | None => match choose_indexed_default live pool source with
     | Some rule => Some rule
@@ -29,13 +31,13 @@ Definition choose_common_rewrite live pool source : option (readonly_projected_c
     | Some rule => Some rule
     | None => match choose_common_exact source with
       | Some rule => embed_quiet_exact_rule live rule
-      | None => None end end end end.
-Definition common_progress_supported source := loaded_progress_supported source || structured_progress_supported source.
+      | None => None end end end end end.
+Definition common_progress_supported source := indexed_bound_progress_supported source || structured_progress_supported source.
 Theorem common_progress_supported_sound source : common_progress_supported source = true ->
   exists MODEL : region_progress source, True.
 Proof.
   unfold common_progress_supported; rewrite orb_true_iff; intros [LOADED|STRUCTURED].
-  - apply loaded_progress_supported_sound; exact LOADED.
+  - apply indexed_bound_progress_supported_sound; exact LOADED.
   - apply structured_progress_supported_sound; exact STRUCTURED.
 Qed.
 Definition compile_common_rewrites := compile_projected_readonly choose_common_rewrite common_progress_supported 1.

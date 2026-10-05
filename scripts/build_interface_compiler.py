@@ -31,6 +31,7 @@ def main():
     instances.add_argument("--common", action="store_true", help="build one user pass combining all current loop and scalar rules")
     instances.add_argument("--runtime-stride", action="store_true", help="build guarded interchange with a runtime stride")
     instances.add_argument("--indexed-load", action="store_true", help="build load hoisting with a bounded dynamic indexed footprint")
+    instances.add_argument("--indexed-bound", action="store_true", help="build memory-bound hoisting with prefix-safe indexed alias checks")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
@@ -53,6 +54,9 @@ def main():
     elif args.loaded_bound:
         WORK = ROOT / "build/compcert-interface-loaded-bound"
         ENTRY = "ClightLoadedBoundCompiler.compile_loaded_bounds"
+    elif args.indexed_bound:
+        WORK = ROOT / "build/compcert-interface-indexed-bound"
+        ENTRY = "ClightIndexedBoundCompiler.compile_indexed_bounds"
     elif args.indexed_load:
         WORK = ROOT / "build/compcert-interface-indexed-load"
         ENTRY = "ClightIndexedLoadCompiler.compile_indexed_loads"
@@ -67,7 +71,8 @@ def main():
     instance = ("matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
                 "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
-                "loaded_bound" if args.loaded_bound else "indexed_load" if args.indexed_load else
+                "loaded_bound" if args.loaded_bound else "indexed_bound" if args.indexed_bound else
+                "indexed_load" if args.indexed_load else
                 "runtime_stride" if args.runtime_stride else
                 "common" if args.common else "preload")
     expected = proof["whole_program_entrypoints"][instance]

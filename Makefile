@@ -66,6 +66,7 @@ interface-common-native: interface-compiler-proof
 	python3 scripts/native_interface_common.py
 	python3 scripts/native_interface_runtime_stride.py --common
 	python3 scripts/native_interface_indexed_load.py --common
+	python3 scripts/native_interface_indexed_bound.py --common
 
 .PHONY: interface-runtime-stride-native
 interface-runtime-stride-native: interface-compiler-proof
@@ -76,6 +77,14 @@ interface-runtime-stride-native: interface-compiler-proof
 interface-indexed-load-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --indexed-load
 	python3 scripts/native_interface_indexed_load.py
+
+.PHONY: interface-indexed-bound-native
+interface-indexed-bound-native: interface-compiler-proof
+	python3 scripts/build_interface_compiler.py --indexed-bound
+	python3 scripts/native_interface_indexed_bound.py
+
+.PHONY: interface-native-suite
+interface-native-suite: interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native
 
 demo:
 	python3 prototype/demo.py

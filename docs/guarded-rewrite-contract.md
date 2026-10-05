@@ -195,3 +195,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 运行时 stride 的规则随后也接入该 pass：[使用者案例](clight-runtime-stride-case.md) 展示具体的读取域、64 位检查编码、body 不变式、局部执行对应和完整程序端点。345 次调用／342 行输出通过；独立 stride 入口与统一 pass 都确认实际候选保留参数 stride、空路径延迟读取及后一次 rewrite 使用修改后的入口。框架共享检查合成和局部到全局连接；布局维度事实和实际内存交换仍由这个语言实例提供。
 
 [有界动态 indexed 足迹](clight-indexed-load-case.md) 又证明循环写 `out[i]` 时的参数读取稳定性。实际源执行逐点建立权限，条件覆盖所有活动地址，non-alias 接受后才缓存 load；1095 次调用／2188 行结果在独立入口和统一 pass 上通过。默认上限 16、O(cap) 地址比较、17 个生成候选出口均明确记录；这不等于一般无界区间／仿射足迹分析。
+
+[源前缀安全的内存上界](clight-indexed-bound-case.md) 进一步把 indexed 写足迹与 memory bound 组合。规则作者不能用入口上界预先假定整个 footprint 有效：写入可能改变上界并提前退出。检查证明沿实际源前缀推进，每次 non-alias 接受后才证明下一次比较安全；源完成 witness 仅用于证明，不是运行时 oracle。语言侧的 `strict_active_condition_transport` 让局部 body 证明使用实际为真的头部，分别维护头部与自增前不变式。它是本 Clight 实例提供的设施，语言无关核心仍只消费前提、只读检查、局部观察关系和宿主契约。
