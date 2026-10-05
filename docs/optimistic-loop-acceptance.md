@@ -6,13 +6,13 @@
 
 | 参照 | 需求 | 新接口证据 | 尚缺 |
 | --- | --- | --- | --- |
-| §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升；源前缀安全的 indexed 上界检查；non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子；[动态内存行数／列数与矩形交换](clight-loaded-rectangle-case.md)；[参数 stride 的有界布局组合](clight-loaded-stride-case.md)；[双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)；[双 loaded 的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md)；[一般正尺寸的双 loaded 幂等写入化简](clight-dual-repeated-store-case.md) | 一般两维动态数组调度、一般大布局 stride、多个依赖 preload |
+| §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升；源前缀安全的 indexed 上界检查；non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子；[动态内存行数／列数与矩形交换](clight-loaded-rectangle-case.md)；[参数 stride 的有界布局组合](clight-loaded-stride-case.md)；[双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)；[双 loaded 的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md)；[一般正尺寸的双 loaded 幂等写入化简](clight-dual-repeated-store-case.md)；[两个 runtime loaded 尺寸的矩形交换](clight-dual-dynamic-rectangle-case.md) | 一般大布局／指针缓冲区、两个 loaded 维度与参数 stride、多个依赖 preload |
 | §4.2 | 控制／地址的机器算术与整数模型对应 | 动态矩形范围条件、登记文本位置的入口推导、实际 Int／Ptrofs 地址对应及循环消费；初始化溢出反例 | 一般初始化／非仿射条件；带 preload 的实际范围合成 |
 | §4.3 | 有界实例域 | 固定寄存器上界、单位 unsigned 自增的实际 `!=→<`；接受范围不变式、模距离源进展、unsigned 回绕 fallback 与完整编译 | 一般 stride／变化目标的整段有限域或调度；与多维调度组合 |
-| §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件；动态 memory-bound 行数和列数的实际交换；extent≤12 的全部合法正参数 stride 布局、枚举完备性与原地址运输；两个 loaded 维度的固定 2×2 实际地址及交换 | 参数 stride 的更新／复杂依赖、一般两个动态内存维度、更大布局／一般指针 stride 的 memory-bound 组合 |
+| §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件；动态 memory-bound 行数和列数的实际交换；extent≤12 的全部合法正参数 stride 布局、枚举完备性与原地址运输；两个 loaded 维度的固定 2×2 及不同运行时尺寸的实际地址／交换 | 参数 stride 的更新／复杂依赖、两个动态内存维度与参数 stride、更大布局／一般指针 stride 的组合 |
 | §4.6 | 活动访问区间不重叠 | 实际 Mint32 单元交换及 frame；有界动态 indexed 写足迹的只读分离检查和整个参数 load 提升；旧路线的多个指针检查；嵌套活动 word 分离检查消费于动态 memory-bound 矩形交换；已验证共享候选出口和重复探针消除 | 廉价无界区间／一般仿射足迹、检查 DAG 和更复杂调度 |
 | §5 | 条件简化与保守近似 | `entry_derivation`、强化条件证书；从固定数组布局导出动态范围并生成实际 guard；[保留原证书的路径探针简化](readonly-probe-simplification.md)，实际编译消费 | 外部求解器输出的可核对表示与更一般投影 |
-| §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；普通 load 原子及公式合成；参数 stride 的 signed64 乘积检查无回绕证明；indexed 上界检查从实际源前缀建立安全，不预设完整稳定 footprint；第二行比较依赖前行 non-alias 证据；单次迭代例子沿源活动路径建立第二个 load 与两个地址比较的定义性；双 loaded 数组实例沿每个真实 store 与两层 tail 建立后续读取／比较安全 | 带算术检查和多个依赖 preload 的一般组合合成实例 |
+| §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；普通 load 原子及公式合成；参数 stride 的 signed64 乘积检查无回绕证明；indexed 上界检查从实际源前缀建立安全，不预设完整稳定 footprint；第二行比较依赖前行 non-alias 证据；单次迭代例子沿源活动路径建立第二个 load 与两个地址比较的定义性；双 loaded 数组实例沿每个真实 store 与两层 tail 建立后续读取／比较安全；不同运行时尺寸的嵌套扫描已消费真实行出口 | 带算术检查和多个依赖 preload 的一般组合合成实例 |
 
 论文里的维度界与 CompCert 内存权限不能互相代替。我们的实例必须分别证明“多维表示忠实”与“实际执行的 load/store 有定义”。同样，省略检查只能使用已证明的静态入口事实或源语义约束。
 
@@ -96,3 +96,5 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 [双内存上界的真实数组交换](clight-dual-loaded-matrix-case.md)随后消费上述逐点路线：当前点两项检查通过才推进内层 tail，跨行再消费实际退出与保存的外层 tail。两项 loaded bounds 都为 2 时共享一个候选 cache，实际写序变为 `[0,2,1,3]`，保留全部公开 counter 和真实 memory。独立共享入口与统一直接入口各通过 22,303 次调用／七处 actual region，模型、GCC 和无诊断的 GCC UBSan 一致；317 端点审计无新增全局公理。21 种配置全部回归通过，33 份原生报告绑定当前产物，相对 `2181c5f` 的 31 份已有 source／Clight 摘要相同。本阶段补上固定 2×2 的双 loaded 调度，一般动态两维、多个依赖 preload、大布局／复杂 body 和 affine／tiling 主接口迁移仍是验收缺口。
 
 [任意正尺寸的双 loaded 幂等写入化简](clight-dual-repeated-store-case.md)进一步消费两个真实读取的活动域、两项 non-alias、语言提供的 store 固定点和完整 counter 出口。`i=0, *rows>0, *columns>0` 且输出分离时，候选写零一次并读取稳定 bound 来恢复出口；alias 写零导致 counter=1 的反例按源回退。两入口各通过 3,035 次调用／七处实际 region，GCC UBSan 无诊断；333 端点审计、22 种配置回归通过，35 份报告绑定当前产物，相对 `c711ed9` 的 33 份已有 source／Clight 摘要相同。这个例子支持任意正 signed32 尺寸，却没有提供数组 footprint／调度或任意 body；它扩大了条件化循环 rewrite 的实例，而没有将多面体主线缺口标为完成。
+
+[两个动态内存上界的矩形交换](clight-dual-dynamic-rectangle-case.md)随后从固定 2×2 推进到不同的正 runtime 尺寸。入口范围、两个普通 load、逐点双分离、真实内层退出与外层 tail、两个私有缓存、实际 store 重排和全部公开出口在同一次 rewrite 中组合，完整 Csem→Asm 端点与独立共享入口已接通。113,330 次 C 调用／八处 region 同 GCC、GCC UBSan 和独立模型一致；364 端点审计没有新增全局公理，23 种配置重建／回归通过，36 份原生报告绑定当前产物。当前 selector extent≤12，静态 stride、单 affine store；综合入口尚未消费双缓存规则。检查树的 continuation 会复制，12／4 主函数打印体 129,224 字节、413 个语法 if，仍无性能结论。这个实例补上两维动态内存尺寸的静态布局调度；一般大布局／指针缓冲区、参数 stride 组合、多个依赖 preload、复杂 body 和旧 affine／tiling 的主接口迁移仍待完成。

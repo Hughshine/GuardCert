@@ -240,3 +240,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 [双内存上界的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md)已接到同一 projected host 和完整编译端点。不同于整行先解码的单 loaded 模板，新实例逐点保存内层与外层真实 tail，当前 store 与两个 bound 的分离全部通过后才推进。`strict_active_loop_transport` 区分头部与活动 body 的 invariant，支持同时运输测试和 body；条件及框架仍由已存在的只读接口提供。一般动态双 loaded 矩形仍需参数化 cursor、范围证书和候选运输。
 
 [双动态上界的幂等写入化简](clight-dual-repeated-store-case.md)又提供精确出口规则：普通零写入在第一次实际执行后不再改变 memory；两项 bound non-alias 保持读取，任意正 signed32 尺寸的源循环对应一个 store 和两项 counter 恢复。源进展复用混合 loaded 协议，候选无 cache，完整编译复用原宿主。实际内存固定点使用既有 memory 记录相等基线；volatility、任意 body 和数组调度不由该事实自动获得。
+
+[两个动态内存上界的矩形使用者](clight-dual-dynamic-rectangle-case.md)也已消费同一接口。使用者交付每点真实 store、两个读取的前缀不变性、实际行退出／增量和两个 cache 的 private scope；框架复用嵌套只读扫描、观察提升和完整程序宿主。最后活动点的接受性质可以包含建立下一行 ghost invariant 的证据，条件代码仍只访问入口。双缓存规则当前使用独立共享入口，检查 continuation 的语法复制和 extent≤12 的选择器界单独记录；这些成本不由局部语义等价自动解决。

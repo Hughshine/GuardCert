@@ -72,3 +72,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 运行 fixture 覆盖两个 bound 的独立／共享地址、同一数组的各个单元、空外层的 null／未初始化内层指针、共享只读 bound、连续两次 rewrite、外围循环与 goto，以及 `INT_MAX` bound 被第一笔 alias 写入缩小后的合法执行。源越界、溢出或超出有限测试预算的输入在调用前排除；明确无限的外围函数只编译并检查。入口分类统计与实际运行时分支计数不同，没有性能测量。
 
 本阶段仅接受固定 2×2、单个静态四单元数组和一个特定纯写 body。一般动态 rows／columns、多个依赖 preload、参数 stride 的同次双 loaded 组合、复杂 body，以及旧 affine／tiling 到主只读接口的迁移仍待完成。
+
+后续的 [双动态尺寸矩形](clight-dual-dynamic-rectangle-case.md)已在独立共享入口扩展到两个不同 runtime memory bounds 和两个独立缓存；本页固定 2×2 的接受域、综合入口代码及本阶段历史验证数字保持原有含义。
