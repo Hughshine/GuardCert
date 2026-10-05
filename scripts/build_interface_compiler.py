@@ -20,14 +20,20 @@ def run(*args):
 def main():
     global WORK, ENTRY
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
+    instances = parser.add_mutually_exclusive_group()
+    instances.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
+    instances.add_argument("--rectangle", action="store_true", help="build the dynamic rectangular store instance")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
         ENTRY = "ClightReadonlyMatrix.compile_readonly_matrix"
+    elif args.rectangle:
+        WORK = ROOT / "build/compcert-interface-rectangle"
+        ENTRY = "ClightReadonlyRectangle.compile_readonly_rectangle"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    expected = proof["whole_program_entrypoints"]["matrix" if args.matrix else "preload"]
+    instance = "matrix" if args.matrix else "rectangle" if args.rectangle else "preload"
+    expected = proof["whole_program_entrypoints"][instance]
     if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")
     for path, digest in proof["sources"].items():

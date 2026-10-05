@@ -12,8 +12,8 @@
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 ```
 
-这条命令编译十个接口模块及三个既有依赖，并保存源码摘要和 38 个接口闭合端点的检查记录，其中只读 rewrite 扩展占 29 个。模块提供关系式局部还原、多次替换组合、文本求值前提的入口推导及矩形地址／去线性化证书示例。`DeterministicLocalReasoning.v` 允许在显式源完成性与候选确定性下复用单向执行运输。它不重建现有 CompCert 编译器，也不提供任意语言的现成适配器或一般条件发现。
+这条命令编译十个接口模块及三个既有依赖，并保存源码摘要和 39 个接口闭合端点的检查记录，其中只读 rewrite 扩展占 30 个。模块提供关系式局部还原、多次替换组合、文本求值前提的入口推导及矩形地址／去线性化证书示例。`DeterministicLocalReasoning.v` 允许在显式源完成性与候选确定性下复用单向执行运输。它不重建现有 CompCert 编译器，也不提供任意语言的现成适配器或一般条件发现。
 
-Clight 模块提供真实片段宿主、写 frame 接口、只在活动路径读取指针的条件、原子公式合成、前端空语句规范化及结构化片段确定性证明。`make interface-clight-proof` 审计 45 个端点，它们没有超出既有 Clight 的六项全局假设。片段宿主使用终止执行的 `exec_stmt`。
+Clight 模块提供真实片段宿主、写 frame 接口、只在活动路径读取指针的条件、表达式及短路树原子的公式合成、前端空语句规范化及结构化片段确定性证明。`make interface-clight-proof` 审计 48 个端点，它们没有超出既有 Clight 的六项全局假设。片段宿主使用终止执行的 `exec_stmt`。
 
-`ClightReadonlyCompiler.v` 将用户的选择器、只读证书、局部等价和源入口证明连接到既有进展宿主及完整 Csem→Asm 定理。`ClightPreloadCompiler.v` 给出具体分支实例；`ClightReadonlyMatrix.v` 给出实际 2×2 循环交换实例。`make interface-compiler-proof` 审计十二个端点，没有新增公理；实际内存相等复用 CompCert 内存记录的 proof irrelevance。`make interface-native` 和 `make interface-matrix-native` 分别构建实际提取编译器并检查 guard 插入及原生执行。当前全程序连接要求完整内存／出口 temps 相同；一般参数化循环和私有出口投影尚未迁移。使用方式与证明职责见 [Clight 接入设计](../../docs/clight-guarded-rewrite-design.md)，主线要求见 [验收账本](../../docs/optimistic-loop-acceptance.md)。
+`ClightReadonlyCompiler.v` 将用户的选择器、只读证书、局部等价和源入口证明连接到既有进展宿主及完整 Csem→Asm 定理。`ClightPreloadCompiler.v` 给出具体分支实例；`ClightReadonlyMatrix.v` 给出实际 2×2 循环交换实例；`ClightReadonlyRectangle.v` 支持运行时矩形尺寸，`ClightRectangleAssumptions.v` 连接范围条件、模型文本位置与机器地址表示。`make interface-compiler-proof` 审计二十个端点，没有新增公理；实际内存相等复用 CompCert 内存记录的 proof irrelevance。`make interface-native`、`make interface-matrix-native` 和 `make interface-rectangle-native` 分别构建实际提取编译器并检查 guard 插入及原生执行。当前全程序连接要求完整内存／出口 temps 相同；参数 stride、稳定内存边界、动态 alias 与私有出口投影仍待接入。使用方式与证明职责见 [Clight 接入设计](../../docs/clight-guarded-rewrite-design.md)，主线要求见 [验收账本](../../docs/optimistic-loop-acceptance.md)。

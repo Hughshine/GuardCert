@@ -22,6 +22,7 @@ MODULES = [
     "prototype/interface/ClightQuietDeterminacy.v",
     "prototype/interface/ClightLoopBridge.v",
     "prototype/interface/ClightReadonlyTreeFacts.v",
+    "prototype/interface/ClightReadonlyTreeSynthesis.v",
 ]
 
 

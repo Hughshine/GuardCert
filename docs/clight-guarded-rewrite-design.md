@@ -73,6 +73,14 @@
 
 `compile_readonly_matrix_correct` 将这个规则接到完整 Csem→Asm backward simulation。当前仍限于 2×2 的一个已核对 store 模板；一般 alias 检查、动态矩形、稳定内存边界与私有出口投影不由此实例得到。
 
+### 动态矩形实例
+
+[ClightReadonlyRectangle.v](../prototype/interface/ClightReadonlyRectangle.v) 将相同接口推广到运行时 `n`、`m`。使用者的识别器从实际数组类型、下标和 RHS 中提出布局；证书重新核对完整语法及变量隔离。例如 `a[120]`、下标 `i*10+j` 的检查为 `i=0 ∧ 0<n≤12 ∧ 0<m≤10`；`a[105]`、行宽 7 的上界为 15 和 7。候选按列执行相同 store，回退保持源。循环次数不由编译器枚举；范围条件是保守的，可能拒绝仍有定义的源输入。
+
+[ClightReadonlyTreeSynthesis.v](../prototype/interface/ClightReadonlyTreeSynthesis.v) 支持原子检查本身是一棵短路树的 Boolean 公式合成，并补足所有可达测试的安全性证明。这个实例消费合成树和 `conditional_equivalence`，接到 `compile_readonly_rectangle_correct`。本阶段只改写普通 store 模板，read-modify-write、行内依赖、参数 stride 及动态 alias 检查仍未迁移。
+
+[ClightRectangleAssumptions.v](../prototype/interface/ClightRectangleAssumptions.v) 登记八类模型文本位置：外层头／增量、内层 reset／头／增量、下标乘法／加法及字节偏移。入口范围证书推出全部发生位置的要求；实际 guard 接受也推出该集合。另有活动域地址单射性，以及 `Int.mul`、`Int.add`、`Ptrofs.repr` 与数学地址相同的证明。实际语法绑定与执行实例覆盖由 rectangle certificate 及既有 decoder 承担；这不是任意 C 的求值位置分析器。数据 RHS 仍使用机器整数语义，不要求它不回绕。
+
 ## 与已有 CompCert 路线的连接边界
 
 新增 [ClightReadonlyCompiler.v](../prototype/interface/ClightReadonlyCompiler.v) 提供 `readonly_clight_rule source`，绑定候选、合成条件、域／前提、只读证书、局部等价与源入口证明。使用者提供 `choose` 以及源进展分类证书；编译工具消费这些证书并复用既有区域宿主。`compile_readonly_rewrites_correct` 已证明完整 Csem→Asm 的 backward simulation。
@@ -95,10 +103,13 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-clight-proof
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-compiler-proof
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-matrix-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-rectangle-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 38 个闭合接口端点。Clight 检查编译八个新模块及四个既有依赖，审计 45 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计十二个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，完整编译器基线为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 39 个闭合接口端点。Clight 检查编译九个新模块及四个既有依赖，审计 48 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计二十个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，完整编译器基线为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 
 循环原生目标提取 `ClightReadonlyMatrix.compile_readonly_matrix`，运行已有 C fixture：21 次函数调用、九组矩形输入和五处被改写的循环区域通过。输出 Clight 核对实际候选／回退的相反循环顺序；结果与 GCC 及独立期望一致，包括 goto／外围循环上下文、全局数组、全部出口变量和未读取的未初始化内层边界。不同 RHS、真实内存依赖和 volatile 模板均未被改写。报告位于 `build/interface-matrix-native/`；没有性能测量。
+
+动态矩形目标提取 `ClightReadonlyRectangle.compile_readonly_rectangle`：225 个正尺寸 store 矩形、六处改写区域及实际短路范围检查通过；C fixture 的 842 行结果逐单元、逐出口与 GCC 和独立模型一致。空域和布局外输入回退，内层未初始化边界在外层为空时未读取。同一 fixture 中的 update／行依赖案例保持源，不能计入新接口支持的变换种类。报告位于 `build/interface-rectangle-native/`。

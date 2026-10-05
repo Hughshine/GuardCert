@@ -58,6 +58,20 @@ Proof.
     intro ACCEPT; apply ENCODING; [exact DOMAIN|apply SOUND; exact ACCEPT].
 Defined.
 
+(** Placement may provide additional source facts. Restriction strengthens
+    the entry domain while preserving the actual runtime check. *)
+Definition readonly_condition_restrict S (H : guard_host S) domain smaller premise condition
+  (G : readonly_condition H domain premise condition)
+  (INCLUDED : forall entry, smaller entry -> domain entry) :
+  readonly_condition H smaller premise condition.
+Proof.
+  constructor.
+  - intros entry DOMAIN; apply (readonly_safe G); apply INCLUDED; exact DOMAIN.
+  - intros entry DOMAIN; apply (readonly_available G); apply INCLUDED; exact DOMAIN.
+  - intros entry accepted checked DOMAIN CHECK; apply (readonly_sound G);
+      [apply INCLUDED; exact DOMAIN|exact CHECK].
+Defined.
+
 Theorem guarded_rewrite_equivalent S (H : guard_host S) domain premise source candidate condition
   (G : readonly_condition H domain premise condition)
   (LOCAL : conditional_equivalence H domain premise source candidate) :
@@ -145,6 +159,7 @@ Qed.
 
 Print Assumptions readonly_guard_certificate.
 Print Assumptions readonly_condition_entails.
+Print Assumptions readonly_condition_restrict.
 Print Assumptions guarded_rewrite_equivalent.
 Print Assumptions localized_conditional_equivalence.
 Print Assumptions guarded_rewrite_program_equivalent.

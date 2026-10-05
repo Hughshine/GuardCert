@@ -7,7 +7,8 @@ from audit_compiler import names
 from audit_interface_clight import ROOT, sha, compcert_flags
 
 WORK = ROOT / "build/interface-compiler"
-MODULES = ["ClightReadonlyCompiler", "ClightPreloadCompiler", "ClightReadonlyMatrix"]
+MODULES = ["ClightReadonlyCompiler", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
+           "ClightRectangleAssumptions"]
 ENDPOINTS = {
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_region_contract": "REGION",
@@ -21,6 +22,14 @@ ENDPOINTS = {
     "ClightReadonlyMatrix.readonly_matrix_forward": "MEMORY_FRAGMENT",
     "ClightReadonlyMatrix.readonly_matrix_rule": "MEMORY_FRAGMENT",
     "ClightReadonlyMatrix.compile_readonly_matrix_correct": "COMPILER",
+    "ClightReadonlyRectangle.readonly_rectangle_condition": "FRAGMENT",
+    "ClightReadonlyRectangle.readonly_rectangle_forward": "MEMORY_FRAGMENT",
+    "ClightReadonlyRectangle.readonly_rectangle_rule": "MEMORY_FRAGMENT",
+    "ClightReadonlyRectangle.compile_readonly_rectangle_correct": "COMPILER",
+    "ClightRectangleAssumptions.rectangle_text_derivation": "FRAGMENT",
+    "ClightRectangleAssumptions.accepted_rectangle_text_requirements": "FRAGMENT",
+    "ClightRectangleAssumptions.accepted_rectangle_address_injective": "FRAGMENT",
+    "ClightRectangleAssumptions.collected_rectangle_machine_index": "FRAGMENT",
 }
 BASELINES = {
     "FRAGMENT": "ClightCondition.fragment_language",
@@ -91,6 +100,7 @@ def main():
         "whole_program_entrypoints": {
             "preload": "ClightPreloadCompiler.compile_preload_rewrites",
             "matrix": "ClightReadonlyMatrix.compile_readonly_matrix",
+            "rectangle": "ClightReadonlyRectangle.compile_readonly_rectangle",
         },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
@@ -99,6 +109,8 @@ def main():
         "boundary_mode": "exact trace, outcome, memory and all exit temporaries",
         "private_temporary_projection_supported": False,
         "fixed_2x2_loop_interchange_uses_new_api": True,
+        "dynamic_rectangle_store_interchange_uses_new_api": True,
+        "dynamic_rectangle_guard_certifies_registered_control_and_address_requirements": True,
         "general_loop_transformation_migrated": False,
         "native_execution_run": False,
     }
