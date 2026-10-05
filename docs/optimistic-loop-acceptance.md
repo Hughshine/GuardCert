@@ -6,13 +6,13 @@
 
 | 参照 | 需求 | 新接口证据 | 尚缺 |
 | --- | --- | --- | --- |
-| §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升；源前缀安全的 indexed 上界检查；non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子 | 内存边界与多维调度／依赖 preload 的组合 |
+| §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升；源前缀安全的 indexed 上界检查；non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子；[内存上界与 2×2 实际调度](clight-loaded-matrix-case.md) | 一般动态内存尺寸／stride、多个依赖 preload 的组合 |
 | §4.2 | 控制／地址的机器算术与整数模型对应 | 动态矩形范围条件、登记文本位置的入口推导、实际 Int／Ptrofs 地址对应及循环消费；初始化溢出反例 | 一般初始化／非仿射条件；带 preload 的实际范围合成 |
 | §4.3 | 有界实例域 | 固定寄存器上界、单位 unsigned 自增的实际 `!=→<`；接受范围不变式、模距离源进展、unsigned 回绕 fallback 与完整编译 | 一般 stride／变化目标的整段有限域或调度；与多维调度组合 |
-| §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件 | 参数 stride 的更新／复杂依赖、内存边界与多维组合 |
-| §4.6 | 活动访问区间不重叠 | 实际 Mint32 单元交换及 frame；有界动态 indexed 写足迹的只读分离检查和整个参数 load 提升；旧路线的多个指针检查 | 廉价无界区间／一般仿射足迹检查及二维调度消费 |
+| §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件；memory-bound 2×2 | 参数 stride 的更新／复杂依赖、一般动态 memory-bound 多维组合 |
+| §4.6 | 活动访问区间不重叠 | 实际 Mint32 单元交换及 frame；有界动态 indexed 写足迹的只读分离检查和整个参数 load 提升；旧路线的多个指针检查；四 word 分离检查实际消费于 memory-bound 2×2 交换 | 廉价无界区间／一般仿射足迹及一般动态二维调度 |
 | §5 | 条件简化与保守近似 | `entry_derivation`、强化条件证书；从固定数组布局导出动态范围并生成实际 guard | 外部求解器输出的可核对表示与更一般投影 |
-| §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；普通 load 原子及公式合成；参数 stride 的 signed64 乘积检查无回绕证明；indexed 上界检查从实际源前缀建立安全，不预设完整稳定 footprint | 带算术检查和多个依赖 preload 的组合合成实例 |
+| §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；普通 load 原子及公式合成；参数 stride 的 signed64 乘积检查无回绕证明；indexed 上界检查从实际源前缀建立安全，不预设完整稳定 footprint；第二行比较依赖前行 non-alias 证据 | 带算术检查和多个依赖 preload 的一般组合合成实例 |
 
 论文里的维度界与 CompCert 内存权限不能互相代替。我们的实例必须分别证明“多维表示忠实”与“实际执行的 load/store 有定义”。同样，省略检查只能使用已证明的静态入口事实或源语义约束。
 
@@ -78,3 +78,5 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 [逐步头部宿主](clight-stepwise-head-case.md) 又补上可能无限循环中有限求值的 rewrite：每次实际头部建立 `i≤n` 才用 `<`，失败保留 `!=`；允许 step=2、body 改变 bound 或 volatile body，来源于实际小步匹配而非循环完成性。源表达式的入口／完整值等价和只读检查继续消费语言无关核，赋值／return 的比较值也由同一规则处理。完整接口现审计 180 个端点，与既有 STEPWISE 八项和 COMPILER 35 项基线比较无新增公理；独立入口和统一入口各通过 333 次调用／284 行输出和九处实际改写；十四种提取配置回归通过，只有统一等式退出程序增加预期 guard，其他 16 份既有源码／Clight 摘要相同。明确无限的源只编译／检查，未执行。这个补充不建立它们的有限 polyhedral 实例域，也没有解决任意无限整段循环的 guarded 调度；能力分工见 [宿主分类](host-capabilities.md)。
 
 [普通表达式／load 的条件比较](clight-loaded-comparison-case.md)进一步让逐步模板消费 signed32 普通 load、计算表达式和常量。检查安全从本次真实源求值导出，没有预设 bound 稳定；别名 body 改写 bound 后在下一头部重新检查。真正 volatile load 只按源执行一次，后续 guard 使用快照。独立／统一入口各通过 737 次调用和八类实际 contexts，原头部 fixture 的常量比较也被改写，原 333 次调用保持相同。完整接口 184 端点审计无新增公理，十四种配置重建回归通过；与前阶段 19 份报告比较，仅两份头部程序因常量 guard 改变 Clight，另 17 份源码／Clight 摘要相同。它补充逐次 condition 的表达／安全实例，不补足一次性稳定 preload、多维 memory-bound 调度或一般 non-overflow 合成；主线验收仍未完成。
+
+[内存上界与二维调度](clight-loaded-matrix-case.md)随后在同一次 2×2 rewrite 中组合：从实际源当前行得到比较权限，前行全部 non-alias 后才建立下一行的 bound 稳定及访问依据，最终私有快照供真正的列优先候选消费。新的嵌套 strict 源协议只保护 outer iterator，rank 不依赖 load 稳定或接受条件。独立／统一入口各通过 668 次调用／673 行输出和七处实际 guard，包括 alias 提前退出、入口 1 变成 2 后额外源迭代、未初始化 inner bound 的空路径和两次 rewrite 之间修改 bound。199 端点审计无新增公理，十五种提取配置重建回归通过，21 份既有源码／Clight 摘要相同。该实例补上此前缺少的一项真实组合，但接受域固定为 2×2；一般 memory-bound 尺寸／stride、复杂 body、多个依赖 preload 和旧 affine 迁移仍待完成，论文主线验收仍未全部达到。

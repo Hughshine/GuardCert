@@ -47,7 +47,7 @@
 
 `ReadonlyConditionComposition` 另组合带依赖的顺序阶段：后项的域使用此前接受的性质。核证明组合安全、可用、状态不变与接受全部性质；Clight 提供实际决策树代数。它不会从任意 `Prop`、任意候选、任意量词自动找出可运行 condition，也不保证最弱条件、最小检查成本或候选收益。
 
-前提位置可以影响接口选择。整段版本化的 `P` 要能保持到整个候选消费完成；逐步 rewrite 可以在下一次到达时重新建立当前值关系。两者不能互换检查时点而省略稳定性证明。逐步头部／值表达式实例已通过独立入口和统一入口各 333 次实际 C 调用／284 行输出，完整编译接口 184 个端点的假设审计通过；原头部 fixture 当前有十处改写，另外普通 load／计算表达式／常量 fixture 在两个入口各通过 737 次调用；见 [头部案例](clight-stepwise-head-case.md)和[普通表达式案例](clight-loaded-comparison-case.md)。
+前提位置可以影响接口选择。整段版本化的 `P` 要能保持到整个候选消费完成；逐步 rewrite 可以在下一次到达时重新建立当前值关系。两者不能互换检查时点而省略稳定性证明。逐步头部／值表达式实例已通过独立入口和统一入口各 333 次实际 C 调用／284 行输出，完整编译接口 199 个端点的假设审计通过；原头部 fixture 当前有十处改写，另外普通 load／计算表达式／常量 fixture 在两个入口各通过 737 次调用；见 [头部案例](clight-stepwise-head-case.md)和[普通表达式案例](clight-loaded-comparison-case.md)。
 
 ## 多次替换与 pass 组合
 
@@ -55,4 +55,6 @@
 
 `compile_readonly_tests_after_correct` 进一步接受一个先行 Clight pass 及其 forward simulation。当前统一入口先做 projected regions，再做逐步表达式／头部变换，最终复用 CompCert backend；这项组合不要求先行 pass 和后来规则共享前提、候选产生算法或内部 cursor。
 
-完整整段发散行为的 guarded loop／tiling、一般仿射／无界廉价 alias 条件、二维 memory-bound 调度，以及旧 affine 编译器到主只读接口的迁移仍是主要缺口。先有可复核的局部证书，再由相应宿主扩展全局覆盖；不能通过扩大说明文字来解决这些缺口。
+完整整段发散行为的 guarded loop／tiling、一般仿射／无界廉价 alias 条件、一般动态尺寸／stride 的 memory-bound 调度，以及旧 affine 编译器到主只读接口的迁移仍是主要缺口。先有可复核的局部证书，再由相应宿主扩展全局覆盖；不能通过扩大说明文字来解决这些缺口。
+
+[内存上界与 2×2 调度](clight-loaded-matrix-case.md)现已在宏片段宿主中组合；它的源协议允许 body 是保护 outer iterator 的嵌套 `framed_progress`。当前 bound 可以被源写入改变，最大值 rank 不使用稳定前提；只读条件安全沿源行前缀建立，接受后才快照并调度。独立／统一入口各通过 668 次调用，当前完整审计 199 端点、十五种配置回归通过。这个已完成的固定尺寸模板不扩大为一般动态 memory-bound 多面体调度。

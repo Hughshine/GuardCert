@@ -21,6 +21,7 @@ def main():
     global WORK, ENTRY
     parser = argparse.ArgumentParser(description=__doc__)
     instances = parser.add_mutually_exclusive_group()
+    instances.add_argument("--loaded-matrix", action="store_true", help="build prefix-safe loaded-bound 2x2 interchange")
     instances.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
     instances.add_argument("--rectangle", action="store_true", help="build the dynamic rectangular store instance")
     instances.add_argument("--cells", action="store_true", help="build the guarded aligned-word store exchange")
@@ -35,7 +36,10 @@ def main():
     instances.add_argument("--equality", action="store_true", help="build guarded fixed-bound unsigned equality-exit normalization")
     instances.add_argument("--equality-head", action="store_true", help="build stepwise readonly equality-head rewriting without a loop rank")
     args = parser.parse_args()
-    if args.matrix:
+    if args.loaded_matrix:
+        WORK = ROOT / "build/compcert-interface-loaded-matrix"
+        ENTRY = "ClightLoadedMatrixCompiler.compile_loaded_matrices"
+    elif args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
         ENTRY = "ClightReadonlyMatrix.compile_readonly_matrix"
     elif args.rectangle:
@@ -76,7 +80,7 @@ def main():
         ENTRY = "ClightCommonRewriteCompiler.compile_common_rewrites"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    instance = ("matrix" if args.matrix else "rectangle" if args.rectangle else
+    instance = ("loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
                 "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
                 "loaded_bound" if args.loaded_bound else "indexed_bound" if args.indexed_bound else

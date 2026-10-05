@@ -215,3 +215,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [逐步头部案例](clight-stepwise-head-case.md) 在每次到达时检查当前 `(int)i≤(int)n`，将实际 `!=` 换为 `<`；body 可以改变上界或包含 volatile，step 可以为 2，两个明确无限源中的头部也已进入小步模拟和完整 Csem→Asm。无限函数只编译／检查，发散覆盖来自模拟定理。这里没有把整个无限循环当成可完成的宏片段，也不提供其有限 polyhedral 域。统一入口组合既有 projected region pass 与这个逐步 pass，前后检查各使用自己的实际入口。
 
 [普通表达式规则](clight-loaded-comparison-case.md)进一步展示使用者如何定义有证明的 condition 生成器：提供两个实际 signed32 操作数及类型证书，模板生成 `≤` 检查、从实际源求值得到的定义域和完整比较值等价。普通 load 可重复于本次只读求值，但不自动成为稳定 preload；source volatile 事件必须在检查之前执行一次。独立／统一入口各通过 737 次调用，完整接口 184 端点审计无新增公理。
+
+[内存上界／二维调度使用者](clight-loaded-matrix-case.md)也已交付同一个 projected rule：提供真实语法和局部 body 证书，检查安全从实际源行前缀建立，完整前提接受后才稳定 preload 并重排四个动作。独立源进展由保护 outer iterator 的嵌套协议提供，不能假定 alias 不会改变源循环次数。独立／统一入口各通过 668 次调用；199 端点审计无新增公理。当前接受域固定为 2×2，不由这一实例推广到任意 schedule 或一般 memory-bound 尺寸。

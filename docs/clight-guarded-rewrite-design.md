@@ -175,7 +175,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-load-n
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-bound-native
 ```
 
-纯接口检查编译十一个模块和三个既有依赖，审计 43 个闭合接口端点。Clight 检查编译十一个新模块及四个既有依赖，审计 57 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百八十四个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十一个模块和三个既有依赖，审计 43 个闭合接口端点。Clight 检查编译十一个新模块及四个既有依赖，审计 57 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百九十九个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 
@@ -212,3 +212,9 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 `ClightOrderedInequality.ordered_inequality_rule` 接受实际 `left`／`right` 表达式和 signed32 类型证书，生成 `left≤right`，在本次入口证明 `left!=right` 与 `left<right` 完整 `val` 相同。源比较的实际求值给出两个 word 操作数及定义性；检查及候选在同一只读入口求值。普通 load、计算表达式、常量均由同一模板处理，源 volatile 操作先降为一次 builtin 事件，后续只读其快照。详见 [737 次实际调用的实例](clight-loaded-comparison-case.md)。
 
 该生成器直接返回共用 `readonly_condition`，与 Boolean 原子合成／带依赖的阶段合成可以共存。它不解释任意 `Prop`，也不从局部机器值关系推出数学运算树无溢出。跨迭代稳定性、整个模型域有界及调度仍有各自的证明义务。
+
+## 内存上界与真实二维调度的组合
+
+[2×2 memory-bound 案例](clight-loaded-matrix-case.md)把源 header 的普通 load、只读四 word 检查、私有 bound cache 和真实列优先执行接到同一 projected rule。当前行的实际 store 提供权限；只在前行 non-alias 全部通过后推进 ghost 源 tail，证明下一行安全，而实际条件始终读入口。局部不变式保证 load 稳定，源行序解码及 CompCert store 交换再建立候选执行／完整公共出口。它不是仅打印一个没有消费的 schedule。
+
+`strict_framed_progress` 另允许 body 含其自己的 framed loop 协议，只保护 outer iterator。源最大值 rank 与 guard／load 稳定独立；这项语言设施不改变语义无关核的契约。`compile_loaded_matrices_correct` 与统一入口都连接完整 Csem→Asm。独立／统一入口各通过 668 次调用／673 行输出，当前完整审计 199 端点，十五种提取配置回归通过，21 份既有 source／Clight 摘要相同。接受域仍为 2×2；一般动态内存尺寸／stride、复杂 body 及 affine 迁移继续推进。
