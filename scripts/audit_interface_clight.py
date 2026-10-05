@@ -17,11 +17,20 @@ MODULES = [
     "prototype/interface/ClightReadonlyRewrite.v",
     "prototype/interface/ClightRegionBoundary.v",
     "prototype/interface/ClightPreloadExample.v",
+    "prototype/interface/ClightPreloadSynthesis.v",
+    "prototype/interface/ClightAdministrative.v",
 ]
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def compcert_flags():
+    flags = ["-Q", "theories", "Guard", "-Q", "prototype/interface", "GuardInterface"]
+    for folder in ("lib", "common", "x86", "x86_64", "cfrontend", "backend", "driver"):
+        flags += ["-R", f"vendor/CompCert/{folder}", f"compcert.{folder}"]
+    return flags + ["-R", "vendor/CompCert/flocq", "Flocq"]
 
 
 def main():
@@ -38,10 +47,7 @@ def main():
     for filename, digest in interface["sources"].items():
         if sha(ROOT / filename) != digest:
             raise SystemExit(f"Pure interface changed: {filename}; run make interface-proof")
-    flags = ["-Q", "theories", "Guard", "-Q", "prototype/interface", "GuardInterface"]
-    for folder in ("lib", "common", "x86", "x86_64", "cfrontend", "backend", "driver"):
-        flags += ["-R", f"vendor/CompCert/{folder}", f"compcert.{folder}"]
-    flags += ["-R", "vendor/CompCert/flocq", "Flocq"]
+    flags = compcert_flags()
     sections = []
     for filename in DEPENDENCIES + MODULES:
         result = subprocess.run(["rocq", "compile", *flags, filename], cwd=ROOT,
@@ -97,7 +103,8 @@ def main():
         "actual_clight_readonly_dispatch_proved": True,
         "every_reachable_test_safety_proved": True,
         "conditional_preload_fixture_proved": True,
-        "preload_domain_derived_from_source_execution": False,
+        "preload_domain_derived_from_terminating_source_fixture": True,
+        "preload_atom_has_formula_synthesis_certificate": True,
         "write_frame_interface_is_complete_read_coverage": False,
         "full_clight_equivalence_context_adapter_proved": False,
         "compcert_compiler_uses_new_readonly_api": False,

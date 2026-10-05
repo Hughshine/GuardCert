@@ -14,4 +14,6 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 
 这条命令编译九个接口模块及三个既有依赖，并保存源码摘要和 37 个接口闭合端点的检查记录，其中只读 rewrite 扩展占 28 个。新增模块提供关系式局部还原、多次替换组合、文本求值前提的入口推导及矩形地址／去线性化证书示例。它不重建现有 CompCert 编译器，也不提供任意语言的现成适配器或一般条件发现。
 
-`ClightReadonlyRewrite.v`、`ClightRegionBoundary.v` 和 `ClightPreloadExample.v` 提供真实 Clight 片段宿主、写 frame 接口及只在活动路径读取指针的条件。运行 `make interface-clight-proof` 可审计 20 个端点，它们没有超出既有 Clight 的六项全局假设。该宿主使用终止片段的 `exec_stmt`；完整程序进展及旧编译器迁移尚未完成。使用方式与证明职责见 [Clight 接入设计](../../docs/clight-guarded-rewrite-design.md)，主线要求见 [验收账本](../../docs/optimistic-loop-acceptance.md)。
+Clight 模块提供真实片段宿主、写 frame 接口、只在活动路径读取指针的条件、原子公式合成及前端空语句规范化证明。`make interface-clight-proof` 审计 35 个端点，它们没有超出既有 Clight 的六项全局假设。片段宿主使用终止执行的 `exec_stmt`。
+
+`ClightReadonlyCompiler.v` 将用户的选择器、只读证书、局部等价和源入口证明连接到既有进展宿主及完整 Csem→Asm 定理。`ClightPreloadCompiler.v` 给出具体分支实例；`make interface-compiler-proof` 审计八个端点，`make interface-native` 构建实际提取编译器并检查 guard 插入及原生执行。当前全程序连接要求完整内存／出口 temps 相同；循环交换和私有出口投影尚未迁移。使用方式与证明职责见 [Clight 接入设计](../../docs/clight-guarded-rewrite-design.md)，主线要求见 [验收账本](../../docs/optimistic-loop-acceptance.md)。

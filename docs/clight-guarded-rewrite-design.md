@@ -33,9 +33,11 @@
 
 `readonly_tree_safe` 要求每个可能到达的测试都有定义，并对所有可能的结果继续证明后续安全。有限树消除了检查自身的循环。`compiled_tree_safe` 和 `synthesized_readonly_condition` 将原子 validity／value 证明提升到合成检查。原子 value 测试只在 validity 成功后执行；unknown 直接回退，否定不会将 unknown 变成接受。
 
-[ClightPreloadExample.v](../prototype/interface/ClightPreloadExample.v) 实现一个实际内存读取例子：先测试计数，仅在非零路径上读取指针中的整数。域要求计数有整数值；活动路径还要求实际 `Mem.loadv` 返回整数。计数为零时，指针可以完全没有定义。已证明检查安全、拒绝路径不需要指针，以及接受前提下的实际分支删除等价。这里使用手写并验证的树；尚未将该原子接入任意 Boolean 公式的自动合成。
+[ClightPreloadExample.v](../prototype/interface/ClightPreloadExample.v) 实现一个实际内存读取例子：先测试计数，仅在非零路径上读取指针中的整数。域要求计数有整数值；活动路径还要求实际 `Mem.loadv` 返回整数。计数为零时，指针可以完全没有定义。已证明检查安全、拒绝路径不需要指针，以及接受前提下的实际分支删除等价。[ClightPreloadSynthesis.v](../prototype/interface/ClightPreloadSynthesis.v) 将该原子接入 Boolean 公式合成，证明单原子生成的检查正是上述延迟树，并证明空路径在取否定后仍拒绝。
 
-这个域仍须从实际源执行或入口不变量导出。当前示例定理接收它作为义务，不能称作已经完成了循环入口的全程序放置证明。
+`preload_domain_from_source_execution` 已从这个源模板的实际终止执行导出域，供后述编译器实例消费。它不是任意循环入口的放置证明；不同源循环须提供自己的执行对应／进展证书。
+
+[ClightAdministrative.v](../prototype/interface/ClightAdministrative.v) 处理 C 前端插入的空 sequence。它证明 skip 规范化保持实际终止执行的 trace、outcome、temps 和 memory。识别器对规范化后的完整语法作比较，再将证书运输回实际源片段；没有把打印时看起来相同当成语法相等。
 
 ## 局部 effect 与公共出口
 
@@ -65,9 +67,13 @@
 
 ## 与已有 CompCert 路线的连接边界
 
-已有 affine-nest 编译器已具备真实源执行、运行时检查、调度核对和完整 C→Asm 定理，证据见 [多面体接入目标](polcert-integration-target.md)。其条件运行会写私有 temps，局部候选主要提供源到目标的执行运输。它不是本页的只读等价宿主实例。
+新增 [ClightReadonlyCompiler.v](../prototype/interface/ClightReadonlyCompiler.v) 提供 `readonly_clight_rule source`，绑定候选、合成条件、域／前提、只读证书、局部等价与源入口证明。使用者提供 `choose` 以及源进展分类证书；编译工具消费这些证书并复用既有区域宿主。`compile_readonly_rewrites_correct` 已证明完整 Csem→Asm 的 backward simulation。
 
-`AffineNestMultiCandidateLocal` 可以提供源到候选的一个方向及 live temps／内存出口；还需证明反向对应。`AffineNestMemoryProjection` 可以提供实际源动作来源；还需接新模型的精确对应。既有 `ClightRegionProgress` 提供有限、静默区域的 cursor 协议；还需消费新条件及出口证书。没有这些连接，不声称 native 编译器已使用新 API。
+[ClightPreloadCompiler.v](../prototype/interface/ClightPreloadCompiler.v) 是一个实际使用者：提交上述延迟读取与分支删除案例，检查源的完整语法，运输前端空语句规范化证书，实例化现有进展分类器。它有具体的 `compile_preload_rewrites_correct`。这个首个全程序连接要求完整内存及所有出口 temps 相同，尚未消费 live-out／私有 temps 的投影模式。
+
+已有 affine-nest 编译器另具备真实源执行、运行时检查、调度核对和完整 C→Asm 定理，证据见 [多面体接入目标](polcert-integration-target.md)。其条件运行会写私有 temps，局部候选主要提供源到目标的执行运输。它尚未迁移到本页的只读等价接口。
+
+`AffineNestMultiCandidateLocal` 可以提供源到候选的一个方向及 live temps／内存出口；还需证明反向对应。`AffineNestMemoryProjection` 可以提供实际源动作来源；还需接新模型的精确对应。既有 `ClightRegionProgress` 的协议已被新分支案例复用；实际循环实例、投影出口及动态前提下的有界进展仍需接入。这个分支案例不能代表多面体功能已经迁移。
 
 当前 `exec_stmt` 宿主只覆盖终止片段。完整 Clight 行为必须考虑源可能发散而 guard 拒绝的路径，不能将有限结果的双向对应代替进展。CompCert C→Asm 的端点维持其仿真方向，不升级为跨语言的任意行为双向等价。
 
@@ -78,6 +84,10 @@
 ```sh
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-clight-proof
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-compiler-proof
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-native
 ```
 
-第一条编译九个纯接口模块和三个既有依赖，审计 37 个闭合接口端点。第二条还编译三个新 Clight 模块及四个既有依赖，审计 20 个端点；其假设均包含在既有 Clight 的六项全局假设中。报告记录源码摘要并核对旧编译器的依赖源码清单。这里没有原生执行或编译器迁移验收。
+纯接口检查编译九个模块和三个既有依赖，审计 37 个闭合接口端点。Clight 检查编译五个新模块及四个既有依赖，审计 35 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计八个端点，按片段、区域与完整编译器分别比较基线；完整编译器基线为 35 项。报告记录源码摘要并核对旧编译器的依赖源码清单。原生目标提取这个独立入口、检查输出 Clight 中的 guard，再执行 C fixture；报告位于 `build/interface-native/`。
+
+当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。

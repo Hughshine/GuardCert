@@ -40,6 +40,20 @@ Proof.
     + reflexivity.
 Qed.
 
+Lemma bound_load_inv pointer entry value :
+  eval_expr (entry_ge entry) (entry_env entry) (entry_temps entry)
+    (entry_memory entry) (bound_load pointer) value ->
+  exists b offset, (entry_temps entry) ! pointer = Some (Vptr b offset) /\
+    Mem.loadv Mint32 (entry_memory entry) (Vptr b offset) = Some value.
+Proof.
+  intro RUN; unfold bound_load in RUN; inversion RUN; subst.
+  match goal with LV : eval_lvalue _ _ _ _ (Ederef _ _) _ _ _ |- _ => inversion LV; subst end.
+  match goal with EV : eval_expr _ _ _ _ (Etempvar _ _) _ |- _ => apply scalar_temp_inv in EV end.
+  match goal with DEREF : deref_loc _ _ _ _ _ _ |- _ => inversion DEREF; subst; try discriminate end.
+  match goal with MODE : access_mode _ = By_value _ |- _ => inversion MODE; subst end.
+  eexists; eexists; split; eassumption.
+Qed.
+
 Lemma bound_load_value pointer entry b offset x :
   (entry_temps entry) ! pointer = Some (Vptr b offset) ->
   Mem.loadv Mint32 (entry_memory entry) (Vptr b offset) = Some (Vint x) ->
@@ -47,14 +61,10 @@ Lemma bound_load_value pointer entry b offset x :
     (entry_memory entry) (bound_load pointer) value <-> value = Vint x.
 Proof.
   intros LOOKUP LOAD value; split.
-  - intro RUN; unfold bound_load in RUN; inversion RUN; subst.
-    match goal with LV : eval_lvalue _ _ _ _ (Ederef _ _) _ _ _ |- _ => inversion LV; subst end.
-    match goal with EV : eval_expr _ _ _ _ (Etempvar _ _) _ |- _ => apply scalar_temp_inv in EV end.
-    match goal with EV : (entry_temps entry) ! pointer = Some (Vptr ?block ?ofs) |- _ =>
-      assert (SAME : Vptr block ofs = Vptr b offset) by congruence; injection SAME; intros; subst end.
-    match goal with DEREF : deref_loc _ _ _ _ _ _ |- _ => inversion DEREF; subst; try discriminate end.
-    match goal with MODE : access_mode _ = By_value _ |- _ => inversion MODE; subst end.
-    congruence.
+  - intro RUN; apply bound_load_inv in RUN.
+    destruct RUN as [other [other_offset [POINTER OTHER_LOAD]]].
+    assert (SAME : Vptr other other_offset = Vptr b offset) by congruence.
+    injection SAME; intros; subst; congruence.
   - intro SAME; subst value; apply eval_Elvalue with (loc := b) (ofs := offset) (bf := Full).
     + apply eval_Ederef, eval_Etempvar; exact LOOKUP.
     + apply deref_loc_value with (chunk := Mint32); [reflexivity|exact LOAD].
@@ -121,6 +131,48 @@ Proof.
   intro IMPOSSIBLE; discriminate IMPOSSIBLE.
 Qed.
 
+(** The pinned x86_64 Clight Boolean semantics for an unsigned 32-bit value
+    excludes undefined and pointer values. This is an instance-specific fact. *)
+Lemma count_test_has_word count entry accepted :
+  expression_test (count_test count) entry accepted -> exists x,
+    (entry_temps entry) ! count = Some (Vint x) /\ accepted = word_truth x.
+Proof.
+  intros [value [EVAL BOOL]]; apply scalar_temp_inv in EVAL.
+  change ((match value with Vint x => Some (word_truth x) | _ => None end) = Some accepted) in BOOL.
+  destruct value; try discriminate.
+  eexists; split; [exact EVAL|congruence].
+Qed.
+
+Lemma bound_test_has_word pointer entry accepted :
+  expression_test (bound_load pointer) entry accepted -> loaded_word pointer entry.
+Proof.
+  intros [value [EVAL BOOL]].
+  change ((match value with Vint x => Some (word_truth x) | _ => None end) = Some accepted) in BOOL.
+  destruct value; try discriminate.
+  destruct (@bound_load_inv pointer entry (Vint i) EVAL) as [b [offset [POINTER LOAD]]].
+  exists b, offset, i; auto.
+Qed.
+
+Theorem preload_domain_from_check_path count pointer entry result :
+  decision_run entry (lazy_preload_tree count pointer) result -> preload_domain count pointer entry.
+Proof.
+  intro RUN; inversion RUN; subst.
+  match goal with CHECK : expression_test (count_test count) entry ?active |- _ =>
+    destruct (@count_test_has_word count entry active CHECK) as [x [LOOKUP TRUTH]] end.
+  exists x; split; [exact LOOKUP|]; intro ACTIVE.
+  rewrite ACTIVE in TRUTH; subst.
+  match goal with CHILD : decision_run entry (Test _ _ _) _ |- _ => inversion CHILD; subst end.
+  eapply bound_test_has_word; eassumption.
+Qed.
+
+Theorem preload_domain_from_source_execution fe count pointer body entry observed :
+  clight_fragment_run fe (tree_statement (lazy_preload_tree count pointer) body Sskip) entry observed ->
+  preload_domain count pointer entry.
+Proof.
+  intro RUN; apply readonly_tree_execution_exact in RUN.
+  destruct RUN as [accepted [CHECK BODY]]; eapply preload_domain_from_check_path; exact CHECK.
+Qed.
+
 Lemma accepted_preload_is_unique count pointer entry :
   preload_domain count pointer entry -> preload_premise count pointer entry ->
   forall accepted, decision_run entry (lazy_preload_tree count pointer) accepted -> accepted = true.
@@ -145,6 +197,25 @@ Qed.
 (** A genuine conditional branch rewrite on actual Clight statements. The
     supplied body can be a loop; this theorem concerns terminating executions.
     Region progress and its embedding in whole-program semantics are separate. *)
+Theorem preload_branch_conditional_equivalence fe O (observe : fragment_observation -> O -> Prop)
+  count pointer body :
+  conditional_equivalence (readonly_clight_host fe observe) (preload_domain count pointer)
+    (preload_premise count pointer)
+    (tree_statement (lazy_preload_tree count pointer) body Sskip) body.
+Proof.
+  intros entry observed [DOMAIN PREMISE]; split.
+    - intro BODY; apply (proj2 (select_exact (readonly_clight_host fe observe)
+        (lazy_preload_tree count pointer) body Sskip entry observed)).
+      exists true, entry; split; [split; [|reflexivity]|exact BODY].
+      destruct PREMISE as [COUNT BOUND]; apply run_test with (b := true); [exact COUNT|].
+      apply run_test with (b := true); [exact BOUND|constructor].
+    - intro SOURCE; apply (proj1 (select_exact (readonly_clight_host fe observe)
+        (lazy_preload_tree count pointer) body Sskip entry observed)) in SOURCE.
+      destruct SOURCE as [accepted [checked [[RUN SAME] BODY]]]; subst checked.
+      pose proof (@accepted_preload_is_unique count pointer entry DOMAIN PREMISE accepted RUN) as TRUE.
+      subst accepted; exact BODY.
+Qed.
+
 Theorem guarded_preload_branch_equivalent fe O (observe : fragment_observation -> O -> Prop)
   count pointer body :
   local_equivalence (readonly_clight_host fe observe) (preload_domain count pointer)
@@ -155,21 +226,12 @@ Theorem guarded_preload_branch_equivalent fe O (observe : fragment_observation -
 Proof.
   apply guarded_rewrite_equivalent with (premise := preload_premise count pointer).
   - apply lazy_preload_condition.
-  - intros entry observed [DOMAIN PREMISE]; split.
-    + intro BODY; apply (proj2 (select_exact (readonly_clight_host fe observe)
-        (lazy_preload_tree count pointer) body Sskip entry observed)).
-      exists true, entry; split; [split; [|reflexivity]|exact BODY].
-      destruct PREMISE as [COUNT BOUND]; apply run_test with (b := true); [exact COUNT|].
-      apply run_test with (b := true); [exact BOUND|constructor].
-    + intro SOURCE; apply (proj1 (select_exact (readonly_clight_host fe observe)
-        (lazy_preload_tree count pointer) body Sskip entry observed)) in SOURCE.
-      destruct SOURCE as [accepted [checked [[RUN SAME] BODY]]]; subst checked.
-      pose proof (@accepted_preload_is_unique count pointer entry DOMAIN PREMISE accepted RUN) as TRUE.
-      subst accepted; exact BODY.
+  - apply preload_branch_conditional_equivalence.
 Qed.
 
 Print Assumptions count_test_exact.
 Print Assumptions bound_load_value.
+Print Assumptions bound_load_inv.
 Print Assumptions bound_load_test_exact.
 Print Assumptions lazy_preload_safe.
 Print Assumptions lazy_preload_condition.
@@ -177,3 +239,8 @@ Print Assumptions empty_path_preload_refuses.
 Print Assumptions empty_path_needs_no_pointer.
 Print Assumptions accepted_preload_is_unique.
 Print Assumptions guarded_preload_branch_equivalent.
+Print Assumptions preload_branch_conditional_equivalence.
+Print Assumptions count_test_has_word.
+Print Assumptions bound_test_has_word.
+Print Assumptions preload_domain_from_check_path.
+Print Assumptions preload_domain_from_source_execution.
