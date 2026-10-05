@@ -109,8 +109,13 @@ interface-loaded-rectangle-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --loaded-rectangle
 	python3 scripts/native_interface_loaded_rectangle.py
 
+.PHONY: interface-shared-loaded-rectangle-native
+interface-shared-loaded-rectangle-native: interface-compiler-proof
+	python3 scripts/build_interface_compiler.py --shared-loaded-rectangle
+	python3 scripts/native_interface_loaded_rectangle.py --shared
+
 .PHONY: interface-native-suite
-interface-native-suite: interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native interface-equality-native interface-equality-head-native interface-loaded-matrix-native interface-loaded-rectangle-native
+interface-native-suite: interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native interface-equality-native interface-equality-head-native interface-loaded-matrix-native interface-loaded-rectangle-native interface-shared-loaded-rectangle-native
 
 demo:
 	python3 prototype/demo.py

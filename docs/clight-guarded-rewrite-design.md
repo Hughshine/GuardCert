@@ -226,3 +226,7 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 `ClightLoadedRectangleCompiler` 将上述组合扩展到动态矩形：当前真实源行给出完整内层 stores，不预设 non-alias；内层 scan 检查活动地址，整行接受后外层 scan 才推进 bound 稳定和真实源 tail。两层均调用通用生成器，生成宿主与实际函数宿主的语法一致性另有证明。候选采用已有 `rectangle_local`，scope／freshness 保护全部原程序 temps 和内存。
 
 独立／统一入口各通过 6,248 次调用／6,253 行输出，242 端点审计和十六种配置回归通过，23 份已有源码／Clight 摘要相同。stride 仍静态；示例 pass 限制树展开预算，实际每处 region 有 156 份候选。完整义务、反例和后续缺口见 [动态矩形使用者](clight-loaded-rectangle-case.md)。
+
+## 共享出口的生成适配层
+
+原 `readonly_projected_clight_rule` 可以交给 `ClightSharedProjectedCompiler`，它另外检查 candidate quiet 和新鲜的 private Boolean slot。实际检查树先保存结果，候选／回退各一份；Boolean 写入后的分支执行由 temp scope 运输，continuation 保护全部原 temps 和完整内存。原条件合成与局部调度证明直接复用。共享矩形入口通过相同 6,248 次调用，251 端点审计和十七种配置回归通过，25 份既有源码／Clight 摘要相同。具体实现／raw 与公开 state 的边界见 [共享出口](shared-guard-lowering.md)。

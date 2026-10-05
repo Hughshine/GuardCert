@@ -90,13 +90,17 @@ def expected_output():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--common", action="store_true")
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--common", action="store_true")
+    modes.add_argument("--shared", action="store_true")
     args = parser.parse_args()
-    instance = "common" if args.common else "loaded-rectangle"
-    entry = ("ClightCommonRewriteCompiler.compile_common_rewrites" if args.common
+    instance = "shared-loaded-rectangle" if args.shared else "common" if args.common else "loaded-rectangle"
+    entry = ("ClightSharedLoadedRectangleCompiler.compile_shared_loaded_rectangles" if args.shared else
+             "ClightCommonRewriteCompiler.compile_common_rewrites" if args.common
              else "ClightLoadedRectangleCompiler.compile_loaded_rectangles")
     compiler = ROOT / f"build/compcert-interface-{instance}/ccomp"
-    work = ROOT / f"build/interface-{instance}-loaded-rectangle-native"
+    work = ROOT / ("build/interface-shared-loaded-rectangle-native" if args.shared
+                   else f"build/interface-{instance}-loaded-rectangle-native")
     work.mkdir(parents=True, exist_ok=True)
     stamp = json.loads((compiler.parent / ".guard-build.json").read_text())
     if stamp["proved_entrypoint"] != entry or sha(compiler) != stamp["compiler_sha256"]:
@@ -140,6 +144,15 @@ def main():
         snapshots = re.findall(r"(\$\w+) = \*\$rows;", body)
         if not snapshots:
             raise SystemExit(f"Cached candidate missing in {name}")
+        if args.shared:
+            if len(snapshots) != regions or body.count("if (! ($i < *$rows))") != regions:
+                raise SystemExit(f"Candidate/fallback must occur once per region in {name}")
+            results = set(re.findall(r"if \((\$\w+)\)", body))
+            for result in results:
+                if result in snapshots or not re.search(r"int " + re.escape(result) + r";", body):
+                    raise SystemExit(f"Shared Boolean is not a separate declared private temp in {name}")
+            if len(results) != 1:
+                raise SystemExit(f"Shared Boolean dispatch missing in {name}")
         for private in set(snapshots):
             if not re.search(r"int " + re.escape(private) + r";", body):
                 raise SystemExit(f"Fresh cache not declared in {name}")
@@ -171,7 +184,11 @@ def main():
         "future_row_check_safety_derived_after_current_row_non_alias": True,
         "condition_generated_by_nested_generic_prefix_scans": True,
         "runtime_guard_executes_ghost_prefix": False,
-        "readonly_condition_writes_private_temps": False, "all_original_temps_and_memory_preserved": True,
+        "logical_condition_writes_private_temps": False,
+        "readonly_condition_writes_private_temps": False,
+        "lowered_guard_writes_fresh_private_boolean": args.shared,
+        "shared_candidate_and_fallback": args.shared,
+        "all_original_temps_and_memory_preserved": True,
         "uninitialized_inner_dimension_on_empty_outer_path_executed": True,
         "oversized_bound_shrinking_after_first_row_executed": True,
         "infinite_surrounding_context_compiled_and_inspected_only": True,

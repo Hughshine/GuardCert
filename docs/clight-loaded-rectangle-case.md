@@ -74,6 +74,6 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 
 示例 pass 将静态 extent 和成功叶预算分别限制到 256。两层短路树会复制后续代码；设 `k=stride+1`、`n=extent/stride`，成功叶包括提前停止的路径，数量为 `1+k+…+k^n`，使用 `2*k^n-1` 作保守预算。超出预算保留源。这个条件是使用者的代码规模策略，局部定理和通用扫描本身没有这个限制。它不是廉价、无界的区间 guard，也没有性能结论。
 
-实际 12／4 shape 的每处 region 展开 156 份候选（两处 sequential region 共 312 份）。因此运行正确性已经验证，但代码大小尚不适合一般大循环；后续需要有证明的共享出口或更廉价的足迹检查。
+直接树出口的实际 12／4 shape 每处 region 展开 156 份候选（两处 sequential region 共 312 份）。随后 [共享出口适配层](shared-guard-lowering.md)已复用同一规则，将每处候选／回退各保留一份；同一 6,248 次调用通过，完整接口 251 端点审计与十七种配置回归通过。检查树本身仍重复展开，规模预算保留，更廉价的足迹检查继续待实现。
 
 当前组合只覆盖普通 bound load、运行时行数／列数、静态 stride 和 affine 纯写 body。参数 stride、两个从内存读取的维度、多个依赖 preload、读写更新／复杂依赖和旧 affine／tiling 的主接口迁移仍待接入。有限选中片段可以位于无限外围上下文中；本例不改写潜在发散的整段选中循环。
