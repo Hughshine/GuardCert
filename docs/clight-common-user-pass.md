@@ -29,7 +29,7 @@
 
 每处动态检查在对应片段到达时运行。前一个 rewrite 保留 continuation 所需的公开状态，后一个 rewrite 再用当时的状态建立入口域／前提。一组成功检查不会被当作整个函数的入口事实；候选的私有 temp 可以跨互不重叠的已选片段复用，每处先执行自己的 preload。
 
-`common_progress_supported_sound` 组合原有结构化进展、内存循环头进展和单位 unsigned 自增的模距离证书。每个被选择的完整循环仍需受支持的源协议。被选择且可能发散的 `!=` 循环尚未由此接通。
+`common_progress_supported_sound` 组合原有结构化进展、内存循环头进展和单位 unsigned 自增的模距离证书。每个被选择的完整循环仍需受支持的源协议。被选择且可能发散的完整 `!=` 循环尚不能用这个宏片段协议替换；后续逐步 pass 另处理其有限头部。
 
 完整端点 `compile_common_rewrites_correct` 是 Csem→Asm backward simulation，经过实际 projected Clight forward simulation。这是一个 pass 内多次真实片段替换的全局证据，和抽象重复 rewrite 的组合定理一起说明使用方式；没有声称完整 Clight 双向行为等价。
 
@@ -41,7 +41,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 
 C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩形循环、2×2 模板、条件分支中的两个 store pair、延迟读取分支，以及内存上界循环。参数 snapshot 和上界 snapshot 使用同一新鲜 pool temp，实际出现于两个不同的程序位置。
 
-实际提取和执行通过 576 次调用、2880 行输出。Clight 中分别确认 store、RMW、行内依赖和 2×2 的四处 `j` 外层／`i` 内层候选，两个条件分支均有真正交换后的 store；两次快照确实使用同一个私有 temp。十三种提取编译器配置在当前 164 端点审计下重建并全部通过。
+实际提取和执行通过 576 次调用、2880 行输出。Clight 中分别确认 store、RMW、行内依赖和 2×2 的四处 `j` 外层／`i` 内层候选，两个条件分支均有真正交换后的 store；两次快照确实使用同一个私有 temp。十四种提取编译器配置在当前 180 端点审计下重建并全部通过。
 
 程序在后续 store 覆盖之前输出 payload 结果，避免较早循环的错误被覆盖掩盖；输出每一组循环的公开 iterator 出口及全部数组单元。后续两个 store pair 分别将 parameter 写成 0 或 22，随后分支必须使用当前值，检验 guard 的放置。非别名和别名输入同时覆盖普通 payload 与会改变循环次数的 bound。
 
@@ -57,3 +57,12 @@ C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩�
 
 
 第五个程序是 [固定上界的等式退出](clight-equality-loop-case.md)。统一选择器已接入完整 AST 核对、两项只读 guard、实际 `<` 候选与源 `!=` fallback，源进展的模距离不依赖接受条件。完整编译接口现审计 164 个端点；独立入口和统一入口各通过 703 次调用／703 行输出、七处实际 guard。上面的混合规则函数不包含这个模板。
+
+
+## 与逐步求值 pass 的组合
+
+当前 `compile_common_rewrites` 先用 `transform_projected_readonly` 运行上述宏片段选择器，再由 `compile_readonly_tests_after` 做 [逐步头部／值表达式 rewrite](clight-stepwise-head-case.md)。前一个 pass 提供实际 Clight forward simulation，后一项全局定理组合两者并连接 CompCert backend。共用完整 Csem→Asm 端点，不把两项前提提前固定在函数入口。
+
+每次头部检查当前 `(int)i≤(int)n` 后，将 `!=` 改成 `<`；允许改变 bound、步长 2 及 volatile body，因为此 pass 不选择整段循环、不要求其 rank。赋值 RHS、return 和具体 skip/break 头部可改写，任意带 label 分支保持结构。先行宏片段的 `!=` fallback 也可能被后来的头部 pass 再次改写：保持源行为，但实际 AST 会增加每次头部检查。旧的等式退出 fixture 脚本分别核对这两个层次。
+
+新头部 fixture 的独立入口和统一入口各通过 333 次调用／284 行输出、九处实际改写；十四种提取配置回归通过。两个明确无限的源函数也编译并确认头部被改写、原步长／bound 更新仍在；未运行它们，保证来自实际小步模拟。完整编译接口现审计 180 个端点，STEPWISE 基线为现有八项，没有新全局公理。它不由此提供无限整段调度或 memory-bound 二维交换。

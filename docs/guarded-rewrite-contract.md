@@ -206,3 +206,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [等式退出使用者证明](clight-equality-loop-case.md) 展示另一种 source protocol：使用者将固定寄存器上界、单位 unsigned 自增、有限不改 temps 的 body 交给宿主。检查 `i==0 && 0<(int)n` 接受后，局部不变式证明实际 `!=` 头部可换成 `<`；检查不读内存、候选保留完整原始出口。原循环进展另外使用模距离证明，所以 unsigned 回绕回退不依赖 no-wrap。
 
 `ClightCounterProgress.v` 的计数器事实由具体语言实例提供：活动谓词、自然数排名、更新、正性、递减、实际自增求值和纯性；宿主连接真实小步与局部完成执行。这是 Clight 实例的证明设施，语言无关核的四份契约没有加入整数语义。选中的源片段本身可能发散时，当前宏片段宿主仍需扩展逐步模拟接口；无限外围可以使用现有上下文证明。
+
+
+## 逐步求值宿主与能力选择
+
+[宿主能力与证明职责](host-capabilities.md) 固定宏片段和逐步求值两种用法。`ClightReadonlyExpression.v` 将有限表达式分派实例化到相同语言无关核，`readonly_expression_rule` 要求完整值／类型的局部等价、只读条件，以及从每次实际源求值建立域。它不要求外围循环先有终止执行。
+
+[逐步头部案例](clight-stepwise-head-case.md) 在每次到达时检查当前 `(int)i≤(int)n`，将实际 `!=` 换为 `<`；body 可以改变上界或包含 volatile，step 可以为 2，两个明确无限源中的头部也已进入小步模拟和完整 Csem→Asm。无限函数只编译／检查，发散覆盖来自模拟定理。这里没有把整个无限循环当成可完成的宏片段，也不提供其有限 polyhedral 域。统一入口组合既有 projected region pass 与这个逐步 pass，前后检查各使用自己的实际入口。

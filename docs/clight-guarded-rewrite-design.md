@@ -199,3 +199,10 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 [ClightCounterProgress.v](../prototype/interface/ClightCounterProgress.v) 提供由计数器事实实例化的源小步协议；本例的 [circular_counter_facts](../prototype/interface/ClightCircularCounter.v) 使用 modulo `2^32` 距离，证明 unsigned 回绕后的自增仍恰减少一。实际 `unsigned_equality_progress` 与分类器消费它，独立于 guard 或 non-overflow。这里没有把检查的前提写进源进展域；body 保持固定上界来自实际 temps 写界。
 
 独立提取入口和统一 pass 各通过 703 次调用、七处实际 guard，包含 unsigned 回绕回退、跨 signed view 边界、null 空路径、RMW 数据回绕和上下文。完整编译接口 164 个端点审计通过，无新增公理。十三种提取配置已重建回归通过，15 份既有源码／Clight 摘要保持相同。统一 pass 已加入该规则及进展分类，其原生验证记录见 [案例](clight-equality-loop-case.md)。本阶段仍不支持选中且可能无限的 step=2／改变目标循环，不满足 §4.3 的全部覆盖。
+
+
+## 潜在无限外围中的有限头部变换
+
+[ClightReadonlyExpression.v](../prototype/interface/ClightReadonlyExpression.v) 暴露实际表达式／有限分派的共用核宿主；使用者提交完整值的条件性等价、类型、只读检查和每次源求值的入口域。真实小步宿主在具体 skip/break 头部及 assignment／return 位置完成有限检查后运输相同结果和 continuation，不要求整个外围循环终止。其他 if 分支保持结构，检查没有复制任意 label。
+
+[逐步头部实例](clight-stepwise-head-case.md) 在每次当前 `i≤n` 下将 `!=` 改为 `<`，支持改变 bound、步长 2 和 volatile body 外围。独立入口和统一入口各通过 333 次调用／284 行输出、九处实际改写；两个明确无限源也编译并确认实际头部 guard，未运行它们。十四种提取配置在 180 端点审计下回归通过，STEPWISE 使用现有八项基线，没有新增全局公理。统一入口通过 `compile_readonly_tests_after_correct` 组合 projected region pass 与逐步 pass。它不将整个可能无限的循环变成有限 polyhedral 域；[能力分类](host-capabilities.md) 说明两种宿主所需的不同证书。

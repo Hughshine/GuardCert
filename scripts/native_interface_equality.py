@@ -87,7 +87,11 @@ def main():
         positive = re.findall(r"if \(0 < \(int\) \$n\)", body)
         ordered = re.findall(r"\(int\) \$i < \(int\) \$n", body)
         fallback = re.findall(r"\(int\) \$i != \(int\) \$n", body)
-        if [len(zero), len(positive), len(ordered), len(fallback)] != [count, count, count, 2*count]:
+        stepwise = re.findall(r"if \(\(int\) \$i <= \(int\) \$n\)", body)
+        expected_ordered = 3*count if args.common else count
+        expected_stepwise = 2*count if args.common else 0
+        if ([len(zero), len(positive), len(ordered), len(fallback), len(stepwise)]
+                != [count, count, expected_ordered, 2*count, expected_stepwise]):
             raise SystemExit(f"Missing actual guard/candidate/two rejection branches in {name}: "
                              f"{[len(zero), len(positive), len(ordered), len(fallback)]}")
         if not body.index("if ($i == 0") < body.index("if (0 < (int) $n)") < body.index("(int) $i < (int) $n"):
@@ -95,8 +99,13 @@ def main():
     refused = ["equality_changed", "equality_step2", "equality_volatile"]
     for name in refused:
         body = function_body(text, name)
-        if "if ($i == 0" in body or "(int) $i < (int) $n" in body:
-            raise SystemExit(f"Unsupported or potentially divergent source was rewritten: {name}")
+        if "if ($i == 0" in body:
+            raise SystemExit(f"Unsupported whole-loop template was rewritten: {name}")
+        if args.common:
+            if "if ((int) $i <= (int) $n)" not in body or "(int) $i < (int) $n" not in body:
+                raise SystemExit(f"Stepwise header rewrite missing in {name}")
+        elif "(int) $i < (int) $n" in body:
+            raise SystemExit(f"Unsupported template changed in the whole-loop-only driver: {name}")
         if "(int) $i != (int) $n" not in body:
             raise SystemExit(f"Unsupported equality head was lost: {name}")
     (work / "output.txt").write_text(actual)
@@ -109,7 +118,8 @@ def main():
         "guarded_regions_per_function": regions, "guarded_regions": sum(regions.values()),
         "unsigned_control_wrap_calls": 4, "signed_view_transition_call": 1,
         "empty_null_out_calls": 3, "read_modify_write_data_wrap_calls": 2,
-        "unsupported_templates_refused": refused,
+        "unsupported_whole_loop_templates_refused": refused,
+        "stepwise_fallback_and_unsupported_loop_headers_rewritten": args.common,
         "source_progress_uses_modular_distance": True,
         "source_progress_assumes_guard_or_no_wrap": False,
         "readonly_condition_has_private_temporary_writes": False,

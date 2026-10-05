@@ -5,7 +5,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightRegionProgress ClightStructuredProgress.
 From GuardInterface Require Import ClightReadonlyCompiler ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding
   ClightPreloadCompiler ClightReadonlyMatrix ClightReadonlyLoopUpdates ClightReadonlyCellSwap
-  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler ClightEqualityCompiler.
+  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler ClightEqualityCompiler ClightReadonlyTestCompiler ClightEqualityHeadCompiler.
 Set Implicit Arguments.
 
 (** This is a user pass combining existing rules. Selection priority and
@@ -45,9 +45,13 @@ Proof.
     + apply indexed_bound_progress_supported_sound; exact LOADED.
     + apply structured_progress_supported_sound; exact STRUCTURED.
 Qed.
-Definition compile_common_rewrites := compile_projected_readonly choose_common_rewrite common_progress_supported 1.
+Definition compile_common_rewrites := compile_readonly_tests_after choose_equality_head
+  (transform_projected_readonly choose_common_rewrite common_progress_supported 1).
 Theorem compile_common_rewrites_correct p target : compile_common_rewrites p = OK target ->
   backward_simulation (Csem.semantics p) (Asm.semantics target).
-Proof. apply compile_projected_readonly_correct, common_progress_supported_sound. Qed.
+Proof.
+  apply compile_readonly_tests_after_correct; intro program.
+  apply transform_projected_readonly_correct, common_progress_supported_sound.
+Qed.
 Print Assumptions choose_common_rewrite.
 Print Assumptions compile_common_rewrites_correct.
