@@ -32,6 +32,7 @@ def main():
     instances.add_argument("--runtime-stride", action="store_true", help="build guarded interchange with a runtime stride")
     instances.add_argument("--indexed-load", action="store_true", help="build load hoisting with a bounded dynamic indexed footprint")
     instances.add_argument("--indexed-bound", action="store_true", help="build memory-bound hoisting with prefix-safe indexed alias checks")
+    instances.add_argument("--equality", action="store_true", help="build guarded fixed-bound unsigned equality-exit normalization")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
@@ -63,6 +64,9 @@ def main():
     elif args.runtime_stride:
         WORK = ROOT / "build/compcert-interface-runtime-stride"
         ENTRY = "ClightRuntimeStrideCompiler.compile_runtime_strides"
+    elif args.equality:
+        WORK = ROOT / "build/compcert-interface-equality"
+        ENTRY = "ClightEqualityCompiler.compile_equality_loops"
     elif args.common:
         WORK = ROOT / "build/compcert-interface-common"
         ENTRY = "ClightCommonRewriteCompiler.compile_common_rewrites"
@@ -74,7 +78,7 @@ def main():
                 "loaded_bound" if args.loaded_bound else "indexed_bound" if args.indexed_bound else
                 "indexed_load" if args.indexed_load else
                 "runtime_stride" if args.runtime_stride else
-                "common" if args.common else "preload")
+                "common" if args.common else "equality" if args.equality else "preload")
     expected = proof["whole_program_entrypoints"][instance]
     if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")

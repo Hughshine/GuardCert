@@ -199,3 +199,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [有界动态 indexed 足迹](clight-indexed-load-case.md) 又证明循环写 `out[i]` 时的参数读取稳定性。实际源执行逐点建立权限，条件覆盖所有活动地址，non-alias 接受后才缓存 load；1095 次调用／2188 行结果在独立入口和统一 pass 上通过。默认上限 16、O(cap) 地址比较、17 个生成候选出口均明确记录；这不等于一般无界区间／仿射足迹分析。
 
 [源前缀安全的内存上界](clight-indexed-bound-case.md) 进一步把 indexed 写足迹与 memory bound 组合。规则作者不能用入口上界预先假定整个 footprint 有效：写入可能改变上界并提前退出。检查证明沿实际源前缀推进，每次 non-alias 接受后才证明下一次比较安全；源完成 witness 仅用于证明，不是运行时 oracle。语言侧的 `strict_active_condition_transport` 让局部 body 证明使用实际为真的头部，分别维护头部与自增前不变式。它是本 Clight 实例提供的设施，语言无关核心仍只消费前提、只读检查、局部观察关系和宿主契约。
+
+
+## 固定上界的等式退出实例
+
+[等式退出使用者证明](clight-equality-loop-case.md) 展示另一种 source protocol：使用者将固定寄存器上界、单位 unsigned 自增、有限不改 temps 的 body 交给宿主。检查 `i==0 && 0<(int)n` 接受后，局部不变式证明实际 `!=` 头部可换成 `<`；检查不读内存、候选保留完整原始出口。原循环进展另外使用模距离证明，所以 unsigned 回绕回退不依赖 no-wrap。
+
+`ClightCounterProgress.v` 的计数器事实由具体语言实例提供：活动谓词、自然数排名、更新、正性、递减、实际自增求值和纯性；宿主连接真实小步与局部完成执行。这是 Clight 实例的证明设施，语言无关核的四份契约没有加入整数语义。选中的源片段本身可能发散时，当前宏片段宿主仍需扩展逐步模拟接口；无限外围可以使用现有上下文证明。

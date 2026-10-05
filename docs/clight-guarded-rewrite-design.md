@@ -127,7 +127,7 @@
 
 [ClightReadonlyRuleEmbedding.v](../prototype/interface/ClightReadonlyRuleEmbedding.v) 将已有精确出口规则提升到任意观察关系；使用者只需补充源 temps 写界。`exact_projected_replacement` 证明 guard／候选／回退代码没有改变。[ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 是组合选择器，将上述循环及标量规则放进同一 projected host，保留每次实际到达时的 guard 检查。
 
-`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。十二组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
+`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。十三组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
 
 ## 与已有 CompCert 路线的连接边界
 
@@ -190,3 +190,12 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 私有候选目标提取 `ClightPrivateCandidateCompiler.compile_private_candidate`：83 次调用通过，输出 `625 0`。Clight dump 中普通函数、goto 及有限／无限外围循环的四处候选确实声明并写入隐藏 temp，公开赋值与 continuation 结果保持；无限循环只编译和检查。原始出口 temps 不完全相同，该实例实际消费投影接口。报告位于 `build/interface-private-native/`。提取缓存同时绑定证明报告摘要，避免沿用属于旧审计报告的 stamp。
 
 稳定 load 目标提取 `ClightStableLoadCompiler.compile_stable_loads`：727 次调用、727 行输出逐单元／iterator 与 GCC 及独立期望一致。360 个别名矩阵输入、360 个同 block 分离输入、三个空循环 null 调用及四个只读参数调用通过；非零／负起点回退，unsigned 数据回绕保持。普通函数、goto、外围循环和无限外围循环中的四处 guard／快照／候选 body 已确认；无限循环未运行。`i=0,n=2,out=parameter,初值=0` 的反例保留结果 3，省略 guard 的缓存会得到 2。volatile、不同常数和变化的参数指针模板拒绝。报告位于 `build/interface-stable-load-native/`；没有性能测量。
+
+
+## 固定上界的等式退出与模距离进展
+
+[ClightEqualityCompiler.v](../prototype/interface/ClightEqualityCompiler.v) 接入一个不同的循环控制实例：固定 unsigned `n`、单位 unsigned 自增、头部 `(int)i!=(int)n`，body 满足有限普通内存语句且不改 temps。源 AST／类型／cast／增量／变量隔离均重新核对。只读 guard `i==0U && 0<(int)n` 接受后，候选保留 body 并改成 `<`，实际执行不变式保持完整内存和全部 temps。规则使用现有 `readonly_forward_loop_rule`，完整端点是 Csem→Asm backward simulation。
+
+[ClightCounterProgress.v](../prototype/interface/ClightCounterProgress.v) 提供由计数器事实实例化的源小步协议；本例的 [circular_counter_facts](../prototype/interface/ClightCircularCounter.v) 使用 modulo `2^32` 距离，证明 unsigned 回绕后的自增仍恰减少一。实际 `unsigned_equality_progress` 与分类器消费它，独立于 guard 或 non-overflow。这里没有把检查的前提写进源进展域；body 保持固定上界来自实际 temps 写界。
+
+独立提取入口和统一 pass 各通过 703 次调用、七处实际 guard，包含 unsigned 回绕回退、跨 signed view 边界、null 空路径、RMW 数据回绕和上下文。完整编译接口 164 个端点审计通过，无新增公理。十三种提取配置已重建回归通过，15 份既有源码／Clight 摘要保持相同。统一 pass 已加入该规则及进展分类，其原生验证记录见 [案例](clight-equality-loop-case.md)。本阶段仍不支持选中且可能无限的 step=2／改变目标循环，不满足 §4.3 的全部覆盖。
