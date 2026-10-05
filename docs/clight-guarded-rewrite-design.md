@@ -236,3 +236,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 [参数 stride／内存上界组合](clight-loaded-stride-case.md)又提供一个模型族使用者：实际源与候选均保留参数地址；条件在源活动路径上获得 stride 定义性后分派到合法布局，局部执行经常量模型运输并复用原前缀证书。布局枚举完备性和整数乘积界／常量除法界对应由语言实例证明。独立共享编译器及统一选择器各通过 68,368 次 C 调用，完整编译审计 279 端点，无新增全局公理。当前仍为小固定数组布局枚举，不提供一般大布局或两个 memory-bound 维度。
 
 [双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)进一步消费顺序只读条件和精确出口宿主。`ClightMixedLoadedProgress` 允许 body 中嵌套的内存上界改变，只保护各层计数器；源最大值 rank 独立于两项稳定性前提。规则先建立外层活动，才读取内层上界，实际第一笔 store 给出比较权限，两个 word non-alias 分别保持两个 load。独立／统一入口各通过 3,035 次调用；完整审计 297 端点、二十种配置回归通过，29 份旧 source／Clight 摘要相同。这个一次迭代模板尚未提供一般双内存上界的数组调度；其后续逐点 cursor 义务已明确记录。
+
+[双内存上界的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md)已接到同一 projected host 和完整编译端点。不同于整行先解码的单 loaded 模板，新实例逐点保存内层与外层真实 tail，当前 store 与两个 bound 的分离全部通过后才推进。`strict_active_loop_transport` 区分头部与活动 body 的 invariant，支持同时运输测试和 body；条件及框架仍由已存在的只读接口提供。一般动态双 loaded 矩形仍需参数化 cursor、范围证书和候选运输。

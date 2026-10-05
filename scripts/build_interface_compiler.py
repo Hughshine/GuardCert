@@ -26,6 +26,7 @@ def main():
     instances.add_argument("--shared-loaded-rectangle", action="store_true", help="build the same dynamic rewrite with one shared candidate/fallback")
     instances.add_argument("--simplified-rectangle", action="store_true", help="build the same shared rewrite after verified readonly probe simplification")
     instances.add_argument("--loaded-stride", action="store_true", help="build memory-bound interchange with checked bounded runtime layouts")
+    instances.add_argument("--dual-matrix", action="store_true", help="build prefix-safe interchange with two memory-loaded 2x2 dimensions")
     instances.add_argument("--dual-unit", action="store_true", help="build guarded single-iteration elimination with two memory-bound dimensions")
     instances.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
     instances.add_argument("--rectangle", action="store_true", help="build the dynamic rectangular store instance")
@@ -41,7 +42,10 @@ def main():
     instances.add_argument("--equality", action="store_true", help="build guarded fixed-bound unsigned equality-exit normalization")
     instances.add_argument("--equality-head", action="store_true", help="build stepwise readonly equality-head rewriting without a loop rank")
     args = parser.parse_args()
-    if args.dual_unit:
+    if args.dual_matrix:
+        WORK = ROOT / "build/compcert-interface-dual-matrix"
+        ENTRY = "ClightDualLoadedMatrixCompiler.compile_dual_matrices"
+    elif args.dual_unit:
         WORK = ROOT / "build/compcert-interface-dual-unit"
         ENTRY = "ClightDualLoadedUnitCompiler.compile_dual_units"
     elif args.loaded_stride:
@@ -100,7 +104,7 @@ def main():
         ENTRY = "ClightCommonRewriteCompiler.compile_common_rewrites"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    instance = ("dual_unit" if args.dual_unit else "loaded_stride" if args.loaded_stride else "simplified_rectangle" if args.simplified_rectangle else "shared_loaded_rectangle" if args.shared_loaded_rectangle else "loaded_rectangle" if args.loaded_rectangle else "loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
+    instance = ("dual_matrix" if args.dual_matrix else "dual_unit" if args.dual_unit else "loaded_stride" if args.loaded_stride else "simplified_rectangle" if args.simplified_rectangle else "shared_loaded_rectangle" if args.shared_loaded_rectangle else "loaded_rectangle" if args.loaded_rectangle else "loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
                 "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
                 "loaded_bound" if args.loaded_bound else "indexed_bound" if args.indexed_bound else

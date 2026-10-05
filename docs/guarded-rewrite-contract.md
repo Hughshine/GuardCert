@@ -229,3 +229,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [内存上界与参数 stride 的布局分派实例](clight-loaded-stride-case.md)展示使用者怎样复用局部证明：先从源活动路径确认参数有定义，在匹配的已认证模型下运输源，组合该模型的只读条件／alias 前缀证书，再把候选运输回原参数地址。多个模型有共同实际 candidate，接受性质记录匹配模型的存在性。框架仍只消费条件、局部观察与上下文义务；布局语义、枚举完备性及机器地址运输由 Clight 实例交付。当前原生 pass 有明确 extent≤12／4096 简化 guard 节点预算，两入口各通过 68,368 次调用。
 
 [双内存上界实例](clight-dual-loaded-unit-case.md)展示另一条实际使用路径：使用者给出源／一次写入候选，规则作者用顺序只读条件把前一阶段的活动证据传给下一次读取的安全域，再分别消费两个 non-alias 性质保持 loaded bounds。语言提供嵌套进展和头部／store 的实际执行证明；框架原有精确出口宿主及综合 pass 直接安装规则并连接完整 Csem→Asm。条件的 ghost 原完成见证不会在提取后的运行时被查询。
+
+[双内存上界的数组交换](clight-dual-loaded-matrix-case.md)又消费相同 projected rule 和完整程序宿主。使用者逐点保留两层真实 tail，两个分离检查全部通过后才建立下一点；语言实例分别交付两个读取的稳定性、头部 invariant／body invariant 和实际 store 重排。一个新鲜 cache 在两项上界都为 2 的接受域中供两层候选头部复用。该固定模板没有扩大语义无关核，也没有把两维动态矩形或任意 body 的局部证明自动化。
