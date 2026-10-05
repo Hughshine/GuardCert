@@ -1,6 +1,6 @@
 # 一次实际 guarded load 提升的使用者证明
 
-2026-10-05。这是新只读接口的循环实例，参照 [Optimistic Loop Optimization](https://compilers.cs.uni-saarland.de/papers/doerfert_cgo17.pdf) 的稳定读取需求。它证明普通参数 load 的循环提升；循环上界来自内存的情况仍待接入。
+2026-10-05。这是新只读接口的循环实例，参照 [Optimistic Loop Optimization](https://compilers.cs.uni-saarland.de/papers/doerfert_cgo17.pdf) 的稳定读取需求。它证明普通参数 load 的循环提升；本例的循环上界来自 temp；[另一个实例](clight-loaded-bound-case.md) 将真正的内存上界接到同一接口。
 
 ## 使用者选择实际片段
 

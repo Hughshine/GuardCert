@@ -111,6 +111,15 @@
 
 [ClightCountedLocalization.v](../prototype/interface/ClightCountedLocalization.v) 提供实际计数循环与逐次实际 body 的双向对应；次数不由编译器枚举。[ClightReadonlyProjectedLoopRule.v](../prototype/interface/ClightReadonlyProjectedLoopRule.v) 为规则作者连接只读条件、源完成、候选原始确定性和公开观察运输。[ClightStableLoadCompiler.v](../prototype/interface/ClightStableLoadCompiler.v) 核对完整源 AST，消费这些证书和新鲜 snapshot temp，通过 `compile_stable_loads_correct` 接完整 Csem→Asm。它是已经使用投影全局接口的真实循环案例。
 
+
+### 内存中的循环上界与检查树读取
+
+[ClightLoadedBoundCompiler.v](../prototype/interface/ClightLoadedBoundCompiler.v) 核对实际 `i<*bound`、`++i` 与 `*out=i+1`，接受活动且对齐单元 non-alias 的输入后，将循环头读取提升到私有 temp。实际 source header 提供上界 load 的定义性，第一次实际 store 提供输出访问依据；每次 body 的真实 store 再建立读取不变性。源码依赖入口域、guard 接受与稳定性保持各有证明，不能将稳定性放进入口域。
+
+[ClightStrictLoopProgress.v](../prototype/interface/ClightStrictLoopProgress.v) 允许源上界随内存改变：测试接受须蕴含 signed counter 小于机器最大值，有限 body 只写内存。它用最大值到计数器的距离建立源进展，不消费 non-alias。[ClightStableLoopCondition.v](../prototype/interface/ClightStableLoopCondition.v) 则在单独给出的不变式下，逐个实际 body／增量运输循环头，形成候选 `exec_stmt`。
+
+[ClightReadonlyLoadedTreeSynthesis.v](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v) 补上带 load 的 tree-valued 原子：validity／value 证书须给出入口域下的完成检查，实际表达式确定性将完成路径提升成所有可达节点安全，随后复用 Boolean 合成核。它不将负面结果或 unknown 自动视为可靠否定，也没有允许 guard 写私有 scratch。`make interface-loaded-bound-native` 的 514 次调用／514 行输出与 GCC 和独立模型一致，四处实际改写已确认，八组原生回归通过。完整使用者职责及反例见 [内存上界实例](clight-loaded-bound-case.md)。
+
 ## 与已有 CompCert 路线的连接边界
 
 新增 [ClightReadonlyCompiler.v](../prototype/interface/ClightReadonlyCompiler.v) 提供 `readonly_clight_rule source`，绑定候选、合成条件、域／前提、只读证书、局部等价与源入口证明。使用者提供 `choose` 以及源进展分类证书；编译工具消费这些证书并复用既有区域宿主。`compile_readonly_rewrites_correct` 已证明完整 Csem→Asm 的 backward simulation。
@@ -121,7 +130,7 @@
 
 这个宿主使用 `program_temps` 收集所有原标识，构造并检查新鲜 pool，将其追加到目标函数 `fn_temps`，证明函数入口、外围语句、循环、goto、调用和 continuation 的运输。这里的 `live` 是所有原程序 temps 的保守集合，不是自动 liveness 分析的最小集合；当前不能据此隐藏原程序中已存在但被认为 dead 的 temp。公共观察仍保留完整内存的双向 `Mem.extends`、trace 和控制 outcome。原子 observer 的空写集声明也不是一个 frame 证书。
 
-`transform_projected_readonly_correct` 给出完整 Clight `semantics2` 的 forward simulation；`compile_projected_readonly_correct` 接到 Csem→Asm backward simulation。没有声称完整 Clight 双向行为等价。[ClightPrivateCandidateCompiler.v](../prototype/interface/ClightPrivateCandidateCompiler.v) 是实际使用者：核对 `public=5`，候选先写新鲜 `private=99` 再执行原赋值，guard 是 `Decision true`。这是上下文与私有状态能力测试，没有性能收益主张；普通参数快照随后通过下述 load 提升实例接入；一般私有迭代器及 affine 实例仍需各自的局部证明。
+`transform_projected_readonly_correct` 给出完整 Clight `semantics2` 的 forward simulation；`compile_projected_readonly_correct` 接到 Csem→Asm backward simulation。没有声称完整 Clight 双向行为等价。[ClightPrivateCandidateCompiler.v](../prototype/interface/ClightPrivateCandidateCompiler.v) 是实际使用者：核对 `public=5`，候选先写新鲜 `private=99` 再执行原赋值，guard 是 `Decision true`。这是上下文与私有状态能力测试，没有性能收益主张；普通参数快照随后通过下述 load 提升实例接入；内存上界随后也使用这个投影宿主；一般私有迭代器及 affine 实例仍需各自的局部证明。
 
 已有 affine-nest 编译器另具备真实源执行、运行时检查、调度核对和完整 C→Asm 定理，证据见 [多面体接入目标](polcert-integration-target.md)。其条件运行会写私有 temps，局部候选主要提供源到目标的执行运输。它尚未迁移到本页的只读等价接口。
 
@@ -146,7 +155,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-private-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-stable-load-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计五十六个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计七十六个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 

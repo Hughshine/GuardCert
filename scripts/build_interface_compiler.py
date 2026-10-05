@@ -27,6 +27,7 @@ def main():
     instances.add_argument("--loops", action="store_true", help="build rectangular stores, RMW and row dependency instances")
     instances.add_argument("--private-candidate", action="store_true", help="build the projected private-candidate example")
     instances.add_argument("--stable-load", action="store_true", help="build guarded loop parameter-load hoisting")
+    instances.add_argument("--loaded-bound", action="store_true", help="build guarded hoisting of a memory-loaded loop bound")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
@@ -46,11 +47,15 @@ def main():
     elif args.stable_load:
         WORK = ROOT / "build/compcert-interface-stable-load"
         ENTRY = "ClightStableLoadCompiler.compile_stable_loads"
+    elif args.loaded_bound:
+        WORK = ROOT / "build/compcert-interface-loaded-bound"
+        ENTRY = "ClightLoadedBoundCompiler.compile_loaded_bounds"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
     instance = ("matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
-                "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else "preload")
+                "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
+                "loaded_bound" if args.loaded_bound else "preload")
     expected = proof["whole_program_entrypoints"][instance]
     if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")
