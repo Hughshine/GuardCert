@@ -22,8 +22,12 @@ MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCom
            "ClightActiveLoopCondition", "ClightIndexedBoundGuard", "ClightIndexedBoundLoop", "ClightIndexedBoundCompiler",
            "ClightCounterProgress", "ClightCounterCondition", "ClightCircularCounter", "ClightEqualityLoop",
            "ClightEqualityCompiler", "ClightReadonlyExpression", "ClightReadonlyTestSyntax", "ClightReadonlyTestProof",
-           "ClightReadonlyTestCompiler", "ClightEqualityHead", "ClightEqualityHeadCompiler", "ClightCommonRewriteCompiler"]
+           "ClightReadonlyTestCompiler", "ClightEqualityHead", "ClightOrderedInequality", "ClightEqualityHeadCompiler", "ClightCommonRewriteCompiler"]
 ENDPOINTS = {
+    "ClightOrderedInequality.comparison_source_values": "FRAGMENT",
+    "ClightOrderedInequality.comparison_condition": "FRAGMENT",
+    "ClightOrderedInequality.comparison_local": "FRAGMENT",
+    "ClightOrderedInequality.ordered_inequality_rule": "FRAGMENT",
     "ClightReadonlyExpression.readonly_expression_host": "FRAGMENT",
     "ClightReadonlyExpression.fragment_condition_for_expression": "FRAGMENT",
     "ClightReadonlyExpression.readonly_expression_contract": "FRAGMENT",
@@ -317,10 +321,13 @@ def main():
         "generic_counter_protocol_accepts_a_rank_update_and_active_condition_certificate": True,
         "unsigned_equality_loop_progress_uses_cyclic_distance_not_a_no_wrap_assumption": True,
         "guarded_fixed_bound_unsigned_equality_exit_to_ordered_exit_supported": True,
-        "selected_potentially_diverging_equality_loop_supported": False,
+        "selected_potentially_diverging_whole_loop_macro_rewrite_supported": False,
         "readonly_expression_contract_consumes_the_shared_guarded_rewrite_core": True,
         "stepwise_loop_header_rewrite_supported_inside_potentially_diverging_loops": True,
         "stepwise_loop_header_host_requires_no_enclosing_source_termination_certificate": True,
+        "ordered_inequality_rule_supports_arbitrary_signed32_ordinary_expression_operands": True,
+        "ordered_inequality_guard_read_safety_derived_from_each_actual_source_evaluation": True,
+        "ordered_inequality_rule_requires_no_memory_bound_stability_between_headers": True,
         "common_user_pass_composes_projected_region_and_readonly_expression_passes": True,
         "projected_adapter_protects_all_original_program_temporaries": True,
         "fixed_2x2_loop_interchange_uses_new_api": True,

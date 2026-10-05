@@ -175,7 +175,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-load-n
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-bound-native
 ```
 
-纯接口检查编译十一个模块和三个既有依赖，审计 43 个闭合接口端点。Clight 检查编译十一个新模块及四个既有依赖，审计 57 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百四十一个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十一个模块和三个既有依赖，审计 43 个闭合接口端点。Clight 检查编译十一个新模块及四个既有依赖，审计 57 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百八十四个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 
@@ -205,4 +205,10 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 
 [ClightReadonlyExpression.v](../prototype/interface/ClightReadonlyExpression.v) 暴露实际表达式／有限分派的共用核宿主；使用者提交完整值的条件性等价、类型、只读检查和每次源求值的入口域。真实小步宿主在具体 skip/break 头部及 assignment／return 位置完成有限检查后运输相同结果和 continuation，不要求整个外围循环终止。其他 if 分支保持结构，检查没有复制任意 label。
 
-[逐步头部实例](clight-stepwise-head-case.md) 在每次当前 `i≤n` 下将 `!=` 改为 `<`，支持改变 bound、步长 2 和 volatile body 外围。独立入口和统一入口各通过 333 次调用／284 行输出、九处实际改写；两个明确无限源也编译并确认实际头部 guard，未运行它们。十四种提取配置在 180 端点审计下回归通过，STEPWISE 使用现有八项基线，没有新增全局公理。统一入口通过 `compile_readonly_tests_after_correct` 组合 projected region pass 与逐步 pass。它不将整个可能无限的循环变成有限 polyhedral 域；[能力分类](host-capabilities.md) 说明两种宿主所需的不同证书。
+[逐步头部实例](clight-stepwise-head-case.md) 在每次当前 `i≤n` 下将 `!=` 改为 `<`，支持改变 bound、步长 2 和 volatile body 外围。独立入口和统一入口各通过 333 次调用／284 行输出、十处实际改写；两个明确无限源也编译并确认实际头部 guard，未运行它们。十四种提取配置在 184 端点审计下回归通过，STEPWISE 使用现有八项基线，没有新增全局公理。统一入口通过 `compile_readonly_tests_after_correct` 组合 projected region pass 与逐步 pass。它不将整个可能无限的循环变成有限 polyhedral 域；[能力分类](host-capabilities.md) 说明两种宿主所需的不同证书。
+
+## 从实际操作数生成只读比较条件
+
+`ClightOrderedInequality.ordered_inequality_rule` 接受实际 `left`／`right` 表达式和 signed32 类型证书，生成 `left≤right`，在本次入口证明 `left!=right` 与 `left<right` 完整 `val` 相同。源比较的实际求值给出两个 word 操作数及定义性；检查及候选在同一只读入口求值。普通 load、计算表达式、常量均由同一模板处理，源 volatile 操作先降为一次 builtin 事件，后续只读其快照。详见 [737 次实际调用的实例](clight-loaded-comparison-case.md)。
+
+该生成器直接返回共用 `readonly_condition`，与 Boolean 原子合成／带依赖的阶段合成可以共存。它不解释任意 `Prop`，也不从局部机器值关系推出数学运算树无溢出。跨迭代稳定性、整个模型域有界及调度仍有各自的证明义务。

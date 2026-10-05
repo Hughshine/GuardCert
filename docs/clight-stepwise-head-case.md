@@ -60,8 +60,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-equality-head-
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 ```
 
-独立入口和统一入口各通过 333 次 C 函数调用、284 行输出、九处实际 guarded expression contexts；完整编译接口 180 个端点审计通过，STEPWISE 基线为现有八项、COMPILER 为现有 35 项，无新增全局公理。fixture 包含步长 2、每次 body 改变上界、signed view 负值／跨边界、unsigned 回绕、null 空路径、volatile body、goto／外围循环，以及 return／assignment 的完整 Boolean 值。两个明确无限的源函数只编译和检查实际 guard／candidate／fallback，不能用有限原生输出验证它们的发散行为；相应保证来自小步模拟定理。
+独立入口和统一入口各通过 333 次 C 函数调用、284 行输出、十处实际 guarded expression contexts；完整编译接口 184 个端点审计通过，STEPWISE 基线为现有八项、COMPILER 为现有 35 项，无新增全局公理。fixture 包含步长 2、每次 body 改变上界、signed view 负值／跨边界、unsigned 回绕、null 空路径、volatile body、goto／外围循环，以及 return／assignment 的完整 Boolean 值。两个明确无限的源函数只编译和检查实际 guard／candidate／fallback，不能用有限原生输出验证它们的发散行为；相应保证来自小步模拟定理。
 
 这个功能不允许仅凭某次局部 `≤` 证据将整个循环建模为有限整数域，也不支持在源片段可能无限时把任意调度／tiling 当成宏片段替换。Optimistic Loop Optimization 的整段变换仍需要稳定性、模型对应、依赖合法性及相应上下文证明。没有性能测量。
 
 十四种提取编译器配置在当前审计下重建并全部通过原生回归。与 `3324a6b` 的 17 份既有报告比较，只有统一入口的等式退出程序生成了预期的逐头部 guard，其余 16 份源码／Clight 摘要相同。统一旧等式退出程序也通过 703 次调用，脚本分别确认整段条件与回退头部的后续检查。
+
+后续 [普通表达式比较模板](clight-loaded-comparison-case.md) 将同一选择器扩展到任何类型为 signed32 的实际操作数，不再只取两个 unsigned temp 的 cast。原 `head_constant` 现在也被改写；原调用／输出数保持相同。新增 ordinary load／computed operand／volatile 快照程序在独立／统一入口各通过 737 次调用，完整接口增至 184 端点；十四种配置重建回归通过。与 `651e156` 的 19 份既有报告比较，仅两份头部程序因新增常量 guard 改变 Clight，另外 17 份源码／Clight 摘要相同。

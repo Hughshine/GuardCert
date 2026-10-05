@@ -213,3 +213,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [宿主能力与证明职责](host-capabilities.md) 固定宏片段和逐步求值两种用法。`ClightReadonlyExpression.v` 将有限表达式分派实例化到相同语言无关核，`readonly_expression_rule` 要求完整值／类型的局部等价、只读条件，以及从每次实际源求值建立域。它不要求外围循环先有终止执行。
 
 [逐步头部案例](clight-stepwise-head-case.md) 在每次到达时检查当前 `(int)i≤(int)n`，将实际 `!=` 换为 `<`；body 可以改变上界或包含 volatile，step 可以为 2，两个明确无限源中的头部也已进入小步模拟和完整 Csem→Asm。无限函数只编译／检查，发散覆盖来自模拟定理。这里没有把整个无限循环当成可完成的宏片段，也不提供其有限 polyhedral 域。统一入口组合既有 projected region pass 与这个逐步 pass，前后检查各使用自己的实际入口。
+
+[普通表达式规则](clight-loaded-comparison-case.md)进一步展示使用者如何定义有证明的 condition 生成器：提供两个实际 signed32 操作数及类型证书，模板生成 `≤` 检查、从实际源求值得到的定义域和完整比较值等价。普通 load 可重复于本次只读求值，但不自动成为稳定 preload；source volatile 事件必须在检查之前执行一次。独立／统一入口各通过 737 次调用，完整接口 184 端点审计无新增公理。

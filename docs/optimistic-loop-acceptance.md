@@ -76,3 +76,5 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 
 
 [逐步头部宿主](clight-stepwise-head-case.md) 又补上可能无限循环中有限求值的 rewrite：每次实际头部建立 `i≤n` 才用 `<`，失败保留 `!=`；允许 step=2、body 改变 bound 或 volatile body，来源于实际小步匹配而非循环完成性。源表达式的入口／完整值等价和只读检查继续消费语言无关核，赋值／return 的比较值也由同一规则处理。完整接口现审计 180 个端点，与既有 STEPWISE 八项和 COMPILER 35 项基线比较无新增公理；独立入口和统一入口各通过 333 次调用／284 行输出和九处实际改写；十四种提取配置回归通过，只有统一等式退出程序增加预期 guard，其他 16 份既有源码／Clight 摘要相同。明确无限的源只编译／检查，未执行。这个补充不建立它们的有限 polyhedral 实例域，也没有解决任意无限整段循环的 guarded 调度；能力分工见 [宿主分类](host-capabilities.md)。
+
+[普通表达式／load 的条件比较](clight-loaded-comparison-case.md)进一步让逐步模板消费 signed32 普通 load、计算表达式和常量。检查安全从本次真实源求值导出，没有预设 bound 稳定；别名 body 改写 bound 后在下一头部重新检查。真正 volatile load 只按源执行一次，后续 guard 使用快照。独立／统一入口各通过 737 次调用和八类实际 contexts，原头部 fixture 的常量比较也被改写，原 333 次调用保持相同。完整接口 184 端点审计无新增公理，十四种配置重建回归通过；与前阶段 19 份报告比较，仅两份头部程序因常量 guard 改变 Clight，另 17 份源码／Clight 摘要相同。它补充逐次 condition 的表达／安全实例，不补足一次性稳定 preload、多维 memory-bound 调度或一般 non-overflow 合成；主线验收仍未完成。

@@ -106,7 +106,11 @@ def main():
             loop = body.index("for (; 1;")
             if not loop < body.index("if ((int) $i <= (int) $n)"):
                 raise SystemExit(f"Header check was hoisted outside the loop in {name}")
-    refused = ["head_no_cast", "head_constant", "head_branch_label"]
+    constant = " ".join(function_body(text, "head_constant").split())
+    if ("if ((int) $i <= 6)" not in constant or "(int) $i < 6" not in constant
+            or "(int) $i != 6" not in constant):
+        raise SystemExit("Generic signed32 operand rule did not handle the constant bound")
+    refused = ["head_no_cast", "head_branch_label"]
     for name in refused:
         body = function_body(text, name)
         if "if ((int) $i <= (int) $n)" in body:
@@ -125,7 +129,8 @@ def main():
         "native_function_calls": 333, "native_output_lines": len(actual.splitlines()),
         "native_loop_calls": 235, "native_boolean_value_calls": 98,
         "grid_loop_calls": 225, "empty_null_out_calls": 4,
-        "actual_guarded_expression_contexts": accepted, "unsupported_expression_or_context_shapes": refused,
+        "actual_guarded_expression_contexts": [*accepted, "head_constant"],
+        "constant_bound_context_compiled_only": True, "unsupported_expression_or_context_shapes": refused,
         "readonly_condition_has_private_temporary_writes": False,
         "checks_each_actual_header_current_state": True,
         "whole_loop_rank_or_fixed_bound_required": False,
@@ -138,7 +143,7 @@ def main():
         "gcc_behavior_matches": True, "independent_model_matches": True,
         "performance_measured": False,
     }, indent=2) + "\n")
-    print(f"Stepwise equality-head fixture ({instance}) passed: 333 calls, 284 lines, nine guarded contexts; infinite sources compiled only")
+    print(f"Stepwise equality-head fixture ({instance}) passed: 333 calls, 284 lines, ten guarded contexts; infinite sources compiled only")
 
 
 if __name__ == "__main__":

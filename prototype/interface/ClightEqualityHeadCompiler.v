@@ -1,19 +1,21 @@
 From compcert.common Require Import Errors Smallstep.
 From compcert.cfrontend Require Import Ctypes Cop Clight Csem.
 From compcert.x86 Require Import Asm.
-From Guard Require Import ClightSyntaxEquality.
-From GuardInterface Require Import ClightReadonlyExpression ClightReadonlyTestCompiler ClightCircularCounter ClightEqualityHead.
+From Guard Require Import ClightSyntaxEquality ClightCondition.
+From GuardInterface Require Import ClightReadonlyExpression ClightReadonlyTestCompiler ClightCircularCounter ClightEqualityHead ClightOrderedInequality.
 Set Implicit Arguments.
 
-Definition propose_equality_head source :=
+Definition propose_signed_inequality source :=
   match source with
-  | Ebinop One (Ecast (Etempvar iterator _) _) (Ecast (Etempvar bound _) _) _ => Some (iterator,bound)
+  | Ebinop One first second _ => Some (first,second)
   | _ => None end.
 Definition choose_equality_head source : option (readonly_expression_rule source).
 Proof.
-  destruct (propose_equality_head source) as [[iterator bound]|]; [|exact None].
-  destruct (expression_eq source (unsigned_equality_test iterator bound)) as [SAME|]; [|exact None].
-  rewrite SAME; exact (Some (equality_head_rule iterator bound)).
+  destruct (propose_signed_inequality source) as [[left right]|]; [|exact None].
+  destruct (type_eq (typeof left) type_int32s) as [LEFT|]; [|exact None].
+  destruct (type_eq (typeof right) type_int32s) as [RIGHT|]; [|exact None].
+  destruct (expression_eq source (comparison_source left right)) as [SAME|]; [|exact None].
+  rewrite SAME; exact (Some (@ordered_inequality_rule left right LEFT RIGHT)).
 Defined.
 Definition compile_equality_heads := compile_readonly_tests choose_equality_head.
 Theorem compile_equality_heads_correct p target : compile_equality_heads p = OK target ->
