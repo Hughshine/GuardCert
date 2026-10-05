@@ -64,6 +64,12 @@ interface-loaded-bound-native: interface-compiler-proof
 interface-common-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --common
 	python3 scripts/native_interface_common.py
+	python3 scripts/native_interface_runtime_stride.py --common
+
+.PHONY: interface-runtime-stride-native
+interface-runtime-stride-native: interface-compiler-proof
+	python3 scripts/build_interface_compiler.py --runtime-stride
+	python3 scripts/native_interface_runtime_stride.py
 
 demo:
 	python3 prototype/demo.py

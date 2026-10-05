@@ -5,7 +5,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightRegionProgress ClightStructuredProgress.
 From GuardInterface Require Import ClightReadonlyCompiler ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding
   ClightPreloadCompiler ClightReadonlyMatrix ClightReadonlyLoopUpdates ClightReadonlyCellSwap
-  ClightStableLoadCompiler ClightLoadedBoundCompiler.
+  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler.
 Set Implicit Arguments.
 
 (** This is a user pass combining existing rules. Selection priority and
@@ -13,11 +13,13 @@ Set Implicit Arguments.
 Definition choose_common_exact source : option (readonly_clight_rule source) :=
   match choose_readonly_matrix source with
   | Some rule => Some rule
-  | None => match choose_readonly_rectangles source with
+  | None => match choose_runtime_stride source with
+    | Some rule => Some rule
+    | None => match choose_readonly_rectangles source with
     | Some rule => Some rule
     | None => match choose_cell_pair source with
       | Some rule => Some rule
-      | None => choose_preload_rewrite source end end end.
+      | None => choose_preload_rewrite source end end end end.
 Definition choose_common_rewrite live pool source : option (readonly_projected_clight_rule live source) :=
   match choose_loaded_bound live pool source with
   | Some rule => Some rule

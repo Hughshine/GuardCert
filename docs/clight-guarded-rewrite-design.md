@@ -89,7 +89,7 @@
 
 [ClightReadonlyRectangle.v](../prototype/interface/ClightReadonlyRectangle.v) 将相同接口推广到运行时 `n`、`m`。使用者的识别器从实际数组类型、下标和 RHS 中提出布局；证书重新核对完整语法及变量隔离。例如 `a[120]`、下标 `i*10+j` 的检查为 `i=0 ∧ 0<n≤12 ∧ 0<m≤10`；`a[105]`、行宽 7 的上界为 15 和 7。候选按列执行相同 store，回退保持源。循环次数不由编译器枚举；范围条件是保守的，可能拒绝仍有定义的源输入。
 
-[ClightReadonlyTreeSynthesis.v](../prototype/interface/ClightReadonlyTreeSynthesis.v) 支持原子检查本身是一棵短路树的 Boolean 公式合成，并补足所有可达测试的安全性证明。这个实例消费合成树和 `conditional_equivalence`，接到 `compile_readonly_rectangle_correct`。这个入口只改写普通 store 模板；下述组合入口另接入 read-modify-write 和行内依赖。参数 stride 及动态循环 alias 检查仍未迁移。
+[ClightReadonlyTreeSynthesis.v](../prototype/interface/ClightReadonlyTreeSynthesis.v) 支持原子检查本身是一棵短路树的 Boolean 公式合成，并补足所有可达测试的安全性证明。这个实例消费合成树和 `conditional_equivalence`，接到 `compile_readonly_rectangle_correct`。这个入口只改写普通 store 模板；下述组合入口另接入 read-modify-write 和行内依赖。参数 stride 的纯写模板随后通过下述实例接通，动态循环 alias 检查仍未迁移。
 
 [ClightRectangleAssumptions.v](../prototype/interface/ClightRectangleAssumptions.v) 登记八类模型文本位置：外层头／增量、内层 reset／头／增量、下标乘法／加法及字节偏移。入口范围证书推出全部发生位置的要求；实际 guard 接受也推出该集合。另有活动域地址单射性，以及 `Int.mul`、`Int.add`、`Ptrofs.repr` 与数学地址相同的证明。实际语法绑定与执行实例覆盖由 rectangle certificate 及既有 decoder 承担；这不是任意 C 的求值位置分析器。数据 RHS 仍使用机器整数语义，不要求它不回绕。
 
@@ -125,7 +125,7 @@
 
 [ClightReadonlyRuleEmbedding.v](../prototype/interface/ClightReadonlyRuleEmbedding.v) 将已有精确出口规则提升到任意观察关系；使用者只需补充源 temps 写界。`exact_projected_replacement` 证明 guard／候选／回退代码没有改变。[ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 是组合选择器，将上述循环及标量规则放进同一 projected host，保留每次实际到达时的 guard 检查。
 
-`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。九组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
+`make interface-common-native` 的同一函数包含多个被选择片段，576 次调用／2880 行输出与 GCC 和独立模型一致。分别确认四种交换的实际候选、两组 store 交换，以及不同位置使用同一私有 pool 的两次快照。源 payload 在后续覆盖前检查；后来分支读取先前写入后的参数值。十组原生回归通过。源码写界的自动核对仍是 temps 语法过近似，不是内存足迹分析。详见 [组合使用者证明](clight-common-user-pass.md)。
 
 ## 与已有 CompCert 路线的连接边界
 
@@ -147,6 +147,8 @@
 
 ## 多次替换与验证
 
+[运行时 stride 使用者案例](clight-runtime-stride-case.md) 使用原始出口接口接入真正的 `i*stride+j` 二维交换。用户提供实际源／候选、完整语法证书和 body 不写 stride 的证明；框架条件树消费已认证的维度原子，生成 signed64 乘积界检查。源执行证明入口读取域，检查自身的乘法精确性另外证明；候选保留 runtime stride。`compile_runtime_strides_correct` 接到完整 Csem→Asm，统一 pass 也消费相同规则。345 次调用／342 行输出、九处实际 guard、未初始化参数的空路径及连续 rewrite 之间的参数修改通过；见 `make interface-runtime-stride-native`。
+
 [RewriteComposition.v](../prototype/interface/RewriteComposition.v) 的每一步绑定真实中间程序、上下文和替换。单步程序等价按传递性组成有限序列等价。一次替换可能改变下一次的入口不变量或布局，因此后续步骤重新提交相应证书。
 
 ```sh
@@ -160,9 +162,12 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-cells-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-loops-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-private-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-stable-load-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-loaded-bound-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-runtime-stride-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计八十二个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百零二个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 

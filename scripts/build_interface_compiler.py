@@ -29,6 +29,7 @@ def main():
     instances.add_argument("--stable-load", action="store_true", help="build guarded loop parameter-load hoisting")
     instances.add_argument("--loaded-bound", action="store_true", help="build guarded hoisting of a memory-loaded loop bound")
     instances.add_argument("--common", action="store_true", help="build one user pass combining all current loop and scalar rules")
+    instances.add_argument("--runtime-stride", action="store_true", help="build guarded interchange with a runtime stride")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
@@ -51,6 +52,9 @@ def main():
     elif args.loaded_bound:
         WORK = ROOT / "build/compcert-interface-loaded-bound"
         ENTRY = "ClightLoadedBoundCompiler.compile_loaded_bounds"
+    elif args.runtime_stride:
+        WORK = ROOT / "build/compcert-interface-runtime-stride"
+        ENTRY = "ClightRuntimeStrideCompiler.compile_runtime_strides"
     elif args.common:
         WORK = ROOT / "build/compcert-interface-common"
         ENTRY = "ClightCommonRewriteCompiler.compile_common_rewrites"
@@ -59,7 +63,8 @@ def main():
     instance = ("matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
                 "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
-                "loaded_bound" if args.loaded_bound else "common" if args.common else "preload")
+                "loaded_bound" if args.loaded_bound else "runtime_stride" if args.runtime_stride else
+                "common" if args.common else "preload")
     expected = proof["whole_program_entrypoints"][instance]
     if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")

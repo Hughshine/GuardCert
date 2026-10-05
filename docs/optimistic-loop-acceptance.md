@@ -9,10 +9,10 @@
 | §4.1 | 读取可作为稳定参数 | 实际参数 load 与内存循环上界提升：源读取安全、non-alias 前缀不变性、私有快照、独立源进展和完整编译；延迟读取原子 | 内存边界与多维调度／依赖 preload 的组合 |
 | §4.2 | 控制／地址的机器算术与整数模型对应 | 动态矩形范围条件、登记文本位置的入口推导、实际 Int／Ptrofs 地址对应及循环消费；初始化溢出反例 | 一般初始化／非仿射条件；带 preload 的实际范围合成 |
 | §4.3 | 有界实例域 | 条件前提和入口推导接口 | 带等式退出的实际循环及拒绝／发散路径 |
-| §4.4–4.5 | 维度界、线性化／去线性化对应 | 动态矩形实际 store、读写更新、行内依赖交换与固定 stride 地址单射证明 | 参数 stride 的实际地址与候选证明 |
+| §4.4–4.5 | 维度界、线性化／去线性化对应 | 固定 stride 的动态 store／更新／行依赖；运行时 stride 的实际 store 地址、完整交换与只读条件 | 参数 stride 的更新／复杂依赖、内存边界与多维组合 |
 | §4.6 | 活动访问区间不重叠 | 实际 Mint32 non-alias 原子、源定义性／对齐推导、store 交换与 frame、整个参数 load 提升循环；旧路线的多个指针检查 | 新只读条件下的动态循环足迹区间检查及调度消费 |
 | §5 | 条件简化与保守近似 | `entry_derivation`、强化条件证书；从固定数组布局导出动态范围并生成实际 guard | 外部求解器输出的可核对表示与更一般投影 |
-| §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；带普通 load 的 tree-valued 原子及公式合成、源入口推导和完整程序案例 | 带算术检查和依赖 preload 的组合合成实例 |
+| §6，Algorithms 1–2 | 检查自身的算术安全和 preload 安全 | 真实 Clight 树安全；普通 load 原子及公式合成；参数 stride 的 signed64 乘积检查无回绕证明、延迟读取和完整程序 | 带算术检查和依赖 preload 的组合合成实例 |
 
 论文里的维度界与 CompCert 内存权限不能互相代替。我们的实例必须分别证明“多维表示忠实”与“实际执行的 load/store 有定义”。同样，省略检查只能使用已证明的静态入口事实或源语义约束。
 
@@ -45,7 +45,7 @@
 
 随后 `make interface-rectangle-native` 也通过：`ClightReadonlyRectangle.compile_readonly_rectangle` 使用从布局导出的 `i=0 ∧ 0<n≤extent/stride ∧ 0<m≤stride`，处理运行时矩形尺寸。225 个正尺寸 store 矩形、六处改写区域通过；842 行 C 输出逐单元、逐出口与 GCC／独立模型一致。八类模型文本位置的条件推导、地址单射性和实际 `Int.mul`／`Int.add`／`Ptrofs.repr` 对应也已编译。源语法与执行覆盖依赖实际 rectangle certificate／decoder，尚无一般求值位置发现器。
 
-只处理 store 的矩形入口将 update／行内依赖模板保留为源。随后组合入口已迁移这些模板，见下段；参数 stride 和动态循环 alias 仍未迁移。新 API 的局部等价与完整编译连接已在真实循环中成立，但尚不满足上表全部主线验收。稳定内存上界随后通过下述 singleton 实例接入；下一步须将它与多维调度、动态数组足迹及参数 stride 组合。没有性能测量。
+只处理 store 的矩形入口将 update／行内依赖模板保留为源。随后组合入口已迁移这些模板，见下段；参数 stride 的纯写模板又通过本页最后一例接入，动态循环 alias 仍未迁移。新 API 的局部等价与完整编译连接已在真实循环中成立，但尚不满足上表全部主线验收。稳定内存上界随后通过下述 singleton 实例接入；下一步须将它与多维调度、动态数组足迹及参数 stride 组合。没有性能测量。
 
 non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 frame 和完整编译定理。`make interface-cells-native` 运行 82 次 C 调用，包括相同指针回退、同一 block 的分离单元、不同对象和空循环 null 指针；输出 `4100 0` 与 GCC／独立期望一致。无限外围循环也被编译并确认内部 guard，未运行。该原子在源定义且对齐的两个 Mint32 单元上有效，并支持已知结果的否定；它尚未推广到动态循环访问区间或异宽访问，不能视为 §4.6 全部通过。
 
@@ -60,5 +60,7 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 
 
 `make interface-common-native` 用 `ClightCommonRewriteCompiler.compile_common_rewrites` 在同一函数中消费上述精确／私有规则。新的有证书嵌入保持精确规则生成的语句相同；源写界由结构化语法过近似核对。576 次调用、2880 行输出通过，四种实际循环交换、两个 store 分支、两处共享私有 pool 的快照和后续读取当前参数值的检查都已确认。九组原生回归在 82 端点审计下重建并通过。统一选择器继承既有内存记录的 proof irrelevance，没有新增公理。详见 [一个使用者 pass](clight-common-user-pass.md)。
+
+`make interface-runtime-stride-native` 随后消费 `ClightRuntimeStrideCompiler.compile_runtime_strides`：实际源／候选均保留 `i*stride+j`，使用有证书的 `i=0 ∧ 0<n ∧ 0<m ∧ 0<stride ∧ m≤stride ∧ (int64)n*stride≤extent`。检查自身的 signed64 乘积精确性、空轴上延迟读取参数、局部执行对应、内存重排和完整 Csem→Asm 已证明。345 次函数调用／342 行输出与 GCC 及逐单元模型一致，330 个参数网格输入中 108 个满足 guard；九处实际改写区域通过，包括两次改写间修改 stride。重叠行、零 stride 和 signed 极值的合法源输入保留回退行为；未初始化内层 bound／stride 的空路径通过。统一 pass 对相同 fixture 也通过，完整编译接口现审计 102 个端点，无新增公理。此例不含参数 stride 的 RMW、一般指针足迹或二维内存上界组合；详见 [使用者证明](clight-runtime-stride-case.md)。
 
 已有编译器的运行证据继续有效于它自己的协议；新接口的任何一项通过都不自动升级为旧编译器已迁移。这个账本随证明和执行结果更新。
