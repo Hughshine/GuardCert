@@ -8,8 +8,13 @@ ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "build" / "interface"
 SOURCES = [
     ("theories/AbstractGuard.v", 3),
+    ("theories/AbstractSchedule.v", 1),
+    ("theories/ScheduleInterleave.v", 1),
     ("prototype/interface/GuardInterface.v", 4),
     ("prototype/interface/GuardInterfaceExamples.v", 5),
+    ("prototype/interface/GuardedRewrite.v", 5),
+    ("prototype/interface/LocalScheduleEquivalence.v", 2),
+    ("prototype/interface/GuardedRewriteExamples.v", 7),
 ]
 
 
@@ -30,15 +35,20 @@ def main():
     report = {
         "status": "compiled",
         "toolchain": subprocess.check_output(["rocq", "--version"], text=True).strip(),
-        "interface_modules_compiled": 2,
-        "existing_dependencies_recompiled": 1,
-        "new_interface_closed_endpoints": 9,
+        "interface_modules_compiled": 5,
+        "existing_dependencies_recompiled": 3,
+        "new_interface_closed_endpoints": 23,
+        "readonly_rewrite_closed_endpoints": 14,
         "sources": {filename: hashlib.sha256((ROOT / filename).read_bytes()).hexdigest()
                     for filename, _ in SOURCES},
         "new_global_axioms": [],
         "scope": "entry-guard refinement, independent preservation, and supplied-context composition; "
                  "total mathematical-function host, private scratch, acceptance, fallback, dead candidate, "
-                 "unknown under negation, and preservation/refinement counterexample",
+                 "unknown under negation, and preservation/refinement counterexample; "
+                 "read-only guarded equivalence, reversible exchange certificates, "
+                 "finite-loop alias fallback, frame, modulo-256 branch rewrite, and pure continuations",
+        "region_selection_and_candidate_generation_are_user_supplied": True,
+        "typed_footprint_and_clight_equivalence_adapter_implemented": False,
         "context_and_check_safety_are_instance_obligations": True,
         "arbitrary_language_adapters_proved": False,
         "compcert_migration_completed": False,

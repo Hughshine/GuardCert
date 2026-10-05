@@ -1,8 +1,10 @@
 # 语言无关接口：能力、使用方式与分类
 
-本文面向要为自己的语言接入带动态条件变换的人。先固定入口检查与回退的接口，再说明哪些场景能使用它，哪些需要扩展判断或协议。日期为 2026-10-05。
+本文记录语言无关入口协议 v1 的底层契约与分类。当前使用者前台收敛为[带只读条件的 guarded rewrite](guarded-rewrite-contract.md)：用户选择片段、候选和位置，框架提供局部等价及上下文等价组合；循环／多面体优化是主要实例。该文明确列出条件表达力、局部及全局证明义务。日期为 2026-10-05。
 
 本轮新增 [GuardInterface.v](../prototype/interface/GuardInterface.v) 与 [GuardInterfaceExamples.v](../prototype/interface/GuardInterfaceExamples.v)，作为接口 v1 的机械化原型。它们不依赖 CompCert。现有 CompCert 编译器仍使用旧接口；本轮不把新接口原型算作已完成的 CompCert 迁移或新的原生运行证据。
+
+本文后续的九个端点计数属于 v1 新增时的记录；最新隔离检查还包括只读 rewrite 前台、双向调度适配及其案例，计数见新使用者契约和实际检查报告。底层允许私有效果及 refinement，不表示当前前台要求用户支持这些扩展。
 
 ## 1. 框架提供的服务
 
