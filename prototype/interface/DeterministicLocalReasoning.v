@@ -24,4 +24,38 @@ Proof.
   - intro SOURCE; apply FORWARD; assumption.
 Qed.
 
+(** A projected/saturated observation need not be unique, even if the raw
+    execution is deterministic. Users supply the exact raw-to-visible bridge
+    and transport of all visible observations across the forward result. *)
+Theorem saturated_forward_bridge_equivalent S Raw (H : guard_host S) domain premise source candidate
+  (raw_runs : code H -> S -> Raw -> Prop)
+  (observe : Raw -> observation H -> Prop)
+  (SOURCE_BRIDGE : forall entry observed, domain entry -> premise entry ->
+    (runs H source entry observed <-> exists raw, raw_runs source entry raw /\ observe raw observed))
+  (CANDIDATE_BRIDGE : forall entry observed, domain entry -> premise entry ->
+    (runs H candidate entry observed <-> exists raw, raw_runs candidate entry raw /\ observe raw observed))
+  (SOURCE_COMPLETES : forall entry, domain entry -> premise entry -> exists raw, raw_runs source entry raw)
+  (FORWARD : forall entry original, domain entry -> premise entry -> raw_runs source entry original ->
+    exists transformed, raw_runs candidate entry transformed /\
+      forall observed, observe original observed <-> observe transformed observed)
+  (RAW_DETERMINATE : forall entry first second, domain entry -> premise entry ->
+    raw_runs candidate entry first -> raw_runs candidate entry second -> first = second) :
+  conditional_equivalence H domain premise source candidate.
+Proof.
+  intros entry observed [DOMAIN PREMISE]; split.
+  - intro TARGET; apply (proj1 (CANDIDATE_BRIDGE entry observed DOMAIN PREMISE)) in TARGET.
+    destruct TARGET as [raw [TARGET VISIBLE]].
+    destruct (SOURCE_COMPLETES entry DOMAIN PREMISE) as [original SOURCE].
+    destruct (FORWARD entry original DOMAIN PREMISE SOURCE) as [transformed [OTHER TRANSPORT]].
+    pose proof (RAW_DETERMINATE entry raw transformed DOMAIN PREMISE TARGET OTHER) as SAME; subst transformed.
+    apply (proj2 (SOURCE_BRIDGE entry observed DOMAIN PREMISE)); exists original; split; [exact SOURCE|].
+    apply (proj2 (TRANSPORT observed)); exact VISIBLE.
+  - intro SOURCE; apply (proj1 (SOURCE_BRIDGE entry observed DOMAIN PREMISE)) in SOURCE.
+    destruct SOURCE as [original [SOURCE VISIBLE]].
+    destruct (FORWARD entry original DOMAIN PREMISE SOURCE) as [transformed [TARGET TRANSPORT]].
+    apply (proj2 (CANDIDATE_BRIDGE entry observed DOMAIN PREMISE)); exists transformed; split; [exact TARGET|].
+    apply (proj1 (TRANSPORT observed)); exact VISIBLE.
+Qed.
+
 Print Assumptions forward_bridge_equivalent.
+Print Assumptions saturated_forward_bridge_equivalent.

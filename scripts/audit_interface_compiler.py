@@ -7,9 +7,10 @@ from audit_compiler import names
 from audit_interface_clight import ROOT, sha, compcert_flags
 
 WORK = ROOT / "build/interface-compiler"
-MODULES = ["ClightReadonlyCompiler", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
-           "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame"]
+MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
+           "ClightReadonlyLoopUpdates", "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame"]
 ENDPOINTS = {
+    "ClightReadonlyLoopRule.readonly_forward_loop_rule": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_region_contract": "REGION",
     "ClightReadonlyCompiler.readonly_selection_sound": "REGION",
@@ -26,6 +27,12 @@ ENDPOINTS = {
     "ClightReadonlyRectangle.readonly_rectangle_forward": "MEMORY_FRAGMENT",
     "ClightReadonlyRectangle.readonly_rectangle_rule": "MEMORY_FRAGMENT",
     "ClightReadonlyRectangle.compile_readonly_rectangle_correct": "COMPILER",
+    "ClightReadonlyLoopUpdates.readonly_rectangle_layout_condition": "FRAGMENT",
+    "ClightReadonlyLoopUpdates.readonly_rectangle_update_forward": "MEMORY_FRAGMENT",
+    "ClightReadonlyLoopUpdates.readonly_rectangle_update_rule": "MEMORY_FRAGMENT",
+    "ClightReadonlyLoopUpdates.readonly_rectangle_row_update_forward": "MEMORY_FRAGMENT",
+    "ClightReadonlyLoopUpdates.readonly_rectangle_row_update_rule": "MEMORY_FRAGMENT",
+    "ClightReadonlyLoopUpdates.compile_readonly_rectangles_correct": "COMPILER",
     "ClightRectangleAssumptions.rectangle_text_derivation": "FRAGMENT",
     "ClightRectangleAssumptions.accepted_rectangle_text_requirements": "FRAGMENT",
     "ClightRectangleAssumptions.accepted_rectangle_address_injective": "FRAGMENT",
@@ -111,6 +118,7 @@ def main():
             "matrix": "ClightReadonlyMatrix.compile_readonly_matrix",
             "rectangle": "ClightReadonlyRectangle.compile_readonly_rectangle",
             "cells": "ClightReadonlyCellSwap.compile_readonly_cell_pairs",
+            "loops": "ClightReadonlyLoopUpdates.compile_readonly_rectangles",
         },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
@@ -120,6 +128,7 @@ def main():
         "private_temporary_projection_supported": False,
         "fixed_2x2_loop_interchange_uses_new_api": True,
         "dynamic_rectangle_store_interchange_uses_new_api": True,
+        "dynamic_rectangle_read_modify_write_and_row_dependency_use_new_api": True,
         "dynamic_rectangle_guard_certifies_registered_control_and_address_requirements": True,
         "two_aligned_word_stores_have_readonly_non_alias_guard": True,
         "general_loop_transformation_migrated": False,

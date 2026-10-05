@@ -157,7 +157,7 @@ Placement(C,S1,D)
 
 | 模式 | 局部前提与证明设施 | 位置／effect 义务 | 当前新接口实例 |
 | --- | --- | --- | --- |
-| optimistic 循环重排、分配、分块 | 实例对应、冲突分离、控制／地址解释、合法交换 | 循环入口、退出游标、内存 frame、进展 | 任意有限迭代列表的两组写入重排；旧实际编译器未迁移 |
+| optimistic 循环重排、分配、分块 | 实例对应、冲突分离、控制／地址解释、合法交换 | 循环入口、退出游标、内存 frame、进展 | 数学实例的有限迭代重排；真实 Clight 2×2／动态矩形 store、读写更新及保留行内依赖的交换已接完整编译；一般 affine／分块旧入口未迁移 |
 | 条件算术／死分支 | 指定算术运算的定义性／无溢出、局部表达式或控制等价 | 操作数已定义，guard 插入不改变求值路径，结果／出口保持 | 8-bit modulo 增量的条件分支删除 |
 | 重复 load 消除 | 相同位置、可读能力、中间写入不影响读取 | 源 load 的安全依据；普通读取的事件语义 | 旧 Clight 实例已有，新接口未迁移 |
 | 实现／布局特化 | 身份、布局、稳定性及调用等价 | 环境、调用行为、异常、版本稳定 | 后续案例，尚无新宿主 |
@@ -185,4 +185,4 @@ Placement(C,S1,D)
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 ```
 
-该检查编译十个接口模块和三个既有依赖，打印 39 个接口证明端点的闭合假设报告，其中只读 rewrite 扩展占 30 个；包括关系式 localization、有限替换序列、前提入口推导、域限制及完成性／确定性下的单向证明复用。日志及源码摘要位于 `build/interface/`。`make interface-clight-proof` 另审计真实只读 Clight 适配、frame／延迟读取案例及结构化片段确定性；具体责任与缺口见 [Clight 接入设计](clight-guarded-rewrite-design.md)及 [Optimistic Loop Optimization 验收账本](optimistic-loop-acceptance.md)。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。
+该检查编译十个接口模块和三个既有依赖，打印 40 个接口证明端点的闭合假设报告，其中只读 rewrite 扩展占 31 个；包括关系式 localization、有限替换序列、前提入口推导、域限制及完成性／确定性下的单向证明复用，以及隐藏私有出口的观察运输。日志及源码摘要位于 `build/interface/`。`make interface-clight-proof` 另审计真实只读 Clight 适配、frame／延迟读取案例及结构化片段确定性；具体责任与缺口见 [Clight 接入设计](clight-guarded-rewrite-design.md)及 [Optimistic Loop Optimization 验收账本](optimistic-loop-acceptance.md)。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。

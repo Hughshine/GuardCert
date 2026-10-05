@@ -19,7 +19,7 @@ SOURCES = [
     ("prototype/interface/RewriteComposition.v", 3),
     ("prototype/interface/AssumptionDerivation.v", 4),
     ("prototype/interface/EntryProjectionExamples.v", 6),
-    ("prototype/interface/DeterministicLocalReasoning.v", 1),
+    ("prototype/interface/DeterministicLocalReasoning.v", 2),
 ]
 
 
@@ -42,8 +42,8 @@ def main():
         "toolchain": subprocess.check_output(["rocq", "--version"], text=True).strip(),
         "interface_modules_compiled": 10,
         "existing_dependencies_recompiled": 3,
-        "new_interface_closed_endpoints": 39,
-        "readonly_rewrite_closed_endpoints": 30,
+        "new_interface_closed_endpoints": 40,
+        "readonly_rewrite_closed_endpoints": 31,
         "sources": {filename: hashlib.sha256((ROOT / filename).read_bytes()).hexdigest()
                     for filename, _ in SOURCES},
         "new_global_axioms": [],

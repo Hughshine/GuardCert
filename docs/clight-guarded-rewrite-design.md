@@ -49,6 +49,8 @@
 
 公共观察保留 trace、控制 outcome、live-out temps 及 CompCert 内存等价。`readonly_clight_runs` 对这条关系取观察饱和，避免要求私有 temps 完全相同。内存等价不是仅写集内相等，仍须保证 continuation 可以读取片段外内存。宿主必须证明选定观察关系在实际 continuation 中可运输。
 
+[ClightPrivateCandidateExample.v](../prototype/interface/ClightPrivateCandidateExample.v) 是实际执行的局部例子：源为 `public=5`，候选为 `private=99; public=5`。只要求 `private` 不在 live-out 中，便证明两者的 trace、outcome、内存和公开出口一致；另有定理证明两个原始临时变量环境确实不同。私有值可任意变化，饱和观察不唯一，因而不能套用“公开观察唯一”。新增 `saturated_forward_bridge_equivalent` 要求原始候选结果确定、源有完成执行，并证明源／候选的观察集合可运输；`quiet_observed_forward_loop_equivalent` 在真实 Clight 中用观察关系的对称性和传递性建立这一连接。这个例子只证明局部等价；声明新函数 temps、freshness 和实际 continuation 不读取它们的全局连接仍待实现。它不允许 guard 写私有变量：当前 guard 仍须保持完整入口。
+
 ## 循环使用者如何接入
 
 目标实例是二维数组复制／更新的循环交换，源按行访问，候选按列访问。使用者提供实际两个 Clight 片段和调度证书。局部动作保留真实地址、chunk、读取来源和机器数据运算；不能把数据加法替换成无界整数加法。控制与地址运算的非回绕前提单独登记。
@@ -79,7 +81,7 @@
 
 [ClightReadonlyMatrix.v](../prototype/interface/ClightReadonlyMatrix.v) 是上述协议的首个实际循环实例：使用者识别并核对完整源语法，提交按列执行的候选、`i=0 ∧ n=2 ∧ m=2` 的只读条件和局部等价。实际源执行被解码为四个 CompCert store，已核对的调度证书交换动作，候选执行再编码回相同内存及全部出口 temps。它不是一个脱离源程序的 schedule 示例。
 
-这里复用了旧循环证明的单向执行运输，但没有把它直接当作等价。[DeterministicLocalReasoning.v](../prototype/interface/DeterministicLocalReasoning.v) 要求源完成、源到候选运输和候选观察唯一。[ClightQuietDeterminacy.v](../prototype/interface/ClightQuietDeterminacy.v) 证明实际结构化无调用片段（包括循环）的终止执行结果唯一。[ClightLoopBridge.v](../prototype/interface/ClightLoopBridge.v) 将两者接到 `conditional_equivalence`。源完成性是 ghost 证书，由实际源执行及宿主进展导出；运行时不能查询它，也不能用它跳过源可能发散的全程序证明义务。
+这里复用了旧循环证明的单向执行运输，但没有把它直接当作等价。[DeterministicLocalReasoning.v](../prototype/interface/DeterministicLocalReasoning.v) 的精确出口版本要求源完成、源到候选运输和候选观察唯一；关系式观察版本要求原始结果确定及观察集合运输。[ClightQuietDeterminacy.v](../prototype/interface/ClightQuietDeterminacy.v) 证明实际结构化无调用片段（包括循环）的终止执行结果唯一。[ClightLoopBridge.v](../prototype/interface/ClightLoopBridge.v) 将两者接到 `conditional_equivalence`。源完成性是 ghost 证书，由实际源执行及宿主进展导出；运行时不能查询它，也不能用它跳过源可能发散的全程序证明义务。
 
 `compile_readonly_matrix_correct` 将这个规则接到完整 Csem→Asm backward simulation。当前仍限于 2×2 的一个已核对 store 模板；一般 alias 检查、动态矩形、稳定内存边界与私有出口投影不由此实例得到。
 
@@ -87,9 +89,21 @@
 
 [ClightReadonlyRectangle.v](../prototype/interface/ClightReadonlyRectangle.v) 将相同接口推广到运行时 `n`、`m`。使用者的识别器从实际数组类型、下标和 RHS 中提出布局；证书重新核对完整语法及变量隔离。例如 `a[120]`、下标 `i*10+j` 的检查为 `i=0 ∧ 0<n≤12 ∧ 0<m≤10`；`a[105]`、行宽 7 的上界为 15 和 7。候选按列执行相同 store，回退保持源。循环次数不由编译器枚举；范围条件是保守的，可能拒绝仍有定义的源输入。
 
-[ClightReadonlyTreeSynthesis.v](../prototype/interface/ClightReadonlyTreeSynthesis.v) 支持原子检查本身是一棵短路树的 Boolean 公式合成，并补足所有可达测试的安全性证明。这个实例消费合成树和 `conditional_equivalence`，接到 `compile_readonly_rectangle_correct`。本阶段只改写普通 store 模板，read-modify-write、行内依赖、参数 stride 及动态 alias 检查仍未迁移。
+[ClightReadonlyTreeSynthesis.v](../prototype/interface/ClightReadonlyTreeSynthesis.v) 支持原子检查本身是一棵短路树的 Boolean 公式合成，并补足所有可达测试的安全性证明。这个实例消费合成树和 `conditional_equivalence`，接到 `compile_readonly_rectangle_correct`。这个入口只改写普通 store 模板；下述组合入口另接入 read-modify-write 和行内依赖。参数 stride 及动态循环 alias 检查仍未迁移。
 
 [ClightRectangleAssumptions.v](../prototype/interface/ClightRectangleAssumptions.v) 登记八类模型文本位置：外层头／增量、内层 reset／头／增量、下标乘法／加法及字节偏移。入口范围证书推出全部发生位置的要求；实际 guard 接受也推出该集合。另有活动域地址单射性，以及 `Int.mul`、`Int.add`、`Ptrofs.repr` 与数学地址相同的证明。实际语法绑定与执行实例覆盖由 rectangle certificate 及既有 decoder 承担；这不是任意 C 的求值位置分析器。数据 RHS 仍使用机器整数语义，不要求它不回绕。
+
+### 读写更新与行内依赖
+
+[ClightReadonlyLoopUpdates.v](../prototype/interface/ClightReadonlyLoopUpdates.v) 提供两个新的规则作者实例，与纯 store 共用动态范围条件。第一类是 `a[i*S+j] += value(i,j)`：局部动作包含真实 load、机器整数运算和 store，交换由分离单元的读写独立性支持。第二类是 `a[i*S+j] = a[i*S] + value(i,j)`：同一行里的读取依赖被保留，候选虽把 `j` 移到外层，仍保持每一行的 `j` 顺序；跨行独立性支持实际被反转的动作对。错误的邻居读取和对角线依赖不被该实例接受。
+
+每个规则重新核对完整源 AST、读取来源、地址、类型和循环协议，并消费相应的实际源解码／内存动作调度／候选编码定理，保持完整内存及全部出口 temps。组合选择器是使用者 pass，依次尝试纯 store、原地更新和行内读取模板；`compile_readonly_rectangles_correct` 证明这个入口的完整 Csem→Asm backward simulation。它不能据此声称支持任意读写 body 或依赖关系。
+
+### 规则作者可复用的循环构造器
+
+[ClightReadonlyLoopRule.v](../prototype/interface/ClightReadonlyLoopRule.v) 暴露 `readonly_forward_loop_rule`。使用者提交实际源与候选、只读 guard、基础域 `D`／前提 `P`，以及五项证明：源和候选的 quiet 语法证书；`D` 下的检查证书；`D ∧ P` 下保留原始出口的源到候选执行运输；实际源正常执行蕴含 `D`。quiet 仅表示没有调用、goto、label 等，不意味着循环必定结束。
+
+构造器将 `D` 加上显式 ghost 源完成性，由实际源执行获得该证书，再用候选确定性建立反方向，返回 `readonly_clight_rule source`。使用者仍提供片段选择和进展分类器；框架不能凭一个数学调度替代实际执行证明，也不能让运行时查询 ghost 完成性。上面的 update／行依赖规则使用这个构造器。这条全局路线仍要求原始出口相同；隐藏私有出口的局部构造器是另一条接口，尚未接到这里。
 
 ## 与已有 CompCert 路线的连接边界
 
@@ -99,7 +113,7 @@
 
 已有 affine-nest 编译器另具备真实源执行、运行时检查、调度核对和完整 C→Asm 定理，证据见 [多面体接入目标](polcert-integration-target.md)。其条件运行会写私有 temps，局部候选主要提供源到目标的执行运输。它尚未迁移到本页的只读等价接口。
 
-`AffineNestMultiCandidateLocal` 可以提供源到候选的一个方向及 live temps／内存出口；还需证明投影观察下的反向对应。`AffineNestMemoryProjection` 可以提供实际源动作来源；还需接新模型的精确对应。既有 `ClightRegionProgress` 的协议已被新分支及 2×2 循环案例复用；投影出口及更一般动态前提下的有界进展仍需接入。这两个案例不能代表一般多面体功能已经迁移。
+`AffineNestMultiCandidateLocal` 可以提供源到候选的一个方向及 live temps／内存出口；还需证明投影观察下的反向对应。`AffineNestMemoryProjection` 可以提供实际源动作来源；还需接新模型的精确对应。既有 `ClightRegionProgress` 的协议已被新分支及 2×2 循环案例复用；投影出口及更一般动态前提下的有界进展仍需接入。这这些实例不能代表一般多面体功能已经迁移。
 
 当前 `exec_stmt` 宿主只覆盖终止片段。完整 Clight 行为必须考虑源可能发散而 guard 拒绝的路径，不能将有限结果的双向对应代替进展。CompCert C→Asm 的端点维持其仿真方向，不升级为跨语言的任意行为双向等价。
 
@@ -115,9 +129,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-matrix-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-rectangle-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-cells-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-loops-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 39 个闭合接口端点。Clight 检查编译九个新模块及四个既有依赖，审计 48 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计二十九个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，完整编译器基线为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计三十六个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，完整编译器基线为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 
@@ -126,3 +141,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-cells-native
 动态矩形目标提取 `ClightReadonlyRectangle.compile_readonly_rectangle`：225 个正尺寸 store 矩形、六处改写区域及实际短路范围检查通过；C fixture 的 842 行结果逐单元、逐出口与 GCC 和独立模型一致。空域和布局外输入回退，内层未初始化边界在外层为空时未读取。同一 fixture 中的 update／行依赖案例保持源，不能计入新接口支持的变换种类。报告位于 `build/interface-rectangle-native/`。
 
 non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs`。82 次 C 函数调用覆盖 20 个相同指针输入、60 个同一 block 的分离单元输入、不同对象和空循环的 null 指针；所有单元及未写 frame 与 GCC／独立期望一致，输出 `4100 0`。普通函数、计数循环和无限外围循环内的三个实际 guard／交换顺序均已核对；无限循环只编译和检查，未执行。报告位于 `build/interface-cells-native/`；这不是一般区间／循环足迹 alias 检查器。
+
+组合循环目标提取 `ClightReadonlyLoopUpdates.compile_readonly_rectangles`：225 个 store、345 个读写更新和 225 个行依赖正矩形，十九处实际改写区域通过；842 行输出逐单元和完整 iterator 出口与 GCC／独立模型一致。每类都有接受、回退、空域、全局数组、goto／外围循环和未读取内层界案例；compound assignment 也确实被改写。邻居读取、对角线依赖、volatile 和无效布局拒绝。报告位于 `build/interface-loops-native/`。这与只处理 store 的独立矩形入口分开记录；没有性能测量。

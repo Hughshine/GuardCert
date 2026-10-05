@@ -43,6 +43,15 @@ Proof.
   - eapply memory_equivalent_trans; [exact MEMORY2|exact MEMORY1].
 Qed.
 
+Lemma boundary_observe_sym ports first second :
+  boundary_observe ports first second -> boundary_observe ports second first.
+Proof.
+  intros [TRACE [EXIT [TEMPS MEMORY]]]; unfold boundary_observe.
+  split; [symmetry; exact TRACE|split; [symmetry; exact EXIT|split]].
+  - intros id LIVE; symmetry; apply TEMPS; exact LIVE.
+  - apply memory_equivalent_sym; exact MEMORY.
+Qed.
+
 Definition outside_region_writes ports entry b offset := ~ region_write_bytes ports entry b offset.
 
 (** A write-frame certificate is not a full read-effect analysis or a global
@@ -98,6 +107,7 @@ Proof. intros FIRST SECOND; eapply Mem.unchanged_on_trans; eassumption. Qed.
 
 Print Assumptions boundary_observe_refl.
 Print Assumptions boundary_observe_trans.
+Print Assumptions boundary_observe_sym.
 Print Assumptions write_frame_preserves_stable_inputs.
 Print Assumptions store_write_frame.
 Print Assumptions load_outside_write_frame.
