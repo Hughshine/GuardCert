@@ -21,6 +21,8 @@ SOURCES = [
     ("prototype/interface/EntryProjectionExamples.v", 6),
     ("prototype/interface/DeterministicLocalReasoning.v", 2),
     ("prototype/interface/ReadonlyConditionComposition.v", 3),
+    ("prototype/interface/ReadonlyBranching.v", 5),
+    ("prototype/interface/ReadonlyPrefixScan.v", 1),
 ]
 
 
@@ -41,10 +43,10 @@ def main():
     report = {
         "status": "compiled",
         "toolchain": subprocess.check_output(["rocq", "--version"], text=True).strip(),
-        "interface_modules_compiled": 11,
+        "interface_modules_compiled": 13,
         "existing_dependencies_recompiled": 3,
-        "new_interface_closed_endpoints": 43,
-        "readonly_rewrite_closed_endpoints": 34,
+        "new_interface_closed_endpoints": 49,
+        "readonly_rewrite_closed_endpoints": 40,
         "sources": {filename: hashlib.sha256((ROOT / filename).read_bytes()).hexdigest()
                     for filename, _ in SOURCES},
         "new_global_axioms": [],
@@ -56,8 +58,11 @@ def main():
                  "relational localization, certified rewrite sequences, collected textual-site "
                  "requirements, entry projection and conservative simplification, rectangular "
                  "address bounds and delinearization injectivity; dependency-ordered "
-                 "read-only condition stages with stronger certified continuation domains",
+                 "read-only condition stages with stronger certified continuation domains; "
+                 "certified two-outcome branching and bounded active-prefix scans with erased witness invariants",
         "dependent_readonly_condition_composition_proved": True,
+        "readonly_branch_classifiers_require_both_outcome_certificates": True,
+        "bounded_prefix_scan_preserves_entry_and_advances_only_ghost_witnesses": True,
         "region_selection_and_candidate_generation_are_user_supplied": True,
         "clight_adapter_included_in_this_audit": False,
         "context_and_check_safety_are_instance_obligations": True,

@@ -71,3 +71,5 @@ C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩�
 第七个实际程序是 [普通 load／计算表达式的比较](clight-loaded-comparison-case.md)：统一入口通过 737 次调用，核对每次头部重新读取当前 bound，并包含一次源 volatile load 后的只读快照比较。该模板从实际源比较求值建立域，在当次 `left≤right` 下证明两个 signed32 完整比较值相同；没有将 body 改变的 bound 缓存为入口参数。原头部程序新增常量检查，其余 17 份既有源码／Clight 摘要相同；十四种配置在 184 端点审计下回归通过。
 
 第八个实际程序是 [内存上界与二维 2×2 调度](clight-loaded-matrix-case.md)：统一入口在同一次宏片段替换中消费源行前缀的四 word 检查、实际 load 稳定性、私有 snapshot 和列优先调度。668 次调用／673 行输出、七处实际 guard 通过；独立入口运行同一程序也通过。宏选择器先尝试这个模板，新的 body frame／strict rank 协议提供独立源进展；其余规则的前提和覆盖保持各自声明。199 端点审计无新增公理，十五种配置回归通过，21 份既有源码／Clight 摘要相同。一般动态 memory-bound 尺寸／stride 仍是缺口。
+
+[通用只读前缀扫描](readonly-prefix-scan-interface.md)阶段将当前完整编译审计扩展到 209 端点，纯接口 49 个闭合端点、Clight 59 个端点没有新增公理；十五种配置全部重建回归通过，23 份既有源码／Clight 摘要相同。统一入口的 indexed memory-bound 规则实际调用新生成器，其他规则的局部与全局契约保持相同。

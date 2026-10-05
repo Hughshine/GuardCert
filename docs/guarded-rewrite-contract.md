@@ -91,6 +91,8 @@ Cond ::= true | false | Atom
 
 [带依赖的只读检查](condition-stage-interface.md) 另提供顺序阶段组合。使用者分别提交 `D` 上建立 `P` 的检查，以及 `D and P` 上建立 `Q` 的检查；框架生成组合并证明安全、只读、可用及接受 `P and Q`。后一个检查可以使用先前阶段已接受的事实来证明读取或算术有定义。任意有限列表复用 `certified_condition_stages` 与 `synthesize_condition_stages`；具体语言只补充常量检查和检查顺序构造的分派／安全定律。实际 Clight 内存上界规则已使用此设施，局部 rewrite 与全局宿主契约保持相同。
 
+[只读分支与前缀扫描](readonly-prefix-scan-interface.md) 进一步支持不同结果通往不同安全域。使用者为 true／false 分别交付证据，框架组合对应分支；普通条件的拒绝仍没有否定含义。扫描使用者提供活动检查、当前点检查和下一点的证明 invariant，框架生成有界短路树并返回原有 `readonly_condition`。源前缀、alias、访问权限或 arithmetic site 的具体含义由语言实例提供；全部 footprint 的覆盖仍由使用者证明。
+
 新数学实例实际提供 `DifferentCells` 和 `NoWrapIncrement8` 两个原子，并证明其 Boolean AST 的只读检查。既有 [Presumption.v](../theories/Presumption.v) 还实现了一个受限示例语法：表达式是常量、标量、加、减，原子是大小／相等、该运算树的无溢出、界内和区间分离；其 block／offset／extent 是示例 metadata，不是可直接运行的 CompCert 权限检查。这些实例语法与通用原子扩展机制应明确区分。
 
 | 维度 | 可表达的受限原子 | 运行时／静态依据 | 主要局部用途 |

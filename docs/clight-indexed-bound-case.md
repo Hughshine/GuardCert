@@ -37,7 +37,7 @@ guard 依次比较 `small+0`、`small+1`、`small+2`，第三次发现 alias 后
 
 `indexed_bound_domain_from_source` 从实际源头部取得 iterator、上界指针和读取值，并提供一个仅用于证明的源完成 witness。这个 witness 不要求上界稳定，不会被提取到运行时。源进展使用 signed32 最大值减去当前 iterator 的排名函数；所有实际为真的头部都保证自增不会越过最大值，排名与上界是否变化无关。
 
-`indexed_bound_source_step` 从一个实际为真的源头部与剩余源执行解出下一次真实 store、自增及源 tail。`indexed_bound_alias_scan_run` 随检查前缀推进该 ghost 执行：
+`indexed_bound_source_step` 从一个实际为真的源头部与剩余源执行解出下一次真实 store、自增及源 tail。原直接证明 `indexed_bound_alias_scan_run` 随检查前缀推进该 ghost 执行：
 
 1. 当前源 load 给出相同的上界，故可判断当前点是否活动。
 2. 真实源 store 给出当前地址的写权限；此前 store 保持权限，将其运输回只读检查使用的入口 memory。
@@ -45,6 +45,8 @@ guard 依次比较 `small+0`、`small+1`、`small+2`，第三次发现 alias 后
 4. 若 alias，检查立即拒绝。若 non-alias，Mint32 对齐／字节分离引理保持 bound 的 load 值，然后才能使用剩余源执行证明下一点安全。
 
 接受后的覆盖证明另由 `indexed_bound_alias_scan_sound` 给出。检查安全和接受含义是两份证据，前者没有使用完整已接受 footprint 的稳定性结论。`positive_readonly_tree_primitives` 将具有完成路径证书的含 load 检查树接入前提公式合成；拒绝仍为 unknown，不自动证明前提的否定。
+
+当前编译入口进一步改用 [通用前缀扫描](readonly-prefix-scan-interface.md)：`indexed_prefix_activity` 为实际活动探针的两种结果提供证据，`indexed_prefix_point` 在当前源 witness 上取得比较权限并在接受后推进 witness。框架生成短路树并证明只读条件。`indexed_bound_generated_tree` 实际调用这个生成器，完整检查与原树有相等定理；原直接证明保留作为历史基线，局部稳定性与完整编译证书消费的是新组合契约。
 
 ## 从活动迭代到局部等价
 
@@ -65,8 +67,8 @@ compile_indexed_bounds p = OK target
 
 复现入口为 `make interface-indexed-bound-native`；统一 pass 的相同源程序使用 `python3 scripts/native_interface_indexed_bound.py --common`。验证包含逐单元／公开出口与 GCC 及独立逐头部 load 模型的比较，生成 Clight 中的 16 个活动地址比较、17 个提前成功候选，以及三种不支持的源模板拒绝。
 
-141 个编译接口端点的假设审计通过，没有新增公理；十二种编译器配置重建并回归通过。新独立入口和统一 pass 对本程序各通过 1079 次调用／2154 行输出：1050 个同对象网格输入、20 个不同对象输入、一个 const bound、四个 null out 空域、两个三元素数组上界变化输入，以及 goto／有限外围循环。528 个网格输入满足 guard，其余包括 alias、超 cap 与空路径回退。无限外围函数也确认生成 guard，未执行。
+原实例及顺序组合阶段有 141 个编译接口端点通过假设审计，没有新增公理；当时十二种编译器配置重建并回归通过。独立入口和统一 pass 对本程序各通过 1079 次调用／2154 行输出：1050 个同对象网格输入、20 个不同对象输入、一个 const bound、四个 null out 空域、两个三元素数组上界变化输入，以及 goto／有限外围循环。528 个网格输入满足 guard，其余包括 alias、超 cap 与空路径回退。无限外围函数也确认生成 guard，未执行。通用扫描迁移后的当前审计／回归记录见 [接口说明](readonly-prefix-scan-interface.md)。
 
 上界 8 的三元素数组实际结果是 `exit 3` 与 `small 1 2 3`；上界 INT_MAX 的相同数组也保持该合法源结果，并在 cap 测试处回退。生成的四个函数均有顺序排列的 16 个活动地址比较、17 个仅在成功叶子内执行的私有快照和缓存循环头；不支持的三个源模板未改写。报告位于 `build/interface-indexed-bound-native/report.json` 与 `build/interface-common-indexed-bound-native/report.json`，绑定源码、Clight、汇编、实际提取编译器和当前证明报告。
 
-本例缓存单个上界，body 写入连续 indexed word。检查成本仍为 O(cap)，直接 tree lowering 仍复制 17 个候选；没有性能测量。一般无界／仿射区间检查、多个相互依赖的 memory 参数、内存上界与二维调度的组合、潜在发散的 `!=` 源循环及旧 affine／tiling 路径迁移仍是后续工作。
+本例缓存单个上界，body 写入连续 indexed word。检查成本仍为 O(cap)，直接 tree lowering 仍复制 17 个候选；没有性能测量。[内存上界与 2×2 调度](clight-loaded-matrix-case.md)已在另一个模板中组合；一般动态 memory-bound 尺寸／stride、无界／仿射区间检查、多个相互依赖的 memory 参数、潜在发散的整段 `!=` 源调度及旧 affine／tiling 路径迁移仍是后续工作。

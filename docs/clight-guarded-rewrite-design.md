@@ -35,6 +35,8 @@
 
 [阶段检查接口](condition-stage-interface.md) 还允许后一个原子的安全域使用先前建立的事实。语言无关 `sequence_readonly_conditions` 及有限列表合成只依赖检查代数；Clight 提供实际树 bind 的安全／分派定律。内存上界规则已将 `i==0` 证书与依赖该事实的活动路径／alias 证书组合，生成 guard 与原来相同。
 
+[分支／前缀扫描接口](readonly-prefix-scan-interface.md) 增加两个结果各自的证据，以及活动前缀结束后的提前接受。indexed 内存上界规则消费通用扫描：当前 store 提供比较权限，non-alias 后才运输 bound load 与剩余真实源执行到下一点；所有实际测试仍使用同一入口。合成树与既有手写树相等，局部 rewrite 和宿主契约保持相同。
+
 [ClightPreloadExample.v](../prototype/interface/ClightPreloadExample.v) 实现一个实际内存读取例子：先测试计数，仅在非零路径上读取指针中的整数。域要求计数有整数值；活动路径还要求实际 `Mem.loadv` 返回整数。计数为零时，指针可以完全没有定义。已证明检查安全、拒绝路径不需要指针，以及接受前提下的实际分支删除等价。[ClightPreloadSynthesis.v](../prototype/interface/ClightPreloadSynthesis.v) 将该原子接入 Boolean 公式合成，证明单原子生成的检查正是上述延迟树，并证明空路径在取否定后仍拒绝。
 
 `preload_domain_from_source_execution` 已从这个源模板的实际终止执行导出域，供后述编译器实例消费。它不是任意循环入口的放置证明；不同源循环须提供自己的执行对应／进展证书。

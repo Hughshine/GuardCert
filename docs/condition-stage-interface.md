@@ -45,6 +45,8 @@ readonly_condition H D (P and Q) (then_check A first second)
 
 列表的顺序是使用者显式提供的。框架不会自动交换有依赖的检查；检查可以是由已有前提公式合成器生成的一整棵树。因此，Boolean 公式组合与带依赖的阶段组合可以共同使用。
 
+顺序阶段将 false 固定为拒绝。需要“不活动时提前成功”的检查，使用新的 [分支／前缀扫描接口](readonly-prefix-scan-interface.md)：两种结果各有明确证据，分支域分别使用它们；通用扫描在活动点的性质通过后才推进下一点的 ghost 依据。普通保守条件拒绝时仍只建立 True，不能被提升成逻辑否定。indexed 内存上界编译入口已迁移到这份设施；检查语法与原手写扫描有相等定理。
+
 ## 实际 memory-bound 规则
 
 已有 `i<*bound` 源循环在 body 中写固定的 `*out`，候选缓存上界。新的 [ClightLoadedBoundGuard.v](../prototype/interface/ClightLoadedBoundGuard.v) 使用这套设施组合两个证书：

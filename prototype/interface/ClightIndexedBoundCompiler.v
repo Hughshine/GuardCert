@@ -7,7 +7,7 @@ From Guard Require Import AbstractGuard SemanticFacts ClightGuard ClightConditio
   ClightStraightLine ClightCountedLoop ClightCountedProtocol ClightFrontendRegion ClightFrontendLoopProtocol ClightLoopSyntax ClightRegionProgress.
 From GuardInterface Require Import ClightReadonlyRewrite ClightReadonlyProjectedCompiler ClightReadonlyProjectedLoopRule
   ClightStrictLoopProgress ClightLoadedBoundCompiler ClightIndexedLoadCompiler ClightIndexedBoundSyntax
-  ClightIndexedBoundGuard ClightIndexedBoundLoop.
+  ClightIndexedBoundGuard ClightIndexedBoundStagedGuard ClightIndexedBoundLoop.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -46,14 +46,14 @@ Definition indexed_bound_rule live iterator out bound cache body cap (CAP : (Z.o
 Proof.
   apply readonly_projected_forward_loop_rule with
     (candidate := indexed_bound_candidate iterator bound cache body)
-    (guard := synthesize_decision_tree (@indexed_bound_primitives iterator out bound body cap IO IQ FLAT CAP) (Fact tt))
+    (guard := @indexed_bound_generated_tree iterator out bound body cap IO IQ FLAT)
     (domain := indexed_bound_domain iterator bound body)
     (premise := indexed_bound_guard_property iterator out bound cap tt) (writes := [iterator]).
   - exact (@indexed_bound_source_writes iterator bound out body FLAT).
   - exact (@indexed_bound_source_quiet iterator bound out body FLAT).
   - cbn [indexed_bound_candidate frontend_counted_loop quiet_statement counter_increment].
     rewrite (@ClightIndexedBoundPrefix.indexed_bound_body_quiet out iterator body FLAT); reflexivity.
-  - intro temps; apply indexed_bound_condition.
+  - intro temps; apply indexed_bound_generated_condition; exact CAP.
   - intros temps entry observed DOMAIN PREMISE SOURCE.
     exact (@indexed_bound_forward (adapter_entry temps) live iterator out bound cache body cap entry observed
       IO IQ CI CQ CP FRESH FLAT DOMAIN PREMISE SOURCE).
