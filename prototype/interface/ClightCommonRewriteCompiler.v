@@ -5,7 +5,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightRegionProgress ClightStructuredProgress.
 From GuardInterface Require Import ClightReadonlyCompiler ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding
   ClightPreloadCompiler ClightReadonlyMatrix ClightReadonlyLoopUpdates ClightReadonlyCellSwap
-  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler ClightEqualityCompiler ClightReadonlyTestCompiler ClightEqualityHeadCompiler ClightLoadedMatrixCompiler ClightLoadedMatrixSyntax ClightLoadedRectangleCompiler.
+  ClightStableLoadCompiler ClightLoadedBoundCompiler ClightRuntimeStrideCompiler ClightIndexedLoadCompiler ClightIndexedBoundCompiler ClightEqualityCompiler ClightReadonlyTestCompiler ClightEqualityHeadCompiler ClightLoadedMatrixCompiler ClightLoadedMatrixSyntax ClightLoadedRectangleCompiler ClightLoadedStrideCompiler.
 Set Implicit Arguments.
 
 (** This is a user pass combining existing rules. Selection priority and
@@ -27,6 +27,8 @@ Definition choose_common_rewrite live pool source : option (readonly_projected_c
   | Some rule => Some rule
   | None => match choose_loaded_rectangle live pool source with
   | Some rule => Some rule
+  | None => match choose_loaded_stride live pool source with
+  | Some rule => Some rule
   | None => match choose_indexed_bound_default live pool source with
   | Some rule => Some rule
   | None => match choose_loaded_bound live pool source with
@@ -37,7 +39,7 @@ Definition choose_common_rewrite live pool source : option (readonly_projected_c
     | Some rule => Some rule
     | None => match choose_common_exact source with
       | Some rule => embed_quiet_exact_rule live rule
-      | None => None end end end end end end end.
+      | None => None end end end end end end end end.
 Definition common_progress_supported source :=
   loaded_nested_supported source ||
     (equality_loop_supported source || (indexed_bound_progress_supported source || structured_progress_supported source)).

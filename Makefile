@@ -72,6 +72,7 @@ interface-common-native: interface-compiler-proof
 	python3 scripts/native_interface_loaded_equality.py --common
 	python3 scripts/native_interface_loaded_matrix.py --common
 	python3 scripts/native_interface_loaded_rectangle.py --common
+	python3 scripts/native_interface_loaded_stride.py --common
 
 .PHONY: interface-runtime-stride-native
 interface-runtime-stride-native: interface-compiler-proof
@@ -119,8 +120,13 @@ interface-simplified-rectangle-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --simplified-rectangle
 	python3 scripts/native_interface_loaded_rectangle.py --simplified
 
+.PHONY: interface-loaded-stride-native
+interface-loaded-stride-native: interface-compiler-proof
+	python3 scripts/build_interface_compiler.py --loaded-stride
+	python3 scripts/native_interface_loaded_stride.py
+
 .PHONY: interface-native-suite
-interface-native-suite: interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native interface-equality-native interface-equality-head-native interface-loaded-matrix-native interface-loaded-rectangle-native interface-shared-loaded-rectangle-native interface-simplified-rectangle-native
+interface-native-suite: interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native interface-equality-native interface-equality-head-native interface-loaded-matrix-native interface-loaded-rectangle-native interface-loaded-stride-native interface-shared-loaded-rectangle-native interface-simplified-rectangle-native
 
 demo:
 	python3 prototype/demo.py
