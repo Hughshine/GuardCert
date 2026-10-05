@@ -105,6 +105,12 @@
 
 构造器将 `D` 加上显式 ghost 源完成性，由实际源执行获得该证书，再用候选确定性建立反方向，返回 `readonly_clight_rule source`。使用者仍提供片段选择和进展分类器；框架不能凭一个数学调度替代实际执行证明，也不能让运行时查询 ghost 完成性。上面的 update／行依赖规则使用这个构造器。这条全局路线仍要求原始出口相同；隐藏私有出口的局部构造器通过下述投影编译接口另行接入。
 
+### 带 non-alias guard 的稳定 load 提升
+
+[稳定 load 使用者案例](clight-stable-load-case.md) 提交源 `*out=*parameter+(unsigned)i+1U` 的计数循环、私有快照候选以及 `i=0`／源活动／non-alias 条件。检查代码不读取参数内容；它先确认源活动路径，再比较指针。第一次候选 preload 的安全性由实际源第一次读取导出，参数在每次写入后的不变性由分离的 Mint32 访问证明。参数只需可读，数据 unsigned 回绕保留；数组足迹与内存载入的循环界不能由此实例得到。
+
+[ClightCountedLocalization.v](../prototype/interface/ClightCountedLocalization.v) 提供实际计数循环与逐次实际 body 的双向对应；次数不由编译器枚举。[ClightReadonlyProjectedLoopRule.v](../prototype/interface/ClightReadonlyProjectedLoopRule.v) 为规则作者连接只读条件、源完成、候选原始确定性和公开观察运输。[ClightStableLoadCompiler.v](../prototype/interface/ClightStableLoadCompiler.v) 核对完整源 AST，消费这些证书和新鲜 snapshot temp，通过 `compile_stable_loads_correct` 接完整 Csem→Asm。它是已经使用投影全局接口的真实循环案例。
+
 ## 与已有 CompCert 路线的连接边界
 
 新增 [ClightReadonlyCompiler.v](../prototype/interface/ClightReadonlyCompiler.v) 提供 `readonly_clight_rule source`，绑定候选、合成条件、域／前提、只读证书、局部等价与源入口证明。使用者提供 `choose` 以及源进展分类证书；编译工具消费这些证书并复用既有区域宿主。`compile_readonly_rewrites_correct` 已证明完整 Csem→Asm 的 backward simulation。
@@ -115,7 +121,7 @@
 
 这个宿主使用 `program_temps` 收集所有原标识，构造并检查新鲜 pool，将其追加到目标函数 `fn_temps`，证明函数入口、外围语句、循环、goto、调用和 continuation 的运输。这里的 `live` 是所有原程序 temps 的保守集合，不是自动 liveness 分析的最小集合；当前不能据此隐藏原程序中已存在但被认为 dead 的 temp。公共观察仍保留完整内存的双向 `Mem.extends`、trace 和控制 outcome。原子 observer 的空写集声明也不是一个 frame 证书。
 
-`transform_projected_readonly_correct` 给出完整 Clight `semantics2` 的 forward simulation；`compile_projected_readonly_correct` 接到 Csem→Asm backward simulation。没有声称完整 Clight 双向行为等价。[ClightPrivateCandidateCompiler.v](../prototype/interface/ClightPrivateCandidateCompiler.v) 是实际使用者：核对 `public=5`，候选先写新鲜 `private=99` 再执行原赋值，guard 是 `Decision true`。这是上下文与私有状态能力测试，没有性能收益主张；一般私有迭代器、参数快照及 affine 实例仍需各自的局部证明。
+`transform_projected_readonly_correct` 给出完整 Clight `semantics2` 的 forward simulation；`compile_projected_readonly_correct` 接到 Csem→Asm backward simulation。没有声称完整 Clight 双向行为等价。[ClightPrivateCandidateCompiler.v](../prototype/interface/ClightPrivateCandidateCompiler.v) 是实际使用者：核对 `public=5`，候选先写新鲜 `private=99` 再执行原赋值，guard 是 `Decision true`。这是上下文与私有状态能力测试，没有性能收益主张；普通参数快照随后通过下述 load 提升实例接入；一般私有迭代器及 affine 实例仍需各自的局部证明。
 
 已有 affine-nest 编译器另具备真实源执行、运行时检查、调度核对和完整 C→Asm 定理，证据见 [多面体接入目标](polcert-integration-target.md)。其条件运行会写私有 temps，局部候选主要提供源到目标的执行运输。它尚未迁移到本页的只读等价接口。
 
@@ -137,9 +143,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-rectangle-nati
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-cells-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-loops-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-private-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-stable-load-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计四十三个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计五十六个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 
@@ -152,3 +159,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 组合循环目标提取 `ClightReadonlyLoopUpdates.compile_readonly_rectangles`：225 个 store、345 个读写更新和 225 个行依赖正矩形，十九处实际改写区域通过；842 行输出逐单元和完整 iterator 出口与 GCC／独立模型一致。每类都有接受、回退、空域、全局数组、goto／外围循环和未读取内层界案例；compound assignment 也确实被改写。邻居读取、对角线依赖、volatile 和无效布局拒绝。报告位于 `build/interface-loops-native/`。这与只处理 store 的独立矩形入口分开记录；没有性能测量。
 
 私有候选目标提取 `ClightPrivateCandidateCompiler.compile_private_candidate`：83 次调用通过，输出 `625 0`。Clight dump 中普通函数、goto 及有限／无限外围循环的四处候选确实声明并写入隐藏 temp，公开赋值与 continuation 结果保持；无限循环只编译和检查。原始出口 temps 不完全相同，该实例实际消费投影接口。报告位于 `build/interface-private-native/`。提取缓存同时绑定证明报告摘要，避免沿用属于旧审计报告的 stamp。
+
+稳定 load 目标提取 `ClightStableLoadCompiler.compile_stable_loads`：727 次调用、727 行输出逐单元／iterator 与 GCC 及独立期望一致。360 个别名矩阵输入、360 个同 block 分离输入、三个空循环 null 调用及四个只读参数调用通过；非零／负起点回退，unsigned 数据回绕保持。普通函数、goto、外围循环和无限外围循环中的四处 guard／快照／候选 body 已确认；无限循环未运行。`i=0,n=2,out=parameter,初值=0` 的反例保留结果 3，省略 guard 的缓存会得到 2。volatile、不同常数和变化的参数指针模板拒绝。报告位于 `build/interface-stable-load-native/`；没有性能测量。

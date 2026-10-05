@@ -9,7 +9,9 @@ from audit_interface_clight import ROOT, sha, compcert_flags
 WORK = ROOT / "build/interface-compiler"
 MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
            "ClightReadonlyLoopUpdates", "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame",
-           "ClightReadonlyProjectedCompiler", "ClightPrivateCandidateCompiler"]
+           "ClightReadonlyProjectedCompiler", "ClightPrivateCandidateCompiler",
+           "ClightCountedLocalization", "ClightStableLoadBody", "ClightStableLoadGuard",
+           "ClightReadonlyProjectedLoopRule", "ClightStableLoadLoop", "ClightStableLoadCompiler"]
 ENDPOINTS = {
     "ClightReadonlyLoopRule.readonly_forward_loop_rule": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
@@ -54,6 +56,19 @@ ENDPOINTS = {
     "ClightPrivateCandidateCompiler.private_candidate_rule": "FRAGMENT",
     "ClightPrivateCandidateCompiler.choose_private_candidate": "FRAGMENT",
     "ClightPrivateCandidateCompiler.compile_private_candidate_correct": "COMPILER",
+    "ClightCountedLocalization.counted_body_decode": "FRAGMENT",
+    "ClightCountedLocalization.counted_body_encode": "FRAGMENT",
+    "ClightStableLoadBody.mint32_load_survives_apart_store": "FRAGMENT",
+    "ClightStableLoadBody.stable_load_body_cached": "FRAGMENT",
+    "ClightStableLoadBody.stable_load_body_preserves_parameter": "FRAGMENT",
+    "ClightStableLoadGuard.stable_load_condition": "FRAGMENT",
+    "ClightStableLoadGuard.stable_load_domain_from_source": "FRAGMENT",
+    "ClightReadonlyProjectedLoopRule.readonly_projected_forward_loop_rule": "FRAGMENT",
+    "ClightStableLoadLoop.stable_iterations_cached": "FRAGMENT",
+    "ClightStableLoadLoop.stable_load_forward": "FRAGMENT",
+    "ClightStableLoadCompiler.stable_load_rule": "FRAGMENT",
+    "ClightStableLoadCompiler.choose_stable_load": "FRAGMENT",
+    "ClightStableLoadCompiler.compile_stable_loads_correct": "COMPILER",
 }
 BASELINES = {
     "FRAGMENT": "ClightCondition.fragment_language",
@@ -129,6 +144,7 @@ def main():
             "cells": "ClightReadonlyCellSwap.compile_readonly_cell_pairs",
             "loops": "ClightReadonlyLoopUpdates.compile_readonly_rectangles",
             "private_candidate": "ClightPrivateCandidateCompiler.compile_private_candidate",
+            "stable_load": "ClightStableLoadCompiler.compile_stable_loads",
         },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
@@ -139,6 +155,8 @@ def main():
         "private_temporary_projection_supported": True,
         "projected_context_adapter_proved": True,
         "private_candidate_uses_projected_adapter": True,
+        "stable_load_hoisting_uses_projected_adapter": True,
+        "guarded_loop_parameter_load_stability_proved": True,
         "projected_adapter_protects_all_original_program_temporaries": True,
         "fixed_2x2_loop_interchange_uses_new_api": True,
         "dynamic_rectangle_store_interchange_uses_new_api": True,

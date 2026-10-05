@@ -26,6 +26,7 @@ def main():
     instances.add_argument("--cells", action="store_true", help="build the guarded aligned-word store exchange")
     instances.add_argument("--loops", action="store_true", help="build rectangular stores, RMW and row dependency instances")
     instances.add_argument("--private-candidate", action="store_true", help="build the projected private-candidate example")
+    instances.add_argument("--stable-load", action="store_true", help="build guarded loop parameter-load hoisting")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
@@ -42,11 +43,14 @@ def main():
     elif args.private_candidate:
         WORK = ROOT / "build/compcert-interface-private"
         ENTRY = "ClightPrivateCandidateCompiler.compile_private_candidate"
+    elif args.stable_load:
+        WORK = ROOT / "build/compcert-interface-stable-load"
+        ENTRY = "ClightStableLoadCompiler.compile_stable_loads"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
     instance = ("matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
-                "private_candidate" if args.private_candidate else "preload")
+                "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else "preload")
     expected = proof["whole_program_entrypoints"][instance]
     if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")
