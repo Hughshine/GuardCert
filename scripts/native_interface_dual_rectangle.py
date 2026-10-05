@@ -1,4 +1,5 @@
 """Check actual array interchange with two dynamically loaded loop bounds."""
+import argparse
 import itertools
 import json
 import re
@@ -104,8 +105,12 @@ def expected_output():
 
 
 def main():
-    instance = "dual-rectangle"
-    entry = "ClightDualRectangleCompiler.compile_dual_rectangles"
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--simplified", action="store_true")
+    args = parser.parse_args()
+    instance = "simplified-dual-rectangle" if args.simplified else "dual-rectangle"
+    entry = ("ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles" if args.simplified else
+             "ClightDualRectangleCompiler.compile_dual_rectangles")
     compiler = ROOT / f"build/compcert-interface-{instance}/ccomp"
     work = ROOT / f"build/interface-{instance}-dual-rectangle-native"
     work.mkdir(parents=True, exist_ok=True)
@@ -154,7 +159,8 @@ def main():
         for point in range(extent):
             for bound in ["rows", "columns"]:
                 probe = f"if ({array} + {point} == ${bound})"
-                expected_copies = (stride+1)**(point//stride)*regions
+                row, column = divmod(point,stride)
+                expected_copies = ((1 if row == 0 else stride-column) if args.simplified else (stride+1)**row)*regions
                 if body.count(probe) != expected_copies:
                     raise SystemExit(f"Missing pairwise active alias probe {probe} in {name}")
         row_caches = re.findall(r"(\$\w+) = \*\$rows;", body)
@@ -194,7 +200,8 @@ def main():
         "selector_extent_cap":12, "local_theorem_has_extent_cap":False,
         "main_printed_body_bytes":len(function_body(text,"dual_rectangle").encode()),
         "main_syntax_if_count":function_body(text,"dual_rectangle").count("if ("),
-        "main_alias_comparison_sites":248,
+        "main_alias_comparison_sites":len(re.findall(r"if\s*\(\s*cells \+ \d+ == \$(?:rows|columns)\)", function_body(text,"dual_rectangle"))),
+        "readonly_probe_simplification":args.simplified,
         "guard_continuations_duplicated":True,
         "readonly_condition_writes_original_state":False, "shared_guard_lowering_uses_private_boolean":True,
         "runtime_branch_counts_measured":False, "performance_measured":False,

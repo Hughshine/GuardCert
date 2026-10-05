@@ -242,3 +242,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 [双动态上界的幂等写入化简](clight-dual-repeated-store-case.md)又提供精确出口规则：普通零写入在第一次实际执行后不再改变 memory；两项 bound non-alias 保持读取，任意正 signed32 尺寸的源循环对应一个 store 和两项 counter 恢复。源进展复用混合 loaded 协议，候选无 cache，完整编译复用原宿主。实际内存固定点使用既有 memory 记录相等基线；volatility、任意 body 和数组调度不由该事实自动获得。
 
 [两个动态内存上界的矩形使用者](clight-dual-dynamic-rectangle-case.md)也已消费同一接口。使用者交付每点真实 store、两个读取的前缀不变性、实际行退出／增量和两个 cache 的 private scope；框架复用嵌套只读扫描、观察提升和完整程序宿主。最后活动点的接受性质可以包含建立下一行 ghost invariant 的证据，条件代码仍只访问入口。双缓存规则当前使用独立共享入口，检查 continuation 的语法复制和 extent≤12 的选择器界单独记录；这些成本不由局部语义等价自动解决。
+
+同一双动态矩形规则还直接消费 `simplified_projected_rule`：保留原条件的 D／P、候选、入口和局部等价证书，替换检查树后复用共享宿主。相同 113,330 次 C 调用通过，主函数静态打印体 129,224→14,234 字节；这展示条件后处理接口复用，不扩大接受域或提供性能结论，见 [使用者证据](clight-dual-dynamic-rectangle-case.md)。

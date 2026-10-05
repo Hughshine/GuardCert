@@ -64,6 +64,23 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-dual-rectangle
 
 113,280 次有效网格调用中，模型分类 6,516 次入口接受，1,692 次共享 bound 接受；111,996 次 alias 调用包含 1,836 次外层值变化和 1,572 次内层值变化。43,968 个候选网格调用因源越界或超出有限测试预算而未执行；额外 50 次调用覆盖上述边界及另一个布局。这些是输入／模型分类，没有实际分支计数或性能测量。
 
-全量审计通过 364 个编译接口端点、849 份当前证明源码摘要；FRAGMENT=6、MEMORY=1、REGION=6、PROJECTED_REGION=8、STEPWISE=8、COMPILER=35 的既有基线外没有新增全局公理。23 种提取配置全部重建／回归通过，36 份原生报告绑定当前产物；相对 `83295d2`，35 份已有 source／Clight 摘要相同。结构检查最初误设了后续行探针只出现一次，修正为实际树的复制次数后通过；所有运行结果在修正前已一致。
+原共享入口阶段全量审计通过 364 个编译接口端点、849 份当前证明源码摘要；FRAGMENT=6、MEMORY=1、REGION=6、PROJECTED_REGION=8、STEPWISE=8、COMPILER=35 的既有基线外没有新增全局公理。23 种提取配置全部重建／回归通过，36 份原生报告绑定当前产物；相对 `83295d2`，35 份已有 source／Clight 摘要相同。结构检查最初误设了后续行探针只出现一次，修正为实际树的复制次数后通过；所有运行结果在修正前已一致。
 
-共享出口没有共享检查树的 continuation。布局 12／4 的主函数打印体为 129,224 字节，包含 413 个语法 `if` 和 248 个 alias 比较位置；每条运行路径只检查当前活动点，但后续行的语法被前行的多个成功叶复制。生成 Clight 的结构断言明确核对这些次数，以及两个独立 cache 和各一份候选／回退。下一步应消费已验证的探针简化或共享检查图；不能将语义正确性当作代码规模或优化收益的证据。
+共享出口没有共享检查树的 continuation。布局 12／4 的主函数打印体为 129,224 字节，包含 413 个语法 `if` 和 248 个 alias 比较位置；每条运行路径只检查当前活动点，但后续行的语法被前行的多个成功叶复制。生成 Clight 的结构断言明确核对这些次数，以及两个独立 cache 和各一份候选／回退。下面的已验证简化减少重复测试；一般共享检查图仍未接入，不能将语义正确性当作优化收益的证据。
+
+## 保留原证书的条件简化
+
+[ClightSimplifiedDualRectangleCompiler.v](../prototype/interface/ClightSimplifiedDualRectangleCompiler.v) 的选择器把同一 `dual_rectangle_rule` 交给 `simplified_projected_rule`。语言无关 [部分探针接口](readonly-probe-simplification.md) 用同一入口中已执行的实际 Boolean 结果简化后续相同表达式；新的只读证书保留 D、P、candidate 和局部证明。该入口仍预留三个私有整数，并有自己的完整 Csem→Asm 定理。
+
+```sh
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-simplified-dual-rectangle-native
+```
+
+同一 source／fixture 的 113,330 次调用与 GCC、无诊断 UBSan、逐头部模型一致，八处 region 保留各一份候选和回退、两个独立 cache。布局 12／4 的主函数打印结果为：
+
+| 检查生成方式 | body 字节 | 语法 if | alias 比较位置 |
+| --- | ---: | ---: | ---: |
+| 共享出口 | 129,224 | 413 | 248 |
+| 共享出口及探针简化 | 14,234 | 69 | 40 |
+
+这是静态生成结果。简化没有推导不同表达式的算术关系，也没有生成一般共享 DAG；部分后续检查的 continuation 仍复制。原共享入口保留可复现，接受范围、extent≤12 和一般布局等限制保持。当前完整审计为 366 个端点、850 份证明源码摘要，24 种配置回归和 37 份原生报告绑定当前产物；相对 `7f8f725` 的 36 份既有 source／Clight 摘要相同，没有新增全局公理。

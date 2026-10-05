@@ -38,8 +38,10 @@ MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCom
            "ClightStoreIdempotence", "ClightDualRepeatedSyntax", "ClightDualRepeatedGuard",
            "ClightDualRepeatedLoops", "ClightDualRepeatedForward", "ClightDualRepeatedCompiler",
            "ClightDualRectanglePrefix", "ClightDualRectangleCursor", "ClightDualRectangleInnerScan", "ClightDualRectangleOuterScan", "ClightDualRectangleGuard", "ClightDualRectangleSynthesis", "ClightDualRectangleLoop", "ClightDualRectangleForward", "ClightDualRectangleCompiler",
-           "ClightCommonRewriteCompiler"]
+           "ClightSimplifiedDualRectangleCompiler", "ClightCommonRewriteCompiler"]
 ENDPOINTS = {
+    "ClightSimplifiedDualRectangleCompiler.choose_simplified_dual_rectangle": "MEMORY_FRAGMENT",
+    "ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles_correct": "COMPILER",
     "ClightDualRectanglePrefix.dual_rect_source_writes": "FRAGMENT",
     "ClightDualRectanglePrefix.dual_rect_open_row": "FRAGMENT",
     "ClightDualRectanglePrefix.dual_rect_inner_step": "FRAGMENT",
@@ -491,6 +493,7 @@ def main():
             "loaded_stride": "ClightLoadedStrideCompiler.compile_loaded_strides",
             "dual_unit": "ClightDualLoadedUnitCompiler.compile_dual_units",
             "dual_matrix": "ClightDualLoadedMatrixCompiler.compile_dual_matrices",
+            "simplified_dual_rectangle": "ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles",
             "dual_rectangle": "ClightDualRectangleCompiler.compile_dual_rectangles",
             "dual_repeat": "ClightDualRepeatedCompiler.compile_dual_repeats",
             "common": "ClightCommonRewriteCompiler.compile_common_rewrites",

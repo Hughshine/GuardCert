@@ -38,7 +38,7 @@ Test p
 - `simplified_probe_tree_safe`：原树在入口安全时，新树也安全；只需要可达分支的定义性。
 - `simplified_probe_condition`：将上述结果连接原条件证书，保持域、接受性质、只读性和可用性。
 - `ClightProbeTree.v`：提供实际表达式／决策树的执行与安全桥，并保留原 projected rule 的 candidate、premise、局部证明和入口证明。
-- `compile_simplified_rectangles_correct`：实例化共享编译宿主，连接完整 Csem→Asm backward simulation。
+- `compile_simplified_rectangles_correct` 和 `compile_simplified_dual_rectangles_correct`：分别实例化单 loaded 和双动态 loaded 矩形的共享编译宿主，连接完整 Csem→Asm backward simulation。
 
 ## 实际验证
 
@@ -58,4 +58,6 @@ Test p
 
 本阶段语言无关接口 54 个闭合端点，Clight 59 个端点，完整编译接口 259 个端点审计无新增全局公理。十八种配置全部重建回归通过，二十七份原生报告绑定当前审计；相对 `2ca0524` 的二十六份已有源码／Clight 摘要全部相同。报告位于 `build/interface-simplified-rectangle-native/report.json`。
 
-这个实例推进条件生成后的已验证简化，不扩大优化模板或接受域。两个内存维度、参数 stride 与内存上界的组合、多个依赖 preload、廉价一般 alias／仿射检查和旧 affine／tiling 迁移仍待完成，见 [主线验收账本](optimistic-loop-acceptance.md)。
+这个实例推进条件生成后的已验证简化，不扩大优化模板或接受域。双动态内存维度的静态矩形与单 loaded 的参数 stride 组合已有后续实例；双 loaded 与参数 stride、多个依赖 preload、廉价一般 alias／仿射检查和旧 affine／tiling 迁移仍待完成，见 [主线验收账本](optimistic-loop-acceptance.md)。
+
+双动态 memory-bound 矩形也已消费同一个后处理接口，无需重做原有的局部调度或条件编码证明。`make interface-simplified-dual-rectangle-native` 通过相同 113,330 次调用；主函数 body 129,224→14,234 字节、语法 if 413→69、alias 位置 248→40。当前 366 个完整编译端点、850 份源码摘要审计无新增全局公理；24 种配置回归和 37 份原生报告通过，36 份旧 source／Clight 摘要相对 `7f8f725` 相同。详细原条件、源前缀义务和保留的树展开限制见 [双动态矩形使用者](clight-dual-dynamic-rectangle-case.md)。

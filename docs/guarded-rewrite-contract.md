@@ -235,3 +235,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [双动态上界的幂等写入化简](clight-dual-repeated-store-case.md)展示局部证明不必来自置换：语言交付第一次实际 store 后的固定点，规则作者构造两层真实执行并保留原 counter 出口，框架仍消费同一只读条件与局部等价。任意正 signed32 尺寸的实例已接到完整编译；这里的 Source→Candidate 正确性包含实际字节 memory、trace 和全部 temps，不能仅凭 memory 幂等性删除 volatile 事件或忽略循环出口。
 
 [两个动态内存上界的矩形使用者](clight-dual-dynamic-rectangle-case.md)也已消费同一接口。使用者交付每点真实 store、两个读取的前缀不变性、实际行退出／增量和两个 cache 的 private scope；框架复用嵌套只读扫描、观察提升和完整程序宿主。最后活动点的接受性质可以包含建立下一行 ghost invariant 的证据，条件代码仍只访问入口。双缓存规则当前使用独立共享入口，检查 continuation 的语法复制和 extent≤12 的选择器界单独记录；这些成本不由局部语义等价自动解决。
+
+同一双动态矩形规则还直接消费 `simplified_projected_rule`：保留原条件的 D／P、候选、入口和局部等价证书，替换检查树后复用共享宿主。相同 113,330 次 C 调用通过，主函数静态打印体 129,224→14,234 字节；这展示条件后处理接口复用，不扩大接受域或提供性能结论，见 [使用者证据](clight-dual-dynamic-rectangle-case.md)。
