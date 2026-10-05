@@ -111,7 +111,7 @@ def main():
         "preload_domain_derived_from_terminating_source_fixture": True,
         "preload_atom_has_formula_synthesis_certificate": True,
         "local_private_candidate_observation_example_proved": True,
-        "private_candidates_connected_to_global_compiler": False,
+        "private_candidate_global_adapter_included_in_this_audit": False,
         "write_frame_interface_is_complete_read_coverage": False,
         "full_clight_equivalence_context_adapter_proved": False,
         "compcert_compiler_uses_new_readonly_api": False,

@@ -8,7 +8,8 @@ from audit_interface_clight import ROOT, sha, compcert_flags
 
 WORK = ROOT / "build/interface-compiler"
 MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
-           "ClightReadonlyLoopUpdates", "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame"]
+           "ClightReadonlyLoopUpdates", "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame",
+           "ClightReadonlyProjectedCompiler", "ClightPrivateCandidateCompiler"]
 ENDPOINTS = {
     "ClightReadonlyLoopRule.readonly_forward_loop_rule": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
@@ -46,11 +47,19 @@ ENDPOINTS = {
     "ClightReadonlyCellSwap.compile_readonly_cell_pairs_correct": "COMPILER",
     "ClightCellFrame.cell_pair_write_frame": "FRAGMENT",
     "ClightCellFrame.cell_pair_stable_parameters": "FRAGMENT",
+    "ClightReadonlyProjectedCompiler.projected_readonly_rule_region_contract": "FRAGMENT",
+    "ClightReadonlyProjectedCompiler.projected_readonly_selection_sound": "FRAGMENT",
+    "ClightReadonlyProjectedCompiler.transform_projected_readonly_correct": "PROJECTED_REGION",
+    "ClightReadonlyProjectedCompiler.compile_projected_readonly_correct": "COMPILER",
+    "ClightPrivateCandidateCompiler.private_candidate_rule": "FRAGMENT",
+    "ClightPrivateCandidateCompiler.choose_private_candidate": "FRAGMENT",
+    "ClightPrivateCandidateCompiler.compile_private_candidate_correct": "COMPILER",
 }
 BASELINES = {
     "FRAGMENT": "ClightCondition.fragment_language",
     "MEMORY": "Mem.mkmem_ext",
     "REGION": "ClightRegionRewrite.guarded_fragment_region_contract",
+    "PROJECTED_REGION": "ClightPrivatePool.transform_private_program_correct",
     "COMPILER": "Compiler.transf_c_program_correct",
 }
 
@@ -79,7 +88,7 @@ def main():
     audit = WORK / "Audit.v"
     lines = ["From compcert.driver Require Import Compiler.",
              "From compcert.common Require Import Memory.",
-             "From Guard Require Import ClightCondition ClightRegionRewrite.",
+             "From Guard Require Import ClightCondition ClightRegionRewrite ClightPrivatePool.",
              "From GuardInterface Require Import " + " ".join(MODULES) + "."]
     queries = {**BASELINES, **{f"CHECK_{i}": theorem for i, theorem in enumerate(ENDPOINTS)}}
     for marker, theorem in queries.items():
@@ -119,13 +128,18 @@ def main():
             "rectangle": "ClightReadonlyRectangle.compile_readonly_rectangle",
             "cells": "ClightReadonlyCellSwap.compile_readonly_cell_pairs",
             "loops": "ClightReadonlyLoopUpdates.compile_readonly_rectangles",
+            "private_candidate": "ClightPrivateCandidateCompiler.compile_private_candidate",
         },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
         "clight_whole_program_equivalence_proved": False,
         "csem_to_asm_backward_simulation_proved": True,
-        "boundary_mode": "exact trace, outcome, memory and all exit temporaries",
-        "private_temporary_projection_supported": False,
+        "boundary_mode": "exact raw exits, or projected exits protecting every original program temporary",
+        "exact_adapter_private_temporary_projection_supported": False,
+        "private_temporary_projection_supported": True,
+        "projected_context_adapter_proved": True,
+        "private_candidate_uses_projected_adapter": True,
+        "projected_adapter_protects_all_original_program_temporaries": True,
         "fixed_2x2_loop_interchange_uses_new_api": True,
         "dynamic_rectangle_store_interchange_uses_new_api": True,
         "dynamic_rectangle_read_modify_write_and_row_dependency_use_new_api": True,
