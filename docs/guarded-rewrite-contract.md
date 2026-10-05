@@ -219,3 +219,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [普通表达式规则](clight-loaded-comparison-case.md)进一步展示使用者如何定义有证明的 condition 生成器：提供两个实际 signed32 操作数及类型证书，模板生成 `≤` 检查、从实际源求值得到的定义域和完整比较值等价。普通 load 可重复于本次只读求值，但不自动成为稳定 preload；source volatile 事件必须在检查之前执行一次。独立／统一入口各通过 737 次调用，完整接口 184 端点审计无新增公理。
 
 [内存上界／二维调度使用者](clight-loaded-matrix-case.md)也已交付同一个 projected rule：提供真实语法和局部 body 证书，检查安全从实际源行前缀建立，完整前提接受后才稳定 preload 并重排四个动作。独立源进展由保护 outer iterator 的嵌套协议提供，不能假定 alias 不会改变源循环次数。独立／统一入口各通过 668 次调用；199 端点审计无新增公理。当前接受域固定为 2×2，不由这一实例推广到任意 schedule 或一般 memory-bound 尺寸。
+
+[动态内存上界矩形](clight-loaded-rectangle-case.md)进一步演示相同接口的组合：使用者提供当前行的真实解码和权限运输、整行接受后的 load 保持性、候选快照／调度及公开出口，框架复用两层前缀扫描和单次 projected rewrite。支持运行时行数／列数与静态 stride；独立／统一入口各通过 6,248 次调用，完整接口 242 端点审计无新增公理。该实例不要求核理解内存，但检查自身是否有定义仍必须由语言／规则作者证明。

@@ -220,3 +220,9 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 [2×2 memory-bound 案例](clight-loaded-matrix-case.md)把源 header 的普通 load、只读四 word 检查、私有 bound cache 和真实列优先执行接到同一 projected rule。当前行的实际 store 提供权限；只在前行 non-alias 全部通过后推进 ghost 源 tail，证明下一行安全，而实际条件始终读入口。局部不变式保证 load 稳定，源行序解码及 CompCert store 交换再建立候选执行／完整公共出口。它不是仅打印一个没有消费的 schedule。
 
 `strict_framed_progress` 另允许 body 含其自己的 framed loop 协议，只保护 outer iterator。源最大值 rank 与 guard／load 稳定独立；这项语言设施不改变语义无关核的契约。`compile_loaded_matrices_correct` 与统一入口都连接完整 Csem→Asm。独立／统一入口各通过 668 次调用／673 行输出，当前完整审计 199 端点，十五种提取配置回归通过，21 份既有 source／Clight 摘要相同。接受域仍为 2×2；一般动态内存尺寸／stride、复杂 body 及 affine 迁移继续推进。
+
+## 动态内存行数和列数
+
+`ClightLoadedRectangleCompiler` 将上述组合扩展到动态矩形：当前真实源行给出完整内层 stores，不预设 non-alias；内层 scan 检查活动地址，整行接受后外层 scan 才推进 bound 稳定和真实源 tail。两层均调用通用生成器，生成宿主与实际函数宿主的语法一致性另有证明。候选采用已有 `rectangle_local`，scope／freshness 保护全部原程序 temps 和内存。
+
+独立／统一入口各通过 6,248 次调用／6,253 行输出，242 端点审计和十六种配置回归通过，23 份已有源码／Clight 摘要相同。stride 仍静态；示例 pass 限制树展开预算，实际每处 region 有 156 份候选。完整义务、反例和后续缺口见 [动态矩形使用者](clight-loaded-rectangle-case.md)。

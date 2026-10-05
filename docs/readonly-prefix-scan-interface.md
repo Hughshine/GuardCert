@@ -65,3 +65,7 @@ cursor 是数学点 k。活动检查是入口的 `k < (int)*bound`，点检查�
 实际提取产物 `build/compcert-interface-indexed-bound/extraction/ReadonlyPrefixScan.ml` 的 spec 只保留 `prefix_next`、`prefix_active_probe`、`prefix_point_probe` 三个生成代码字段。`ClightIndexedPrefixScan.ml` 没有源执行、权限或 load-stability 查询；`ClightIndexedBoundStagedGuard.ml` 实际调用 `synthesize_prefix_scan`。这核对了本实现的证明信息擦除，仍沿用 Rocq 提取及 OCaml／工具链的既有信任边界。
 
 这次设施提炼没有扩大 indexed 模板的接受域，也没有降低 O(cap) 比较成本或 17 个候选出口的代码复制。它复用已有只读条件和源执行证明，不能据此提出新颖性或性能结论。动态多维 memory-bound／stride、多个依赖 preload、一般无界／仿射检查，以及旧 affine／tiling 路线迁移，仍属于 [主线验收](optimistic-loop-acceptance.md) 的未完成工作。
+
+## 两层实际扫描的组合
+
+[动态内存上界矩形](clight-loaded-rectangle-case.md)又在实际提取入口中嵌套使用这个生成器：内层检查当前行的活动列，外层消费整行接受性质并推进真实源 tail。当前行完整访问来自源执行；未来行访问依据只在当前行 non-alias 后建立。核没有新增矩形、指针或 load 语义。动态尺寸的独立／统一编译入口各通过 6,248 次调用，完整编译接口现为 242 个端点，十六种配置全部重建回归通过。检查树会复制后续代码，实例已设置规模预算，尚需有证明的共享出口或廉价足迹检查。

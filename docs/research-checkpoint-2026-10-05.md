@@ -1,6 +1,6 @@
 # 2026-10-05：当前框架、运行效果与下一项验收
 
-GuardCert 当前能把使用者提供的片段变换安装成“运行时条件成立就执行候选，否则执行原片段”，并将条件正确性、局部执行对应和上下文证明连接到 CompCert 完整 Csem→Asm backward simulation。主要目标仍是 [Optimistic Loop Optimization](optimistic-loop-acceptance.md) 的条件合成与循环变换需求；尚未完成一般动态 memory-bound 多维／stride、多个依赖 preload 和旧 affine／tiling 到主只读接口的迁移。
+GuardCert 当前能把使用者提供的片段变换安装成“运行时条件成立就执行候选，否则执行原片段”，并将条件正确性、局部执行对应和上下文证明连接到 CompCert 完整 Csem→Asm backward simulation。主要目标仍是 [Optimistic Loop Optimization](optimistic-loop-acceptance.md) 的条件合成与循环变换需求；尚未完成两个内存维度／参数 stride 的组合、多个依赖 preload 和旧 affine／tiling 到主只读接口的迁移。
 
 ## 框架提供什么
 
@@ -10,7 +10,7 @@ condition 是真实代码，P 是逻辑断言。检查必须有定义、能完�
 
 当前有两种真实 Clight 宿主：完成的宏片段版本化，以及每次值求值／具体头部的有限 rewrite。前者覆盖已建立独立源进展的整个循环，后者能在可能无限的循环中改写有限头部判断；二者的证明义务和检查时点不同。详见 [使用者契约](guarded-rewrite-contract.md) 与 [宿主分类](host-capabilities.md)。
 
-## 这一天补上的两个结果
+## 这一天补上的三个结果
 
 第一项是 [内存上界与 2×2 循环交换](clight-loaded-matrix-case.md)。源外层每次读取 `*rows`，候选缓存 rows 后交换 i／j 两层。条件核对活动维度和四个实际 word 地址的 non-alias；第二行的检查依据只有在第一行检查通过后才建立。
 
@@ -20,20 +20,24 @@ condition 是真实代码，P 是逻辑断言。检查必须有定义、能完�
 
 这个使用者的 ghost invariant 包含真实源剩余执行、load 不变性和权限运输。提取后的 spec 只保留下一点和两个探针生成函数，不执行源循环或查询证明来运行 guard。三元素数组中入口上界 8、第三次 store 改为 3 后合法退出的关键回退行为仍保持。
 
+第三项是 [动态内存上界矩形](clight-loaded-rectangle-case.md)：行数是实际 memory load，列数是运行时 temp，两层通用 scan 在真实源前缀上建立安全。整行 non-alias 后才推进下一行，再缓存并实际交换动态循环。独立／统一入口各通过 6,248 次 C 调用／6,253 行输出；包含后续行 alias、上界增长／缩小和安全同对象单元。静态 stride／布局保持，尚不覆盖两个 memory-bound 维度或参数 stride 的同次组合。
+
 ## 当前验证记录
 
 | 层次 | 结果 |
 | --- | --- |
 | 语言无关接口 | 49 个端点闭合证明 |
 | 真实 Clight 适配层 | 59 个端点，不超过既有六项假设基线 |
-| 完整编译接口 | 209 个端点，比较既有分层基线，没有新增全局公理 |
-| 提取与执行 | 十五种编译配置全部重建／回归通过，二十三份原生报告 |
-| 本次接口迁移 | 相对 `2b5f26a`，二十三份既有源码／生成 Clight 摘要相同 |
+| 完整编译接口 | 242 个端点，比较既有分层基线，没有新增全局公理 |
+| 提取与执行 | 十六种编译配置全部重建／回归通过，二十五份原生报告 |
+| 本次接口迁移 | 相对 `e37e458`，二十三份既有源码／生成 Clight 摘要相同 |
 
 复现入口为 `make interface-proof`、`make interface-clight-proof`、`make interface-compiler-proof` 和 `make interface-native-suite`，使用锁定的 CompCert v3.18、Rocq／Stdlib 9.2 工具链。检查使用 Rocq 编译和假设报告，以及实际提取编译器产生的程序同 GCC／独立模型比较。原生测试没有执行明确发散或源未定义的输入，没有测量性能。
 
 ## 接下来如何判定进展
 
-下一项以动态行数和列数为目标：从当前真实源行提取有定义的 store 前缀，先在行内建立检查安全，再在整行 non-alias 后运输 bound load 到下一行；最后连接候选私有快照、真正二维调度和公开出口。静态 stride 路径先消费已有矩形 decoder／调度证明，参数 stride 再消费实际地址与宽化乘积检查。
+动态行数和列数的静态 stride 路径已达到这一阶段的实际编译验收。后续组合应优先处理参数 stride 与 memory-bound 调度、两个内存维度及多个依赖 preload；参数的有定义依据仍须从实际源的活动路径获得，地址／控制检查须消费已证明的宽化算术或范围证书，不能先预设完整稳定 footprint。
 
-一个抽象 row 接口或新的 helper 编译通过不足以通过这项验收。必须有主只读接口下的真实生成器／编译入口、完整程序端点，以及动态尺寸、alias 提前退出、空轴、检查边界和出口恢复的原生证据。研究新颖性也不能从当前设施复用直接推出；已有工作比较与论文主线账本仍需持续校准。
+检查生成还有明确工程缺口：当前 12／4 矩形每处 region 展开 156 份候选。选择器用 extent 和保守成功叶预算拒绝过大树；需要有证明的共享出口，或廉价、真正有定义的区间／仿射足迹检查。仅生成大量正确代码不足以推出实际性能收益。
+
+完整 Optimistic Loop Optimization 主线还缺旧 affine／tiling 到主只读接口的迁移、复杂 body 和更一般条件合成。新 helper、未消费的 schedule 或脱离编译器的模型不能充作通过。后续仍需完整程序端点、实际提取编译器和接受／回退／空域／机器边界的原生证据；研究新颖性另随已有工作比较校准。
