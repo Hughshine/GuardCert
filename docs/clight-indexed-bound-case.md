@@ -65,7 +65,7 @@ compile_indexed_bounds p = OK target
 
 复现入口为 `make interface-indexed-bound-native`；统一 pass 的相同源程序使用 `python3 scripts/native_interface_indexed_bound.py --common`。验证包含逐单元／公开出口与 GCC 及独立逐头部 load 模型的比较，生成 Clight 中的 16 个活动地址比较、17 个提前成功候选，以及三种不支持的源模板拒绝。
 
-139 个编译接口端点的假设审计通过，没有新增公理；十二种编译器配置重建并回归通过。新独立入口和统一 pass 对本程序各通过 1079 次调用／2154 行输出：1050 个同对象网格输入、20 个不同对象输入、一个 const bound、四个 null out 空域、两个三元素数组上界变化输入，以及 goto／有限外围循环。528 个网格输入满足 guard，其余包括 alias、超 cap 与空路径回退。无限外围函数也确认生成 guard，未执行。
+141 个编译接口端点的假设审计通过，没有新增公理；十二种编译器配置重建并回归通过。新独立入口和统一 pass 对本程序各通过 1079 次调用／2154 行输出：1050 个同对象网格输入、20 个不同对象输入、一个 const bound、四个 null out 空域、两个三元素数组上界变化输入，以及 goto／有限外围循环。528 个网格输入满足 guard，其余包括 alias、超 cap 与空路径回退。无限外围函数也确认生成 guard，未执行。
 
 上界 8 的三元素数组实际结果是 `exit 3` 与 `small 1 2 3`；上界 INT_MAX 的相同数组也保持该合法源结果，并在 cap 测试处回退。生成的四个函数均有顺序排列的 16 个活动地址比较、17 个仅在成功叶子内执行的私有快照和缓存循环头；不支持的三个源模板未改写。报告位于 `build/interface-indexed-bound-native/report.json` 与 `build/interface-common-indexed-bound-native/report.json`，绑定源码、Clight、汇编、实际提取编译器和当前证明报告。
 

@@ -33,6 +33,8 @@
 
 `readonly_tree_safe` 要求每个可能到达的测试都有定义，并对所有可能的结果继续证明后续安全。有限树消除了检查自身的循环。`compiled_tree_safe` 和 `synthesized_readonly_condition` 将原子 validity／value 证明提升到合成检查。原子 value 测试只在 validity 成功后执行；unknown 直接回退，否定不会将 unknown 变成接受。
 
+[阶段检查接口](condition-stage-interface.md) 还允许后一个原子的安全域使用先前建立的事实。语言无关 `sequence_readonly_conditions` 及有限列表合成只依赖检查代数；Clight 提供实际树 bind 的安全／分派定律。内存上界规则已将 `i==0` 证书与依赖该事实的活动路径／alias 证书组合，生成 guard 与原来相同。
+
 [ClightPreloadExample.v](../prototype/interface/ClightPreloadExample.v) 实现一个实际内存读取例子：先测试计数，仅在非零路径上读取指针中的整数。域要求计数有整数值；活动路径还要求实际 `Mem.loadv` 返回整数。计数为零时，指针可以完全没有定义。已证明检查安全、拒绝路径不需要指针，以及接受前提下的实际分支删除等价。[ClightPreloadSynthesis.v](../prototype/interface/ClightPreloadSynthesis.v) 将该原子接入 Boolean 公式合成，证明单原子生成的检查正是上述延迟树，并证明空路径在取否定后仍拒绝。
 
 `preload_domain_from_source_execution` 已从这个源模板的实际终止执行导出域，供后述编译器实例消费。它不是任意循环入口的放置证明；不同源循环须提供自己的执行对应／进展证书。
@@ -173,7 +175,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-load-n
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-indexed-bound-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 40 个闭合接口端点。Clight 检查编译十个新模块及四个既有依赖，审计 53 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百三十九个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十一个模块和三个既有依赖，审计 43 个闭合接口端点。Clight 检查编译十一个新模块及四个既有依赖，审计 57 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计一百四十一个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，投影上下文宿主的八项基线另含既有外部函数／内联汇编性质；完整编译器基线仍为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 

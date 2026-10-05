@@ -24,6 +24,7 @@ MODULES = [
     "prototype/interface/ClightPrivateCandidateExample.v",
     "prototype/interface/ClightReadonlyTreeFacts.v",
     "prototype/interface/ClightReadonlyTreeSynthesis.v",
+    "prototype/interface/ClightConditionComposition.v",
 ]
 
 
@@ -107,6 +108,7 @@ def main():
         "additional_global_axioms": [],
         "actual_clight_readonly_dispatch_proved": True,
         "every_reachable_test_safety_proved": True,
+        "dependent_readonly_check_algebra_instantiated": True,
         "conditional_preload_fixture_proved": True,
         "preload_domain_derived_from_terminating_source_fixture": True,
         "preload_atom_has_formula_synthesis_certificate": True,

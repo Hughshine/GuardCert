@@ -6,7 +6,8 @@ From Guard Require Import AbstractGuard SemanticFacts ClightCondition ClightNoWr
   ClightRegionProgress ClightMatrixGuard ClightRedundantSet ClightPositiveCheck ClightDecisionRule ClightPureExpr ClightCountedLoop ClightFrontendRegion
   ClightLoopExecution ClightLoopSyntax ClightStraightLine ClightTempFrame.
 From GuardInterface Require Import GuardedRewrite ClightReadonlyRewrite ClightReadonlyLoadedTreeSynthesis
-  ClightQuietDeterminacy ClightReadonlyCellSwap ClightStableLoadGuard ClightLoadedBoundSyntax ClightStableLoopCondition.
+  ClightQuietDeterminacy ClightReadonlyCellSwap ClightStableLoadGuard ClightLoadedBoundSyntax ClightStableLoopCondition
+  ReadonlyConditionComposition ClightConditionComposition.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -105,12 +106,67 @@ Proof.
     split; [intro RUN; inversion RUN; reflexivity|intro SAME; subst accepted; constructor].
 
 Defined.
+Definition loaded_bound_tail iterator out parameter :=
+  Test (loaded_bound_test iterator parameter)
+    (Test (same_address_guard out parameter) (Decision false) (Decision true)) (Decision false).
+Definition loaded_bound_tail_accept iterator out parameter entry :=
+  loaded_bound_flag iterator parameter entry && negb (address_accept out parameter entry).
+Lemma loaded_bound_tail_run iterator out parameter entry :
+  loaded_bound_domain iterator out parameter entry -> register_equals iterator Int.zero tt entry ->
+  decision_run entry (loaded_bound_tail iterator out parameter) (loaded_bound_tail_accept iterator out parameter entry).
+Proof.
+  intros [ENTRY ADDRESSES] ZERO.
+  pose proof (loaded_bound_entry_test ENTRY) as TEST.
+  unfold loaded_bound_tail, loaded_bound_tail_accept; eapply run_test; [exact TEST|].
+  destruct (loaded_bound_flag iterator parameter entry); cbn; [|constructor].
+  eapply run_test.
+  - apply (proj2 (@address_guard_correct out parameter entry _ (ADDRESSES ZERO TEST))); reflexivity.
+  - destruct (address_accept out parameter entry); constructor.
+Qed.
+Definition loaded_bound_tail_condition fe O (observe : fragment_observation -> O -> Prop) iterator out parameter :
+  readonly_condition (readonly_clight_host fe observe)
+    (fun entry => loaded_bound_domain iterator out parameter entry /\ register_equals iterator Int.zero tt entry)
+    (fun entry => expression_test (loaded_bound_test iterator parameter) entry true /\ cell_pair_apart out parameter entry)
+    (loaded_bound_tail iterator out parameter).
+Proof.
+  constructor.
+  - intros entry [DOMAIN ZERO]; eapply readonly_decision_run_safe; apply loaded_bound_tail_run; assumption.
+  - intros entry [DOMAIN ZERO]; exists (loaded_bound_tail_accept iterator out parameter entry), entry;
+      split; [apply loaded_bound_tail_run; assumption|reflexivity].
+  - intros entry answer checked [DOMAIN ZERO] [RUN SAME]; split; [exact SAME|intro ACCEPT; subst answer].
+    pose proof (readonly_decision_determinate RUN (@loaded_bound_tail_run iterator out parameter entry DOMAIN ZERO)) as ACCEPTED.
+    unfold loaded_bound_tail_accept in ACCEPTED; symmetry in ACCEPTED; apply andb_true_iff in ACCEPTED as [ACTIVE APART].
+    destruct DOMAIN as [ENTRY ADDRESSES]; pose proof (loaded_bound_entry_test ENTRY) as TEST;
+      rewrite ACTIVE in TEST; split; [exact TEST|].
+    apply stable_addresses_apart; [exact (ADDRESSES ZERO TEST)|exact APART].
+Defined.
 Definition loaded_bound_condition fe O (observe : fragment_observation -> O -> Prop) iterator out parameter :
   readonly_condition (readonly_clight_host fe observe) (loaded_bound_domain iterator out parameter)
     (loaded_bound_property iterator out parameter tt)
-    (synthesize_decision_tree (loaded_bound_primitives iterator out parameter) (Fact tt)) :=
-  synthesized_loaded_tree_condition fe observe (loaded_bound_dimension iterator out parameter)
-    (loaded_bound_primitives iterator out parameter) (Fact tt).
+    (synthesize_decision_tree (loaded_bound_primitives iterator out parameter) (Fact tt)).
+Proof.
+  change (readonly_condition (readonly_clight_host fe observe) (loaded_bound_domain iterator out parameter)
+    (loaded_bound_property iterator out parameter tt)
+    (decision_bind (loaded_bound_guard iterator out parameter) (Decision true) (Decision false))).
+  rewrite decision_bind_identity.
+  change (readonly_condition (readonly_clight_host fe observe) (loaded_bound_domain iterator out parameter)
+    (fun entry => register_equals iterator Int.zero tt entry /\
+      (expression_test (loaded_bound_test iterator parameter) entry true /\ cell_pair_apart out parameter entry))
+    (then_check (clight_readonly_check_algebra fe observe)
+      (Test (register_guard iterator Int.zero) (Decision true) (Decision false))
+      (loaded_bound_tail iterator out parameter))).
+  apply sequence_readonly_conditions.
+  - apply readonly_expression_condition.
+    + intros entry [[word [upper [b [ofs [ITER REST]]]]] ADDRESSES].
+      exists (register_flag iterator Int.zero entry); apply register_expression_test; exists word; exact ITER.
+    + intros entry [[word [upper [b [ofs [ITER REST]]]]] ADDRESSES] TEST.
+      assert (DOMAIN : register_domain iterator entry) by (exists word; exact ITER).
+      pose proof (@register_expression_test iterator Int.zero entry DOMAIN) as KNOWN.
+      assert (FLAG : register_flag iterator Int.zero entry = true) by
+        (eapply readonly_test_determinate; [exact KNOWN|exact TEST]).
+      apply register_flag_evidence; assumption.
+  - apply loaded_bound_tail_condition.
+Defined.
 
 Theorem loaded_bound_domain_from_source fe ge locals le memory iterator out parameter body after final :
   flatten_region body = [loaded_bound_body out iterator] ->
@@ -145,3 +201,5 @@ Proof.
 Qed.
 Print Assumptions loaded_bound_condition.
 Print Assumptions loaded_bound_domain_from_source.
+Print Assumptions loaded_bound_tail_run.
+Print Assumptions loaded_bound_tail_condition.

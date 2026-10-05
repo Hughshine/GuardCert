@@ -40,7 +40,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-common-native
 
 C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩形循环、2×2 模板、条件分支中的两个 store pair、延迟读取分支，以及内存上界循环。参数 snapshot 和上界 snapshot 使用同一新鲜 pool temp，实际出现于两个不同的程序位置。
 
-实际提取和执行通过 576 次调用、2880 行输出。Clight 中分别确认 store、RMW、行内依赖和 2×2 的四处 `j` 外层／`i` 内层候选，两个条件分支均有真正交换后的 store；两次快照确实使用同一个私有 temp。十二组原生实例在当前 139 端点审计下重建并全部通过。
+实际提取和执行通过 576 次调用、2880 行输出。Clight 中分别确认 store、RMW、行内依赖和 2×2 的四处 `j` 外层／`i` 内层候选，两个条件分支均有真正交换后的 store；两次快照确实使用同一个私有 temp。十二组原生实例在当前 141 端点审计下重建并全部通过。
 
 程序在后续 store 覆盖之前输出 payload 结果，避免较早循环的错误被覆盖掩盖；输出每一组循环的公开 iterator 出口及全部数组单元。后续两个 store pair 分别将 parameter 写成 0 或 22，随后分支必须使用当前值，检验 guard 的放置。非别名和别名输入同时覆盖普通 payload 与会改变循环次数的 bound。
 

@@ -89,6 +89,8 @@ Cond ::= true | false | Atom
 
 当前 AST 组合在 `AbstractGuard` 中已有机械证明；实际语言的原子和 lowering 必须各自验证。不能从任意 Rocq `Prop` 自动生成 condition。以下是为常见优化固定的性质维度与检查要求，其中跨语言的一般实现仍须由实例提供。
 
+[带依赖的只读检查](condition-stage-interface.md) 另提供顺序阶段组合。使用者分别提交 `D` 上建立 `P` 的检查，以及 `D and P` 上建立 `Q` 的检查；框架生成组合并证明安全、只读、可用及接受 `P and Q`。后一个检查可以使用先前阶段已接受的事实来证明读取或算术有定义。任意有限列表复用 `certified_condition_stages` 与 `synthesize_condition_stages`；具体语言只补充常量检查和检查顺序构造的分派／安全定律。实际 Clight 内存上界规则已使用此设施，局部 rewrite 与全局宿主契约保持相同。
+
 新数学实例实际提供 `DifferentCells` 和 `NoWrapIncrement8` 两个原子，并证明其 Boolean AST 的只读检查。既有 [Presumption.v](../theories/Presumption.v) 还实现了一个受限示例语法：表达式是常量、标量、加、减，原子是大小／相等、该运算树的无溢出、界内和区间分离；其 block／offset／extent 是示例 metadata，不是可直接运行的 CompCert 权限检查。这些实例语法与通用原子扩展机制应明确区分。
 
 | 维度 | 可表达的受限原子 | 运行时／静态依据 | 主要局部用途 |
@@ -185,7 +187,7 @@ Placement(C,S1,D)
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 ```
 
-该检查编译十个接口模块和三个既有依赖，打印 40 个接口证明端点的闭合假设报告，其中只读 rewrite 扩展占 31 个；包括关系式 localization、有限替换序列、前提入口推导、域限制及完成性／确定性下的单向证明复用，以及隐藏私有出口的观察运输。日志及源码摘要位于 `build/interface/`。`make interface-clight-proof` 另审计真实只读 Clight 适配、frame／延迟读取案例及结构化片段确定性；投影 Clight 编译接口另支持新鲜候选私有 temp 的出口差异，并消费 scope／入口／continuation 证明；保护的集合目前是所有原程序 temps。具体责任与缺口见 [Clight 接入设计](clight-guarded-rewrite-design.md)及 [Optimistic Loop Optimization 验收账本](optimistic-loop-acceptance.md)。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。
+该检查编译十一个接口模块和三个既有依赖，打印 43 个接口证明端点的闭合假设报告，其中只读 rewrite 扩展占 34 个；包括关系式 localization、有限替换序列、前提入口推导、域限制及完成性／确定性下的单向证明复用，以及隐藏私有出口的观察运输。日志及源码摘要位于 `build/interface/`。`make interface-clight-proof` 另审计真实只读 Clight 适配、frame／延迟读取案例及结构化片段确定性；投影 Clight 编译接口另支持新鲜候选私有 temp 的出口差异，并消费 scope／入口／continuation 证明；保护的集合目前是所有原程序 temps。具体责任与缺口见 [Clight 接入设计](clight-guarded-rewrite-design.md)及 [Optimistic Loop Optimization 验收账本](optimistic-loop-acceptance.md)。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。
 
 
 ## 当前的组合使用者

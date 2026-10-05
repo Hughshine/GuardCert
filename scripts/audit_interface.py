@@ -20,6 +20,7 @@ SOURCES = [
     ("prototype/interface/AssumptionDerivation.v", 4),
     ("prototype/interface/EntryProjectionExamples.v", 6),
     ("prototype/interface/DeterministicLocalReasoning.v", 2),
+    ("prototype/interface/ReadonlyConditionComposition.v", 3),
 ]
 
 
@@ -40,10 +41,10 @@ def main():
     report = {
         "status": "compiled",
         "toolchain": subprocess.check_output(["rocq", "--version"], text=True).strip(),
-        "interface_modules_compiled": 10,
+        "interface_modules_compiled": 11,
         "existing_dependencies_recompiled": 3,
-        "new_interface_closed_endpoints": 40,
-        "readonly_rewrite_closed_endpoints": 31,
+        "new_interface_closed_endpoints": 43,
+        "readonly_rewrite_closed_endpoints": 34,
         "sources": {filename: hashlib.sha256((ROOT / filename).read_bytes()).hexdigest()
                     for filename, _ in SOURCES},
         "new_global_axioms": [],
@@ -54,7 +55,9 @@ def main():
                  "finite-loop alias fallback, frame, modulo-256 branch rewrite, and pure continuations; "
                  "relational localization, certified rewrite sequences, collected textual-site "
                  "requirements, entry projection and conservative simplification, rectangular "
-                 "address bounds and delinearization injectivity",
+                 "address bounds and delinearization injectivity; dependency-ordered "
+                 "read-only condition stages with stronger certified continuation domains",
+        "dependent_readonly_condition_composition_proved": True,
         "region_selection_and_candidate_generation_are_user_supplied": True,
         "clight_adapter_included_in_this_audit": False,
         "context_and_check_safety_are_instance_obligations": True,
