@@ -234,3 +234,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 只读条件的后处理接口已由 [探针简化](readonly-probe-simplification.md)接通：`ClightProbeTree.v` 把实际表达式决策树接到通用部分探针语义，`simplified_projected_rule` 保留原局部证书，仅替换 guard 及检查证书。`ClightSimplifiedRectangleCompiler.v` 再实例化已有共享编译宿主，具备完整 Csem→Asm 端点及实际 6,248 次 C 调用。简化使用语法相同表达式的路径结果，不能自动推广到不同算术表达式或非只读／非确定操作。
 
 [参数 stride／内存上界组合](clight-loaded-stride-case.md)又提供一个模型族使用者：实际源与候选均保留参数地址；条件在源活动路径上获得 stride 定义性后分派到合法布局，局部执行经常量模型运输并复用原前缀证书。布局枚举完备性和整数乘积界／常量除法界对应由语言实例证明。独立共享编译器及统一选择器各通过 68,368 次 C 调用，完整编译审计 279 端点，无新增全局公理。当前仍为小固定数组布局枚举，不提供一般大布局或两个 memory-bound 维度。
+
+[双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)进一步消费顺序只读条件和精确出口宿主。`ClightMixedLoadedProgress` 允许 body 中嵌套的内存上界改变，只保护各层计数器；源最大值 rank 独立于两项稳定性前提。规则先建立外层活动，才读取内层上界，实际第一笔 store 给出比较权限，两个 word non-alias 分别保持两个 load。独立／统一入口各通过 3,035 次调用；完整审计 297 端点、二十种配置回归通过，29 份旧 source／Clight 摘要相同。这个一次迭代模板尚未提供一般双内存上界的数组调度；其后续逐点 cursor 义务已明确记录。

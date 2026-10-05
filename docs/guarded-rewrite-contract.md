@@ -227,3 +227,5 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 [只读探针树简化](readonly-probe-simplification.md)提供条件生成后的可复用适配：探针 key／部分 Boolean 语义由语言解释，接口要求固定入口结果确定及实际编译／安全对应。框架利用路径上真实测试结果消除相同探针，直接返回同一 D／P 的只读条件；原候选、局部证明和入口义务保持。矩形共享编译器已实际消费，保留接受范围并通过 6,248 次调用。它不提供任意 Prop 判定、不同表达式的算术推导或 effectful 检查消除。
 
 [内存上界与参数 stride 的布局分派实例](clight-loaded-stride-case.md)展示使用者怎样复用局部证明：先从源活动路径确认参数有定义，在匹配的已认证模型下运输源，组合该模型的只读条件／alias 前缀证书，再把候选运输回原参数地址。多个模型有共同实际 candidate，接受性质记录匹配模型的存在性。框架仍只消费条件、局部观察与上下文义务；布局语义、枚举完备性及机器地址运输由 Clight 实例交付。当前原生 pass 有明确 extent≤12／4096 简化 guard 节点预算，两入口各通过 68,368 次调用。
+
+[双内存上界实例](clight-dual-loaded-unit-case.md)展示另一条实际使用路径：使用者给出源／一次写入候选，规则作者用顺序只读条件把前一阶段的活动证据传给下一次读取的安全域，再分别消费两个 non-alias 性质保持 loaded bounds。语言提供嵌套进展和头部／store 的实际执行证明；框架原有精确出口宿主及综合 pass 直接安装规则并连接完整 Csem→Asm。条件的 ghost 原完成见证不会在提取后的运行时被查询。

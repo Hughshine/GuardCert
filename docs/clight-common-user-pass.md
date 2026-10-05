@@ -15,22 +15,25 @@
 [ClightCommonRewriteCompiler.v](../prototype/interface/ClightCommonRewriteCompiler.v) 的选择顺序为：
 
 1. 带源行前缀安全的 memory-bound 2×2 交换；
-2. 带源前缀安全 indexed 检查的内存上界快照；
-3. 固定单元写入下的内存循环上界快照；
-4. 带有界动态 indexed 写足迹的 payload 参数 load 提升；
-5. 固定单元 payload 参数的循环 load 提升；
-6. 固定寄存器上界、单位 unsigned 自增的等式退出规范化；
-7. 固定 2×2 交换；
-8. 运行时 stride 的二维纯写交换；
-9. 固定 stride 的动态矩形 store、读写更新及保留行内依赖的交换；
-10. 两个 non-alias 单元的 store 交换；
-11. 带延迟读取检查的分支 rewrite。
+2. memory-bound 动态矩形交换；
+3. memory-bound 行数与参数 stride 的有界布局交换；
+4. 带源前缀安全 indexed 检查的内存上界快照；
+5. 固定单元写入下的内存循环上界快照；
+6. 带有界动态 indexed 写足迹的 payload 参数 load 提升；
+7. 固定单元 payload 参数的循环 load 提升；
+8. 两个变化内存上界的单次迭代消除；
+9. 固定寄存器上界、单位 unsigned 自增的等式退出规范化；
+10. 固定 2×2 交换；
+11. 运行时 stride 的二维纯写交换；
+12. 固定 stride 的动态矩形 store、读写更新及保留行内依赖的交换；
+13. 两个 non-alias 单元的 store 交换；
+14. 带延迟读取检查的分支 rewrite。
 
 选择器返回的都是绑定实际源语句的有证书规则。现有精确规则经上述嵌入，共用 projected host；带快照的规则直接使用投影接口。使用者可以改变选择顺序或加入自己的规则，语法遍历与资源选择仍由这个 pass 决定。
 
 每处动态检查在对应片段到达时运行。前一个 rewrite 保留 continuation 所需的公开状态，后一个 rewrite 再用当时的状态建立入口域／前提。一组成功检查不会被当作整个函数的入口事实；候选的私有 temp 可以跨互不重叠的已选片段复用，每处先执行自己的 preload。
 
-`common_progress_supported_sound` 组合原有结构化进展、内存循环头进展和单位 unsigned 自增的模距离证书。每个被选择的完整循环仍需受支持的源协议。被选择且可能发散的完整 `!=` 循环尚不能用这个宏片段协议替换；后续逐步 pass 另处理其有限头部。
+`common_progress_supported_sound` 组合结构化进展、嵌套变化内存上界和单位 unsigned 自增的模距离证书。内存上界的嵌套协议只保护计数器，允许回退时两项 bound 都改变。每个被选择的完整循环仍需受支持的源协议。被选择且可能发散的完整 `!=` 循环尚不能用这个宏片段协议替换；后续逐步 pass 另处理其有限头部。
 
 完整端点 `compile_common_rewrites_correct` 是 Csem→Asm backward simulation，经过实际 projected Clight forward simulation。这是一个 pass 内多次真实片段替换的全局证据，和抽象重复 rewrite 的组合定理一起说明使用方式；没有声称完整 Clight 双向行为等价。
 
@@ -73,3 +76,5 @@ C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩�
 第八个实际程序是 [内存上界与二维 2×2 调度](clight-loaded-matrix-case.md)：统一入口在同一次宏片段替换中消费源行前缀的四 word 检查、实际 load 稳定性、私有 snapshot 和列优先调度。668 次调用／673 行输出、七处实际 guard 通过；独立入口运行同一程序也通过。宏选择器先尝试这个模板，新的 body frame／strict rank 协议提供独立源进展；其余规则的前提和覆盖保持各自声明。199 端点审计无新增公理，十五种配置回归通过，21 份既有源码／Clight 摘要相同。一般动态 memory-bound 尺寸／stride 仍是缺口。
 
 [通用只读前缀扫描](readonly-prefix-scan-interface.md)阶段将当前完整编译审计扩展到 209 端点，纯接口 49 个闭合端点、Clight 59 个端点没有新增公理；十五种配置全部重建回归通过，23 份既有源码／Clight 摘要相同。统一入口的 indexed memory-bound 规则实际调用新生成器，其他规则的局部与全局契约保持相同。
+
+当前综合入口也消费动态 memory-bound 矩形、参数 stride 布局和 [双内存上界的单次迭代消除](clight-dual-loaded-unit-case.md)。后者通过 3,035 次调用和七处实际 region，包含共享只读 bound、两个 counter 的出口、连续替换以及 alias 改变内层／外层上界。精确规则经现有嵌入进入 projected host，源进展不借用稳定性前提。当前完整审计 297 端点、二十种配置全部回归通过，31 份原生报告绑定当前编译器和证明报告；相对 `2485d94` 的 29 份已有 source／Clight 摘要相同。双内存上界的接受域仍为一次迭代，一般两维数组调度继续推进。
