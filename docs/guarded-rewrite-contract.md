@@ -185,4 +185,4 @@ Placement(C,S1,D)
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 ```
 
-该检查编译五个接口模块和三个既有依赖，打印二十三个接口证明端点的闭合假设报告，其中本次只读 rewrite、localization 提升、双向调度及两个新案例占十四个。日志及源码摘要位于 `build/interface/`。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。
+该检查编译九个接口模块和三个既有依赖，打印 37 个接口证明端点的闭合假设报告，其中只读 rewrite 扩展占 28 个；新增关系式 localization、有限替换序列及前提入口推导。日志及源码摘要位于 `build/interface/`。`make interface-clight-proof` 另审计真实只读 Clight 适配和 frame／延迟读取案例；具体责任与缺口见 [Clight 接入设计](clight-guarded-rewrite-design.md)及 [Optimistic Loop Optimization 验收账本](optimistic-loop-acceptance.md)。现有 CompCert 编译器源码没有改变；旧入口协议仍保留。

@@ -19,9 +19,12 @@ proof:
 	@$(ROCQ) --version > build/compiler.txt
 	@set -eu; for src in $(SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard "$$src"; done
 
-.PHONY: interface-proof
+.PHONY: interface-proof interface-clight-proof
 interface-proof:
 	python3 scripts/audit_interface.py
+
+interface-clight-proof: interface-proof
+	python3 scripts/audit_interface_clight.py
 
 demo:
 	python3 prototype/demo.py

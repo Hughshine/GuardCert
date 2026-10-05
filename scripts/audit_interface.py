@@ -15,6 +15,10 @@ SOURCES = [
     ("prototype/interface/GuardedRewrite.v", 5),
     ("prototype/interface/LocalScheduleEquivalence.v", 2),
     ("prototype/interface/GuardedRewriteExamples.v", 7),
+    ("prototype/interface/RegionLocalization.v", 1),
+    ("prototype/interface/RewriteComposition.v", 3),
+    ("prototype/interface/AssumptionDerivation.v", 4),
+    ("prototype/interface/EntryProjectionExamples.v", 6),
 ]
 
 
@@ -35,10 +39,10 @@ def main():
     report = {
         "status": "compiled",
         "toolchain": subprocess.check_output(["rocq", "--version"], text=True).strip(),
-        "interface_modules_compiled": 5,
+        "interface_modules_compiled": 9,
         "existing_dependencies_recompiled": 3,
-        "new_interface_closed_endpoints": 23,
-        "readonly_rewrite_closed_endpoints": 14,
+        "new_interface_closed_endpoints": 37,
+        "readonly_rewrite_closed_endpoints": 28,
         "sources": {filename: hashlib.sha256((ROOT / filename).read_bytes()).hexdigest()
                     for filename, _ in SOURCES},
         "new_global_axioms": [],
@@ -46,9 +50,12 @@ def main():
                  "total mathematical-function host, private scratch, acceptance, fallback, dead candidate, "
                  "unknown under negation, and preservation/refinement counterexample; "
                  "read-only guarded equivalence, reversible exchange certificates, "
-                 "finite-loop alias fallback, frame, modulo-256 branch rewrite, and pure continuations",
+                 "finite-loop alias fallback, frame, modulo-256 branch rewrite, and pure continuations; "
+                 "relational localization, certified rewrite sequences, collected textual-site "
+                 "requirements, entry projection and conservative simplification, rectangular "
+                 "address bounds and delinearization injectivity",
         "region_selection_and_candidate_generation_are_user_supplied": True,
-        "typed_footprint_and_clight_equivalence_adapter_implemented": False,
+        "clight_adapter_included_in_this_audit": False,
         "context_and_check_safety_are_instance_obligations": True,
         "arbitrary_language_adapters_proved": False,
         "compcert_migration_completed": False,
