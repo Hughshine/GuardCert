@@ -23,6 +23,7 @@ def main():
     instances = parser.add_mutually_exclusive_group()
     instances.add_argument("--matrix", action="store_true", help="build the fixed 2x2 loop interchange instance")
     instances.add_argument("--rectangle", action="store_true", help="build the dynamic rectangular store instance")
+    instances.add_argument("--cells", action="store_true", help="build the guarded aligned-word store exchange")
     args = parser.parse_args()
     if args.matrix:
         WORK = ROOT / "build/compcert-interface-matrix"
@@ -30,9 +31,12 @@ def main():
     elif args.rectangle:
         WORK = ROOT / "build/compcert-interface-rectangle"
         ENTRY = "ClightReadonlyRectangle.compile_readonly_rectangle"
+    elif args.cells:
+        WORK = ROOT / "build/compcert-interface-cells"
+        ENTRY = "ClightReadonlyCellSwap.compile_readonly_cell_pairs"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    instance = "matrix" if args.matrix else "rectangle" if args.rectangle else "preload"
+    instance = "matrix" if args.matrix else "rectangle" if args.rectangle else "cells" if args.cells else "preload"
     expected = proof["whole_program_entrypoints"][instance]
     if proof["status"] != "compiled" or proof["additional_global_axioms"] or expected != ENTRY:
         raise SystemExit("Run make interface-compiler-proof before extraction")

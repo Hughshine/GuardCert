@@ -8,7 +8,7 @@ from audit_interface_clight import ROOT, sha, compcert_flags
 
 WORK = ROOT / "build/interface-compiler"
 MODULES = ["ClightReadonlyCompiler", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
-           "ClightRectangleAssumptions"]
+           "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame"]
 ENDPOINTS = {
     "ClightReadonlyCompiler.readonly_rule_fragment_contract": "FRAGMENT",
     "ClightReadonlyCompiler.readonly_rule_region_contract": "REGION",
@@ -30,6 +30,15 @@ ENDPOINTS = {
     "ClightRectangleAssumptions.accepted_rectangle_text_requirements": "FRAGMENT",
     "ClightRectangleAssumptions.accepted_rectangle_address_injective": "FRAGMENT",
     "ClightRectangleAssumptions.collected_rectangle_machine_index": "FRAGMENT",
+    "ClightReadonlyCellSwap.cell_pair_condition": "FRAGMENT",
+    "ClightReadonlyCellSwap.known_cell_alias_negation": "FRAGMENT",
+    "ClightReadonlyCellSwap.distinct_aligned_words_disjoint": "FRAGMENT",
+    "ClightReadonlyCellSwap.cell_pair_source_domain": "FRAGMENT",
+    "ClightReadonlyCellSwap.cell_pair_forward": "MEMORY_FRAGMENT",
+    "ClightReadonlyCellSwap.cell_pair_rule": "MEMORY_FRAGMENT",
+    "ClightReadonlyCellSwap.compile_readonly_cell_pairs_correct": "COMPILER",
+    "ClightCellFrame.cell_pair_write_frame": "FRAGMENT",
+    "ClightCellFrame.cell_pair_stable_parameters": "FRAGMENT",
 }
 BASELINES = {
     "FRAGMENT": "ClightCondition.fragment_language",
@@ -101,6 +110,7 @@ def main():
             "preload": "ClightPreloadCompiler.compile_preload_rewrites",
             "matrix": "ClightReadonlyMatrix.compile_readonly_matrix",
             "rectangle": "ClightReadonlyRectangle.compile_readonly_rectangle",
+            "cells": "ClightReadonlyCellSwap.compile_readonly_cell_pairs",
         },
         "user_supplied_selection_supported": True,
         "new_readonly_api_consumed_by_compiler": True,
@@ -111,6 +121,7 @@ def main():
         "fixed_2x2_loop_interchange_uses_new_api": True,
         "dynamic_rectangle_store_interchange_uses_new_api": True,
         "dynamic_rectangle_guard_certifies_registered_control_and_address_requirements": True,
+        "two_aligned_word_stores_have_readonly_non_alias_guard": True,
         "general_loop_transformation_migrated": False,
         "native_execution_run": False,
     }

@@ -65,6 +65,16 @@
 
 候选恢复公共值的代码也属于被证明的候选。旧路线中的 control shadow replay 不能因其成本大而在新接口中省略证明。
 
+### non-alias 动作与实际 frame
+
+[ClightReadonlyCellSwap.v](../prototype/interface/ClightReadonlyCellSwap.v) 提交 `*p=c1; *q=c2` 和交换后的两个实际 Clight store。检查只比较指针；合法性、四字节对齐及访问不回绕从源的两个实际 `Mem.storev Mint32` 导出。域内指针不同才蕴含两个四字节区间分离；这个推导不能用于任意宽度或不对齐访问。不同 block 和同一 block 中不同的对齐单元都可接受，指针相同则回退。
+
+这个原子在域内同时证明接受和拒绝的含义，因此 `Complement(Fact tt)` 在已知指针相等时可以接受。它与只有正向证据的保守原子，以及读取没有活动时返回 unknown 的 preload 原子不同；unknown 仍不会因否定变成接受。合成代码不查询 block 标识、权限或 ghost 足迹。
+
+[ClightCellFrame.v](../prototype/interface/ClightCellFrame.v) 给出实际 `clight_write_frame` 实例：两个指针 temps 保持；只写入口指针所确定的两段字节；写集外内存和 `nextblock` 保持；任意声明的 live-out 不需要私有标识。它证明的是指针参数稳定，不是这些指针所指内容不变。编译器仍使用完整出口相等连接全局证明；这个 frame 也可供后续局部动作／循环证明复用。
+
+`compile_readonly_cell_pairs_correct` 已连接 Csem→Asm。局部证书可应用于循环体内的有限片段，无须整个外围循环有完成性证明：Clight 宿主递归匹配上下文，仅被替换区域需要相应进展证书。实际插入还核对目标不引入 label；不合适的位置保留源。对选中的整个可能发散的循环进行改写，仍是另一项尚未实现的能力。
+
 ### 已接入的 2×2 实例
 
 [ClightReadonlyMatrix.v](../prototype/interface/ClightReadonlyMatrix.v) 是上述协议的首个实际循环实例：使用者识别并核对完整源语法，提交按列执行的候选、`i=0 ∧ n=2 ∧ m=2` 的只读条件和局部等价。实际源执行被解码为四个 CompCert store，已核对的调度证书交换动作，候选执行再编码回相同内存及全部出口 temps。它不是一个脱离源程序的 schedule 示例。
@@ -104,12 +114,15 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-compiler-proof
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-matrix-native
 opam exec --root=/tmp/guard-opam --switch=guard -- make interface-rectangle-native
+opam exec --root=/tmp/guard-opam --switch=guard -- make interface-cells-native
 ```
 
-纯接口检查编译十个模块和三个既有依赖，审计 39 个闭合接口端点。Clight 检查编译九个新模块及四个既有依赖，审计 48 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计二十个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，完整编译器基线为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
+纯接口检查编译十个模块和三个既有依赖，审计 39 个闭合接口端点。Clight 检查编译九个新模块及四个既有依赖，审计 48 个端点，假设包含在既有 Clight 六项全局假设中。编译器检查另审计二十九个端点，按片段、内存、区域与完整编译器分别比较基线；实际 store 重排的内存相等还复用 CompCert `Mem.mkmem_ext` 的 `proof_irrelevance`，完整编译器基线为 35 项。没有新增公理。报告记录源码摘要并核对旧编译器的依赖源码清单。
 
 当前原生结果为 68 组调用通过，含四组空路径 null 指针；Clight 中确实出现检查、候选与源回退，结果与 GCC 参考及整数期望一致，输出 `172 0`。这是分支实例的运行证据，不是循环优化或性能验收。
 
 循环原生目标提取 `ClightReadonlyMatrix.compile_readonly_matrix`，运行已有 C fixture：21 次函数调用、九组矩形输入和五处被改写的循环区域通过。输出 Clight 核对实际候选／回退的相反循环顺序；结果与 GCC 及独立期望一致，包括 goto／外围循环上下文、全局数组、全部出口变量和未读取的未初始化内层边界。不同 RHS、真实内存依赖和 volatile 模板均未被改写。报告位于 `build/interface-matrix-native/`；没有性能测量。
 
 动态矩形目标提取 `ClightReadonlyRectangle.compile_readonly_rectangle`：225 个正尺寸 store 矩形、六处改写区域及实际短路范围检查通过；C fixture 的 842 行结果逐单元、逐出口与 GCC 和独立模型一致。空域和布局外输入回退，内层未初始化边界在外层为空时未读取。同一 fixture 中的 update／行依赖案例保持源，不能计入新接口支持的变换种类。报告位于 `build/interface-rectangle-native/`。
+
+non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs`。82 次 C 函数调用覆盖 20 个相同指针输入、60 个同一 block 的分离单元输入、不同对象和空循环的 null 指针；所有单元及未写 frame 与 GCC／独立期望一致，输出 `4100 0`。普通函数、计数循环和无限外围循环内的三个实际 guard／交换顺序均已核对；无限循环只编译和检查，未执行。报告位于 `build/interface-cells-native/`；这不是一般区间／循环足迹 alias 检查器。

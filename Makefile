@@ -19,7 +19,7 @@ proof:
 	@$(ROCQ) --version > build/compiler.txt
 	@set -eu; for src in $(SOURCES); do $(ROCQ) compile $(ROCQFLAGS) -Q theories Guard "$$src"; done
 
-.PHONY: interface-proof interface-clight-proof interface-compiler-proof interface-native interface-matrix-native interface-rectangle-native
+.PHONY: interface-proof interface-clight-proof interface-compiler-proof interface-native interface-matrix-native interface-rectangle-native interface-cells-native
 interface-proof:
 	python3 scripts/audit_interface.py
 
@@ -40,6 +40,10 @@ interface-matrix-native: interface-compiler-proof
 interface-rectangle-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --rectangle > build/interface-compiler/rectangle-build.log 2>&1
 	python3 scripts/native_interface_rectangle.py
+
+interface-cells-native: interface-compiler-proof
+	python3 scripts/build_interface_compiler.py --cells > build/interface-compiler/cells-build.log 2>&1
+	python3 scripts/native_interface_cells.py
 
 demo:
 	python3 prototype/demo.py
