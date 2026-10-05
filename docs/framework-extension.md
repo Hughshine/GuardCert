@@ -1,5 +1,7 @@
 # 框架扩展设计：证据、状态与组合
 
+后续将入口回退接口具体化为[四份核心契约与分类](language-independent-interface.md)，并新增不依赖 CompCert 的机械化原型。本文保留原扩展提案；新的接口设计区分已实现的入口协议与仍需专用判断／协议的场景。
+
 2026-10-02 的设计提案。它来自 [跨领域 survey](survey-general.md) 和 [已有工作对比](research-position.md)。**本文是接口方向，不是新增的 Rocq 定理。** 已证明的接口仍以 [现有框架](framework.md)、[CompCert 接入](compcert-integration.md) 和源码为准。
 
 本文后面的“当前”保留最初设计快照，不能作为最新实现清单。随后已实现共享的条件树 lowering、signed32 widened checks、真实内存／嵌套循环宿主、[guarded 矩阵交换](native-matrix-interchange.md) 和[外部点顺序生成](untrusted-point-schedules.md)。通用核与实例的最新边界见 [abstract-kernel.md](abstract-kernel.md) 和 README；任意候选条件推断、一般 affine 域和其他 judgment family 仍属设计。

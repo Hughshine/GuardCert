@@ -2,6 +2,8 @@
 
 研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。当前统一 C→Asm 入口支持动态矩形、`j<i+M` 的非矩形源、多个实际数组对象及跨数组读取／复制；消费实际依赖证书的仿射候选、组合坐标映射和二维 tiling 已接通源执行、运行时检查、候选执行及完整程序定理。一般仿射 Loop 的提取执行对应也已证明。单个稳定指针缓冲区及指针／固定数组中的稳定 RHS 标量参数也已接入。正、负及混合系数的仿射源地址随后也已接通，见 [signed 仿射地址](docs/memory-signed-affine-access.md)。[多个不同指针的活动访问分离检查](docs/memory-multiple-pointer-guards.md)也已接通源与候选的真实执行及完整程序定理，支持同一 block 中的切片。更一般的深层仿射域、参数化访问及更宽的别名前提继续推进。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
 
+语言无关接口的设计见 [四份核心契约与分类](docs/language-independent-interface.md)：检查与局部变换的能力边界、规则／语言使用者的流程、六个分类维度及不同失败协议。新的[独立接口原型](prototype/interface/README.md)已编译验证；现有 CompCert 路线尚未迁移到这份接口。
+
 以 Doerfert、Grosser、Hack 的 [Optimistic Loop Optimization（CGO 2017）](https://dl.acm.org/doi/10.5555/3049832.3049864) 为主线，现有原型覆盖 presumption 编码、condition 合成和 conditional rewrite。真实 Clight 分支、表达式、有限区域与严格计数循环 passes 已接入 C 到汇编正确性，并提取成编译器运行了 C 示例。当前工具链锁定 CompCert v3.18、Rocq 9.2.0 与 Stdlib 9.2.0。
 
 研究对象还包括人工或工具给出候选后，由框架寻找成立条件、生成检查与回退。COVE/cSTOKE、Peek、Chamois、Icing 和 CoreJIT 已覆盖这条链的不同部分；当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。有限外层次数条件搜索已在实际多面体候选上实现；任意关系式条件推断和新颖性仍需进一步支持。
