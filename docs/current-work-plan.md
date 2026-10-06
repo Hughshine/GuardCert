@@ -50,7 +50,11 @@ P3 后继的 [源观察与 alias 包络](source-observed-affine-separation.md) �
 
 后续按难点排序：优先实现多个依赖 preload 的安全读序、原入口事实和参数稳定性，再推广一般深层 affine 域。当前完整 guard 的 D 仍使用有限正常源完成和 retained source receipt，不能替代依赖加载／无限源的有限前缀协议。保守不同-base 拒绝与真实 ragged scan 的组合也需独立 capability／private-state 证明。P4 和同例 near-neighbor／作者 obligations 比较继续有效，完整 goal 保持 active。
 
-OLO 的需求验收仍以义务区分：当前实例提供机器范围／no-wrap、真实 nonrectangular footprint、物理 alias 条件、mapped／tiling 候选依赖保持和全程序安装；这些不覆盖每次循环测试都会重新读取的 memory bound。后者仍须证明 source 活动支持检查读取，先前检查许可后续读取，以及候选 snapshot 在所有相关 store 下稳定。不能把“源已 preload 到稳定寄存器”作为这一困难情形已经解决的证据。该读序／稳定性接口列为下一阶段必交付，随后才推广更一般深层域；不以两个成功域替代该验收。
+OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围／no-wrap、真实 nonrectangular footprint、物理 alias 条件、mapped／tiling 候选依赖保持和全程序安装；该 compiler 尚未覆盖每次循环测试重新读取的 memory bound。不能把“源已 preload 到稳定寄存器”作为这一困难情形已解决的证据。
+
+后继 [loaded pointer 局部规则](research-checkpoint-2026-10-06-affine-loaded-pointer.md) 已证明一个真实三角源的 bound 反复读取／缓存运输，并接到原候选证书与保留 prefix 的 contract。语言提供 preload 值观察和 active-loop 运输；domain 提供 byte 级观察保持、保守 affine cell exclusion，以及 source 活动支持的 first-body words。kernel 未改，实际 full condition 消费依赖顺序组合，D 不预设未来稳定性。31 端点／540 依赖／884 摘要审计通过，无新增全局公理；原 42 假设 compiler 独立回归通过，原 891 调用报告重新核对绑定、未重执行。
+
+下一项先将该局部 contract 安装：实现不假设 bound 稳定的 loaded nested source progress，核对真实 frontend／matcher、原候选工厂与完整程序端点，再提取并运行接受／回退／外围上下文。当前没有新 loaded 选择器、提取或原生结果。随后推广任意 bound pointer 与多个依赖 preload；后项读取的许可、original-entry 条件和 private snapshot 稳定性继续独立验收。本例使用源已有公开 preload，仍使用有限正常源完成域，不宣称解决全部依赖读取或一般无限源。更一般深层域、P4 和同例作者负担保持在目标内。
 
 ## 每个阶段固定记录什么
 

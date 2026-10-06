@@ -130,3 +130,9 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 实际两个源域安装 2×3／4×1 分块，错误 witness、少一行和零 tile 的拒绝被完整 C 矩阵核对。109 端点、提取、891 次配置内调用和七个机器路径通过，阶段记录保留摘要与验证范围。tile 控制数依据 caps 在编译时计算，未增加通用运行时 floor/ceil lowering。已有接口复用事实不等于 proof burden、性能或 novelty 结论。
 
 当前计划将依赖加载的安全读序和 memory-bound 稳定性提升为下一必交付。先前 loaded 矩形／singleton 的语言设施是可复用基础，但没有因此称它们已经接入非矩形 pointer 候选。一般深层域、第二机会 ragged scan 和同例比较继续保留，完整 goal 未完成。
+
+## 10 月 6 日：loaded pointer 的 source activity 与稳定性
+
+本阶段 fetch 确认三个评审分支未更新，paper narrative 与 `f793629` 正文字节一致。按已采纳的困难义务，[新局部规则](research-checkpoint-2026-10-06-affine-loaded-pointer.md) 将初始 preload 观察、首次真实活动 body 的参数定义性、接受范围覆盖全部写入和 bound 稳定性分开证明。语言提供实际执行运输；domain 提供 conservative affine cell exclusion 与真实 pointer body 对应；kernel 的域限制和条件顺序组合被实际 full condition 消费。D 没有预置未来 load 稳定性。
+
+候选继续使用原认证 package，保留 prefix 的 projected contract 已编译。31 端点、540 依赖、884 摘要审计通过，无新增公理；原 full compiler 的 42 假设独立回归和 891 调用报告绑定核对通过。本次没有新 loaded compiler、提取或原生证据，也没有重跑旧矩阵。当前计划先实现不假设稳定性的 loaded nested source progress／matcher，随后实际安装；一般 bound pointer、多个依赖 preload 和 private snapshot 继续独立验收。

@@ -110,3 +110,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 后继 [分块接入](research-checkpoint-2026-10-06-affine-pointer-tiling.md) 关闭同一受限 pointer 源的 quotient witness／实际 candidate 对应：domain 用旧独立 tiling checker 产生与 mapped 相同的 `C_opt`，两条路径共用条件、lowering、restore 和 local contract，kernel／语言 host 未改。109 端点审计、提取、十一配置共 891 次调用及七个机器路径通过。tile 控制数从 caps 在编译时取得；不增加通用运行时 floor/ceil 语义，也不据此主张 proof burden 收益。
 
 最难义务继续落实到下一项：多个依赖 preload 的读序与稳定性，以及一般深层 affine 源/出口。生成器的数学测试可能无法安全编码，故未证明的整理输出只能经完整 checker 再取得证书。框架不将候选整理视为自动条件推导；原 `C_derive` 和 `C_guard` 仍各自有实际证明。
+
+[Loaded pointer 局部规则](research-checkpoint-2026-10-06-affine-loaded-pointer.md) 进一步检验这个顺序。语言从实际 retained preload 取得值观察，沿 loaded headers／rows 运输执行；domain 从第一次真实活动 body 取得 scalar 定义性，随后由接受范围和已验证写足迹排除 bound 单元。load 保持由实际 stores 推出，不写进 D。框架复用域限制与 `sequence_readonly_conditions`，将新的 preliminary 接到原候选条件；独立 package 和 actual lowering 仍由优化方提供。
+
+该阶段的 `alp_observed_candidate_contract` 保持实际 prefix、公开出口与完整 memory，但安装还缺 loaded nested source progress／matcher；31 端点 proof audit 不计为新 full compiler 或原生证据。三角实例以源已有 public n 缓存 p[0]；generic 运输允许任意观察 pointer，具体 exclusion rule 核对同一 write buffer 的静态逻辑单元。多个依赖 preload、private snapshot 和一般 bound-pointer guard 仍是待关闭的困难义务。
