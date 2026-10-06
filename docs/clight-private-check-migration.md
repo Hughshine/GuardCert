@@ -64,4 +64,4 @@ make interface-private-scan-runtime-order
 
 最后一项使用 x86-64/GDB 硬件观察点。形式证明、完整汇编输出对照、实际路径探针分别报告；路径探针不计性能证据。审计覆盖 38 个端点、465 个实际依赖、812 份摘要；语言端点只继承 CompCert 假设，候选检查继承 7 项 PolCert/VPL 假设，没有新增公理。
 
-后继 [源观察 alias 包络](source-observed-affine-separation.md) 已证明受限符号推导、全部实际 footprint coverage、source receipt 和 checked fragment lowering。当前 compiler 仍执行此处原 scan；下一项完成新片段的 normalized AST／proposal／完整入口接入及实际跳过 scan 的验收。一般 affine 域与 pointer 组合、机制成本和作者证明负担对照继续按 [责任矩阵](framework-responsibilities.md) 和 [当前计划](current-work-plan.md) 验收，公共 pointer pass 完成不等于完整研究目标完成。
+后继 [源观察 alias 包络](source-observed-affine-separation.md) 已证明受限符号推导、全部实际 footprint coverage、source receipt 和 checked fragment lowering；[新完整入口](clight-observed-pointer-compiler.md) 进一步接入 normalized AST／三类候选／序列 placement、Csem→Asm 与提取。机器探针确认快捷接受跳过 scan，拒绝继续此处原 scan；原 private-scan compiler 保持独立。下一项证明共享 fallback，处理 direct tree 的代码复制。一般 affine 域与 pointer 组合、机制成本和作者证明负担对照继续按 [责任矩阵](framework-responsibilities.md) 和 [当前计划](current-work-plan.md) 验收，公共 pointer pass 完成不等于完整研究目标完成。

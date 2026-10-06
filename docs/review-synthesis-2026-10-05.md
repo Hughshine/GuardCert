@@ -80,3 +80,11 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 本次实际语义核对还修正了 P3 的 pointer 计划：访问 `p+k` 有效不保证原始 p 可比较，不能把 base-valid 偷放到 D。先交付宽度条件的实际使用者，pointer separation 的符号推导继续要求源前缀／placement 提供合法观察，并证明覆盖全部源访问。旧一轴宽度检查本来就是符号算法，因此本次不把它描述成 footprint 枚举的替代。完整 P3 和研究目标继续保持未完成；当前实现／验证见[阶段记录](research-checkpoint-2026-10-06-envelope.md)。
 
 后继 [源观察 alias 阶段](research-checkpoint-2026-10-06-observed-pointer.md) 再次 fetch 三分支，SHA 不变。已把这项计划落实为真实 prefix receipt、modular 物理分离、全部实际 footprint coverage 和同一 C_opt／scan 的 checked fragment lowering，17 端点审计通过；新 compiler 接入／提取／实际快捷执行仍待完成。责任矩阵与计划已据此更新，保持 P3、性能和作者负担验收开放，不以片段证明完成代替完整目标。
+
+## 10 月 6 日：源观察条件的真实程序安装
+
+再次 fetch 后三个评审分支仍保持上述 SHA，没有新增意见。后继 [完整 compiler](clight-observed-pointer-compiler.md) 已完成实际 prefix matcher、原 mapped／tiling／schedule checker 的适配、Csem→Asm 和提取。真实程序检查暴露旧 placement 只接受根部 loop 的限制，语言库以已有 framed 小步协议证明序列组合，并运输 prefix／suffix 的 public state 和实际 memory effect；没有弱化宿主或加入 source progress 假设。67 端点的审计继承 CompCert 和原 PolCert/VPL 基线，没有新增全局公理。
+
+十五个原生配置各 376 次调用和十个实际机器探针通过，分别确认快捷接受没有执行 footprint 地址比较、条件拒绝后 scan 接受或源回退，以及空路径没有新增 pointer 比较。完整原生矩阵由 [本阶段新报告](research-checkpoint-2026-10-06-observed-compiler.md) 绑定：首轮分块超时后，八份已有绑定产物重新执行、七个配置新编译；前一阶段报告不计作新路径运行证据。核、语言服务和 domain 适配器的责任已同步到 [责任矩阵](framework-responsibilities.md)。
+
+评审提出的成本问题继续落实为下一项验收：当前一个二维 fixture 的 direct tree 复制 13 份 scan，接受时也保留两个方向的 base 检查。先证明并安装共享 fallback／保持同一接受含义，再依性能方案量最终机器产物；同例作者负担比较仍未完成。这些后续工作进入 [当前计划](current-work-plan.md)，不把功能正确性或端点数量当作成本收益。

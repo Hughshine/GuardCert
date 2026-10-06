@@ -24,11 +24,14 @@ def run(*arguments):
     subprocess.run(arguments, cwd=WORK, check=True)
 
 
-def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False, unified=False, readonly_polyhedral=False, readonly_parametric=False, private_scan=False):
+def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False, unified=False, readonly_polyhedral=False, readonly_parametric=False, private_scan=False, observed_pointer=False):
     global WORK, ENTRY
     readonly_api = readonly_polyhedral or readonly_parametric
-    interface_api = readonly_api or private_scan
-    if private_scan:
+    interface_api = readonly_api or private_scan or observed_pointer
+    if observed_pointer:
+        WORK = ROOT / "build/compcert-observed-pointer"
+        ENTRY = "ClightObservedPointerCompiler.compile_preserving_observed_pointer"
+    elif private_scan:
         WORK = ROOT / "build/compcert-private-scan"
         ENTRY = "ClightParamPointerCompiler.compile_preserving_pointer_scan"
     elif readonly_parametric:
@@ -56,7 +59,7 @@ def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=F
         WORK = ROOT / "build" / "compcert-memory-tiling"
         ENTRY = "GuardMemoryTiledCompiler.compile_memory_tiled_regions"
     polcert_core.select_profile("optimizer")
-    proof_path = ROOT / ("build/interface-private-check/report.json" if private_scan else "build/interface-parametric/report.json" if readonly_parametric else "build/interface-polyhedral/report.json" if readonly_polyhedral else "build/guard-memory-proof-report.json")
+    proof_path = ROOT / ("build/interface-observed-pointer/report.json" if observed_pointer else "build/interface-private-check/report.json" if private_scan else "build/interface-parametric/report.json" if readonly_parametric else "build/interface-polyhedral/report.json" if readonly_polyhedral else "build/guard-memory-proof-report.json")
     proof = json.loads(proof_path.read_text())
     proof_entry = "unified_whole_program_entrypoint" if unified else "proposed_whole_program_entrypoint" if proposed else "operations_whole_program_entrypoint" if operations else "sequence_whole_program_entrypoint" if sequences else "cut_whole_program_entrypoint" if cuts else "tiling_whole_program_entrypoint" if tiling else "whole_program_entrypoint"
     if interface_api:
@@ -96,7 +99,7 @@ def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=F
           (GuardMemoryCandidate.natural (if shared then 17 else 16)) csyntax)"""
         if readonly_parametric:
             invocation = invocation.replace("ClightPolyhedralCompiler.compile_preserving_polyhedral", ENTRY).replace("GuardReadonlyPolyhedralCandidate.propose", "GuardReadonlyParametricCandidate.propose")
-    if private_scan:
+    if private_scan or observed_pointer:
         invocation = "(" + ENTRY + " GuardPrivateScanCandidate.propose (GuardMemoryCandidate.natural 17) csyntax)"
     replacement = """(let outcome = ref None in
       ImpureConfig.Core.Base.bind INVOCATION
@@ -145,13 +148,13 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         sources.append(ADAPTER / "native" / "GuardMemoryCandidate.ml")
     if readonly_polyhedral:
         sources.append(ADAPTER / "native" / "GuardReadonlyPolyhedralCandidate.ml")
-    if unified or readonly_parametric or private_scan:
+    if unified or readonly_parametric or private_scan or observed_pointer:
         sources.append(ADAPTER / "native" / "GuardMemoryScheduleInput.ml")
     if unified:
         sources.append(ADAPTER / "native" / "GuardMemoryUnifiedCandidate.ml")
     if readonly_parametric:
         sources.append(ADAPTER / "native" / "GuardReadonlyParametricCandidate.ml")
-    if private_scan:
+    if private_scan or observed_pointer:
         sources.append(ADAPTER / "native" / "GuardPrivateScanCandidate.ml")
     for source in sources:
         target = "GuardMemoryNumbers.ml" if source.name == "GuardMemoryNumbersCompCert.ml" else source.name
@@ -170,7 +173,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         "native_sources": {str(path.relative_to(ROOT)): sha(path) for path in sources},
         "oracle": "bounded Fourier-Motzkin with checked LCF certificates",
         "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE file with Loop, tiling or affine-schedule proposal" if proposed or unified or interface_api else None,
-        "guard_configuration": "private scan with a fresh materialized Boolean result" if private_scan else "GUARDCERT_GUARD_LOWERING direct/shared, default shared" if readonly_api else None,
+        "guard_configuration": "source-observed readonly affine separation, otherwise original private scan" if observed_pointer else "private scan with a fresh materialized Boolean result" if private_scan else "GUARDCERT_GUARD_LOWERING direct/shared, default shared" if readonly_api else None,
         "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling or cuts or sequences or operations else None,
     }, indent=2) + "\n")
     print(f"verified dependence compiler: {WORK / 'ccomp'}")
@@ -187,7 +190,8 @@ if __name__ == "__main__":
     parser.add_argument("--readonly-polyhedral", action="store_true", help="extract the affine/tiling user of the readonly realization API")
     parser.add_argument("--readonly-parametric", action="store_true", help="extract affine-source and schedule proposals through the readonly API")
     parser.add_argument("--private-scan", action="store_true", help="extract pointer/parameter proposals through the public private-scan API")
+    parser.add_argument("--observed-pointer", action="store_true", help="extract source-observed affine pointer separation with the original scan fallback")
     arguments = parser.parse_args()
-    if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan)) > 1:
+    if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer)) > 1:
         parser.error("select one compiler entrypoint")
-    main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan)
+    main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer)

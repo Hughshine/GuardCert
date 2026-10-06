@@ -89,7 +89,11 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 ## 5. 研究主张与持续维护
 
-[源观察支持的 alias 包络](source-observed-affine-separation.md) 进一步关闭了受限片段上的这两项证明：语言库从真实保留的 source load prefix 导出地址有效性，并安装 prefix 后的局部条件；domain 库将任意点包络接到实际 source footprint 与 modular 物理单元。readonly shortcut 复用同一 candidate C_opt、原 scan 和 kernel 组合。优化使用者仍提供已验证 candidate check，以及绑定实际 normalized AST 的定位证据；新完整 compiler 注册、提取、原生路径验证与一般 affine 源仍待完成。这组服务的 proof audit 与前一阶段 compiler/native 报告分开，不从源码或端点数量主张性能或作者负担收益。
+[源观察支持的 alias 包络](source-observed-affine-separation.md) 进一步关闭了受限片段上的这两项证明：语言库从真实保留的 source load prefix 导出地址有效性，并安装 prefix 后的局部条件；domain 库将任意点包络接到实际 source footprint 与 modular 物理单元。readonly shortcut 复用同一 candidate C_opt、原 scan 和 kernel 组合。[新完整 compiler](clight-observed-pointer-compiler.md) 已实现 normalized AST 定位、三类实际 checker 的适配、提取和机器路径验收；原生矩阵由独立报告绑定。一般 affine pointer 源继续待扩展。这组服务的 proof audit 与前一阶段 compiler/native 报告分开，不从源码或端点数量主张性能或作者负担收益。
+
+这次接入还暴露了 `C_host` 的具体责任：局部 `(loads;loop);suffix` contract 不能自动满足旧选择器只针对根部 loop 的 source progress。Clight 库新增 [序列 contract 运输](../prototype/interface/ClightSequenceContracts.v) 与 [序列 placement checker](../prototype/interface/ClightSequenceProgressSelector.v)，组合已有 framed 小步协议，保持正常后缀的真实 memory effect。domain 适配器核对源 AST、scope 和原候选证书后调用这些语言服务；kernel 不认识 loads、loops 或 pointers，也不增加 source progress 假设。最难义务中，安全许可和全部 footprint 覆盖已在受限模型关闭，宿主通过实际序列协议关闭；一般控制出口、一般多面体域和作者负担收益仍未由本例证明。
+
+后续共享 fallback 也按同一边界验收：语言库证明真实 lowering 的分派／frame，domain 复用原 D／P／candidate 与 coverage，核心组合定理保持。当前一个二维 fixture 有 13 份 scan AST 和两个对称 base 比较；减少这些冗余需要新的 proved lowering／语义保持证据，然后才能量最终机器成本。代码规模问题不能由声明“共享实现”或只比较逻辑 condition 消除。
 
 整体叙事是“小的语言无关 verified optimistic transformation 框架＋有实质算法与条件正确性证明的 CompCert 循环实例”。kernel 的组合定理较短，这不要求框架承担优化发现；贡献必须由实际可复用的证据处理服务、语言宿主和困难 optimizer 的接入共同证明。更广泛 conditional rewrite 作为接口实例；未实现的 vectorization、layout specialization 等不计 evaluated 能力。
 

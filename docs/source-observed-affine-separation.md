@@ -1,6 +1,6 @@
 # 源观察支持的符号化地址分离
 
-本阶段后继于 `cd8c228` 的宽度 guard。它证明一个受限 alias 快捷检查及其实际 Clight 片段 lowering：源已经读取的普通 pointer base 提供合法观察证据，仿射包络覆盖全部真实循环访问；充分条件接受时直接执行原候选，拒绝时运行原 footprint scan。完整编译器选择器、提取和新路径 native 验收继续待接入，旧 pointer compiler 仍执行原扫描。
+本片段库阶段后继于 `cd8c228` 的宽度 guard。它证明一个受限 alias 快捷检查及其实际 Clight 片段 lowering：源已经读取的普通 pointer base 提供合法观察证据，仿射包络覆盖全部真实循环访问；充分条件接受时直接执行原候选，拒绝时运行原 footprint scan。后继 [完整编译入口](clight-observed-pointer-compiler.md) 已实现实际选择器、三类候选 checker、序列 placement 和提取；片段审计与 compiler／运行验收分别记录。旧 pointer compiler 继续执行原扫描。
 
 ## 用户需要提供什么
 
@@ -20,7 +20,7 @@ for (i = 0; i < n; ++i)
 
 接口 [check_observed_param_pointer_candidate](../prototype/interface/ClightObservedPointerCandidate.v) 输入 live temps、private pool、已核对源 package、loads、候选 Loop 和已有 candidate check。它调用原 checked lowering；从成功 lowering 的 witness 取得绑定实际 AST 的候选局部证明；构造前缀、符号检查、原候选及原扫描回退。其 sound 定理要求调用者证明所提交的 candidate check 接受蕴含原有 `memory_bounded_candidate_certificate`，如同原路径。它不把任意 bool check 当作 verified checker。
 
-一般使用者可直接提交 [private_scan_preserving_rule](../prototype/interface/ClightPrivateScanPreservation.v)。[observed_param_pointer_region_contract](../prototype/interface/ClightObservedPointerPreservation.v) 要求 rule 的 D/P 与实际 package 一致，以及上述 prefix coverage/freshness；从真实 prefix 和 source 执行导出入口观察。该 contract 可以由现有 private-region table host 消费。实际 normalized AST 的匹配、candidate proposal dispatch 和 compiler 注册仍是下一项交付。
+一般使用者可直接提交 [private_scan_preserving_rule](../prototype/interface/ClightPrivateScanPreservation.v)。[observed_param_pointer_region_contract](../prototype/interface/ClightObservedPointerPreservation.v) 要求 rule 的 D/P 与实际 package 一致，以及上述 prefix coverage/freshness；从真实 prefix 和 source 执行导出入口观察。该 contract 可以由 private-region table host 消费。后继 [ObservedPointerSyntax](../prototype/interface/ClightObservedPointerSyntax.v) 和 [ObservedPointerCandidates](../prototype/interface/ClightObservedPointerCandidates.v) 将实际 normalized AST、mapped／tiling／schedule checker 和 compiler 注册连接起来；使用者无需再为这三条路线手写 candidate-check soundness。
 
 ## 条件如何得到全部访问的保证
 
@@ -55,6 +55,6 @@ q offsets: [128+t, 128+16(n-1)+(m-1)+t]
 
 ## 验证与下一项
 
-运行 `opam exec --root=/tmp/guard-opam --switch=guard -- make interface-pointer-envelope-proof`。专用审计绑定实际依赖 closure、源码与 .vo 摘要、CompCert 假设和每个公开端点。报告位于 `build/interface-pointer-envelope/report.json`，明确记录新 compiler entrypoint／提取／native／performance 尚未完成。它不替代前一阶段的 compiler/native 报告。
+运行 `opam exec --root=/tmp/guard-opam --switch=guard -- make interface-pointer-envelope-proof`。专用审计绑定实际依赖 closure、源码与 .vo 摘要、CompCert 假设和每个公开端点。报告位于 `build/interface-pointer-envelope/report.json`，仅审计本片段库，不运行 compiler 提取／native／performance。其 [历史阶段记录](research-checkpoint-2026-10-06-observed-pointer.md) 保留当时尚未接入 compiler 的事实，不替代后继完整入口的独立报告。
 
-下一项将此 checked fragment lowering 接到真实 normalized source 的 prefix matcher、mapped／tiling／schedule proposal 路线和 Csem→Asm compiler。随后验收同 base 分离的实际快捷接受、重叠／不同 base 的扫描路径、静态 observations 拒绝、保留的 prefix 值及完整上下文；用实际二进制确认快捷接受未执行足迹扫描。一般 affine pointer 域、多依赖 preload、同版 CompCert 对照和作者负担比较继续留在完整目标中。
+上述连接已由 [完整入口](clight-observed-pointer-compiler.md) 实现。实际机器探针区分快捷接受、不同比较 base／重叠后的扫描接受或回退、空路径；完整程序 fixture 核对源 prefix 值、所有数组输出、公开游标和真实后缀 store。下一项处理经过证明的共享 fallback，避免 direct tree 复制大 scan。一般 affine pointer 域、多依赖 preload、同版 CompCert 对照和作者负担比较继续留在完整目标中。

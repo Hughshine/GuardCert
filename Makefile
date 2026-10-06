@@ -59,6 +59,19 @@ interface-private-check-proof:
 interface-pointer-envelope-proof:
 	python3 scripts/audit_observed_pointer_envelope.py
 
+.PHONY: interface-observed-pointer-proof interface-observed-pointer-native interface-observed-pointer-runtime-paths
+interface-observed-pointer-proof:
+	python3 scripts/audit_interface_observed_pointer.py
+
+interface-observed-pointer-native: interface-observed-pointer-proof
+	python3 scripts/build_memory_compiler.py --observed-pointer > build/interface-observed-pointer/build.log 2>&1
+	python3 scripts/native_interface_observed_pointer.py
+	python3 scripts/validate_interface_observed_pointer.py
+
+interface-observed-pointer-runtime-paths:
+	python3 scripts/probe_interface_observed_pointer.py
+	python3 scripts/validate_interface_observed_pointer.py --runtime-paths
+
 interface-private-scan-native: interface-private-check-proof
 	python3 scripts/build_memory_compiler.py --private-scan > build/interface-private-check/build-compiler.log 2>&1
 	python3 scripts/native_interface_private_scan.py
