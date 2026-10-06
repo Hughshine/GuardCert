@@ -147,7 +147,8 @@ Extract Constant PedraQBackend.add => "GuardMemoryOracle.add".
 Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed.Base.imp.
 '''
     extraction = WORK / "extract_memory.v"
-    metadata_root = " ClightAffineInnerPointerCandidates.propose_affine_inner_pointer_profile" if affine_inner_pointer else ""
+    metadata_root = (" ClightAffineInnerPointerCandidates.propose_affine_inner_pointer_profile"
+                     " ClightAffineInnerPointerCandidates.propose_affine_inner_pointer_tiling") if affine_inner_pointer else ""
     extraction.write_text("From " + ("GuardInterface" if interface_api else "GuardMemory") + " Require Import " + ENTRY.split(".")[0] + ".\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
@@ -198,7 +199,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         "proof_report_sha256": sha(proof_path),
         "native_sources": {str(path.relative_to(ROOT)): sha(path) for path in sources},
         "oracle": "bounded Fourier-Motzkin with checked LCF certificates",
-        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE with affine Loop or explicit schedules; GUARDCERT_AFFINE_* source metadata" if affine_inner_pointer else "GUARDCERT_LOOP_CANDIDATE file with Loop, tiling or affine-schedule proposal" if proposed or unified or interface_api else None,
+        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE with affine Loop, tile witness or explicit schedules; GUARDCERT_AFFINE_* source metadata" if affine_inner_pointer else "GUARDCERT_LOOP_CANDIDATE file with Loop, tiling or affine-schedule proposal" if proposed or unified or interface_api else None,
         "guard_configuration": "affine-inner readonly arithmetic/alias guard plus separate validator/encoder ranges; original source fallback" if affine_inner_pointer else "GUARDCERT_GUARD_LOWERING direct/shared, default shared; original private scan retained" if observed_realization else "source-observed readonly affine separation, otherwise original private scan" if observed_pointer else "private scan with a fresh materialized Boolean result" if private_scan else "GUARDCERT_GUARD_LOWERING direct/shared, default shared" if readonly_api else None,
         "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling or cuts or sequences or operations else None,
     }, indent=2) + "\n")

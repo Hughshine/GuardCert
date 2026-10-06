@@ -52,9 +52,26 @@ Proof. vm_compute; reflexivity. Qed.
 Example affine_inner_pointer_triangular_candidate_lowered : ap_selected ap_candidate_lowered = true.
 Proof. vm_compute; reflexivity. Qed.
 
+Definition ap_tiled_candidate_lowered := match describe_affine_inner_pointer_at ap_source ap_profile with
+  | Some package => match propose_affine_inner_pointer_tiling (affine_inner_pointer_request_of package) 2 3 with
+    | Some (candidate,_) => compile_memory_multi_pointer_buffer_loop (affine_inner_pointer_pointers package)
+        (memory_affine_inner_pointer_region_context package) ap_encoder_bounds ap_live
+        [(100%positive,101%positive);(102%positive,103%positive);(104%positive,105%positive);(106%positive,107%positive)] candidate
+    | None => None end
+  | None => None end.
+Example affine_inner_pointer_triangular_tiling_lowered : ap_selected ap_tiled_candidate_lowered = true.
+Proof. vm_compute; reflexivity. Qed.
+Example affine_inner_pointer_zero_tile_refused :
+  ap_selected (match describe_affine_inner_pointer_at ap_source ap_profile with
+    | Some package => propose_affine_inner_pointer_tiling (affine_inner_pointer_request_of package) 0 3
+    | None => None end) = false.
+Proof. vm_compute; reflexivity. Qed.
+
 Print Assumptions affine_inner_pointer_observed_source_progress.
 Print Assumptions affine_inner_pointer_normalized_observation_selected.
 Print Assumptions affine_inner_pointer_source_observation_coverage.
 Print Assumptions affine_inner_pointer_missing_receipt_refused.
 Print Assumptions affine_inner_pointer_generated_profile_checked.
 Print Assumptions affine_inner_pointer_triangular_candidate_lowered.
+Print Assumptions affine_inner_pointer_triangular_tiling_lowered.
+Print Assumptions affine_inner_pointer_zero_tile_refused.

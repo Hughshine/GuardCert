@@ -41,7 +41,25 @@ let propose request =
       { GuardMemoryArrayBackend.MemoryNested.A.lower = lo; upper = hi }) ranges in
     let encoder = List.map (fun (lo,hi) ->
       { GuardMemoryPointerBackend.MemoryFramedNested.N.A.lower = lo; upper = hi }) ranges in
+    let tiled row_width column_width raw_candidate wrong_witness =
+      let row_width = GuardMemoryNumbers.import_integer (integer row_width) in
+      let column_width = GuardMemoryNumbers.import_integer (integer column_width) in
+      match propose_affine_inner_pointer_tiling request row_width column_width with
+      | Some (loop,witnesses) ->
+          let loop = match raw_candidate with Some syntax -> instantiate_at instructions None syntax | None -> loop in
+          let witnesses = if wrong_witness then List.map (fun witness ->
+            match witness.TilingWitness.stw_links with
+            | first::rest -> { witness with TilingWitness.stw_links =
+                { first with TilingWitness.tl_tile_size =
+                    GuardMemoryNumbers.import_integer (Z.succ (GuardMemoryNumbers.export_integer first.TilingWitness.tl_tile_size)) }::rest }
+            | [] -> witness) witnesses else witnesses in
+          Some { affine_proposal_validator_bounds = validator; affine_proposal_encoder_bounds = encoder;
+            affine_proposal_candidate = AffineInnerTilingProposal (loop,witnesses) }
+      | None -> None in
     match Lazy.force template with
+    | Some (List [Atom "tile"; row_width; column_width]) -> tiled row_width column_width None false
+    | Some (List [Atom "tile-loop"; row_width; column_width; loop]) -> tiled row_width column_width (Some loop) false
+    | Some (List [Atom "tile-wrong-witness"; row_width; column_width]) -> tiled row_width column_width None true
     | Some (List [Atom "schedule-explicit"; List schedules; List steps]) ->
         if List.length steps > 32 then invalid_arg "affine-inner map limit";
         let integer_rows schedule = List.map (function

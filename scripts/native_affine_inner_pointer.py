@@ -25,6 +25,14 @@ CEILING = "(map-index ((swap 0)) (loop (constant 0) (sum (scale 2 (var 0)) (cons
 RAGGED = "(map-index ((swap 0)) (loop (constant 0) (sum (scale 2 (var 0)) (constant -1)) (loop (constant 0) (var 1) (guard (le (var 1) (scale 2 (var 0))) (each (instr current ((var 0) (var 1) (var 2) (var 3))))))))"
 SCHEDULE = "(schedule-explicit ((((0 0 0 1) 0) ((0 0 1 0) 0) (() 0))) ((swap 0)))"
 INVALID = TRIANGLE.replace("(loop (var 0) (var 1)", "(loop (var 0) (sum (var 1) (constant -1))")
+TILE_MISSING_ROW = """(tile-loop 4 1
+  (loop (constant 0) (constant 17)
+    (loop (constant 0) (constant 64)
+      (loop (scale 4 (var 1)) (sum (scale 4 (var 1)) (constant 4))
+        (loop (var 1) (sum (var 1) (constant 1))
+          (guard (and (le (var 1) (sum (var 4) (constant -2)))
+                      (le (var 0) (var 1)))
+            (each (instr current ((var 1) (var 0) (var 4) (var 5))))))))))"""
 
 
 def sha(path):
@@ -156,6 +164,11 @@ def main():
     choices = [("triangle",TRIANGLE,{},["affine_triangle"]),
                ("ragged",RAGGED,{},["affine_ragged"]),
                ("schedule",SCHEDULE,{},["affine_triangle","affine_ragged"]),
+               ("tile-2-3","(tile 2 3)",{},["affine_triangle","affine_ragged"]),
+               ("tile-4-1","(tile 4 1)",{},["affine_triangle","affine_ragged"]),
+               ("tile-wrong-witness","(tile-wrong-witness 4 1)",{},[]),
+               ("tile-missing-row",TILE_MISSING_ROW,{},[]),
+               ("tile-zero","(tile 0 3)",{},[]),
                ("ceiling-refused",CEILING,{},[]),
                ("invalid-domain",INVALID,{},[]),
                ("resource-limit",TRIANGLE,{"GUARDCERT_FM_ROWS":"0"},[])]
@@ -167,7 +180,9 @@ def main():
               "triangle-alias-refuse":probe("triangle","shifted-alias-source-order","affine_triangle",3,"shifted",False),
               "triangle-box-refuse":probe("triangle","overlapping-box-source-order","affine_triangle",64,"same",False,7),
               "ragged-accept":probe("ragged","accepted-order","affine_ragged",3,"same",True),
-              "schedule-accept":probe("schedule","accepted-order","affine_triangle",3,"same",True)}
+              "schedule-accept":probe("schedule","accepted-order","affine_triangle",3,"same",True),
+              "tile-accept":probe("tile-4-1","accepted-order","affine_triangle",3,"same",True),
+              "tile-alias-refuse":probe("tile-4-1","shifted-alias-source-order","affine_triangle",3,"shifted",False)}
     report = {"status":"passed","proved_entrypoint":ENTRY,"compiler_sha256":stamp["compiler_sha256"],
               "proof_report_sha256":sha(PROOF),"compiler_stamp_sha256":sha(COMPILER.parent / ".guard-build.json"),
               "source_sha256":sha(SOURCE),"verification_script_sha256":sha(Path(__file__)),
@@ -175,7 +190,7 @@ def main():
               "unique_source_calls":len(inputs()),"calls_across_configurations":len(inputs())*len(results),
               "counterexample":{"arguments":[0,2,0,3,0],"absolute_index":4597,"source_value":4660,"unguarded_candidate_value":4723},
               "extraction_and_native_execution":True,"performance_measured":False,
-              "scope":"two affine-inner source domains; independent candidate checks, actual guarded paths and full buffer/public context agreement"}
+              "scope":"two affine-inner source domains; mapped/schedule and tiling checks, wrong quotient witness and missing-point refusal, actual guarded paths and full buffer/public context agreement"}
     (WORK / "report.json").write_text(json.dumps(report,indent=2)+"\n")
     print(json.dumps({"status":"passed","calls":report["calls_across_configurations"],"machine_probes":len(probes)}))
 

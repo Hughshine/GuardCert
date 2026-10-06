@@ -1,6 +1,6 @@
 # 下一项：实际非矩形 pointer 源域
 
-这是非矩形 pointer 接入的设计与后继验收。前几阶段依次实现局部证明支持、checked source package、完整条件；[新编译入口](clight-affine-inner-pointer-compiler.md) 现已接入独立候选／两套范围／local contract、Csem→Asm、提取和实际原生接受／回退。三角域和 `j<2*i+1` 均实际编译，候选与调度生成共用 checker。下文保留该切口的设计与义务来源，阶段状态以 [最新记录](research-checkpoint-2026-10-06-affine-pointer-compiler.md) 为准；旧矩形 compiler 的结果没有合并计入新 pass。
+这是非矩形 pointer 接入的设计与后继验收。前几阶段依次实现局部证明支持、checked source package、完整条件；[新编译入口](clight-affine-inner-pointer-compiler.md) 现已接入独立候选／两套范围／local contract、Csem→Asm、提取和实际原生接受／回退。三角域和 `j<2*i+1` 均实际编译；mapped、调度生成和 tiling 通过相同 candidate certificate 消费相同条件和 local contract，各自的独立 checker 保持。下文保留该切口的设计与义务来源，阶段状态以 [最新分块记录](research-checkpoint-2026-10-06-affine-pointer-tiling.md) 为准；旧矩形 compiler 的结果没有合并计入新 pass。
 
 ## 一个确定的切口
 

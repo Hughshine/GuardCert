@@ -24,10 +24,13 @@ def main():
     assert proof["verification_script_sha256"] == sha(ROOT / "scripts/audit_affine_pointer_domain.py")
     assert native["reference_output_sha256"] == sha(WORK / "reference-output.txt")
     assert native["unique_source_calls"] == len(suite.inputs()) == 81
-    assert native["calls_across_configurations"] == 486
+    assert native["calls_across_configurations"] == 891
     expected = {"triangle":["affine_triangle"], "ragged":["affine_ragged"],
                 "schedule":["affine_ragged","affine_triangle"], "ceiling-refused":[],
-                "invalid-domain":[], "resource-limit":[]}
+                "invalid-domain":[], "resource-limit":[],
+                "tile-2-3":["affine_ragged","affine_triangle"],
+                "tile-4-1":["affine_ragged","affine_triangle"],
+                "tile-wrong-witness":[], "tile-missing-row":[], "tile-zero":[]}
     assert set(native["configurations"]) == set(expected)
     for name,configuration in native["configurations"].items():
         assert configuration["compiled_in_this_run"]
@@ -40,7 +43,9 @@ def main():
               "triangle-alias-refuse":("triangle","shifted-alias-source-order",[97,160]),
               "triangle-box-refuse":("triangle","overlapping-box-source-order",[97,160]),
               "ragged-accept":("ragged","accepted-order",[160,97]),
-              "schedule-accept":("schedule","accepted-order",[160,97])}
+              "schedule-accept":("schedule","accepted-order",[160,97]),
+              "tile-accept":("tile-4-1","accepted-order",[160,97]),
+              "tile-alias-refuse":("tile-4-1","shifted-alias-source-order",[97,160])}
     assert set(native["probes"]) == set(probes)
     for key,(configuration,name,order) in probes.items():
         probe = native["probes"][key]
@@ -53,7 +58,7 @@ def main():
     assert not native["performance_measured"]
     result = {"status":"passed","proof_report_sha256":sha(suite.PROOF),
               "native_report_sha256":sha(report_path),"compiler_stamp_sha256":native["compiler_stamp_sha256"],
-              "sources_and_objects_current":True,"calls":486,"machine_probes":5,
+              "sources_and_objects_current":True,"calls":891,"machine_probes":7,
               "verification_script_sha256":sha(Path(__file__)),"performance_measured":False}
     (WORK.parent / "validation.json").write_text(json.dumps(result,indent=2)+"\n")
     print(json.dumps(result))

@@ -122,3 +122,11 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 实例暴露一项高难表示义务：数学生成检查含 `2147483648`、`-a` 或除法边界时，不能直接交给 signed32/affine lowerer。新增不受信任候选整理器提议参数检查删减及 quotient-to-affine 控制表达，再由原域／依赖 checker 对整个候选取得证书；没有把整理器当作新公理或通用 guard synthesis。直接除法提案的静态拒绝作为原生配置保留。当前只用 direct readonly tree、保守同-base 符号接受，没有新 ragged scan/shared capability。
 
 当前计划据此关闭该实例的候选连接、placement、提取和新原生证据缺口；进一步接 quotient/tiling 证书、一般深层域、多个依赖 preload 的合法读序／稳定性，并保留 P4 与同例作者负担比较。这是对 narrative 的实际接入检验，不新增 novelty 或盈利性结论。完整 goal 继续 active。
+
+## 10 月 6 日：同一非矩形 pointer package 的分块接入
+
+阶段性再次 fetch，三个分支仍为前述 `f793629`、`9673381`、`3e9f008`，没有新增意见。按 narrative 对可复用边界的要求，[tiling 接入](research-checkpoint-2026-10-06-affine-pointer-tiling.md) 将原 quotient/域/依赖 checker 转为与 mapped 相同的 candidate certificate，共用条件、机器 lowering、出口恢复和 local contract；kernel 与语言 host 保持。源／候选的实际绑定仍由 domain 负责，不归作核自动提供。
+
+实际两个源域安装 2×3／4×1 分块，错误 witness、少一行和零 tile 的拒绝被完整 C 矩阵核对。109 端点、提取、891 次配置内调用和七个机器路径通过，阶段记录保留摘要与验证范围。tile 控制数依据 caps 在编译时计算，未增加通用运行时 floor/ceil lowering。已有接口复用事实不等于 proof burden、性能或 novelty 结论。
+
+当前计划将依赖加载的安全读序和 memory-bound 稳定性提升为下一必交付。先前 loaded 矩形／singleton 的语言设施是可复用基础，但没有因此称它们已经接入非矩形 pointer 候选。一般深层域、第二机会 ragged scan 和同例比较继续保留，完整 goal 未完成。

@@ -46,9 +46,11 @@ P3 后继的 [源观察与 alias 包络](source-observed-affine-separation.md) �
 
 本次也明确了 optimizer/domain 的一项表示责任：generated 参数检查含 `2147483648` 或 `-a` 时不能直接降到 signed32，除法边界也不能直接通过 affine extractor。不受信任的候选整理器提出参数 guard 删除与粗范围／affine 条件替换，整个结果再经原 checker；不把整理器当作 `C_guard` 的证明或可信 residualizer。两个实际域消费同一证书和 host，kernel 未改，性能和作者负担尚未测量。
 
-后续按难点排序：先把 quotient／tiling 的点对应与证书接到同一 nonrectangular pointer package，然后推广一般深层 affine 域；继续实现多个依赖 preload 的安全读序、原入口事实和参数稳定性。当前完整 guard 的 D 仍使用有限正常源完成和 retained source receipt，不能替代依赖加载／无限源的有限前缀协议。保守不同-base 拒绝与真实 ragged scan 的组合也需独立 capability／private-state 证明。P4 和同例 near-neighbor／作者 obligations 比较继续有效，完整 goal 保持 active。
+后继 [nonrectangular pointer tiling](research-checkpoint-2026-10-06-affine-pointer-tiling.md) 已把实际 candidate Loop 和 quotient witness 接到同一 package、候选证书与完整编译器；2×3／4×1 在两个源域实际安装，错误 link、缺失源点和非正 tile 大小拒绝。mapped／tiling 共用条件、restore 和 local contract，kernel／语言 host 未改。109 端点／535 依赖／879 摘要、十一原生配置共 891 调用和七个机器路径通过。tile 控制数来自 metadata caps 的编译时除法，不宣称已有通用运行时 floor/ceil lowering。前阶段的 103 端点／六配置记录保留为历史证据。
 
-OLO 的需求验收仍以义务区分：当前实例提供机器范围／no-wrap、真实 nonrectangular footprint、物理 alias 条件、候选依赖保持和全程序安装；这些不覆盖每次循环测试都会重新读取的 memory bound。后者仍须证明 source 活动支持检查读取，先前检查许可后续读取，以及候选 snapshot 在所有相关 store 下稳定。不能把“源已 preload 到稳定寄存器”作为这一困难情形已经解决的证据。该读序／稳定性接口与 quotient/tiling 接入一起列为下一阶段必交付，随后才推广更一般深层域；不以两个成功域替代该验收。
+后续按难点排序：优先实现多个依赖 preload 的安全读序、原入口事实和参数稳定性，再推广一般深层 affine 域。当前完整 guard 的 D 仍使用有限正常源完成和 retained source receipt，不能替代依赖加载／无限源的有限前缀协议。保守不同-base 拒绝与真实 ragged scan 的组合也需独立 capability／private-state 证明。P4 和同例 near-neighbor／作者 obligations 比较继续有效，完整 goal 保持 active。
+
+OLO 的需求验收仍以义务区分：当前实例提供机器范围／no-wrap、真实 nonrectangular footprint、物理 alias 条件、mapped／tiling 候选依赖保持和全程序安装；这些不覆盖每次循环测试都会重新读取的 memory bound。后者仍须证明 source 活动支持检查读取，先前检查许可后续读取，以及候选 snapshot 在所有相关 store 下稳定。不能把“源已 preload 到稳定寄存器”作为这一困难情形已经解决的证据。该读序／稳定性接口列为下一阶段必交付，随后才推广更一般深层域；不以两个成功域替代该验收。
 
 ## 每个阶段固定记录什么
 

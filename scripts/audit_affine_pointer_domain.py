@@ -68,6 +68,7 @@ def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False,
         WORK = ROOT / "build/affine-pointer-compiler/proof"
         entry = "ClightAffineInnerPointerCompiler.compile_affine_inner_pointer"
         domain += [
+            "adapters/compcert-memory/GuardMemoryParametricModelTiling.v",
             "adapters/compcert-memory/GuardMemoryAffineSourceEndpointEncoding.v",
             "prototype/interface/ClightAffineInnerPointerCandidateGuard.v",
             "prototype/interface/ClightAffineInnerPointerCandidate.v",
@@ -158,6 +159,7 @@ def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False,
         "source_package_candidate_rule_installed": source_compiler,
         "candidate_validator_and_encoder_ranges_bound_to_guard": source_compiler,
         "independent_candidate_checker_consumed_by_local_rule": source_compiler,
+        "independent_tiling_checker_consumed_by_same_local_rule": source_compiler,
         "actual_affine_inner_source_progress_fixture": source_compiler,
         "affine_inner_pointer_whole_program_entrypoint": entry,
         "whole_program_entrypoint": entry,

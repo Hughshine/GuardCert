@@ -107,4 +107,6 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 [后继完整接入](clight-affine-inner-pointer-compiler.md) 已把独立 `C_opt`、两套范围与实际 candidate/restore 绑定到同一 source package。guard 消费 kernel readonly sequencing，局部分派和 source-prefix contract 消费已有语言服务，table 的程序 simulation 复用旧 host；具体新源形状由实际 progress fixture 核对。103 端点审计、提取、六个原生配置共 486 次调用和五个机器写入顺序探针通过。这里新增的是 domain 实例连接与不受信任候选整理，语言/核心的原定律未改；没有性能或 proof burden 收益结论。
 
-最难义务继续落实到下一项：quotient/tiling 候选的实例对应接入同一 pointer 源，多个依赖 preload 的读序与稳定性，以及一般深层 affine 源/出口。生成器的数学测试可能无法安全编码，故未证明的整理输出只能经完整 checker 再取得证书。框架不将候选整理视为自动条件推导；原 `C_derive` 和 `C_guard` 仍各自有实际证明。
+后继 [分块接入](research-checkpoint-2026-10-06-affine-pointer-tiling.md) 关闭同一受限 pointer 源的 quotient witness／实际 candidate 对应：domain 用旧独立 tiling checker 产生与 mapped 相同的 `C_opt`，两条路径共用条件、lowering、restore 和 local contract，kernel／语言 host 未改。109 端点审计、提取、十一配置共 891 次调用及七个机器路径通过。tile 控制数从 caps 在编译时取得；不增加通用运行时 floor/ceil 语义，也不据此主张 proof burden 收益。
+
+最难义务继续落实到下一项：多个依赖 preload 的读序与稳定性，以及一般深层 affine 源/出口。生成器的数学测试可能无法安全编码，故未证明的整理输出只能经完整 checker 再取得证书。框架不将候选整理视为自动条件推导；原 `C_derive` 和 `C_guard` 仍各自有实际证明。

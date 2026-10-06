@@ -9,7 +9,7 @@
 | 回调 | 输入／输出 | 谁验证 |
 | --- | --- | --- |
 | `affine_inner_pointer_profiler` | 真实源 statement → row/column caps、header/body 参数 caps、pointer 列表、window | `describe_affine_inner_pointer_at` 核对实际 AST、用途、freshness、地址编码和范围 |
-| `affine_inner_pointer_proposer` | checked source 的真实 Loop、context、instructions、geometry caps 和 width 编码 → candidate Loop 或 schedules、坐标映射、两套 ranges | 原 mapped-domain／dependence checker；实际 Clight candidate lowerer；运行时分别检查 validator 和 encoder ranges |
+| `affine_inner_pointer_proposer` | checked source 的真实 Loop、context、instructions、geometry caps 和 width 编码 → candidate Loop 或 schedules、坐标映射或 tiling witnesses、两套 ranges | 独立 mapped-domain 或 tiling／dependence checker；实际 Clight candidate lowerer；运行时分别检查 validator 和 encoder ranges |
 
 两个回调都可以保守返回 `None`。profile 的 cap 是一项待检查的限制，不能作为所有输入天然满足的事实。源选择、候选搜索和盈利性仍由使用者决定。实际 compiler 检查失败时保留原源；动态条件 false 时也执行完整原循环。
 
@@ -58,12 +58,18 @@ for (; i < n; ++i) {
 
 这条路径已经实际生成并核对三角域 `j<i+1` 和另一个域 `j<2*i+1` 的列优先候选。后者的粗范围循环可能执行额外控制迭代，guard 外没有额外数组读取；性能没有测量。直接提交原始 ceiling-bound candidate 仍被拒绝，这个边界作为独立配置保留。
 
+## 同一接口的 tiling 使用者
+
+`AffineInnerTilingProposal candidate witnesses` 允许使用者提出真实 candidate Loop 和逐指令的 quotient/tiling witness。[model tiling checker](../adapters/compcert-memory/GuardMemoryParametricModelTiling.v) 独立验证实际源／目标域、point links、指令及依赖，产生与 mapped checker 相同的 candidate certificate。两者通过 `check_affine_inner_pointer_certified_package` 共用 range/alias condition、机器 lowering、出口 restore 和 local contract；完整 compiler theorem 不需要为这一分支重证。
+
+`(tile 2 3)` 和 `(tile 4 1)` 已实际安装到上述两个源域，`(tile-loop rows columns loop)` 可以提供自定义候选。便利生成器根据 caps 提出 tile 控制范围，在 tile 内保留真实 source-point 条件，所有输出仍由完整 checker 验证。tile 数的除法发生在编译时；数学 quotient 点对应已核对，没有新通用运行时 floor/ceil 编码。错误 witness、少一行的候选和非正 tile 大小保留源。责任、范围和产物见 [分块阶段记录](research-checkpoint-2026-10-06-affine-pointer-tiling.md)。
+
 ## 运行与边界
 
 ```sh
 opam exec --root=/tmp/guard-opam --switch=guard -- make affine-pointer-compiler-native
 ```
 
-机器路径探针需要运行环境允许 GDB `ptrace`。入口、提取、六个原生配置、完整 buffer/public state 与五个 linked-machine 探针的证据见 [阶段记录](research-checkpoint-2026-10-06-affine-pointer-compiler.md)。本入口采用 direct readonly tree；符号条件不接受就回原源，没有新 ragged pointer scan 或 shared lowering。
+机器路径探针需要运行环境允许 GDB `ptrace`。当前入口、提取、十一原生配置、完整 buffer/public state 与七个 linked-machine 探针的证据见 [分块阶段记录](research-checkpoint-2026-10-06-affine-pointer-tiling.md)；前六配置／五探针的 [原阶段记录](research-checkpoint-2026-10-06-affine-pointer-compiler.md) 保留为历史证据。本入口采用 direct readonly tree；符号条件不接受就回原源，没有新 ragged pointer scan 或 shared lowering。
 
-源支持两层 register-valued affine-inner 上界、源 checker 支持的 affine 地址和 scalar integer body。一般深层 affine 域、该 pointer package 的 quotient/tiling 证书、多个有依赖 preload，以及条件读取与参数稳定性仍是后继目标。当前实例没有取得通用 Presburger projection、收益测量或与近邻的同例作者证明负担结果。
+源支持两层 register-valued affine-inner 上界、源 checker 支持的 affine 地址和 scalar integer body。一般深层 affine 域、多个有依赖 preload，以及条件读取与参数稳定性仍是后继目标。当前实例没有取得通用 Presburger projection、收益测量或与近邻的同例作者证明负担结果。

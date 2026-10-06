@@ -4,6 +4,7 @@ From compcert.common Require Import AST Values Memory Events.
 From compcert.cfrontend Require Import Clight ClightBigstep.
 From polcert.lib Require Import ImpureAlarmConfig.
 From Vpl Require Import Impure.
+From polcert.src Require Import TilingWitness.
 From Guard Require Import ClightCondition ClightNoWrap ClightTempFrame ClightRectangularStore
   ClightCountedLoop ClightFrontendLoopProtocol ClightPureExpr.
 From GuardMemory Require Import GuardMemoryRuntime GuardMemoryLoops GuardMemoryArrayBackend GuardMemoryPointerBackend
@@ -11,6 +12,7 @@ From GuardMemory Require Import GuardMemoryRuntime GuardMemoryLoops GuardMemoryA
   GuardMemoryAffineSourceValuation GuardMemoryAffineSourceContext GuardMemoryAffineSourceLoop
   GuardMemoryParametricGuard GuardMemoryParametricSourceDomain GuardMemoryParametricSourceClight GuardMemoryParametricRestore
   GuardMemoryParametricChecker GuardMemoryParametricInstructionChecker GuardMemoryAffinePointerCandidate GuardMemoryLoopTrace
+  GuardMemoryParametricModelTiling
   GuardMemoryFiniteFootprint GuardMemoryFootprintRestriction GuardMemoryAffineParameterPointerFootprint
   GuardMemoryAffineInnerPointerSyntax GuardMemoryAffineInnerPointerSourceDomain GuardMemoryAffineInnerPointerRegionSource.
 From GuardInterface Require Import ClightAffineInnerPointerSourceGuard ClightAffineInnerPointerCandidateGuard.
@@ -34,6 +36,18 @@ Theorem check_affine_inner_pointer_model_sound source (package : memory_affine_i
   mayReturn (check_affine_inner_pointer_model package validator_bounds candidate steps) true ->
   affine_inner_pointer_candidate_certificate package validator_bounds candidate.
 Proof. apply checked_parametric_model_candidate_correct. Qed.
+
+Definition check_affine_inner_pointer_tiling_model source (package : memory_affine_inner_pointer_package source)
+  validator_bounds candidate witnesses :=
+  checked_parametric_model_tiling (affine_inner_pointer_candidate_base package)
+    (memory_affine_inner_pointer_region_model package) (affine_inner_pointer_pointers package)
+    (affine_inner_pointer_row (affine_inner_pointer_shape package)) (memory_affine_inner_pointer_region_context package)
+    validator_bounds (affine_inner_pointer_expression package) candidate witnesses.
+Theorem check_affine_inner_pointer_tiling_model_sound source (package : memory_affine_inner_pointer_package source)
+  validator_bounds candidate witnesses :
+  mayReturn (check_affine_inner_pointer_tiling_model package validator_bounds candidate witnesses) true ->
+  affine_inner_pointer_candidate_certificate package validator_bounds candidate.
+Proof. apply checked_parametric_model_tiling_correct. Qed.
 
 (** The optimizer's certificate and the actual language lowering are bound to
     the same candidate. The runtime guard separately establishes their two
@@ -128,4 +142,5 @@ Proof.
 Qed.
 
 Print Assumptions check_affine_inner_pointer_model_sound.
+Print Assumptions check_affine_inner_pointer_tiling_model_sound.
 Print Assumptions affine_inner_pointer_candidate_execution.
