@@ -180,3 +180,15 @@ guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和�
 4. **实证与比较。** 继续 P4 的 guard／代码／编译／执行成本和同版 CompCert 对照；用同一 source／condition／candidate 比较 OLO、Chamois、Peek／COVE、CoreJIT 的责任与作者负担，不将 444 次调用当作 generality／novelty 或 profitability 证据。
 
 本阶段再次 fetch 后 narrative 仍为 `7d94d81`，本地正文与远端一致；其最小 kernel 截止继续是局部 guarded correctness。condition processing／prefix 是库，language host 提供完整程序安装，domain 提供模型义务及条件推导。没有按文档边界重排文件或新增 kernel API。完整 goal active。
+
+## Cursor scan：逐行实际 lowering 已证明，完整成本接入继续
+
+[新服务阶段](research-checkpoint-2026-10-06-cursor-scan.md)落实上一节 guard 成本的第一步：语言库提供先初始化、inactive／拒绝即退出、仅接受时 increment 的真实私有 cursor 循环；domain 的符号列地址模板精确对应原逐点双观察 probe，整行逻辑规格等于原 row condition。原 reached-row 域生产检查可用性，实际有限执行取得 primitive safety；任意实际完成且返回 true 的行扫描复用原 physical-write 观察保持定理。七模块／34 端点／531 依赖／968 source 摘要审计通过，全部新端点在原 CompCert 基线内，旧 dependent compiler 保持 42 项假设。
+
+当前未连接 outer scan、实际 resource checker／factory、whole-program 安装、提取或新 native。上述约 20,700 个 if 的完整函数仍是当前 compiler 的真实成本，不用一份循环体的服务定理代替成本验收。后继顺序：
+
+1. 从 checked package 和 typed pool 生产 cursor／result freshness、public read scope；把 outer prefix 推进和全部 rows 覆盖接到实际循环，不提前求值失去许可的后续地址。
+2. 保留同一原 source key、实际 preparation／候选／fallback，连接新 lowering 的 dispatch／frame／progress 到现有语言 host；取得新的完整 compiler endpoint。
+3. 提取和真实 C 验收接受／拒绝／bound 早停／上下文，单独测量 Clight 和机器代码大小、编译成本和 guard 执行成本。
+
+本阶段再次 fetch 仍为 narrative `7d94d81`，本地正文和 context note 与远端一致；最小 kernel 截止继续约束以上责任。旧两套 native validators 只复核冻结绑定，没有重跑矩阵。一般 domain／physical alias／pointer stores、P4 和同例作者负担比较保持后继任务，完整 goal active。

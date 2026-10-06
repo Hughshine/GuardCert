@@ -156,3 +156,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 [实际 dependent compiler 后继](research-checkpoint-2026-10-06-dependent-compiler.md)已关闭这组接入责任：语言 preparation 桥以实际原 header 许可有序 captures，入口 adapter 生产 typed pointer／bound／body receipts，并将扩展 scope 契约收回原公开 scope；domain 将 exact original AST、checked cached model、完整双观察 condition 的顺序 plan 和原三类 candidate checker 绑定。语言 host 分配 typed fresh pool，实际消费原源进展、位置／scope 和整程序 simulation。新 Csem→Asm 定理、40 端点审计、提取及两种实际 C 域 444 调用／28 store-order 探针通过，无新增公理；没有把 language host 的安装计作 kernel 自动提供。
 
 难点现在转到实际 guard 成本与更一般的源：默认 caps 的函数约有 20,700 个 if，尚未循环化或给出性能收益；body 仍只消费 Mint32 operations 和源已有 pointer receipts。合法 pointer-store body、一般深层 affine 域、不同 body base 的 alias 接受及同例 proof burden 保持未完成。每个后继任务仍需注明新语言定律、domain 专属证据和真正复用的上层库，不能因局部证书已组合就省略实际源码／context 的义务。narrative `7d94d81` 的 kernel 截止有效，本阶段没有修改它。
+
+[短路 cursor scan](research-checkpoint-2026-10-06-cursor-scan.md)进一步将这一成本工作拆成可复用的实际服务：Clight 库证明 cursor specialization 的表达式／lvalue／decision 运输，实际初始化、拒绝即退出和 signed increment，以及 check-plan body 的 private/public frame；domain 证明符号列地址和两种 chunk 探针对应原常量列 probe，完整 row spec 等于原已认证条件。实际 reached-row domain 给出可用检查，再取得真实有限执行和 primitive safety；实际接受通过 quiet determinacy 接到旧 row observation-preservation theorem。kernel 没有新增责任。
+
+七模块／34 端点审计通过，每个新增端点最多六项原 CompCert 假设；旧 compiler 回归保持 42 项。row 域、freshness 和 public read scope 在此服务接口中仍是调用者证据，outer-prefix 推进和全 rows 覆盖尚未接实际循环；不能把这些有类型的义务或旧 compiler/native 回归说成新 factory 已完成。后继须由 checked package／typed pool／语言 host 实际生产并消费这些证据，再提取和验收成本。narrative 最新澄清与本地正文已再次核对一致，没有因此重排文件或修改最小 kernel。

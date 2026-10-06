@@ -100,6 +100,10 @@ interface-pointer-realization-direct:
 .PHONY: affine-dependent-loaded-proof
 .PHONY: affine-dependent-joint-proof
 .PHONY: affine-dependent-compiler-proof affine-dependent-compiler-native affine-dependent-compiler-validate
+.PHONY: affine-cursor-scan-proof
+affine-cursor-scan-proof:
+	python3 scripts/audit_affine_cursor_scan.py
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 

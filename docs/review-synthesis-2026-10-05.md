@@ -198,4 +198,12 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 
 已吸收到 [dependent compiler](research-checkpoint-2026-10-06-dependent-compiler.md)和当前后继计划：language 层负责 actual-header 安全 captures、私有运输、typed pool、progress 和安装；domain 负责 exact source／checked model、两项观察的 footprint 保持、条件 plan 对应及候选 checker；最小 kernel 不变。九个模块、40 端点审计、新 Csem→Asm、提取、444 次新入口调用及 28 store-order 探针关闭上一阶段的完整接入缺口，仍不主张 generic assumption extraction、自动 contextual closure 或 proof burden 收益。
 
+## Narrative 再核对：cursor scan 服务的责任与剩余验收
+
+按用户提示再次 fetch；topdown 仍为 `7d94d810685a691efbf07df734f5fad8abfb4724`，另两个评审 refs 仍为 `9673381676e18ed0afbc6114e0a62bea9c48002c`、`3e9f0080def8c029cceedbd35184b4de7b8b96bc`。paper narrative／context note 与远端无差异。最新十五行澄清已经采纳，不重复算作新增意见。
+
+按该边界完成 [逐行 cursor scan 服务](research-checkpoint-2026-10-06-cursor-scan.md)：最小 kernel 保持；语言库提供真实循环的短路／私有初始化／frame／signed increment，domain 精确对应旧 row condition，并复用 reached-write／coverage／观察保持。七模块／34 端点审计通过，旧 dependent compiler 42 项回归和两套冻结 native 绑定复核通过。不是新的 compiler／native 能力，也未声称 guard 成本已解决。
+
+当前计划据此将逐行实际 lowering 标为已证明，把 outer prefix、resource producer、factory／host 安装和提取／成本验收保留为明确的下一交付；一般深层域、合法 pointer-store body、distinct-base physical alias 和同例已有工作／作者负担比较仍未完成。只有实际实例暴露当前证书接口无法表达的语义义务时才调整 kernel。
+
 按评审的 evidence-to-claim 要求，原 29 个局部端点与本次 compiler／native 报告各自保留。两个实际域不是 arbitrary polyhedral 覆盖；pointer-cell memory 反例不是 defined C loop，短数组 store probe 不是 guard comparison-order probe。默认 cap 的约 20,700 个 if 明确进入下一优先验收；循环化／符号扫描、一般 domain、合法 pointer stores、P4 和同例 related-work 比较继续 active。
