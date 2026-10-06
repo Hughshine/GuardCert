@@ -318,6 +318,44 @@ library fast paths.
 These illustrate the interface; they should not be presented as evaluated
 capabilities unless implemented.
 
+### Cross-IR applicability and related-work perspective
+
+The same semantic interface should also admit lower-level hosts when useful.
+For example, a three-address/SSA instance could interpret `code` as CFG regions,
+`check` as a decision-producing CFG fragment, and guarded choice as a
+conditional branch with appropriate live-out/phi/state relations.  An assembly
+instance could expose registers, flags, memory, and control exits, allowing a
+peephole or superoptimization rule to use runtime conditions while the host
+proves that scratch registers/flags and branch control satisfy the abstract
+choice contract.
+
+This is not a main implementation goal for the current paper.  The CompCert/
+Clight instance should remain the primary evaluation because it exercises the
+high-level source-definedness and structured-control obligations that motivate
+the current design.
+
+Related work nevertheless helps explain why the abstraction should not be tied
+to Clight syntax.  In particular:
+
+- **Peek** is an important precedent for verified local rewrite-to-whole-program
+  lifting at the assembly/peephole level.  It motivates comparison of host and
+  contextual-proof responsibilities, while its central contribution is not
+  runtime optimistic guarding.
+- **COVE/cSTOKE** is a direct precedent for conditional equivalence and runtime
+  selection of x86 candidates.  It shows that the same source/candidate +
+  condition pattern arises at assembly level; GuardCert should compare its
+  verified executable-condition and host boundary rather than claim that
+  runtime-conditioned assembly optimization is new.
+- **Chamois** and **CoreJIT** remain relevant for lower-level block simulation
+  and verified dynamic assumptions/deoptimization, respectively; their exact
+  interfaces should constrain any claim that GuardCert uniquely provides
+  language-independent local-to-global or speculative transformation support.
+
+A second concrete IR instantiation may be useful later as a validation of the
+host abstraction, especially if it exposes an obligation absent at Clight
+(e.g. flags/scratch registers at assembly level).  It is optional evidence, not
+a prerequisite for the current main contribution.
+
 ## 10. Contribution structure for the paper
 
 A plausible two-part contribution structure is:
