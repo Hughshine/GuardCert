@@ -74,7 +74,7 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 6. 未完成项、评审意见处理状态、commit 与远端 push。原评审保存固定 SHA，新状态另记，不把历史判断默默改成当前事实。
 7. 三方责任与难点：框架新增服务、语言实例新定律、优化方专属 proof／checker 各是什么；最难义务实际如何关闭，哪些仍由调用者承担。更新 [责任矩阵](framework-responsibilities.md) 和研究定位。
 
-接口原则保持不变：现有 `select_exact` 与只读前台是固定核心；语言实例解释语义、观察、安全和控制，使用者决定寻找片段、rewrite 提案、遍历、优先级与资源预算。框架不能只要求一份任意等价定理，而要通过实际复用的检查、frame、表示和上下文设施降低规则作者工作。
+接口原则保持不变：最小 kernel 的 `select_exact`／局部证书组合保持；只读前台是上层库；语言实例解释语义、观察、安全和控制，使用者决定寻找片段、rewrite 提案、遍历、优先级与资源预算。框架不能只要求一份任意等价定理，而要通过实际复用的检查、frame、表示和上下文设施降低规则作者工作。
 
 ## 阶段性读取评审
 
@@ -99,3 +99,17 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 4. 验收独立 blocks、同 block 不同 offsets、写中 bound 后提前停的源、当前行 alias 拒绝而后续危险地址不被检查。记录 guard AST／shared lowering 成本，性能独立测量。
 
 本阶段是证明服务，不称已经完成这个安装。当前行 domain／decoder 仍由实例证明；编译器能力仍以此前 loaded compiler 为准。之后才推进依赖 preload 和 private snapshot。
+
+
+## 独立 bound pointer：实例和 compiler proof 已连接
+
+[本阶段](research-checkpoint-2026-10-06-affine-dynamic-loaded.md)已完成上一列表的前两项，以及第三项的 matcher／候选／Csem→Asm 证明：实际 checked package 填完所有 scan callbacks，range 与 count/width 证书证明足够 fuel 覆盖；完整分离 guard 接到 exact loaded→cached 运输及原 mapped／tiling／schedule checker。新 normalized AST fixtures 核对独立 pointer 接受、缺 receipt／pointer 覆盖／控制变量冲突拒绝。最小 kernel 不变，原上层 prefix/sequencing 库和语言 host 被实际消费。
+
+提取／真实 C frontend／原生验收仍未完成。新的优先顺序为：
+
+1. 保留 sequential/branching 结构的检查 plan 或 nested scan lowering，避免在每个 row 的接受出口复制后续扫描。实际 syntax fixture 已显示此增长；单独共享 candidate/fallback 不解决它。
+2. 证明新 lowering 与已认证 guard 的求值／短路顺序对应，公开 temp/memory frame、private result/cursor、checked-entry 与 defined dispatch；复用既有安装 host。
+3. 提取新 compiler、绑定真实 C，运行独立 blocks／同 block 不同 offsets／bound 被写后提前停／alias 后危险后续地址未求值；机器探针验证候选与 repeated-load fallback。
+4. 完成这一运行验收后，推进依赖 preload／private snapshot 和一般深层 affine 源。性能与同例作者负担仍独立验收，不把编译定理或 AST 计数当作这些结果。
+
+原 1,650／891 次调用的 native 报告仅重新核对产物绑定，本阶段没有重执行旧矩阵，也不把旧结果算作独立 pointer 新运行证据。完整 goal 保持 active。

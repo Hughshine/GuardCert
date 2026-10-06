@@ -103,11 +103,11 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 每次 P1／P2／P3 验收记录三方新写了什么、复用了什么、哪张证书尚缺。和 OLO／CoreJIT／Chamois／Peek 做同例对照后再判断增量；未取得的文献／artifact 能力保留未知。[10 月 6 日一手补核](related-work-interface-check-2026-10-06.md) 已确认 Chamois oracle 的 CFG／invariant 输出和实际 CFG expansion 模拟，以及 Peek 的局部证明、normalization 与 liveness 宿主；这些已有服务不能单独算作 GuardCert 增量。性能、证明负担和新颖性各有独立证据，不能从正确性计数互相推导。
 
-新的 [非矩形 source preparation](research-checkpoint-2026-10-06-affine-pointer-source.md) 进一步按这一责任划分实现：kernel 的 `sequence_readonly_conditions` 负责有依赖条件的组合；语言服务 `readonly_completed_tree_condition` 利用真实表达式确定性，把有限完成路径证据包装为 reachable-test 安全、完成及接受 sound；domain 负责 normalized 源／操作／范围 checker、header 和第一轮 body 的参数证据、范围／宽度阶段以及源 Loop／公开出口对应。该阶段先连接同一 package／入口的算术条件与源对应，随后继续组装其他证书。D 明确要求有限正常源完成，不据此声称处理无限源或依赖加载参数。
+新的 [非矩形 source preparation](research-checkpoint-2026-10-06-affine-pointer-source.md) 进一步按这一责任划分实现：框架上层库的 `sequence_readonly_conditions` 负责有依赖条件的组合；语言服务 `readonly_completed_tree_condition` 利用真实表达式确定性，把有限完成路径证据包装为 reachable-test 安全、完成及接受 sound；domain 负责 normalized 源／操作／范围 checker、header 和第一轮 body 的参数证据、范围／宽度阶段以及源 Loop／公开出口对应。该阶段先连接同一 package／入口的算术条件与源对应，随后继续组装其他证书。D 明确要求有限正常源完成，不据此声称处理无限源或依赖加载参数。
 
-[前一完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 关闭 prefix receipt 和该实例物理 non-alias。静态 column cap 的 affine 代入由 domain 数学库证明，实际比较继续使用语言的 modular 求值／signed 范围定理，kernel 仅消费已有 sequencing。`affine_inner_pointer_source_guard_execution` 将接受、实际源 Loop 与精确公开出口绑定同一入口；`source_prefix_domain` 是有限入口 producer。该阶段当时未完成候选和安装，其历史报告不扩称全程序证据。
+[前一完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 关闭 prefix receipt 和该实例物理 non-alias。静态 column cap 的 affine 代入由 domain 数学库证明，实际比较继续使用语言的 modular 求值／signed 范围定理，框架上层库提供已有 sequencing。`affine_inner_pointer_source_guard_execution` 将接受、实际源 Loop 与精确公开出口绑定同一入口；`source_prefix_domain` 是有限入口 producer。该阶段当时未完成候选和安装，其历史报告不扩称全程序证据。
 
-[后继完整接入](clight-affine-inner-pointer-compiler.md) 已把独立 `C_opt`、两套范围与实际 candidate/restore 绑定到同一 source package。guard 消费 kernel readonly sequencing，局部分派和 source-prefix contract 消费已有语言服务，table 的程序 simulation 复用旧 host；具体新源形状由实际 progress fixture 核对。103 端点审计、提取、六个原生配置共 486 次调用和五个机器写入顺序探针通过。这里新增的是 domain 实例连接与不受信任候选整理，语言/核心的原定律未改；没有性能或 proof burden 收益结论。
+[后继完整接入](clight-affine-inner-pointer-compiler.md) 已把独立 `C_opt`、两套范围与实际 candidate/restore 绑定到同一 source package。guard 消费 上层库 readonly sequencing，局部分派和 source-prefix contract 消费已有语言服务，table 的程序 simulation 复用旧 host；具体新源形状由实际 progress fixture 核对。103 端点审计、提取、六个原生配置共 486 次调用和五个机器写入顺序探针通过。这里新增的是 domain 实例连接与不受信任候选整理，语言/核心的原定律未改；没有性能或 proof burden 收益结论。
 
 后继 [分块接入](research-checkpoint-2026-10-06-affine-pointer-tiling.md) 关闭同一受限 pointer 源的 quotient witness／实际 candidate 对应：domain 用旧独立 tiling checker 产生与 mapped 相同的 `C_opt`，两条路径共用条件、lowering、restore 和 local contract，kernel／语言 host 未改。109 端点审计、提取、十一配置共 891 次调用及七个机器路径通过。tile 控制数从 caps 在编译时取得；不增加通用运行时 floor/ceil 语义，也不据此主张 proof burden 收益。
 
@@ -124,10 +124,15 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 [最新 context-lifting 评审](topdown/context-lifting.md)的 [Clight 源码核对](clight-boundary-contract-review.md)进一步区分语言库定理与每次 placement 证据。`projected_region_contract` 和 `open_region_exit` 都复用 temp agreement 与 memory equivalence，但 completed-run host 还需要独立 source-progress 协议；open host 直接匹配每一步及到达的出口。不能将前者削弱为完成路径后声称支持任意 divergence，也不能因字段相似自由互换两类契约。当前全程序 live 集合保守包括全部源 temps，没有实现 context 最小 requirement 推断。
 
-[参数化 loaded compiler](research-checkpoint-2026-10-06-affine-loaded-compiler.md)已经实际落实三方分工：语言从任意 prefix 位置生产值 receipt，复用不假设 bound 稳定性的 progress／table host；domain 通过 checked package 的真实 header/body 生产 preparation evidence，范围接受后才证明全部 writes 排除 bound，并运输到原候选证书；kernel 用域限制和原 readonly sequencing 组合检查。源 snapshot、loaded fallback、quiet suffix、不同 normalized identifiers 与 candidate/restore 都进入真实 C 编译及机器验收。新 evidence 接口由 loaded 入口消费；旧 cached 入口仍用其原证明，不把两条实例的相似证明说成已经共享同一实现。
+[参数化 loaded compiler](research-checkpoint-2026-10-06-affine-loaded-compiler.md)已经实际落实三方分工：语言从任意 prefix 位置生产值 receipt，复用不假设 bound 稳定性的 progress／table host；domain 通过 checked package 的真实 header/body 生产 preparation evidence，范围接受后才证明全部 writes 排除 bound，并运输到原候选证书；框架上层库用域限制和原 readonly sequencing 组合检查。源 snapshot、loaded fallback、quiet suffix、不同 normalized identifiers 与 candidate/restore 都进入真实 C 编译及机器验收。新 evidence 接口由 loaded 入口消费；旧 cached 入口仍用其原证明，不把两条实例的相似证明说成已经共享同一实现。
 
 当前最难的下一义务是不同名 bound buffer 与写缓冲区之间的动态物理分离，随后是依赖读序／private cache 的 original-entry 事实与上下文运输。静态逻辑单元排除没有证明不同 base 的实际无 alias；仅 `bound != destination` 也不足。kernel 的抽象 `lift_refinement` 字段不解决这些问题。
 
 [源顺序稳定性服务](research-checkpoint-2026-10-06-affine-loaded-stability.md)进一步分开这些责任：语言证明实际 store 的权限运输、已到达 loaded header 的整行执行取得和成功后续行；domain 从真实 row decode 取得每个 write receipt，生成不修改公开坐标的仿射地址表达式，并将其等号检查接到物理 byte separation／load 保持。当前行的全部检查已消费上层 `ReadonlyPrefixScan` 库；不同 memory blocks 的安全等号比较和 alias 后停止有真实 Clight proof fixtures。最小 kernel 未修改。
 
 该阶段仍缺 checked source package 到逐行扫描实例的完整连接，以及候选／whole-program compiler 安装。`loaded_rows_prefix_spec` 的 `ROW_CHECK`、`DECODE` 和 `PRESERVE` 是有类型的使用者证明参数；`memory_affine_row_domain` 的参数／范围／receipt 字段要由实例交付，不能把接口字段算作已经解决。新的 row probe 定理和旧 compiler 回归各有审计边界；这次不新增原生能力、private snapshot 或 proof burden 收益主张。
+
+
+[独立 bound pointer 的后继证明连接](research-checkpoint-2026-10-06-affine-dynamic-loaded.md)已关闭上述实例参数：checked package 的访问编码／范围／word、真实 row decode 和实际 store receipts 共同构造每次到达的 row 安全域；足够 fuel 覆盖全部活动点，完整 guard 接受后才得到 bound 保持。新 matcher 允许独立 bound pointer，原三类 candidate checker 与 language host 接到新的 Csem→Asm theorem。这里没有把这些领域证明交给 kernel。
+
+下一困难位置是实际 guard lowering：嵌套 tree 在成功出口复制后续 scan，column cap=3 的实际 fixture 已显示 7／35／147 个测试随 outer fuel=1／2／3 增长。共享 fallback 不等于共享 scan continuation。需要保留顺序结构，并证明 private 状态、短路、安全和分派，再完成提取／真实 C 运行；当前只有 compiler proof，没有新增独立 pointer 原生能力。multiple dependent preload／private snapshot 的入口事实和上下文运输继续待证。

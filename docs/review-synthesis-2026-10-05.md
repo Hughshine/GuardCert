@@ -156,3 +156,10 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch，topdown 更新为 `7d94d81`；另两个评审分支仍为 `9673381` 和 `3e9f008`。新增十五行明确最小 semantic kernel 止于局部 guarded correctness：readonly 前台和 condition processing／prefix scan 是上层库，whole-program installation 是 language-host 责任；此澄清不要求重排文件。paper narrative 已逐字同步，责任矩阵与当前计划明确区分“框架库”和“最小 kernel”。
 
 已采纳并在 [稳定性服务](research-checkpoint-2026-10-06-affine-loaded-stability.md)落实：既有 prefix library 保持；Clight 新增 store 权限运输和实际 loaded-row 取得／正结果续行；domain 新增真实 writes 的 receipts 和仿射地址探针编码。当前行 guard 的安全、可用性和物理保持已证明；source package 到完整逐行扫描的实例证据仍待连接，不能把 callback 参数或者旧 compiler 回归算作新完整编译器。后续计划优先完成该连接和真实运行，再讨论新 kernel 能力或 proof burden 收益。完整 goal 保持 active。
+
+
+### 独立 pointer 的后继连接与运行实现风险
+
+[新阶段](research-checkpoint-2026-10-06-affine-dynamic-loaded.md)已用 checked package 的真实访问编码／范围／word、row decode 和 write receipts 填完完整 source-order scan 实例，接受后取得全部写的 bound 保持；新 source matcher、三类候选 checker 和 Csem→Asm theorem 已连接。此前“callbacks 尚未落实”的缺口在此具体实例关闭，原泛型语言服务仍保留参数以供其他使用者实例化。
+
+narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefix 是库，context 安装属于语言。另发现实际 nested tree 的 syntax 增长，下一验收增加保留顺序结构的 guard lowering 及其 private frame／短路／dispatch 证明，再完成提取与真实 C 运行。新 compiler proof 不冒充这些运行结果，旧 native 矩阵只有摘要绑定复核。尚无性能、total proof burden 或 novelty 收益结论，完整 goal active。
