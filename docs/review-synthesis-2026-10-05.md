@@ -52,3 +52,9 @@
 再次同步远端后，topdown 分支新增 `90b8520`／`4521f76ab11c2df1332ce06a5cf4b83a613be27b` 的 [paper narrative](topdown/paper-narrative.md)；其余两个评审分支没有新增提交。新增意见已读取并采纳：保持“小的语言无关语义框架＋有实质算法与条件正确性证明的 CompCert 使用者”作为同一研究论证，明确区分 `C_opt: A⇒candidate correct`、`C_derive: B⇒A`、`C_guard: accepts⇒B` 和 `C_host`。条件提取仍由 optimizer/domain plugin 提供，符号化推导作为受限 domain library，不重新定义一个 universal extractor。
 
 这影响后续 P2／P3 的验收：P2 不能只有围住预先给定候选的 guard，还要实际消费候选／依赖验证和源／模型对应；P3 要说明逻辑入口 B 如何覆盖模型义务 A，而非把编码 Boolean 当成已完成推导。论文路线仍是设计建议，不作为未实现能力。P0 已通过 401 端点／862 摘要、25 配置／40 报告；具体结果见 [阶段记录](research-checkpoint-2026-10-05.md)。
+
+## 用户确认方向后的目标补充
+
+用户要求持续沿 `topdown/research-positioning` 的 `paper-narrative.md` 改进，并特别区分框架、语言实例和优化方的验证责任。再次 fetch 确认该分支仍为 `4521f76ab11c2df1332ce06a5cf4b83a613be27b`。已将这一要求作为 [活动目标](current-work-plan.md) 的持续组成部分，新增 [责任与难点矩阵](framework-responsibilities.md)，同步当前研究定位。
+
+阶段验收必须回答四张证书各由谁提供、哪里复用以及最难义务如何解决。优先核对 `B⇒A` 的全部源实例覆盖、guard 自身机器安全、实际候选／模型对应、有限与无限宿主行为，及规则作者证明负担；不再仅以文档分层或 theorem 数量计作这方面完成。P0 实现已以 `593ebf1` 推送 main；后续实现继续按这一目标推进。
