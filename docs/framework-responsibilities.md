@@ -113,4 +113,8 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 [Loaded pointer 局部规则](research-checkpoint-2026-10-06-affine-loaded-pointer.md) 进一步检验这个顺序。语言从实际 retained preload 取得值观察，沿 loaded headers／rows 运输执行；domain 从第一次真实活动 body 取得 scalar 定义性，随后由接受范围和已验证写足迹排除 bound 单元。load 保持由实际 stores 推出，不写进 D。框架复用域限制与 `sequence_readonly_conditions`，将新的 preliminary 接到原候选条件；独立 package 和 actual lowering 仍由优化方提供。
 
-该阶段的 `alp_observed_candidate_contract` 保持实际 prefix、公开出口与完整 memory，但安装还缺 loaded nested source progress／matcher；31 端点 proof audit 不计为新 full compiler 或原生证据。三角实例以源已有 public n 缓存 p[0]；generic 运输允许任意观察 pointer，具体 exclusion rule 核对同一 write buffer 的静态逻辑单元。多个依赖 preload、private snapshot 和一般 bound-pointer guard 仍是待关闭的困难义务。
+该局部阶段的 `alp_observed_candidate_contract` 保持实际 prefix、公开出口与完整 memory，当时安装还缺 loaded nested source progress／matcher；31 端点 proof audit 不计为新 full compiler 或原生证据。三角实例以源已有 public n 缓存 p[0]；generic 运输允许任意观察 pointer，具体 exclusion rule 核对同一 write buffer 的静态逻辑单元。
+
+[后继 placement](research-checkpoint-2026-10-06-loaded-placement.md) 将一个困难区分落实到实际协议：`C_host` 对原 loaded loop 的进展不依赖优化待检查的 bound 稳定性。语言的 strict nested 协议要求 body 每步保护 iterator，用机器最大值保证成功 increment 下降；syntax checker／sequence host 消费该协议。body 改变 bound 单元的 fixture 也通过进展检查。Domain 仍独立负责接受时的全部写足迹排除、源缓存运输和候选证书，kernel 未修改。
+
+该阶段的固定 optimizer profile 已将原 mapped／tiling／schedule checker、实际 guard／restore／fallback、prefix/suffix 和 table host 组合到新的 Csem→Asm 定理。语言 progress 支持任意标识符，但优化 matcher 仍绑定 fixture 标识符；因此没有把一般 frontend 接受、提取或原生结果算作完成。下一验收必须实际推广 source adapter 并验证完整 C 的非空接受。多个依赖 preload、private snapshot 和一般 bound-pointer guard 继续待证；完整目标 active。

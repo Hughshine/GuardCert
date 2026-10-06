@@ -136,3 +136,10 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 本阶段 fetch 确认三个评审分支未更新，paper narrative 与 `f793629` 正文字节一致。按已采纳的困难义务，[新局部规则](research-checkpoint-2026-10-06-affine-loaded-pointer.md) 将初始 preload 观察、首次真实活动 body 的参数定义性、接受范围覆盖全部写入和 bound 稳定性分开证明。语言提供实际执行运输；domain 提供 conservative affine cell exclusion 与真实 pointer body 对应；kernel 的域限制和条件顺序组合被实际 full condition 消费。D 没有预置未来 load 稳定性。
 
 候选继续使用原认证 package，保留 prefix 的 projected contract 已编译。31 端点、540 依赖、884 摘要审计通过，无新增公理；原 full compiler 的 42 假设独立回归和 891 调用报告绑定核对通过。本次没有新 loaded compiler、提取或原生证据，也没有重跑旧矩阵。当前计划先实现不假设稳定性的 loaded nested source progress／matcher，随后实际安装；一般 bound pointer、多个依赖 preload 和 private snapshot 继续独立验收。
+
+
+## 10 月 6 日：loaded source progress 与固定 profile 安装
+
+本阶段再次 fetch，三个评审分支仍为 `f793629`、`9673381`、`3e9f008`，topdown 正文与 fetched narrative 字节一致。按已吸收的责任划分，[新的安装阶段](research-checkpoint-2026-10-06-loaded-placement.md) 将 bound 稳定性留在 domain 的接受证明，将原 loaded fallback 的 progress 单独落实到语言协议。新协议用机器最大值计算距离，只要求嵌套 body 保护 iterator，不假设 memory bound 保持；改变 bound 单元的 fixture 通过进展检查，改写 iterator 的 fixture 被拒绝。
+
+原 mapped／tiling／schedule checker、实际 guard／restore／fallback 和保留 prefix/suffix 的局部 contract 已接到新 table host 与 Csem→Asm endpoint。Kernel 未改，scope/private-pool/程序安装和 backend 定律复用。Optimizer profile 仍绑定固定 normalized 标识符，frontend 的非空接受、提取和新原生矩阵尚缺；不能仅凭新的 compiler 定理称 loaded optimizer 已完成。这项事实边界已进入当前计划，下一项推广真实 source adapter，再做完整 C 接受／回退／上下文验收。一般依赖 preload、private snapshot、P4 和同例作者负担比较继续保留，goal active。

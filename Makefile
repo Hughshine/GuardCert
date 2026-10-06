@@ -92,9 +92,12 @@ interface-pointer-realization-direct:
 	python3 scripts/compare_pointer_realizations.py
 
 .PHONY: affine-pointer-domain-proof affine-pointer-domain-regression affine-pointer-source-proof affine-pointer-alias-proof affine-pointer-compiler-proof affine-pointer-compiler-native
-.PHONY: affine-loaded-pointer-proof
+.PHONY: affine-loaded-pointer-proof affine-loaded-placement-proof
 affine-loaded-pointer-proof:
 	python3 scripts/audit_affine_loaded_pointer.py
+
+affine-loaded-placement-proof:
+	python3 scripts/audit_affine_loaded_placement.py
 
 affine-pointer-compiler-native: affine-pointer-compiler-proof
 	python3 scripts/build_memory_compiler.py --affine-inner-pointer > build/affine-pointer-compiler/build-compiler.log 2>&1
