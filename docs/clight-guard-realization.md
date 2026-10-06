@@ -35,6 +35,8 @@ direct 的这一步直接复用原执行，对 candidate 没有新增 write-fram
 
 `realized_guard_normal_steps` 将有限 dispatch 与运输后的真实分支执行相接。[projected_realized_rule_region_contract](../prototype/interface/ClightReadonlyProjectedCompiler.v) 在同一处消费 source 的公开 temp 运输、原 condition／local certificate、realization 和公开出口，得到 private-region 契约。原 direct 和 shared 的公开 contract theorem 都调用它，完整编译入口继续使用既有上下文与 CompCert 后端证明。
 
+10 月 6 日进一步抽出 `realized_projected_selection_contract`：双向规则及新 source-to-candidate 保持规则分别提供所选实际分支的执行见证，语言安装证明共用。[真实 named affine／tiling 使用者](clight-polyhedral-preservation.md) 已消费这条路径，同一原条件和局部保持证书支持 direct/shared。旧 local rule 的方向及实际 globalenv 量化保持，不为迁移增加一个未证明的反方向。
+
 这仍是要求 source 独立 progress 的宏宿主。把分派前缀改成不要求分支完成，不会自动取消该宿主的 progress 假设。
 
 ## 哪些实际使用者已接入
@@ -42,6 +44,7 @@ direct 的这一步直接复用原执行，对 candidate 没有新增 write-fram
 1. direct projected 安装路径，包括稳定参数、loaded-bound 和现有矩形规则：消费 `direct_normal_realization` 和公共安装定理。
 2. shared projected 安装路径，包括 shared／simplified rectangle 与双动态矩形：消费 `shared_normal_realization` 和同一公共安装定理。没有重做 alias scan、调度或 condition 证明。
 3. 新 open host 的 unsigned memory-bound 完整循环：[circular_guard_dispatch](../prototype/interface/ClightCircularPrefix.v) 消费 direct 的有限前缀证书。空路径、alias 回退、non-alias 候选都沿用这一证明，再与原局部小步协议连接；无限 fallback 不需要正常结束的 realization 层。
+4. [真实 named affine／tiling 使用者](clight-polyhedral-preservation.md)：接受真实 mapped-domain／依赖或 tiling／依赖证书，复用旧实际数组执行对应后，通过同一保持接口和两个 normal realization 安装。它保留 finite source-progress 宿主，没有借此次迁移获得多面体无限源回退。
 
 第三项没有安装 shared whole-loop 编译路径。共享前缀定律已经不要求分支完成，但为这个具体 open 协议运输 private Boolean、连接新的 matcher 和提取入口仍须单独实现／验收。任意内部 call／return／label 也没有因此进入当前 open host 的支持范围。
 
@@ -51,4 +54,4 @@ direct 的这一步直接复用原执行，对 candidate 没有新增 write-fram
 
 最难的主线仍是 `B⇒A` 的全实例覆盖、源／候选真实语义与依赖对应，以及让实际 affine／tiling 候选消费这一主接口。realization 统一不替代这些 optimizer/domain 证明。当前验证结果和产物绑定以 [最新阶段记录](research-checkpoint-2026-10-05.md) 为准；性能没有测量。
 
-本次验证为 411 端点／863 摘要，无新增全局公理；25 种提取配置全部重建／回归，40 份 native 报告核对当前源码和产物。相对 `26956a4` 保存的 40 份 C／Clight 摘要全部保持，包括 whole-loop 与混合旧 preload。报告为 `build/interface-compiler/realization-validation.json`；不能从一致性回归推出新的优化收益。
+P1 固定验收为 411 端点／863 摘要，无新增全局公理；25 种提取配置全部重建／回归，40 份 native 报告核对该阶段源码和产物。相对 `26956a4` 保存的 40 份 C／Clight 摘要全部保持，包括 whole-loop 与混合旧 preload。报告为 `build/interface-compiler/realization-validation.json`；不能从一致性回归推出新的优化收益。保持证书接入后的当前结果单独见 [10 月 6 日记录](research-checkpoint-2026-10-06.md)。

@@ -159,4 +159,6 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 
 上述 10 月 5 日评审结论固定于 `cf4d442`。后续新增 `open_region_protocol`／`open_region_contract`，已经编译验证整段局部小步宿主、unsigned memory-bound 缓存规则、真实源／guarded 目标 alias 无限执行，以及完整 Csem→Asm 端点。它不要求原片段的无条件完成性，见[实际案例](clight-guarded-circular-case.md)。这关闭一个具体宿主缺口；不据此宣称新的抽象 guard 定理、一般多面体迁移或文献空白。提取／原生结果与当前计数以[阶段记录](research-checkpoint-2026-10-05.md)为准。
 
+10 月 6 日的第一项 [真实 named affine／tiling 迁移](clight-polyhedral-preservation.md) 已把旧 mapped-domain／依赖和 tiling／依赖核对器、实际数组源／候选对应、入口范围及安全基址检查接到主只读接口和公共 direct/shared realization，再接完整 Csem→Asm 与实际提取运行。新的保持接口直接消费旧证书的 source-to-candidate 方向和实际 globalenv 量化；两种局部证书共享语言安装证明。该结果是实际证明复用与优化器接入证据，尚不构成一般条件发现、一般 affine 源迁移或文献新颖性结论。它复用已有矩形 B⇒A 证明；受限符号化入口推导、真实 pointer footprint 的主接口迁移、证明负担及性能仍待验收，见[当前阶段](research-checkpoint-2026-10-06.md)。
+
 10 月 6 日，[实际 realization](clight-guard-realization.md) 又将 direct/shared 的 dispatch prefix、private frame 和完成分支运输统一到语言层设施；两个 projected 安装路径调用公共定理，完整 unsigned 循环复用 prefix 后继续小步协议。411 端点／863 摘要、25 配置／40 报告已通过，40 份 C／Clight 摘要对重构前 `26956a4` 保持。这支持具体的语言安装证明复用；新增模块增加了代码，尚无总证明负担减少、性能或首创结论。真实 affine／tiling 使用者还要按旧证明的正确方向消费候选／依赖证书及实际 globalenv 对应，不能由这项架构改进宣称已迁移。

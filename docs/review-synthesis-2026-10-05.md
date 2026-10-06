@@ -64,3 +64,11 @@
 2026-10-06 冻结实际接口时再次 fetch 三个分支，全部维持上次 SHA，没有新增意见。direct/shared 已接到 [公共 realization](clight-guard-realization.md)，完整 unsigned 循环另消费其有限 dispatch prefix；三个路径的语言证明复用、private state／frame 与能力限制已明确。411 端点／863 摘要没有新增公理，25 配置／40 报告重建通过，40 份 C／Clight 摘要相对 `26956a4` 不变。P1 的这项实现验收通过；不据此声称 shared whole-loop、一般 affine 迁移、符号条件算法或性能已经完成。
 
 旧 `encoded_private_rule` 与 named affine／tiling compiler 的源码核对揭示条件性 source-to-candidate 保持及实际 globalenv 的边界；已补入责任矩阵和 P2 验收。P2 将实际消费候选／依赖核对、复用其对应证书，并按语言宿主需要的正确证书方向接入，而不是把原证明强称为双向等价。
+
+## 10 月 6 日：首个真实 P2 使用者及新 topdown 补充
+
+再次 fetch 后，evidence 和 performance 两分支仍为原 SHA；topdown 新增 `f7936299fa6272fbf50db6b94a1bd0333808ea09`。增量仅为 paper narrative 的 cross-IR 讨论，已经同步到本地快照并采纳：SSA/CFG 可以把 code/check 解释为区域和检查 CFG，汇编可以暴露 registers/flags/memory；对应语言实例另证明 phi/live-out、scratch、flags 与控制。Clight 仍是主验收，第二 IR 是可选证据，不将讨论中的实例标作已实现。
+
+Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；新方向文档不是对它们能力的新的独立文献核实。不声称 runtime-conditioned assembly 优化或 local-to-global lifting 是首次提出。语言状态运输必须覆盖实际检查的 flags 副作用，不能因抽象 readonly 条件省略这一义务。已纳入[责任矩阵](framework-responsibilities.md)与[当前计划](current-work-plan.md)。
+
+首个 [named affine／tiling 使用者](clight-polyhedral-preservation.md) 已实际复用旧 source/model/candidate 和范围／alias 证书，消费真实 candidate/dependence checker，并通过主 readonly condition 与 direct/shared realization 接 Csem→Asm。source-to-candidate 保持与双向规则共用安装证明，未增加旧 checker 没有提供的反方向。原生多数组 40 配置和连续替换／空参数 8 配置已通过；主接口兼容性回归与阶段提交以[当前记录](research-checkpoint-2026-10-06.md)为准。这关闭首个使用者迁移；一般 affine 源、stateful pointer footprint 与新符号化 B⇒A 算法仍未关闭。

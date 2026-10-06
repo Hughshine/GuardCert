@@ -29,6 +29,16 @@ interface-clight-proof: interface-proof
 interface-compiler-proof: interface-clight-proof
 	python3 scripts/audit_interface_compiler.py
 
+.PHONY: interface-polyhedral-proof interface-polyhedral-native
+interface-polyhedral-proof:
+	python3 scripts/audit_interface_polyhedral.py
+
+interface-polyhedral-native: interface-polyhedral-proof
+	python3 scripts/build_memory_compiler.py --readonly-polyhedral > build/interface-polyhedral/build.log 2>&1
+	python3 scripts/native_interface_polyhedral.py
+	python3 scripts/native_interface_polyhedral_context.py
+	python3 scripts/validate_interface_polyhedral.py
+
 interface-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py > build/interface-compiler/build.log 2>&1
 	python3 scripts/native_interface_demo.py

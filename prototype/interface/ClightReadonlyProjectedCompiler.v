@@ -63,27 +63,48 @@ Proof.
 Qed.
 
 
-(** The condition and local rule are unchanged by the concrete dispatch
-    implementation. Source placement and whole-program scope still belong to
-    the selected region host, not to the language-independent kernel. *)
-Theorem projected_realized_rule_region_contract live source
-  (rule : readonly_projected_clight_rule live source)
-  (R : clight_normal_realization live (projected_guard rule) (projected_candidate rule) source) :
+(** A language installation service for either equivalence or one-way
+    preservation certificates. Its selected-execution witness is built from
+    the original rule; the service handles scope, private dispatch and exits. *)
+Definition projected_selected_execution live tree candidate source temps
+  (p : Clight.program) locals le memory after final :=
+  exists accepted exit mem,
+    decision_run (Entry (Clight.globalenv p) locals le memory) tree accepted /\
+    exec_stmt (adapter_entry temps) (Clight.globalenv p) locals le memory
+      (if accepted then candidate else source) E0 exit mem Out_normal /\
+    temp_agree live after exit /\ memory_equivalent final mem.
+
+Theorem realized_projected_selection_contract live source candidate tree writes
+  (WRITES : writes_only writes source)
+  (R : clight_normal_realization live tree candidate source)
+  (SELECTED : forall temps p locals le memory after final,
+    statement_scope live source ->
+    exec_stmt (adapter_entry temps) (Clight.globalenv p) locals le memory source E0 after final Out_normal ->
+    projected_selected_execution live tree candidate source temps p locals le memory after final) :
   PrivateRegion.projected_region_contract live source (realization_code (normal_realization R)).
 Proof.
   intros temps p locals le target memory after final SCOPE AGREE SOURCE fn outside.
   destruct (@structured_execution_temp_transport (adapter_entry temps) (Clight.globalenv p)
-    locals le memory source E0 after final Out_normal SOURCE live target
-    (projected_source_writes rule) (projected_source_write_bound rule) SCOPE AGREE)
+    locals le memory source E0 after final Out_normal SOURCE live target writes WRITES SCOPE AGREE)
     as [source_exit [TRANSPORTED EXIT_AGREE]].
-  destruct (@projected_rule_selected live source rule temps p locals target memory source_exit final TRANSPORTED)
+  destruct (SELECTED temps p locals target memory source_exit final SCOPE TRANSPORTED)
     as [accepted [exit [mem [CHECK [LEAF [PUBLIC MEMORY]]]]]].
-  destruct (@realized_guard_normal_steps live (projected_guard rule) (projected_candidate rule) source R
+  destruct (@realized_guard_normal_steps live tree candidate source R
     temps p fn outside locals target memory accepted exit mem CHECK LEAF)
     as [joined_exit [STEPS JOINED_PUBLIC]].
   exists joined_exit, mem; split; [exact STEPS|split; [|exact MEMORY]].
   eapply temp_agree_trans; [exact EXIT_AGREE|].
   eapply temp_agree_trans; [exact PUBLIC|exact JOINED_PUBLIC].
+Qed.
+
+Theorem projected_realized_rule_region_contract live source
+  (rule : readonly_projected_clight_rule live source)
+  (R : clight_normal_realization live (projected_guard rule) (projected_candidate rule) source) :
+  PrivateRegion.projected_region_contract live source (realization_code (normal_realization R)).
+Proof.
+  eapply realized_projected_selection_contract; [exact (projected_source_write_bound rule)|].
+  intros temps p locals le memory after final SCOPE SOURCE.
+  exact (@projected_rule_selected live source rule temps p locals le memory after final SOURCE).
 Qed.
 
 Theorem projected_readonly_rule_region_contract live source
@@ -169,6 +190,7 @@ Qed.
 End USER_PASS.
 
 Print Assumptions projected_rule_selected.
+Print Assumptions realized_projected_selection_contract.
 Print Assumptions projected_realized_rule_region_contract.
 Print Assumptions projected_readonly_rule_region_contract.
 Print Assumptions projected_readonly_selection_sound.

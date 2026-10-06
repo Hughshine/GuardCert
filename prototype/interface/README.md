@@ -2,6 +2,8 @@
 
 持续目标和三方验证责任见 [当前计划](../../docs/current-work-plan.md)及 [责任矩阵](../../docs/framework-responsibilities.md)。语言实例的 direct/shared 分派现共用 [实际 realization](../../docs/clight-guard-realization.md)，完整循环另消费同一个有限分派前缀；它不是新的 abstract select，也不替代 optimizer 的条件正确性／覆盖证明。
 
+10 月 6 日的 [真实 affine／tiling 使用者](../../docs/clight-polyhedral-preservation.md) 已消费主只读接口。`ClightReadonlyPreservation.v` 支持实际 program globalenv 下的条件性 source-to-candidate 保持；它与双向规则共用 `realized_projected_selection_contract`。`ClightPolyhedralPreservation.v` 复用旧 named array 源／模型／候选证书并消费实际依赖核对器，`ClightPolyhedralCompiler.v` 接完整 Csem→Asm 与实际提取入口。`make interface-polyhedral-native` 分别运行 direct/shared，覆盖真实多数组候选、拒绝、连续 region、外围 goto 和空外层未初始化内层 bound；边界与当前验收见 [阶段记录](../../docs/research-checkpoint-2026-10-06.md)。这是可选的 PolCert/VPL 使用者，42 项继承假设单独审计；主 CompCert-only 接口的基线保持。
+
 当前使用者契约见 [guarded-rewrite-contract.md](../../docs/guarded-rewrite-contract.md)：使用者选择片段、候选及位置，框架插入只读 condition、源回退并证明等价。底层入口协议的设计与分类见 [language-independent-interface.md](../../docs/language-independent-interface.md)。
 
 `GuardInterface.v` 暴露语言、检查、条件变换和上下文四份契约；它证明 guarded refinement、独立的 preservation 及满足宿主插入／目标可安装条件时的程序 refinement。状态、观察、检查的安全性质和关系均由实例解释。检查的存在性不能代替非确定语言的所有路径进展。

@@ -1,6 +1,6 @@
 # 验证责任、证书边界与最难的验收
 
-这是当前活动目标的一部分，按用户 2026-10-05 的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，读取提交为 `4521f76ab11c2df1332ce06a5cf4b83a613be27b`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `f7936299fa6272fbf50db6b94a1bd0333808ea09`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
 ## 1. 三方各自证明什么
 
@@ -15,6 +15,10 @@
 框架的组合证明以已经证明的语言定律为参数。优化实现者既可以直接提交证明，也可以提交不受信任候选、条件和 witness，由已验证 checker 产生证书。候选生产器和搜索启发式无需可信；成功输出仍必须绑定**实际** source、candidate、condition 和安装位置。语言、domain、核心的证明可以由同一开发者写，但接口和成本归属保持分开。
 
 语言库可以提供“实际字节足迹分离 ⇒ load 穿过 store 保持”的定理；规则作者证明本次 body 的访问属于这些足迹，并满足权限／chunk 条件。核消费这个证据，不了解指针，也不允许只把 `p!=q` 当成任意字节区间分离。
+
+最新 topdown 补充也已采纳：抽象接口应能由 SSA／CFG 或汇编实例解释，Clight 继续是主验收。CFG 实例另证明 live-out／phi／控制出口；汇编实例另证明 scratch registers、flags、memory 和分支控制。若实际检查改变 flags，语言不能只说逻辑 condition 是只读：必须证明这些变化私有且不影响分支，或给出保存／恢复与真实状态运输。第二 IR 是可选的表达力证据，当前没有宣称已经实现，不把它加入主功能的强制验收。
+
+同样，当前 Clight 的 tree／单 Boolean realization 不自动包含运行时循环式 footprint 扫描。扫描后的私有游标可能依赖 memory 和拒绝位置；下一项语言接口要交付真实检查表示、入口／检查后关系、frame 和 branch transport。语言无关 host 已允许一般检查和状态关系，当前具体语言适配器的限制不能改称框架已经验证了所有 stateful 检查。
 
 ## 2. 四张证书与一个安全域
 
@@ -45,7 +49,7 @@ D 不能预先包含待检查的 no-alias／稳定性事实。它说明当前哪
 
 这些是逻辑责任，不强迫每个使用者填四个重复的 record。可以将证书封装在一个已验证库中；验收仍逐项回答它们来自哪里。不能把 normal-completion 的 big-step 观察接口说成已经观察了全部无限行为，也不能把实际 forward 小步安装证明改称任意目标执行的双向等价。
 
-证书的方向也要和宿主一致。核已经分别提供 refinement 与 preservation；当前 `readonly_projected_clight_rule` 要求双向局部等价，但 private-region 安装实际上消费的是源执行到候选执行的一边。旧 [encoded_private_rule](../theories/ClightPrivateRule.v) 及 [named candidate compiler](../adapters/compcert-memory/GuardMemoryNamedCompiler.v) 主要交付条件性 source-to-candidate 保持，并且局部端点量化实际 program 的 globalenv。P2 需要核对并接入这种证书，不假定旧 checker 已交付任意 globalenv 上的双向等价，也不将其单向结果改名为等价。统一 realization 复用分派／运输，不消除这一 optimizer 与语言边界的真实义务。
+证书的方向也要和宿主一致。核已经分别提供 refinement 与 preservation；`readonly_projected_clight_rule` 要求双向局部等价，但 private-region 安装实际消费的是源执行到候选执行的一边。旧 [encoded_private_rule](../theories/ClightPrivateRule.v) 及 [named candidate compiler](../adapters/compcert-memory/GuardMemoryNamedCompiler.v) 主要交付条件性 source-to-candidate 保持，并且局部端点量化实际 program 的 globalenv。10 月 6 日新增 [readonly_preserving_clight_rule](../prototype/interface/ClightReadonlyPreservation.v)，直接消费这一保持证书；双向规则和保持规则共用实际安装证明。真实 [named affine／tiling 使用者](clight-polyhedral-preservation.md) 已经连接候选／依赖核对、只读合成、direct/shared 分派与 Csem→Asm，没有要求旧 checker 提供未证明的反方向。统一 realization 复用分派／运输，optimizer 仍承担实际模型对应和入口覆盖。
 
 ## 3. 用当前完整循环逐项落实
 
@@ -75,7 +79,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 | 保持有限／无限行为和公开上下文 | 仅 completed-run 等价；native 超时；把 cache 当不存在 | 正常出口／frame、私有 state 关系、局部小步匹配及宿主 forward simulation，明确内部 call／return／label 限制；最终 Csem→Asm 端点。规则 witness＋语言宿主 |
 | 降低作者负担且有实际价值 | 增加 record／端点／相似模板；只量 Clight 打印字节 | 至少两条规则消费同一 condition／realization；记录专属 obligations 与证明代码；同源 direct/shared 对照和同版 CompCert 原生成本。核／adapter 复用、domain 接入、测量分别报告 |
 
-第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
+第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。10 月 6 日的第一项真实迁移复用已有矩形范围与 named memory 的全实例对应证明，并实际消费仿射／分块依赖核对器。它关闭了一个真实使用者的接入，未新增一般 B⇒A 推导算法，也未迁移一般 affine 源或指针足迹。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
 
 ## 5. 研究主张与持续维护
 

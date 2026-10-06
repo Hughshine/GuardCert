@@ -6,7 +6,7 @@
 
 `guarded_rewrite(S1,S2,cond) = select(cond,S2,S1)` 仍是一次替换的定义。语言无关 [GuardedRewrite.v](../prototype/interface/GuardedRewrite.v) 只消费宿主的 code／check／state／observation／dispatch law。条件证明、安全判断、具体语义和效果的解释来自语言实例。
 
-规则作者提交 `D`、`P`、`readonly_condition D P cond` 和适合宿主的局部对应证书。完成执行的宿主消费 `conditional_equivalence D P S1 S2`；可能无限的整段宿主还要求实际小步协议。`D` 说明宿主允许的进入及检查定义性，不能把希望运行时验证的稳定性／non-overflow 偷放进去。`P` 是接受后建立的前提，不是源程序执行的先验保证。局部表示与 frame 定理将源／候选模型接回真实片段；上下文定理再连接完整程序。
+规则作者提交 `D`、`P`、`readonly_condition D P cond` 和适合宿主的局部对应证书。完成执行的宿主可消费双向 `conditional_equivalence` 或实际 source-to-candidate 保持证书；[保持接口及 named affine／tiling 实例](clight-polyhedral-preservation.md) 已与双向规则共享同一个实际安装证明。可能无限的整段宿主还要求实际小步协议。`D` 说明宿主允许的进入及检查定义性，不能把希望运行时验证的稳定性／non-overflow 偷放进去。`P` 是接受后建立的前提，不是源程序执行的先验保证。局部表示与 frame 定理将源／候选模型接回真实片段；上下文定理再连接完整程序。
 
 相同的核不意味着相同的 `Run`：表达式宿主观察实际 `val`，片段宿主观察内存／temps／trace／outcome，其他语言可声明自己的观察。只有真实语言宿主覆盖的行为才能进入全局主张。当前 Csem→Asm 端点是 backward simulation，不能称作两种语言的双向行为等价。
 

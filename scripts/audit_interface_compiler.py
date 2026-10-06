@@ -5,12 +5,13 @@ from pathlib import Path
 
 from audit_compiler import names
 from audit_interface_clight import ROOT, sha, compcert_flags
+from rocq_dependencies import compile_closure
 
 WORK = ROOT / "build/interface-compiler"
 HOST_MODULES = ["ClightOpenRegionContract", "ClightOpenRegion", "ClightOpenRegionProof"]
 MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
            "ClightReadonlyLoopUpdates", "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame",
-           "ClightSharedGuard", "ClightGuardRealization", "ClightReadonlyProjectedCompiler", "ClightPrivateCandidateCompiler",
+           "ClightSharedGuard", "ClightGuardRealization", "ClightReadonlyProjectedCompiler", "ClightReadonlyPreservation", "ClightPrivateCandidateCompiler",
            "ClightCountedLocalization", "ClightStableLoadBody", "ClightStableLoadGuard",
            "ClightReadonlyProjectedLoopRule", "ClightStableLoadLoop", "ClightStableLoadCompiler",
            "ClightStrictLoopProgress", "ClightNestedStrictProgress", "ClightStableLoopCondition", "ClightReadonlyLoadedTreeSynthesis",
@@ -44,6 +45,10 @@ MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCom
            "ClightCircularProgress", "ClightCircularDivergence", "ClightCircularSimulation",
            "ClightOpenRegionCompiler", "ClightGuardedCircularCompiler"]
 ENDPOINTS = {
+    "ClightReadonlyPreservation.preserving_rule_selected": "FRAGMENT",
+    "ClightReadonlyPreservation.preserving_realized_region_contract": "FRAGMENT",
+    "ClightReadonlyPreservation.encoded_private_as_preserving": "FRAGMENT",
+    "ClightReadonlyProjectedCompiler.realized_projected_selection_contract": "FRAGMENT",
     "ClightGuardRealization.realization_entry_agree": "FRAGMENT",
     "ClightGuardRealization.direct_guard_realization": "FRAGMENT",
     "ClightGuardRealization.shared_guard_dispatch": "FRAGMENT",
@@ -480,16 +485,13 @@ def main():
         if sha(ROOT / path) != digest:
             raise SystemExit(f"Compiler dependency changed: {path}")
     flags = compcert_flags()
-    sections = []
-    for filename in ([f"theories/{module}.v" for module in HOST_MODULES] +
-                     [f"prototype/interface/{module}.v" for module in MODULES]):
-        result = subprocess.run(["rocq", "compile", *flags, filename],
-                                cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        sections.append(f"Compiling {filename}\n{result.stdout}")
-        (WORK / "proof.log").write_text("\n".join(sections))
-        if result.returncode:
-            raise SystemExit(f"Compiler interface failed: {filename}; see {WORK / 'proof.log'}")
-        print(f"Compiled {filename}", flush=True)
+    # A list ordered by the date modules were added is not a dependency order.
+    # In particular StrictIteration is used by earlier matrix modules. Rebuild
+    # changed dependencies first, including owned modules outside this list.
+    closure = compile_closure(ROOT,
+        [f"theories/{module}.v" for module in HOST_MODULES] +
+        [f"prototype/interface/{module}.v" for module in MODULES],
+        flags, WORK, ["theories", "prototype/interface"])
     audit = WORK / "Audit.v"
     lines = ["From compcert.driver Require Import Compiler.",
              "From compcert.common Require Import Memory.",
@@ -521,6 +523,7 @@ def main():
     sources = {**inherited, **report["sources"]}
     sources.update({f"prototype/interface/{m}.v": sha(ROOT / f"prototype/interface/{m}.v") for m in MODULES})
     sources.update({f"theories/{m}.v": sha(ROOT / f"theories/{m}.v") for m in HOST_MODULES})
+    sources.update({filename: sha(ROOT / filename) for filename in closure})
     sources.update(json.loads((ROOT / "build/interface/report.json").read_text())["sources"])
     output = {
         "status": "compiled", "sources": sources,
