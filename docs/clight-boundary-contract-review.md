@@ -88,3 +88,24 @@ phi／successor-edge 关系及多入口 placement；汇编另需 flags、scratch
 本次采纳的论文表述是：kernel 证明局部 guarded transformation；语言/IR
 host 提供 reusable region contracts 和 installation theorems；优化和每个
 rewrite site 提供相应 guarantee 与 placement evidence。
+
+## 后继实际实例核对
+
+[Dependent compiler](research-checkpoint-2026-10-06-dependent-compiler.md) 已让
+原 `**root` source 消费 ordered private captures 和同一 preparation 桥。
+[Cursor compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)
+又将扫描改为两个实际私有循环，继续消费原 source progress、region／scope、
+memory、公开 temp 和 whole-program 安装证明；两次接入均未要求新的 kernel
+语义责任。这样关闭了前文“private snapshot 能否继续复用”的具体检验，
+没有证明任意 dependent preload 都可自动安装。
+
+新的成本取舍也有源码依据：`staged_check_guarded_execution` 通过现有
+`structured_execution_temp_transport` 保护候选的全部 `statement_temps`。
+guard 因而采用与 candidate counters 不同的两个私有 cursor，实际 pool
+从 19 增为 21 槽。若要复用那些在候选中先写后读的 counters，需要更精确
+的入口读取/liveness 运输证明。现有强保证已经能安装，不能把减少槽数的
+愿望当作必须重做 guarantee/requirement 或 kernel 的证据。
+
+最新 `7d94d81` 再次明确 kernel 止于局部 guarded correctness，condition
+processing 和 prefix 库在它之上。以上新增执行／资源服务正按该边界实现；
+一般控制出口、较弱 memory relation 和跨 IR 契约仍待真实案例检验。

@@ -207,3 +207,13 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 当前计划据此将逐行实际 lowering 标为已证明，把 outer prefix、resource producer、factory／host 安装和提取／成本验收保留为明确的下一交付；一般深层域、合法 pointer-store body、distinct-base physical alias 和同例已有工作／作者负担比较仍未完成。只有实际实例暴露当前证书接口无法表达的语义义务时才调整 kernel。
 
 按评审的 evidence-to-claim 要求，原 29 个局部端点与本次 compiler／native 报告各自保留。两个实际域不是 arbitrary polyhedral 覆盖；pointer-cell memory 反例不是 defined C loop，短数组 store probe 不是 guard comparison-order probe。默认 cap 的约 20,700 个 if 明确进入下一优先验收；循环化／符号扫描、一般 domain、合法 pointer stores、P4 和同例 related-work 比较继续 active。
+
+## 最新 Narrative 澄清与实际 Cursor 接入
+
+本轮再次 fetch 并读 `7d94d81`：最小 semantic kernel 仅负责局部 guarded correctness，readonly 前台和 condition processing／prefix／simplification 是核上库，whole-program 安装是语言 host 的定理与具体 site evidence。这是责任边界，没有要求重排源码；main 的 narrative 和 context note 与分支正文一致。责任矩阵进一步明确四张局部证书之后仍需实际语言安装及实例证据，不把 generic lifting hook 说成已经解决 context closure。
+
+[完整循环化阶段](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)按这个分工连接双 cursor 执行、finite resource checker、staged dispatch、原 source package／candidate checker 和 Csem→Asm。43 新端点／537 依赖／976 source 摘要、提取、两个域共 444 次新入口调用通过。21 槽 private pool 解决 guard cursors 与 candidate counters 的真实状态隔离；kernel 和原模型／coverage／候选证书保持。没有用 interface 字段代替 checked-package 的扫描 callbacks。
+
+本次代码规模验收关闭默认 caps 的展开增长：实际完整函数约 13 MB→25 KB，机器函数 72,083／105,857→879／916 字节。18 个**新**机器 guard comparison 探针直接核对点顺序和拒绝后停止；它们与 28 个 store-order 探针分别报告。旧 dependent 两套矩阵仅绑定复核，不累计旧运行。先前短数组的证据限制保留为其历史范围，不再把它当成本轮 comparison-order 缺口。
+
+计划已吸纳实际进展：下一主任务转为一般 domain／复杂 body、不同 body base 的物理 alias 接受与合法 pointer stores；P4 计时、同版 CompCert 对照和同例 proof obligations 比较仍独立未完成。代码大小不证明性能或 total proof burden，也没有单凭小 kernel、C 层或端点数主张 novelty。

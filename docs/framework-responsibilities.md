@@ -12,7 +12,7 @@
 
 | 责任 | 需要提供／证明 | 可以复用的交付 | 不由这一方自动解决 |
 | --- | --- | --- | --- |
-| 语言无关框架 | 证书消费、条件组合／短路／安全后处理、条件 rewrite 的语义定理、在宿主定律下提升以及有限次组合 | 参数化生成／简化算法的正确性；readonly 前台；消费 host 安装定理的通用组合 | 哪个优化成立、任意语义命题的检查代码、具体语言的 guard 或上下文定律 |
+| 语言无关框架 | 最小 kernel 消费证书、证明局部 guarded rewrite；上层库提供条件组合／短路／安全后处理，并消费 host 安装证书组合有限次 rewrite | 参数化生成／简化算法的正确性；readonly 前台；消费语言安装定理的通用组合 | 哪个优化成立、任意语义命题的检查代码、具体语言的 guard 或上下文定律 |
 | 语言／IR 实例 | 实际执行与观察；原子测试的机器语义和定义性；具体分派；私有资源与状态运输；effect／frame；合法位置／出口／小步匹配；后端连接 | 一次证明并供多条规则调用的原语、direct/shared 实现和 host；例如真实 `Mem.load/store`、temp agreement 与 CompCert simulation | 某个程序的足迹完整性、某候选的依赖保持、某处入口为什么具备所需事实 |
 | 优化实现者，含 domain library | 寻找片段、提出实际候选／模型义务 A；候选条件正确性；入口条件 B 对 A 的覆盖；实例专属源／模型／候选对应和作用域证据 | 经验证的 candidate checker、受限投影／范围／足迹算法及证书；这些可以在一个领域内再复用 | 未证明的 oracle 答案不会因接入框架而获得正确性；没有一般 `extract_assumptions(S,T)` |
 
@@ -41,7 +41,9 @@ Clight 的 readonly tree／单 Boolean realization 与循环式私有 footprint 
                          │
                    C_opt: 在 D 且 A 中 T 对应 S
                          │
-                   C_host: 实际分派、状态运输与上下文安装
+                   C_host: 实际分派与状态运输
+                         │
+                   语言安装定理＋实例 region／site 证据
                          │
                    guarded program ──► CompCert 后端
 ```
@@ -52,8 +54,8 @@ D 不能预先包含待检查的 no-alias／稳定性事实。它说明当前哪
 | --- | --- | --- |
 | `C_opt` | 规则／优化实现者或已验证候选 checker | [conditional_equivalence](../prototype/interface/GuardedRewrite.v)、局部状态还原；完整循环也可使用 [open_region_protocol](../theories/ClightOpenRegionContract.v)，须提交实际执行的匹配 |
 | `C_derive` | 优化／domain library | [readonly_condition_entails](../prototype/interface/GuardedRewrite.v) 消费推导证明；[盒状 affine 包络](affine-box-condition-derivation.md) 提供受限符号算法及实际宽度使用者，不是通用投影算法 |
-| `C_guard` | 核心参数化算法＋语言原语＋实例域证据 | [只读 tree 合成](../prototype/interface/ClightReadonlyTreeSynthesis.v)、[loaded tree](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v)、[依赖 prefix scan](../prototype/interface/ReadonlyPrefixScan.v)、[实际 private-scan host](../prototype/interface/ClightPrivateScanHost.v)；实例仍证明 coverage、原语安全和 source 支持 |
-| `C_host` | 语言实例／宿主库，规则提交边界 witness | [select_exact](../prototype/interface/GuardInterface.v) 是抽象定律；[共用实际 realization](clight-guard-realization.md)、[direct](../prototype/interface/ClightReadonlyProjectedCompiler.v)、[shared](../prototype/interface/ClightSharedProjectedCompiler.v) 和 [open host](../theories/ClightOpenRegionProof.v) 是具体证明；完整 Csem→Asm 结论是 backward simulation |
+| `C_guard` | 框架上层库＋语言原语＋实例域证据 | [只读 tree 合成](../prototype/interface/ClightReadonlyTreeSynthesis.v)、[loaded tree](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v)、[依赖 prefix scan](../prototype/interface/ReadonlyPrefixScan.v)、[实际 private-scan host](../prototype/interface/ClightPrivateScanHost.v)；实例仍证明 coverage、原语安全和 source 支持 |
+| `C_host` 与后续安装 | 语言实例证明 choice／运输定律及安装；优化／site 提供 region 与 placement witness | [select_exact](../prototype/interface/GuardInterface.v) 与 [实际 realization](clight-guard-realization.md) 解释局部分派；[direct](../prototype/interface/ClightReadonlyProjectedCompiler.v)、[shared](../prototype/interface/ClightSharedProjectedCompiler.v) 和 [open host](../theories/ClightOpenRegionProof.v) 另证具体安装；完整 Csem→Asm 结论是 backward simulation |
 
 这些是逻辑责任，不强迫每个使用者填四个重复的 record。可以将证书封装在一个已验证库中；验收仍逐项回答它们来自哪里。不能把 normal-completion 的 big-step 观察接口说成已经观察了全部无限行为，也不能把实际 forward 小步安装证明改称任意目标执行的双向等价。
 
@@ -160,3 +162,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 [短路 cursor scan](research-checkpoint-2026-10-06-cursor-scan.md)进一步将这一成本工作拆成可复用的实际服务：Clight 库证明 cursor specialization 的表达式／lvalue／decision 运输，实际初始化、拒绝即退出和 signed increment，以及 check-plan body 的 private/public frame；domain 证明符号列地址和两种 chunk 探针对应原常量列 probe，完整 row spec 等于原已认证条件。实际 reached-row domain 给出可用检查，再取得真实有限执行和 primitive safety；实际接受通过 quiet determinacy 接到旧 row observation-preservation theorem。kernel 没有新增责任。
 
 七模块／34 端点审计通过，每个新增端点最多六项原 CompCert 假设；旧 compiler 回归保持 42 项。row 域、freshness 和 public read scope 在此服务接口中仍是调用者证据，outer-prefix 推进和全 rows 覆盖尚未接实际循环；不能把这些有类型的义务或旧 compiler/native 回归说成新 factory 已完成。后继须由 checked package／typed pool／语言 host 实际生产并消费这些证据，再提取和验收成本。narrative 最新澄清与本地正文已再次核对一致，没有因此重排文件或修改最小 kernel。
+
+[完整 cursor compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)已关闭该具体 package 的这些调用义务。Clight 库提供双 cursor 执行、private/public frame 和前置／扫描／后置的实际短路分派；domain 将其精确绑定原完整条件和已有 source-prefix coverage。有限资源 checker 从实际模板证明输入不与 cursors 冲突，factory／语言 pool 生产并消费证据；原 preparation、候选证书、source progress 与 whole-program host 保持。guard cursors 与候选 counters 分开，需要 21 个 typed private slots；这属于真实状态运输义务，不是新 kernel 能力或最小资源证明。
+
+43 新端点、提取、两个 C 域共 444 调用、28 store-order 与 18 guard comparison 探针通过。后者在实际机器指令上核对源点顺序和拒绝后停止。默认 caps 的展开代码增长已在这两个 compiler 使用者中关闭，Clight／linked 函数大小分别报告；没有性能、一般多面体覆盖或作者负担收益结论。当前仍是 silent normal region、实际 body-pointer receipts 和 Mint32 operations 的具体 host/domain 范围。kernel 截止、语言安装与 optimizer/site evidence 的边界继续按 narrative `7d94d81` 明确保留。

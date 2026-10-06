@@ -2,7 +2,7 @@
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
-最新可运行交付是 [private bound snapshot](research-checkpoint-2026-10-06-affine-private-loaded.md)：原源没有公开 bound 快照时，安全私有读取、original-entry／public frame、真实 source-key 安装、提取和两类 affine 域运行已通过。后继 [依赖 header 局部候选链](research-checkpoint-2026-10-06-dependent-joint.md)已将双观察服务具体化为 checked-package 的完整 scan／coverage、preparation 和实际候选执行；新编译入口尚未完成。以下阶段保留各自历史范围，当前未完成项以文末 dependent compiler 接入验收为准。
+最新可运行交付是 [循环化 dependent guard compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)：真实 `**root` 源的两个 private captures、双观察稳定性、mapped／tiling／schedule 候选和 original fallback 已完整安装；实际 guard 改为两个短路私有 cursor 循环。43 个新证明端点、提取、两类 affine 域共 444 调用，以及 store-order／guard comparison-order 探针均通过。默认 cap 的完整函数从约 13 MB 的 Clight 打印体降到约 25 KB，机器函数大小也已单独核对；没有性能收益结论。以下阶段保留各自历史范围，当前未完成项以文末循环化阶段的验收为准。
 
 本计划吸收 [三个分支的评审](review-synthesis-2026-10-05.md)。既有研究路线保留在 [contribution-plan.md](contribution-plan.md)，当前执行优先级以下表为准。
 
@@ -192,3 +192,18 @@ guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和�
 3. 提取和真实 C 验收接受／拒绝／bound 早停／上下文，单独测量 Clight 和机器代码大小、编译成本和 guard 执行成本。
 
 本阶段再次 fetch 仍为 narrative `7d94d81`，本地正文和 context note 与远端一致；最小 kernel 截止继续约束以上责任。旧两套 native validators 只复核冻结绑定，没有重跑矩阵。一般 domain／physical alias／pointer stores、P4 和同例作者负担比较保持后继任务，完整 goal active。
+
+## 循环化 Guard：实际 Compiler 与成本规模已接入
+
+[最新阶段](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)关闭上一列表的 outer scan、有限 resource checker、实际 factory、whole-program endpoint、提取和两域完整 C 验收。新嵌套 scan 精确对应旧完整 stability condition，原 checked package 填入扫描 callbacks，原 coverage／两项观察保持／candidate certificate 和语言 host 被复用；kernel 不变。typed pool 增为 21 槽，guard cursors 与 candidate counters 分开，保留真正 original compound source key 与 fallback。
+
+43 端点／537 依赖／976 source 摘要审计和提取通过，完整 compiler 保持原 42 项假设。两个域六配置共 444 次新入口调用、28 store-order 探针（含两个旧入口对照）、18 个新 guard comparison 探针通过。默认 64×64 cap 的完整函数从 20,710／20,711 个 if 降为 111／112，Clight 打印体约 13 MB→25 KB；linked 函数 72,083／105,857→879／916 字节。同源／候选／caps 的旧新产物、输出和代码大小均绑定；旧矩阵只复核，没有重跑。编译与执行时间未测量，不把这组代码规模结果称为 P4 完成。
+
+当前后继优先级：
+
+1. **主 domain 表达力。** 从现有两层 affine package 推广一般深层源、多参数／布局和复杂读写 body；逐项证明实际源/model 对应、guard 覆盖及候选 lowering。两个 affine 域的调用数不代替这一验收。
+2. **更广物理 alias 与依赖读取。** 支持不同 body bases 的非空接受域，落实真实 typed pointer-store body 的 source correspondence／双观察拒绝；当前 Mint32 写操作不能冒充合法 pointer-cell 改写。
+3. **P4 独立计时。** 现在有紧凑的实际 compiler，可以按已有 schema 测同版原 CompCert、接受／回退／静态拒绝的 guard 与完整运行成本、编译成本和批次环境。无并发构建时测量，负收益照实报告；代码大小已经核对但不替代计时。
+4. **同例责任与已有工作。** 用同一 source／candidate／condition 梳理 OLO、Chamois、Peek／COVE、CoreJIT 的 guard 安全、`B⇒A`、状态和 host 义务；记录本次真实复用的旧证书和新的 language/domain 证明，不主张 total proof burden 或 novelty 收益。
+
+再次读取 narrative `7d94d81` 的 cutoff 澄清：最小 kernel 只组合局部证书；条件处理库可复用，语言安装必须有实际定理及具体 site 证据。新 cursor 工作正是核上库和具体实例，没有借机重排接口。guarantee/requirement clause API 和第二 IR 仍由实际受阻案例驱动，完整 goal active。

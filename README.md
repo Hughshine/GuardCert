@@ -1,10 +1,10 @@
 # Guard：带前提的程序变换与组合证明
 
-[新短路 cursor scan 服务](docs/research-checkpoint-2026-10-06-cursor-scan.md)已将一个真实 reached affine row 的逐点检查降低成私有 cursor 循环，证明其逻辑规格等于原双观察 row condition，接受结果保持 pointer／bound cells。初始化、拒绝后不续行、公开 frame 和实际 primitive safety 均有 Clight 证明；七模块／34 端点审计通过，没有改 kernel。完整 compiler 仍使用下述顺序 plan，outer scan／factory／提取／机器成本验收尚未连接；不能据此声称默认 cap 的代码增长已消除。
+[最新循环化 dependent guard compiler](docs/research-checkpoint-2026-10-06-cursor-dependent-compiler.md)已把完整双观察扫描降低为两个实际私有 cursor 循环，连接真实 source package、mapped／tiling／schedule factory、完整 Csem→Asm 定理和提取。八个新模块、43 端点／537 依赖／976 source 摘要审计通过；完整 compiler 保持原 42 项假设，kernel 没有改动。两个真实 affine C 域共 444 次新入口调用、28 个 store-order 探针（含两个旧入口对照）及 18 个新 guard comparison 探针通过。默认 64×64 cap 的完整 Clight 函数从 20,710／20,711 个 if 降为 111／112，打印体约 13 MB→25 KB；linked 函数 72,083／105,857→879／916 字节。计时和性能收益仍未测量。
 
-最新 [依赖 header 完整编译器](docs/research-checkpoint-2026-10-06-dependent-compiler.md)已从真实 C 的 `i<**root` 识别原源，安全捕获 private pointer／bound，检查两项 observation 对实际写足迹的稳定性，再接 mapped／tiling／schedule 候选及原 compound-load fallback。typed fresh pool、original source key、原 source progress、公开 scope／出口与完整 Csem→Asm 都由实际入口消费。九个新模块、40 端点／531 依赖／961 源摘要审计通过，完整 compiler 保持原 42 项假设基线，已提取并运行。三角域和 `j<2*i+1` 各六配置共 444 次新入口调用、28 个机器 store-order 探针（含两个旧入口对照）通过；另有 74 次旧入口同源不安装对照。没有新增 kernel 定律。
+[上一依赖 header 编译器](docs/research-checkpoint-2026-10-06-dependent-compiler.md)从真实 C 的 `i<**root` 识别原源，安全捕获 private pointer／bound，再接实际候选和原 compound-load fallback。其 40 端点、提取及两个域 444 调用保留为独立历史证据。本阶段复用其 source／model、全部 footprint coverage、观察保持、候选 certificate 和语言 host；实际 guard cursors 与 candidate counters 分开，新的 typed private pool 为 21 槽。旧 compiler／native 摘要绑定复核通过，未重跑或累计旧矩阵。
 
-这次接入沿 topdown `7d94d81` 的澄清：最小 kernel 止于局部 guarded correctness，条件处理／prefix scan 是上层库，完整程序安装属于语言 host。语言证明安全 captures／私有状态运输，domain 填入实际 header／body 解码、reached-write receipts、全部 point／row 的覆盖和候选对应。guard 不预置未来稳定性，拒绝后保留原 `**root` 源的提前停止与公开 marker=123。仍要求源已有 body-pointer receipts；合法 pointer-store body、一般深层 affine 源、不同 body base 的 alias 接受和性能未完成。默认 64×64 cap 的实际 Clight 函数约有 20,700 个 if，下一优先项是循环化或经证书的符号扫描。
+这次接入沿 topdown `7d94d81` 的澄清：最小 kernel 止于局部 guarded correctness，条件处理／prefix scan 是上层库，完整程序安装属于语言 host。语言证明安全 captures、短路循环与私有状态运输，domain 填入实际 header／body 解码、reached-write receipts、全部 point／row 覆盖，并证明新 lowering 对应原 condition。guard 不预置未来稳定性，拒绝后保留原 `**root` 源的提前停止与公开 marker=123。仍要求源已有 body-pointer receipts；合法 pointer-store body、一般深层 affine 源、不同 body base 的 alias 接受、P4 和同例证明负担比较继续作为未完成项。
 
 [上一 private bound snapshot 编译器](docs/research-checkpoint-2026-10-06-affine-private-loaded.md)保留为独立历史证据：单个 `*bound`、无公开 bound 快照，两种 affine 域共 444 调用／28 机器探针。新 dependent 入口复用其底层条件、candidate checker 和 preparation 库；本轮旧矩阵未重新验收，不计作 dependent 运行结果。
 

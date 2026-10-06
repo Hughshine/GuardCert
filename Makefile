@@ -104,6 +104,23 @@ interface-pointer-realization-direct:
 affine-cursor-scan-proof:
 	python3 scripts/audit_affine_cursor_scan.py
 
+.PHONY: affine-cursor-dependent-proof affine-cursor-dependent-compiler native-affine-cursor-dependent native-affine-cursor-dependent-ragged
+affine-cursor-dependent-proof:
+	python3 scripts/audit_affine_cursor_dependent.py
+
+affine-cursor-dependent-compiler: affine-cursor-dependent-proof
+	python3 scripts/build_affine_cursor_dependent.py > build/affine-cursor-dependent-compiler/build.log 2>&1
+
+native-affine-cursor-dependent: affine-cursor-dependent-compiler
+	python3 scripts/native_affine_cursor_dependent.py
+	python3 scripts/validate_affine_cursor_dependent.py
+	python3 scripts/probe_affine_cursor_dependent.py
+
+native-affine-cursor-dependent-ragged: affine-cursor-dependent-compiler
+	python3 scripts/native_affine_cursor_dependent.py --ragged
+	python3 scripts/validate_affine_cursor_dependent.py --ragged
+	python3 scripts/probe_affine_cursor_dependent.py --ragged
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 
