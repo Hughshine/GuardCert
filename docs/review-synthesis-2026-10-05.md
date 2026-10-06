@@ -106,3 +106,9 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch 后三分支仍为上述 SHA。按 topdown narrative 实现的 [后继阶段](research-checkpoint-2026-10-06-affine-pointer-source.md) 将一部分高难义务变为可消费证书：真实 normalized 源／元数据 checker；从有限正常源执行生产参数类型；用 framework 的条件组合先检查 header／width，再检查 body-only 参数；实际接受接到同一入口的源 Loop 与公开 i／j／k 出口。语言 completed-path 包装、domain source/model 证明、kernel sequencing 各自有源码端点，不把优化假设推导交给 kernel。
 
 尚未关闭的重点是 prefix receipt 与物理 alias 条件的实例连接、独立 candidate 及两个表示范围、source progress／全程序 host、提取和新 C 原生接受／回退。当前源 package 的 Clight fixture 检查不算 frontend 或机器运行；算术 D 的 completed-source 义务不等于有限前缀或无限行为支持。下一计划按这些缺口推进，论文不增加性能、新颖性或作者负担收益主张。
+
+## 10 月 6 日：完整源条件的 receipt／alias 连接
+
+再次 fetch 后三分支保持 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，没有新增文本。[本阶段](research-checkpoint-2026-10-06-affine-pointer-alias.md) 将上项未闭合的 receipt／alias 连接变为同一 source package 的完整 readonly condition：domain 证明静态 column 代入和 ragged footprint 覆盖，语言复用源读取 receipt、真实 modular／signed 比较、完成路径与 reachable-test 安全，kernel 继续消费条件组合。完整接受同时连接源 Loop 与精确公开出口；79 端点审计没有新增全局公理。
+
+下一计划据此去掉“尚未连接 receipt／alias”，保留独立候选、validator／encoder 两套范围、实际候选与 local rule、source progress／placement、新 Csem→Asm、提取与原生执行。源 prefix producer 的 finite-domain 证据不算完整 host，n=63 的数学 Boolean 接受也不算 native 路径。性能、新颖性和总作者负担继续等待独立证据；责任表不代替难点的实际证明。

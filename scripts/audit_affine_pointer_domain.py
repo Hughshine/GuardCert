@@ -3,6 +3,8 @@
 This is not evidence of a new nonrectangular source selector or compiler entry.
 --source-guard includes the checked source package and staged parameter checks;
 it still does not assert that a whole-program selector installs this package.
+--source-alias additionally connects retained source receipts, fixed-column
+envelope checks and physical non-alias to the same source package and entry.
 """
 import argparse
 import json
@@ -35,8 +37,9 @@ DOMAIN = [
 COMPILER = "ClightObservedPointerCompiler.compile_realized_observed_pointer_correct"
 
 
-def main(rebuild=False, source_guard=False, output_dir=None):
+def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False):
     global WORK
+    source_guard = source_guard or source_alias
     language, domain = list(LANGUAGE), list(DOMAIN)
     if source_guard:
         WORK = ROOT / "build/affine-pointer-source/proof"
@@ -48,6 +51,14 @@ def main(rebuild=False, source_guard=False, output_dir=None):
             "prototype/interface/ClightAffinePointerGuard.v",
             "prototype/interface/ClightAffinePointerSourcePreparation.v",
             "prototype/interface/ClightAffinePointerGuardExamples.v",
+        ]
+    if source_alias:
+        WORK = ROOT / "build/affine-pointer-alias/proof"
+        language += ["prototype/interface/ClightAffineInnerPointerEnvelope.v"]
+        domain += [
+            "prototype/interface/AffineBoxConstants.v",
+            "prototype/interface/ClightAffineInnerPointerSourceGuard.v",
+            "prototype/interface/ClightAffineInnerPointerEnvelopeExamples.v",
         ]
     if output_dir is not None:
         WORK = output_dir.resolve()
@@ -97,7 +108,8 @@ def main(rebuild=False, source_guard=False, output_dir=None):
     endpoints = {queries[marker]: sorted(assumptions[marker]) for marker in queries
                  if marker.startswith(("LANGUAGE_", "DOMAIN_"))}
     report = {
-        "status": "compiled", "kind": "affine-inner-pointer-source-and-staged-checks" if source_guard else "affine-inner-pointer-proof-support",
+        "status": "compiled", "kind": "affine-inner-pointer-source-and-alias-checks" if source_alias else (
+            "affine-inner-pointer-source-and-staged-checks" if source_guard else "affine-inner-pointer-proof-support"),
         "required_closure": closure,
         "sources": {path: sha(ROOT / path) for path in sorted(set(inherited) | set(closure))},
         "compiled_objects": {path: sha((ROOT / path).with_suffix(".vo")) for path in closure},
@@ -121,7 +133,13 @@ def main(rebuild=False, source_guard=False, output_dir=None):
         "source_domain_requires_finite_normal_source_completion": source_guard,
         "source_package_static_and_early_refusal_examples": source_guard,
         "affine_inner_pointer_source_selector_installed": False,
-        "source_derived_complete_guard_domain": False,
+        "source_derived_complete_guard_domain": source_alias,
+        "retained_source_prefix_produces_pointer_observations": source_alias,
+        "static_column_cap_specialized_without_entry_temporary": source_alias,
+        "same_source_package_guard_accepts_implies_physical_nonalias": source_alias,
+        "complete_guard_bound_to_source_model_and_public_exit": source_alias,
+        "source_package_candidate_rule_installed": False,
+        "candidate_validator_and_encoder_ranges_bound_to_guard": False,
         "affine_inner_pointer_whole_program_entrypoint": None,
         "affine_inner_pointer_native_execution": False,
         "extraction_run_by_this_audit": False,
@@ -142,6 +160,7 @@ if __name__ == "__main__":
     from pathlib import Path
     parser.add_argument("--rebuild", action="store_true")
     parser.add_argument("--source-guard", action="store_true")
+    parser.add_argument("--source-alias", action="store_true")
     parser.add_argument("--output-dir", type=Path)
     arguments = parser.parse_args()
-    main(arguments.rebuild, arguments.source_guard, arguments.output_dir)
+    main(arguments.rebuild, arguments.source_guard, arguments.output_dir, arguments.source_alias)

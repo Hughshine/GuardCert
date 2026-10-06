@@ -2,7 +2,7 @@
 
 这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `f7936299fa6272fbf50db6b94a1bd0333808ea09`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
-非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。新的 guard 域还未由 source package 完整生产，不能将局部 theorem 的 typed-view／范围假设描述为已由 framework 自动解决。
+非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[后继完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 已从真实 source prefix／有限正常源执行生产 D，连接同一 package 的范围、width 和物理 non-alias；候选 validator／encoder 范围与规则安装尚未组装，不归作 framework 自动解决。
 
 ## 1. 三方各自证明什么
 
@@ -101,4 +101,6 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 每次 P1／P2／P3 验收记录三方新写了什么、复用了什么、哪张证书尚缺。和 OLO／CoreJIT／Chamois／Peek 做同例对照后再判断增量；未取得的文献／artifact 能力保留未知。[10 月 6 日一手补核](related-work-interface-check-2026-10-06.md) 已确认 Chamois oracle 的 CFG／invariant 输出和实际 CFG expansion 模拟，以及 Peek 的局部证明、normalization 与 liveness 宿主；这些已有服务不能单独算作 GuardCert 增量。性能、证明负担和新颖性各有独立证据，不能从正确性计数互相推导。
 
-新的 [非矩形 source preparation](research-checkpoint-2026-10-06-affine-pointer-source.md) 进一步按这一责任划分实现：kernel 的 `sequence_readonly_conditions` 负责有依赖条件的组合；语言服务 `readonly_completed_tree_condition` 利用真实表达式确定性，把有限完成路径证据包装为 reachable-test 安全、完成及接受 sound；domain 负责 normalized 源／操作／范围 checker、header 和第一轮 body 的参数证据、范围／宽度阶段以及源 Loop／公开出口对应。当前 C_guard 的算术部分已经与 C_opt 的源对应连接到同一 package／入口，C_opt 的独立候选、C_derive 的该实例物理 non-alias、C_guard 的 prefix receipt 接入和 C_host 仍待组成完整规则。D 明确要求有限正常源完成，不据此声称处理无限源或依赖加载参数。
+新的 [非矩形 source preparation](research-checkpoint-2026-10-06-affine-pointer-source.md) 进一步按这一责任划分实现：kernel 的 `sequence_readonly_conditions` 负责有依赖条件的组合；语言服务 `readonly_completed_tree_condition` 利用真实表达式确定性，把有限完成路径证据包装为 reachable-test 安全、完成及接受 sound；domain 负责 normalized 源／操作／范围 checker、header 和第一轮 body 的参数证据、范围／宽度阶段以及源 Loop／公开出口对应。该阶段先连接同一 package／入口的算术条件与源对应，随后继续组装其他证书。D 明确要求有限正常源完成，不据此声称处理无限源或依赖加载参数。
+
+[本阶段完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 进一步关闭 prefix receipt 和该实例物理 non-alias。静态 column cap 的 affine 代入由 domain 数学库证明，实际比较继续使用语言的 modular 求值／signed 范围定理，kernel 仅消费已有 sequencing。`affine_inner_pointer_source_guard_execution` 将接受、实际源 Loop 与精确公开出口绑定同一入口；`source_prefix_domain` 是有限入口 producer，不是全程序 host 证明。剩余困难是独立候选 certificate、两套候选表示范围、真实 candidate lowering 与 local rule，以及新控制形状的 progress／placement。没有新 native、性能或 proof burden 结论。

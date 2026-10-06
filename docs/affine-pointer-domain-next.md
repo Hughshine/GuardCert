@@ -1,6 +1,6 @@
 # 下一项：实际非矩形 pointer 源域
 
-这是非矩形 pointer 接入的活动设计与验收。局部证明设施、受核对的源 package 与分阶段算术条件已实现，尚未形成新的完整编译入口。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型仍是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer compiler。共享 fallback 只改变最终控制实现，没有扩大这个域。
+这是非矩形 pointer 接入的活动设计与验收。局部证明设施、受核对的源 package、完整只读算术／alias 条件及接受到真实源执行的连接已实现，尚未形成新的完整编译入口。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型仍是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer compiler。共享 fallback 只改变最终控制实现，没有扩大这个域。
 
 ## 一个确定的切口
 
@@ -50,7 +50,9 @@ for (i = 0; i < n; ++i) {
 
 [SourceDomain](../adapters/compcert-memory/GuardMemoryAffineInnerPointerSourceDomain.v) 从真实源正常完成执行生产参数读取证据；[Guard](../prototype/interface/ClightAffinePointerGuard.v) 按 row／N、header 参数范围、活动宽度、body 参数范围的顺序生成 `readonly_condition`，实际消费 kernel 的条件组合服务。body-only 几何参数只在证明第一轮 body active 后才能检查；RHS 标量从该 body 获得类型，但不强制非负。[SourcePreparation](../prototype/interface/ClightAffinePointerSourcePreparation.v) 已将同一 package、同一入口的条件接受接到真实 pointer 源 Loop 执行和精确公开 i／j／k 出口。审计入口为 `make affine-pointer-source-proof`。
 
-这里的算术 D 是存在真实有限正常源执行，没有 non-alias 或所有 temps 无条件为 word 的假设；它不是基于有限前缀处理无限源的服务。完整 pointer receipt／alias 条件、候选证书与 local rule 的组装、序列 placement、提取及新 Csem→Asm 入口仍未实现。normalized Clight fixture 的 checker 接受和空路径拒绝有 Rocq 证据，尚无新 C frontend／完整程序／原生执行证据。
+这里的算术 D 是存在真实有限正常源执行，没有 non-alias 或所有 temps 无条件为 word 的假设；它不是基于有限前缀处理无限源的服务。后继 [完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 已连接保留 prefix 的真实 pointer receipt、实际域包络和物理 non-alias，以及同一入口的源 Loop／公开出口。新固定 column 编码将静态 cap 代入 endpoint，不要求不存在的入口 count 寄存器；使用 `bound::geometry_parameters` 的实际观察和原 Clight signed 比较服务。六个新 fixture 核对完整条件编译、包络接受／拒绝、编码范围拒绝和缺少 pointers 的空路径提前拒绝。
+
+候选证书与 local rule 的组装、两套 candidate 表示范围、序列 placement、提取及新 Csem→Asm 入口仍未实现。normalized Clight fixture 的 checker 接受和空路径拒绝有 Rocq 证据，尚无新 C frontend／完整程序／原生执行证据。完整 guard 的 D 是有限正常源完成加源 receipt，producer 由真实 retained prefix 和 source 执行给出，不含 non-alias；这不算无限源宿主。当前审计入口 `make affine-pointer-alias-proof` 保留独立报告。
 
 前一支持阶段的 36 端点审计、原 compiler 审计／提取、direct/shared 两个旧路径配置共 752 次调用及准确产物摘要见 [记录](research-checkpoint-2026-10-06-affine-pointer-support.md)。后继 source package／分阶段条件的证明边界和验收见 [新记录](research-checkpoint-2026-10-06-affine-pointer-source.md)。旧原生结果验证重构兼容性，不是新的三角循环优化执行。
 

@@ -91,7 +91,10 @@ interface-pointer-realization-direct:
 	python3 scripts/validate_interface_observed_pointer.py --realization --lowering direct --runtime-paths
 	python3 scripts/compare_pointer_realizations.py
 
-.PHONY: affine-pointer-domain-proof affine-pointer-domain-regression affine-pointer-source-proof
+.PHONY: affine-pointer-domain-proof affine-pointer-domain-regression affine-pointer-source-proof affine-pointer-alias-proof
+affine-pointer-alias-proof:
+	python3 scripts/audit_affine_pointer_domain.py --source-alias
+
 affine-pointer-source-proof:
 	python3 scripts/audit_affine_pointer_domain.py --source-guard
 

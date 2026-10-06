@@ -40,7 +40,9 @@ P3 后继的 [源观察与 alias 包络](source-observed-affine-separation.md) �
 
 后继 [源 package 与条件阶段](research-checkpoint-2026-10-06-affine-pointer-source.md) 已实现 normalized AST／元数据 checker，并从真实源有限正常执行取得 header／body 参数读取证据；按 row／N、header range、width、body range 组织 readonly condition，消费 kernel 的组合服务。其实际接受已经接到同一 package 的 pointer 源 Loop 执行和精确公开出口；旧一维 affine-access API 保留。Clight fixture 证明接受，以及破坏增量、窗口、pointer 覆盖、未使用几何的拒绝；n=0 的实际 decision_run 不读取未定义 body 参数。
 
-下一项的最难义务收紧为：把保留 prefix 的真实 pointer receipt、实际域包络／non-alias、两套 candidate 表示范围与独立候选 certificate 接到该同一入口，组成可安装的 local rule；随后证明新控制形状的 sequence progress／placement，得到新 Csem→Asm、提取及非空接受／真实 alias 回退。当前算术 D 使用有限正常源完成，不算任意无限源／loaded bounds 的前缀证据。新非矩形 C frontend／原生执行仍没有，旧原生结果不计新 pass。贡献继续按三方责任与四张证书核对，不因源 checker 或条件证书闭合而完成 goal。
+后继 [完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 已将保留 prefix 的真实 pointer receipt、实际域包络／物理 non-alias 接到同一 source package 和入口，继续消费 kernel sequencing。静态 column cap 先在 domain 层代入 endpoint，语言层复用 modular 求值和 signed 范围编码；不需要虚构源 count 寄存器。79 端点／526 项依赖／871 份源码摘要审计通过，没有新增全局公理。完整条件接受已绑定实际源 Loop／精确公开出口，尚未绑定新的候选或完整程序。
+
+下一项的最难义务收紧为：把两套 candidate 表示范围与独立候选 certificate、实际候选 lowering／restore 接到该同一入口，组成可安装的 local rule；随后证明新控制形状的 sequence progress／placement，得到新 Csem→Asm、提取及非空接受／真实 alias 回退。完整 guard D 使用有限正常源完成和 retained source receipt，不算任意无限源／loaded bounds 的前缀证据。新非矩形 C frontend／原生执行仍没有，旧原生结果不计新 pass。贡献继续按三方责任与四张证书核对，不因源 checker 或条件证书闭合而完成 goal。
 
 ## 每个阶段固定记录什么
 
