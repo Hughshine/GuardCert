@@ -1,5 +1,7 @@
 # Guard：带前提的程序变换与组合证明
 
+最新 [依赖 header 证明阶段](docs/research-checkpoint-2026-10-06-dependent-header.md)针对 `i<**pp`，已证明安全双 capture、实际 `Mint64`／`Mint32` 观察的字节分离、每个 affine write 对两项观察的保持，以及源前缀推进和接受后的缓存运输。signed-expression progress 不要求未来读取稳定；实际 memory fixture 验证了只比较 pointer 起点会漏掉的后半单元重叠。九个新增模块编译、51 个端点审计通过。完整 joint scan 的 checked-package 实例、新 candidate factory 与编译入口尚未连接，本阶段没有新提取或原生结果；下面的 private-loaded 仍是最新可运行入口。
+
 本轮继续按 topdown `7d94d81` 的澄清实现：最小 kernel 止于局部 guarded correctness，条件处理／扫描是上层库，程序安装属于语言 host。[private bound snapshot 编译器](docs/research-checkpoint-2026-10-06-affine-private-loaded.md)已经提取并运行：原 C 没有公开 bound 快照，由实际首次 header 证明新增私有读取安全，再复用既有动态分离条件和 mapped／tiling／schedule 证书。语言桥把 prepared source 的私有 scope 契约收回原 source 的公开 scope；程序安装仍以真正原片段为 key。三角域与 `j<2*i+1` 各六配置，共 444 次新编译器调用、28 个机器探针（含两个旧入口对照）通过。guard 拒绝后仍执行 repeated-load 源循环，公开 marker 始终为 123；旧入口对同一无 bound 快照源不安装变换。多个依赖 preload、一般深层 affine 源、不同 body base 的 alias 接受和性能仍待完成。
 
 [上一顺序 plan 阶段](docs/research-checkpoint-2026-10-06-affine-planned-loaded.md)保留为独立证据：已有 public snapshot 的三角源六配置共 222 调用、十三个机器探针，含默认 64×64 caps。新入口复用该 factory 和实际 plan lowering，未修改 kernel、原条件／候选 checker 或已有 host。三套旧 native validator 本轮仅复核产物绑定，未重跑旧矩阵。

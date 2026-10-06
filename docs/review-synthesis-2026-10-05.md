@@ -179,3 +179,9 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 两类实际无 bound 快照的 affine 源完成 140 端点审计、同一编译器提取、六配置各 37 输入共 444 次新入口调用和 28 个机器探针（含两个旧入口对照）；74 次旧入口同源对照确认“不安装→能安装”的实际 frontend 差异。公开 marker 保持、写中 bound 提前停止、危险未来 row 检查跳过均有机器证据。旧三套矩阵仅绑定复查。责任区分因此有实际消费证据，但不据此推出总作者负担下降或 novelty。
 
 当前计划将单个 direct private snapshot 标记验收，依赖 header 读取的合法顺序／不同 chunk byte footprint、循环化 guard、一般 affine 源、P4 和同例已有工作比较继续未完成。新增 preparation 桥不会自动证明 `**pp` 的 pointer 与 bound 稳定性；继续由语言／domain discharge，只有真正不可表达的义务才调整 kernel。完整 goal active。
+
+## 依赖读取：澄清落实到不同 chunk 的实际义务
+
+本阶段再次 fetch，三个评审分支仍为 `7d94d81`、`9673381`、`3e9f008`，没有新增意见。沿 narrative 的 kernel 截止完成 [依赖 header 服务](research-checkpoint-2026-10-06-dependent-header.md)：语言处理 `**pp` 实际表达式、安全顺序捕获、公开运输、字节条件、观察列表下的 prefix／缓存运输和独立 progress；domain 将实际 affine writes 接到双观察保持。九个新模块和 51 端点审计通过；完整 checked-package scan、candidate factory／whole-program 入口、提取及原生执行仍未连接。
+
+这次的实质难点是八字节 pointer cell 与四字节 write 的重叠，起点不等不足以证明观察保持；安全第二地址比较的许可也必须来自已到达的真实 load。CompCert memory fixture 已验证后半单元拒绝，但不将可能破坏后续 pointer 的单元实验当作 defined C 优化案例。计划已据此区分逐点服务、全部源覆盖、候选合法性和宿主安装；仍没有 total proof burden、性能或 novelty 结论。

@@ -2,7 +2,7 @@
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
-最新交付是 [private bound snapshot](research-checkpoint-2026-10-06-affine-private-loaded.md)：原源没有公开 bound 快照时，安全私有读取、original-entry／public frame、真实 source-key 安装、提取和两类 affine 域运行已通过。以下阶段保留各自历史范围；当前未完成项以文末 private snapshot 后继验收为准。
+最新可运行交付是 [private bound snapshot](research-checkpoint-2026-10-06-affine-private-loaded.md)：原源没有公开 bound 快照时，安全私有读取、original-entry／public frame、真实 source-key 安装、提取和两类 affine 域运行已通过。后继 [依赖 header 证明阶段](research-checkpoint-2026-10-06-dependent-header.md)已落实双读取、字节分离、逐点保持及语言运输／progress；完整 checked-package scan 与编译接入尚未完成。以下阶段保留各自历史范围，当前未完成项以文末依赖 header 后继验收为准。
 
 本计划吸收 [三个分支的评审](review-synthesis-2026-10-05.md)。既有研究路线保留在 [contribution-plan.md](contribution-plan.md)，当前执行优先级以下表为准。
 
@@ -145,3 +145,15 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 4. **同例责任与已有工作比较。** 用当前私有读取／前缀安全例检查 OLO、Chamois、Peek／COVE、CoreJIT 的条件、语言、安装义务；记录真正复用的 certificate 链，尚不主张 total proof burden 或 novelty 收益。
 
 沿 narrative `7d94d81`，上述读取／条件推导留在语言和 domain 库，kernel 仍只组合局部证书；host 负责 progress／context 安装。guarantee/requirement clause API、第二 IR 或新 kernel 能力只有实际接入受阻时才推进。完整 goal active。
+
+## 依赖 header：服务已证明，完整实例继续接入
+
+[最新阶段](research-checkpoint-2026-10-06-dependent-header.md)落实上述第一项中的语言与逐点 domain 服务：实际 `**pp` header 的两个 typed reads、安全 ordered captures／public-scope preparation、不同 chunk 的 byte separation、实际 affine write sequence 保持两项观察、全部观察保持后才推进的 prefix，以及 source→cached 实际执行运输。另有 signed-expression progress selector，不把未来稳定性写进 source progress。九个新增模块、51 端点审计通过；没有新 native 或 compiler 入口。
+
+下一验收按依赖顺序推进：
+
+1. 从真实 checked affine package 生产 joint row／outer scan 的所有证据：实际 header、row decode、全部坐标范围、write receipts 与足够 fuel。使用现有 concrete HEADER 和逐点双观察 condition；不以 generic scan 的参数或 exhaustion 冒充源覆盖。
+2. 接完整 guard 到原三类 candidate certificate，保留原 `**pp` fallback；actual host 消费新 progress selector，并落实 pointer／bound／Boolean／counter private pool 的不同类型、freshness 和真正 original source key。
+3. 提取新入口，运行完整 C 接受／回退／上下文。当前 memory 后半单元重叠 fixture 不是 defined C loop benchmark；先用合法 bound 改写拒绝和稳定依赖读取接受。需要 typed pointer-store body 才能覆盖合法改变 pointer cell 的更一般源，不能将 progress fixture 计作 optimizer body 支持。
+
+guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和同例 proof obligations 比较保留后继优先级。该接入不要求新 kernel 能力，完整 goal active。
