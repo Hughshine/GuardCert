@@ -226,3 +226,9 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 后继 [loaded deep numeric guard](research-checkpoint-2026-10-06-loaded-affine-numeric.md)已实际实现 source-derived first-path producer：原源 header／first body 许可 private capture 和参数读取，不假设完整缓存源完成或未来稳定性。语言的 capture／执行运输、domain 的递归 header／leaf 接入及原 numeric/profile 证书、核上 certificate 库分开记录；kernel 未改。25 个端点审计和实际零次 Clight 检查 fixture 通过，旧两条 compiler 的 42 项假设及当前对象绑定保持。这里接受只证明 numeric math domain，下一困难仍是按原源前缀生产递归 physical scan 的许可／coverage，再接观察保持、候选和 whole-program host；没有新增 compiler/native 或新颖性／性能结论。
 
 [阶段证据](research-checkpoint-2026-10-06-materialized-affine.md)给出 26 端点、Csem→Asm／提取、十二配置 5,118 次新 assembly 调用和四组另记的 Clight 插桩。它纠正计划中两个过宽“未支持”表述：递归 affine IR 已存在，多指针 physical scan 也能接受分离 views；当前任务是迁移到现行证书并与 loaded/dependent 路线组合，不能称重新包装创建了一般算法。共享 `.vo` 重编令旧对象摘要绑定失配，独立当前 cursor regression 与历史 native 分开；不将旧 validator 的失败抹掉。计时、总作者负担、新颖性与一般 polyhedral 覆盖均无新增结论，完整 goal active。
+
+## 完整 body 的前缀与缓存运输：后继责任落实
+
+再次 fetch `topdown/research-positioning` 后仍为 `7d94d81`，正文与 main 一致。按其责任边界完成的 [body prefix 阶段](research-checkpoint-2026-10-06-loaded-affine-body.md)没有修改 kernel：语言从真实结构化执行取得权限运输和 temp frame，prefix library 组合 domain 的 body check，语言从接受后的观察保持导出完整缓存源执行。递归 affine adapter 复用 checked package 并核对 pointer register freshness。
+
+34 端点／665 依赖审计通过，numeric 和两个当前 compiler 的对象绑定保持；具体 allocation 下的 alias 源、首次 guard 拒绝、实际 lowering 与观察不保持均有证明。下一项仍须实际实现 recursive physical body probe 的访问许可、覆盖和接受后字节分离，不能把 `BODY_CHECK` 参数或缓存运输桥算成该 domain 算法已经完成。完整 body receipt 可许可其内部全部稳定-temp child points；跨 loaded root header 的推进必须等待 body 观察保持。这一粒度已吸收到计划；新增 compiler、提取、native／性能结果仍未交付。

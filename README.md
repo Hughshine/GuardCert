@@ -1,5 +1,7 @@
 # Guard：带前提的程序变换与组合证明
 
+[最新 body prefix／缓存源证明](docs/research-checkpoint-2026-10-06-loaded-affine-body.md)已将前缀服务推广到不固定维数的完整结构化 body，并接到 checked recursive affine package：语言统一证明权限／temp frame，domain body check 接受后才推进 loaded header，观察保持后导出实际完整缓存源。34 端点／665 依赖／992 源摘要审计通过，既有 numeric／compiler 对象保持；具体 alias 源与首次拒绝的实际 Clight 检查通过。本阶段尚未实现 recursive physical body probe 或新增 compiler／native 入口。
+
 [Deep＋loaded 的 numeric guard 接入](docs/research-checkpoint-2026-10-06-loaded-affine-numeric.md)已从真正原 loaded 源生产 first-path receipt 和安全 private capture，复用既有递归 affine numeric guard 及当前证书接口；不以完整缓存源执行或未来稳定性许可检查。五个新 `.v`、25 端点／660 依赖／987 源摘要审计通过，零次迭代时未定义 child 参数及 body pointer 的实际 Clight 检查也有具体 memory 见证。此阶段接受只证明 numeric math domain；深层 physical stability scan、候选和全程序安装仍需继续接入，没有新增 compiler／native 能力。
 
 [最近可运行的 deep affine compiler](docs/research-checkpoint-2026-10-06-materialized-affine.md)把已有递归 affine 源、真实单／多指针 body 和候选 checker 接到当前 kernel：Clight 提供正常返回的私有 Boolean check、安全／分派／状态运输及程序安装；domain 复用源／模型与候选证明。新的 Csem→Asm 入口、26 端点审计、提取和十二配置共 5,118 次 assembly 调用通过；四组实际 Clight 插桩另核对接受／fallback、物理 alias 和条件读取。最小 kernel 没有改动，[接口说明](docs/clight-materialized-check.md)列明使用者责任和限制。

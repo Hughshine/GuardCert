@@ -143,6 +143,10 @@ affine-nest-materialized-cursor-regression:
 loaded-affine-numeric-proof:
 	python3 scripts/audit_loaded_affine_numeric.py
 
+.PHONY: loaded-affine-body-proof
+loaded-affine-body-proof:
+	python3 scripts/audit_loaded_affine_body.py
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 

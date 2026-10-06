@@ -14,6 +14,8 @@
 
 [后继 numeric guard 阶段](research-checkpoint-2026-10-06-loaded-affine-numeric.md)已关闭上述 first-path producer：从原 loaded header／首次 body 取得递归 headers 和已用参数，安全 private capture 生产 prepared domain，再消费旧 numeric/profile 编码和现行 guard certificate。实际 source key、freshness 和检查体有静态 site checker；25 端点／660 依赖／987 源摘要审计通过，无新增公理，旧两条 Csem→Asm 回归和当前对象摘要保持。此接受仅证明 numeric math domain；下一项按原源前缀连接递归 physical scan、完整 coverage／fuel 和观察保持，之后才接缓存源／candidate／typed pool／whole-program host。本轮没有新增 compiler、提取或 native 调用，完整目标 active。
 
+[后继 body prefix 阶段](research-checkpoint-2026-10-06-loaded-affine-body.md)已证明不固定维数的完整 body receipt、结构化 store 权限运输、接受后前缀推进与完整缓存源运输，并接到 checked recursive affine package。34 端点／665 依赖／992 源摘要审计通过，numeric 和两个当前 compiler 对象保持；具体 alias 源先改 bound 后退出，实际检查首次拒绝。下一项实现 recursive physical body probe：一个实际完成的 body 已许可其内部全部 child points，只有整个 body 检查接受后才推进下一 loaded root header。`BODY_CHECK` 的安全、完整覆盖和 byte separation→观察保持仍须由 domain library 实现；本阶段不称已交付深层 loaded optimizer／compiler。
+
 10 月 6 日阶段同步吸收 `f793629` 的 cross-IR 补充：保持核心不依赖 Clight 语法；SSA／汇编使用者须实例化自己的控制、live-out／phi、scratch／flags 定律。它们是接口讨论和同例 related-work 比较的方向，第二 IR 实现是可选证据，当前主实现／验收继续是 CompCert/Clight。
 
 最新同步到 `8c098ed` 的 [context lifting](topdown/context-lifting.md)：kernel 的局部正确性与语言的程序安装分开陈述；host 提供可复用 region/boundary 契约，优化与具体位置提供 guarantee／placement 证据。已完成 [源码核对](clight-boundary-contract-review.md)，已有 temp/memory／scope／private 运输继续复用；finite 与 open 的 progress 是实质差异，不按自由 clause 组合重新设计 kernel。guarantee/requirement API 仍待实际受阻案例支持，不称已经实现。
