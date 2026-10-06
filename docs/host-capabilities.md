@@ -55,8 +55,12 @@
 
 一次调用满足局部和插入证书后，程序等价／模拟按每次替换叠加。后一次检查使用经过此前替换仍正确的实际入口状态，不能复用过时的函数入口事实。抽象重复 rewrite 定理与真实统一 pass 共同体现这一方式。
 
-`compile_readonly_tests_after_correct` 进一步接受一个先行 Clight pass 及其 forward simulation。当前统一入口先做 projected regions，再做逐步表达式／头部变换，最终复用 CompCert backend；这项组合不要求先行 pass 和后来规则共享前提、候选产生算法或内部 cursor。
+`compile_readonly_tests_after_correct` 进一步接受一个先行 Clight pass 及其 forward simulation。当前统一入口先做直接／共享 projected regions，再做逐步表达式／头部变换，最终复用 CompCert backend；这项组合不要求先行 pass 和后来规则共享前提、候选产生算法或内部 cursor。
 
 完整整段发散行为的 guarded loop／tiling、一般仿射／无界廉价 alias 条件、一般动态尺寸／stride 的 memory-bound 调度，以及旧 affine 编译器到主只读接口的迁移仍是主要缺口。先有可复核的局部证书，再由相应宿主扩展全局覆盖；不能通过扩大说明文字来解决这些缺口。
 
-[内存上界与 2×2 调度](clight-loaded-matrix-case.md)现已在宏片段宿主中组合；它的源协议允许 body 是保护 outer iterator 的嵌套 `framed_progress`。当前 bound 可以被源写入改变，最大值 rank 不使用稳定前提；只读条件安全沿源行前缀建立，接受后才快照并调度。独立／统一入口各通过 668 次调用，当前完整审计 209 端点、十五种配置回归通过。这个已完成的固定尺寸模板不扩大为一般动态 memory-bound 多面体调度。
+[内存上界与 2×2 调度](clight-loaded-matrix-case.md)现已在宏片段宿主中组合；它的源协议允许 body 是保护 outer iterator 的嵌套 `framed_progress`。当前 bound 可以被源写入改变，最大值 rank 不使用稳定前提；只读条件安全沿源行前缀建立，接受后才快照并调度。独立／统一入口各通过 668 次调用，该阶段完整审计 209 端点、十五种配置回归通过。这个已完成的固定尺寸模板不扩大为一般动态 memory-bound 多面体调度。
+
+综合入口已进一步组合三槽 private pool、原直接 lowering 和双动态矩形的共享／简化 lowering，实际单／双缓存交替程序见 [多缓存案例](clight-common-multicache-case.md)。这项资源组合没有移除宏片段的独立 source progress 要求。
+
+另有一项明确尚未实现的 [条件性进展宿主设计](conditional-progress-host-design.md)：以有限真实源前缀建立检查安全，只有接受 P 后才要求整段源 rank，拒绝分支回到原小步语义并覆盖无限执行。unsigned `i!=*bound` 且 alias body 每轮写 `i+2` 是最小发散回退验收；通过实际全局定理前，不能把现有有限头部宿主当作这项能力。

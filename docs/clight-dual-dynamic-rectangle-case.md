@@ -50,7 +50,7 @@ for (j = 0; j < cached_columns; ++j)
 
 `compile_dual_rectangles` 调用 `compile_shared_projected`，预留三个私有整数：两个缓存和共享分派的 Boolean。每处实际 candidate／fallback 各出现一次。抽象 condition 仍只读；Boolean 的实际写入由宿主的 private frame 证明处理。
 
-`compile_dual_rectangles_correct` 的结果为完整 `Csem.semantics p` 到 `Asm.semantics target` 的 backward simulation。同一函数中的多处 rewrite 每次使用自己的实际入口与检查证据。当前综合入口预留一个候选 cache，因此本例先通过独立入口接入；综合入口尚未消费这条双缓存规则。
+`compile_dual_rectangles_correct` 的结果为完整 `Csem.semantics p` 到 `Asm.semantics target` 的 backward simulation。同一函数中的多处 rewrite 每次使用自己的实际入口与检查证据。原共享入口阶段的综合入口只预留一个候选 cache；后续三槽综合入口已通过同一规则，见下。
 
 ## 复现与当前边界
 
@@ -81,6 +81,14 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-simplified-dua
 | 检查生成方式 | body 字节 | 语法 if | alias 比较位置 |
 | --- | ---: | ---: | ---: |
 | 共享出口 | 129,224 | 413 | 248 |
-| 共享出口及探针简化 | 14,234 | 69 | 40 |
+| 共享出口及探针简化 | 14,234 | 69 | 48 |
 
-这是静态生成结果。简化没有推导不同表达式的算术关系，也没有生成一般共享 DAG；部分后续检查的 continuation 仍复制。原共享入口保留可复现，接受范围、extent≤12 和一般布局等限制保持。当前完整审计为 366 个端点、850 份证明源码摘要，24 种配置回归和 37 份原生报告绑定当前产物；相对 `7f8f725` 的 36 份既有 source／Clight 摘要相同，没有新增全局公理。
+这是静态生成结果。简化没有推导不同表达式的算术关系，也没有生成一般共享 DAG；部分后续检查的 continuation 仍复制。原共享入口保留可复现，接受范围、extent≤12 和一般布局等限制保持。该简化阶段完整审计为 366 个端点、850 份证明源码摘要，24 种配置回归和 37 份原生报告绑定当前产物；相对 `7f8f725` 的 36 份既有 source／Clight 摘要相同，没有新增全局公理。
+
+比较位置计数按语法匹配忽略 Clight 排版中的空白。早期报告用固定空格匹配，把简化后的 48 处误计为 40；统计已修正并与逐点探针份数核对。源码、guard 语义、字节及 if 计数不受此统计修正影响。
+
+## 综合入口及交替多次改写
+
+`compile_common_rewrites` 已消费这条双缓存规则：旧规则先尝试，新规则在三槽 pool 中复用简化与共享安装。`scripts/native_interface_dual_rectangle.py --common` 通过相同 113,330 次 C 调用／八处 region；候选与回退仍各一份，两项 cache 分开。原有限 extent、静态 stride 和 body 范围保持。
+
+新增 [交替多缓存案例](clight-common-multicache-case.md) 在一个函数中交替两次单缓存 load 提升和两次双缓存交换，中间改变普通参数、rows 和 columns。120 次调用／720 行输出与 GCC、无诊断 UBSan 和真实头部模型一致，覆盖原有 counter／数组、alias 变化及每次当前入口。当前审计 368 个端点、850 份源码摘要；24 种配置回归和 39 份原生报告通过，十二份旧综合程序只有两个额外 private 声明，另一份的六单元 helper 新匹配通用规则（只编译／检查），所有已匹配旧规则语句保持。

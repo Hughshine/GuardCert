@@ -60,4 +60,6 @@ Test p
 
 这个实例推进条件生成后的已验证简化，不扩大优化模板或接受域。双动态内存维度的静态矩形与单 loaded 的参数 stride 组合已有后续实例；双 loaded 与参数 stride、多个依赖 preload、廉价一般 alias／仿射检查和旧 affine／tiling 迁移仍待完成，见 [主线验收账本](optimistic-loop-acceptance.md)。
 
-双动态 memory-bound 矩形也已消费同一个后处理接口，无需重做原有的局部调度或条件编码证明。`make interface-simplified-dual-rectangle-native` 通过相同 113,330 次调用；主函数 body 129,224→14,234 字节、语法 if 413→69、alias 位置 248→40。当前 366 个完整编译端点、850 份源码摘要审计无新增全局公理；24 种配置回归和 37 份原生报告通过，36 份旧 source／Clight 摘要相对 `7f8f725` 相同。详细原条件、源前缀义务和保留的树展开限制见 [双动态矩形使用者](clight-dual-dynamic-rectangle-case.md)。
+双动态 memory-bound 矩形也已消费同一个后处理接口，无需重做原有的局部调度或条件编码证明。`make interface-simplified-dual-rectangle-native` 通过相同 113,330 次调用；主函数 body 129,224→14,234 字节、语法 if 413→69、alias 位置 248→48。该双动态简化阶段 366 个完整编译端点、850 份源码摘要审计无新增全局公理；24 种配置回归和 37 份原生报告通过，36 份旧 source／Clight 摘要相对 `7f8f725` 相同。详细原条件、源前缀义务和保留的树展开限制见 [双动态矩形使用者](clight-dual-dynamic-rectangle-case.md)。
+
+双动态简化规则随后进入三槽综合入口，并与旧单缓存规则交替使用；相同 113,330 次矩形调用和新的 120 次交替调用通过。当前 368 个完整编译端点、850 份证明源码摘要、24 种配置和 39 份原生报告通过，详见 [多缓存使用者](clight-common-multicache-case.md)。

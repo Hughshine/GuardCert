@@ -106,10 +106,14 @@ def expected_output():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--simplified", action="store_true")
+    variants = parser.add_mutually_exclusive_group()
+    variants.add_argument("--simplified", action="store_true")
+    variants.add_argument("--common", action="store_true")
     args = parser.parse_args()
-    instance = "simplified-dual-rectangle" if args.simplified else "dual-rectangle"
-    entry = ("ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles" if args.simplified else
+    simplified = args.simplified or args.common
+    instance = "common" if args.common else "simplified-dual-rectangle" if args.simplified else "dual-rectangle"
+    entry = ("ClightCommonRewriteCompiler.compile_common_rewrites" if args.common else
+             "ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles" if args.simplified else
              "ClightDualRectangleCompiler.compile_dual_rectangles")
     compiler = ROOT / f"build/compcert-interface-{instance}/ccomp"
     work = ROOT / f"build/interface-{instance}-dual-rectangle-native"
@@ -160,7 +164,7 @@ def main():
             for bound in ["rows", "columns"]:
                 probe = f"if ({array} + {point} == ${bound})"
                 row, column = divmod(point,stride)
-                expected_copies = ((1 if row == 0 else stride-column) if args.simplified else (stride+1)**row)*regions
+                expected_copies = ((1 if row == 0 else stride-column) if simplified else (stride+1)**row)*regions
                 if body.count(probe) != expected_copies:
                     raise SystemExit(f"Missing pairwise active alias probe {probe} in {name}")
         row_caches = re.findall(r"(\$\w+) = \*\$rows;", body)
@@ -188,6 +192,12 @@ def main():
     }
     if not all(line in actual.splitlines() for line in counterexamples.values()):
         raise SystemExit("Alias-dependent schedules and counter exits were not preserved")
+    alias_sites = len(re.findall(r"if\s*\(\s*cells\s*\+\s*\d+\s*==\s*\$(?:rows|columns)\s*\)",
+                                function_body(text,"dual_rectangle")))
+    expected_alias_sites = 2*sum((1 if point//4 == 0 else 4-point%4) if simplified else 5**(point//4)
+                                 for point in range(12))
+    if alias_sites != expected_alias_sites:
+        raise SystemExit("Printed whitespace changed the structural alias comparison count")
     (work / "output.txt").write_text(actual)
     report = {
         "status": "passed", "proved_entrypoint": entry, "proved_whole_program_theorem": entry+"_correct",
@@ -200,8 +210,9 @@ def main():
         "selector_extent_cap":12, "local_theorem_has_extent_cap":False,
         "main_printed_body_bytes":len(function_body(text,"dual_rectangle").encode()),
         "main_syntax_if_count":function_body(text,"dual_rectangle").count("if ("),
-        "main_alias_comparison_sites":len(re.findall(r"if\s*\(\s*cells \+ \d+ == \$(?:rows|columns)\)", function_body(text,"dual_rectangle"))),
-        "readonly_probe_simplification":args.simplified,
+        "main_alias_comparison_sites":alias_sites,
+        "readonly_probe_simplification":simplified,
+        "common_user_pass":args.common,
         "guard_continuations_duplicated":True,
         "readonly_condition_writes_original_state":False, "shared_guard_lowering_uses_private_boolean":True,
         "runtime_branch_counts_measured":False, "performance_measured":False,

@@ -244,3 +244,5 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 [两个动态内存上界的矩形使用者](clight-dual-dynamic-rectangle-case.md)也已消费同一接口。使用者交付每点真实 store、两个读取的前缀不变性、实际行退出／增量和两个 cache 的 private scope；框架复用嵌套只读扫描、观察提升和完整程序宿主。最后活动点的接受性质可以包含建立下一行 ghost invariant 的证据，条件代码仍只访问入口。双缓存规则当前使用独立共享入口，检查 continuation 的语法复制和 extent≤12 的选择器界单独记录；这些成本不由局部语义等价自动解决。
 
 同一双动态矩形规则还直接消费 `simplified_projected_rule`：保留原条件的 D／P、候选、入口和局部等价证书，替换检查树后复用共享宿主。相同 113,330 次 C 调用通过，主函数静态打印体 129,224→14,234 字节；这展示条件后处理接口复用，不扩大接受域或提供性能结论，见 [使用者证据](clight-dual-dynamic-rectangle-case.md)。
+
+综合使用者 pass 已在同一三槽 private pool 中组合两种安装：原单缓存／精确规则保持直接 lowering，双动态矩形使用已验证简化与共享 Boolean。规则的 D／P、局部证明和上下文契约直接复用；资源数量和选择优先级由使用者决定。两个单缓存和两个双缓存 region 的交替程序通过 120 次调用，见 [接口与证据](clight-common-multicache-case.md)。

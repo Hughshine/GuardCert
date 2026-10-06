@@ -407,6 +407,8 @@ ENDPOINTS = {
     "ClightIndexedBoundCompiler.choose_indexed_bound": "FRAGMENT",
     "ClightIndexedBoundCompiler.compile_indexed_bounds_correct": "COMPILER",
     "ClightCommonRewriteCompiler.choose_common_rewrite": "MEMORY_FRAGMENT",
+    "ClightCommonRewriteCompiler.common_region_selection_sound": "MEMORY_PROJECTED_REGION",
+    "ClightCommonRewriteCompiler.transform_common_regions_correct": "MEMORY_PROJECTED_REGION",
     "ClightCommonRewriteCompiler.compile_common_rewrites_correct": "COMPILER",
 }
 BASELINES = {
@@ -461,6 +463,7 @@ def main():
     # Equality of concrete CompCert memories reuses the upstream record
     # extensionality lemma, whose proof uses CompCert's proof irrelevance.
     sections["MEMORY_FRAGMENT"] = sections["FRAGMENT"] | sections["MEMORY"]
+    sections["MEMORY_PROJECTED_REGION"] = sections["PROJECTED_REGION"] | sections["MEMORY"]
     checked = {}
     for i, (theorem, level) in enumerate(ENDPOINTS.items()):
         extra = sections[f"CHECK_{i}"] - sections[level]
@@ -520,6 +523,9 @@ def main():
         "memory_bound_rule_consumes_language_independent_condition_composition": True,
         "exact_rules_embed_without_changing_generated_code": True,
         "common_user_pass_combines_exact_and_projected_rules": True,
+        "common_user_pass_combines_direct_and_shared_region_lowering": True,
+        "common_user_pass_private_slot_count": 3,
+        "common_user_pass_supports_two_independent_memory_bound_caches": True,
         "runtime_stride_rectangular_interchange_supported": True,
         "runtime_stride_guard_product_proved_exact_in_signed_64_bits": True,
         "runtime_stride_domain_preserves_lazy_source_parameter_reads": True,

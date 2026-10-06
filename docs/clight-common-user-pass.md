@@ -67,7 +67,7 @@ C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩�
 
 ## 与逐步求值 pass 的组合
 
-当前 `compile_common_rewrites` 先用 `transform_projected_readonly` 运行上述宏片段选择器，再由 `compile_readonly_tests_after` 做 [逐步头部／值表达式 rewrite](clight-stepwise-head-case.md)。前一个 pass 提供实际 Clight forward simulation，后一项全局定理组合两者并连接 CompCert backend。共用完整 Csem→Asm 端点，不把两项前提提前固定在函数入口。
+当前 `compile_common_rewrites` 先用 `transform_common_regions` 运行上述宏片段选择器，再由 `compile_readonly_tests_after` 做 [逐步头部／值表达式 rewrite](clight-stepwise-head-case.md)。前一个 pass 提供实际 Clight forward simulation，后一项全局定理组合两者并连接 CompCert backend。共用完整 Csem→Asm 端点，不把两项前提提前固定在函数入口。
 
 每次头部检查当前 `(int)i≤(int)n` 后，将 `!=` 改成 `<`；允许改变 bound、步长 2 及 volatile body，因为此 pass 不选择整段循环、不要求其 rank。赋值 RHS、return 和具体 skip/break 头部可改写，任意带 label 分支保持结构。先行宏片段的 `!=` fallback 也可能被后来的头部 pass 再次改写：保持源行为，但实际 AST 会增加每次头部检查。旧的等式退出 fixture 脚本分别核对这两个层次。
 
@@ -83,4 +83,12 @@ C fixture 在同一个函数中依次执行参数 load 循环、三种动态矩�
 
 综合入口现在首先选择 [双 loaded 的固定 2×2 数组交换](clight-dual-loaded-matrix-case.md)。它复用一槽候选 cache 和现有宏宿主，每点两项分离全部通过后才建立后续真实执行；七处实际 region、22,303 次调用／行输出通过。独立入口另使用共享出口，综合入口仍生成十一份原循环回退；一槽 pool 使 31 份已有程序的 source／Clight 摘要相对 `2181c5f` 保持相同。该阶段完整审计 317 端点、21 种配置全部回归通过，33 份原生报告。一般双动态尺寸继续推进，没有性能结果。
 
-综合精确规则现在还选择 [双动态上界的幂等写入化简](clight-dual-repeated-store-case.md)：任意正 signed32 rows／columns 且写址分离时，只写零一次并恢复两个真实 counter 出口。规则没有私有 cache，继续经精确规则嵌入复用 projected host；综合入口通过 3,035 次调用和七处实际 region。当前完整审计 333 端点、22 种配置回归通过，35 份原生报告绑定当前产物；相对 `c711ed9` 的 33 份已有 source／Clight 摘要保持相同。一般双动态尺寸的数组调度仍继续推进。
+综合精确规则现在还选择 [双动态上界的幂等写入化简](clight-dual-repeated-store-case.md)：任意正 signed32 rows／columns 且写址分离时，只写零一次并恢复两个真实 counter 出口。规则没有私有 cache，继续经精确规则嵌入复用 projected host；综合入口通过 3,035 次调用和七处实际 region。该阶段完整审计 333 端点、22 种配置回归通过，35 份原生报告绑定该阶段产物；相对 `c711ed9` 的 33 份已有 source／Clight 摘要保持相同。一般双动态尺寸的数组调度仍继续推进。
+
+## 双缓存与不同 lowering 的实际组合
+
+综合入口现在保留上述十六项规则的优先级：`common_region_selection` 先尝试原 `projected_readonly_selection`，没有结果时再尝试双动态矩形的简化／共享选择器。三槽 private pool 给共享规则一个 Boolean 和两个 cache；原规则仍使用第一个 slot 和原直接 lowering。单缓存和 Boolean 可跨不重叠 region 复用，每处自己的 preload／分派证明负责重新建立值；全部原 temps、memory 与 continuation 继续受同一宿主保护。
+
+`common_region_selection_sound` 分情况复用两个既有安装定理，`transform_common_regions_correct` 提供实际 Clight forward simulation，`compile_common_rewrites_correct` 再组合逐步求值 pass 与 Csem→Asm。新矩形 fixture 在综合入口通过相同 113,330 次调用／八处 region；新增交替程序通过 120 次调用／720 行输出，包括两种 payload alias、两处不同 affine store、每次参数重设和接受／回退变化。详细使用方法见 [多缓存使用者证明](clight-common-multicache-case.md)。
+
+当前 368 个端点、850 份证明源码摘要审计无新增全局公理，24 种配置回归和 39 份原生报告通过。相对 `ae80fe6`，37 份已有 C 摘要保持，其中 24 份 Clight 摘要保持，12 份旧综合程序的 Clight 仅增加两个私有声明；另一份的原六单元 helper 新匹配通用矩形规则（只编译／检查），全部已匹配旧规则语句保持。组合没有扩大每条规则的布局、body 或接受范围，没有运行性能结论。

@@ -64,6 +64,8 @@ interface-loaded-bound-native: interface-compiler-proof
 interface-common-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --common
 	python3 scripts/native_interface_common.py
+	python3 scripts/native_interface_dual_rectangle.py --common
+	python3 scripts/native_interface_common_multicache.py
 	python3 scripts/native_interface_runtime_stride.py --common
 	python3 scripts/native_interface_indexed_load.py --common
 	python3 scripts/native_interface_indexed_bound.py --common

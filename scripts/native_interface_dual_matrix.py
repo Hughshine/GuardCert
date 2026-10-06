@@ -166,6 +166,30 @@ def main():
     for name in refused:
         if "if (*$rows == 2)" in function_body(text, name):
             raise SystemExit(f"Unsupported dual-matrix template was selected: {name}")
+    additional_regions = {}
+    if args.common:
+        # The six-cell layout is refused by the fixed four-cell rule, but
+        # is a valid input of the general two-cache rectangle rule.
+        extra = re.sub(r"\(\s+", "(", " ".join(function_body(text, "refused_extent").split()))
+        for test in ["if (*$rows <= 3)", "if (*$columns <= 2)"]:
+            if extra.count(test) != 1:
+                raise SystemExit("Former extent refusal did not use the general layout guard")
+        row_cache = re.findall(r"(\$\w+) = \*\$rows;", extra)
+        column_cache = re.findall(r"(\$\w+) = \*\$columns;", extra)
+        if len(row_cache) != 1 or len(column_cache) != 1 or row_cache == column_cache:
+            raise SystemExit("Six-cell general rule needs two independent bound caches")
+        for point in range(6):
+            for bound in ("rows", "columns"):
+                copies = 1 if point//2 == 0 else 2-point%2
+                if extra.count(f"if (wide_cells + {point} == ${bound})") != copies:
+                    raise SystemExit("Six-cell general rule missed an active alias probe")
+        for counter, bound in [("i","rows"),("j","columns")]:
+            if extra.count(f"if (! (${counter} < *${bound}))") != 1:
+                raise SystemExit("Six-cell general rule must keep one original fallback")
+        candidate = "$j = 0; for (; 1; $j = $j + 1) { if (! ($j < " + column_cache[0] + ")) { break; } $i = 0; for (; 1; $i = $i + 1) { if (! ($i < " + row_cache[0] + "))"
+        if extra.count(candidate) != 1:
+            raise SystemExit("Six-cell general rule did not actually interchange the bounds")
+        additional_regions["refused_extent"] = 1
     counterexamples = {
         "outer": case("matrix", 0, 2, 2, 0, -1, 7),
         "inner": case("matrix", 0, 2, 2, -1, 0, 7),
@@ -179,7 +203,10 @@ def main():
         "proof_report_sha256": sha(proof_report), "source_sha256": sha(SOURCE),
         "clight_sha256": sha(dump), "assembly_sha256": sha(assembly),
         "native_output_lines": len(actual.splitlines()), **stats,
-        "guarded_regions": region_counts, "unsupported_templates_refused": refused,
+        "guarded_regions": region_counts, "templates_refused_by_fixed_matrix_rule": refused,
+        "unsupported_templates_refused": [name for name in refused if name not in additional_regions],
+        "compiled_only_additional_regions": additional_regions,
+        "former_extent_refusal_selected_by_general_rectangle_rule": args.common,
         "private_cache_temps": sorted(caches), "candidate_source_copies_per_region": 1,
         "fallback_source_copies_per_region": fallback_count,
         "two_memory_bound_dimensions": True, "both_bounds_may_change_on_fallback": True,
