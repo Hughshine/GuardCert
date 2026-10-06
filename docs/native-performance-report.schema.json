@@ -1,0 +1,973 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hughshine/GuardCert/docs/native-performance-report.schema.json",
+  "title": "GuardCert native performance report v1",
+  "description": "One run with explicit provenance, raw batches and separately accounted offline costs. No invented results.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "performance_measured",
+    "provenance",
+    "environment",
+    "protocol",
+    "artifacts",
+    "cases",
+    "validation",
+    "offline_costs",
+    "samples",
+    "summaries",
+    "comparisons",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "measured",
+        "invalid"
+      ]
+    },
+    "performance_measured": {
+      "type": "boolean"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "base_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "measurement_commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dirty": {
+          "type": "boolean"
+        },
+        "patch_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "toolchain_lock_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "proof_report_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "harness_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "run_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "base_commit",
+        "measurement_commit",
+        "dirty",
+        "patch_sha256",
+        "toolchain_lock_sha256",
+        "proof_report_sha256",
+        "harness_sha256",
+        "run_id"
+      ]
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cpu_model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "os_kernel": {
+          "type": "string"
+        },
+        "virtualization": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "affinity": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "governor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "turbo": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiler_versions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "load_notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cpu_model",
+        "os_kernel",
+        "virtualization",
+        "affinity",
+        "governor",
+        "turbo",
+        "compiler_versions",
+        "load_notes"
+      ]
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timer": {
+          "type": "string"
+        },
+        "timer_resolution_ns": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warmup_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rounds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fresh_processes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "batch_min_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "profile": {
+          "enum": [
+            "warm",
+            "mixed",
+            "cold"
+          ]
+        },
+        "order_policy": {
+          "type": "string"
+        },
+        "driver_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reset_policy": {
+          "type": "string"
+        },
+        "timed_scope": {
+          "type": "string"
+        },
+        "excluded_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ci_method": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "timer",
+        "timer_resolution_ns",
+        "seed",
+        "warmup_ms",
+        "rounds",
+        "fresh_processes",
+        "batch_min_ms",
+        "profile",
+        "order_policy",
+        "driver_flags",
+        "reset_policy",
+        "timed_scope",
+        "excluded_scope",
+        "ci_method"
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/case"
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed"
+          ]
+        },
+        "native_regression_reports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/file"
+          }
+        },
+        "output_comparison": {
+          "type": "string"
+        },
+        "guard_outcome_method": {
+          "type": "string"
+        },
+        "ubsan_status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed",
+            "unavailable"
+          ]
+        },
+        "diagnostic_derivatives_validated": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "native_regression_reports",
+        "output_comparison",
+        "guard_outcome_method",
+        "ubsan_status",
+        "diagnostic_derivatives_validated",
+        "notes"
+      ]
+    },
+    "offline_costs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cost"
+      }
+    },
+    "samples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sample"
+      }
+    },
+    "summaries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/summary"
+      }
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/comparison"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "measured"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "performance_measured": {
+            "const": true
+          },
+          "samples": {
+            "minItems": 1
+          },
+          "validation": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "planned"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "performance_measured": {
+            "const": false
+          },
+          "samples": {
+            "maxItems": 0
+          },
+          "summaries": {
+            "maxItems": 0
+          },
+          "comparisons": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fixture": {
+          "type": "string"
+        },
+        "variant": {
+          "enum": [
+            "source-compcert",
+            "guard-tree",
+            "guard-simplified",
+            "guarded",
+            "candidate-diagnostic",
+            "guard-diagnostic",
+            "source-gcc-o2",
+            "source-gcc-o3",
+            "control"
+          ]
+        },
+        "compiler_path": {
+          "type": "string"
+        },
+        "compiler_sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "proved_entrypoint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "build_stamp": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/file"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/file"
+          }
+        },
+        "compile_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "link_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "adaptations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "proof_scope": {
+          "enum": [
+            "original-output",
+            "measurement-derivative",
+            "external-baseline"
+          ]
+        },
+        "size": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "symbol": {
+              "type": "string"
+            },
+            "printed_body_bytes": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "syntax_if_count": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "alias_comparison_sites": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "assembly_file_bytes": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "kernel_symbol_bytes": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "executable_text_bytes": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "binary_bytes": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "measurement_commands": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "symbol",
+            "printed_body_bytes",
+            "syntax_if_count",
+            "alias_comparison_sites",
+            "assembly_file_bytes",
+            "kernel_symbol_bytes",
+            "executable_text_bytes",
+            "binary_bytes",
+            "measurement_commands"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "fixture",
+        "variant",
+        "compiler_path",
+        "compiler_sha256",
+        "proved_entrypoint",
+        "build_stamp",
+        "files",
+        "compile_flags",
+        "link_flags",
+        "adaptations",
+        "proof_scope",
+        "size"
+      ]
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fixture": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "input": {
+          "type": "object",
+          "description": "Exact scalar inputs, pointer topology, initial memory, reset procedure; fixture-specific."
+        },
+        "source_defined": {
+          "type": "boolean"
+        },
+        "expected_path": {
+          "enum": [
+            "accepted",
+            "runtime-refused",
+            "static-refused",
+            "mixed"
+          ]
+        },
+        "outcomes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "artifact_id": {
+                "type": "string"
+              },
+              "accepts": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "actual_path": {
+                "enum": [
+                  "accepted",
+                  "runtime-refused",
+                  "static-refused",
+                  "source",
+                  "diagnostic",
+                  "mixed"
+                ]
+              },
+              "validation_evidence": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "artifact_id",
+              "accepts",
+              "actual_path",
+              "validation_evidence"
+            ]
+          }
+        },
+        "expected_output": {
+          "type": "object"
+        },
+        "work": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source_iterations": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "candidate_stores": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          },
+          "required": [
+            "source_iterations",
+            "candidate_stores"
+          ]
+        },
+        "acceptance_fraction": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "stream_manifest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/file"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "fixture",
+        "symbol",
+        "input",
+        "source_defined",
+        "expected_path",
+        "outcomes",
+        "expected_output",
+        "work",
+        "acceptance_fraction",
+        "stream_manifest"
+      ]
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "phase": {
+          "enum": [
+            "proof-audit",
+            "compiler-extraction-build",
+            "program-transform-backend",
+            "assemble-link",
+            "correctness-validation"
+          ]
+        },
+        "artifact_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cache_state": {
+          "enum": [
+            "clean",
+            "incremental",
+            "hit",
+            "unknown"
+          ]
+        },
+        "elapsed_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "user_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "system_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "max_rss_kib": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "log": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/file"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "phase",
+        "artifact_id",
+        "command",
+        "cache_state",
+        "elapsed_s",
+        "user_s",
+        "system_s",
+        "max_rss_kib",
+        "log"
+      ]
+    },
+    "sample": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "process_id": {
+          "type": "string"
+        },
+        "round": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "order_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "invocations": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "elapsed_ns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "warmup_elapsed_ns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checksum": {
+          "type": "string"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "exclusion_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "artifact_id",
+        "case_id",
+        "process_id",
+        "round",
+        "order_index",
+        "invocations",
+        "elapsed_ns",
+        "warmup_elapsed_ns",
+        "checksum",
+        "valid",
+        "exclusion_reason"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "valid_batches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "median_ns_per_call": {
+          "type": "number",
+          "minimum": 0
+        },
+        "q1_ns_per_call": {
+          "type": "number",
+          "minimum": 0
+        },
+        "q3_ns_per_call": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ci95_ns_per_call": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "control_adjusted_ns_per_call": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "control_adjustment_status": {
+          "enum": [
+            "not-used",
+            "resolved",
+            "unresolved"
+          ]
+        }
+      },
+      "required": [
+        "artifact_id",
+        "case_id",
+        "valid_batches",
+        "median_ns_per_call",
+        "q1_ns_per_call",
+        "q3_ns_per_call",
+        "ci95_ns_per_call",
+        "control_adjusted_ns_per_call",
+        "control_adjustment_status"
+      ]
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "baseline_artifact_id": {
+          "type": "string"
+        },
+        "test_artifact_id": {
+          "type": "string"
+        },
+        "metric": {
+          "enum": [
+            "speedup",
+            "paired-delta-ns",
+            "fallback-overhead-fraction",
+            "ab-speedup",
+            "guard-diagnostic-ns",
+            "residual-v-minus-c-ns",
+            "work-break-even",
+            "acceptance-break-even",
+            "program-build-amortization-calls"
+          ]
+        },
+        "estimate": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ci95": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "unit": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "resolved",
+            "unresolved",
+            "not-observed",
+            "not-applicable"
+          ]
+        },
+        "method": {
+          "type": "string"
+        },
+        "weights": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "baseline_artifact_id",
+        "test_artifact_id",
+        "metric",
+        "estimate",
+        "ci95",
+        "unit",
+        "status",
+        "method",
+        "weights",
+        "notes"
+      ]
+    }
+  }
+}

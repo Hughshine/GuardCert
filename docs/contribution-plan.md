@@ -1,6 +1,6 @@
 # 建议推进的贡献与验收
 
-2026-10-02。本文提出一条有优先级的研究路线；它不是已实现能力或已确认的新颖性结论。当前实现边界见 [候选条件化](candidate-conditioning.md) 与 [CompCert 接入](compcert-integration.md)。
+2026-10-02。本文保留最初的研究路线和阶段记录，不是当前能力或已确认的新颖性结论。2026-10-05 已吸收三个分支的评审，当前执行顺序与验收见 [工作计划](current-work-plan.md)，采纳理由见 [综合评审](review-synthesis-2026-10-05.md)。当前实现边界见 [阶段记录](research-checkpoint-2026-10-05.md)及 [Optimistic Loop Optimization 验收](optimistic-loop-acceptance.md)。
 
 当前主线是以 PolCert 为功能与证明架构参照，在 CompCert 中实现有动态前提的多面体变换，并闭合完整程序保证。允许为机器语义重实现状态、IR、算法和证明；验收看基本功能与语义保证，见 [多面体接入目标](polcert-integration-target.md)。通用条件编译、实际内存规则、嵌套 Loop lowering、真实 C 前端整循环宿主及原生零次迭代规则已经实现。实际 PolOpt 的端点也已接到[参数化的完整程序证书](polcert-optimizer-regions.md)，具体循环证书尚未实例化。[CInstr 入口审计](polcert-context-audit.md) 另证明旧非空 wrapped 入口不可执行，新显式参数实例则已有真实内存执行见证。直接 Clight 的可组合嵌套源进展已接入提取驱动；[原生矩阵循环交换](native-matrix-interchange.md) 又完成一个带安全动态检查的 2×2 仿射 store 模板，重排实际 Mem.store 并保留完整出口，五个函数通过原生验证。[动态矩形循环交换](dynamic-rectangles.md) 已分离任意大小域与 body 编解码接口，并从数组布局生成运行时检查，闭合源执行到完整程序的证明。下一步是扩展 body、调度证书与候选来源；[private temporary 完整程序宿主与保持顺序的 strip-mining](private-stripmine.md) 已完成；一般仿射调度、多维 tiling 和条件推断仍未完成。下面的首版范围保留为研究路线，不能代替当前实现边界。
 
