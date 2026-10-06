@@ -9,14 +9,14 @@
 | 顺序 | 工作与状态 | 必须交付的验收 |
 | --- | --- | --- |
 | P0：本次交付 | 实现、实际 frontend 对应、提取与回归已通过；提交／push 以阶段记录为准 | 一个真正完整的 unsigned memory-bound 循环；guard 域来自有限源前缀；源／目标实际 alias 发散；540 次有限调用、六处新 loop 与两处混合旧 preload；401 端点／862 摘要、25 配置／40 报告绑定当前产物，39 份旧 C／Clight 摘要保持；准确文档并 push |
-| P1：统一实际 realization | 下一项架构任务，不另造 abstract select | direct/shared 复用同一个 readonly condition 与 local rule，公共证书说明实际代码、私有资源／freshness、状态／观察运输、defined dispatch 和相应宿主模拟；迁移至少两个当前实例并回归。分派前缀定律不要求选中分支完成；每种宿主的能力差异显式记录，不能只填空 record |
+| P1：统一实际 realization | [公共设施](clight-guard-realization.md)与三个实际路径已接入；411 端点／863 摘要、25 配置／40 报告验证通过，相对 `26956a4` 的 40 份 C／Clight 摘要保持 | direct/shared 复用同一个 readonly condition 与 local rule，公共证书说明实际代码、私有资源／freshness、状态／观察运输、defined dispatch 和相应宿主模拟；两个 finite 安装路径和完整 unsigned 循环消费同一设施。分派前缀不要求分支完成；shared whole-loop 尚未安装，finite host 仍要求 source progress |
 | P2：主多面体路线迁移 | 在 P1 接口下选择一个真实旧 affine／tiling 使用者 | 不受信任的实际候选、源／候选对应、no-overflow／alias 检查、private 观察、Csem→Asm 与提取接受／拒绝均通过主接口；记录哪些旧证书可复用、哪些要新证。单个新 helper 或脱离编译器的模型不计完成 |
 | P3：一个符号化条件／足迹算法 | 优先替换一个枚举路径，不继续堆同类模板 | 固定受限 affine 表达／域和允许观察；输出条件和可核对证书；证明实际源实例覆盖、Boolean／机器表示、安全与接受蕴含语义前提；实际编译一个候选，给出拒绝策略和非空接受域。不把逻辑 projection 定理描述成已有 QE 实现 |
 | P4：机制性能与复用量化 | [测量方案](native-performance-plan.md)和[schema](native-performance-report.schema.json)已采纳，尚未测量 | 同版原 CompCert 对照，实际接受／回退／静态拒绝分开；tree/simplified 的同源对照；最终 kernel bytes、guard／完整运行成本、编译成本、原始批次和环境。测量期间没有并发证明／构建；负收益照实报告 |
 | 持续：已有工作／主张校准 | 固定 [cf4d442 证据矩阵](evidence-to-claim-2026-10-05.md)，阶段性读取新评审 | 同例对照 OLO 源访问域／依赖 preload、安全检查与实际宿主义务；直接核对 Chamois／Peek 接口未知部分；记录复用与作者证明负担。不以端点数、C 层或 abstract if 单独主张 novelty |
 | 持续：论文方向与验证责任 | 目标的组成部分，沿 topdown narrative 更新 | 每个阶段区分框架证明、语言定律和 optimizer／domain 证书；分别落实 `C_opt`、`C_derive`、`C_guard`、`C_host`。重点验收 B 覆盖全部 A、guard 自身安全、实际模型对应、有限／无限宿主行为及证明复用，不以责任表代替这些证明 |
 
-P0 关闭的是一个明确语义缺口。P1 服务于 P2 的真正接入；P2 是主功能目标的一次迁移验收，之后仍需一般 affine 域、复杂读写 body、依赖 preload 和布局组合。P3 是 optimizer/domain library 的受限推导算法，核心不承担 universal assumption extraction。P2 必须实际消费候选／依赖核对和条件正确性，P3 必须说明 `B⇒A` 的入口推导，再交给 `guard accepts⇒B` 的编码与 host。P3 与 P4 用来检验算法和实际价值，不将测量结果预设为收益。新增 [paper narrative](topdown/paper-narrative.md) 已在 P0 后同步读取并吸收。
+P0 关闭的是一个明确语义缺口。P1 服务于 P2 的真正接入；P2 是主功能目标的一次迁移验收，之后仍需一般 affine 域、复杂读写 body、依赖 preload 和布局组合。P3 是 optimizer/domain library 的受限推导算法，核心不承担 universal assumption extraction。P2 必须实际消费候选／依赖核对和条件正确性，并核对旧 source-to-candidate 保持证书、实际 globalenv 与当前双向接口的差别，不能强行改称等价或只重做 guard 包装。P3 必须说明 `B⇒A` 的入口推导，再交给 `guard accepts⇒B` 的编码与 host。P3 与 P4 用来检验算法和实际价值，不将测量结果预设为收益。新增 [paper narrative](topdown/paper-narrative.md) 已在 P0 后同步读取并吸收。
 
 ## 每个阶段固定记录什么
 

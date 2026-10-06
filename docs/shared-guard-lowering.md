@@ -1,5 +1,7 @@
 # 只读条件的共享候选／回退出口
 
+下文验证计数保留最初接入阶段。当前 direct/shared 已接到 [公共实际分派与安装接口](clight-guard-realization.md)，复用相同逻辑规则证书；最新产物与回归另见 [阶段记录](research-checkpoint-2026-10-05.md)。该分派前缀本身不要求选中分支完成，但本文的 finite 宏片段宿主仍有其 source progress 要求。
+
 嵌套前缀检查已经能够证明动态内存上界的矩形交换，但直接用 `tree_statement guard candidate source` 会在每个叶复制一个完整循环。12／4 的实例每处 region 展开 156 份候选。共享出口适配层复用原条件与局部规则，将完整循环放到检查之后各一次。
 
 ## 使用者的接口保持什么
@@ -34,7 +36,7 @@ else
 
 `ClightSharedGuard.v` 将实际 `decision_run` 连接到 Boolean materialization 的 `exec_stmt`，并把选中分支接到后续唯一的 `Sifthenelse`。
 
-`ClightSharedProjectedCompiler.v` 消费原 `readonly_available`／`readonly_sound` 和 `projected_rule_local`，取得逻辑选中分支的实际完成执行。随后根据 freshness，将其运输到保存 Boolean 后的 temps，保护全部原 temps 和完整内存，再交给已有 private context adapter。`compile_shared_projected_correct` 连接完整 Csem→Asm backward simulation。
+公共 `projected_rule_selected` 消费原 `readonly_available`／`readonly_sound` 和 `projected_rule_local`，取得逻辑选中分支的实际完成执行。`ClightSharedProjectedCompiler.v` 选择 `shared_normal_realization`，复用 freshness／执行运输和公共 `projected_realized_rule_region_contract`；direct 安装也调用该定理。`compile_shared_projected_correct` 继续连接完整 Csem→Asm backward simulation。
 
 `ClightSharedLoadedRectangleCompiler.v` 只是将原 `choose_loaded_rectangle`／`loaded_nested_supported` 实例化到这个编译适配层，并提供两个私有 slots。没有重新证明矩形调度、别名稳定性或条件合成。
 

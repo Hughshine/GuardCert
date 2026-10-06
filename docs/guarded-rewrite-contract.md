@@ -1,5 +1,7 @@
 # Guarded rewrite：使用者契约与循环证明设施
 
+本文的义务按 [框架／语言／优化方责任矩阵](framework-responsibilities.md)解释，整体研究方向按 [活动目标](current-work-plan.md)维护。实际 direct/shared 分派已共用 [realization 接口](clight-guard-realization.md)；规则作者交付原条件／局部证书，具体语言分派和状态运输由库复用。
+
 本设计面向提供循环／多面体优化、条件算术 rewrite 和内存 rewrite 的使用者。我们自己的循环实例也遵守相同契约。框架提供带只读检查的片段替换、前提表达与检查库、局部证明设施和上下文组合定理。片段选择、候选产生、搜索策略及完整程序 traversal 由使用者定义。
 
 2026-10-05 的当前主接口是 [GuardedRewrite.v](../prototype/interface/GuardedRewrite.v)。它复用 [GuardInterface.v](../prototype/interface/GuardInterface.v) 的底层分派协议；检查改写私有状态、一般失败协议和其他正确性判断仍属于底层或后续扩展。旧的[语言无关分类](language-independent-interface.md)记录更广的入口协议，不作为当前用户前台的全部义务。

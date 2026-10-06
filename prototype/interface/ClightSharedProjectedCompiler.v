@@ -8,7 +8,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightGuard ClightCondition ClightRegionProgress ClightRegionRewrite ClightTempFrame
   ClightTempFootprint ClightProjectedExecution ClightPrivateRegion ClightPrivatePool CompCertMemoryEquivalence GuardCompiler.
 From GuardInterface Require Import GuardInterface GuardedRewrite ClightReadonlyRewrite ClightRegionBoundary
-  ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding ClightSharedGuard.
+  ClightReadonlyProjectedCompiler ClightReadonlyRuleEmbedding ClightSharedGuard ClightGuardRealization.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -20,20 +20,7 @@ Lemma shared_projected_selected live source (rule : readonly_projected_clight_ru
     exec_stmt (adapter_entry temps) (Clight.globalenv p) locals target memory
       (if accepted then projected_candidate rule else source) E0 target_exit target_memory Out_normal /\
     temp_agree live source_exit target_exit /\ memory_equivalent final target_memory.
-Proof.
-  intro SOURCE; pose proof (projected_rule_entry rule SOURCE) as DOMAIN.
-  destruct (readonly_available (projected_rule_check rule temps) _ DOMAIN) as [accepted [checked [CHECK SAME]]]; subst checked.
-  exists accepted; destruct accepted.
-  - destruct (readonly_sound (projected_rule_check rule temps) _ _ _ DOMAIN (conj CHECK eq_refl)) as [_ PREMISE].
-    assert (VISIBLE : runs (readonly_clight_host (adapter_entry temps) (boundary_observe (public_exit_ports live)))
-      source (Entry (Clight.globalenv p) locals target memory) (FragmentObservation E0 source_exit final Out_normal)).
-    { exists (FragmentObservation E0 source_exit final Out_normal); split; [exact SOURCE|apply boundary_observe_refl]. }
-    apply (proj2 (@projected_rule_local live source rule temps _ _ (conj DOMAIN (PREMISE eq_refl)))) in VISIBLE.
-    destruct VISIBLE as [[trace exit mem out] [RUN [TRACE [OUTCOME [TEMPS MEMORY]]]]].
-    cbn in TRACE, OUTCOME, TEMPS, MEMORY; subst trace out.
-    exists exit, mem; split; [exact CHECK|split; [exact RUN|split; [exact TEMPS|exact MEMORY]]].
-  - exists source_exit, final; split; [exact CHECK|split; [exact SOURCE|split; [apply temp_agree_refl|apply memory_equivalent_refl]]].
-Qed.
+Proof. apply projected_rule_selected. Qed.
 
 Definition shared_projected_replacement live source (rule : readonly_projected_clight_rule live source) result :=
   shared_guard_statement (projected_guard rule) result (projected_candidate rule) source.
@@ -43,32 +30,13 @@ Theorem shared_projected_region_contract live source (rule : readonly_projected_
   ~ In result (statement_temps source ++ statement_temps (projected_candidate rule) ++ live) ->
   PrivateRegion.projected_region_contract live source (shared_projected_replacement rule result).
 Proof.
-  intros QUIET FRESH temps p locals le target memory after final SCOPE AGREE SOURCE fn outside.
-  destruct (@structured_execution_temp_transport (adapter_entry temps) (Clight.globalenv p) locals le memory source
-    E0 after final Out_normal SOURCE live target (projected_source_writes rule) (projected_source_write_bound rule) SCOPE AGREE)
-    as [source_exit [TRANSPORTED EXIT_AGREE]].
-  destruct (@shared_projected_selected live source rule temps p locals target memory source_exit final TRANSPORTED)
-    as [accepted [exit [mem [CHECK [LEAF [PUBLIC MEMORY]]]]]].
-  set (chosen := if accepted then projected_candidate rule else source).
-  assert (WRITES : writes_only (if accepted then statement_temps (projected_candidate rule) else projected_source_writes rule) chosen).
-  { unfold chosen; destruct accepted; [apply quiet_source_write_bound; exact QUIET|exact (projected_source_write_bound rule)]. }
-  assert (PRIVATE : ~ In result (statement_temps chosen ++ live)).
-  { unfold chosen; destruct accepted; repeat rewrite in_app_iff in *; tauto. }
-  destruct (@structured_execution_temp_transport (adapter_entry temps) (Clight.globalenv p) locals target memory chosen
-    E0 exit mem Out_normal LEAF (statement_temps chosen ++ live)
-    (PTree.set result (Vint (shared_guard_word accepted)) target)
-    (if accepted then statement_temps (projected_candidate rule) else projected_source_writes rule) WRITES
-    ltac:(unfold statement_scope; intros id IN; apply in_or_app; left; exact IN)
-    (@temp_agree_set (statement_temps chosen ++ live) target result (Vint (shared_guard_word accepted)) PRIVATE))
-    as [joined_exit [JOINED JOINED_PUBLIC]].
-  assert (RUN : exec_stmt (adapter_entry temps) (Clight.globalenv p) locals target memory
-    (shared_projected_replacement rule result) E0 joined_exit mem Out_normal).
-  { eapply shared_guard_selected; [exact CHECK|exact JOINED]. }
-  destruct (exec_stmt_steps (adapter_entry temps) p _ _ _ _ _ _ _ _ RUN fn outside) as [next [STEPS EXIT]].
-  inversion EXIT; subst next; exists joined_exit, mem; split; [exact STEPS|split; [|exact MEMORY]].
-  eapply temp_agree_trans; [exact EXIT_AGREE|].
-  eapply temp_agree_trans; [exact PUBLIC|].
-  eapply temp_agree_weaken; [|exact JOINED_PUBLIC]; intros id IN; apply in_or_app; right; exact IN.
+  intros QUIET FRESH.
+  assert (PRIVATE : ~ In result (statement_temps (projected_candidate rule) ++ statement_temps source ++ live)).
+  { repeat rewrite in_app_iff in *; tauto. }
+  exact (@projected_realized_rule_region_contract live source rule
+    (@shared_normal_realization live (projected_guard rule) (projected_candidate rule) source result
+      (statement_temps (projected_candidate rule)) (projected_source_writes rule)
+      (quiet_source_write_bound _ QUIET) (projected_source_write_bound rule) PRIVATE)).
 Qed.
 
 Section USER_PASS.

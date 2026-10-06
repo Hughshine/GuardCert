@@ -10,6 +10,8 @@
 
 相同的核不意味着相同的 `Run`：表达式宿主观察实际 `val`，片段宿主观察内存／temps／trace／outcome，其他语言可声明自己的观察。只有真实语言宿主覆盖的行为才能进入全局主张。当前 Csem→Asm 端点是 backward simulation，不能称作两种语言的双向行为等价。
 
+[公共 actual realization](clight-guard-realization.md) 将有限 guard 分派和宿主的分支执行义务分开。direct/shared 同一接口证明实际到达选中分支、私有资源和 temp frame；正常完成的宏适配器另消费 branch transport，unsigned 完整循环消费前缀后继续局部小步匹配。分派定律不要求分支完成，不代表每个消费它的宿主都已取消 source progress。具体三方责任见 [责任矩阵](framework-responsibilities.md)。
+
 ## 当前三种 Clight 宿主
 
 | 维度 | 完成的宏片段宿主 | 有限求值的逐步宿主 |

@@ -7,7 +7,7 @@ From compcert.x86 Require Import Asm.
 From Guard Require Import ClightGuard ClightCondition ClightRegionProgress ClightRegionRewrite
   ClightTempFrame ClightTempFootprint ClightProjectedExecution ClightPrivateRegion
   ClightPrivatePool CompCertMemoryEquivalence GuardCompiler.
-From GuardInterface Require Import GuardInterface GuardedRewrite ClightReadonlyRewrite ClightRegionBoundary.
+From GuardInterface Require Import GuardInterface GuardedRewrite ClightReadonlyRewrite ClightRegionBoundary ClightGuardRealization.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -39,57 +39,59 @@ Record readonly_projected_clight_rule (live : list ident) (source : Clight.state
 Definition projected_readonly_replacement {live source} (rule : readonly_projected_clight_rule live source) :=
   tree_statement (projected_guard rule) (projected_candidate rule) source.
 
-Theorem projected_readonly_rule_region_contract live source
-  (rule : readonly_projected_clight_rule live source) :
-  PrivateRegion.projected_region_contract live source (projected_readonly_replacement rule).
+Lemma projected_rule_selected live source (rule : readonly_projected_clight_rule live source)
+  temps p locals target memory source_exit final :
+  exec_stmt (adapter_entry temps) (Clight.globalenv p) locals target memory source E0 source_exit final Out_normal ->
+  exists accepted target_exit target_memory,
+    decision_run (Entry (Clight.globalenv p) locals target memory) (projected_guard rule) accepted /\
+    exec_stmt (adapter_entry temps) (Clight.globalenv p) locals target memory
+      (if accepted then projected_candidate rule else source) E0 target_exit target_memory Out_normal /\
+    temp_agree live source_exit target_exit /\ memory_equivalent final target_memory.
+Proof.
+  intro SOURCE; pose proof (projected_rule_entry rule SOURCE) as DOMAIN.
+  destruct (readonly_available (projected_rule_check rule temps) _ DOMAIN) as [accepted [checked [CHECK SAME]]]; subst checked.
+  exists accepted; destruct accepted.
+  - destruct (readonly_sound (projected_rule_check rule temps) _ _ _ DOMAIN (conj CHECK eq_refl)) as [_ PREMISE].
+    assert (VISIBLE : runs (readonly_clight_host (adapter_entry temps) (boundary_observe (public_exit_ports live)))
+      source (Entry (Clight.globalenv p) locals target memory) (FragmentObservation E0 source_exit final Out_normal)).
+    { exists (FragmentObservation E0 source_exit final Out_normal); split; [exact SOURCE|apply boundary_observe_refl]. }
+    apply (proj2 (@projected_rule_local live source rule temps _ _ (conj DOMAIN (PREMISE eq_refl)))) in VISIBLE.
+    destruct VISIBLE as [[trace exit mem out] [RUN [TRACE [OUTCOME [TEMPS MEMORY]]]]].
+    cbn in TRACE, OUTCOME, TEMPS, MEMORY; subst trace out.
+    exists exit, mem; split; [exact CHECK|split; [exact RUN|split; [exact TEMPS|exact MEMORY]]].
+  - exists source_exit, final; split; [exact CHECK|split; [exact SOURCE|split; [apply temp_agree_refl|apply memory_equivalent_refl]]].
+Qed.
+
+
+(** The condition and local rule are unchanged by the concrete dispatch
+    implementation. Source placement and whole-program scope still belong to
+    the selected region host, not to the language-independent kernel. *)
+Theorem projected_realized_rule_region_contract live source
+  (rule : readonly_projected_clight_rule live source)
+  (R : clight_normal_realization live (projected_guard rule) (projected_candidate rule) source) :
+  PrivateRegion.projected_region_contract live source (realization_code (normal_realization R)).
 Proof.
   intros temps p locals le target memory after final SCOPE AGREE SOURCE fn outside.
   destruct (@structured_execution_temp_transport (adapter_entry temps) (Clight.globalenv p)
     locals le memory source E0 after final Out_normal SOURCE live target
     (projected_source_writes rule) (projected_source_write_bound rule) SCOPE AGREE)
     as [source_exit [TRANSPORTED EXIT_AGREE]].
-  pose proof (projected_rule_entry rule TRANSPORTED) as DOMAIN.
-  destruct (readonly_available (projected_rule_check rule temps) _ DOMAIN) as
-    [accepted [checked [CHECK SAME]]]; subst checked.
-  assert (SELECTED : exists target_exit target_memory,
-    clight_fragment_run (adapter_entry temps) (if accepted then projected_candidate rule else source)
-      (Entry (Clight.globalenv p) locals target memory)
-      (FragmentObservation E0 target_exit target_memory Out_normal) /\
-    temp_agree live after target_exit /\ memory_equivalent final target_memory).
-  { destruct accepted eqn:ACCEPT.
-    - destruct (readonly_sound (projected_rule_check rule temps) _ _ _ DOMAIN (conj CHECK eq_refl))
-        as [_ PREMISE].
-      assert (VISIBLE_SOURCE : runs
-        (readonly_clight_host (adapter_entry temps) (boundary_observe (public_exit_ports live)))
-        source (Entry (Clight.globalenv p) locals target memory)
-        (FragmentObservation E0 source_exit final Out_normal)).
-      { exists (FragmentObservation E0 source_exit final Out_normal); split;
-          [exact TRANSPORTED|apply boundary_observe_refl]. }
-      apply (proj2 (@projected_rule_local live source rule temps _ _
-        (conj DOMAIN (PREMISE eq_refl)))) in VISIBLE_SOURCE.
-      destruct VISIBLE_SOURCE as [[trace target_exit target_memory out]
-        [RUN [TRACE [OUTCOME [TEMPS MEMORY]]]]].
-      cbn in TRACE, OUTCOME, TEMPS, MEMORY; subst trace out.
-      exists target_exit, target_memory; split; [exact RUN|split].
-      + eapply temp_agree_trans; [exact EXIT_AGREE|exact TEMPS].
-      + exact MEMORY.
-    - exists source_exit, final; split; [exact TRANSPORTED|split;
-        [exact EXIT_AGREE|apply memory_equivalent_refl]]. }
-  destruct SELECTED as [target_exit [target_memory [LEAF [TEMPS MEMORY]]]].
-  assert (RUN : exec_stmt (adapter_entry temps) (Clight.globalenv p) locals target memory
-    (projected_readonly_replacement rule) E0 target_exit target_memory Out_normal).
-  { change (clight_fragment_run (adapter_entry temps)
-      (tree_statement (projected_guard rule) (projected_candidate rule) source)
-      (Entry (Clight.globalenv p) locals target memory)
-      (FragmentObservation E0 target_exit target_memory Out_normal)).
-    apply (proj2 (@readonly_tree_execution_exact (adapter_entry temps)
-      (projected_guard rule) (projected_candidate rule) source
-      (Entry (Clight.globalenv p) locals target memory)
-      (FragmentObservation E0 target_exit target_memory Out_normal))).
-    exists accepted; split; [exact CHECK|exact LEAF]. }
-  destruct (exec_stmt_steps (adapter_entry temps) p _ _ _ _ _ _ _ _ RUN fn outside)
-    as [next [STEPS EXIT]].
-  inversion EXIT; subst next; exists target_exit, target_memory; auto.
+  destruct (@projected_rule_selected live source rule temps p locals target memory source_exit final TRANSPORTED)
+    as [accepted [exit [mem [CHECK [LEAF [PUBLIC MEMORY]]]]]].
+  destruct (@realized_guard_normal_steps live (projected_guard rule) (projected_candidate rule) source R
+    temps p fn outside locals target memory accepted exit mem CHECK LEAF)
+    as [joined_exit [STEPS JOINED_PUBLIC]].
+  exists joined_exit, mem; split; [exact STEPS|split; [|exact MEMORY]].
+  eapply temp_agree_trans; [exact EXIT_AGREE|].
+  eapply temp_agree_trans; [exact PUBLIC|exact JOINED_PUBLIC].
+Qed.
+
+Theorem projected_readonly_rule_region_contract live source
+  (rule : readonly_projected_clight_rule live source) :
+  PrivateRegion.projected_region_contract live source (projected_readonly_replacement rule).
+Proof.
+  exact (@projected_realized_rule_region_contract live source rule
+    (direct_normal_realization live (projected_guard rule) (projected_candidate rule) source)).
 Qed.
 
 Section USER_PASS.
@@ -166,6 +168,8 @@ Proof.
 Qed.
 End USER_PASS.
 
+Print Assumptions projected_rule_selected.
+Print Assumptions projected_realized_rule_region_contract.
 Print Assumptions projected_readonly_rule_region_contract.
 Print Assumptions projected_readonly_selection_sound.
 Print Assumptions transform_projected_readonly_correct.

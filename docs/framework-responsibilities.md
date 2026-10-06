@@ -41,9 +41,11 @@ D 不能预先包含待检查的 no-alias／稳定性事实。它说明当前哪
 | `C_opt` | 规则／优化实现者或已验证候选 checker | [conditional_equivalence](../prototype/interface/GuardedRewrite.v)、局部状态还原；完整循环也可使用 [open_region_protocol](../theories/ClightOpenRegionContract.v)，须提交实际执行的匹配 |
 | `C_derive` | 优化／domain library | [readonly_condition_entails](../prototype/interface/GuardedRewrite.v) 消费推导证明；它本身不是已实现的通用投影算法 |
 | `C_guard` | 核心参数化算法＋语言原语＋实例域证据 | [只读 tree 合成](../prototype/interface/ClightReadonlyTreeSynthesis.v)、[loaded tree](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v)、[依赖 prefix scan](../prototype/interface/ReadonlyPrefixScan.v)；实例仍证明 coverage、原语安全和 source 支持 |
-| `C_host` | 语言实例／宿主库，规则提交边界 witness | [select_exact](../prototype/interface/GuardInterface.v) 是抽象定律；[direct](../prototype/interface/ClightReadonlyProjectedCompiler.v)、[shared](../prototype/interface/ClightSharedProjectedCompiler.v) 和 [open host](../theories/ClightOpenRegionProof.v) 是具体证明；完整 Csem→Asm 结论是 backward simulation |
+| `C_host` | 语言实例／宿主库，规则提交边界 witness | [select_exact](../prototype/interface/GuardInterface.v) 是抽象定律；[共用实际 realization](clight-guard-realization.md)、[direct](../prototype/interface/ClightReadonlyProjectedCompiler.v)、[shared](../prototype/interface/ClightSharedProjectedCompiler.v) 和 [open host](../theories/ClightOpenRegionProof.v) 是具体证明；完整 Csem→Asm 结论是 backward simulation |
 
 这些是逻辑责任，不强迫每个使用者填四个重复的 record。可以将证书封装在一个已验证库中；验收仍逐项回答它们来自哪里。不能把 normal-completion 的 big-step 观察接口说成已经观察了全部无限行为，也不能把实际 forward 小步安装证明改称任意目标执行的双向等价。
+
+证书的方向也要和宿主一致。核已经分别提供 refinement 与 preservation；当前 `readonly_projected_clight_rule` 要求双向局部等价，但 private-region 安装实际上消费的是源执行到候选执行的一边。旧 [encoded_private_rule](../theories/ClightPrivateRule.v) 及 [named candidate compiler](../adapters/compcert-memory/GuardMemoryNamedCompiler.v) 主要交付条件性 source-to-candidate 保持，并且局部端点量化实际 program 的 globalenv。P2 需要核对并接入这种证书，不假定旧 checker 已交付任意 globalenv 上的双向等价，也不将其单向结果改名为等价。统一 realization 复用分派／运输，不消除这一 optimizer 与语言边界的真实义务。
 
 ## 3. 用当前完整循环逐项落实
 

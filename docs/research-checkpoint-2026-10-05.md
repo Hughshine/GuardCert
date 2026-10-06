@@ -44,7 +44,7 @@ condition 是真实代码，P 是逻辑断言。检查必须有定义、能完�
 
 提取入口 `compile_guarded_circular` 先组合原 common region pass。540 次有限 kernel 调用／540 行输出同 GCC 和独立 unsigned 源模型一致；五个函数中六处完整循环已实际改写，混合函数还检查两处旧 payload preload，先后改变 parameter／bound 后分别刷新缓存。覆盖 UINT_MAX 附近 wrap、空 alias、null out 空路径、只读 bound、跳转前驱、嵌套外围和公开 counter／word。非空 alias 不原生执行，以实际源／目标无限执行证明及完整原回退覆盖。volatile bound、步长 2 和不同 body 被精确选择器拒绝。当前每处新树有一份 candidate、两份完整 fallback，不是共享 lowering 或性能结论。
 
-## 当前验证记录
+## P0 验证记录（固定阶段）
 
 | 层次 | 结果 |
 | --- | --- |
@@ -57,7 +57,17 @@ condition 是真实代码，P 是逻辑断言。检查必须有定义、能完�
 
 复现入口为 `make interface-proof`、`make interface-clight-proof`、`make interface-compiler-proof` 和 `make interface-native-suite`，使用锁定的 CompCert v3.18、Rocq／Stdlib 9.2 工具链。检查使用 Rocq 编译和假设报告，以及实际提取编译器产生的程序同 GCC／独立模型比较。原生测试没有执行明确发散或源未定义的输入，没有测量性能。
 
-新规则可单独以 `make interface-guarded-circular-native` 复现。报告见 `build/interface-circular-native/report.json`，整体核对见 `build/interface-compiler/open-region-validation.json`；最后一份证明报告 SHA256 为 `b67f8c308c486c785b4a6b5f6275003281e565f9f3b3a3641fe391bd17282030`。862 是当前证明源码摘要数，不是声称本轮独立编译了 862 个新模块；新宿主和相关接口实际编译，继承源码全部核对。
+新规则可单独以 `make interface-guarded-circular-native` 复现。报告见 `build/interface-circular-native/report.json`，P0 整体核对见 `build/interface-compiler/open-region-validation.json`；P0 证明报告 SHA256 为 `b67f8c308c486c785b4a6b5f6275003281e565f9f3b3a3641fe391bd17282030`。862 是该阶段证明源码摘要数，不是声称本轮独立编译了 862 个新模块；新宿主和相关接口实际编译，继承源码全部核对。
+
+## 2026-10-06：P1 实际分派与安装复用
+
+[clight_guard_realization](clight-guard-realization.md) 证明有限、E0、memory 不变的实际 dispatch prefix，以及私有名字 freshness 和 temp frame。direct 保持原 temp map；shared 仅在全部检查完成后写新鲜 Boolean。前缀定律不要求候选／回退完成；正常完成的宏宿主额外消费 `clight_normal_realization` 的分支执行运输。抽象 readonly condition 和 kernel 没有放宽。
+
+原 direct/shared projected 安装现在调用同一个 `projected_realized_rule_region_contract`，复用原规则与条件证明；完整 unsigned 循环的空／alias／non-alias 路径另消费相同 direct dispatch prefix 后继续原小步协议。direct 没有新增 quiet-candidate 限制，shared 保留原 quiet/freshness 核对和 private-pool 分配。新接口已被三个实际编译证明路径消费；shared whole-loop 入口尚未安装，finite 宏宿主仍要求 source progress。
+
+完整 Rocq 编译与审计通过 **411 个端点、863 份源码摘要**；继承 FRAGMENT=6、MEMORY=1、REGION=6、PROJECTED_REGION=8、STEPWISE=8、COMPILER=35，无新增全局公理。当前证明报告 SHA256 为 `8e0bf0664f0648c2e109762fe3621ce66edb8877964c5d84b604bc2aac366c9b`。**25 种提取配置全部重建／回归通过，40 份报告绑定当前证明、全部源码、提取 stamp 与编译器；相对 `26956a4` 保存的 40 份 C／Clight 摘要全部相同。** unsigned fixture 仍为 540 次有限调用、六处新 loop 与两处混合旧 preload；无限行为由实际 Clight 证明覆盖。整体核对见 `build/interface-compiler/realization-validation.json`，回归汇总见 `build/interface-compiler/realization-regression/summary.json`。
+
+用户要求的 topdown narrative 方向已作为活动目标补充以 `26956a4` 推送；[三方责任／难点](framework-responsibilities.md) 对应每阶段验收。P1 接口冻结时再次 fetch 三个评审分支，SHA 均未变化。源码核对还发现 P2 的证书方向义务：旧 `encoded_private_rule`／named candidate compiler 交付实际 program globalenv 上的条件性 source-to-candidate 保持，不能直接声称已填入当前双向局部等价接口。P2 会复用其候选／模型／依赖证明，并为正确的证书方向完成主接口安装。
 
 ## 接下来如何判定进展
 

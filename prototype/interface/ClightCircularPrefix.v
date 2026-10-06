@@ -3,7 +3,8 @@ From compcert.lib Require Import Maps Integers.
 From compcert.common Require Import AST Values Memory Events Smallstep.
 From compcert.cfrontend Require Import Ctypes Clight ClightBigstep.
 From Guard Require Import ClightGuard ClightCondition ClightSameAddress.
-From GuardInterface Require Import ClightCircularMachine ClightCircularGuard.
+From GuardInterface Require Import ClightCircularMachine ClightCircularGuard ClightGuardRealization.
+Import ListNotations.
 Set Implicit Arguments.
 
 Section PREFIX.
@@ -45,17 +46,37 @@ Proof.
   apply star_one; apply circular_machine_step_sound; constructor; exact STORE.
 Qed.
 
+Lemma circular_guard_dispatch iterator_bound cache le m accepted :
+  decision_run (Entry ge locals le m) (circular_guard iterator out iterator_bound) accepted ->
+  star (adapter_step temps) ge
+    (State fn (guarded_circular_region iterator out iterator_bound cache) outside locals le m) E0
+    (State fn (if accepted then guarded_circular_candidate iterator out iterator_bound cache
+      else circular_memory_loop iterator out (circular_loaded_test iterator iterator_bound))
+      outside locals le m).
+Proof.
+  intro CHECK.
+  exact (@realization_dispatch [] (circular_guard iterator out iterator_bound)
+    (guarded_circular_candidate iterator out iterator_bound cache)
+    (circular_memory_loop iterator out (circular_loaded_test iterator iterator_bound))
+    (direct_guard_realization [] (circular_guard iterator out iterator_bound)
+      (guarded_circular_candidate iterator out iterator_bound cache)
+      (circular_memory_loop iterator out (circular_loaded_test iterator iterator_bound)))
+    temps ge fn outside locals le m accepted CHECK).
+Qed.
+
 Lemma circular_guard_empty iterator_bound cache le m :
   expression_test (circular_loaded_test iterator iterator_bound) (Entry ge locals le m) false ->
   star (adapter_step temps) ge
     (State fn (guarded_circular_region iterator out iterator_bound cache) outside locals le m) E0
     (circular_machine_state iterator out fn outside locals (circular_loaded_test iterator iterator_bound) cm_break_seq le m).
 Proof.
-  intros TEST; unfold guarded_circular_region, circular_guard; cbn [tree_statement].
-  destruct TEST as [value [EVAL BOOL]].
-  eapply star_step; [unfold adapter_step; eapply step_ifthenelse with (b := false); eauto | |reflexivity].
-  apply circular_prefix_head with (flag := false); exists value; split; assumption.
+  intro TEST; eapply star_trans.
+  - apply circular_guard_dispatch with (accepted := false).
+    unfold circular_guard; eapply run_test; [exact TEST|constructor].
+  - apply circular_prefix_head with (flag := false); exact TEST.
+  - reflexivity.
 Qed.
+
 Lemma circular_guard_alias iterator_bound cache le m final :
   expression_test (circular_loaded_test iterator iterator_bound) (Entry ge locals le m) true ->
   expression_test (same_address_guard out iterator_bound) (Entry ge locals le m) true ->
@@ -64,12 +85,14 @@ Lemma circular_guard_alias iterator_bound cache le m final :
     (State fn (guarded_circular_region iterator out iterator_bound cache) outside locals le m) E0
     (circular_machine_state iterator out fn outside locals (circular_loaded_test iterator iterator_bound) cm_after_store le final).
 Proof.
-  intros HEAD ALIAS STORE; unfold guarded_circular_region, circular_guard; cbn [tree_statement].
-  destruct HEAD as [value [EVAL BOOL]], ALIAS as [pointer_result [CMP POINTER_BOOL]].
-  eapply star_step; [unfold adapter_step; eapply step_ifthenelse with (b := true); eauto | |reflexivity].
-  eapply star_step; [unfold adapter_step; eapply step_ifthenelse with (b := true); eauto | |reflexivity].
-  apply circular_prefix_store; [exists value; auto | exact STORE].
+  intros HEAD ALIAS STORE; eapply star_trans.
+  - apply circular_guard_dispatch with (accepted := false).
+    unfold circular_guard; eapply run_test; [exact HEAD|].
+    eapply run_test; [exact ALIAS|constructor].
+  - apply circular_prefix_store; assumption.
+  - reflexivity.
 Qed.
+
 Lemma circular_guard_apart iterator_bound cache le m upper final :
   expression_test (circular_loaded_test iterator iterator_bound) (Entry ge locals le m) true ->
   expression_test (same_address_guard out iterator_bound) (Entry ge locals le m) false ->
@@ -83,19 +106,21 @@ Lemma circular_guard_apart iterator_bound cache le m upper final :
     (circular_machine_state iterator out fn outside locals (circular_cached_test iterator cache)
       cm_after_store (PTree.set cache (Vint upper) le) final).
 Proof.
-  intros HEAD APART LOAD CACHED STORE; unfold guarded_circular_region, circular_guard; cbn [tree_statement].
-  destruct HEAD as [value [EVAL BOOL]], APART as [pointer_result [CMP POINTER_BOOL]].
-  eapply star_step; [unfold adapter_step; eapply step_ifthenelse with (b := true); eauto | |reflexivity].
-  eapply star_step; [unfold adapter_step; eapply step_ifthenelse with (b := false); eauto | |reflexivity].
-  unfold guarded_circular_candidate.
-  eapply star_step; [unfold adapter_step; apply step_seq | |reflexivity].
-  eapply star_step; [unfold adapter_step; apply step_set; exact LOAD | |reflexivity].
-  eapply star_step; [unfold adapter_step; apply step_skip_seq | |reflexivity].
-  apply circular_prefix_store; assumption.
+  intros HEAD APART LOAD CACHED STORE; eapply star_trans.
+  - apply circular_guard_dispatch with (accepted := true).
+    unfold circular_guard; eapply run_test; [exact HEAD|].
+    eapply run_test; [exact APART|constructor].
+  - unfold guarded_circular_candidate.
+    eapply star_step; [unfold adapter_step; apply step_seq | |reflexivity].
+    eapply star_step; [unfold adapter_step; apply step_set; exact LOAD | |reflexivity].
+    eapply star_step; [unfold adapter_step; apply step_skip_seq | |reflexivity].
+    apply circular_prefix_store; assumption.
+  - reflexivity.
 Qed.
 End PREFIX.
 
 Print Assumptions circular_prefix_store.
+Print Assumptions circular_guard_dispatch.
 Print Assumptions circular_guard_empty.
 Print Assumptions circular_guard_alias.
 Print Assumptions circular_guard_apart.

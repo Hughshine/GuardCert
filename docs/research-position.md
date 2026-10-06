@@ -158,3 +158,5 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 ## 评审之后的实现更新
 
 上述 10 月 5 日评审结论固定于 `cf4d442`。后续新增 `open_region_protocol`／`open_region_contract`，已经编译验证整段局部小步宿主、unsigned memory-bound 缓存规则、真实源／guarded 目标 alias 无限执行，以及完整 Csem→Asm 端点。它不要求原片段的无条件完成性，见[实际案例](clight-guarded-circular-case.md)。这关闭一个具体宿主缺口；不据此宣称新的抽象 guard 定理、一般多面体迁移或文献空白。提取／原生结果与当前计数以[阶段记录](research-checkpoint-2026-10-05.md)为准。
+
+10 月 6 日，[实际 realization](clight-guard-realization.md) 又将 direct/shared 的 dispatch prefix、private frame 和完成分支运输统一到语言层设施；两个 projected 安装路径调用公共定理，完整 unsigned 循环复用 prefix 后继续小步协议。411 端点／863 摘要、25 配置／40 报告已通过，40 份 C／Clight 摘要对重构前 `26956a4` 保持。这支持具体的语言安装证明复用；新增模块增加了代码，尚无总证明负担减少、性能或首创结论。真实 affine／tiling 使用者还要按旧证明的正确方向消费候选／依赖证书及实际 globalenv 对应，不能由这项架构改进宣称已迁移。

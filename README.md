@@ -8,10 +8,14 @@
 
 [宿主能力与证明职责](docs/host-capabilities.md) 区分完成执行的整段版本化、每次求值位置检查和允许完整回退无限执行的整段小步协议；语言实例通过相应上下文证明连接完整程序。
 
-[带依赖的只读检查接口](docs/condition-stage-interface.md) 支持将前一阶段接受的事实用于后续检查安全。框架只依赖语言提供的常量／顺序检查代数，证明任意有限阶段的状态不变、安全与接受含义；实际内存上界规则已消费该组合，条件语法保持相同。[分支与前缀扫描](docs/readonly-prefix-scan-interface.md)进一步支持活动结束后的提前接受和逐点 ghost 依据运输；indexed 上界规则实际调用通用生成器。[只读探针简化](docs/readonly-probe-simplification.md)进一步保留原条件证书地消除重复实际测试，已接到单 loaded 和双动态 loaded 矩形共享编译入口。当前 54 个纯接口端点闭合，Clight 59 个和完整编译 401 个端点、862 份证明源码摘要审计通过；二十五种配置回归通过，40 份原生报告绑定当前证明与编译器。相对 `cf4d442`，39 份既有 C／Clight 摘要全部相同。新整段小步宿主无需原循环独立进展，真实 unsigned memory-bound 缓存通过 540 次有限调用／六处完整 loop，且有源／目标实际无限 alias 回退定理；当前新树仍有两份原回退。
+[带依赖的只读检查接口](docs/condition-stage-interface.md) 支持将前一阶段接受的事实用于后续检查安全。框架只依赖语言提供的常量／顺序检查代数，证明任意有限阶段的状态不变、安全与接受含义；实际内存上界规则已消费该组合，条件语法保持相同。[分支与前缀扫描](docs/readonly-prefix-scan-interface.md)进一步支持活动结束后的提前接受和逐点 ghost 依据运输；indexed 上界规则实际调用通用生成器。[只读探针简化](docs/readonly-probe-simplification.md)进一步保留原条件证书地消除重复实际测试，已接到单 loaded 和双动态 loaded 矩形共享编译入口。当前 54 个纯接口端点闭合，Clight 59 个和完整编译 411 个端点、863 份证明源码摘要审计通过；二十五种配置回归通过，40 份原生报告绑定当前证明与编译器。相对 `cf4d442`，39 份既有 C／Clight 摘要全部相同。新整段小步宿主无需原循环独立进展，真实 unsigned memory-bound 缓存通过 540 次有限调用／六处完整 loop，且有源／目标实际无限 alias 回退定理；当前新树仍有两份原回退。
 
 研究对象还包括人工或工具给出候选后，由框架寻找成立条件、生成检查与回退。COVE/cSTOKE、Peek、Chamois、Icing 和 CoreJIT 已覆盖这条链的不同部分；当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。有限外层次数条件搜索已在实际多面体候选上实现；任意关系式条件推断和新颖性仍需进一步支持。
 
+[实际分派与安装复用](docs/clight-guard-realization.md)已通过本轮验收：direct/shared 使用同一 readonly 规则证书和公共安装定理，完整 unsigned 循环消费同一有限 dispatch prefix。相对 `26956a4`，25 配置全部重建／回归、40 份 C／Clight 摘要不变；finite host 的 source progress 与 shared whole-loop 的未实现边界分别保留。
+
+- [三方验证责任与最难验收](docs/framework-responsibilities.md)：框架、语言实例和优化／domain 方的责任；持续沿 topdown paper narrative 推进。
+- [公共实际 guard 分派](docs/clight-guard-realization.md)：direct/shared 的私有资源、有限小步前缀和宿主安装复用。
 - [当前交付与研究边界（2026-10-05）](docs/research-checkpoint-2026-10-05.md)：只读框架、内存上界与调度、通用前缀扫描、当前验证与下一项验收。
 - [当前工作计划](docs/current-work-plan.md)：吸收评审后的优先级和验收，保留完整多面体主目标。
 - [三个分支的综合评审](docs/review-synthesis-2026-10-05.md)：固定提交、逐项采纳、实际实现变化与研究主张校准。
