@@ -42,7 +42,13 @@ P3 后继的 [源观察与 alias 包络](source-observed-affine-separation.md) �
 
 后继 [完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 已将保留 prefix 的真实 pointer receipt、实际域包络／物理 non-alias 接到同一 source package 和入口，继续消费 kernel sequencing。静态 column cap 先在 domain 层代入 endpoint，语言层复用 modular 求值和 signed 范围编码；不需要虚构源 count 寄存器。79 端点／526 项依赖／871 份源码摘要审计通过，没有新增全局公理。完整条件接受已绑定实际源 Loop／精确公开出口，尚未绑定新的候选或完整程序。
 
-下一项的最难义务收紧为：把两套 candidate 表示范围与独立候选 certificate、实际候选 lowering／restore 接到该同一入口，组成可安装的 local rule；随后证明新控制形状的 sequence progress／placement，得到新 Csem→Asm、提取及非空接受／真实 alias 回退。完整 guard D 使用有限正常源完成和 retained source receipt，不算任意无限源／loaded bounds 的前缀证据。新非矩形 C frontend／原生执行仍没有，旧原生结果不计新 pass。贡献继续按三方责任与四张证书核对，不因源 checker 或条件证书闭合而完成 goal。
+后继 [非矩形 pointer compiler](clight-affine-inner-pointer-compiler.md) 已关闭上述同一入口连接：两套 candidate ranges、独立 mapped-domain／dependence certificate、实际 lowering／公开出口 restore 和 local rule；normalized source/prefix/suffix 运输接入已有 progress／placement host，得到新 `compile_affine_inner_pointer_correct`。原进展 checker 在具体新源 fixture 上通过，没有重复发明宿主定律。103 端点／533 项依赖／878 份摘要审计和提取通过；六个新原生配置每个 81 次调用、共 486 次，五个机器路径探针区分真正候选／源执行。实际 `j<i+1`、`j<2*i+1` 的不受信任候选和 schedule generation 均已选中；错误域、直接除法边界、资源耗尽与缺失 source receipt 保留源。该结果独立于旧 compiler/native 矩阵。
+
+本次也明确了 optimizer/domain 的一项表示责任：generated 参数检查含 `2147483648` 或 `-a` 时不能直接降到 signed32，除法边界也不能直接通过 affine extractor。不受信任的候选整理器提出参数 guard 删除与粗范围／affine 条件替换，整个结果再经原 checker；不把整理器当作 `C_guard` 的证明或可信 residualizer。两个实际域消费同一证书和 host，kernel 未改，性能和作者负担尚未测量。
+
+后续按难点排序：先把 quotient／tiling 的点对应与证书接到同一 nonrectangular pointer package，然后推广一般深层 affine 域；继续实现多个依赖 preload 的安全读序、原入口事实和参数稳定性。当前完整 guard 的 D 仍使用有限正常源完成和 retained source receipt，不能替代依赖加载／无限源的有限前缀协议。保守不同-base 拒绝与真实 ragged scan 的组合也需独立 capability／private-state 证明。P4 和同例 near-neighbor／作者 obligations 比较继续有效，完整 goal 保持 active。
+
+OLO 的需求验收仍以义务区分：当前实例提供机器范围／no-wrap、真实 nonrectangular footprint、物理 alias 条件、候选依赖保持和全程序安装；这些不覆盖每次循环测试都会重新读取的 memory bound。后者仍须证明 source 活动支持检查读取，先前检查许可后续读取，以及候选 snapshot 在所有相关 store 下稳定。不能把“源已 preload 到稳定寄存器”作为这一困难情形已经解决的证据。该读序／稳定性接口与 quotient/tiling 接入一起列为下一阶段必交付，随后才推广更一般深层域；不以两个成功域替代该验收。
 
 ## 每个阶段固定记录什么
 

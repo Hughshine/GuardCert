@@ -112,3 +112,13 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch 后三分支保持 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，没有新增文本。[本阶段](research-checkpoint-2026-10-06-affine-pointer-alias.md) 将上项未闭合的 receipt／alias 连接变为同一 source package 的完整 readonly condition：domain 证明静态 column 代入和 ragged footprint 覆盖，语言复用源读取 receipt、真实 modular／signed 比较、完成路径与 reachable-test 安全，kernel 继续消费条件组合。完整接受同时连接源 Loop 与精确公开出口；79 端点审计没有新增全局公理。
 
 下一计划据此去掉“尚未连接 receipt／alias”，保留独立候选、validator／encoder 两套范围、实际候选与 local rule、source progress／placement、新 Csem→Asm、提取与原生执行。源 prefix producer 的 finite-domain 证据不算完整 host，n=63 的数学 Boolean 接受也不算 native 路径。性能、新颖性和总作者负担继续等待独立证据；责任表不代替难点的实际证明。
+
+## 10 月 6 日：非矩形 pointer 的完整候选／程序接入
+
+再次 fetch 后三分支仍为 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`。本地 paper narrative 与该 topdown SHA 的正文逐字节一致，没有新增意见。
+
+按已有意见完成 [新 compiler](clight-affine-inner-pointer-compiler.md)：domain 绑定独立 candidate certificate、两套 ranges、实际 Clight candidate／restore、源 normalized AST 与 local contract；kernel 的条件组合和语言的 prefix／sequence/progress/private-pool／程序 simulation 继续复用。新 Csem→Asm 定理、103 端点审计与提取通过，六个配置共 486 次调用、五个机器探针确认非空候选路径和真实别名回退。实际三角域和 `j<2*i+1` 共用这条管线，schedule generation 的输出也真正通过重新核对并安装。
+
+实例暴露一项高难表示义务：数学生成检查含 `2147483648`、`-a` 或除法边界时，不能直接交给 signed32/affine lowerer。新增不受信任候选整理器提议参数检查删减及 quotient-to-affine 控制表达，再由原域／依赖 checker 对整个候选取得证书；没有把整理器当作新公理或通用 guard synthesis。直接除法提案的静态拒绝作为原生配置保留。当前只用 direct readonly tree、保守同-base 符号接受，没有新 ragged scan/shared capability。
+
+当前计划据此关闭该实例的候选连接、placement、提取和新原生证据缺口；进一步接 quotient/tiling 证书、一般深层域、多个依赖 preload 的合法读序／稳定性，并保留 P4 与同例作者负担比较。这是对 narrative 的实际接入检验，不新增 novelty 或盈利性结论。完整 goal 继续 active。

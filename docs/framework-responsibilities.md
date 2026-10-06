@@ -2,7 +2,7 @@
 
 这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `f7936299fa6272fbf50db6b94a1bd0333808ea09`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
-非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[后继完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 已从真实 source prefix／有限正常源执行生产 D，连接同一 package 的范围、width 和物理 non-alias；候选 validator／encoder 范围与规则安装尚未组装，不归作 framework 自动解决。
+非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 从真实 source prefix／有限正常源执行生产 D；[新 compiler](clight-affine-inner-pointer-compiler.md) 已进一步组装两套 candidate ranges、独立 certificate、实际 lowering／restore 和 local contract，消费已有 progress／placement host 接到 Csem→Asm，不归作 framework 自动发现优化前提。
 
 ## 1. 三方各自证明什么
 
@@ -103,4 +103,8 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 新的 [非矩形 source preparation](research-checkpoint-2026-10-06-affine-pointer-source.md) 进一步按这一责任划分实现：kernel 的 `sequence_readonly_conditions` 负责有依赖条件的组合；语言服务 `readonly_completed_tree_condition` 利用真实表达式确定性，把有限完成路径证据包装为 reachable-test 安全、完成及接受 sound；domain 负责 normalized 源／操作／范围 checker、header 和第一轮 body 的参数证据、范围／宽度阶段以及源 Loop／公开出口对应。该阶段先连接同一 package／入口的算术条件与源对应，随后继续组装其他证书。D 明确要求有限正常源完成，不据此声称处理无限源或依赖加载参数。
 
-[本阶段完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 进一步关闭 prefix receipt 和该实例物理 non-alias。静态 column cap 的 affine 代入由 domain 数学库证明，实际比较继续使用语言的 modular 求值／signed 范围定理，kernel 仅消费已有 sequencing。`affine_inner_pointer_source_guard_execution` 将接受、实际源 Loop 与精确公开出口绑定同一入口；`source_prefix_domain` 是有限入口 producer，不是全程序 host 证明。剩余困难是独立候选 certificate、两套候选表示范围、真实 candidate lowering 与 local rule，以及新控制形状的 progress／placement。没有新 native、性能或 proof burden 结论。
+[前一完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 关闭 prefix receipt 和该实例物理 non-alias。静态 column cap 的 affine 代入由 domain 数学库证明，实际比较继续使用语言的 modular 求值／signed 范围定理，kernel 仅消费已有 sequencing。`affine_inner_pointer_source_guard_execution` 将接受、实际源 Loop 与精确公开出口绑定同一入口；`source_prefix_domain` 是有限入口 producer。该阶段当时未完成候选和安装，其历史报告不扩称全程序证据。
+
+[后继完整接入](clight-affine-inner-pointer-compiler.md) 已把独立 `C_opt`、两套范围与实际 candidate/restore 绑定到同一 source package。guard 消费 kernel readonly sequencing，局部分派和 source-prefix contract 消费已有语言服务，table 的程序 simulation 复用旧 host；具体新源形状由实际 progress fixture 核对。103 端点审计、提取、六个原生配置共 486 次调用和五个机器写入顺序探针通过。这里新增的是 domain 实例连接与不受信任候选整理，语言/核心的原定律未改；没有性能或 proof burden 收益结论。
+
+最难义务继续落实到下一项：quotient/tiling 候选的实例对应接入同一 pointer 源，多个依赖 preload 的读序与稳定性，以及一般深层 affine 源/出口。生成器的数学测试可能无法安全编码，故未证明的整理输出只能经完整 checker 再取得证书。框架不将候选整理视为自动条件推导；原 `C_derive` 和 `C_guard` 仍各自有实际证明。

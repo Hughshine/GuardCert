@@ -1,10 +1,12 @@
 """Audit affine-inner pointer proof support and the existing compiler regression.
 
-This is not evidence of a new nonrectangular source selector or compiler entry.
+The default/support modes do not assert a new source selector or compiler entry.
 --source-guard includes the checked source package and staged parameter checks;
 it still does not assert that a whole-program selector installs this package.
 --source-alias additionally connects retained source receipts, fixed-column
 envelope checks and physical non-alias to the same source package and entry.
+--source-compiler binds the independent candidate certificate, both range
+environments, actual guarded replacement and a new Csem-to-Asm entry point.
 """
 import argparse
 import json
@@ -37,8 +39,9 @@ DOMAIN = [
 COMPILER = "ClightObservedPointerCompiler.compile_realized_observed_pointer_correct"
 
 
-def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False):
+def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False, source_compiler=False):
     global WORK
+    source_alias = source_alias or source_compiler
     source_guard = source_guard or source_alias
     language, domain = list(LANGUAGE), list(DOMAIN)
     if source_guard:
@@ -59,6 +62,19 @@ def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False)
             "prototype/interface/AffineBoxConstants.v",
             "prototype/interface/ClightAffineInnerPointerSourceGuard.v",
             "prototype/interface/ClightAffineInnerPointerEnvelopeExamples.v",
+        ]
+    entry = None
+    if source_compiler:
+        WORK = ROOT / "build/affine-pointer-compiler/proof"
+        entry = "ClightAffineInnerPointerCompiler.compile_affine_inner_pointer"
+        domain += [
+            "adapters/compcert-memory/GuardMemoryAffineSourceEndpointEncoding.v",
+            "prototype/interface/ClightAffineInnerPointerCandidateGuard.v",
+            "prototype/interface/ClightAffineInnerPointerCandidate.v",
+            "prototype/interface/ClightAffineInnerPointerPreservation.v",
+            "prototype/interface/ClightAffineInnerPointerCandidates.v",
+            "prototype/interface/ClightAffineInnerPointerCompiler.v",
+            "prototype/interface/ClightAffineInnerPointerCandidateExamples.v",
         ]
     if output_dir is not None:
         WORK = output_dir.resolve()
@@ -108,8 +124,9 @@ def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False)
     endpoints = {queries[marker]: sorted(assumptions[marker]) for marker in queries
                  if marker.startswith(("LANGUAGE_", "DOMAIN_"))}
     report = {
-        "status": "compiled", "kind": "affine-inner-pointer-source-and-alias-checks" if source_alias else (
-            "affine-inner-pointer-source-and-staged-checks" if source_guard else "affine-inner-pointer-proof-support"),
+        "status": "compiled", "kind": "affine-inner-pointer-compiler" if source_compiler else (
+            "affine-inner-pointer-source-and-alias-checks" if source_alias else (
+            "affine-inner-pointer-source-and-staged-checks" if source_guard else "affine-inner-pointer-proof-support")),
         "required_closure": closure,
         "sources": {path: sha(ROOT / path) for path in sorted(set(inherited) | set(closure))},
         "compiled_objects": {path: sha((ROOT / path).with_suffix(".vo")) for path in closure},
@@ -132,15 +149,18 @@ def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False)
         "source_package_to_actual_loop_correspondence": source_guard,
         "source_domain_requires_finite_normal_source_completion": source_guard,
         "source_package_static_and_early_refusal_examples": source_guard,
-        "affine_inner_pointer_source_selector_installed": False,
+        "affine_inner_pointer_source_selector_installed": source_compiler,
         "source_derived_complete_guard_domain": source_alias,
         "retained_source_prefix_produces_pointer_observations": source_alias,
         "static_column_cap_specialized_without_entry_temporary": source_alias,
         "same_source_package_guard_accepts_implies_physical_nonalias": source_alias,
         "complete_guard_bound_to_source_model_and_public_exit": source_alias,
-        "source_package_candidate_rule_installed": False,
-        "candidate_validator_and_encoder_ranges_bound_to_guard": False,
-        "affine_inner_pointer_whole_program_entrypoint": None,
+        "source_package_candidate_rule_installed": source_compiler,
+        "candidate_validator_and_encoder_ranges_bound_to_guard": source_compiler,
+        "independent_candidate_checker_consumed_by_local_rule": source_compiler,
+        "actual_affine_inner_source_progress_fixture": source_compiler,
+        "affine_inner_pointer_whole_program_entrypoint": entry,
+        "whole_program_entrypoint": entry,
         "affine_inner_pointer_native_execution": False,
         "extraction_run_by_this_audit": False,
         "recompiled_entire_selected_closure": rebuild,
@@ -152,7 +172,7 @@ def main(rebuild=False, source_guard=False, output_dir=None, source_alias=False)
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"status": "compiled", "endpoints": len(endpoints), "dependencies": len(closure),
                       "source_digests": len(report["sources"]), "additional_global_axioms": [],
-                      "new_whole_program_entrypoint": None}))
+                      "new_whole_program_entrypoint": entry}))
 
 
 if __name__ == "__main__":
@@ -161,6 +181,7 @@ if __name__ == "__main__":
     parser.add_argument("--rebuild", action="store_true")
     parser.add_argument("--source-guard", action="store_true")
     parser.add_argument("--source-alias", action="store_true")
+    parser.add_argument("--source-compiler", action="store_true")
     parser.add_argument("--output-dir", type=Path)
     arguments = parser.parse_args()
-    main(arguments.rebuild, arguments.source_guard, arguments.output_dir, arguments.source_alias)
+    main(arguments.rebuild, arguments.source_guard, arguments.output_dir, arguments.source_alias, arguments.source_compiler)

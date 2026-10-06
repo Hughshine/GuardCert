@@ -1,15 +1,15 @@
 # 下一项：实际非矩形 pointer 源域
 
-这是非矩形 pointer 接入的活动设计与验收。局部证明设施、受核对的源 package、完整只读算术／alias 条件及接受到真实源执行的连接已实现，尚未形成新的完整编译入口。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型仍是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer compiler。共享 fallback 只改变最终控制实现，没有扩大这个域。
+这是非矩形 pointer 接入的设计与后继验收。前几阶段依次实现局部证明支持、checked source package、完整条件；[新编译入口](clight-affine-inner-pointer-compiler.md) 现已接入独立候选／两套范围／local contract、Csem→Asm、提取和实际原生接受／回退。三角域和 `j<2*i+1` 均实际编译，候选与调度生成共用 checker。下文保留该切口的设计与义务来源，阶段状态以 [最新记录](research-checkpoint-2026-10-06-affine-pointer-compiler.md) 为准；旧矩形 compiler 的结果没有合并计入新 pass。
 
 ## 一个确定的切口
 
-先选两层、register-valued 仿射内层上界、普通 int32 pointer 访问；不同时扩展 loaded bounds 和任意控制出口。以下是拟实现的实际源／候选形状，具体 frontend matcher 仍需绑定 normalized AST：
+先选两层、register-valued 仿射内层上界、普通 int32 pointer 访问；不同时扩展 loaded bounds 和任意控制出口。以下是拟实现的实际源／候选形状，当前 matcher 已绑定 normalized AST，源 i 初始化位于被选片段之前：
 
 ```c
 /* 保留源普通读取，提供 raw-base comparison receipt。 */
 rp = p[0]; rq = q[0];
-for (i = 0; i < n; ++i) {
+for (; i < n; ++i) {
     k = i + 1;
     for (j = 0; j < k; ++j)
         p[32 + 64*i + j] = q[4096 + 64*i + j];
@@ -18,7 +18,7 @@ for (i = 0; i < n; ++i) {
 
 拟提案在 `0<n<=64` 时交换遍历：`0<=j<n`，`j<=i<n`；实际点集是 `0<=i<n && 0<=j<i+1`。候选仍从不受信任 Loop／schedule 取得并重新核对，不由 guard 证明调度矩阵自动正确。最终恢复源公开 i／j／k；例如源最后 k 为 n，这项公开出口不能因候选不计算 k 而消失。n<=0 的源可以保留原空路径，不能只在候选中把 j 重置为零。
 
-一个设计层的实际 alias 反例是：同一 buffer 初始每个单元为其下标，n=3，p 指向第 4500 单元、q 指向第 499 单元。源给 p[65] 写 4660；无条件交换后会写 4723，因为列优先先改写了随后读取的单元。该逐点模型反例已核算；它尚未由新 Clight compiler 编译／验证，不能计入当前原生矩阵。源普通 p[0]／q[0] 读取和这六个迭代点均在 buffer 内，回退的必要性不依赖未定义源行为。
+一个设计层的实际 alias 反例是：同一 buffer 初始每个单元为其下标，n=3，p 指向第 4500 单元、q 指向第 499 单元。源给 p[97]（buffer 的第 4597 单元）写 4660；无条件交换后会写 4723，因为列优先先改写了随后读取的单元。该逐点反例现已由新 compiler 的完整 buffer 对照和实际机器写入顺序验证，见最新阶段记录。源普通 p[0]／q[0] 读取和这六个迭代点均在 buffer 内，回退的必要性不依赖未定义源行为。
 
 这个例子用于检验实际非矩形域、alias-sensitive body、候选对应与出口。它不是任意维 Presburger 源，也不代表已经取得收益或接受率。
 
@@ -42,7 +42,7 @@ for (i = 0; i < n; ++i) {
 
 [FirstBody](../adapters/compcert-memory/GuardMemoryParametricFirstBody.v) 从实际源执行取得第一个 body 及稳定寄存器 frame，要求两个入口 header 实际 active。[AffinePointerBody](../adapters/compcert-memory/GuardMemoryAffinePointerBody.v) 再利用已有 address／value 使用证书，从该 body 的实际求值取得 body-only 参数／标量的 word 类型。header-only 参数继续由原 `memory_parametric_source_words` 获取。条件何时可以读取这些参数，仍须由完整 source-derived D 的短路证明连接；这些 theorem 没有把所有入口 temps 无条件当作整数。
 
-[instruction candidate checker](../adapters/compcert-memory/GuardMemoryParametricInstructionChecker.v) 已推广为显式接受 source Loop；原 named-array 入口保留为旧模型的包装。新 pointer 模型使用相同 mapped-domain／dependence checker、width-model 和静态范围假设，不新增可信调度 oracle。[candidate transport](../adapters/compcert-memory/GuardMemoryAffinePointerCandidate.v) 在实际源足迹上 restrict，消费 candidate certificate，再 unrestrict 并调用原 Clight pointer backend，证明同一完整内存及公开出口恢复。这仍要求调用者提交模型执行、typed view、两套表示范围与 width 证据；尚未由新的 source package 自动组装。
+[instruction candidate checker](../adapters/compcert-memory/GuardMemoryParametricInstructionChecker.v) 已推广为显式接受 source Loop；原 named-array 入口保留为旧模型的包装。新 pointer 模型使用相同 mapped-domain／dependence checker、width-model 和静态范围假设，不新增可信调度 oracle。[candidate transport](../adapters/compcert-memory/GuardMemoryAffinePointerCandidate.v) 在实际源足迹上 restrict，消费 candidate certificate，再 unrestrict 并调用原 Clight pointer backend，证明同一完整内存及公开出口恢复。这仍要求调用者提交模型执行、typed view、两套表示范围与 width 证据；前一支持阶段尚未组装这些字段；新 source/candidate factory 现已从同一 package 和 guard 接受事实自动提供。
 
 [实际非矩形足迹](../adapters/compcert-memory/GuardMemoryAffineParameterPointerFootprint.v) 枚举 `0<=i<N && 0<=j<U(i,context)`，从源 Loop 执行取得这些单元的 capability，并证明地址几何可忽略 RHS 标量。[条件连接](../prototype/interface/ClightAffineParameterPointerEnvelope.v) 复用原包络条件编译器，证明机器检查安全完成及接受蕴含该实际足迹上的物理 non-alias，并提供主 `readonly_condition` 证书；D 及入口 word／range／receipt 义务仍由使用者提供。[三角域实例](../prototype/interface/ClightTrianglePointerEnvelope.v) 实例化 `U(i)=i+1`，以 `[N;N]` 覆盖实际点，允许观察向量的三个位置使用同一个 n。旧矩形实例也消费同一包络 pair／分离服务，原 qualified API 名称保留。
 
@@ -52,7 +52,7 @@ for (i = 0; i < n; ++i) {
 
 这里的算术 D 是存在真实有限正常源执行，没有 non-alias 或所有 temps 无条件为 word 的假设；它不是基于有限前缀处理无限源的服务。后继 [完整 source guard](research-checkpoint-2026-10-06-affine-pointer-alias.md) 已连接保留 prefix 的真实 pointer receipt、实际域包络和物理 non-alias，以及同一入口的源 Loop／公开出口。新固定 column 编码将静态 cap 代入 endpoint，不要求不存在的入口 count 寄存器；使用 `bound::geometry_parameters` 的实际观察和原 Clight signed 比较服务。六个新 fixture 核对完整条件编译、包络接受／拒绝、编码范围拒绝和缺少 pointers 的空路径提前拒绝。
 
-候选证书与 local rule 的组装、两套 candidate 表示范围、序列 placement、提取及新 Csem→Asm 入口仍未实现。normalized Clight fixture 的 checker 接受和空路径拒绝有 Rocq 证据，尚无新 C frontend／完整程序／原生执行证据。完整 guard 的 D 是有限正常源完成加源 receipt，producer 由真实 retained prefix 和 source 执行给出，不含 non-alias；这不算无限源宿主。当前审计入口 `make affine-pointer-alias-proof` 保留独立报告。
+前一完整条件阶段当时尚未实现候选和安装；后继 compiler 已关闭候选证书／两套范围／local contract／placement、提取、Csem→Asm 和新 C 原生证据。完整 guard 的 D 是有限正常源完成加源 receipt，producer 由真实 retained prefix 和 source 执行给出，不含 non-alias；这不算无限源宿主。当前审计入口 `make affine-pointer-alias-proof` 保留独立报告。
 
 前一支持阶段的 36 端点审计、原 compiler 审计／提取、direct/shared 两个旧路径配置共 752 次调用及准确产物摘要见 [记录](research-checkpoint-2026-10-06-affine-pointer-support.md)。后继 source package／分阶段条件的证明边界和验收见 [新记录](research-checkpoint-2026-10-06-affine-pointer-source.md)。旧原生结果验证重构兼容性，不是新的三角循环优化执行。
 
