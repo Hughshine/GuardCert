@@ -100,3 +100,5 @@ for (; i != *bound; ++i) *out = i + 2U;
 整体叙事是“小的语言无关 verified optimistic transformation 框架＋有实质算法与条件正确性证明的 CompCert 循环实例”。kernel 的组合定理较短，这不要求框架承担优化发现；贡献必须由实际可复用的证据处理服务、语言宿主和困难 optimizer 的接入共同证明。更广泛 conditional rewrite 作为接口实例；未实现的 vectorization、layout specialization 等不计 evaluated 能力。
 
 每次 P1／P2／P3 验收记录三方新写了什么、复用了什么、哪张证书尚缺。和 OLO／CoreJIT／Chamois／Peek 做同例对照后再判断增量；未取得的文献／artifact 能力保留未知。[10 月 6 日一手补核](related-work-interface-check-2026-10-06.md) 已确认 Chamois oracle 的 CFG／invariant 输出和实际 CFG expansion 模拟，以及 Peek 的局部证明、normalization 与 liveness 宿主；这些已有服务不能单独算作 GuardCert 增量。性能、证明负担和新颖性各有独立证据，不能从正确性计数互相推导。
+
+新的 [非矩形 source preparation](research-checkpoint-2026-10-06-affine-pointer-source.md) 进一步按这一责任划分实现：kernel 的 `sequence_readonly_conditions` 负责有依赖条件的组合；语言服务 `readonly_completed_tree_condition` 利用真实表达式确定性，把有限完成路径证据包装为 reachable-test 安全、完成及接受 sound；domain 负责 normalized 源／操作／范围 checker、header 和第一轮 body 的参数证据、范围／宽度阶段以及源 Loop／公开出口对应。当前 C_guard 的算术部分已经与 C_opt 的源对应连接到同一 package／入口，C_opt 的独立候选、C_derive 的该实例物理 non-alias、C_guard 的 prefix receipt 接入和 C_host 仍待组成完整规则。D 明确要求有限正常源完成，不据此声称处理无限源或依赖加载参数。

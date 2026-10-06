@@ -1,6 +1,8 @@
 """Audit affine-inner pointer proof support and the existing compiler regression.
 
 This is not evidence of a new nonrectangular source selector or compiler entry.
+--source-guard includes the checked source package and staged parameter checks;
+it still does not assert that a whole-program selector installs this package.
 """
 import argparse
 import json
@@ -33,11 +35,26 @@ DOMAIN = [
 COMPILER = "ClightObservedPointerCompiler.compile_realized_observed_pointer_correct"
 
 
-def main(rebuild=False):
+def main(rebuild=False, source_guard=False, output_dir=None):
+    global WORK
+    language, domain = list(LANGUAGE), list(DOMAIN)
+    if source_guard:
+        WORK = ROOT / "build/affine-pointer-source/proof"
+        language += ["prototype/interface/ClightReadonlyCompletedCondition.v"]
+        domain += [
+            "adapters/compcert-memory/GuardMemoryAffineInnerPointerSyntax.v",
+            "adapters/compcert-memory/GuardMemoryAffineInnerPointerSourceDomain.v",
+            "adapters/compcert-memory/GuardMemoryAffineInnerPointerRegionSource.v",
+            "prototype/interface/ClightAffinePointerGuard.v",
+            "prototype/interface/ClightAffinePointerSourcePreparation.v",
+            "prototype/interface/ClightAffinePointerGuardExamples.v",
+        ]
+    if output_dir is not None:
+        WORK = output_dir.resolve()
     WORK.mkdir(parents=True, exist_ok=True)
     common.WORK = WORK
     flags = common.flags()
-    selected = [ROOT / path for path in LANGUAGE + DOMAIN] + [
+    selected = [ROOT / path for path in language + domain] + [
         ROOT / "prototype/interface/ClightObservedPointerCompiler.v"]
     closure = common.compile_closure(flags, rebuild, entries=selected)
     inherited = json.loads((ROOT / "build/compcert-guardcert/.guard-build.json").read_text())["proof_sources"]
@@ -50,7 +67,7 @@ def main(rebuild=False):
         "TILING": "GuardMemoryVectorTiling.checked_memory_bounded_tiling_correct",
         "COMPILER_REGRESSION": COMPILER,
     }
-    for kind, paths in [("LANGUAGE", LANGUAGE), ("DOMAIN", DOMAIN)]:
+    for kind, paths in [("LANGUAGE", language), ("DOMAIN", domain)]:
         for path in paths:
             for theorem in re.findall(r"^Print Assumptions ([\w]+)\.", (ROOT / path).read_text(), re.MULTILINE):
                 queries[f"{kind}_{len(queries)}"] = f"{(ROOT / path).stem}.{theorem}"
@@ -80,7 +97,7 @@ def main(rebuild=False):
     endpoints = {queries[marker]: sorted(assumptions[marker]) for marker in queries
                  if marker.startswith(("LANGUAGE_", "DOMAIN_"))}
     report = {
-        "status": "compiled", "kind": "affine-inner-pointer-proof-support",
+        "status": "compiled", "kind": "affine-inner-pointer-source-and-staged-checks" if source_guard else "affine-inner-pointer-proof-support",
         "required_closure": closure,
         "sources": {path: sha(ROOT / path) for path in sorted(set(inherited) | set(closure))},
         "compiled_objects": {path: sha((ROOT / path).with_suffix(".vo")) for path in closure},
@@ -97,6 +114,12 @@ def main(rebuild=False):
         "covering_box_condition_encoding_and_nonalias": True,
         "mapped_candidate_certificate_and_actual_clight_lowering": True,
         "source_public_exit_restoration": True,
+        "checked_normalized_affine_inner_source_package": source_guard,
+        "source_derived_parameter_readiness": source_guard,
+        "staged_readonly_arithmetic_condition": source_guard,
+        "source_package_to_actual_loop_correspondence": source_guard,
+        "source_domain_requires_finite_normal_source_completion": source_guard,
+        "source_package_static_and_early_refusal_examples": source_guard,
         "affine_inner_pointer_source_selector_installed": False,
         "source_derived_complete_guard_domain": False,
         "affine_inner_pointer_whole_program_entrypoint": None,
@@ -116,5 +139,9 @@ def main(rebuild=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    from pathlib import Path
     parser.add_argument("--rebuild", action="store_true")
-    main(parser.parse_args().rebuild)
+    parser.add_argument("--source-guard", action="store_true")
+    parser.add_argument("--output-dir", type=Path)
+    arguments = parser.parse_args()
+    main(arguments.rebuild, arguments.source_guard, arguments.output_dir)

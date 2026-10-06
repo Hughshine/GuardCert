@@ -1,6 +1,6 @@
 # 下一项：实际非矩形 pointer 源域
 
-这是非矩形 pointer 接入的活动设计与验收。局部证明设施已实现，尚未形成新的完整编译入口。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型仍是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer compiler。共享 fallback 只改变最终控制实现，没有扩大这个域。
+这是非矩形 pointer 接入的活动设计与验收。局部证明设施、受核对的源 package 与分阶段算术条件已实现，尚未形成新的完整编译入口。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型仍是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer compiler。共享 fallback 只改变最终控制实现，没有扩大这个域。
 
 ## 一个确定的切口
 
@@ -46,9 +46,13 @@ for (i = 0; i < n; ++i) {
 
 [实际非矩形足迹](../adapters/compcert-memory/GuardMemoryAffineParameterPointerFootprint.v) 枚举 `0<=i<N && 0<=j<U(i,context)`，从源 Loop 执行取得这些单元的 capability，并证明地址几何可忽略 RHS 标量。[条件连接](../prototype/interface/ClightAffineParameterPointerEnvelope.v) 复用原包络条件编译器，证明机器检查安全完成及接受蕴含该实际足迹上的物理 non-alias，并提供主 `readonly_condition` 证书；D 及入口 word／range／receipt 义务仍由使用者提供。[三角域实例](../prototype/interface/ClightTrianglePointerEnvelope.v) 实例化 `U(i)=i+1`，以 `[N;N]` 覆盖实际点，允许观察向量的三个位置使用同一个 n。旧矩形实例也消费同一包络 pair／分离服务，原 qualified API 名称保留。
 
-这些是经过编译的局部证明设施，审计入口为 `make affine-pointer-domain-proof`。新的 normalized source matcher、完整 D／guard certificate、候选证书与 package 的组装、序列 placement 和新 Csem→Asm 入口尚未实现，不把当前证明支持计作可运行的非矩形 pointer pass。
+上述局部支持的原审计入口为 `make affine-pointer-domain-proof`。后继已经实现 [AffineInnerPointerSyntax](../adapters/compcert-memory/GuardMemoryAffineInnerPointerSyntax.v)：检查真实 normalized 源／outer／body AST、六组控制 freshness、稳定参数隔离、几何／标量用途、pointer 覆盖、地址范围和 header／完整 context 的一致 encoding。范围和 body-only 几何列表可以由不受信任的使用者提出；checker 逐项核对，不把提案当作证书。新模块使用 `AffineInner` 名称区分旧一维 affine-access API，旧 API 保留。
 
-本阶段的 36 端点审计、原 compiler 当前审计／提取、direct/shared 两个旧路径配置共 752 次调用及准确产物摘要见 [记录](research-checkpoint-2026-10-06-affine-pointer-support.md)。这些原生结果验证重构兼容性，不是新的三角循环优化执行。
+[SourceDomain](../adapters/compcert-memory/GuardMemoryAffineInnerPointerSourceDomain.v) 从真实源正常完成执行生产参数读取证据；[Guard](../prototype/interface/ClightAffinePointerGuard.v) 按 row／N、header 参数范围、活动宽度、body 参数范围的顺序生成 `readonly_condition`，实际消费 kernel 的条件组合服务。body-only 几何参数只在证明第一轮 body active 后才能检查；RHS 标量从该 body 获得类型，但不强制非负。[SourcePreparation](../prototype/interface/ClightAffinePointerSourcePreparation.v) 已将同一 package、同一入口的条件接受接到真实 pointer 源 Loop 执行和精确公开 i／j／k 出口。审计入口为 `make affine-pointer-source-proof`。
+
+这里的算术 D 是存在真实有限正常源执行，没有 non-alias 或所有 temps 无条件为 word 的假设；它不是基于有限前缀处理无限源的服务。完整 pointer receipt／alias 条件、候选证书与 local rule 的组装、序列 placement、提取及新 Csem→Asm 入口仍未实现。normalized Clight fixture 的 checker 接受和空路径拒绝有 Rocq 证据，尚无新 C frontend／完整程序／原生执行证据。
+
+前一支持阶段的 36 端点审计、原 compiler 审计／提取、direct/shared 两个旧路径配置共 752 次调用及准确产物摘要见 [记录](research-checkpoint-2026-10-06-affine-pointer-support.md)。后继 source package／分阶段条件的证明边界和验收见 [新记录](research-checkpoint-2026-10-06-affine-pointer-source.md)。旧原生结果验证重构兼容性，不是新的三角循环优化执行。
 
 ## 不能把包络当成安全扫描域
 

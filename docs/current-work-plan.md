@@ -34,9 +34,13 @@ P3 后继的 [源观察与 alias 包络](source-observed-affine-separation.md) �
 
 下一阶段的具体非矩形 pointer 切口、三方义务、包络与安全扫描的区别及验收见 [affine pointer 域计划](affine-pointer-domain-next.md)。先关闭真实域／候选对应和非空符号接受，再扩依赖 preload；不把 bounding box 当作源权限覆盖的扫描域。
 
-非矩形 pointer 接入目前完成的是局部证明支持：语言的 framed source decode／实际 first-body frame；domain 的 `[i;j]++entry_context` Loop、实际 pointer 源对应、ragged footprint／capability／包络覆盖；原 candidate checker 的显式源模型接口，以及候选 Clight lowering 与公开 affine 出口恢复。核心未改，原矩形包络实例复用同一 pair compiler／物理分离服务。新的 source matcher、完整 source-derived D、实际 readonly condition／local rule 的 package 组装和程序安装继续排在下一步。这里最难的剩余项是按实际活动路径安排参数读取，把类型、范围、观察 receipt 和候选证据全部绑定同一个入口；之后再验收非空接受、真实 alias 回退和完整 C。局部 lemma、现有 compiler 的重编译回归或旧原生结果均不计新 pass 完成。
+非矩形 pointer 接入的前一阶段交付局部证明支持：语言的 framed source decode／实际 first-body frame；domain 的 `[i;j]++entry_context` Loop、实际 pointer 源对应、ragged footprint／capability／包络覆盖；原 candidate checker 的显式源模型接口，以及候选 Clight lowering 与公开 affine 出口恢复。核心未改，原矩形包络实例复用同一 pair compiler／物理分离服务。
 
 该支持阶段通过 36 端点／515 项实际依赖审计；原 compiler 经当前 81 端点审计、重新提取与两模式各一配置的 376 次调用回归，见 [新记录](research-checkpoint-2026-10-06-affine-pointer-support.md)。候选运输与条件支持已有具体三角域实例，尚未由新 package 组装。全十五配置没有重跑，新 pass 没有原生运行；此前 `f144d45` 的完整矩阵继续是冻结历史证据。计划与 goal 保持未完成。
+
+后继 [源 package 与条件阶段](research-checkpoint-2026-10-06-affine-pointer-source.md) 已实现 normalized AST／元数据 checker，并从真实源有限正常执行取得 header／body 参数读取证据；按 row／N、header range、width、body range 组织 readonly condition，消费 kernel 的组合服务。其实际接受已经接到同一 package 的 pointer 源 Loop 执行和精确公开出口；旧一维 affine-access API 保留。Clight fixture 证明接受，以及破坏增量、窗口、pointer 覆盖、未使用几何的拒绝；n=0 的实际 decision_run 不读取未定义 body 参数。
+
+下一项的最难义务收紧为：把保留 prefix 的真实 pointer receipt、实际域包络／non-alias、两套 candidate 表示范围与独立候选 certificate 接到该同一入口，组成可安装的 local rule；随后证明新控制形状的 sequence progress／placement，得到新 Csem→Asm、提取及非空接受／真实 alias 回退。当前算术 D 使用有限正常源完成，不算任意无限源／loaded bounds 的前缀证据。新非矩形 C frontend／原生执行仍没有，旧原生结果不计新 pass。贡献继续按三方责任与四张证书核对，不因源 checker 或条件证书闭合而完成 goal。
 
 ## 每个阶段固定记录什么
 

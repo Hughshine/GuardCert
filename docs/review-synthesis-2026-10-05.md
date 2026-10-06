@@ -100,3 +100,9 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch 三分支，SHA 仍保持上述值，没有新增评审文本。新 [支持阶段](research-checkpoint-2026-10-06-affine-pointer-support.md) 继续按 narrative 区分工作归属：kernel 未改；语言服务提供实际 counted-loop stable frame、first-body 到达和公开出口；domain 负责 ragged 点集、真实 pointer 源／模型对应、实际 footprint 覆盖与条件推导，candidate checker 继续独立核对域／依赖。36 端点审计和原 compiler 重提取的两模式 752 次调用回归通过。
 
 最难的剩余义务已落实到下一项验收：源定位器必须按两个实际 active header 安排 body-only 参数读取，完整生产 D 并将 view、范围、receipt、候选 certificate 和 restore 绑定同一个真实入口，随后完成程序安装。局部 readonly certificate 已可消费调用者给出的 D，不能据此宣称自动安全域提取。原运行路径的回归不计新非矩形 pass 运行；性能、同例作者负担和依赖 preload 仍开放。没有新增 novelty 结论。
+
+## 10 月 6 日：源 package 与分阶段参数检查
+
+再次 fetch 后三分支仍为上述 SHA。按 topdown narrative 实现的 [后继阶段](research-checkpoint-2026-10-06-affine-pointer-source.md) 将一部分高难义务变为可消费证书：真实 normalized 源／元数据 checker；从有限正常源执行生产参数类型；用 framework 的条件组合先检查 header／width，再检查 body-only 参数；实际接受接到同一入口的源 Loop 与公开 i／j／k 出口。语言 completed-path 包装、domain source/model 证明、kernel sequencing 各自有源码端点，不把优化假设推导交给 kernel。
+
+尚未关闭的重点是 prefix receipt 与物理 alias 条件的实例连接、独立 candidate 及两个表示范围、source progress／全程序 host、提取和新 C 原生接受／回退。当前源 package 的 Clight fixture 检查不算 frontend 或机器运行；算术 D 的 completed-source 义务不等于有限前缀或无限行为支持。下一计划按这些缺口推进，论文不增加性能、新颖性或作者负担收益主张。
