@@ -1,6 +1,8 @@
 # 当前工作计划：评审吸收后的验收顺序
 
-2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架处理条件证据、局部 reasoning 和完整程序安装。完整目标没有因阶段结果而完成。
+2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
+
+最新交付是 [private bound snapshot](research-checkpoint-2026-10-06-affine-private-loaded.md)：原源没有公开 bound 快照时，安全私有读取、original-entry／public frame、真实 source-key 安装、提取和两类 affine 域运行已通过。以下阶段保留各自历史范围；当前未完成项以文末 private snapshot 后继验收为准。
 
 本计划吸收 [三个分支的评审](review-synthesis-2026-10-05.md)。既有研究路线保留在 [contribution-plan.md](contribution-plan.md)，当前执行优先级以下表为准。
 
@@ -128,3 +130,18 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 4. 扩展一般深层 affine 源／复杂 body 和不同 body base 的物理 alias 条件；当前新运行矩阵是独立 bound 的三角源，不与旧两域矩阵混称。
 
 旧两个 native validator 的绑定复核通过，矩阵未重执行。narrative 仍为 `7d94d81`，本地正文与再次 fetched 分支一致，另两个评审分支也无新增。完整 goal active。
+
+## Private snapshot：原 source scope 与两类 affine 源已验收
+
+[新阶段](research-checkpoint-2026-10-06-affine-private-loaded.md)关闭上一列表的第一项：语言 preparation 桥由原 source 的实际首次 header 取得 typed read，在原入口安全插入一个 fresh private cache；只用 public agreement 运输执行，消费 prepared source 的扩展 scope 契约后收回原 scope。真正原 source 仍为安装 key，原 host 的 source progress 保持，不要求使用者另证中间源 progress。新的 domain adapter 委托整个既有 planned-loaded factory，没有重证条件／候选或修改 kernel。
+
+审计 140 端点／43 语言端点／592 依赖／936 source 摘要，提取和三角域、`j<2*i+1` 各六配置共 444 次新入口调用通过。74 次旧入口同源对照确认其静态不安装；28 个机器探针含两个旧入口对照。新增实际 bound cache 私有，公开 marker 始终为 123；写中 bound 的源提前停止和只有第一行合法的短数组得到保持。旧三套矩阵只绑定复核，不计入新验收。仍需源已有 body-pointer receipts，当前功能不包括依赖 dereference。
+
+当前后继优先顺序：
+
+1. **多个依赖 header 读取。** 以 `i<**pp` 这类真实源为切口，语言从实际 header 分别提供 pointer-cell 和 bound-cell receipt；domain 证明两种 chunk 的 byte footprint 排除、正结果之后才安全推进的源前缀，以及接受后两次观察的保持。原复合 header fallback 必须保留。private capture 的运输桥继续复用，不能把已有单个 `Mint32` 不等比较推广为 `Mint64`／`Mint32` 不重叠。
+2. **guard 大小与成本。** 按 cap 展开仍产生约 12,500 个 if；实现 scan 循环化或经证书的符号足迹，继续独立 P4 测量。公开 AST 文本、最终机器大小、编译成本和执行成本分开报告；当前没有性能收益结论。
+3. **主 domain 表达力。** 一般深层 affine 源、复杂 body、多参数／布局组合及不同 body base 的物理 alias 接受。两个实际 affine 域是本次表达力证据，但不代表任意多面体已迁移完成。
+4. **同例责任与已有工作比较。** 用当前私有读取／前缀安全例检查 OLO、Chamois、Peek／COVE、CoreJIT 的条件、语言、安装义务；记录真正复用的 certificate 链，尚不主张 total proof burden 或 novelty 收益。
+
+沿 narrative `7d94d81`，上述读取／条件推导留在语言和 domain 库，kernel 仍只组合局部证书；host 负责 progress／context 安装。guarantee/requirement clause API、第二 IR 或新 kernel 能力只有实际接入受阻时才推进。完整 goal active。

@@ -171,3 +171,11 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 按最新澄清完成的 [顺序 plan 阶段](research-checkpoint-2026-10-06-affine-planned-loaded.md)把检查结构、private Boolean 初始化／frame／分派放在 Clight 库，domain 只追加 plan 与已认证 guard 的规格对应，复用其 C_guard／coverage／候选 certificate；原 host 提供新 Csem→Asm。最小 kernel 和 proof responsibility 边界保持。实际提取、六配置 222 调用与十三个机器探针关闭此前独立 bound 的运行缺口；小数组例子的机器探针记录拒绝后停止地址比较，默认 64×64 cap 也实际安装／执行。
 
 当前计划已转到 private snapshot 的安全读取和 original-entry／public frame、多个依赖 preload，以及 guard 循环化／一般深层 affine 源。默认 cap 的实际 AST 仍很大，body alias 快捷条件仍保守同-base；没有把结构改善当作性能收益、总作者负担下降或相对已有工作的新颖性证明。旧两套 native 矩阵仅绑定复核，历史意见按固定 SHA 保留。完整 goal active。
+
+## Private capture：用一次实际接入检验 kernel 截止
+
+再次 fetch，三个评审 SHA 仍与上一节一致，paper narrative 与远端字节一致。按 `7d94d81` 澄清完成的 [新阶段](research-checkpoint-2026-10-06-affine-private-loaded.md)没有重排或扩展 kernel：safe preparation／original-entry／public-scope 运输由 Clight 库提供，domain wrapper 委托既有完整条件／候选 factory，程序安装继续由语言 host 证明。原 source 的实际首次 header 许可 private bound capture，私有初值可以任意；host 不要求准备后的中间源额外有 progress，rewrite key 也没有换成中间源。
+
+两类实际无 bound 快照的 affine 源完成 140 端点审计、同一编译器提取、六配置各 37 输入共 444 次新入口调用和 28 个机器探针（含两个旧入口对照）；74 次旧入口同源对照确认“不安装→能安装”的实际 frontend 差异。公开 marker 保持、写中 bound 提前停止、危险未来 row 检查跳过均有机器证据。旧三套矩阵仅绑定复查。责任区分因此有实际消费证据，但不据此推出总作者负担下降或 novelty。
+
+当前计划将单个 direct private snapshot 标记验收，依赖 header 读取的合法顺序／不同 chunk byte footprint、循环化 guard、一般 affine 源、P4 和同例已有工作比较继续未完成。新增 preparation 桥不会自动证明 `**pp` 的 pointer 与 bound 稳定性；继续由语言／domain discharge，只有真正不可表达的义务才调整 kernel。完整 goal active。
