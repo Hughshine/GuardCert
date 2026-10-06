@@ -1,5 +1,7 @@
 # 依赖 header：checked affine package 到完整局部候选链
 
+后继 [dependent compiler 与完整 C 验收](research-checkpoint-2026-10-06-dependent-compiler.md)已关闭本文下一验收中的 source factory、captures／typed pool／入口 producer、plan／host／Csem→Asm、提取及两类 C 运行缺口。本文保留本阶段的 29 个局部端点和原历史范围；不将后继结果混入本文冻结 report。
+
 本阶段接续 `89fc68b` 的[双观察服务](research-checkpoint-2026-10-06-dependent-header.md)。原来的泛型 prefix／缓存运输要求实例提供 HEADER、DECODE、WIDTH、PERMISSIONS 与 scan coverage；这里已经用真正 checked affine package 填入这些义务，并连接 preparation、完整稳定性检查和既有 candidate certificate。最小 kernel、原 checker、旧 compiler 和提取入口没有修改。
 
 新的局部定理针对实际 Clight 的 `i<**pp` 源和实际生成的候选 statement：接受时沿证明链执行候选，拒绝时执行原复合 header 源，最终 memory 相同、公开 temps 按 live 集合保持。**尚未完成新 source matcher／factory、typed private pool、capture 后入口 producer、全程序安装、提取和原生执行。** 泛型 callback 的实例连接已关闭，不把这项进展扩大为完整 dependent compiler。

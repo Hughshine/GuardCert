@@ -165,3 +165,18 @@ guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和�
 仍未关闭 factory 和完整入口。当前优先：原 compound AST matcher／source key；在真实 prefix 后捕获两项 private observation 并生产上述入口域；pointer／integer／Boolean／counter 的 typed fresh pool；保留顺序 continuation 的 plan lowering；实际 host 消费新 progress selector 并接 Csem→Asm。完成后单独提取、运行合法完整 C 接受／回退／上下文；不将本轮局部 theorem 或 inherited private compiler 回归算作 dependent native 结果。
 
 已证明的 generic callbacks 不再列为该 checked package 的未知项；capture domain producer、语言安装和实际运行仍明确保留。一般 pointer-store body、循环化 guard、主 domain 扩展、P4 与同例已有工作比较继续后继验收。完整 goal active。
+
+## Dependent compiler：原源安装、提取和完整 C 已验收
+
+[最新阶段](research-checkpoint-2026-10-06-dependent-compiler.md)关闭上一节的实际接入义务。matcher 对真正 `**root` normalized AST 核对类型和增量，内部 cached model 消费同一 checked affine package；原源保留为安装 key。safe captures 后的入口 producer 从实际 prefix／首次 header 取得 pointer、bound 和 body receipts。19-slot private pool 区分 pointer cache、integer bound、Boolean 和 counters；顺序 plan 与原完整 condition 精确对应，实际 host 消费不预置稳定性的 source progress，并接到新的 Csem→Asm 定理。
+
+九个新模块、40 端点／531 依赖／961 源摘要审计和提取通过，完整 compiler 沿原 42 项假设基线。三角域和 `j<2*i+1` 各六配置共 444 次新入口调用、28 个 store-order 机器探针通过；74 次旧入口同源对照另记，不安装变换。实际 guard 接受进入 reordered candidate；bound 改写、body alias、cap 拒绝保留原 compound-load 源与公开出口。小数组检查输出和 store order；本轮没有独立机器 comparison-order 观测，不扩大为此项证据。
+
+当前后继优先级：
+
+1. **Guard 扫描成本。** 默认 64×64 cap 的实际完整 Clight 函数已增长为 20,710／20,711 个 if，打印体约 13 MB。优先实现循环化或经证书的符号足迹；复用当前安全／观察保持／candidate 链，再核对私有 cursor、进展、短路、frame 和实际分派。语言与 domain 库承担这些义务，除非出现真正无法表达的语义责任，不改 kernel。
+2. **主 domain 表达力。** 推广一般深层 affine 源、复杂 body、多参数／布局和不同 body base 的物理 alias 接受。当前 body 仍是 Mint32 操作，保留源 body-pointer receipts；两级 header 不代表任意 dependent preload 或 typed pointer stores 都已支持。
+3. **合法 pointer-cell 变化。** 设计实际 pointer-store body／source correspondence 和双观察拒绝例；不能把 Mint32 覆盖 Mptr 后半的 memory fixture 当作合法 C benchmark。
+4. **实证与比较。** 继续 P4 的 guard／代码／编译／执行成本和同版 CompCert 对照；用同一 source／condition／candidate 比较 OLO、Chamois、Peek／COVE、CoreJIT 的责任与作者负担，不将 444 次调用当作 generality／novelty 或 profitability 证据。
+
+本阶段再次 fetch 后 narrative 仍为 `7d94d81`，本地正文与远端一致；其最小 kernel 截止继续是局部 guarded correctness。condition processing／prefix 是库，language host 提供完整程序安装，domain 提供模型义务及条件推导。没有按文档边界重排文件或新增 kernel API。完整 goal active。

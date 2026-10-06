@@ -99,6 +99,21 @@ interface-pointer-realization-direct:
 .PHONY: affine-private-loaded-proof affine-private-loaded-native affine-private-loaded-validate
 .PHONY: affine-dependent-loaded-proof
 .PHONY: affine-dependent-joint-proof
+.PHONY: affine-dependent-compiler-proof affine-dependent-compiler-native affine-dependent-compiler-validate
+affine-dependent-compiler-proof:
+	python3 scripts/audit_affine_dependent_compiler.py
+
+affine-dependent-compiler-native: affine-dependent-compiler-proof
+	python3 scripts/build_affine_dependent.py > build/affine-dependent-compiler/build.log 2>&1
+	python3 scripts/native_affine_dependent.py
+	python3 scripts/validate_affine_dependent.py
+	python3 scripts/native_affine_dependent.py --ragged
+	python3 scripts/validate_affine_dependent.py --ragged
+
+affine-dependent-compiler-validate:
+	python3 scripts/validate_affine_dependent.py
+	python3 scripts/validate_affine_dependent.py --ragged
+
 affine-dependent-joint-proof:
 	python3 scripts/audit_affine_dependent_joint.py
 

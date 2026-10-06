@@ -191,3 +191,11 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 再次 fetch 后三分支仍是 `7d94d81`、`9673381`、`3e9f008`，本地 paper narrative 与远端正文一致。[后继局部链](research-checkpoint-2026-10-06-dependent-joint.md)用实际 checked affine package 填完多观察 prefix／cache 的 header、body decode、word／permission 和 cap coverage 义务；从首次真实 header/body 生产 preparation evidence，组合双观察 scan 与旧候选 guard，再证明实际 candidate／原 source 分派的 memory／public-temp 保持。七个新模块、29 端点审计通过，最小 kernel／原 checker 保持。
 
 此前“generic callbacks 未落实”的问题在该实例关闭，仍不将其当成 framework 免费提供的能力。计划继续追踪 source matcher／factory、typed private pool、capture domain producer 与 whole-program 安装／提取／运行；旧 private-loaded compiler 回归保持原 42 项基线。当前没有 dependent native、性能或作者证明负担减少的证据，完整 goal active。
+
+## Narrative 澄清：在实际 compiler 接入中落实
+
+再次 fetch 三个评审分支，仍为 `7d94d810685a691efbf07df734f5fad8abfb4724`、`9673381676e18ed0afbc6114e0a62bea9c48002c`、`3e9f0080def8c029cceedbd35184b4de7b8b96bc`。核对最新 narrative commit 的十五行澄清，本地正文相同：最小 kernel 只到局部 guarded correctness；readonly 前台／条件处理／prefix scan 是上层库；整程序安装由具体 language／IR host 提供。它明确不要求立即重排文件，只在真实实例无法表达义务时讨论 kernel 变化。
+
+已吸收到 [dependent compiler](research-checkpoint-2026-10-06-dependent-compiler.md)和当前后继计划：language 层负责 actual-header 安全 captures、私有运输、typed pool、progress 和安装；domain 负责 exact source／checked model、两项观察的 footprint 保持、条件 plan 对应及候选 checker；最小 kernel 不变。九个模块、40 端点审计、新 Csem→Asm、提取、444 次新入口调用及 28 store-order 探针关闭上一阶段的完整接入缺口，仍不主张 generic assumption extraction、自动 contextual closure 或 proof burden 收益。
+
+按评审的 evidence-to-claim 要求，原 29 个局部端点与本次 compiler／native 报告各自保留。两个实际域不是 arbitrary polyhedral 覆盖；pointer-cell memory 反例不是 defined C loop，短数组 store probe 不是 guard comparison-order probe。默认 cap 的约 20,700 个 if 明确进入下一优先验收；循环化／符号扫描、一般 domain、合法 pointer stores、P4 和同例 related-work 比较继续 active。
