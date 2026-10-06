@@ -109,3 +109,6 @@ guard 因而采用与 candidate counters 不同的两个私有 cursor，实际 p
 最新 `7d94d81` 再次明确 kernel 止于局部 guarded correctness，condition
 processing 和 prefix 库在它之上。以上新增执行／资源服务正按该边界实现；
 一般控制出口、较弱 memory relation 和跨 IR 契约仍待真实案例检验。
+
+
+[Materialized affine check](clight-materialized-check.md)又提供一个具体 host 差异：正常返回的 private Boolean 可以在 check body 内先写后读，旧 break-refusal host 的 result-fresh 约束不适用。新的 host 证明同一抽象 `select_exact`，library 把 guard execution／protected ports 转为安全和 all-completed sound certificate；actual optimizer 使用原入口 premise 的 cross-entry candidate-local。投影到原 `projected_region_contract` 后，既有 progress／scope／pool／whole-program 安装继续复用。这个差异需要语言表示和状态运输，没有要求 kernel 或 guarantee/requirement API 改造。

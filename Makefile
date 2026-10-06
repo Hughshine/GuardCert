@@ -121,6 +121,24 @@ native-affine-cursor-dependent-ragged: affine-cursor-dependent-compiler
 	python3 scripts/validate_affine_cursor_dependent.py --ragged
 	python3 scripts/probe_affine_cursor_dependent.py --ragged
 
+.PHONY: affine-nest-materialized-proof affine-nest-materialized-compiler native-affine-nest-materialized affine-nest-materialized-validate affine-nest-materialized-cursor-regression
+affine-nest-materialized-proof:
+	python3 scripts/audit_affine_nest_materialized.py
+
+affine-nest-materialized-compiler: affine-nest-materialized-proof
+	python3 scripts/build_affine_nest_materialized.py > build/affine-nest-materialized/build.log 2>&1
+
+native-affine-nest-materialized: affine-nest-materialized-compiler
+	python3 scripts/native_affine_nest_materialized.py
+	python3 scripts/probe_affine_nest_materialized.py
+	python3 scripts/validate_affine_nest_materialized.py
+
+affine-nest-materialized-validate:
+	python3 scripts/validate_affine_nest_materialized.py
+
+affine-nest-materialized-cursor-regression:
+	python3 scripts/audit_cursor_after_shared_rebuild.py
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 

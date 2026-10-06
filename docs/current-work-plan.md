@@ -2,7 +2,9 @@
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
-最新可运行交付是 [循环化 dependent guard compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)：真实 `**root` 源的两个 private captures、双观察稳定性、mapped／tiling／schedule 候选和 original fallback 已完整安装；实际 guard 改为两个短路私有 cursor 循环。43 个新证明端点、提取、两类 affine 域共 444 调用，以及 store-order／guard comparison-order 探针均通过。默认 cap 的完整函数从约 13 MB 的 Clight 打印体降到约 25 KB，机器函数大小也已单独核对；没有性能收益结论。以下阶段保留各自历史范围，当前未完成项以文末循环化阶段的验收为准。
+前一可运行交付是 [循环化 dependent guard compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)：真实 `**root` 源的两个 private captures、双观察稳定性、mapped／tiling／schedule 候选和 original fallback 已完整安装；实际 guard 改为两个短路私有 cursor 循环。43 个新证明端点、提取、两类 affine 域共 444 调用，以及 store-order／guard comparison-order 探针均通过。默认 cap 的完整函数从约 13 MB 的 Clight 打印体降到约 25 KB，机器函数大小也已单独核对；没有性能收益结论。以下阶段保留各自历史范围，当前未完成项以文末最新接入阶段的验收为准。
+
+最新可运行交付是 [deep affine 接入当前证书接口](research-checkpoint-2026-10-06-materialized-affine.md)：复用已有递归 canonical 源／模型和候选 checker，Clight 新增正常返回的 private Boolean host；单／多指针使用者消费当前 kernel，并接实际 Csem→Asm、提取、十二配置共 5,118 次新 assembly 调用及四组独立 Clight 插桩。26 端点／462 依赖／982 源摘要审计通过，kernel 不变。旧 source IR 和多指针物理 scan 不是本次新增算法；stable-temp 深层域与两层 loaded/dependent 路线尚未组合。共享 `.vo` 重编导致旧冻结 cursor 对象绑定失配，当前消费者独立重编／535 依赖审计通过，原 42 项假设保持；152 个对象摘要已不同，不把旧 validator 称为通过。
 
 本计划吸收 [三个分支的评审](review-synthesis-2026-10-05.md)。既有研究路线保留在 [contribution-plan.md](contribution-plan.md)，当前执行优先级以下表为准。
 
@@ -201,9 +203,17 @@ guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和�
 
 当前后继优先级：
 
-1. **主 domain 表达力。** 从现有两层 affine package 推广一般深层源、多参数／布局和复杂读写 body；逐项证明实际源/model 对应、guard 覆盖及候选 lowering。两个 affine 域的调用数不代替这一验收。
-2. **更广物理 alias 与依赖读取。** 支持不同 body bases 的非空接受域，落实真实 typed pointer-store body 的 source correspondence／双观察拒绝；当前 Mint32 写操作不能冒充合法 pointer-cell 改写。
+1. **主 domain 表达力。** 先把已有 `prototype/affine-nest/` 的递归 canonical 源、多参数和真实多指针 body 接入当前 kernel。该 IR／源对应／候选检查器已存在，不能重新包装成新算法。然后逐项检验深层 stable-temp 域与 memory-loaded／依赖读取的组合、一般域限制和复杂 body；已有两个 affine 域的调用数不代替这些验收。
+2. **物理 alias 与依赖读取的组合。** 已有 affine-nest 多指针扫描可按真实访问点接受不同 blocks，或同一存储的分离 views。需要把它与 loaded-bound／多观察稳定性路线组合，并落实真实 typed pointer-store body 的 source correspondence／双观察拒绝；Mint32 写操作不能冒充合法 pointer-cell 改写。
 3. **P4 独立计时。** 现在有紧凑的实际 compiler，可以按已有 schema 测同版原 CompCert、接受／回退／静态拒绝的 guard 与完整运行成本、编译成本和批次环境。无并发构建时测量，负收益照实报告；代码大小已经核对但不替代计时。
 4. **同例责任与已有工作。** 用同一 source／candidate／condition 梳理 OLO、Chamois、Peek／COVE、CoreJIT 的 guard 安全、`B⇒A`、状态和 host 义务；记录本次真实复用的旧证书和新的 language/domain 证明，不主张 total proof burden 或 novelty 收益。
 
 再次读取 narrative `7d94d81` 的 cutoff 澄清：最小 kernel 只组合局部证书；条件处理库可复用，语言安装必须有实际定理及具体 site 证据。新 cursor 工作正是核上库和具体实例，没有借机重排接口。guarantee/requirement clause API 和第二 IR 仍由实际受阻案例驱动，完整 goal active。
+
+## 递归 affine 的当前 kernel 接入
+
+[本阶段](research-checkpoint-2026-10-06-materialized-affine.md)将已有 normal-returning affine guard 接入当前 `guard_host`／`guard_certificate`／`preservation_certificate`。语言库证明 actual check、primitive safety、全部完成检查 sound、原入口前提和 checked-entry 运输；domain 直接消费旧 guard execution／candidate-local，factory 核对实际语法与候选，原 table host 接到新的 Csem→Asm。没有调用旧 stateful region theorem 作为新局部 correctness，也没有修改 kernel。
+
+六个新 `.v`、26 端点审计和提取通过。单／多指针的交换和 2×3 tiling 实际安装，错误 reindex／domain 和资源限制拒绝；十二配置共 5,118 次新 assembly 调用核对完整数组与公开出口。四组 actual emitted Clight 插桩另核对 1,366 调用的接受／fallback、共享存储的分离访问、重叠拒绝和 undefined 参数零读取；不是新的机器路径证据。前阶段及旧 deep 的 source/native 报告保持历史范围。
+
+后继顺序据源码核对修正：先明确 stable-temp 深层实例与 loaded/dependent 实例能够共享的 source／前提／候选接口，再处理实际阻碍组合的 memory-bound 语义；多指针 scan 已在 stable-temp 路线接入，下一项是与 header/多观察稳定性的物理分离组合。一般 source 域形状、typed pointer-store body、P4 独立计时和同例已有工作／作者责任比较仍未完成。新实例的三方分工沿 narrative `7d94d81`，不以 code wrapping、端点数或测试次数主张新颖性或作者负担下降。完整 goal active。

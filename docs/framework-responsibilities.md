@@ -166,3 +166,8 @@ for (; i != *bound; ++i) *out = i + 2U;
 [完整 cursor compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)已关闭该具体 package 的这些调用义务。Clight 库提供双 cursor 执行、private/public frame 和前置／扫描／后置的实际短路分派；domain 将其精确绑定原完整条件和已有 source-prefix coverage。有限资源 checker 从实际模板证明输入不与 cursors 冲突，factory／语言 pool 生产并消费证据；原 preparation、候选证书、source progress 与 whole-program host 保持。guard cursors 与候选 counters 分开，需要 21 个 typed private slots；这属于真实状态运输义务，不是新 kernel 能力或最小资源证明。
 
 43 新端点、提取、两个 C 域共 444 调用、28 store-order 与 18 guard comparison 探针通过。后者在实际机器指令上核对源点顺序和拒绝后停止。默认 caps 的展开代码增长已在这两个 compiler 使用者中关闭，Clight／linked 函数大小分别报告；没有性能、一般多面体覆盖或作者负担收益结论。当前仍是 silent normal region、实际 body-pointer receipts 和 Mint32 operations 的具体 host/domain 范围。kernel 截止、语言安装与 optimizer/site evidence 的边界继续按 narrative `7d94d81` 明确保留。
+
+
+[Deep affine 的当前接口接入](research-checkpoint-2026-10-06-materialized-affine.md)进一步检验这条边界：已有 guard 正常返回并在 private temp 中写/read Boolean，不能直接作为 result-fresh／break-refusal scan。新的 Clight library 提供实际执行、primitive safety、defined dispatch、全部完成执行 sound 和原入口／checked-entry 运输；domain 提供原源 quiet／writes、实际 guard execution、足迹／范围及 conditional candidate-local。两类实际 factory 消费同一语言服务，kernel 使用 `guardify_preservation`，原 table host 另证程序安装。六个新模块／26 端点、提取、5,118 次 assembly 调用和四组独立 Clight 插桩通过；没有把旧递归 IR、旧 source/candidate checker 或库参数算作新功能。
+
+本实例的 source domain 仍是有限正常完成；actual select 的有限执行分解不要求所选分支完成，但该 host 不因此获得任意 divergence 定理。Stable-temp 深层域与两层 loaded/dependent 源尚未组合；新 alias scan 复用旧多指针能力，typed pointer stores／general source domains、P4 和同例责任／负担比较仍待交付。共享 proof 对象重编后的旧 cursor 精确摘要验证失败另记，当前 proof regression 不改写旧 frozen/native 报告。

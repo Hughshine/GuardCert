@@ -1,6 +1,10 @@
 # Guard：带前提的程序变换与组合证明
 
-[最新循环化 dependent guard compiler](docs/research-checkpoint-2026-10-06-cursor-dependent-compiler.md)已把完整双观察扫描降低为两个实际私有 cursor 循环，连接真实 source package、mapped／tiling／schedule factory、完整 Csem→Asm 定理和提取。八个新模块、43 端点／537 依赖／976 source 摘要审计通过；完整 compiler 保持原 42 项假设，kernel 没有改动。两个真实 affine C 域共 444 次新入口调用、28 个 store-order 探针（含两个旧入口对照）及 18 个新 guard comparison 探针通过。默认 64×64 cap 的完整 Clight 函数从 20,710／20,711 个 if 降为 111／112，打印体约 13 MB→25 KB；linked 函数 72,083／105,857→879／916 字节。计时和性能收益仍未测量。
+[最新 deep affine 接入](docs/research-checkpoint-2026-10-06-materialized-affine.md)把已有递归 affine 源、真实单／多指针 body 和候选 checker 接到当前 kernel：Clight 提供正常返回的私有 Boolean check、安全／分派／状态运输及程序安装；domain 复用源／模型与候选证明。新的 Csem→Asm 入口、26 端点审计、提取和十二配置共 5,118 次 assembly 调用通过；四组实际 Clight 插桩另核对接受／fallback、物理 alias 和条件读取。最小 kernel 没有改动，[接口说明](docs/clight-materialized-check.md)列明使用者责任和限制。
+
+当前有两条实际路线：深层 canonical affine nest 使用稳定 temp bounds；两层 dependent cursor 路线处理 `**root` header／多观察稳定性。二者尚未组合成任意深度 loaded-bound optimizer，typed pointer-store body、独立计时及同例 proof-burden 比较仍未完成。共享 `.vo` 重编后旧冻结 cursor 对象摘要失配，当前消费者独立重编／535 依赖审计通过，42 项假设保持；旧编译器和 native 报告保持历史记录。以下阶段各按其保存时的验证范围阅读。
+
+[循环化 dependent guard compiler](docs/research-checkpoint-2026-10-06-cursor-dependent-compiler.md)已把完整双观察扫描降低为两个实际私有 cursor 循环，连接真实 source package、mapped／tiling／schedule factory、完整 Csem→Asm 定理和提取。八个新模块、43 端点／537 依赖／976 source 摘要审计通过；完整 compiler 保持原 42 项假设，kernel 没有改动。两个真实 affine C 域共 444 次新入口调用、28 个 store-order 探针（含两个旧入口对照）及 18 个新 guard comparison 探针通过。默认 64×64 cap 的完整 Clight 函数从 20,710／20,711 个 if 降为 111／112，打印体约 13 MB→25 KB；linked 函数 72,083／105,857→879／916 字节。计时和性能收益仍未测量。
 
 [上一依赖 header 编译器](docs/research-checkpoint-2026-10-06-dependent-compiler.md)从真实 C 的 `i<**root` 识别原源，安全捕获 private pointer／bound，再接实际候选和原 compound-load fallback。其 40 端点、提取及两个域 444 调用保留为独立历史证据。本阶段复用其 source／model、全部 footprint coverage、观察保持、候选 certificate 和语言 host；实际 guard cursors 与 candidate counters 分开，新的 typed private pool 为 21 槽。旧 compiler／native 摘要绑定复核通过，未重跑或累计旧矩阵。
 
@@ -72,7 +76,7 @@
 
 当前主线是 `AbstractGuard.v` / `SemanticFacts.v`：通用核不内置整数或内存语义，语言实例提供性质、检查原语与条件选择。`ClightCondition.v` 将生成的条件树降低成实际 Clight 控制流，表达式与语句宿主接到完整程序模拟，`AdaptiveRegionCompiler.v` 接到 C→Asm。overflow 取消规则已使用这个路径。`StatefulGuard.v` 进一步允许检查改变私有状态，由语言实例提供公共状态关系、源观察运输和条件构造证明；一般仿射地址扫描已实际通过它接入统一完整程序入口。`ResidualGuard.v` 提供有证书的静态消去，尚未进入原生驱动；`AbstractSchedule.v` 的性质驱动交换链及可执行检查器已进入实际矩阵优化的原生证明链。详细接口与 PolCert 尚需的桥接见 [abstract-kernel.md](docs/abstract-kernel.md)。
 
-下面记录各实现阶段及独立适配路线，边界与验证数量属于各自的保存版本。当前编译器的功能、证明与运行结果以[2026-10-04 交付记录](docs/research-checkpoint-2026-10-04.md)为准；单指针和多指针深层区域均已使用通用有状态核心。
+下面记录各实现阶段及独立适配路线，边界与验证数量属于各自的保存版本。当前能力与证据以顶部的两个实例及最新阶段记录为准；旧 deep 路线使用有状态核心，新接入消费当前 `GuardInterface`。
 
 [同地址读取实例](docs/clight-same-address.md) 在这一端到端路径上增加内存性质维度：源 load 建立检查有效性，运行时 `p == q` 允许后端消除重复读取。原生检查覆盖快路、回退、unsigned 边界及 signed／volatile 排除。
 

@@ -217,3 +217,10 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 本次代码规模验收关闭默认 caps 的展开增长：实际完整函数约 13 MB→25 KB，机器函数 72,083／105,857→879／916 字节。18 个**新**机器 guard comparison 探针直接核对点顺序和拒绝后停止；它们与 28 个 store-order 探针分别报告。旧 dependent 两套矩阵仅绑定复核，不累计旧运行。先前短数组的证据限制保留为其历史范围，不再把它当成本轮 comparison-order 缺口。
 
 计划已吸纳实际进展：下一主任务转为一般 domain／复杂 body、不同 body base 的物理 alias 接受与合法 pointer stores；P4 计时、同版 CompCert 对照和同例 proof obligations 比较仍独立未完成。代码大小不证明性能或 total proof burden，也没有单凭小 kernel、C 层或端点数主张 novelty。
+
+
+## Narrative cutoff 的深层 affine 接入检验
+
+本次 fetch 后 topdown 仍为 `7d94d810685a691efbf07df734f5fad8abfb4724`，paper narrative／context note 与 main 无差异。按最新 cutoff 实现 [normal-returning materialized check](clight-materialized-check.md)：变化来自具体 Clight check 的返回形式，新增的是语言 host／certificate／状态运输服务；kernel 未改。旧 deep 源对应和 candidate-local 被直接消费，原 stateful region theorem 没有充作新的 local correctness。
+
+[阶段证据](research-checkpoint-2026-10-06-materialized-affine.md)给出 26 端点、Csem→Asm／提取、十二配置 5,118 次新 assembly 调用和四组另记的 Clight 插桩。它纠正计划中两个过宽“未支持”表述：递归 affine IR 已存在，多指针 physical scan 也能接受分离 views；当前任务是迁移到现行证书并与 loaded/dependent 路线组合，不能称重新包装创建了一般算法。共享 `.vo` 重编令旧对象摘要绑定失配，独立当前 cursor regression 与历史 native 分开；不将旧 validator 的失败抹掉。计时、总作者负担、新颖性与一般 polyhedral 覆盖均无新增结论，完整 goal active。
