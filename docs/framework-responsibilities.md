@@ -93,7 +93,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 这次接入还暴露了 `C_host` 的具体责任：局部 `(loads;loop);suffix` contract 不能自动满足旧选择器只针对根部 loop 的 source progress。Clight 库新增 [序列 contract 运输](../prototype/interface/ClightSequenceContracts.v) 与 [序列 placement checker](../prototype/interface/ClightSequenceProgressSelector.v)，组合已有 framed 小步协议，保持正常后缀的真实 memory effect。domain 适配器核对源 AST、scope 和原候选证书后调用这些语言服务；kernel 不认识 loads、loops 或 pointers，也不增加 source progress 假设。最难义务中，安全许可和全部 footprint 覆盖已在受限模型关闭，宿主通过实际序列协议关闭；一般控制出口、一般多面体域和作者负担收益仍未由本例证明。
 
-后续共享 fallback 也按同一边界验收：语言库证明真实 lowering 的分派／frame，domain 复用原 D／P／candidate 与 coverage，核心组合定理保持。当前一个二维 fixture 有 13 份 scan AST 和两个对称 base 比较；减少这些冗余需要新的 proved lowering／语义保持证据，然后才能量最终机器成本。代码规模问题不能由声明“共享实现”或只比较逻辑 condition 消除。
+[共享 fallback 的实际接入](clight-shared-pointer-shortcut.md) 已按同一边界实现：语言库证明 direct tree 的真实正常执行运输到共享 AST，保持 trace／temps／memory；domain 将已有 matcher／三类 checker 的最后一步参数化，复用 D／P／candidate 与 coverage，核心组合定理未变。新的 compile_realized_observed_pointer_correct 对两个 lowering 值都给出 Csem→Asm 结论。79 端点审计及提取、两个完整十五配置矩阵和二十个机器路径探针全部通过；每种模式 5,640 次配置内调用，全本轮新编译，十五份 direct Clight 摘要保持冻结基线。见 [阶段记录](research-checkpoint-2026-10-06-shared-pointer.md)。一个真实二维配置的 scan AST 13→1，linked 函数 11,750→1,566 字节。这是有实际编译产物支持的语言服务复用和代码规模结果，没有扩大 condition／源域，也不是计时或总证明负担减少的证据。候选与对称 base 比较的冗余继续保留。
 
 整体叙事是“小的语言无关 verified optimistic transformation 框架＋有实质算法与条件正确性证明的 CompCert 循环实例”。kernel 的组合定理较短，这不要求框架承担优化发现；贡献必须由实际可复用的证据处理服务、语言宿主和困难 optimizer 的接入共同证明。更广泛 conditional rewrite 作为接口实例；未实现的 vectorization、layout specialization 等不计 evaluated 能力。
 

@@ -1,4 +1,5 @@
 """Audit source-observed pointer envelopes and their actual Csem-to-Asm entry."""
+import argparse
 import json
 import re
 import subprocess
@@ -8,11 +9,12 @@ from audit_compiler import names
 from audit_interface_clight import ROOT, sha
 
 
-def main():
-    work = ROOT / "build/interface-observed-pointer"
+def main(realization=False):
+    work = ROOT / ("build/interface-pointer-realization" if realization else "build/interface-observed-pointer")
     work.mkdir(parents=True, exist_ok=True)
     user_audit.WORK = work
-    user_audit.ENTRY = "ClightObservedPointerCompiler.compile_preserving_observed_pointer"
+    user_audit.ENTRY = ("ClightObservedPointerCompiler.compile_realized_observed_pointer" if realization
+                        else "ClightObservedPointerCompiler.compile_preserving_observed_pointer")
     flags = user_audit.flags()
     closure = user_audit.compile_closure(flags)
     inherited = json.loads((ROOT / "build/compcert-guardcert/.guard-build.json").read_text())["proof_sources"]
@@ -28,7 +30,8 @@ def main():
     language_modules = ["ClightPrivateCheckFacts", "ClightPrivateScan", "ClightPrivateScanSafety",
                         "ClightPrivateScanHost", "ClightPrivateScanPreservation",
                         "ClightSourceObservation", "ClightPrivateScanShortcut", "ClightAffinePointerEnvelope",
-                        "ClightSequenceContracts", "ClightObservedPointerSyntax", "ClightSequenceProgressSelector"]
+                        "ClightSequenceContracts", "ClightObservedPointerSyntax", "ClightSequenceProgressSelector",
+                        "ClightPrivateScanShortcutRealization"]
     domain_modules = ["ClightParamPointerCheckFacts", "ClightParamPointerEntryFacts", "ClightParamPointerScanBridge",
                       "ClightParamPointerCertificate", "ClightParamPointerPreservation",
                       "ClightParamPointerCandidates", "ClightParamPointerCompiler", "ClightParamPointerEnvelope",
@@ -80,7 +83,9 @@ def main():
               "check_safe_interpretation": "inductive reached-expression and finite loop-continuation judgment",
               "kernel_preservation_consumed_here": "GuardInterface.guardify_preservation",
               "whole_program_entrypoint": user_audit.ENTRY,
-              "whole_program_correctness": "ClightObservedPointerCompiler.compile_preserving_observed_pointer_correct",
+              "whole_program_correctness": user_audit.ENTRY+"_correct",
+              "realization_modes": ["direct", "shared-fallback"] if realization else ["direct"],
+              "shared_fallback_shortcut_installed_here": realization,
               "simulation": "Csem to Asm backward simulation",
               "local_scope": "completed silent normal regions with projected public exits and memory equivalence"}
     (work / "report.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -91,4 +96,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--realization", action="store_true")
+    main(parser.parse_args().realization)

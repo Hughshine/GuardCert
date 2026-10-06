@@ -72,6 +72,25 @@ interface-observed-pointer-runtime-paths:
 	python3 scripts/probe_interface_observed_pointer.py
 	python3 scripts/validate_interface_observed_pointer.py --runtime-paths
 
+.PHONY: interface-pointer-realization-proof interface-pointer-realization-native interface-pointer-realization-runtime-paths interface-pointer-realization-direct
+interface-pointer-realization-proof:
+	python3 scripts/audit_interface_observed_pointer.py --realization
+
+interface-pointer-realization-native: interface-pointer-realization-proof
+	python3 scripts/build_memory_compiler.py --observed-realization > build/interface-pointer-realization/build.log 2>&1
+	python3 scripts/native_interface_observed_pointer.py --realization
+	python3 scripts/validate_interface_observed_pointer.py --realization
+
+interface-pointer-realization-runtime-paths:
+	python3 scripts/probe_interface_observed_pointer.py --realization
+	python3 scripts/validate_interface_observed_pointer.py --realization --runtime-paths
+
+interface-pointer-realization-direct:
+	python3 scripts/native_interface_observed_pointer.py --realization --lowering direct
+	python3 scripts/probe_interface_observed_pointer.py --realization --lowering direct
+	python3 scripts/validate_interface_observed_pointer.py --realization --lowering direct --runtime-paths
+	python3 scripts/compare_pointer_realizations.py
+
 interface-private-scan-native: interface-private-check-proof
 	python3 scripts/build_memory_compiler.py --private-scan > build/interface-private-check/build-compiler.log 2>&1
 	python3 scripts/native_interface_private_scan.py

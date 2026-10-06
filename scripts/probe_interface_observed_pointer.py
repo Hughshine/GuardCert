@@ -5,6 +5,7 @@ import re
 import subprocess
 from pathlib import Path
 
+import native_interface_observed_pointer as suite
 from native_interface_observed_pointer import ROOT, WORK, check_build, model, sha
 
 CONFIGURATIONS = ["direct-interchange-2", "schedule-interchange-2"]
@@ -18,9 +19,15 @@ PROBES = {
 
 
 def main():
+    global WORK
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--configurations")
+    parser.add_argument("--realization", action="store_true")
+    parser.add_argument("--lowering", choices=["shared", "direct"], default="shared")
     args = parser.parse_args()
+    if args.realization:
+        suite.configure_realization(args.lowering)
+        WORK = suite.WORK
     selected = args.configurations.split(",") if args.configurations else CONFIGURATIONS
     assert set(selected) <= set(CONFIGURATIONS)
     stamp = check_build()
@@ -118,6 +125,7 @@ end
                 "commands_sha256": sha(commands), "gdb_log_sha256": sha(log)}
             print(configuration, name, observed["writes"], len(observed["pointer_comparisons"]), flush=True)
     report = {"status": "passed", "compiler_sha256": stamp["compiler_sha256"],
+              "proved_entrypoint": stamp["proved_entrypoint"], "shortcut_lowering": suite.REALIZATION_MODE or "direct",
               "verification_script_sha256": sha(Path(__file__)), "architecture": "x86-64 System V",
               "probes": results, "full_configuration_suite": not bool(args.configurations),
               "actual_shortcut_scan_and_iteration_paths_observed": True,

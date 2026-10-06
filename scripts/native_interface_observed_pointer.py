@@ -16,9 +16,21 @@ WORK = ROOT / "build/native-interface-observed-pointer"
 COMPILER = ROOT / "build/compcert-observed-pointer/ccomp"
 PROOF = ROOT / "build/interface-observed-pointer/report.json"
 SOURCE = ROOT / "examples/native_interface_observed_pointer.c"
+ENTRY = "ClightObservedPointerCompiler.compile_preserving_observed_pointer"
+REALIZATION_MODE = None
 NAMES = ["observed_flat2", "observed_group2", "observed_conditional2", "observed_three3",
          "observed_missing2", "observed_clobber2", "observed_linear1"]
 DIMENSIONS = [2, 2, 2, 3, 2, 2, 1]
+
+
+def configure_realization(lowering):
+    global WORK, COMPILER, PROOF, ENTRY, REALIZATION_MODE
+    assert lowering in ["direct", "shared"]
+    REALIZATION_MODE = lowering
+    WORK = ROOT / "build/native-interface-pointer-realization" / lowering
+    COMPILER = ROOT / "build/compcert-pointer-realization/ccomp"
+    PROOF = ROOT / "build/interface-pointer-realization/report.json"
+    ENTRY = "ClightObservedPointerCompiler.compile_realized_observed_pointer"
 
 
 def compile_run(source, directory, syntax, extra, reference, timeout):
@@ -68,7 +80,7 @@ def reuse_passed(report, stamp, name, syntax, extra, reference):
 def check_build():
     stamp = json.loads((COMPILER.parent / ".guard-build.json").read_text())
     proof = json.loads(PROOF.read_text())
-    assert stamp["proved_entrypoint"] == "ClightObservedPointerCompiler.compile_preserving_observed_pointer"
+    assert stamp["proved_entrypoint"] == ENTRY
     assert stamp["compiler_sha256"] == sha(COMPILER)
     assert stamp["proof_report_sha256"] == sha(PROOF)
     assert proof["status"] == "compiled" and proof["readonly_envelope_shortcut_installed_here"]
@@ -170,6 +182,9 @@ def configurations():
                 ("missing-proposal", "", {"GUARDCERT_LOOP_CANDIDATE": str(WORK / "absent.sexp")}),
                 ("malformed-proposal", "(", {})]
     priority = ["direct-interchange-2", "schedule-interchange-2"]
+    if REALIZATION_MODE:
+        choices = [(name, syntax, extra | {"GUARDCERT_GUARD_LOWERING": REALIZATION_MODE})
+                   for name, syntax, extra in choices]
     return sorted(choices, key=lambda item: priority.index(item[0]) if item[0] in priority else len(priority))
 
 
@@ -179,7 +194,11 @@ def main():
     parser.add_argument("--compile-timeout", type=int, default=1800)
     parser.add_argument("--reuse-passed-report", type=Path,
                         help="re-execute bound passed artifacts from an explicitly archived earlier run")
+    parser.add_argument("--realization", action="store_true")
+    parser.add_argument("--lowering", choices=["shared", "direct"], default="shared")
     args = parser.parse_args()
+    if args.realization:
+        configure_realization(args.lowering)
     assert args.compile_timeout > 0
     stamp = check_build()
     reused = json.loads(args.reuse_passed_report.read_text()) if args.reuse_passed_report else None
@@ -204,7 +223,7 @@ def main():
         else:
             dump, clight_bytes, assembly_bytes = compile_run(SOURCE, directory, syntax, extra, reference, args.compile_timeout)
         found = observed_functions(dump)
-        refused = bool(extra) or name in {"invalid-coordinate", "malformed-proposal"}
+        refused = bool({key: value for key, value in extra.items() if key != "GUARDCERT_GUARD_LOWERING"}) or name in {"invalid-coordinate", "malformed-proposal"}
         if refused:
             assert not found, (name, found)
         else:
@@ -215,6 +234,8 @@ def main():
             assert all(found[function]["readonly_envelope_shortcut"] and found[function]["original_scan_present"]
                        for function in expected_functions), (name, found)
             assert not any(found.get(function, {}).get("readonly_envelope_shortcut") for function in NAMES[4:6]), found
+            if REALIZATION_MODE == "shared":
+                assert all(found[function]["scan_ast_copies"] == 1 for function in expected_functions), (name, found)
         results[name] = {"functions": found, "actual_calls": len(full_inputs()),
                          "compilation_origin": "bound-earlier-run-reexecuted" if reuse else "compiled-in-this-run",
                          "compilation_driver_sha256": reused["verification_script_sha256"] if reuse else sha(Path(__file__)),
@@ -228,6 +249,7 @@ def main():
         (WORK / "partial-report.json").write_text(json.dumps(results, indent=2)+"\n")
         print(name, {function: facts["readonly_envelope_shortcut"] for function, facts in found.items()}, flush=True)
     report = {"status": "passed", "compiler_sha256": stamp["compiler_sha256"], "proof_report_sha256": sha(PROOF),
+              "proved_entrypoint": ENTRY, "shortcut_lowering": REALIZATION_MODE or "direct",
               "source_sha256": sha(SOURCE), "verification_script_sha256": sha(Path(__file__)),
               "configurations": results, "full_configuration_suite": not bool(args.cases),
               "proposal_inputs": {name: {"syntax": syntax, "environment": extra}

@@ -88,3 +88,9 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 十五个原生配置各 376 次调用和十个实际机器探针通过，分别确认快捷接受没有执行 footprint 地址比较、条件拒绝后 scan 接受或源回退，以及空路径没有新增 pointer 比较。完整原生矩阵由 [本阶段新报告](research-checkpoint-2026-10-06-observed-compiler.md) 绑定：首轮分块超时后，八份已有绑定产物重新执行、七个配置新编译；前一阶段报告不计作新路径运行证据。核、语言服务和 domain 适配器的责任已同步到 [责任矩阵](framework-responsibilities.md)。
 
 评审提出的成本问题继续落实为下一项验收：当前一个二维 fixture 的 direct tree 复制 13 份 scan，接受时也保留两个方向的 base 检查。先证明并安装共享 fallback／保持同一接受含义，再依性能方案量最终机器产物；同例作者负担比较仍未完成。这些后续工作进入 [当前计划](current-work-plan.md)，不把功能正确性或端点数量当作成本收益。
+
+## 10 月 6 日：同一条件的共享 scan 实现
+
+再次 fetch 后三个评审分支维持 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，没有新增意见。继续按 narrative 的三方边界落实：[共享 fallback](clight-shared-pointer-shortcut.md) 只新增语言正常执行运输，既有 source matcher／candidate checker／D／P／coverage 共用一条参数化管线，框架组合定理保持。实际提取入口对 direct／shared 都有 Csem→Asm 结论。
+
+79 端点审计、提取、两个完整十五配置矩阵和二十个真实机器路径探针全部通过。三十个配置均本轮新编译，共 11,280 次配置内调用，唯一源调用集合仍为 376 组；十五份 direct Clight 与冻结基线一致。一个实际二维 interchange 配置的 scan AST 13→1、linked 函数 11,750→1,566 字节。它回应回退复制的具体问题；条件接受域、候选复制和对称 base 比较未改变。没有运行计时、总证明负担减少或新颖性结论；下一项一般 affine pointer 域／依赖 preload 和同例成本／obligations 比较继续进入计划。最终状态与摘要已在 [新阶段记录](research-checkpoint-2026-10-06-shared-pointer.md) 冻结，不覆盖 `00b9dbf` 历史报告。

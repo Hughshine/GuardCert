@@ -2,19 +2,28 @@
 import argparse
 import json
 
+import native_interface_observed_pointer as suite
 from native_interface_observed_pointer import ROOT, WORK, COMPILER, PROOF, SOURCE, check_build, configurations, full_inputs, sha
 from probe_interface_observed_pointer import CONFIGURATIONS, PROBES
 
 
 def main():
+    global WORK, COMPILER, PROOF
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime-paths", action="store_true")
+    parser.add_argument("--realization", action="store_true")
+    parser.add_argument("--lowering", choices=["shared", "direct"], default="shared")
     args = parser.parse_args()
+    if args.realization:
+        suite.configure_realization(args.lowering)
+        WORK, COMPILER, PROOF = suite.WORK, suite.COMPILER, suite.PROOF
     stamp = check_build()
     proof = json.loads(PROOF.read_text())
     native_path = WORK / "report.json"
     native = json.loads(native_path.read_text())
     assert native["status"] == "passed" and native["full_configuration_suite"]
+    assert native["proved_entrypoint"] == stamp["proved_entrypoint"]
+    assert native["shortcut_lowering"] == (suite.REALIZATION_MODE or "direct")
     assert native["compiler_sha256"] == stamp["compiler_sha256"]
     assert native["proof_report_sha256"] == sha(PROOF)
     assert native["source_sha256"] == sha(SOURCE)
@@ -43,6 +52,9 @@ def main():
         assert len((directory / "output.txt").read_text().splitlines()) == count
         assert evidence["output_sha256"] == sha(WORK / "reference-output.txt")
         assert evidence["full_buffers_public_exits_prefix_values_and_context_match_model_and_gcc"]
+        if suite.REALIZATION_MODE == "shared":
+            assert all(not function["readonly_envelope_shortcut"] or function["scan_ast_copies"] == 1
+                       for function in evidence["functions"].values()), name
         if evidence["compilation_origin"] == "bound-earlier-run-reexecuted":
             assert reused and name in reused["configurations"]
             assert native["proposal_inputs"][name] == reused["proposal_inputs"][name]
@@ -60,6 +72,8 @@ def main():
         assert runtime["status"] == "passed" and runtime["full_configuration_suite"]
         assert runtime["actual_shortcut_scan_and_iteration_paths_observed"]
         assert runtime["compiler_sha256"] == stamp["compiler_sha256"]
+        assert runtime["proved_entrypoint"] == stamp["proved_entrypoint"]
+        assert runtime["shortcut_lowering"] == native["shortcut_lowering"]
         assert runtime["verification_script_sha256"] == sha(ROOT / "scripts/probe_interface_observed_pointer.py")
         assert set(runtime["probes"]) == {configuration+"/"+case for configuration in CONFIGURATIONS for case in PROBES}
         for name, evidence in runtime["probes"].items():
@@ -81,6 +95,7 @@ def main():
                 assert len(evidence["base_comparisons"]) == (0 if case == "empty-null-source-branch" else 2)
         probes = len(runtime["probes"])
     summary = {"status": "passed", "proved_entrypoint": stamp["proved_entrypoint"],
+               "shortcut_lowering": native["shortcut_lowering"],
                "proof_endpoints": len(proof["endpoint_assumptions"]), "dependencies": len(proof["required_closure"]),
                "source_digests": len(proof["sources"]), "compiler_baseline_assumptions": len(proof["compiler_baseline_assumptions"]),
                "inherited_domain_assumptions_beyond_compcert": proof["inherited_domain_assumptions_beyond_compcert"],
@@ -91,7 +106,8 @@ def main():
                "runtime_path_probes": probes, "proof_report_sha256": sha(PROOF), "compiler_sha256": sha(COMPILER),
                "native_report_sha256": sha(native_path), "runtime_path_report_sha256": sha(runtime_path) if probes else None,
                "performance_measured": False}
-    (ROOT / "build/interface-observed-pointer/validation.json").write_text(json.dumps(summary, indent=2)+"\n")
+    output = PROOF.parent / (args.lowering+"-validation.json" if args.realization else "validation.json")
+    output.write_text(json.dumps(summary, indent=2)+"\n")
     print(json.dumps(summary, indent=2))
 
 

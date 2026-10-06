@@ -46,3 +46,7 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-observed-point
 优化适配器继续消费 `checked_pointer_scan_rule_witness`，将原 candidate／scan 和新共享 AST 绑定；不重新验证 schedule 或证明 B⇒A。source-prefix receipt、quiet suffix、序列 placement、public scope 与后端保持复用，框架 kernel 无变化。验收必须是新的实际 compiler entry／提取及同一组输入，不停在语言 helper。若随后共享候选和回退两个出口，应另取得 materialized Boolean 的 freshness／状态运输证据，不能直接复用原 scan result 并假定它对 scan body fresh。
 
 快捷条件目前只在实际原始 pointer 相等、offset 包络分离时接受；不同分配或不同 base 即便实际无 alias，也继续原扫描。源 load receipt 解决定义性，不提供任意数组的布局 metadata。扩大这项接受域需要另一个可执行条件算法／语言原语和 soundness，不从 `p!=q` 推出区间分离。这是条件表达力与实际成本的后续边界。
+
+## 后继：共用的 direct／shared compiler factory
+
+上述阶段的 proof／native／超时记录固定于 `00b9dbf`；其脚本和报告已归档，原二进制保留。[共享回退使用者](clight-shared-pointer-shortcut.md) 现已实现前节的证明切口，并把既有 source matcher、三类候选管线和保持定理参数化最后 realization；旧入口是 `shared=false` 的兼容别名。新实际入口 `compile_realized_observed_pointer` 对 direct／shared 都有 Csem→Asm 正确性，使用独立编译器和报告目录。新语言服务只覆盖有限 silent normal region，不扩大条件接受域、源域或宿主控制出口。审计／提取、两个完整十五配置矩阵和二十个机器路径探针全部通过，见 [新阶段记录](research-checkpoint-2026-10-06-shared-pointer.md)；不能将上一阶段 stamp 算作当前修改源码的绑定。

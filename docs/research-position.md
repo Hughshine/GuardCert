@@ -175,6 +175,6 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 
 新的 [源观察完整 compiler](clight-observed-pointer-compiler.md) 将这条证据链接到实际 normalized AST、原三类 candidate checker、序列 placement、Csem→Asm 和提取。语言库新增的是序列重组／公开状态运输和已证明的 source progress 组合；优化适配器负责 prefix 覆盖、实际源／候选绑定与 domain checker，核心保持。机器探针区分了快捷接受跳过 scan、拒绝后 scan 接受或源回退，空路径没有新增 pointer 比较。它是受限矩形 pointer 实例的端到端接入证据，仍不是一般假设发现／投影、任意上下文许可推断、性能或新颖性结论。
 
-目前实际 direct lowering 的回退复制也提供了可检验问题：二维 fixture 有 13 份原 scan AST，快捷接受仍比较两个对称访问对。下一项须在相同 D／P／candidate 下证明并安装共享 fallback，再量最终机器成本和作者 obligations；不能只借用“共享”接口名称宣称收益，也不能从十个机器路径探针推导时间优势。同例 related-work 与作者负担比较保持开放。
+实际 direct lowering 的回退复制已由 [共享 fallback 使用者](clight-shared-pointer-shortcut.md) 接续处理。新语言服务运输真实正常执行，共用 compiler factory 参数化最后的 realization；相同 D／P／candidate、原候选／依赖核对和条件推导不重证。证明审计、提取、两个完整十五配置矩阵和二十个机器路径探针全部通过；三十个配置均本轮新编译，全十五份 direct Clight 与冻结基线一致，见 [阶段记录](research-checkpoint-2026-10-06-shared-pointer.md)。一个真实二维配置的 scan AST 13→1、linked 函数 11,750→1,566 字节，支持有限范围的静态规模结论；候选复制和对称 base 检查仍在，也没有运行时间测量。它是语言服务复用的新增实例，不能单独支撑 novelty 或总 proof-burden 收益。同例 related-work、一般 affine pointer 域、依赖 preload 和成本比较保持开放。
 
 10 月 6 日，[实际 realization](clight-guard-realization.md) 又将 direct/shared 的 dispatch prefix、private frame 和完成分支运输统一到语言层设施；两个 projected 安装路径调用公共定理，完整 unsigned 循环复用 prefix 后继续小步协议。411 端点／863 摘要、25 配置／40 报告已通过，40 份 C／Clight 摘要对重构前 `26956a4` 保持。这支持具体的语言安装证明复用；新增模块增加了代码，尚无总证明负担减少、性能或首创结论。这项 realization 重构本身不证明 affine／tiling 接入；前述随后完成的实际使用者另外消费旧候选／依赖证书和实际 globalenv 对应。
