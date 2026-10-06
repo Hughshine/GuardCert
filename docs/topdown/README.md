@@ -13,6 +13,7 @@ definition of the framework.
 
 Current notes:
 
+- [Paper narrative](paper-narrative.md): intended framing as a small language-independent verified optimistic-transformation framework plus a substantive CompCert/Clight domain-specific optimization instantiation; separates framework, language, and optimizer responsibilities and records the claims to avoid.
 - [Review of main at cf4d442](main-review-cf4d442.md): source-grounded assessment
   of the existing abstract choice, read-only front end, concrete lowering,
   dependent condition services, conditional-progress gap, and evaluation scope.
