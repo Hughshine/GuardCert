@@ -95,6 +95,18 @@ interface-pointer-realization-direct:
 .PHONY: affine-loaded-pointer-proof affine-loaded-placement-proof affine-loaded-compiler-proof affine-loaded-compiler-native
 .PHONY: affine-loaded-stability-proof
 .PHONY: affine-dynamic-loaded-proof
+.PHONY: affine-planned-loaded-proof affine-planned-loaded-native affine-planned-loaded-validate
+affine-planned-loaded-proof:
+	python3 scripts/audit_affine_planned_loaded.py
+
+affine-planned-loaded-native: affine-planned-loaded-proof
+	python3 scripts/build_affine_planned_loaded.py > build/affine-planned-loaded/build.log 2>&1
+	python3 scripts/native_affine_planned_loaded.py
+	python3 scripts/validate_affine_planned_loaded.py
+
+affine-planned-loaded-validate:
+	python3 scripts/validate_affine_planned_loaded.py
+
 affine-dynamic-loaded-proof:
 	python3 scripts/audit_affine_dynamic_loaded.py
 

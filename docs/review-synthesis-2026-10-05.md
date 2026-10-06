@@ -163,3 +163,11 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 [新阶段](research-checkpoint-2026-10-06-affine-dynamic-loaded.md)已用 checked package 的真实访问编码／范围／word、row decode 和 write receipts 填完完整 source-order scan 实例，接受后取得全部写的 bound 保持；新 source matcher、三类候选 checker 和 Csem→Asm theorem 已连接。此前“callbacks 尚未落实”的缺口在此具体实例关闭，原泛型语言服务仍保留参数以供其他使用者实例化。
 
 narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefix 是库，context 安装属于语言。另发现实际 nested tree 的 syntax 增长，下一验收增加保留顺序结构的 guard lowering 及其 private frame／短路／dispatch 证明，再完成提取与真实 C 运行。新 compiler proof 不冒充这些运行结果，旧 native 矩阵只有摘要绑定复核。尚无性能、total proof burden 或 novelty 收益结论，完整 goal active。
+
+## 顺序 plan 与独立 bound 的运行验收
+
+阶段性再次 fetch，三个评审分支仍为 `7d94d810685a691efbf07df734f5fad8abfb4724`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，narrative 本地与远端正文字节一致，没有新增意见。
+
+按最新澄清完成的 [顺序 plan 阶段](research-checkpoint-2026-10-06-affine-planned-loaded.md)把检查结构、private Boolean 初始化／frame／分派放在 Clight 库，domain 只追加 plan 与已认证 guard 的规格对应，复用其 C_guard／coverage／候选 certificate；原 host 提供新 Csem→Asm。最小 kernel 和 proof responsibility 边界保持。实际提取、六配置 222 调用与十三个机器探针关闭此前独立 bound 的运行缺口；小数组例子的机器探针记录拒绝后停止地址比较，默认 64×64 cap 也实际安装／执行。
+
+当前计划已转到 private snapshot 的安全读取和 original-entry／public frame、多个依赖 preload，以及 guard 循环化／一般深层 affine 源。默认 cap 的实际 AST 仍很大，body alias 快捷条件仍保守同-base；没有把结构改善当作性能收益、总作者负担下降或相对已有工作的新颖性证明。旧两套 native 矩阵仅绑定复核，历史意见按固定 SHA 保留。完整 goal active。

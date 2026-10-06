@@ -136,3 +136,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 [独立 bound pointer 的后继证明连接](research-checkpoint-2026-10-06-affine-dynamic-loaded.md)已关闭上述实例参数：checked package 的访问编码／范围／word、真实 row decode 和实际 store receipts 共同构造每次到达的 row 安全域；足够 fuel 覆盖全部活动点，完整 guard 接受后才得到 bound 保持。新 matcher 允许独立 bound pointer，原三类 candidate checker 与 language host 接到新的 Csem→Asm theorem。这里没有把这些领域证明交给 kernel。
 
 下一困难位置是实际 guard lowering：嵌套 tree 在成功出口复制后续 scan，column cap=3 的实际 fixture 已显示 7／35／147 个测试随 outer fuel=1／2／3 增长。共享 fallback 不等于共享 scan continuation。需要保留顺序结构，并证明 private 状态、短路、安全和分派，再完成提取／真实 C 运行；当前只有 compiler proof，没有新增独立 pointer 原生能力。multiple dependent preload／private snapshot 的入口事实和上下文运输继续待证。
+
+[顺序 plan 后继阶段](research-checkpoint-2026-10-06-affine-planned-loaded.md)已完成这一 lowering 和运行验收。语言库提供 plan/tree 精确运行对应、实际 private Boolean 代码、先写后读、原入口 branch 运输和公开 frame；资源反射 checker 把 freshness／structured branch 条件变成静态拒绝。domain 接入证明实际 affine plan 等于原完整条件，从而复用之前的检查安全、coverage、bound 保持、候选正确性。原 matcher、candidate checker 和语言 table host 接到新的 compiler theorem及实际提取入口，没有修改 minimal kernel，也没有重证 `C_opt`。
+
+新正常 branch 运输仍有具体边界：E0／Out_normal，structured 分支，不接受 calls／labels／returns／switch；whole-program host 继续承担独立 progress，不从局部正常等价自动获得 contextual closure。六配置 222 调用、十三个机器路径验证实际安装、接受、拒绝和 bound 改写后的出口；默认 64×64 cap 亦已运行。当前最难的下一义务是缺失 public snapshot 时的 private 读取安全、original-entry 事实和私有状态运输，以及多个依赖读取。按 cap 展开的 guard 仍有代码成本，性能、一般深层域和同例 proof burden 尚未完成。

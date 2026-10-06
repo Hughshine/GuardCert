@@ -113,3 +113,18 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 4. 完成这一运行验收后，推进依赖 preload／private snapshot 和一般深层 affine 源。性能与同例作者负担仍独立验收，不把编译定理或 AST 计数当作这些结果。
 
 原 1,650／891 次调用的 native 报告仅重新核对产物绑定，本阶段没有重执行旧矩阵，也不把旧结果算作独立 pointer 新运行证据。完整 goal 保持 active。
+
+## 独立 bound pointer：顺序 plan 与完整运行已验收
+
+[后继阶段](research-checkpoint-2026-10-06-affine-planned-loaded.md)已关闭上述顺序 plan、private frame／defined dispatch、提取、真实 C 和机器路径缺口。plan 直接降低为顺序 Clight，旧 tree 只作为证明规格，提取不包含其展开函数；原完整条件、源 package、三类候选 certificate 和语言安装 host 被实际复用。119 端点／587 依赖／931 摘要审计，六个新编译配置各 37 调用、十三个机器探针通过。不同 blocks 的 bound 和同 block 的非写 offset 确实接受；第一／第二行写中 bound 确实保留提前停止；小数组探针确认拒绝后不执行未来 row 的地址比较。默认 64×64 caps 也有实际安装和候选运行证据。
+
+这一进展没有改变 kernel 截止位置。语言 plan/code 对应、scratch 初始化、frame 和实际分派是上层库；优化实例证明 plan 等于原条件，host 继续负责 source progress 和 Csem→Asm。当前保持有限正常源完成域；不将正常 branch 运输定理扩大成一般 divergence／任意控制出口支持。body alias 的同-base 快捷条件仍保守拒绝不同 body base。
+
+新的优先验收：
+
+1. 原源没有 public bound snapshot 时，插入 fresh private snapshot。由实际到达的原 header 证明读安全，保留 original-entry 谓词并证明 private/public 运输；源 fallback 保持 repeated-load 语义。单独记录新增 matcher、私有资源和 placement 证据，不用一条假设或预置稳定性替代这些证明。
+2. 扩展多个依赖读取的合法顺序、定义性、stores 稳定性；body pointer 观察不能因被命名为 preload 就自动合法。复用当前 prefix／private-state 库，真实案例受阻才讨论 kernel 接口。
+3. 将按 cap 展开的 scan 循环化或进一步符号化。当前默认 cap 的完整 Clight 函数有 12,518 个 if，虽然消除了旧 tree 的 continuation 复制，代码成本仍需处理；与 P4 的完整成本、同版 CompCert 对照及同例作者负担比较分别验收。
+4. 扩展一般深层 affine 源／复杂 body 和不同 body base 的物理 alias 条件；当前新运行矩阵是独立 bound 的三角源，不与旧两域矩阵混称。
+
+旧两个 native validator 的绑定复核通过，矩阵未重执行。narrative 仍为 `7d94d81`，本地正文与再次 fetched 分支一致，另两个评审分支也无新增。完整 goal active。
