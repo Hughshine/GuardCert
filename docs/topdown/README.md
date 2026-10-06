@@ -14,6 +14,7 @@ definition of the framework.
 Current notes:
 
 - [Paper narrative](paper-narrative.md): intended framing as a small language-independent verified optimistic-transformation framework plus a substantive CompCert/Clight domain-specific optimization instantiation; separates framework, language, and optimizer responsibilities and records the claims to avoid.
+- [Context lifting and boundary contracts](context-lifting.md): open design analysis of the local-to-whole-program gap, including optimizer guarantees versus context requirements, language-provided installation theorems, reusable contract clauses, and questions for the implementation agent to test against the current Clight hosts.
 - [Review of main at cf4d442](main-review-cf4d442.md): source-grounded assessment
   of the existing abstract choice, read-only front end, concrete lowering,
   dependent condition services, conditional-progress gap, and evaluation scope.
