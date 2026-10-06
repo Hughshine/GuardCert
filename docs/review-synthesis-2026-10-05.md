@@ -143,3 +143,10 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 本阶段再次 fetch，三个评审分支仍为 `f793629`、`9673381`、`3e9f008`，topdown 正文与 fetched narrative 字节一致。按已吸收的责任划分，[新的安装阶段](research-checkpoint-2026-10-06-loaded-placement.md) 将 bound 稳定性留在 domain 的接受证明，将原 loaded fallback 的 progress 单独落实到语言协议。新协议用机器最大值计算距离，只要求嵌套 body 保护 iterator，不假设 memory bound 保持；改变 bound 单元的 fixture 通过进展检查，改写 iterator 的 fixture 被拒绝。
 
 原 mapped／tiling／schedule checker、实际 guard／restore／fallback 和保留 prefix/suffix 的局部 contract 已接到新 table host 与 Csem→Asm endpoint。Kernel 未改，scope/private-pool/程序安装和 backend 定律复用。Optimizer profile 仍绑定固定 normalized 标识符，frontend 的非空接受、提取和新原生矩阵尚缺；不能仅凭新的 compiler 定理称 loaded optimizer 已完成。这项事实边界已进入当前计划，下一项推广真实 source adapter，再做完整 C 接受／回退／上下文验收。一般依赖 preload、private snapshot、P4 和同例作者负担比较继续保留，goal active。
+
+
+## 10 月 6 日：context boundary 新意见与真实 loaded compiler
+
+再次 fetch，topdown 更新为 `8c098ed`；另两个评审分支仍为 `9673381` 和 `3e9f008`。paper narrative 新增 [context-lifting](topdown/context-lifting.md) 讨论，已逐字同步；[源码核对](clight-boundary-contract-review.md)回答当前 finite/open/shared/sequence host 的 clause 复用与实质差异。计划明确 language host 负责 region 契约与程序安装，优化和位置负责相应保证／放置证据，不将 kernel lifting 字段当作已完成 contextual closure。没有仅因图更整齐重写契约或 kernel。
+
+[参数化 loaded compiler](research-checkpoint-2026-10-06-affine-loaded-compiler.md) 已消除固定 optimizer names，保留 snapshot 可在 direct prefix 任意位置；真实 frontend、Csem→Asm、提取与十一配置共 1,650 次调用、七个机器路径通过。Domain 由实际源 header/body 取得读取证据，条件范围接受后才用全部真实 writes 排除 bound；language 的进展独立于稳定性，kernel sequencing 复用。旧 affine-inner 入口因共享提取脚本修改而重新构建／验收，结果另记。仍不主张 total proof burden、性能或 novelty 收益；独立 bound pointer／private snapshot／依赖读取列为下一验收，完整目标 active。

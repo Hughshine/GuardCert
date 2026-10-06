@@ -8,6 +8,8 @@
 
 10 月 6 日阶段同步吸收 `f793629` 的 cross-IR 补充：保持核心不依赖 Clight 语法；SSA／汇编使用者须实例化自己的控制、live-out／phi、scratch／flags 定律。它们是接口讨论和同例 related-work 比较的方向，第二 IR 实现是可选证据，当前主实现／验收继续是 CompCert/Clight。
 
+最新同步到 `8c098ed` 的 [context lifting](topdown/context-lifting.md)：kernel 的局部正确性与语言的程序安装分开陈述；host 提供可复用 region/boundary 契约，优化与具体位置提供 guarantee／placement 证据。已完成 [源码核对](clight-boundary-contract-review.md)，已有 temp/memory／scope／private 运输继续复用；finite 与 open 的 progress 是实质差异，不按自由 clause 组合重新设计 kernel。guarantee/requirement API 仍待实际受阻案例支持，不称已经实现。
+
 | 顺序 | 工作与状态 | 必须交付的验收 |
 | --- | --- | --- |
 | P0：本次交付 | 实现、实际 frontend 对应、提取与回归已通过；提交／push 以阶段记录为准 | 一个真正完整的 unsigned memory-bound 循环；guard 域来自有限源前缀；源／目标实际 alias 发散；540 次有限调用、六处新 loop 与两处混合旧 preload；401 端点／862 摘要、25 配置／40 报告绑定当前产物，39 份旧 C／Clight 摘要保持；准确文档并 push |
@@ -75,3 +77,10 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 ## 阶段性读取评审
 
 完成 P0、冻结 P1 接口、完成 P2 迁移，以及取得第一批 P4 样本时，重新同步评审分支，记录新增 SHA 和相对上次读取的变化。每条新增意见更新“采纳／已解决／仍待证／未采纳理由”及对应验收，不仅追加阅读链接。正文中历史能力按其固定提交解释，当前主张依最新实际产物更新；不因评审分支比 main 旧就整体忽略意见，也不把已被后续证明关闭的缺口继续列为当前缺口。
+
+
+## 参数化 memory-loaded 源的完整运行验收
+
+[本阶段](research-checkpoint-2026-10-06-affine-loaded-compiler.md) 已关闭固定标识符、真实 frontend 接受、提取和原生验收缺口。源 snapshot 可处在直接 load prefix 的任意位置，输出须唯一且不覆盖 pointer；checked source/metadata 来自实际 AST。新 source evidence 接口以真实 loaded header/body 提供机器值读取证据，再执行 range/width 检查、全部实际 write exclusion、loaded→cached 运输和原候选 checker。框架原 sequencing、语言 progress/host/backend 继续被实际入口消费。47 端点／549 依赖／893 源摘要审计和新 Csem→Asm、提取通过；十一新编译配置各 150 次调用，七个机器探针确认候选和原 loaded fallback。
+
+下一必交付调整为独立 bound pointer 的动态 write-footprint 分离：source 保留的 bound load 要能进入当前 source package，alias/bound stability 条件共同覆盖所有 stores，guard 失败仍用不预置稳定性的语言 host。之后实现依赖 preload 的安全读序和 private snapshot，扩展一般深层 affine 源。当前同 write-buffer cell 0 的静态 exclusion 不称动态任意 pointer 支持；新版 preparation 接口先由 loaded 入口消费，旧 cached 入口仍保留原证明，尚未证明总 proof burden 降低。P4 和同例 related-work/作者负担验收继续独立，完整目标 active。

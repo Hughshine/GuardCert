@@ -1,6 +1,6 @@
 # 验证责任、证书边界与最难的验收
 
-这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `f7936299fa6272fbf50db6b94a1bd0333808ea09`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `8c098ed`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
 非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 从真实 source prefix／有限正常源执行生产 D；[新 compiler](clight-affine-inner-pointer-compiler.md) 已进一步组装两套 candidate ranges、独立 certificate、实际 lowering／restore 和 local contract，消费已有 progress／placement host 接到 Csem→Asm，不归作 framework 自动发现优化前提。
 
@@ -10,7 +10,7 @@
 
 | 责任 | 需要提供／证明 | 可以复用的交付 | 不由这一方自动解决 |
 | --- | --- | --- | --- |
-| 语言无关框架 | 证书消费、条件组合／短路／安全后处理、条件 rewrite 的语义定理、在宿主定律下提升以及有限次组合 | 参数化生成／简化算法的正确性；readonly 前台；不同规则共享的安装定理 | 哪个优化成立、任意语义命题的检查代码、具体语言的 guard 或上下文定律 |
+| 语言无关框架 | 证书消费、条件组合／短路／安全后处理、条件 rewrite 的语义定理、在宿主定律下提升以及有限次组合 | 参数化生成／简化算法的正确性；readonly 前台；消费 host 安装定理的通用组合 | 哪个优化成立、任意语义命题的检查代码、具体语言的 guard 或上下文定律 |
 | 语言／IR 实例 | 实际执行与观察；原子测试的机器语义和定义性；具体分派；私有资源与状态运输；effect／frame；合法位置／出口／小步匹配；后端连接 | 一次证明并供多条规则调用的原语、direct/shared 实现和 host；例如真实 `Mem.load/store`、temp agreement 与 CompCert simulation | 某个程序的足迹完整性、某候选的依赖保持、某处入口为什么具备所需事实 |
 | 优化实现者，含 domain library | 寻找片段、提出实际候选／模型义务 A；候选条件正确性；入口条件 B 对 A 的覆盖；实例专属源／模型／候选对应和作用域证据 | 经验证的 candidate checker、受限投影／范围／足迹算法及证书；这些可以在一个领域内再复用 | 未证明的 oracle 答案不会因接入框架而获得正确性；没有一般 `extract_assumptions(S,T)` |
 
@@ -118,3 +118,10 @@ for (; i != *bound; ++i) *out = i + 2U;
 [后继 placement](research-checkpoint-2026-10-06-loaded-placement.md) 将一个困难区分落实到实际协议：`C_host` 对原 loaded loop 的进展不依赖优化待检查的 bound 稳定性。语言的 strict nested 协议要求 body 每步保护 iterator，用机器最大值保证成功 increment 下降；syntax checker／sequence host 消费该协议。body 改变 bound 单元的 fixture 也通过进展检查。Domain 仍独立负责接受时的全部写足迹排除、源缓存运输和候选证书，kernel 未修改。
 
 该阶段的固定 optimizer profile 已将原 mapped／tiling／schedule checker、实际 guard／restore／fallback、prefix/suffix 和 table host 组合到新的 Csem→Asm 定理。语言 progress 支持任意标识符，但优化 matcher 仍绑定 fixture 标识符；因此没有把一般 frontend 接受、提取或原生结果算作完成。下一验收必须实际推广 source adapter 并验证完整 C 的非空接受。多个依赖 preload、private snapshot 和一般 bound-pointer guard 继续待证；完整目标 active。
+
+
+[最新 context-lifting 评审](topdown/context-lifting.md)的 [Clight 源码核对](clight-boundary-contract-review.md)进一步区分语言库定理与每次 placement 证据。`projected_region_contract` 和 `open_region_exit` 都复用 temp agreement 与 memory equivalence，但 completed-run host 还需要独立 source-progress 协议；open host 直接匹配每一步及到达的出口。不能将前者削弱为完成路径后声称支持任意 divergence，也不能因字段相似自由互换两类契约。当前全程序 live 集合保守包括全部源 temps，没有实现 context 最小 requirement 推断。
+
+[参数化 loaded compiler](research-checkpoint-2026-10-06-affine-loaded-compiler.md)已经实际落实三方分工：语言从任意 prefix 位置生产值 receipt，复用不假设 bound 稳定性的 progress／table host；domain 通过 checked package 的真实 header/body 生产 preparation evidence，范围接受后才证明全部 writes 排除 bound，并运输到原候选证书；kernel 用域限制和原 readonly sequencing 组合检查。源 snapshot、loaded fallback、quiet suffix、不同 normalized identifiers 与 candidate/restore 都进入真实 C 编译及机器验收。新 evidence 接口由 loaded 入口消费；旧 cached 入口仍用其原证明，不把两条实例的相似证明说成已经共享同一实现。
+
+当前最难的下一义务是不同名 bound buffer 与写缓冲区之间的动态物理分离，随后是依赖读序／private cache 的 original-entry 事实与上下文运输。静态逻辑单元排除没有证明不同 base 的实际无 alias；仅 `bound != destination` 也不足。kernel 的抽象 `lift_refinement` 字段不解决这些问题。

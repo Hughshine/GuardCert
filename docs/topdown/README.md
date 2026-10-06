@@ -20,8 +20,12 @@ definition of the framework.
 Current notes:
 
 - [Paper narrative](paper-narrative.md): subsequent design note imported from
-  `4521f76a`; a small semantic framework and a substantive CompCert optimizer
+  `8c098ed`; a small semantic framework and a substantive CompCert optimizer
   instance form one argument. Assumption extraction remains optimizer-specific.
+- [Context lifting and boundary contracts](context-lifting.md): open design note
+  imported from `8c098ed`; language installation theorems, optimizer guarantees,
+  site requirements and clause reuse. The current-code response is
+  [the Clight contract review](../clight-boundary-contract-review.md).
 - [Review of main at cf4d442](main-review-cf4d442.md): source-grounded assessment
   of the existing abstract choice, read-only front end, concrete lowering,
   dependent condition services, conditional-progress gap, and evaluation scope.

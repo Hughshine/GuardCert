@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-10 月 6 日更新：按 [topdown 叙事](docs/topdown/paper-narrative.md) 和[三方验证责任](docs/framework-responsibilities.md)推进“小的语言无关框架＋实质 CompCert 循环实例”。[非矩形 pointer compiler](docs/clight-affine-inner-pointer-compiler.md) 已将三角域和 `j<2*i+1` 的 mapped、schedule 和 2×3／4×1 tiling 候选接到同一条件、独立依赖证书、真实执行和 Csem→Asm；错误 quotient witness、缺失源点及不支持的原始除法形式保留源。当前 109 端点审计、提取、十一原生配置共 891 次调用、七个机器写入顺序探针通过，见 [分块阶段记录](docs/research-checkpoint-2026-10-06-affine-pointer-tiling.md)。完整 goal 保持 active，依赖读取与参数稳定性、一般深层 affine 源、性能和同例作者负担继续推进；历史结果按各自报告解释。
+10 月 6 日更新：按 [topdown 叙事](docs/topdown/paper-narrative.md) 和[三方验证责任](docs/framework-responsibilities.md)推进“小的语言无关框架＋实质 CompCert 循环实例”。[参数化 loaded-bound compiler](docs/research-checkpoint-2026-10-06-affine-loaded-compiler.md) 已从真实 C 识别源 snapshot、不同变量名的三角域和 `j<2*i+1`，将 mapped、schedule、2×3／4×1 tiling 接到 staged guard、真实原 loaded fallback 和 Csem→Asm。47 端点审计、提取、十一配置共 1,650 次调用、七个机器写入顺序探针通过。当前 bound 是写缓冲区单元 0，复用源已有 public snapshot；独立 bound pointer、依赖 preload 和 private snapshot 仍待实现。[新增 context 评审](docs/clight-boundary-contract-review.md)明确：局部证书由 kernel 组合，程序安装定理由语言 host 提供，优化及位置提供相应证据。完整 goal 保持 active；性能、同例作者负担与一般深层 affine 源继续推进，历史结果按各自报告解释。
 
 后继 [loaded source placement](docs/research-checkpoint-2026-10-06-loaded-placement.md) 已证明不假设 bound 稳定的 nested progress，组合原候选 checker、保留 prefix/suffix 的 contract、完整 Clight 安装与新的 Csem→Asm 定理。语言协议允许 body 改变 memory bound；缓存合法性仍由独立 domain 证明。当前 optimizer profile 使用固定 Clight 标识符，没有新真实 C frontend 接受、提取或原生证据；下一项是推广实际 source adapter 并完成这三项验收。完整 goal 保持 active。
 

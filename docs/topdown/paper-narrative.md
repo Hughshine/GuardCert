@@ -81,7 +81,7 @@ composition infrastructure:
 - certificates for executable conditions;
 - conditional source/candidate correctness;
 - accepted/refused entry relations when checks use private state;
-- contextual/local-to-program lifting;
+- a clean boundary between local guarded correctness and host-specific installation into whole programs;
 - composition of repeated certified rewrites;
 - reusable condition-processing combinators where they can be stated
   independently of a particular optimizer or language.
@@ -110,6 +110,17 @@ The concrete choice does not have to be syntactically an `if`.  It may use
 nested conditionals, branches/goto, a private Boolean with shared exits, or
 another control representation, provided the instance proves the same abstract
 law.
+
+Local-to-whole-program lifting should be described carefully.  GuardCert's
+generic kernel establishes local guarded correctness; a language/IR host is
+responsible for reusable region/boundary contracts and installation theorems,
+while an optimizer and concrete rewrite site supply the corresponding region
+guarantee and placement evidence.  The current open design question is whether
+these host contracts should be factored into reusable clauses (state/frame,
+memory, trace, control, progress/divergence, private resources) with
+strengthening/weakening, rather than treated as monolithic context records.  See
+[context lifting and boundary contracts](context-lifting.md).  This is a design
+question to test against the existing Clight hosts, not a settled API rewrite.
 
 ### 3.3 Optimizer/transformation responsibility
 

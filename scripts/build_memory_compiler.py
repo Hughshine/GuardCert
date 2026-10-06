@@ -24,12 +24,16 @@ def run(*arguments):
     subprocess.run(arguments, cwd=WORK, check=True)
 
 
-def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False, unified=False, readonly_polyhedral=False, readonly_parametric=False, private_scan=False, observed_pointer=False, observed_realization=False, *, affine_inner_pointer=False, output_dir=None, proof_report=None):
+def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False, unified=False, readonly_polyhedral=False, readonly_parametric=False, private_scan=False, observed_pointer=False, observed_realization=False, *, affine_inner_pointer=False, affine_loaded_pointer=False, output_dir=None, proof_report=None):
     global WORK, ENTRY
     readonly_api = readonly_polyhedral or readonly_parametric
     observed_api = observed_pointer or observed_realization
-    interface_api = readonly_api or private_scan or observed_api or affine_inner_pointer
-    if affine_inner_pointer:
+    affine_api = affine_inner_pointer or affine_loaded_pointer
+    interface_api = readonly_api or private_scan or observed_api or affine_api
+    if affine_loaded_pointer:
+        WORK = ROOT / "build/affine-loaded-compiler/compiler"
+        ENTRY = "ClightGuardedAffineLoadedCompiler.compile_guarded_affine_loaded"
+    elif affine_inner_pointer:
         WORK = ROOT / "build/affine-pointer-compiler/compiler"
         ENTRY = "ClightAffineInnerPointerCompiler.compile_affine_inner_pointer"
     elif observed_realization:
@@ -71,6 +75,8 @@ def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=F
     proof_path = ROOT / ("build/interface-pointer-realization/report.json" if observed_realization else "build/interface-observed-pointer/report.json" if observed_pointer else "build/interface-private-check/report.json" if private_scan else "build/interface-parametric/report.json" if readonly_parametric else "build/interface-polyhedral/report.json" if readonly_polyhedral else "build/guard-memory-proof-report.json")
     if affine_inner_pointer:
         proof_path = ROOT / "build/affine-pointer-compiler/proof/report.json"
+    if affine_loaded_pointer:
+        proof_path = ROOT / "build/affine-loaded-compiler/proof/report.json"
     if proof_report is not None:
         proof_path = proof_report.resolve()
     proof = json.loads(proof_path.read_text())
@@ -121,7 +127,7 @@ def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=F
           | Some _ -> invalid_arg "GuardCert guard lowering must be direct or shared" in
         ClightObservedPointerCompiler.compile_realized_observed_pointer shared
           GuardPrivateScanCandidate.propose (GuardMemoryCandidate.natural 17) csyntax)"""
-    if affine_inner_pointer:
+    if affine_api:
         invocation = "(" + ENTRY + " GuardAffineInnerPointerCandidate.profile GuardAffineInnerPointerCandidate.propose (GuardMemoryCandidate.natural 16) csyntax)"
     replacement = """(let outcome = ref None in
       ImpureConfig.Core.Base.bind INVOCATION
@@ -148,7 +154,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
 '''
     extraction = WORK / "extract_memory.v"
     metadata_root = (" ClightAffineInnerPointerCandidates.propose_affine_inner_pointer_profile"
-                     " ClightAffineInnerPointerCandidates.propose_affine_inner_pointer_tiling") if affine_inner_pointer else ""
+                     " ClightAffineInnerPointerCandidates.propose_affine_inner_pointer_tiling") if affine_api else ""
     extraction.write_text("From " + ("GuardInterface" if interface_api else "GuardMemory") + " Require Import " + ENTRY.split(".")[0] + ".\n"
         "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
         "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
@@ -180,7 +186,7 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         sources.append(ADAPTER / "native" / "GuardReadonlyParametricCandidate.ml")
     if private_scan or observed_api:
         sources.append(ADAPTER / "native" / "GuardPrivateScanCandidate.ml")
-    if affine_inner_pointer:
+    if affine_api:
         sources.append(ADAPTER / "native" / "GuardAffineInnerPointerCandidate.ml")
     for source in sources:
         target = "GuardMemoryNumbers.ml" if source.name == "GuardMemoryNumbersCompCert.ml" else source.name
@@ -199,8 +205,8 @@ Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed
         "proof_report_sha256": sha(proof_path),
         "native_sources": {str(path.relative_to(ROOT)): sha(path) for path in sources},
         "oracle": "bounded Fourier-Motzkin with checked LCF certificates",
-        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE with affine Loop, tile witness or explicit schedules; GUARDCERT_AFFINE_* source metadata" if affine_inner_pointer else "GUARDCERT_LOOP_CANDIDATE file with Loop, tiling or affine-schedule proposal" if proposed or unified or interface_api else None,
-        "guard_configuration": "affine-inner readonly arithmetic/alias guard plus separate validator/encoder ranges; original source fallback" if affine_inner_pointer else "GUARDCERT_GUARD_LOWERING direct/shared, default shared; original private scan retained" if observed_realization else "source-observed readonly affine separation, otherwise original private scan" if observed_pointer else "private scan with a fresh materialized Boolean result" if private_scan else "GUARDCERT_GUARD_LOWERING direct/shared, default shared" if readonly_api else None,
+        "candidate_configuration": "GUARDCERT_LOOP_CANDIDATE with affine Loop, tile witness or explicit schedules; GUARDCERT_AFFINE_* source metadata" if affine_api else "GUARDCERT_LOOP_CANDIDATE file with Loop, tiling or affine-schedule proposal" if proposed or unified or interface_api else None,
+        "guard_configuration": "retained source snapshot, checked write exclusion, staged affine preparation and candidate ranges/alias; original memory-loaded source fallback" if affine_loaded_pointer else "affine-inner readonly arithmetic/alias guard plus separate validator/encoder ranges; original source fallback" if affine_inner_pointer else "GUARDCERT_GUARD_LOWERING direct/shared, default shared; original private scan retained" if observed_realization else "source-observed readonly affine separation, otherwise original private scan" if observed_pointer else "private scan with a fresh materialized Boolean result" if private_scan else "GUARDCERT_GUARD_LOWERING direct/shared, default shared" if readonly_api else None,
         "tile_configuration": "GUARDCERT_TILE_ROWS and GUARDCERT_TILE_COLUMNS, default 4x4" if tiling or cuts or sequences or operations else None,
     }, indent=2) + "\n")
     print(f"verified dependence compiler: {WORK / 'ccomp'}")
@@ -220,10 +226,11 @@ if __name__ == "__main__":
     parser.add_argument("--observed-pointer", action="store_true", help="extract source-observed affine pointer separation with the original scan fallback")
     parser.add_argument("--observed-realization", action="store_true", help="extract direct/shared source-observed shortcuts through one proved entry")
     parser.add_argument("--affine-inner-pointer", action="store_true", help="extract the checked affine-inner source/candidate compiler")
+    parser.add_argument("--affine-loaded-pointer", action="store_true", help="extract the parameterized memory-loaded affine-inner compiler")
     parser.add_argument("--output-dir", type=Path, help="build a separate compiler without replacing a frozen stage")
     parser.add_argument("--proof-report", type=Path, help="bind extraction to a separate current proof audit")
     arguments = parser.parse_args()
-    if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer, arguments.observed_realization, arguments.affine_inner_pointer)) > 1:
+    if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer, arguments.observed_realization, arguments.affine_inner_pointer, arguments.affine_loaded_pointer)) > 1:
         parser.error("select one compiler entrypoint")
     main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer, arguments.observed_realization,
-         affine_inner_pointer=arguments.affine_inner_pointer, output_dir=arguments.output_dir, proof_report=arguments.proof_report)
+         affine_inner_pointer=arguments.affine_inner_pointer, affine_loaded_pointer=arguments.affine_loaded_pointer, output_dir=arguments.output_dir, proof_report=arguments.proof_report)
