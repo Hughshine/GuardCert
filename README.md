@@ -1,5 +1,7 @@
 # Guard：带前提的程序变换与组合证明
 
+本轮已同步 topdown `7d94d81` 的澄清：最小 kernel 止于局部 guarded correctness，条件处理／扫描是上层库，程序安装属于语言 host。[源顺序 bound 稳定性服务](docs/research-checkpoint-2026-10-06-affine-loaded-stability.md)新增实际 store 权限运输、已到达 row 的全部 write receipts、仿射坐标替换、动态 word-address 分离和当前行 guard 证明。独立 bound pointer 到 source package／候选／编译器的安装仍待完成；当前可运行编译器的能力继续以下一段的报告为准。
+
 10 月 6 日更新：按 [topdown 叙事](docs/topdown/paper-narrative.md) 和[三方验证责任](docs/framework-responsibilities.md)推进“小的语言无关框架＋实质 CompCert 循环实例”。[参数化 loaded-bound compiler](docs/research-checkpoint-2026-10-06-affine-loaded-compiler.md) 已从真实 C 识别源 snapshot、不同变量名的三角域和 `j<2*i+1`，将 mapped、schedule、2×3／4×1 tiling 接到 staged guard、真实原 loaded fallback 和 Csem→Asm。47 端点审计、提取、十一配置共 1,650 次调用、七个机器写入顺序探针通过。当前 bound 是写缓冲区单元 0，复用源已有 public snapshot；独立 bound pointer、依赖 preload 和 private snapshot 仍待实现。[新增 context 评审](docs/clight-boundary-contract-review.md)明确：局部证书由 kernel 组合，程序安装定理由语言 host 提供，优化及位置提供相应证据。完整 goal 保持 active；性能、同例作者负担与一般深层 affine 源继续推进，历史结果按各自报告解释。
 
 后继 [loaded source placement](docs/research-checkpoint-2026-10-06-loaded-placement.md) 已证明不假设 bound 稳定的 nested progress，组合原候选 checker、保留 prefix/suffix 的 contract、完整 Clight 安装与新的 Csem→Asm 定理。语言协议允许 body 改变 memory bound；缓存合法性仍由独立 domain 证明。当前 optimizer profile 使用固定 Clight 标识符，没有新真实 C frontend 接受、提取或原生证据；下一项是推广实际 source adapter 并完成这三项验收。完整 goal 保持 active。

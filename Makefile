@@ -93,6 +93,10 @@ interface-pointer-realization-direct:
 
 .PHONY: affine-pointer-domain-proof affine-pointer-domain-regression affine-pointer-source-proof affine-pointer-alias-proof affine-pointer-compiler-proof affine-pointer-compiler-native
 .PHONY: affine-loaded-pointer-proof affine-loaded-placement-proof affine-loaded-compiler-proof affine-loaded-compiler-native
+.PHONY: affine-loaded-stability-proof
+affine-loaded-stability-proof:
+	python3 scripts/audit_affine_loaded_stability.py
+
 affine-loaded-pointer-proof:
 	python3 scripts/audit_affine_loaded_pointer.py
 

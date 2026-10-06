@@ -150,3 +150,9 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch，topdown 更新为 `8c098ed`；另两个评审分支仍为 `9673381` 和 `3e9f008`。paper narrative 新增 [context-lifting](topdown/context-lifting.md) 讨论，已逐字同步；[源码核对](clight-boundary-contract-review.md)回答当前 finite/open/shared/sequence host 的 clause 复用与实质差异。计划明确 language host 负责 region 契约与程序安装，优化和位置负责相应保证／放置证据，不将 kernel lifting 字段当作已完成 contextual closure。没有仅因图更整齐重写契约或 kernel。
 
 [参数化 loaded compiler](research-checkpoint-2026-10-06-affine-loaded-compiler.md) 已消除固定 optimizer names，保留 snapshot 可在 direct prefix 任意位置；真实 frontend、Csem→Asm、提取与十一配置共 1,650 次调用、七个机器路径通过。Domain 由实际源 header/body 取得读取证据，条件范围接受后才用全部真实 writes 排除 bound；language 的进展独立于稳定性，kernel sequencing 复用。旧 affine-inner 入口因共享提取脚本修改而重新构建／验收，结果另记。仍不主张 total proof burden、性能或 novelty 收益；独立 bound pointer／private snapshot／依赖读取列为下一验收，完整目标 active。
+
+## 10 月 6 日：最小 kernel 的截止与动态稳定性服务
+
+再次 fetch，topdown 更新为 `7d94d81`；另两个评审分支仍为 `9673381` 和 `3e9f008`。新增十五行明确最小 semantic kernel 止于局部 guarded correctness：readonly 前台和 condition processing／prefix scan 是上层库，whole-program installation 是 language-host 责任；此澄清不要求重排文件。paper narrative 已逐字同步，责任矩阵与当前计划明确区分“框架库”和“最小 kernel”。
+
+已采纳并在 [稳定性服务](research-checkpoint-2026-10-06-affine-loaded-stability.md)落实：既有 prefix library 保持；Clight 新增 store 权限运输和实际 loaded-row 取得／正结果续行；domain 新增真实 writes 的 receipts 和仿射地址探针编码。当前行 guard 的安全、可用性和物理保持已证明；source package 到完整逐行扫描的实例证据仍待连接，不能把 callback 参数或者旧 compiler 回归算作新完整编译器。后续计划优先完成该连接和真实运行，再讨论新 kernel 能力或 proof burden 收益。完整 goal 保持 active。

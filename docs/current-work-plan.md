@@ -10,6 +10,8 @@
 
 最新同步到 `8c098ed` 的 [context lifting](topdown/context-lifting.md)：kernel 的局部正确性与语言的程序安装分开陈述；host 提供可复用 region/boundary 契约，优化与具体位置提供 guarantee／placement 证据。已完成 [源码核对](clight-boundary-contract-review.md)，已有 temp/memory／scope／private 运输继续复用；finite 与 open 的 progress 是实质差异，不按自由 clause 组合重新设计 kernel。guarantee/requirement API 仍待实际受阻案例支持，不称已经实现。
 
+最新 `7d94d81` 的 kernel 截止澄清已同步：只读前台、条件组合、prefix scan、simplification 和 assumption derivation 属于上层库；语言 host 承担完整程序安装。沿此边界继续实现和记录责任，不做无实例依据的文件重排或新 kernel 接口。
+
 | 顺序 | 工作与状态 | 必须交付的验收 |
 | --- | --- | --- |
 | P0：本次交付 | 实现、实际 frontend 对应、提取与回归已通过；提交／push 以阶段记录为准 | 一个真正完整的 unsigned memory-bound 循环；guard 域来自有限源前缀；源／目标实际 alias 发散；540 次有限调用、六处新 loop 与两处混合旧 preload；401 端点／862 摘要、25 配置／40 报告绑定当前产物，39 份旧 C／Clight 摘要保持；准确文档并 push |
@@ -84,3 +86,16 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 [本阶段](research-checkpoint-2026-10-06-affine-loaded-compiler.md) 已关闭固定标识符、真实 frontend 接受、提取和原生验收缺口。源 snapshot 可处在直接 load prefix 的任意位置，输出须唯一且不覆盖 pointer；checked source/metadata 来自实际 AST。新 source evidence 接口以真实 loaded header/body 提供机器值读取证据，再执行 range/width 检查、全部实际 write exclusion、loaded→cached 运输和原候选 checker。框架原 sequencing、语言 progress/host/backend 继续被实际入口消费。47 端点／549 依赖／893 源摘要审计和新 Csem→Asm、提取通过；十一新编译配置各 150 次调用，七个机器探针确认候选和原 loaded fallback。
 
 下一必交付调整为独立 bound pointer 的动态 write-footprint 分离：source 保留的 bound load 要能进入当前 source package，alias/bound stability 条件共同覆盖所有 stores，guard 失败仍用不预置稳定性的语言 host。之后实现依赖 preload 的安全读序和 private snapshot，扩展一般深层 affine 源。当前同 write-buffer cell 0 的静态 exclusion 不称动态任意 pointer 支持；新版 preparation 接口先由 loaded 入口消费，旧 cached 入口仍保留原证明，尚未证明总 proof burden 降低。P4 和同例 related-work/作者负担验收继续独立，完整目标 active。
+
+## 独立 bound pointer：源顺序稳定性证明服务
+
+[本阶段](research-checkpoint-2026-10-06-affine-loaded-stability.md)完成实际 stores 到原 guard entry 的权限运输、实际完整 row 的 write receipts、坐标替换后的 Clight 地址求值、支持不同 blocks 的 pointer equality／物理分离，以及实际当前行 guard 的安全／完成／接受保持。语言的 loaded-prefix invariant 保存剩余真实源执行，正结果才允许续行；没有在 D 中放未来 bound 稳定性。上层 prefix library 被实际消费，kernel 不变。
+
+下一必交付保持独立 bound pointer 的完整安装，顺序固定为：
+
+1. checked source package 消费现有 range／word／row-decode 定理，证明每次到达的 `memory_affine_row_domain`；完成初始 loaded-prefix witness 和足够 fuel 的覆盖证明。不得把界限稳定性或完整未来 footprint 当作安全域。
+2. 让实际逐行 guard 消费上述实例证书，推出全部实际源 writes 的观察保持，并接到新的 external loaded→cached 运输与原 mapped／tiling candidate 证书。
+3. matcher 接受独立 bound pointer，核对它受 frame 保护并来自 retained source read；保留真正 loaded fallback，复用语言 progress／placement，取得 Csem→Asm、提取和完整 C 运行证据。
+4. 验收独立 blocks、同 block 不同 offsets、写中 bound 后提前停的源、当前行 alias 拒绝而后续危险地址不被检查。记录 guard AST／shared lowering 成本，性能独立测量。
+
+本阶段是证明服务，不称已经完成这个安装。当前行 domain／decoder 仍由实例证明；编译器能力仍以此前 loaded compiler 为准。之后才推进依赖 preload 和 private snapshot。

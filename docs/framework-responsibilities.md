@@ -1,6 +1,8 @@
 # 验证责任、证书边界与最难的验收
 
-这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `8c098ed`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `7d94d81`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+
+最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。
 
 非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 从真实 source prefix／有限正常源执行生产 D；[新 compiler](clight-affine-inner-pointer-compiler.md) 已进一步组装两套 candidate ranges、独立 certificate、实际 lowering／restore 和 local contract，消费已有 progress／placement host 接到 Csem→Asm，不归作 framework 自动发现优化前提。
 
@@ -125,3 +127,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 [参数化 loaded compiler](research-checkpoint-2026-10-06-affine-loaded-compiler.md)已经实际落实三方分工：语言从任意 prefix 位置生产值 receipt，复用不假设 bound 稳定性的 progress／table host；domain 通过 checked package 的真实 header/body 生产 preparation evidence，范围接受后才证明全部 writes 排除 bound，并运输到原候选证书；kernel 用域限制和原 readonly sequencing 组合检查。源 snapshot、loaded fallback、quiet suffix、不同 normalized identifiers 与 candidate/restore 都进入真实 C 编译及机器验收。新 evidence 接口由 loaded 入口消费；旧 cached 入口仍用其原证明，不把两条实例的相似证明说成已经共享同一实现。
 
 当前最难的下一义务是不同名 bound buffer 与写缓冲区之间的动态物理分离，随后是依赖读序／private cache 的 original-entry 事实与上下文运输。静态逻辑单元排除没有证明不同 base 的实际无 alias；仅 `bound != destination` 也不足。kernel 的抽象 `lift_refinement` 字段不解决这些问题。
+
+[源顺序稳定性服务](research-checkpoint-2026-10-06-affine-loaded-stability.md)进一步分开这些责任：语言证明实际 store 的权限运输、已到达 loaded header 的整行执行取得和成功后续行；domain 从真实 row decode 取得每个 write receipt，生成不修改公开坐标的仿射地址表达式，并将其等号检查接到物理 byte separation／load 保持。当前行的全部检查已消费上层 `ReadonlyPrefixScan` 库；不同 memory blocks 的安全等号比较和 alias 后停止有真实 Clight proof fixtures。最小 kernel 未修改。
+
+该阶段仍缺 checked source package 到逐行扫描实例的完整连接，以及候选／whole-program compiler 安装。`loaded_rows_prefix_spec` 的 `ROW_CHECK`、`DECODE` 和 `PRESERVE` 是有类型的使用者证明参数；`memory_affine_row_domain` 的参数／范围／receipt 字段要由实例交付，不能把接口字段算作已经解决。新的 row probe 定理和旧 compiler 回归各有审计边界；这次不新增原生能力、private snapshot 或 proof burden 收益主张。
