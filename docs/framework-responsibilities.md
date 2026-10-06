@@ -89,6 +89,8 @@ for (; i != *bound; ++i) *out = i + 2U;
 
 ## 5. 研究主张与持续维护
 
+[源观察支持的 alias 包络](source-observed-affine-separation.md) 进一步关闭了受限片段上的这两项证明：语言库从真实保留的 source load prefix 导出地址有效性，并安装 prefix 后的局部条件；domain 库将任意点包络接到实际 source footprint 与 modular 物理单元。readonly shortcut 复用同一 candidate C_opt、原 scan 和 kernel 组合。优化使用者仍提供已验证 candidate check，以及绑定实际 normalized AST 的定位证据；新完整 compiler 注册、提取、原生路径验证与一般 affine 源仍待完成。这组服务的 proof audit 与前一阶段 compiler/native 报告分开，不从源码或端点数量主张性能或作者负担收益。
+
 整体叙事是“小的语言无关 verified optimistic transformation 框架＋有实质算法与条件正确性证明的 CompCert 循环实例”。kernel 的组合定理较短，这不要求框架承担优化发现；贡献必须由实际可复用的证据处理服务、语言宿主和困难 optimizer 的接入共同证明。更广泛 conditional rewrite 作为接口实例；未实现的 vectorization、layout specialization 等不计 evaluated 能力。
 
 每次 P1／P2／P3 验收记录三方新写了什么、复用了什么、哪张证书尚缺。和 OLO／CoreJIT／Chamois／Peek 做同例对照后再判断增量；未取得的文献／artifact 能力保留未知。[10 月 6 日一手补核](related-work-interface-check-2026-10-06.md) 已确认 Chamois oracle 的 CFG／invariant 输出和实际 CFG expansion 模拟，以及 Peek 的局部证明、normalization 与 liveness 宿主；这些已有服务不能单独算作 GuardCert 增量。性能、证明负担和新颖性各有独立证据，不能从正确性计数互相推导。

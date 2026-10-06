@@ -78,3 +78,5 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch 后，三个评审分支仍分别为 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，没有新增意见。已有 narrative 对责任和困难位置的要求继续进入实现：[盒状 affine 包络](affine-box-condition-derivation.md) 将数学覆盖、机器编码和实际候选消费分别落实，复用局部与安装证明；性能／proof burden 和同例 related-work 对照仍待完成。
 
 本次实际语义核对还修正了 P3 的 pointer 计划：访问 `p+k` 有效不保证原始 p 可比较，不能把 base-valid 偷放到 D。先交付宽度条件的实际使用者，pointer separation 的符号推导继续要求源前缀／placement 提供合法观察，并证明覆盖全部源访问。旧一轴宽度检查本来就是符号算法，因此本次不把它描述成 footprint 枚举的替代。完整 P3 和研究目标继续保持未完成；当前实现／验证见[阶段记录](research-checkpoint-2026-10-06-envelope.md)。
+
+后继 [源观察 alias 阶段](research-checkpoint-2026-10-06-observed-pointer.md) 再次 fetch 三分支，SHA 不变。已把这项计划落实为真实 prefix receipt、modular 物理分离、全部实际 footprint coverage 和同一 C_opt／scan 的 checked fragment lowering，17 端点审计通过；新 compiler 接入／提取／实际快捷执行仍待完成。责任矩阵与计划已据此更新，保持 P3、性能和作者负担验收开放，不以片段证明完成代替完整目标。

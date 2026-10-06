@@ -65,4 +65,6 @@ Clight 模块提供真实片段宿主、写 frame 接口、只在活动路径读
 
 三个固定评审分支现已[综合整理](../../docs/review-synthesis-2026-10-05.md)并进入[当前计划](../../docs/current-work-plan.md)：保留既有 abstract select／只读前台，下一步统一实际 realization，迁移真实 affine／tiling 使用者，接一个受限符号化条件／足迹算法，并以同版 CompCert 做机制性能评估。以上结果不将完整 OLO 多面体主线标为完成。
 
-10 月 6 日新增 [符号 affine 包络与实际宽度条件](../../docs/affine-box-condition-derivation.md)：数学层覆盖任意有限维盒状域，Clight 层证明 modular 仿射求值与最终 signed 比较。`ClightReadonlyCheckReplacement.v` 复用已有 reachable-test 安全与结果确定性，替换依赖检查链的一个阶段，保留 D／P／candidate／local proof。实际参数化 compiler 消费新宽度检查并复用旧 candidate 和 Csem→Asm；pointer scan 的符号替代仍待证，未实现一般 projection。
+10 月 6 日新增 [符号 affine 包络与实际宽度条件](../../docs/affine-box-condition-derivation.md)：数学层覆盖任意有限维盒状域，Clight 层证明 modular 仿射求值与最终 signed 比较。`ClightReadonlyCheckReplacement.v` 复用已有 reachable-test 安全与结果确定性，替换依赖检查链的一个阶段，保留 D／P／candidate／local proof。实际参数化 compiler 消费新宽度检查并复用旧 candidate 和 Csem→Asm；pointer scan 的符号替代接入仍待完成，未实现一般 projection。
+
+[源观察与 pointer 包络](../../docs/source-observed-affine-separation.md) 提供保留真实 load prefix 的地址 receipt、实际只读快捷条件、全部 source footprint coverage 和 modular 物理分离；checked fragment lowering 复用原候选与扫描证书。`make interface-pointer-envelope-proof` 审计这组片段证明。新 compiler 注册／提取／native 路径仍待接入。

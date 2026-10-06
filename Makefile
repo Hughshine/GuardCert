@@ -55,6 +55,10 @@ interface-parametric-runtime-order:
 interface-private-check-proof:
 	python3 scripts/audit_interface_private_check.py
 
+.PHONY: interface-pointer-envelope-proof
+interface-pointer-envelope-proof:
+	python3 scripts/audit_observed_pointer_envelope.py
+
 interface-private-scan-native: interface-private-check-proof
 	python3 scripts/build_memory_compiler.py --private-scan > build/interface-private-check/build-compiler.log 2>&1
 	python3 scripts/native_interface_private_scan.py

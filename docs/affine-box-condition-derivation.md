@@ -57,3 +57,5 @@ for (; i<n; ++i) {
 原拟 pointer 快捷检查需要修正：当前 D 保证源访问 `p+k` 的 capability，却不保证原始 p weak-valid。例如地址偏移可以在运算后进入合法访问区域。CompCert 指针比较有自己的有效性条件，因此不能直接先比较 p/q，再用 offset 包络判断 separation。后续方案须由真实源前缀／placement 提供比较所需的观察证据，或设计只使用已许可访问地址的推导；否则保留现有 scan。不新增一个调用者无法从源推出的 base-valid 假设。
 
 一般深度 affine 源、非盒状域、完整物理 pointer separation 的符号条件、该使用者的任意发散 fallback，以及同例 proof-burden／性能比较继续在 [当前计划](current-work-plan.md) 中验收。文献定位仍受 OLO、Chamois、Peek 和 CoreJIT 的已有服务约束；本阶段不据条件替换或 local-to-global 本身宣称新颖性。
+
+后继 [源观察支持的 alias 包络](source-observed-affine-separation.md) 已在受限片段中证明真实 load prefix 的观察许可、全部源 footprint coverage 和 modular 物理分离，复用原候选与 scan。其 checked fragment lowering 已证明；完整 compiler 接入／提取／新路径 native 仍待完成，不能把前一宽度阶段的运行报告当作新 alias 条件的运行证据。
