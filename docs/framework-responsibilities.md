@@ -18,7 +18,7 @@
 
 最新 topdown 补充也已采纳：抽象接口应能由 SSA／CFG 或汇编实例解释，Clight 继续是主验收。CFG 实例另证明 live-out／phi／控制出口；汇编实例另证明 scratch registers、flags、memory 和分支控制。若实际检查改变 flags，语言不能只说逻辑 condition 是只读：必须证明这些变化私有且不影响分支，或给出保存／恢复与真实状态运输。第二 IR 是可选的表达力证据，当前没有宣称已经实现，不把它加入主功能的强制验收。
 
-同样，当前 Clight 的 tree／单 Boolean realization 不自动包含运行时循环式 footprint 扫描。扫描后的私有游标可能依赖 memory 和拒绝位置；下一项语言接口要交付真实检查表示、入口／检查后关系、frame 和 branch transport。语言无关 host 已允许一般检查和状态关系，当前具体语言适配器的限制不能改称框架已经验证了所有 stateful 检查。
+同样，当前 Clight 的 tree／单 Boolean realization 不自动包含运行时循环式 footprint 扫描。扫描后的私有游标可能依赖 memory 和拒绝位置；下一项语言接口要交付真实检查表示、入口／检查后关系、frame 和 branch transport。[迁移规格](clight-private-check-migration.md) 进一步区分旧证书的存在见证／checked 前提与公共证书的所有执行 sound／原入口前提，并要求实际 exact dispatch。语言无关 host 已允许一般检查和状态关系，当前具体语言适配器的限制不能改称框架已经验证了所有 stateful 检查。
 
 ## 2. 四张证书与一个安全域
 
@@ -79,10 +79,10 @@ for (; i != *bound; ++i) *out = i + 2U;
 | 保持有限／无限行为和公开上下文 | 仅 completed-run 等价；native 超时；把 cache 当不存在 | 正常出口／frame、私有 state 关系、局部小步匹配及宿主 forward simulation，明确内部 call／return／label 限制；最终 Csem→Asm 端点。规则 witness＋语言宿主 |
 | 降低作者负担且有实际价值 | 增加 record／端点／相似模板；只量 Clight 打印字节 | 至少两条规则消费同一 condition／realization；记录专属 obligations 与证明代码；同源 direct/shared 对照和同版 CompCert 原生成本。核／adapter 复用、domain 接入、测量分别报告 |
 
-第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。10 月 6 日的第一项真实迁移复用已有矩形范围与 named memory 的全实例对应证明，并实际消费仿射／分块依赖核对器。它关闭了一个真实使用者的接入，未新增一般 B⇒A 推导算法，也未迁移一般 affine 源或指针足迹。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
+第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。10 月 6 日的第一项迁移复用矩形范围与 named memory 的全实例对应，第二项 [参数化仿射内层源](clight-parametric-preservation.md) 复用已有端点覆盖、机器范围 lowering 和不同布局／偏移／多读取的 body 对应，并运行实际 schedule generation 后重新核对候选。二者都消费仿射／分块依赖核对器，通过公共保持、分派和安装接入。此次没有新增一般 B⇒A 推导算法，一般深度 affine 源与指针足迹仍待迁移。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
 
 ## 5. 研究主张与持续维护
 
 整体叙事是“小的语言无关 verified optimistic transformation 框架＋有实质算法与条件正确性证明的 CompCert 循环实例”。kernel 的组合定理较短，这不要求框架承担优化发现；贡献必须由实际可复用的证据处理服务、语言宿主和困难 optimizer 的接入共同证明。更广泛 conditional rewrite 作为接口实例；未实现的 vectorization、layout specialization 等不计 evaluated 能力。
 
-每次 P1／P2／P3 验收记录三方新写了什么、复用了什么、哪张证书尚缺。和 OLO／CoreJIT／Chamois／Peek 做同例对照后再判断增量；未取得的文献／artifact 能力保留未知。性能、证明负担和新颖性各有独立证据，不能从正确性计数互相推导。
+每次 P1／P2／P3 验收记录三方新写了什么、复用了什么、哪张证书尚缺。和 OLO／CoreJIT／Chamois／Peek 做同例对照后再判断增量；未取得的文献／artifact 能力保留未知。[10 月 6 日一手补核](related-work-interface-check-2026-10-06.md) 已确认 Chamois oracle 的 CFG／invariant 输出和实际 CFG expansion 模拟，以及 Peek 的局部证明、normalization 与 liveness 宿主；这些已有服务不能单独算作 GuardCert 增量。性能、证明负担和新颖性各有独立证据，不能从正确性计数互相推导。

@@ -4,6 +4,10 @@
 
 10 月 6 日的 [真实 affine／tiling 使用者](../../docs/clight-polyhedral-preservation.md) 已消费主只读接口。`ClightReadonlyPreservation.v` 支持实际 program globalenv 下的条件性 source-to-candidate 保持；它与双向规则共用 `realized_projected_selection_contract`。`ClightPolyhedralPreservation.v` 复用旧 named array 源／模型／候选证书并消费实际依赖核对器，`ClightPolyhedralCompiler.v` 接完整 Csem→Asm 与实际提取入口。`make interface-polyhedral-native` 分别运行 direct/shared，覆盖真实多数组候选、拒绝、连续 region、外围 goto 和空外层未初始化内层 bound；边界与当前验收见 [阶段记录](../../docs/research-checkpoint-2026-10-06.md)。这是可选的 PolCert/VPL 使用者，42 项继承假设单独审计；主 CompCert-only 接口的基线保持。
 
+第二个实际使用者 `ClightParametricPreservation.v`／`ClightParametricCompiler.v` 接入 `j<U(i,parameters)` 的源域、布局／偏移／多读取／word compute 的实际 body 和 metadata-aware 不受信任调度。生成后重新核对实际 Loop，再通过同一个保持／分派／安装接口编译。`make interface-parametric-native` 运行六份原有 C fixture 与独立模型，`make interface-parametric-runtime-order` 使用 x86-64/GDB 观察真实接受／回退写入顺序并核对产物绑定。证明责任、限制与证据见 [使用说明](../../docs/clight-parametric-preservation.md)和[阶段记录](../../docs/research-checkpoint-2026-10-06-parametric.md)。
+
+`ClightPrivateCheckFacts.v` 提供真实 projected check 的完成执行唯一性及见证到所有完成执行的性质推广；`ClightParamPointerCheckFacts.v` 证明真实参数化 pointer scan 的 quiet 语法并实例化全部完成执行的接受结论。`make interface-private-check-proof` 单独审计。语言设施和 domain 实例都已实际编译，尚未完成原入口前提稳定、公共 guard certificate／exact dispatch／compiler 安装；见[迁移规格](../../docs/clight-private-check-migration.md)。
+
 当前使用者契约见 [guarded-rewrite-contract.md](../../docs/guarded-rewrite-contract.md)：使用者选择片段、候选及位置，框架插入只读 condition、源回退并证明等价。底层入口协议的设计与分类见 [language-independent-interface.md](../../docs/language-independent-interface.md)。
 
 `GuardInterface.v` 暴露语言、检查、条件变换和上下文四份契约；它证明 guarded refinement、独立的 preservation 及满足宿主插入／目标可安装条件时的程序 refinement。状态、观察、检查的安全性质和关系均由实例解释。检查的存在性不能代替非确定语言的所有路径进展。

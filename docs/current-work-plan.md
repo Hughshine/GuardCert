@@ -12,15 +12,17 @@
 | --- | --- | --- |
 | P0：本次交付 | 实现、实际 frontend 对应、提取与回归已通过；提交／push 以阶段记录为准 | 一个真正完整的 unsigned memory-bound 循环；guard 域来自有限源前缀；源／目标实际 alias 发散；540 次有限调用、六处新 loop 与两处混合旧 preload；401 端点／862 摘要、25 配置／40 报告绑定当前产物，39 份旧 C／Clight 摘要保持；准确文档并 push |
 | P1：统一实际 realization | [公共设施](clight-guard-realization.md)与三个实际路径已接入；411 端点／863 摘要、25 配置／40 报告验证通过，相对 `26956a4` 的 40 份 C／Clight 摘要保持 | direct/shared 复用同一个 readonly condition 与 local rule，公共证书说明实际代码、私有资源／freshness、状态／观察运输、defined dispatch 和相应宿主模拟；两个 finite 安装路径和完整 unsigned 循环消费同一设施。分派前缀不要求分支完成；shared whole-loop 尚未安装，finite host 仍要求 source progress |
-| P2：主多面体路线迁移 | 第一项 [真实 named rectangle 使用者](clight-polyhedral-preservation.md) 的证明、提取、40＋8 原生配置已通过；主接口 415 端点／864 摘要、25 配置／40 报告兼容性回归也通过；其余源能力继续迁移 | 不受信任的实际候选、源／候选对应、机器范围／alias 检查、private 观察、Csem→Asm 与提取接受／拒绝均通过主接口；记录哪些旧证书可复用、哪些要新证。此次迁移不包含一般 affine 源、指针切片或 stateful 足迹；单个新 helper 或脱离编译器的模型不计完成 |
+| P2：主多面体路线迁移 | [named rectangle 使用者](clight-polyhedral-preservation.md) 的证明、提取、40＋8 原生配置已通过；第二项 [参数化 affine 内层源／多类数组 body](clight-parametric-preservation.md) 通过 12 个证明端点、六份完整 C fixture／134 个原生配置，以及四个实际接受／回退顺序探针；主接口 415 端点／864 摘要保持 | 不受信任的实际候选、源／候选对应、机器范围／alias 检查、private 观察、Csem→Asm 与提取接受／拒绝均通过公共接口；记录旧证书复用和专属义务。此次第二项仍不包含一般深度 affine polyhedron、指针切片或 stateful 足迹；单个新 helper 或脱离编译器的模型不计完成 |
 | P3：一个符号化条件／足迹算法 | 优先替换一个枚举路径，不继续堆同类模板 | 固定受限 affine 表达／域和允许观察；输出条件和可核对证书；证明实际源实例覆盖、Boolean／机器表示、安全与接受蕴含语义前提；实际编译一个候选，给出拒绝策略和非空接受域。不把逻辑 projection 定理描述成已有 QE 实现 |
 | P4：机制性能与复用量化 | [测量方案](native-performance-plan.md)和[schema](native-performance-report.schema.json)已采纳，尚未测量 | 同版原 CompCert 对照，实际接受／回退／静态拒绝分开；tree/simplified 的同源对照；最终 kernel bytes、guard／完整运行成本、编译成本、原始批次和环境。测量期间没有并发证明／构建；负收益照实报告 |
-| 持续：已有工作／主张校准 | 固定 [cf4d442 证据矩阵](evidence-to-claim-2026-10-05.md)，阶段性读取新评审 | 同例对照 OLO 源访问域／依赖 preload、安全检查与实际宿主义务；直接核对 Chamois／Peek 接口未知部分；记录复用与作者证明负担。不以端点数、C 层或 abstract if 单独主张 novelty |
+| 持续：已有工作／主张校准 | 保留 [cf4d442 证据矩阵](evidence-to-claim-2026-10-05.md)；新增 [Chamois／Peek 一手接口补核](related-work-interface-check-2026-10-06.md)，阶段性读取新评审 | Chamois oracle 签名和 CFG 扩展证明已取得，不再保留这两个访问未知项；动态条件推导能力和同例作者负担仍需核对。比较 OLO、Chamois、Peek 的安全、覆盖、freshness 和宿主义务；不以端点数、C 层或 abstract if 单独主张 novelty |
 | 持续：论文方向与验证责任 | 目标的组成部分，沿 topdown narrative 更新 | 每个阶段区分框架证明、语言定律和 optimizer／domain 证书；分别落实 `C_opt`、`C_derive`、`C_guard`、`C_host`。重点验收 B 覆盖全部 A、guard 自身安全、实际模型对应、有限／无限宿主行为及证明复用，不以责任表代替这些证明 |
 
 P0 关闭的是一个明确语义缺口。P1 服务于 P2 的真正接入；P2 是主功能目标的一次迁移验收，之后仍需一般 affine 域、复杂读写 body、依赖 preload 和布局组合。P3 是 optimizer/domain library 的受限推导算法，核心不承担 universal assumption extraction。P2 的首个使用者已实际消费候选／依赖核对和条件正确性；新的保持接口沿用旧证书在实际 globalenv 上的方向，与双向规则共享安装证明，没有改称等价或只重做 guard 包装。后续优先迁移参数化源／访问及真实 pointer footprint；区分可直接复用的 readonly 证书和需要私有检查状态的路线。P3 必须说明 `B⇒A` 的入口推导，再交给 `guard accepts⇒B` 的编码与 host。P3 与 P4 用来检验算法和实际价值，不将测量结果预设为收益。新增 [paper narrative](topdown/paper-narrative.md) 已在 P0 后同步读取并吸收。
 
-P2 下一项接口核对已有具体障碍：当前 Clight 条件是 `decision_tree`，actual realization 的入口函数只依赖 Boolean 和初始 temp map。这足够描述一槽 Boolean 分派，但不能直接描述运行时循环扫描后的私有计数器；扫描在不同 memory／绑定下可能拒绝于不同位置。先尝试复用 `encoded_private_rule` 的参数化 readonly 使用者；stateful pointer 路线另需明确检查表示、完整入口／检查后状态关系、私有资源 frame 和分支运输，不能仅套本次桥或把实际写入称为只读。核心继续消费语言定律，覆盖、检查进展和机器范围证明仍各归其责任方。
+P2 第二项已经复用 `encoded_private_rule`，接入参数化 readonly 使用者、实际 schedule generation／rechecking 与不同数组 body；入口覆盖继续复用已有仿射端点和模型对应，不声称新 projection 算法。下一项接口核对有四个具体障碍，详见 [private-check 迁移规格](clight-private-check-migration.md)：tree／一槽 Boolean 无法表示扫描后游标；旧检查只提供一个完成见证，公共证书要求所有执行 sound；旧前提锚在 checked state，公共证书锚在原入口；旧 wrapper 引入方向还不足以替代 `select_exact`。其中实际 scan 的 quiet／所有完成执行接受结论已通过四个端点的编译和独立审计；状态关系、原入口前提稳定、公共证书与 exact host／compiler 接入仍待完成。语言提供确定性、解码、frame 和 exact dispatch；domain 提供安全、覆盖、进展及前提稳定，不把它们隐入 kernel 或 D。
+
+本次完成结果及报告绑定见 [参数化源阶段记录](research-checkpoint-2026-10-06-parametric.md)。下一项先证明真实 pointer scan 的 `P(checked)⇒P(original)`，明确保护 header、稳定寄存器 bounds、参数／scalar context 和 pointer bindings；随后关闭与任意分支控制相容的 exact dispatch，再安装一个真实候选。当前 pointer 源是稳定寄存器矩形 bounds 下的参数化仿射访问，不与此次 `j<U(i,parameters)` 的非矩形源混称。之后仍推进 P3 的一个实际受限推导算法与 P4 成本测量。
 
 ## 每个阶段固定记录什么
 

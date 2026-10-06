@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-10 月 6 日更新：按 [topdown 叙事](docs/topdown/paper-narrative.md) 明确[框架、语言实例和优化方的验证责任](docs/framework-responsibilities.md)，并将第一个真实 [named affine／tiling 使用者](docs/clight-polyhedral-preservation.md) 接到主只读接口、公共 direct/shared realization 和完整 Csem→Asm。它保留旧证书的 source-to-candidate 保持方向，实际消费候选／依赖核对器；提取后已通过两种 lowering 的接受、拒绝和完整程序上下文测试。详见 [10 月 6 日阶段记录](docs/research-checkpoint-2026-10-06.md)。完整多面体目标继续进行，一般 affine 源、指针足迹和受限符号化条件推导仍需工作。
+10 月 6 日更新：按 [topdown 叙事](docs/topdown/paper-narrative.md) 明确[框架、语言实例和优化方的验证责任](docs/framework-responsibilities.md)。公共只读保持接口已接入 [named affine／tiling](docs/clight-polyhedral-preservation.md)，并新增 [参数化仿射内层源／多类数组 body](docs/clight-parametric-preservation.md) 的真实使用者、实际 schedule generation／rechecking 和完整 Csem→Asm。二者保留旧证书的 source-to-candidate 方向、共用 direct/shared realization 与安装。阶段结果分别见 [named 记录](docs/research-checkpoint-2026-10-06.md) 和 [参数化源记录](docs/research-checkpoint-2026-10-06-parametric.md)。完整多面体目标继续进行，一般深度 affine 域、[私有指针扫描迁移](docs/clight-private-check-migration.md)和受限符号化条件推导仍需工作。
 
 研究问题：如何把片段变换所需的语义前提处理为可靠证据或安全的检查代码，并复用条件正确性证明接入完整程序？首条实现主线是以 PolCert 为功能参照，在顺序 CompCert 中实现有动态前提的多面体变换，采用入口检查与原片段回退，并获得完整程序的行为保持证明。允许按 CompCert 机器语义重实现表示、算法和证明；验收要求是基本功能与证明能力对齐。通用框架通过语言接口实例化。旧 affine／tiling 路线的统一 C→Asm 入口支持动态矩形、`j<i+M` 的非矩形源、多个实际数组对象及跨数组读取／复制；消费实际依赖证书的仿射候选、组合坐标映射和二维 tiling 已接通源执行、运行时检查、候选执行及完整程序定理。一般仿射 Loop 的提取执行对应也已证明。单个稳定指针缓冲区及指针／固定数组中的稳定 RHS 标量参数也已接入。正、负及混合系数的仿射源地址随后也已接通，见 [signed 仿射地址](docs/memory-signed-affine-access.md)。[多个不同指针的活动访问分离检查](docs/memory-multiple-pointer-guards.md)也已接通源与候选的真实执行及完整程序定理，支持同一 block 中的切片。这些旧路线能力尚未全部迁移到主只读接口；更一般的深层仿射域、参数化访问及更宽的别名前提继续推进。具体缺口与验收要求见 [多面体接入目标](docs/polcert-integration-target.md)。
 
@@ -10,9 +10,9 @@
 
 [宿主能力与证明职责](docs/host-capabilities.md) 区分完成执行的整段版本化、每次求值位置检查和允许完整回退无限执行的整段小步协议；语言实例通过相应上下文证明连接完整程序。
 
-[带依赖的只读检查接口](docs/condition-stage-interface.md) 支持将前一阶段接受的事实用于后续检查安全。框架只依赖语言提供的常量／顺序检查代数，证明任意有限阶段的状态不变、安全与接受含义；实际内存上界规则已消费该组合，条件语法保持相同。[分支与前缀扫描](docs/readonly-prefix-scan-interface.md)进一步支持活动结束后的提前接受和逐点 ghost 依据运输；indexed 上界规则实际调用通用生成器。[只读探针简化](docs/readonly-probe-simplification.md)进一步保留原条件证书地消除重复实际测试，已接到单 loaded 和双动态 loaded 矩形共享编译入口。当前 54 个纯接口端点闭合，Clight 59 个和完整编译 411 个端点、863 份证明源码摘要审计通过；二十五种配置回归通过，40 份原生报告绑定当前证明与编译器。相对 `cf4d442`，39 份既有 C／Clight 摘要全部相同。新整段小步宿主无需原循环独立进展，真实 unsigned memory-bound 缓存通过 540 次有限调用／六处完整 loop，且有源／目标实际无限 alias 回退定理；当前新树仍有两份原回退。
+[带依赖的只读检查接口](docs/condition-stage-interface.md) 支持将前一阶段接受的事实用于后续检查安全。框架只依赖语言提供的常量／顺序检查代数，证明任意有限阶段的状态不变、安全与接受含义；实际内存上界规则已消费该组合，条件语法保持相同。[分支与前缀扫描](docs/readonly-prefix-scan-interface.md)进一步支持活动结束后的提前接受和逐点 ghost 依据运输；indexed 上界规则实际调用通用生成器。[只读探针简化](docs/readonly-probe-simplification.md)进一步保留原条件证书地消除重复实际测试，已接到单 loaded 和双动态 loaded 矩形共享编译入口。当前 54 个纯接口端点闭合，Clight 59 个和主完整编译 415 个端点、864 份证明源码摘要审计通过；二十五种配置回归通过，40 份原生报告绑定当前证明与编译器。相对 `cf4d442`，39 份既有 C／Clight 摘要全部相同。新整段小步宿主无需原循环独立进展，真实 unsigned memory-bound 缓存通过 540 次有限调用／六处完整 loop，且有源／目标实际无限 alias 回退定理；当前新树仍有两份原回退。
 
-研究对象还包括人工或工具给出候选后，由框架寻找成立条件、生成检查与回退。COVE/cSTOKE、Peek、Chamois、Icing 和 CoreJIT 已覆盖这条链的不同部分；当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。有限外层次数条件搜索已在实际多面体候选上实现；任意关系式条件推断和新颖性仍需进一步支持。
+研究对象还包括人工或工具给出候选后，由优化／domain library 推导可检查条件，再由框架消费证书、生成检查与回退。COVE/cSTOKE、Peek、Chamois、Icing 和 CoreJIT 已覆盖这条链的不同部分；当前原型是可行性基线，候选增量是可运行的、已验证的前提处理与检查代码生成。有限外层次数条件搜索已在实际多面体候选上实现；任意关系式条件推断和新颖性仍需进一步支持。
 
 [实际分派与安装复用](docs/clight-guard-realization.md)已通过本轮验收：direct/shared 使用同一 readonly 规则证书和公共安装定理，完整 unsigned 循环消费同一有限 dispatch prefix。相对 `26956a4`，25 配置全部重建／回归、40 份 C／Clight 摘要不变；finite host 的 source progress 与 shared whole-loop 的未实现边界分别保留。
 

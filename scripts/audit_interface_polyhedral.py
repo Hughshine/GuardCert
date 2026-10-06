@@ -61,7 +61,7 @@ def compile_closure(compile_flags, rebuild=False):
             visit(dependency)
         order.append(node)
 
-    visit(str(ROOT / "prototype/interface/ClightPolyhedralCompiler.vo"))
+    visit(str(ROOT / "prototype/interface" / (ENTRY.split(".")[0] + ".vo")))
     sources = [str(Path(node).with_suffix(".v").relative_to(ROOT)) for node in order]
     (WORK / "required-closure.json").write_text(json.dumps(sources, indent=2) + "\n")
     for node, filename in zip(order, sources):
@@ -80,9 +80,15 @@ def compile_closure(compile_flags, rebuild=False):
 
 
 def main():
+    global WORK, ENTRY, MODULES
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rebuild", action="store_true", help="recompile the entire selected user dependency closure")
+    parser.add_argument("--parametric", action="store_true", help="audit the affine-source user with actual schedule generation")
     arguments = parser.parse_args()
+    if arguments.parametric:
+        WORK = ROOT / "build/interface-parametric"
+        ENTRY = "ClightParametricCompiler.compile_preserving_parametric"
+        MODULES = ["ClightReadonlyPreservation", "ClightParametricPreservation", "ClightParametricCompiler"]
     WORK.mkdir(parents=True, exist_ok=True)
     baseline_path = ROOT / "build/compcert-guardcert/.guard-build.json"
     inherited = json.loads(baseline_path.read_text())["proof_sources"]
@@ -137,9 +143,14 @@ def main():
         "guard_realizations": ["direct", "shared"], "source_host": "finite source-normal region",
         "candidate_checkers": ["affine mapped-domain and dependence", "sequence tiling and dependence"],
         "source_selection": "named canonical rectangular array bodies with dynamic signed bounds",
-        "general_affine_source_migrated": False, "whole_infinite_loop_shared_host": False,
+        "general_affine_source_migrated": False,
+        "affine_inner_source_migrated": arguments.parametric,
+        "actual_schedule_generation": arguments.parametric, "whole_infinite_loop_shared_host": False,
         "native_execution_run": False,
     }
+    if arguments.parametric:
+        report["source_selection"] = "signed affine inner bounds and certified named/layout/offset/compute array body models"
+        report["candidate_checkers"] = ["parametric mapped-domain and dependence", "parametric tiling and dependence", "generated affine schedules checked again"]
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(f"Polyhedral API user audited: {len(endpoints)} endpoints, {len(closure)} user dependencies; "
           f"{len(baseline)} inherited assumption names, no additions", flush=True)
