@@ -2,6 +2,8 @@
 
 这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `f7936299fa6272fbf50db6b94a1bd0333808ea09`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
+非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。新的 guard 域还未由 source package 完整生产，不能将局部 theorem 的 typed-view／范围假设描述为已由 framework 自动解决。
+
 ## 1. 三方各自证明什么
 
 “框架提供 conditional correctness 接口”不表示框架替优化作者证明任意候选正确。“语言提供语义”也不表示每个优化作者都要重新证明语言的 if、load 和上下文定律。

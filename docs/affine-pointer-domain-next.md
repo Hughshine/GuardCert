@@ -1,6 +1,6 @@
 # 下一项：实际非矩形 pointer 源域
 
-这是下一阶段的设计与验收，不是已实现能力。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer 支持。共享 fallback 只改变最终控制实现，没有扩大这个域。
+这是非矩形 pointer 接入的活动设计与验收。局部证明设施已实现，尚未形成新的完整编译入口。当前 [observed pointer compiler](clight-observed-pointer-compiler.md) 的源模型仍是稳定寄存器 counts 的矩形，另一 [parametric compiler](clight-parametric-preservation.md) 支持 named-array 的 `j<U(i,parameters)`；二者不能合并计作已有非矩形 pointer compiler。共享 fallback 只改变最终控制实现，没有扩大这个域。
 
 ## 一个确定的切口
 
@@ -36,11 +36,19 @@ for (i = 0; i < n; ++i) {
 
 ## 源码证据指向的第一个语言服务
 
-现有 [ParametricSourceClight](../adapters/compcert-memory/GuardMemoryParametricSourceClight.v) 的 `memory_parametric_source_decode` 已接受任意 point relation，并证明真实两层循环与公开 settle；不应为 pointer body 重写整个循环控制证明。但其 DECODE 要求对所有 body-entry temps 成立，未把已有 `temp_agree stable base` 交给 point decoder。内层 `frontend_parametric_decode` 当前只保护 `[row]`。这对由 ge／locals 注册的 named arrays 足够，对依赖 entry pointer／parameter bindings 的 body 则不足。
+现有 [ParametricSourceClight](../adapters/compcert-memory/GuardMemoryParametricSourceClight.v) 的公共 framed 服务已经实现：内层保护 `row::stable`，向 point decoder 显式提供 `temp_agree stable base current`，外层沿原 writes/frame／settle 运输。旧函数保留为忽略新增 frame 参数的兼容包装，共用同一个循环控制证明。point relation 由使用者提交，语言服务不解释地址和 alias。
 
-下一步是一个 framed 的语言服务：把 inner protected temps 扩为 row 与 stable，向 point decoder 显式提供 `temp_agree stable base current`；外层沿既有 writes/frame／settle 运输。point relation 仍由使用者提交，语言服务不解释地址和 alias。随后 optimizer/domain 的 pointer body 消费已有 [multi-pointer sequence inverse／point correspondence](../adapters/compcert-memory/GuardMemoryMultiPointerSequence.v)，在坐标和参数范围、实际 binding 下解码；源 footprint capability 再从真实 Loop trace 导出。
+[AffineParameterLoops](../adapters/compcert-memory/GuardMemoryAffineParameterLoops.v) 的实际指令参数是 `[i;j]++entry_context`，内层上界在 `i::entry_context` 求值；没有添加一个虚构的独立内层 count。[AffinePointerBody](../adapters/compcert-memory/GuardMemoryAffinePointerBody.v) 消费原 multi-pointer sequence inverse／point correspondence，证明实际 pointer body、源 Loop 和公开 settle；源解码不假定 non-alias。
 
-已有 [instruction candidate checker](../adapters/compcert-memory/GuardMemoryParametricInstructionChecker.v) 使用 `memory_parametric_sequence` 的真正非矩形源，不必另造调度验证器；但它当前以 rectangle_shape／width-model 参数组织假设，pointer 接入仍需核对 context／index representation、source／candidate lowering 与范围证书。上述路径是源码支持的复用计划。framed variant 的临时 Rocq 草案已验证 row／source transport，并且假设名不超出既有语言基线；它尚未成为公开模块或被 pointer model／compiler 消费，不计入本阶段 proof audit、提取或运行能力。pointer 模型、真实源定位、条件与候选闭合仍未实现，不能因找到或试证一个可复用 theorem 就计作这些证明已关闭。
+[FirstBody](../adapters/compcert-memory/GuardMemoryParametricFirstBody.v) 从实际源执行取得第一个 body 及稳定寄存器 frame，要求两个入口 header 实际 active。[AffinePointerBody](../adapters/compcert-memory/GuardMemoryAffinePointerBody.v) 再利用已有 address／value 使用证书，从该 body 的实际求值取得 body-only 参数／标量的 word 类型。header-only 参数继续由原 `memory_parametric_source_words` 获取。条件何时可以读取这些参数，仍须由完整 source-derived D 的短路证明连接；这些 theorem 没有把所有入口 temps 无条件当作整数。
+
+[instruction candidate checker](../adapters/compcert-memory/GuardMemoryParametricInstructionChecker.v) 已推广为显式接受 source Loop；原 named-array 入口保留为旧模型的包装。新 pointer 模型使用相同 mapped-domain／dependence checker、width-model 和静态范围假设，不新增可信调度 oracle。[candidate transport](../adapters/compcert-memory/GuardMemoryAffinePointerCandidate.v) 在实际源足迹上 restrict，消费 candidate certificate，再 unrestrict 并调用原 Clight pointer backend，证明同一完整内存及公开出口恢复。这仍要求调用者提交模型执行、typed view、两套表示范围与 width 证据；尚未由新的 source package 自动组装。
+
+[实际非矩形足迹](../adapters/compcert-memory/GuardMemoryAffineParameterPointerFootprint.v) 枚举 `0<=i<N && 0<=j<U(i,context)`，从源 Loop 执行取得这些单元的 capability，并证明地址几何可忽略 RHS 标量。[条件连接](../prototype/interface/ClightAffineParameterPointerEnvelope.v) 复用原包络条件编译器，证明机器检查安全完成及接受蕴含该实际足迹上的物理 non-alias，并提供主 `readonly_condition` 证书；D 及入口 word／range／receipt 义务仍由使用者提供。[三角域实例](../prototype/interface/ClightTrianglePointerEnvelope.v) 实例化 `U(i)=i+1`，以 `[N;N]` 覆盖实际点，允许观察向量的三个位置使用同一个 n。旧矩形实例也消费同一包络 pair／分离服务，原 qualified API 名称保留。
+
+这些是经过编译的局部证明设施，审计入口为 `make affine-pointer-domain-proof`。新的 normalized source matcher、完整 D／guard certificate、候选证书与 package 的组装、序列 placement 和新 Csem→Asm 入口尚未实现，不把当前证明支持计作可运行的非矩形 pointer pass。
+
+本阶段的 36 端点审计、原 compiler 当前审计／提取、direct/shared 两个旧路径配置共 752 次调用及准确产物摘要见 [记录](research-checkpoint-2026-10-06-affine-pointer-support.md)。这些原生结果验证重构兼容性，不是新的三角循环优化执行。
 
 ## 不能把包络当成安全扫描域
 

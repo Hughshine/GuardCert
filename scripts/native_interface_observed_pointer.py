@@ -189,6 +189,7 @@ def configurations():
 
 
 def main():
+    global WORK, COMPILER, PROOF
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cases")
     parser.add_argument("--compile-timeout", type=int, default=1800)
@@ -196,9 +197,18 @@ def main():
                         help="re-execute bound passed artifacts from an explicitly archived earlier run")
     parser.add_argument("--realization", action="store_true")
     parser.add_argument("--lowering", choices=["shared", "direct"], default="shared")
+    parser.add_argument("--compiler-dir", type=Path, help="use a separate current extracted compiler")
+    parser.add_argument("--proof-report", type=Path, help="bind execution to a separate current audit")
+    parser.add_argument("--output-dir", type=Path, help="retain frozen stage native artifacts")
     args = parser.parse_args()
     if args.realization:
         configure_realization(args.lowering)
+    if args.compiler_dir is not None:
+        COMPILER = args.compiler_dir.resolve() / "ccomp"
+    if args.proof_report is not None:
+        PROOF = args.proof_report.resolve()
+    if args.output_dir is not None:
+        WORK = args.output_dir.resolve()
     assert args.compile_timeout > 0
     stamp = check_build()
     reused = json.loads(args.reuse_passed_report.read_text()) if args.reuse_passed_report else None

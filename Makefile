@@ -91,6 +91,17 @@ interface-pointer-realization-direct:
 	python3 scripts/validate_interface_observed_pointer.py --realization --lowering direct --runtime-paths
 	python3 scripts/compare_pointer_realizations.py
 
+.PHONY: affine-pointer-domain-proof affine-pointer-domain-regression
+affine-pointer-domain-proof:
+	python3 scripts/audit_affine_pointer_domain.py
+
+affine-pointer-domain-regression: affine-pointer-domain-proof
+	python3 scripts/audit_interface_observed_pointer.py --realization --output-dir build/affine-pointer-domain/compiler-proof
+	python3 scripts/build_memory_compiler.py --observed-realization --output-dir build/affine-pointer-domain/compiler --proof-report build/affine-pointer-domain/compiler-proof/report.json > build/affine-pointer-domain/build-compiler.log 2>&1
+	python3 scripts/native_interface_observed_pointer.py --realization --lowering shared --cases direct-interchange-2 --compiler-dir build/affine-pointer-domain/compiler --proof-report build/affine-pointer-domain/compiler-proof/report.json --output-dir build/affine-pointer-domain/native-shared
+	python3 scripts/native_interface_observed_pointer.py --realization --lowering direct --cases direct-interchange-2 --compiler-dir build/affine-pointer-domain/compiler --proof-report build/affine-pointer-domain/compiler-proof/report.json --output-dir build/affine-pointer-domain/native-direct
+	python3 scripts/validate_affine_pointer_domain.py
+
 interface-private-scan-native: interface-private-check-proof
 	python3 scripts/build_memory_compiler.py --private-scan > build/interface-private-check/build-compiler.log 2>&1
 	python3 scripts/native_interface_private_scan.py

@@ -94,3 +94,9 @@ Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；�
 再次 fetch 后三个评审分支维持 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，没有新增意见。继续按 narrative 的三方边界落实：[共享 fallback](clight-shared-pointer-shortcut.md) 只新增语言正常执行运输，既有 source matcher／candidate checker／D／P／coverage 共用一条参数化管线，框架组合定理保持。实际提取入口对 direct／shared 都有 Csem→Asm 结论。
 
 79 端点审计、提取、两个完整十五配置矩阵和二十个真实机器路径探针全部通过。三十个配置均本轮新编译，共 11,280 次配置内调用，唯一源调用集合仍为 376 组；十五份 direct Clight 与冻结基线一致。一个实际二维 interchange 配置的 scan AST 13→1、linked 函数 11,750→1,566 字节。它回应回退复制的具体问题；条件接受域、候选复制和对称 base 比较未改变。没有运行计时、总证明负担减少或新颖性结论；下一项一般 affine pointer 域／依赖 preload 和同例成本／obligations 比较继续进入计划。最终状态与摘要已在 [新阶段记录](research-checkpoint-2026-10-06-shared-pointer.md) 冻结，不覆盖 `00b9dbf` 历史报告。
+
+## 10 月 6 日：非矩形 pointer 局部证明支持
+
+再次 fetch 三分支，SHA 仍保持上述值，没有新增评审文本。新 [支持阶段](research-checkpoint-2026-10-06-affine-pointer-support.md) 继续按 narrative 区分工作归属：kernel 未改；语言服务提供实际 counted-loop stable frame、first-body 到达和公开出口；domain 负责 ragged 点集、真实 pointer 源／模型对应、实际 footprint 覆盖与条件推导，candidate checker 继续独立核对域／依赖。36 端点审计和原 compiler 重提取的两模式 752 次调用回归通过。
+
+最难的剩余义务已落实到下一项验收：源定位器必须按两个实际 active header 安排 body-only 参数读取，完整生产 D 并将 view、范围、receipt、候选 certificate 和 restore 绑定同一个真实入口，随后完成程序安装。局部 readonly certificate 已可消费调用者给出的 D，不能据此宣称自动安全域提取。原运行路径的回归不计新非矩形 pass 运行；性能、同例作者负担和依赖 preload 仍开放。没有新增 novelty 结论。

@@ -15,34 +15,11 @@ Import ListNotations.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
 
-Definition memory_param_axis_pointer_access_cell access coordinates :=
-  point_cell (memory_nary_access_array access) (memory_nary_index_value (memory_nary_access_index access) coordinates).
+From GuardMemory Require Export GuardMemoryPointerAccessFootprint.
 
-Lemma memory_param_axis_pointer_point_footprint extra operations coordinates :
-  memory_point_footprint (memory_pad_instructions extra (map memory_nary_compute_instruction operations)) coordinates =
-    map (fun access => memory_param_axis_pointer_access_cell access coordinates) (memory_linear_pointer_accesses operations).
-Proof.
-  induction operations as [|operation operations IH]; [reflexivity|].
-  cbn [memory_point_footprint memory_pad_instructions map flat_map].
-  rewrite memory_pad_instruction_footprint.
-  change (memory_instruction_footprint (memory_nary_compute_instruction operation) coordinates ++
-    memory_point_footprint (memory_pad_instructions extra (map memory_nary_compute_instruction operations)) coordinates =
-      map (fun access => memory_param_axis_pointer_access_cell access coordinates) (memory_linear_pointer_accesses (operation::operations))).
-  rewrite IH; unfold memory_linear_pointer_accesses; cbn [flat_map]; rewrite map_app; f_equal.
-  unfold memory_instruction_footprint; cbn [memory_nary_compute_instruction instruction_write instruction_reads].
-  rewrite map_map; reflexivity.
-Qed.
-
-Lemma memory_param_axis_pointer_parameters identifiers values temps :
-  memory_nest_bindings identifiers values temps -> Forall signed_range values ->
-  memory_recursive_parameters identifiers temps = values.
-Proof.
-  intro WORDS; induction WORDS as [|identifier value identifiers values WORD WORDS IH]; intro RANGES.
-  - reflexivity.
-  - inversion RANGES; subst; unfold memory_recursive_parameters at 1; cbn [map].
-    unfold temp_word at 1; rewrite WORD,Int.signed_repr by assumption.
-    f_equal; apply IH; assumption.
-Qed.
+Definition memory_param_axis_pointer_access_cell := GuardMemoryPointerAccessFootprint.memory_param_axis_pointer_access_cell.
+Definition memory_param_axis_pointer_point_footprint := @GuardMemoryPointerAccessFootprint.memory_param_axis_pointer_point_footprint.
+Definition memory_param_axis_pointer_parameters := @GuardMemoryPointerAccessFootprint.memory_param_axis_pointer_parameters.
 
 Theorem memory_param_axis_pointer_runtime_footprint source (package : memory_param_pointer_region_package source) temps counts :
   memory_nest_bindings (memory_nest_bounds (param_pointer_region_nest package)) counts temps ->

@@ -24,7 +24,7 @@ def run(*arguments):
     subprocess.run(arguments, cwd=WORK, check=True)
 
 
-def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False, unified=False, readonly_polyhedral=False, readonly_parametric=False, private_scan=False, observed_pointer=False, observed_realization=False):
+def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=False, unified=False, readonly_polyhedral=False, readonly_parametric=False, private_scan=False, observed_pointer=False, observed_realization=False, *, output_dir=None, proof_report=None):
     global WORK, ENTRY
     readonly_api = readonly_polyhedral or readonly_parametric
     observed_api = observed_pointer or observed_realization
@@ -62,8 +62,12 @@ def main(tiling=False, cuts=False, sequences=False, operations=False, proposed=F
     elif tiling:
         WORK = ROOT / "build" / "compcert-memory-tiling"
         ENTRY = "GuardMemoryTiledCompiler.compile_memory_tiled_regions"
+    if output_dir is not None:
+        WORK = output_dir.resolve()
     polcert_core.select_profile("optimizer")
     proof_path = ROOT / ("build/interface-pointer-realization/report.json" if observed_realization else "build/interface-observed-pointer/report.json" if observed_pointer else "build/interface-private-check/report.json" if private_scan else "build/interface-parametric/report.json" if readonly_parametric else "build/interface-polyhedral/report.json" if readonly_polyhedral else "build/guard-memory-proof-report.json")
+    if proof_report is not None:
+        proof_path = proof_report.resolve()
     proof = json.loads(proof_path.read_text())
     proof_entry = "unified_whole_program_entrypoint" if unified else "proposed_whole_program_entrypoint" if proposed else "operations_whole_program_entrypoint" if operations else "sequence_whole_program_entrypoint" if sequences else "cut_whole_program_entrypoint" if cuts else "tiling_whole_program_entrypoint" if tiling else "whole_program_entrypoint"
     if interface_api:
@@ -203,7 +207,10 @@ if __name__ == "__main__":
     parser.add_argument("--private-scan", action="store_true", help="extract pointer/parameter proposals through the public private-scan API")
     parser.add_argument("--observed-pointer", action="store_true", help="extract source-observed affine pointer separation with the original scan fallback")
     parser.add_argument("--observed-realization", action="store_true", help="extract direct/shared source-observed shortcuts through one proved entry")
+    parser.add_argument("--output-dir", type=Path, help="build a separate compiler without replacing a frozen stage")
+    parser.add_argument("--proof-report", type=Path, help="bind extraction to a separate current proof audit")
     arguments = parser.parse_args()
     if sum((arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer, arguments.observed_realization)) > 1:
         parser.error("select one compiler entrypoint")
-    main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer, arguments.observed_realization)
+    main(arguments.tiling, arguments.cuts, arguments.sequences, arguments.operations, arguments.proposed, arguments.unified, arguments.readonly_polyhedral, arguments.readonly_parametric, arguments.private_scan, arguments.observed_pointer, arguments.observed_realization,
+         output_dir=arguments.output_dir, proof_report=arguments.proof_report)

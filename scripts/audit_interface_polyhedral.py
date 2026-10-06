@@ -31,7 +31,7 @@ def flags():
             "GuardMemory", "-Q", str(ROOT / "prototype/interface"), "GuardInterface"]
 
 
-def compile_closure(compile_flags, rebuild=False):
+def compile_closure(compile_flags, rebuild=False, *, entries=None):
     roots = [ROOT / "vendor/PolCert-optimizer", ROOT / "adapters/compcert-memory",
              ROOT / "theories", ROOT / "prototype/interface"]
     files = [str(p) for root in roots for p in sorted(root.rglob("*.v"))]
@@ -61,7 +61,10 @@ def compile_closure(compile_flags, rebuild=False):
             visit(dependency)
         order.append(node)
 
-    visit(str(ROOT / "prototype/interface" / (ENTRY.split(".")[0] + ".vo")))
+    targets = entries if entries is not None else [
+        ROOT / "prototype/interface" / (ENTRY.split(".")[0] + ".v")]
+    for target in targets:
+        visit(str(Path(target).with_suffix(".vo")))
     sources = [str(Path(node).with_suffix(".v").relative_to(ROOT)) for node in order]
     (WORK / "required-closure.json").write_text(json.dumps(sources, indent=2) + "\n")
     for node, filename in zip(order, sources):
@@ -76,6 +79,11 @@ def compile_closure(compile_flags, rebuild=False):
         if result.returncode:
             raise SystemExit(f"compile failed: {filename}; see {log}")
         print(f"Compiled {filename}", flush=True)
+    for node, filename in zip(order, sources):
+        obj = Path(node)
+        inputs = [ROOT / filename, *[Path(p) for p in graph[node]]]
+        if not obj.exists() or any(not p.exists() or p.stat().st_mtime > obj.stat().st_mtime for p in inputs):
+            raise SystemExit(f"source or dependency changed during compilation: {filename}; rerun the audit")
     return sources
 
 

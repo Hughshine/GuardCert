@@ -103,9 +103,10 @@ Hypothesis WRITES : writes_only [] body.
 Hypothesis OUTER : flatten_region outer_body =
   [memory_parametric_setup inner_bound expression; rectangle_reset column;
     frontend_counted_loop column inner_bound body].
-Lemma memory_parametric_row_decode
+Lemma memory_parametric_row_decode_framed
   (DECODE : forall i j le memory after final, 0 <= i < Z.of_nat rows -> 0 <= j < upper i ->
     le ! row = Some (Vint (Int.repr i)) -> le ! column = Some (Vint (Int.repr j)) ->
+    temp_agree stable base le ->
     exec_stmt fe ge locals le memory body E0 after final Out_normal -> point i j memory final /\ after = le) :
   forall i le memory after final, 0 <= i < Z.of_nat rows ->
     le ! row = Some (Vint (Int.repr i)) -> temp_agree stable base le ->
@@ -137,18 +138,21 @@ Proof.
   set (prepared := PTree.set column (Vint Int.zero)
     (PTree.set inner_bound (Vint (Int.repr (upper i))) le)) in *.
   destruct (@frontend_parametric_decode fe ge locals column inner_bound body None (point i) 0
-    (upper i) [row] prepared CK
+    (upper i) (row::stable) prepared CK
     ltac:(unfold settle_fresh,settle_names; cbn; tauto)
     ltac:(cbn [settle_fresh settle_names In]; intuition congruence)
     ltac:(cbn [settle_fresh settle_names In]; tauto) NORMAL WRITES SAFE
     ltac:(intros j temps before next after' J COL K ITER_FRAME BODY;
-      eapply DECODE; auto; rewrite ITER_FRAME by (cbn; auto);
+      assert (STABLE : temp_agree stable base temps) by
+        (intros identifier MEMBER; rewrite ITER_FRAME by (right; exact MEMBER);
+         unfold prepared; rewrite !PTree.gso by congruence; exact (FRAME identifier MEMBER));
+      eapply DECODE; eauto; rewrite ITER_FRAME by (left; reflexivity);
       unfold prepared; rewrite !PTree.gso by congruence; exact ROW)
     (Z.to_nat (upper i)) 0 prepared memory after final
     ltac:(rewrite LENGTH; lia) ltac:(change (-2147483648 <= 0 <= 2147483647); lia)
     ltac:(lia) ltac:(unfold prepared; change (Int.repr 0) with Int.zero; apply PTree.gss)
     ltac:(unfold prepared; rewrite PTree.gso by congruence; apply PTree.gss)
-    (temp_agree_refl [row] _) LOOP) as [ITER EXIT].
+    (temp_agree_refl (row::stable) _) LOOP) as [ITER EXIT].
   split; [exact ITER|].
   rewrite EXIT; unfold loop_exit; destruct (Z.to_nat (upper i));
     cbn [loop_settle]; unfold prepared,memory_parametric_settle.
@@ -157,9 +161,10 @@ Proof.
   - rewrite PTree.set2; reflexivity.
 Qed.
 
-Theorem memory_parametric_source_decode
+Theorem memory_parametric_source_decode_framed
   (DECODE : forall i j le memory after final, 0 <= i < Z.of_nat rows -> 0 <= j < upper i ->
     le ! row = Some (Vint (Int.repr i)) -> le ! column = Some (Vint (Int.repr j)) ->
+    temp_agree stable base le ->
     exec_stmt fe ge locals le memory body E0 after final Out_normal -> point i j memory final /\ after = le) :
   forall le memory after final,
   le ! row = Some (Vint Int.zero) -> le ! bound = Some (Vint (Int.repr (Z.of_nat rows))) ->
@@ -178,7 +183,7 @@ Proof.
     ltac:(intros; unfold memory_parametric_settle; rewrite !PTree.gso by congruence; reflexivity)
     ltac:(intros; unfold memory_parametric_settle; eapply temp_agree_trans; apply temp_agree_set; assumption)
     SR NS
-    ltac:(intros i temps before next after' RI I N AGREEMENT BODY; apply memory_parametric_row_decode with (DECODE := DECODE); auto)
+    ltac:(intros i temps before next after' RI I N AGREEMENT BODY; apply memory_parametric_row_decode_framed with (DECODE := DECODE); auto)
     rows 0 le memory after final ltac:(lia) ltac:(change (-2147483648 <= 0 <= 2147483647); lia)
     ltac:(lia) ZERO BOUND FRAME RUN) as [ITER EXIT].
   split; [exact ITER|].
@@ -188,8 +193,33 @@ Proof.
   replace (0+Z.of_nat rest) with (Z.of_nat (S rest)-1) in EXIT by (rewrite Nat2Z.inj_succ; lia).
   exact EXIT.
 Qed.
+
+Lemma memory_parametric_row_decode
+  (DECODE : forall i j le memory after final, 0 <= i < Z.of_nat rows -> 0 <= j < upper i ->
+    le ! row = Some (Vint (Int.repr i)) -> le ! column = Some (Vint (Int.repr j)) ->
+    exec_stmt fe ge locals le memory body E0 after final Out_normal -> point i j memory final /\ after = le) :
+  forall i le memory after final, 0 <= i < Z.of_nat rows ->
+    le ! row = Some (Vint (Int.repr i)) -> temp_agree stable base le ->
+    exec_stmt fe ge locals le memory outer_body E0 after final Out_normal ->
+    counted_iterations (point i) (Z.to_nat (upper i)) 0 memory final /\
+      after = memory_parametric_settle column inner_bound upper i le.
+Proof. eapply memory_parametric_row_decode_framed; intros; eauto. Qed.
+
+Theorem memory_parametric_source_decode
+  (DECODE : forall i j le memory after final, 0 <= i < Z.of_nat rows -> 0 <= j < upper i ->
+    le ! row = Some (Vint (Int.repr i)) -> le ! column = Some (Vint (Int.repr j)) ->
+    exec_stmt fe ge locals le memory body E0 after final Out_normal -> point i j memory final /\ after = le) :
+  forall le memory after final,
+  le ! row = Some (Vint Int.zero) -> le ! bound = Some (Vint (Int.repr (Z.of_nat rows))) ->
+  temp_agree stable base le ->
+  exec_stmt fe ge locals le memory (frontend_counted_loop row bound outer_body) E0 after final Out_normal ->
+  counted_iterations (fun i => counted_iterations (point i) (Z.to_nat (upper i)) 0) rows 0 memory final /\
+    after = PTree.set row (Vint (Int.repr (Z.of_nat rows)))
+      (memory_parametric_settle column inner_bound upper (Z.of_nat rows-1) le).
+Proof. eapply memory_parametric_source_decode_framed; intros; eauto. Qed.
 End SOURCE.
 Print Assumptions memory_parametric_source_decode.
+Print Assumptions memory_parametric_source_decode_framed.
 
 (** Defined execution of the first inner header supplies the source words
     needed to evaluate a guard, including reads multiplied by zero. *)
