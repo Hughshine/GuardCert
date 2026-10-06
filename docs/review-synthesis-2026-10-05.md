@@ -46,3 +46,9 @@
 测量必须等待证明／构建任务停止后，在可记录环境中运行；本轮持续构建期间不采集并发噪声下的计时。首先核对真实路径、最终符号字节、产物 hash、reset 和公开出口，再取得原始 batch。没有合格样本时报告 planned／invalid，不填速度结论。schema 的结构校验也不能代替跨产物引用、实际分支或测试正确性。
 
 优先级和每项验收已落入 [当前工作计划](current-work-plan.md)，后续阶段汇报同时核对该表；评审不只作为附加阅读材料。
+
+## P0 验收后的第二次同步
+
+再次同步远端后，topdown 分支新增 `90b8520`／`4521f76ab11c2df1332ce06a5cf4b83a613be27b` 的 [paper narrative](topdown/paper-narrative.md)；其余两个评审分支没有新增提交。新增意见已读取并采纳：保持“小的语言无关语义框架＋有实质算法与条件正确性证明的 CompCert 使用者”作为同一研究论证，明确区分 `C_opt: A⇒candidate correct`、`C_derive: B⇒A`、`C_guard: accepts⇒B` 和 `C_host`。条件提取仍由 optimizer/domain plugin 提供，符号化推导作为受限 domain library，不重新定义一个 universal extractor。
+
+这影响后续 P2／P3 的验收：P2 不能只有围住预先给定候选的 guard，还要实际消费候选／依赖验证和源／模型对应；P3 要说明逻辑入口 B 如何覆盖模型义务 A，而非把编码 Boolean 当成已完成推导。论文路线仍是设计建议，不作为未实现能力。P0 已通过 401 端点／862 摘要、25 配置／40 报告；具体结果见 [阶段记录](research-checkpoint-2026-10-05.md)。

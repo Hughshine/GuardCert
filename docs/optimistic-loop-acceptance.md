@@ -103,4 +103,4 @@ non-alias 基础原子随后接到真实 Clight、局部 store 交换、字节 f
 
 双动态矩形又进入原综合完整程序入口，保留旧规则优先级和语句，三槽 pool 组合原直接 lowering 与新简化／共享 lowering。相同 113,330 次调用通过；[交替多缓存程序](clight-common-multicache-case.md) 另通过 120 次调用／720 行输出，核对两个单缓存和两个双缓存 region 在参数改变后的当前入口，且共享 Boolean 复用旧 cache slot。当前 368 端点、850 份源码摘要审计无新增公理，24 种配置回归和 39 份报告通过；37 份既有 C 摘要保持，12 份旧综合 Clight 仅新增两个 private 声明，另一份六单元 helper 新匹配通用规则（只编译／检查），其余 24 份 Clight 摘要保持。这补上综合 pass 的资源／安装组合，不扩大布局或 body 覆盖，不将全部 OLO 主线标为完成。
 
-进展宿主另按 [条件性进展设计](conditional-progress-host-design.md) 单独验收：快路的有限域由 guard 建立，拒绝后的整个源循环可以无限。当前独立 source progress 的宏宿主及有限头部宿主均不能替代这项尚未实现的能力；须有有限前缀的检查安全、P 下进展、实际无限回退模拟及完整编译端点。
+整段进展边界现有 [小步宿主](conditional-progress-host-design.md) 与 [unsigned 内存上界缓存实例](clight-guarded-circular-case.md)：有限真实源头部／首次 store 前缀建立只读检查的定义性，non-alias 接受后逐步保持 bound 与 candidate，对 alias 拒绝后的完整源循环不要求终止。新的 `open_region_protocol` 用零步匹配时的下降索引控制前缀，后续使用实际正步数对应；它不依赖整个 source completion。源和 guarded 目标的 alias 无限执行分别有实际 Clight `forever_silent` 定理，完整规则已经接到 Csem→Asm backward simulation。原生验证与当前审计数值见 [记录](research-checkpoint-2026-10-05.md)。这补上一个整段发散回退实例；一般调度／tiling 的迁移、多个依赖 preload、复杂 body、廉价一般足迹和更大动态布局仍未完成。

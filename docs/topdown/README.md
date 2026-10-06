@@ -19,6 +19,9 @@ definition of the framework.
 
 Current notes:
 
+- [Paper narrative](paper-narrative.md): subsequent design note imported from
+  `4521f76a`; a small semantic framework and a substantive CompCert optimizer
+  instance form one argument. Assumption extraction remains optimizer-specific.
 - [Review of main at cf4d442](main-review-cf4d442.md): source-grounded assessment
   of the existing abstract choice, read-only front end, concrete lowering,
   dependent condition services, conditional-progress gap, and evaluation scope.

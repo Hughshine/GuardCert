@@ -207,12 +207,12 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 
 [等式退出使用者证明](clight-equality-loop-case.md) 展示另一种 source protocol：使用者将固定寄存器上界、单位 unsigned 自增、有限不改 temps 的 body 交给宿主。检查 `i==0 && 0<(int)n` 接受后，局部不变式证明实际 `!=` 头部可换成 `<`；检查不读内存、候选保留完整原始出口。原循环进展另外使用模距离证明，所以 unsigned 回绕回退不依赖 no-wrap。
 
-`ClightCounterProgress.v` 的计数器事实由具体语言实例提供：活动谓词、自然数排名、更新、正性、递减、实际自增求值和纯性；宿主连接真实小步与局部完成执行。这是 Clight 实例的证明设施，语言无关核的四份契约没有加入整数语义。选中的源片段本身可能发散时，当前宏片段宿主仍需扩展逐步模拟接口；无限外围可以使用现有上下文证明。
+`ClightCounterProgress.v` 的计数器事实由具体语言实例提供：活动谓词、自然数排名、更新、正性、递减、实际自增求值和纯性；完成执行宿主连接真实小步与局部完成执行。这是 Clight 实例的证明设施，语言无关核的四份契约没有加入整数语义。选中的源片段本身可能发散时，需要更强的局部小步契约；新的 [整段小步宿主](conditional-progress-host-design.md) 已提供一种实际接入，不能仅提交有限正常执行的等价定理。
 
 
 ## 逐步求值宿主与能力选择
 
-[宿主能力与证明职责](host-capabilities.md) 固定宏片段和逐步求值两种用法。`ClightReadonlyExpression.v` 将有限表达式分派实例化到相同语言无关核，`readonly_expression_rule` 要求完整值／类型的局部等价、只读条件，以及从每次实际源求值建立域。它不要求外围循环先有终止执行。
+[宿主能力与证明职责](host-capabilities.md) 固定完成执行宏片段、逐步求值和整段小步协议三种用法。`ClightReadonlyExpression.v` 将有限表达式分派实例化到相同语言无关核，`readonly_expression_rule` 要求完整值／类型的局部等价、只读条件，以及从每次实际源求值建立域。它不要求外围循环先有终止执行。
 
 [逐步头部案例](clight-stepwise-head-case.md) 在每次到达时检查当前 `(int)i≤(int)n`，将实际 `!=` 换为 `<`；body 可以改变上界或包含 volatile，step 可以为 2，两个明确无限源中的头部也已进入小步模拟和完整 Csem→Asm。无限函数只编译／检查，发散覆盖来自模拟定理。这里没有把整个无限循环当成可完成的宏片段，也不提供其有限 polyhedral 域。统一入口组合既有 projected region pass 与这个逐步 pass，前后检查各使用自己的实际入口。
 
@@ -239,3 +239,9 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-proof
 同一双动态矩形规则还直接消费 `simplified_projected_rule`：保留原条件的 D／P、候选、入口和局部等价证书，替换检查树后复用共享宿主。相同 113,330 次 C 调用通过，主函数静态打印体 129,224→14,234 字节；这展示条件后处理接口复用，不扩大接受域或提供性能结论，见 [使用者证据](clight-dual-dynamic-rectangle-case.md)。
 
 综合使用者 pass 已在同一三槽 private pool 中组合两种安装：原单缓存／精确规则保持直接 lowering，双动态矩形使用已验证简化与共享 Boolean。规则的 D／P、局部证明和上下文契约直接复用；资源数量和选择优先级由使用者决定。两个单缓存和两个双缓存 region 的交替程序通过 120 次调用，见 [接口与证据](clight-common-multicache-case.md)。
+
+## 整段回退可能无限时的使用者义务
+
+[完整 unsigned 内存上界循环](clight-guarded-circular-case.md) 提供新 `open_region_contract` 的首个实例。用户仍自行提供 source、candidate、condition 和选择器；语言／规则实例还要建立任意 enclosing continuation 上的局部小步关系、初始对应、每步匹配和公开正常出口。目标正步数匹配不要求索引下降，零步匹配必须下降；这样无需原片段的无条件有限性。
+
+具体规则从真实头部／首次 store 前缀证明检查安全，接受 non-alias 后保持 bound load 并与缓存候选逐步对应，拒绝后恢复完整原循环；源／目标均有实际无限 alias 执行定理。通用宿主复用 scope／freshness、globals、memory 和 continuation 运输，`compile_open_regions_after_correct` 组合已有 pass 并连接 Csem→Asm。当前限制为 label-free、同一函数 `State` 与正常出口，初始规则是 quiet Mint32 模板；这不是任意局部行为或任意多面体变换的免费证明。

@@ -145,8 +145,13 @@ interface-loaded-stride-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py --loaded-stride
 	python3 scripts/native_interface_loaded_stride.py
 
+.PHONY: interface-guarded-circular-native
+interface-guarded-circular-native: interface-compiler-proof
+	python3 scripts/build_interface_compiler.py --guarded-circular > build/interface-compiler/circular-build.log 2>&1
+	python3 scripts/native_interface_guarded_circular.py
+
 .PHONY: interface-native-suite
-interface-native-suite: interface-simplified-dual-rectangle-native interface-dual-rectangle-native interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native interface-equality-native interface-equality-head-native interface-loaded-matrix-native interface-loaded-rectangle-native interface-loaded-stride-native interface-dual-unit-native interface-dual-matrix-native interface-dual-repeat-native interface-shared-loaded-rectangle-native interface-simplified-rectangle-native
+interface-native-suite: interface-guarded-circular-native interface-simplified-dual-rectangle-native interface-dual-rectangle-native interface-native interface-matrix-native interface-rectangle-native interface-cells-native interface-loops-native interface-private-native interface-stable-load-native interface-loaded-bound-native interface-common-native interface-runtime-stride-native interface-indexed-load-native interface-indexed-bound-native interface-equality-native interface-equality-head-native interface-loaded-matrix-native interface-loaded-rectangle-native interface-loaded-stride-native interface-dual-unit-native interface-dual-matrix-native interface-dual-repeat-native interface-shared-loaded-rectangle-native interface-simplified-rectangle-native
 
 demo:
 	python3 prototype/demo.py

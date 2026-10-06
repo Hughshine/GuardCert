@@ -51,3 +51,8 @@ Clight 模块提供真实片段宿主、写 frame 接口、只在活动路径读
 `ClightSimplifiedDualRectangleCompiler.v` 用 `simplified_projected_rule` 复用同一双动态矩形条件的 D／P、候选与局部证明，再消费共享宿主。113,330 次 C 调用通过，主函数打印 Clight body 129,224→14,234 字节，语法 if 413→69，alias 比较位置 248→48。该简化阶段 366 端点审计、850 份证明源码摘要、24 种配置回归和 37 份原生报告通过；相对 `7f8f725`，36 份已有 source／Clight 摘要相同。简化保留接受含义，没有扩大 selector 范围，也没有测量性能或建立一般共享 DAG。
 
 综合入口的 `common_region_selection` 现在组合原有直接 lowering 和双动态矩形的简化／共享 lowering，提供三槽私有池，保留旧规则优先级。新规则在同一完整 Csem→Asm 入口通过 113,330 次调用；交替单／双缓存程序通过 120 次调用／720 行输出，四处实际 macro region 刷新自己的 preload，单缓存槽又安全复用为共享 Boolean。当前 368 个端点、850 份证明源码摘要、24 种配置回归和 39 份原生报告通过；相对 `ae80fe6`，37 份已有 C 摘要相同，24 份 Clight 摘要相同，12 份旧综合程序仅增加两个私有声明，另一份还给原六单元 helper 接入了合法通用规则（只编译／检查）。接口与证据见 [多缓存使用者](../../docs/clight-common-multicache-case.md)。
+
+
+`ClightOpenRegionContract`／`ClightOpenRegionProof` 新增整段局部小步宿主：每个实际源步由目标正步数匹配，或由目标零／多步匹配并下降索引，不要求整个 source completion。`ClightCircular{Machine,Guard,Transport,Prefix,Progress,Divergence,Simulation}.v` 实例化 unsigned `i!=*bound`、`*out=i+2U` 的真实 frontend 循环；条件由 loaded-tree 生成器产生，检查安全来自有限实际源前缀，non-alias 后才保持 load 与缓存候选，源／目标 alias 无限执行都有实际 Clight `forever_silent`。`ClightGuardedCircularCompiler` 先组合 common regions，再接 Csem→Asm。540 次有限调用通过，六处完整 loop 和混合函数的两处旧 preload 已实际检查；25 配置、40 原生报告绑定当前 401 端点／862 份源码摘要，相对 `cf4d442` 的 39 份旧 C／Clight 摘要保持。当前 host 限同函数 State、label-free 和正常公开出口，初始规则是 quiet Mint32，树有两份完整回退；见 [实际案例](../../docs/clight-guarded-circular-case.md)。
+
+三个固定评审分支现已[综合整理](../../docs/review-synthesis-2026-10-05.md)并进入[当前计划](../../docs/current-work-plan.md)：保留既有 abstract select／只读前台，下一步统一实际 realization，迁移真实 affine／tiling 使用者，接一个受限符号化条件／足迹算法，并以同版 CompCert 做机制性能评估。以上结果不将完整 OLO 多面体主线标为完成。

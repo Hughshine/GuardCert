@@ -7,6 +7,7 @@ from audit_compiler import names
 from audit_interface_clight import ROOT, sha, compcert_flags
 
 WORK = ROOT / "build/interface-compiler"
+HOST_MODULES = ["ClightOpenRegionContract", "ClightOpenRegion", "ClightOpenRegionProof"]
 MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCompiler", "ClightReadonlyMatrix", "ClightReadonlyRectangle",
            "ClightReadonlyLoopUpdates", "ClightRectangleAssumptions", "ClightReadonlyCellSwap", "ClightCellFrame",
            "ClightReadonlyProjectedCompiler", "ClightPrivateCandidateCompiler",
@@ -38,8 +39,44 @@ MODULES = ["ClightReadonlyCompiler", "ClightReadonlyLoopRule", "ClightPreloadCom
            "ClightStoreIdempotence", "ClightDualRepeatedSyntax", "ClightDualRepeatedGuard",
            "ClightDualRepeatedLoops", "ClightDualRepeatedForward", "ClightDualRepeatedCompiler",
            "ClightDualRectanglePrefix", "ClightDualRectangleCursor", "ClightDualRectangleInnerScan", "ClightDualRectangleOuterScan", "ClightDualRectangleGuard", "ClightDualRectangleSynthesis", "ClightDualRectangleLoop", "ClightDualRectangleForward", "ClightDualRectangleCompiler",
-           "ClightSimplifiedDualRectangleCompiler", "ClightCommonRewriteCompiler"]
+           "ClightSimplifiedDualRectangleCompiler", "ClightCommonRewriteCompiler",
+           "ClightCircularMachine", "ClightCircularGuard", "ClightCircularTransport", "ClightCircularPrefix",
+           "ClightCircularProgress", "ClightCircularDivergence", "ClightCircularSimulation",
+           "ClightOpenRegionCompiler", "ClightGuardedCircularCompiler"]
 ENDPOINTS = {
+    "ClightOpenRegionProof.OpenRegionProof.transform_program_correct": "PROJECTED_REGION",
+    "ClightCircularMachine.circular_machine_step_sound": "FRAGMENT",
+    "ClightCircularMachine.circular_machine_step_closed": "FRAGMENT",
+    "ClightCircularMachine.circular_store_facts": "FRAGMENT",
+    "ClightCircularMachine.circular_loaded_test_facts": "FRAGMENT",
+    "ClightCircularGuard.circular_guard_run": "FRAGMENT",
+    "ClightCircularGuard.circular_guard_sound": "FRAGMENT",
+    "ClightCircularGuard.circular_condition": "FRAGMENT",
+    "ClightCircularGuard.circular_guard_synthesized": "FRAGMENT",
+    "ClightCircularGuard.circular_domain_from_prefix": "FRAGMENT",
+    "ClightCircularTransport.circular_store_transport": "FRAGMENT",
+    "ClightCircularTransport.circular_loaded_test_cached": "FRAGMENT",
+    "ClightCircularTransport.circular_store_preserves_bound": "FRAGMENT",
+    "ClightCircularTransport.circular_move_identity": "FRAGMENT",
+    "ClightCircularPrefix.circular_prefix_store": "FRAGMENT",
+    "ClightCircularPrefix.circular_guard_empty": "FRAGMENT",
+    "ClightCircularPrefix.circular_guard_alias": "FRAGMENT",
+    "ClightCircularPrefix.circular_guard_apart": "FRAGMENT",
+    "ClightCircularProgress.circular_candidate_counter": "FRAGMENT",
+    "ClightCircularProgress.circular_cached_test_active": "FRAGMENT",
+    "ClightCircularProgress.circular_cached_progress": "REGION",
+    "ClightCircularDivergence.circular_increment_apart": "FRAGMENT",
+    "ClightCircularDivergence.circular_alias_cycle": "FRAGMENT",
+    "ClightCircularDivergence.circular_alias_source_diverges": "FRAGMENT",
+    "ClightCircularDivergence.circular_alias_guarded_diverges": "FRAGMENT",
+    "ClightCircularSimulation.circular_fast_next": "FRAGMENT",
+    "ClightCircularSimulation.circular_store_dispatch": "FRAGMENT",
+    "ClightCircularSimulation.circular_local_advance": "FRAGMENT",
+    "ClightCircularSimulation.guarded_circular_contract": "FRAGMENT",
+    "ClightOpenRegionCompiler.transform_open_regions_correct": "PROJECTED_REGION",
+    "ClightOpenRegionCompiler.compile_open_regions_after_correct": "COMPILER",
+    "ClightGuardedCircularCompiler.choose_guarded_circular_sound": "FRAGMENT",
+    "ClightGuardedCircularCompiler.compile_guarded_circular_correct": "COMPILER",
     "ClightSimplifiedDualRectangleCompiler.choose_simplified_dual_rectangle": "MEMORY_FRAGMENT",
     "ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles_correct": "COMPILER",
     "ClightDualRectanglePrefix.dual_rect_source_writes": "FRAGMENT",
@@ -434,18 +471,19 @@ def main():
             raise SystemExit(f"Compiler dependency changed: {path}")
     flags = compcert_flags()
     sections = []
-    for module in MODULES:
-        result = subprocess.run(["rocq", "compile", *flags, f"prototype/interface/{module}.v"],
+    for filename in ([f"theories/{module}.v" for module in HOST_MODULES] +
+                     [f"prototype/interface/{module}.v" for module in MODULES]):
+        result = subprocess.run(["rocq", "compile", *flags, filename],
                                 cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        sections.append(f"Compiling {module}\n{result.stdout}")
+        sections.append(f"Compiling {filename}\n{result.stdout}")
         (WORK / "proof.log").write_text("\n".join(sections))
         if result.returncode:
-            raise SystemExit(f"Compiler interface failed: {module}; see {WORK / 'proof.log'}")
-        print(f"Compiled {module}", flush=True)
+            raise SystemExit(f"Compiler interface failed: {filename}; see {WORK / 'proof.log'}")
+        print(f"Compiled {filename}", flush=True)
     audit = WORK / "Audit.v"
     lines = ["From compcert.driver Require Import Compiler.",
              "From compcert.common Require Import Memory.",
-             "From Guard Require Import ClightCondition ClightRegionRewrite ClightPrivatePool.",
+             "From Guard Require Import ClightCondition ClightRegionRewrite ClightPrivatePool " + " ".join(HOST_MODULES) + ".",
              "From GuardInterface Require Import " + " ".join(MODULES) + "."]
     queries = {**BASELINES, **{f"CHECK_{i}": theorem for i, theorem in enumerate(ENDPOINTS)}}
     for marker, theorem in queries.items():
@@ -472,6 +510,7 @@ def main():
         checked[theorem] = {"baseline": level, "assumptions": sorted(sections[f"CHECK_{i}"])}
     sources = {**inherited, **report["sources"]}
     sources.update({f"prototype/interface/{m}.v": sha(ROOT / f"prototype/interface/{m}.v") for m in MODULES})
+    sources.update({f"theories/{m}.v": sha(ROOT / f"theories/{m}.v") for m in HOST_MODULES})
     sources.update(json.loads((ROOT / "build/interface/report.json").read_text())["sources"])
     output = {
         "status": "compiled", "sources": sources,
@@ -500,6 +539,7 @@ def main():
             "dual_rectangle": "ClightDualRectangleCompiler.compile_dual_rectangles",
             "dual_repeat": "ClightDualRepeatedCompiler.compile_dual_repeats",
             "common": "ClightCommonRewriteCompiler.compile_common_rewrites",
+            "guarded_circular": "ClightGuardedCircularCompiler.compile_guarded_circular",
             "runtime_stride": "ClightRuntimeStrideCompiler.compile_runtime_strides",
             "indexed_load": "ClightIndexedLoadCompiler.compile_indexed_loads",
             "indexed_bound": "ClightIndexedBoundCompiler.compile_indexed_bounds",
@@ -510,6 +550,10 @@ def main():
         "new_readonly_api_consumed_by_compiler": True,
         "clight_whole_program_equivalence_proved": False,
         "csem_to_asm_backward_simulation_proved": True,
+        "open_region_contextual_small_step_host_proved": True,
+        "guarded_circular_source_and_target_alias_divergence_proved": True,
+        "guarded_circular_guard_domain_from_actual_finite_prefix": True,
+        "guarded_circular_source_progress_not_required": True,
         "boundary_mode": "exact raw exits, or projected exits protecting every original program temporary",
         "exact_adapter_private_temporary_projection_supported": False,
         "private_temporary_projection_supported": True,

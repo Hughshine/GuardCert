@@ -8,9 +8,9 @@ GuardCert 当前能把使用者提供的片段变换安装成“运行时条件�
 
 condition 是真实代码，P 是逻辑断言。检查必须有定义、能完成、不改变入口，并且接受蕴含 P；拒绝通常只是没有获得证据。条件生成不接受任意 Rocq `Prop`，而使用已注册的原子、Boolean 公式、带依赖的阶段和有证书的分支／前缀扫描。整数、内存和 alias 的含义在语言实例中证明，核不检查这些具体语义。
 
-当前有两种真实 Clight 宿主：完成的宏片段版本化，以及每次值求值／具体头部的有限 rewrite。前者覆盖已建立独立源进展的整个循环，后者能在可能无限的循环中改写有限头部判断；二者的证明义务和检查时点不同。详见 [使用者契约](guarded-rewrite-contract.md) 与 [宿主分类](host-capabilities.md)。
+当前有三种真实 Clight 宿主：完成执行的宏片段版本化、每次值求值／具体头部的有限 rewrite，以及整段局部小步协议。前两者分别要求独立源进展或只选择有限求值；第三种可以选择完整循环并保留无限原回退，不要求整个源完成。详见 [使用者契约](guarded-rewrite-contract.md) 与 [宿主分类](host-capabilities.md)。
 
-## 这一天补上的十二个结果
+## 这一天补上的十三个结果
 
 第一项是 [内存上界与 2×2 循环交换](clight-loaded-matrix-case.md)。源外层每次读取 `*rows`，候选缓存 rows 后交换 i／j 两层。条件核对活动维度和四个实际 word 地址的 non-alias；第二行的检查依据只有在第一行检查通过后才建立。
 
@@ -40,17 +40,24 @@ condition 是真实代码，P 是逻辑断言。检查必须有定义、能完�
 
 第十二项是 [综合入口的单／双缓存交替改写](clight-common-multicache-case.md)：保留旧规则优先级及直接 lowering，新矩形复用简化／共享 lowering，三槽 pool 在不同 region 复用。综合入口通过相同 113,330 次矩形调用；新的四处 macro region 程序通过 120 次调用／720 行输出，每次参数改变后重新建立检查和快照，保留完整数组与 counter。
 
+第十三项是 [整段小步宿主与实际无限回退](clight-guarded-circular-case.md)。`open_region_protocol` 只要求零步匹配时下降索引，不要求原循环无条件有限。unsigned `i!=*bound`、每轮写 `i+2U` 的源在 out／bound alias 且入口非空时实际无限；源和 guarded 目标分别有 Clight `forever_silent` 定理。只读 guard 的定义性来自有限实际头部／首次 store 前缀，non-alias 接受后才保持 bound 并与缓存候选逐步对应。源／候选 AST 匹配真实 frontend 的 body `Ssequence Sskip` 和 signed `1` 自增常量，候选进展另以 unsigned 模距离证明，完整规则接到 Csem→Asm。
+
+提取入口 `compile_guarded_circular` 先组合原 common region pass。540 次有限 kernel 调用／540 行输出同 GCC 和独立 unsigned 源模型一致；五个函数中六处完整循环已实际改写，混合函数还检查两处旧 payload preload，先后改变 parameter／bound 后分别刷新缓存。覆盖 UINT_MAX 附近 wrap、空 alias、null out 空路径、只读 bound、跳转前驱、嵌套外围和公开 counter／word。非空 alias 不原生执行，以实际源／目标无限执行证明及完整原回退覆盖。volatile bound、步长 2 和不同 body 被精确选择器拒绝。当前每处新树有一份 candidate、两份完整 fallback，不是共享 lowering 或性能结论。
+
 ## 当前验证记录
 
 | 层次 | 结果 |
 | --- | --- |
 | 语言无关接口 | 54 个端点闭合证明 |
 | 真实 Clight 适配层 | 59 个端点，不超过既有六项假设基线 |
-| 完整编译接口 | 368 个端点、850 份证明源码摘要，比较既有分层基线，没有新增全局公理 |
-| 提取与执行 | 二十四种编译配置全部重建／回归通过，三十九份原生报告 |
-| 本次接口迁移 | 相对 `ae80fe6`，37 份既有 C 摘要相同；24 份 Clight 摘要相同，12 份旧综合 Clight 仅增加两个 private 声明，另一份额外在原六单元 helper 中接入通用矩形规则（只编译／检查） |
+| 完整编译接口 | 401 个端点、862 份证明源码摘要；FRAGMENT=6、REGION=6、PROJECTED_REGION=8、STEPWISE=8、COMPILER=35，比较既有分层基线，没有新增全局公理 |
+| 提取与执行 | 二十五种编译配置全部重建／回归通过，四十份原生报告核对当前证明、全部源码、提取 stamp 与编译器 |
+| 本次兼容性 | 相对 `cf4d442` 保存的 39 份既有 C／Clight 摘要全部相同；新增 whole-loop fixture 单独核对 |
+| 无限行为 | 实际源和 guarded 目标的 alias `forever_silent`，加整段局部／全局小步模拟；不以原生超时实验代替证明 |
 
 复现入口为 `make interface-proof`、`make interface-clight-proof`、`make interface-compiler-proof` 和 `make interface-native-suite`，使用锁定的 CompCert v3.18、Rocq／Stdlib 9.2 工具链。检查使用 Rocq 编译和假设报告，以及实际提取编译器产生的程序同 GCC／独立模型比较。原生测试没有执行明确发散或源未定义的输入，没有测量性能。
+
+新规则可单独以 `make interface-guarded-circular-native` 复现。报告见 `build/interface-circular-native/report.json`，整体核对见 `build/interface-compiler/open-region-validation.json`；最后一份证明报告 SHA256 为 `b67f8c308c486c785b4a6b5f6275003281e565f9f3b3a3641fe391bd17282030`。862 是当前证明源码摘要数，不是声称本轮独立编译了 862 个新模块；新宿主和相关接口实际编译，继承源码全部核对。
 
 ## 接下来如何判定进展
 
@@ -60,4 +67,6 @@ condition 是真实代码，P 是逻辑断言。检查必须有定义、能完�
 
 完整 Optimistic Loop Optimization 主线还缺旧 affine／tiling 到主只读接口的迁移、复杂 body 和更一般条件合成。新 helper、未消费的 schedule 或脱离编译器的模型不能充作通过。后续仍需完整程序端点、实际提取编译器和接受／回退／空域／机器边界的原生证据；研究新颖性另随已有工作比较校准。
 
-后续宿主验收还包括 [仅在接受前提下要求进展](conditional-progress-host-design.md)。当前整段宿主仍要求源独立进展；新设计要用有限实际前缀建立检查域、P 下的 rank 支持快路，并保留可能无限的整个原回退。这是设计与待证任务，没有计入上述已实现能力或证明端点。
+上述整段无限回退验收已通过 [小步宿主](conditional-progress-host-design.md) 的这个具体实例。当前限制仍是同函数 `State`、label-free、正常公开出口和初始 quiet word 模板；没有由此得到任意内部调用／return 或一般 guarded affine／tiling 的全部行为覆盖。
+
+本轮也读取并保存了三个固定评审分支，综合与逐项采纳见 [评审记录](review-synthesis-2026-10-05.md)。当前计划转向统一 direct/shared realization、真实 affine／tiling 的主接口迁移、一个受限符号化条件／足迹路径及有同版 CompCert 对照的性能测量，详见 [工作计划](current-work-plan.md)。原性能方案仍是 planned，JSON schema 已解析并核对内部引用，当前安装的旧版 validator 不支持 Draft 2020-12；没有冒充 schema 全验证或性能结果。

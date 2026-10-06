@@ -21,6 +21,7 @@ def main():
     global WORK, ENTRY
     parser = argparse.ArgumentParser(description=__doc__)
     instances = parser.add_mutually_exclusive_group()
+    instances.add_argument("--guarded-circular", action="store_true", help="build guarded memory-bound caching with a possibly infinite whole-loop fallback")
     instances.add_argument("--loaded-matrix", action="store_true", help="build prefix-safe loaded-bound 2x2 interchange")
     instances.add_argument("--loaded-rectangle", action="store_true", help="build prefix-safe dynamic loaded-bound rectangle interchange")
     instances.add_argument("--shared-loaded-rectangle", action="store_true", help="build the same dynamic rewrite with one shared candidate/fallback")
@@ -45,7 +46,10 @@ def main():
     instances.add_argument("--equality", action="store_true", help="build guarded fixed-bound unsigned equality-exit normalization")
     instances.add_argument("--equality-head", action="store_true", help="build stepwise readonly equality-head rewriting without a loop rank")
     args = parser.parse_args()
-    if args.simplified_dual_rectangle:
+    if args.guarded_circular:
+        WORK = ROOT / "build/compcert-interface-guarded-circular"
+        ENTRY = "ClightGuardedCircularCompiler.compile_guarded_circular"
+    elif args.simplified_dual_rectangle:
         WORK = ROOT / "build/compcert-interface-simplified-dual-rectangle"
         ENTRY = "ClightSimplifiedDualRectangleCompiler.compile_simplified_dual_rectangles"
     elif args.dual_rectangle:
@@ -116,7 +120,7 @@ def main():
         ENTRY = "ClightCommonRewriteCompiler.compile_common_rewrites"
     proof_path = ROOT / "build/interface-compiler/report.json"
     proof = json.loads(proof_path.read_text())
-    instance = ("simplified_dual_rectangle" if args.simplified_dual_rectangle else "dual_rectangle" if args.dual_rectangle else "dual_repeat" if args.dual_repeat else "dual_matrix" if args.dual_matrix else "dual_unit" if args.dual_unit else "loaded_stride" if args.loaded_stride else "simplified_rectangle" if args.simplified_rectangle else "shared_loaded_rectangle" if args.shared_loaded_rectangle else "loaded_rectangle" if args.loaded_rectangle else "loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
+    instance = ("guarded_circular" if args.guarded_circular else "simplified_dual_rectangle" if args.simplified_dual_rectangle else "dual_rectangle" if args.dual_rectangle else "dual_repeat" if args.dual_repeat else "dual_matrix" if args.dual_matrix else "dual_unit" if args.dual_unit else "loaded_stride" if args.loaded_stride else "simplified_rectangle" if args.simplified_rectangle else "shared_loaded_rectangle" if args.shared_loaded_rectangle else "loaded_rectangle" if args.loaded_rectangle else "loaded_matrix" if args.loaded_matrix else "matrix" if args.matrix else "rectangle" if args.rectangle else
                 "cells" if args.cells else "loops" if args.loops else
                 "private_candidate" if args.private_candidate else "stable_load" if args.stable_load else
                 "loaded_bound" if args.loaded_bound else "indexed_bound" if args.indexed_bound else

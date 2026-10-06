@@ -246,3 +246,9 @@ non-alias 原生目标提取 `ClightReadonlyCellSwap.compile_readonly_cell_pairs
 同一双动态矩形规则还直接消费 `simplified_projected_rule`：保留原条件的 D／P、候选、入口和局部等价证书，替换检查树后复用共享宿主。相同 113,330 次 C 调用通过，主函数静态打印体 129,224→14,234 字节；这展示条件后处理接口复用，不扩大接受域或提供性能结论，见 [使用者证据](clight-dual-dynamic-rectangle-case.md)。
 
 综合使用者 pass 已在同一三槽 private pool 中组合两种安装：原单缓存／精确规则保持直接 lowering，双动态矩形使用已验证简化与共享 Boolean。规则的 D／P、局部证明和上下文契约直接复用；资源数量和选择优先级由使用者决定。两个单缓存和两个双缓存 region 的交替程序通过 120 次调用，见 [接口与证据](clight-common-multicache-case.md)。
+
+## 整段小步契约与无限回退
+
+[ClightOpenRegionContract.v](../theories/ClightOpenRegionContract.v) 不要求先完成 source：局部作者为任意保持 globals 的函数／continuation 提交小步关系，每个源步由目标正步数匹配，或目标零／多步匹配并下降索引，最终返回保护所有原 temps 与 memory 的正常出口。`ClightOpenRegionProof` 把该协议嵌入整程序结构模拟；`ClightOpenRegionCompiler` 提供用户 selector、fresh pool 与任意已证明先行 Clight pass 的组合。
+
+[实际 unsigned 内存上界实例](clight-guarded-circular-case.md) 用有限真实前缀建立 guard 域，只有接受 non-alias 后才保持 load 与缓存候选。完整原 fallback 可以发散；源和 guarded 目标的 `forever_silent` 均有实际 Clight 构造。`ClightGuardedCircularCompiler.compile_guarded_circular_correct` 先组合 common region pass，再接完整 Csem→Asm backward simulation。当前新 host 支持正常出口、同函数 State、label-free 的选中片段；初始实例的两份 fallback、quiet word 范围与未完成的控制／affine 迁移见 [宿主说明](conditional-progress-host-design.md)。
