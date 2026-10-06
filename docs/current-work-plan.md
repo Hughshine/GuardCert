@@ -20,9 +20,9 @@
 
 P0 关闭的是一个明确语义缺口。P1 服务于 P2 的真正接入；P2 是主功能目标的一次迁移验收，之后仍需一般 affine 域、复杂读写 body、依赖 preload 和布局组合。P3 是 optimizer/domain library 的受限推导算法，核心不承担 universal assumption extraction。P2 的首个使用者已实际消费候选／依赖核对和条件正确性；新的保持接口沿用旧证书在实际 globalenv 上的方向，与双向规则共享安装证明，没有改称等价或只重做 guard 包装。后续优先迁移参数化源／访问及真实 pointer footprint；区分可直接复用的 readonly 证书和需要私有检查状态的路线。P3 必须说明 `B⇒A` 的入口推导，再交给 `guard accepts⇒B` 的编码与 host。P3 与 P4 用来检验算法和实际价值，不将测量结果预设为收益。新增 [paper narrative](topdown/paper-narrative.md) 已在 P0 后同步读取并吸收。
 
-P2 第二项已经复用 `encoded_private_rule`，接入参数化 readonly 使用者、实际 schedule generation／rechecking 与不同数组 body；入口覆盖继续复用已有仿射端点和模型对应，不声称新 projection 算法。下一项接口核对有四个具体障碍，详见 [private-check 迁移规格](clight-private-check-migration.md)：tree／一槽 Boolean 无法表示扫描后游标；旧检查只提供一个完成见证，公共证书要求所有执行 sound；旧前提锚在 checked state，公共证书锚在原入口；旧 wrapper 引入方向还不足以替代 `select_exact`。其中实际 scan 的 quiet／所有完成执行接受结论已通过四个端点的编译和独立审计；状态关系、原入口前提稳定、公共证书与 exact host／compiler 接入仍待完成。语言提供确定性、解码、frame 和 exact dispatch；domain 提供安全、覆盖、进展及前提稳定，不把它们隐入 kernel 或 D。
+P2 第二项已经复用 `encoded_private_rule`，接入参数化 readonly 使用者、实际 schedule generation／rechecking 与不同数组 body；入口覆盖继续复用已有仿射端点和模型对应，不声称新 projection 算法。私有检查迁移原有四项障碍，见 [迁移规格](clight-private-check-migration.md)：扫描后游标的真实表示、所有执行 sound、原入口前提与 exact dispatch。现在实际 scan 的原入口前提稳定、所有完成执行的 protected frame／接受结论、result 初始化运输、实际 statement 的双向分派及分支完成前的小步 prefix 均已编译和审计；15 个端点、392 项依赖、805 份摘要，无新增公理。公共 `guard_host`／`guard_certificate`、分支运输和 compiler 安装仍待完成。语言提供确定性、解码、frame 和分派；domain 提交实际 footprint／header 对应和扫描安全／覆盖，不把它们隐入 kernel 或 D。
 
-本次完成结果及报告绑定见 [参数化源阶段记录](research-checkpoint-2026-10-06-parametric.md)。下一项先证明真实 pointer scan 的 `P(checked)⇒P(original)`，明确保护 header、稳定寄存器 bounds、参数／scalar context 和 pointer bindings；随后关闭与任意分支控制相容的 exact dispatch，再安装一个真实候选。当前 pointer 源是稳定寄存器矩形 bounds 下的参数化仿射访问，不与此次 `j<U(i,parameters)` 的非矩形源混称。之后仍推进 P3 的一个实际受限推导算法与 P4 成本测量。
+参数化编译结果见 [阶段记录](research-checkpoint-2026-10-06-parametric.md)，新的扫描证明见 [private-scan 阶段记录](research-checkpoint-2026-10-06-private-scan.md)。下一项实例化公共 host，固定其实际检查关系和安全／观察范围；消费已经证明的 prefix、原入口结论与 frame 构造 guard certificate，再运输真实 source／candidate、分配私有 pool、安装和提取一个实际 pointer pass。当前 pointer 源是稳定寄存器矩形 bounds 下的参数化仿射访问，不与 `j<U(i,parameters)` 非矩形源混称。之后仍推进 P3 的一个实际受限推导算法与 P4 成本测量。
 
 ## 每个阶段固定记录什么
 

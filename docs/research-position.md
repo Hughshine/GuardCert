@@ -163,6 +163,8 @@ Mullen、Zuniga、Tatlock、Grossman 的 **Verified Peephole Optimizations for C
 
 同日的第二项 [参数化仿射源迁移](clight-parametric-preservation.md) 进一步复用已有仿射端点覆盖、参数范围安全 lowering 和不同数组 body 的实际模型对应，运行真实 schedule generation 后独立检查，并消费相同保持、realization 与 host。它扩展了当前公共 pass 的实际源能力，不等同于新增 projection 算法；一般深度域与 stateful pointer 扫描仍待完成。[private-check 规格](clight-private-check-migration.md) 将所有执行 sound、原入口前提稳定和 exact dispatch 列为具体迁移义务；检查见证推广 lemma 和真实参数化 pointer scan 的 quiet／所有完成执行接受结论已实际编译，余下桥接尚未完成。
 
+随后 [private-scan 证明阶段](research-checkpoint-2026-10-06-private-scan.md) 关闭实际原入口前提运输、result 初始化及任意完成分支的双向 statement 分派；小步 prefix 独立于分支完成。它明确区分语言的控制／frame 服务和 domain 的 footprint／前提稳定，不扩大 kernel 的语义知识。公共证书与完整 pointer compiler 尚未安装，未据此声称一般安全检查合成、无限 pointer fallback 或文献新颖性。
+
 [Chamois／Peek 一手接口补核](related-work-interface-check-2026-10-06.md) 取得了 Chamois 的实际 oracle 签名和 CFG expansion 模拟，重核了 Peek 的 liveness／normalization 宿主。局部到全局的组合、fresh resources 和 CFG 扩展均有已有工作；研究增量必须继续落在同例条件处理、困难 domain 接入、作者负担与成本的可核对差异上。尚未得到同例复用和性能证据，保持未知而不作排他性 novelty 判断。
 
 10 月 6 日，[实际 realization](clight-guard-realization.md) 又将 direct/shared 的 dispatch prefix、private frame 和完成分支运输统一到语言层设施；两个 projected 安装路径调用公共定理，完整 unsigned 循环复用 prefix 后继续小步协议。411 端点／863 摘要、25 配置／40 报告已通过，40 份 C／Clight 摘要对重构前 `26956a4` 保持。这支持具体的语言安装证明复用；新增模块增加了代码，尚无总证明负担减少、性能或首创结论。真实 affine／tiling 使用者还要按旧证明的正确方向消费候选／依赖证书及实际 globalenv 对应，不能由这项架构改进宣称已迁移。

@@ -6,7 +6,7 @@
 
 第二个实际使用者 `ClightParametricPreservation.v`／`ClightParametricCompiler.v` 接入 `j<U(i,parameters)` 的源域、布局／偏移／多读取／word compute 的实际 body 和 metadata-aware 不受信任调度。生成后重新核对实际 Loop，再通过同一个保持／分派／安装接口编译。`make interface-parametric-native` 运行六份原有 C fixture 与独立模型，`make interface-parametric-runtime-order` 使用 x86-64/GDB 观察真实接受／回退写入顺序并核对产物绑定。证明责任、限制与证据见 [使用说明](../../docs/clight-parametric-preservation.md)和[阶段记录](../../docs/research-checkpoint-2026-10-06-parametric.md)。
 
-`ClightPrivateCheckFacts.v` 提供真实 projected check 的完成执行唯一性及见证到所有完成执行的性质推广；`ClightParamPointerCheckFacts.v` 证明真实参数化 pointer scan 的 quiet 语法并实例化全部完成执行的接受结论。`make interface-private-check-proof` 单独审计。语言设施和 domain 实例都已实际编译，尚未完成原入口前提稳定、公共 guard certificate／exact dispatch／compiler 安装；见[迁移规格](../../docs/clight-private-check-migration.md)。
+`ClightPrivateCheckFacts.v` 提供真实 projected check 的完成执行唯一性及见证到所有完成执行的性质推广；`ClightParamPointerCheckFacts.v` 绑定实际 scan。随后 `ClightPrivateScan.v` 提供仅包围检查的真实 wrapper、双向 statement 分派和分支前的小步 prefix；`ClightParamPointerEntryFacts.v`／`ClightParamPointerScanBridge.v` 证明原入口前提稳定、result 初始化与实际 prefix 的所有完成执行接受结论。`make interface-private-check-proof` 单独审计 15 个端点，无新增公理。公共 host／guard certificate、分支运输及 compiler 安装仍待完成；见[阶段记录](../../docs/research-checkpoint-2026-10-06-private-scan.md)和[迁移规格](../../docs/clight-private-check-migration.md)。
 
 当前使用者契约见 [guarded-rewrite-contract.md](../../docs/guarded-rewrite-contract.md)：使用者选择片段、候选及位置，框架插入只读 condition、源回退并证明等价。底层入口协议的设计与分类见 [language-independent-interface.md](../../docs/language-independent-interface.md)。
 

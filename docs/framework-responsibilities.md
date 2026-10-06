@@ -20,6 +20,8 @@
 
 同样，当前 Clight 的 tree／单 Boolean realization 不自动包含运行时循环式 footprint 扫描。扫描后的私有游标可能依赖 memory 和拒绝位置；下一项语言接口要交付真实检查表示、入口／检查后关系、frame 和 branch transport。[迁移规格](clight-private-check-migration.md) 进一步区分旧证书的存在见证／checked 前提与公共证书的所有执行 sound／原入口前提，并要求实际 exact dispatch。语言无关 host 已允许一般检查和状态关系，当前具体语言适配器的限制不能改称框架已经验证了所有 stateful 检查。
 
+10 月 6 日后续已实际关闭其中几项语义义务：[ClightPrivateScan](../prototype/interface/ClightPrivateScan.v) 提供实际检查 wrapper 的双向 statement 分解和分支前的小步分派；[EntryFacts](../prototype/interface/ClightParamPointerEntryFacts.v) 证明 header、context、受限 footprint 和 pointer binding 的稳定，得到 `P(original)`；[ScanBridge](../prototype/interface/ClightParamPointerScanBridge.v) 证明真实 result 初始化的运输及所有完成 prefix 执行的 frame／原入口接受结论。前者是语言服务，后两者绑定实际 domain。公共 host／guard certificate、source／candidate 运输和完整安装尚未完成；完成执行的 exact lemma 与有限 prefix 不替代无限行为宿主。
+
 ## 2. 四张证书与一个安全域
 
 对真实 source S、candidate T，区分局部／模型义务 A、入口语义条件 B、实际 guard G，以及 G 可以有定义地执行的域 D：
