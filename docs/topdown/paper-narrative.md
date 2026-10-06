@@ -89,6 +89,21 @@ composition infrastructure:
 The framework should not inspect concrete C syntax, machine pointers,
 polyhedral schedules, or a particular assumption extractor.
 
+For clarity, the **minimal semantic kernel** should be understood to stop at
+local guarded correctness.  Concretely, its essential objects are the abstract
+host/check semantics, guard certificates, conditional/preservation
+certificates, and the theorems that compose them into a correct local guarded
+replacement.  The read-only API is a convenient frontend; condition
+composition, prefix scans, simplification, and assumption derivation are
+reusable libraries above the kernel.  Whole-program installation is a
+language/IR-host responsibility, even if a small generic record is retained as
+a composition hook.
+
+This cutoff is primarily a documentation and architecture boundary, not a
+request to reorganize files immediately.  It should be revised only if a real
+optimizer or host exposes a semantic obligation that cannot be expressed
+without changing the kernel.
+
 ### 3.2 Language/IR instance responsibility
 
 A concrete language instance explains what the generic objects mean and proves
