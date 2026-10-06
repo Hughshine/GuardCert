@@ -6,6 +6,8 @@
 
 再次 fetch 后正文仍与 narrative `7d94d81` 一致。[本次源码核对](narrative-implementation-check-2026-10-06.md) 逐项说明 current materialized 接口消费的证明，并把下一 deep＋loaded producer 的安全循环依赖列为验收限制：D 来自原源到达的访问，完整缓存源执行只能在观察保持成立后取得，不能倒过来用于许可 guard。
 
+[最新 numeric producer](research-checkpoint-2026-10-06-loaded-affine-numeric.md)已按该限制实现：语言从原 header 提供安全 capture／temp 运输与真实 first body；domain 将 receipt 接到旧递归 headers／已用参数及 numeric/profile 编码；当前 certificate 库负责 primitive safety、defined dispatch 和全部完成检查的 soundness。静态 site checker 绑定原 loaded AST 和 cache freshness。25 个新端点通过，kernel 不变。Prepared-entry snapshot 是当前读值，由 producer 取得；不是未来稳定性。扫描 coverage、字节级观察保持、conditional candidate 和实际语言安装仍是后继义务，不能从这张 numeric certificate 推出。
+
 非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 从真实 source prefix／有限正常源执行生产 D；[新 compiler](clight-affine-inner-pointer-compiler.md) 已进一步组装两套 candidate ranges、独立 certificate、实际 lowering／restore 和 local contract，消费已有 progress／placement host 接到 Csem→Asm，不归作 framework 自动发现优化前提。
 
 ## 1. 三方各自证明什么

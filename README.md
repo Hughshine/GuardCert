@@ -1,6 +1,8 @@
 # Guard：带前提的程序变换与组合证明
 
-[最新 deep affine 接入](docs/research-checkpoint-2026-10-06-materialized-affine.md)把已有递归 affine 源、真实单／多指针 body 和候选 checker 接到当前 kernel：Clight 提供正常返回的私有 Boolean check、安全／分派／状态运输及程序安装；domain 复用源／模型与候选证明。新的 Csem→Asm 入口、26 端点审计、提取和十二配置共 5,118 次 assembly 调用通过；四组实际 Clight 插桩另核对接受／fallback、物理 alias 和条件读取。最小 kernel 没有改动，[接口说明](docs/clight-materialized-check.md)列明使用者责任和限制。
+[Deep＋loaded 的 numeric guard 接入](docs/research-checkpoint-2026-10-06-loaded-affine-numeric.md)已从真正原 loaded 源生产 first-path receipt 和安全 private capture，复用既有递归 affine numeric guard 及当前证书接口；不以完整缓存源执行或未来稳定性许可检查。五个新 `.v`、25 端点／660 依赖／987 源摘要审计通过，零次迭代时未定义 child 参数及 body pointer 的实际 Clight 检查也有具体 memory 见证。此阶段接受只证明 numeric math domain；深层 physical stability scan、候选和全程序安装仍需继续接入，没有新增 compiler／native 能力。
+
+[最近可运行的 deep affine compiler](docs/research-checkpoint-2026-10-06-materialized-affine.md)把已有递归 affine 源、真实单／多指针 body 和候选 checker 接到当前 kernel：Clight 提供正常返回的私有 Boolean check、安全／分派／状态运输及程序安装；domain 复用源／模型与候选证明。新的 Csem→Asm 入口、26 端点审计、提取和十二配置共 5,118 次 assembly 调用通过；四组实际 Clight 插桩另核对接受／fallback、物理 alias 和条件读取。最小 kernel 没有改动，[接口说明](docs/clight-materialized-check.md)列明使用者责任和限制。
 
 当前有两条实际路线：深层 canonical affine nest 使用稳定 temp bounds；两层 dependent cursor 路线处理 `**root` header／多观察稳定性。二者尚未组合成任意深度 loaded-bound optimizer，typed pointer-store body、独立计时及同例 proof-burden 比较仍未完成。共享 `.vo` 重编后旧冻结 cursor 对象摘要失配，当前消费者独立重编／535 依赖审计通过，42 项假设保持；旧编译器和 native 报告保持历史记录。以下阶段各按其保存时的验证范围阅读。
 

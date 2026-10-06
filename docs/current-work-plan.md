@@ -10,7 +10,9 @@
 
 活动目标补充（用户 2026-10-06）：持续按 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md) 改进整体定位；以“小的语言无关框架＋实质 CompCert 循环实例”组织研究，明确框架、语言实例、优化／domain 实现者的验证责任。具体约束与最难验收见 [责任矩阵](framework-responsibilities.md)。这项补充与原完整实现目标同时有效，每个阶段检查，不将方向文档算作功能完成。
 
-本次重新 fetch 并核对 narrative 澄清，分支仍为 `7d94d81`，主线正文一致。[实现责任与下一项验收](narrative-implementation-check-2026-10-06.md) 将 deep＋loaded 接入细化为：原源 first-path receipt → 安全物理扫描与覆盖 → 观察保持后的缓存运输 → 原 AST／fallback／host 安装。检查安全不能以完整缓存源执行或未来稳定性为前提。这是当前接入顺序的约束，尚不是新的 producer／compiler 交付；最小 kernel 截止和活动目标状态保持。
+上轮重新 fetch 并核对 narrative 澄清，分支仍为 `7d94d81`，主线正文一致。[实现责任与下一项验收](narrative-implementation-check-2026-10-06.md) 将 deep＋loaded 接入细化为：原源 first-path receipt → 安全物理扫描与覆盖 → 观察保持后的缓存运输 → 原 AST／fallback／host 安装。检查安全不能以完整缓存源执行或未来稳定性为前提。该核对阶段尚未交付新的 producer／compiler；下段记录实际后继结果。
+
+[后继 numeric guard 阶段](research-checkpoint-2026-10-06-loaded-affine-numeric.md)已关闭上述 first-path producer：从原 loaded header／首次 body 取得递归 headers 和已用参数，安全 private capture 生产 prepared domain，再消费旧 numeric/profile 编码和现行 guard certificate。实际 source key、freshness 和检查体有静态 site checker；25 端点／660 依赖／987 源摘要审计通过，无新增公理，旧两条 Csem→Asm 回归和当前对象摘要保持。此接受仅证明 numeric math domain；下一项按原源前缀连接递归 physical scan、完整 coverage／fuel 和观察保持，之后才接缓存源／candidate／typed pool／whole-program host。本轮没有新增 compiler、提取或 native 调用，完整目标 active。
 
 10 月 6 日阶段同步吸收 `f793629` 的 cross-IR 补充：保持核心不依赖 Clight 语法；SSA／汇编使用者须实例化自己的控制、live-out／phi、scratch／flags 定律。它们是接口讨论和同例 related-work 比较的方向，第二 IR 实现是可选证据，当前主实现／验收继续是 CompCert/Clight。
 

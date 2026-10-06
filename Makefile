@@ -139,6 +139,10 @@ affine-nest-materialized-validate:
 affine-nest-materialized-cursor-regression:
 	python3 scripts/audit_cursor_after_shared_rebuild.py
 
+.PHONY: loaded-affine-numeric-proof
+loaded-affine-numeric-proof:
+	python3 scripts/audit_loaded_affine_numeric.py
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 

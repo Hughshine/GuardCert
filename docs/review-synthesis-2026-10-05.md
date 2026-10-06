@@ -223,4 +223,6 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 
 本次 fetch 后 topdown 仍为 `7d94d810685a691efbf07df734f5fad8abfb4724`，paper narrative／context note 与 main 无差异。按最新 cutoff 实现 [normal-returning materialized check](clight-materialized-check.md)：变化来自具体 Clight check 的返回形式，新增的是语言 host／certificate／状态运输服务；kernel 未改。旧 deep 源对应和 candidate-local 被直接消费，原 stateful region theorem 没有充作新的 local correctness。
 
+后继 [loaded deep numeric guard](research-checkpoint-2026-10-06-loaded-affine-numeric.md)已实际实现 source-derived first-path producer：原源 header／first body 许可 private capture 和参数读取，不假设完整缓存源完成或未来稳定性。语言的 capture／执行运输、domain 的递归 header／leaf 接入及原 numeric/profile 证书、核上 certificate 库分开记录；kernel 未改。25 个端点审计和实际零次 Clight 检查 fixture 通过，旧两条 compiler 的 42 项假设及当前对象绑定保持。这里接受只证明 numeric math domain，下一困难仍是按原源前缀生产递归 physical scan 的许可／coverage，再接观察保持、候选和 whole-program host；没有新增 compiler/native 或新颖性／性能结论。
+
 [阶段证据](research-checkpoint-2026-10-06-materialized-affine.md)给出 26 端点、Csem→Asm／提取、十二配置 5,118 次新 assembly 调用和四组另记的 Clight 插桩。它纠正计划中两个过宽“未支持”表述：递归 affine IR 已存在，多指针 physical scan 也能接受分离 views；当前任务是迁移到现行证书并与 loaded/dependent 路线组合，不能称重新包装创建了一般算法。共享 `.vo` 重编令旧对象摘要绑定失配，独立当前 cursor regression 与历史 native 分开；不将旧 validator 的失败抹掉。计时、总作者负担、新颖性与一般 polyhedral 覆盖均无新增结论，完整 goal active。
