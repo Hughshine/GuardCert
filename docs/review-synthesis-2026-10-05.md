@@ -185,3 +185,9 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 本阶段再次 fetch，三个评审分支仍为 `7d94d81`、`9673381`、`3e9f008`，没有新增意见。沿 narrative 的 kernel 截止完成 [依赖 header 服务](research-checkpoint-2026-10-06-dependent-header.md)：语言处理 `**pp` 实际表达式、安全顺序捕获、公开运输、字节条件、观察列表下的 prefix／缓存运输和独立 progress；domain 将实际 affine writes 接到双观察保持。九个新模块和 51 端点审计通过；完整 checked-package scan、candidate factory／whole-program 入口、提取及原生执行仍未连接。
 
 这次的实质难点是八字节 pointer cell 与四字节 write 的重叠，起点不等不足以证明观察保持；安全第二地址比较的许可也必须来自已到达的真实 load。CompCert memory fixture 已验证后半单元拒绝，但不将可能破坏后续 pointer 的单元实验当作 defined C 优化案例。计划已据此区分逐点服务、全部源覆盖、候选合法性和宿主安装；仍没有 total proof burden、性能或 novelty 结论。
+
+## Joint scan：从服务参数到真实 package 证据
+
+再次 fetch 后三分支仍是 `7d94d81`、`9673381`、`3e9f008`，本地 paper narrative 与远端正文一致。[后继局部链](research-checkpoint-2026-10-06-dependent-joint.md)用实际 checked affine package 填完多观察 prefix／cache 的 header、body decode、word／permission 和 cap coverage 义务；从首次真实 header/body 生产 preparation evidence，组合双观察 scan 与旧候选 guard，再证明实际 candidate／原 source 分派的 memory／public-temp 保持。七个新模块、29 端点审计通过，最小 kernel／原 checker 保持。
+
+此前“generic callbacks 未落实”的问题在该实例关闭，仍不将其当成 framework 免费提供的能力。计划继续追踪 source matcher／factory、typed private pool、capture domain producer 与 whole-program 安装／提取／运行；旧 private-loaded compiler 回归保持原 42 项基线。当前没有 dependent native、性能或作者证明负担减少的证据，完整 goal active。

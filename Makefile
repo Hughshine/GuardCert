@@ -98,6 +98,10 @@ interface-pointer-realization-direct:
 .PHONY: affine-planned-loaded-proof affine-planned-loaded-native affine-planned-loaded-validate
 .PHONY: affine-private-loaded-proof affine-private-loaded-native affine-private-loaded-validate
 .PHONY: affine-dependent-loaded-proof
+.PHONY: affine-dependent-joint-proof
+affine-dependent-joint-proof:
+	python3 scripts/audit_affine_dependent_joint.py
+
 affine-dependent-loaded-proof:
 	python3 scripts/audit_affine_dependent_loaded.py
 

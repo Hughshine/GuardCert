@@ -2,7 +2,7 @@
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
-最新可运行交付是 [private bound snapshot](research-checkpoint-2026-10-06-affine-private-loaded.md)：原源没有公开 bound 快照时，安全私有读取、original-entry／public frame、真实 source-key 安装、提取和两类 affine 域运行已通过。后继 [依赖 header 证明阶段](research-checkpoint-2026-10-06-dependent-header.md)已落实双读取、字节分离、逐点保持及语言运输／progress；完整 checked-package scan 与编译接入尚未完成。以下阶段保留各自历史范围，当前未完成项以文末依赖 header 后继验收为准。
+最新可运行交付是 [private bound snapshot](research-checkpoint-2026-10-06-affine-private-loaded.md)：原源没有公开 bound 快照时，安全私有读取、original-entry／public frame、真实 source-key 安装、提取和两类 affine 域运行已通过。后继 [依赖 header 局部候选链](research-checkpoint-2026-10-06-dependent-joint.md)已将双观察服务具体化为 checked-package 的完整 scan／coverage、preparation 和实际候选执行；新编译入口尚未完成。以下阶段保留各自历史范围，当前未完成项以文末 dependent compiler 接入验收为准。
 
 本计划吸收 [三个分支的评审](review-synthesis-2026-10-05.md)。既有研究路线保留在 [contribution-plan.md](contribution-plan.md)，当前执行优先级以下表为准。
 
@@ -157,3 +157,11 @@ OLO 的需求验收仍以义务区分：当前已安装实例提供机器范围�
 3. 提取新入口，运行完整 C 接受／回退／上下文。当前 memory 后半单元重叠 fixture 不是 defined C loop benchmark；先用合法 bound 改写拒绝和稳定依赖读取接受。需要 typed pointer-store body 才能覆盖合法改变 pointer cell 的更一般源，不能将 progress fixture 计作 optimizer body 支持。
 
 guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和同例 proof obligations 比较保留后继优先级。该接入不要求新 kernel 能力，完整 goal active。
+
+## Dependent compiler 接入：完整局部链已证明
+
+[后继阶段](research-checkpoint-2026-10-06-dependent-joint.md)关闭上一节第一项并连接第二项的候选证明：真正 checked affine package 填入所有 header／body decode／word ranges／write receipts，内外两层 scan caps 覆盖全部活动写入；接受后运输实际 `**pp` 到 cached source，原 candidate certificate 给出实际 candidate execution。首次真实 header/body 生产 preparation evidence；完整局部链接受／拒绝都保持最终 memory 和公开 temps。七模块、29 端点审计通过，原 kernel 和 checker 保持。
+
+仍未关闭 factory 和完整入口。当前优先：原 compound AST matcher／source key；在真实 prefix 后捕获两项 private observation 并生产上述入口域；pointer／integer／Boolean／counter 的 typed fresh pool；保留顺序 continuation 的 plan lowering；实际 host 消费新 progress selector 并接 Csem→Asm。完成后单独提取、运行合法完整 C 接受／回退／上下文；不将本轮局部 theorem 或 inherited private compiler 回归算作 dependent native 结果。
+
+已证明的 generic callbacks 不再列为该 checked package 的未知项；capture domain producer、语言安装和实际运行仍明确保留。一般 pointer-store body、循环化 guard、主 domain 扩展、P4 与同例已有工作比较继续后继验收。完整 goal active。

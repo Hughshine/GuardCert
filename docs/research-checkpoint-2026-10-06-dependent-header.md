@@ -4,6 +4,8 @@
 
 当前还没有把一个 checked source package 填入完整 joint scan，也没有新 candidate factory／Csem→Asm 入口、提取或原生执行。这是完成这些连接所需的证明阶段，不能算依赖读取优化器已验收。上一 private-loaded 编译器与原生结果保持独立。
 
+后继 [完整局部候选链](research-checkpoint-2026-10-06-dependent-joint.md)已经用 checked affine package 填完上述 joint scan 的 header／body／receipts／coverage 并连接 candidate execution；新 factory／whole-program 入口、提取和原生缺口仍保留。本页数字与验证范围固定为前一服务阶段。
+
 再次 fetch，三个评审分支仍是 `7d94d810685a691efbf07df734f5fad8abfb4724`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`。继续按 narrative 区分 kernel、上层库、语言 host、domain 与优化证书；没有以接口参数冒充实例证明。
 
 ## 实际读取与 private preparation

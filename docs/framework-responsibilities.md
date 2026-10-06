@@ -148,3 +148,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 [依赖 header 服务](research-checkpoint-2026-10-06-dependent-header.md)继续沿此边界：语言证明实际双读取／captures／public preparation、可运行 byte-separation 条件、全部观察保持后的 prefix 和缓存执行运输；domain 将该条件接到已存在的 affine 地址编码、reached-write receipts 与真正 physical write sequence。当前已证明一个 point 接受后保持 pointer cell 和 bound cell 的实际 load；完整 checked-package row／outer scan 的 decode、范围和覆盖仍是未接入的实例义务。源 progress 独立证明，只用实际成功的 signed header 与保护 iterator 的 body；允许 memory observation 改变不等于已证明缓存优化合法。
 
 51 个新增审计端点均在原 CompCert 基线内，kernel 与原 candidate checker 未修改。泛型缓存运输所要求的 body decode／观察保持，以及 host 的 typed private pool、placement／source key 和 program installation 不能由局部接口自动取得。尚无新 dependent compiler／extraction／native 端点；现有 body 仍是 Mint32 operations，progress selector 接受 pointer store 不增加 optimizer 的 body 表达力。
+
+[完整局部实例链](research-checkpoint-2026-10-06-dependent-joint.md)已填入上述 checked-package 参数：domain 提供真正 reached-row decode、全部 write receipts、坐标范围和内外 caps 的 coverage；语言库运输权限、双观察 header／root temp frame 和实际缓存执行；上层条件库组合 preparation、joint scan 与 candidate guard。首次实际 header/body 的类型证据也已接到同一 preparation evidence；现有 candidate certificate 证明实际候选执行，局部接受／拒绝保持 memory 和 live temps。七模块／29 端点审计通过，没有把这些实例证据归为 kernel 自动提供。
+
+未完成责任集中在实际接入：source selector／factory、safe captures 后入口 producer、不同类型的 private pool、progress／scope／placement 和 whole-program host；这些不由“局部 correctness”自动推出。本轮没有 new factory／compiler／extraction／native 结果，原 private-loaded 42 项完整 compiler 基线的回归与新六项局部端点分别记录。
