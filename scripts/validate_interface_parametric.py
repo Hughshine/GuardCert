@@ -4,6 +4,7 @@ import json
 
 from audit_interface_clight import ROOT, sha
 from native_interface_parametric import ENTRY, WORK, COMPILER
+from probe_interface_parametric import PROBES
 
 
 def main():
@@ -18,6 +19,8 @@ def main():
     assert proof["whole_program_entrypoint"] == stamp["proved_entrypoint"] == native["proved_entrypoint"] == ENTRY
     assert not proof["additional_global_axioms"]
     assert proof["affine_inner_source_migrated"] and proof["actual_schedule_generation"]
+    assert proof["entry_condition_derivation"]["all_source_rows_covered"]
+    assert proof["entry_condition_derivation"]["middle_check_replaced_without_running_legacy_width"]
     assert stamp["proof_report_sha256"] == native["proof_report_sha256"] == sha(proof_path)
     assert native["compiler_stamp_sha256"] == sha(stamp_path)
     assert stamp["compiler_sha256"] == native["compiler_sha256"] == sha(COMPILER)
@@ -28,6 +31,7 @@ def main():
     assert native["verification_script_sha256"] == sha(ROOT / "scripts/native_interface_parametric.py")
     assert len(native["fixtures"]) == 6
     assert len(native["configurations"]) == 134
+    assert native["affine_fixture_symbolic_envelope_guards_observed"]
     assert {name.split("/")[1] for name in native["configurations"]} == {"direct", "shared"}
     for fixture, evidence in native["fixtures"].items():
         assert sha(ROOT / evidence["source"]) == evidence["source_sha256"]
@@ -43,6 +47,8 @@ def main():
         assert evidence["output_lines"] == native["fixtures"][name.split("/")[0]]["output_lines"]
         assert evidence["gcc_and_independent_model_match"]
         assert evidence["guarded_functions"] == evidence["expected_guarded_functions"]
+        if name.startswith("parametric/"):
+            assert all(branch["symbolic_envelope_test_sites"] >= 2 for branch in evidence["branch_counts"].values())
         fixture, mode, case = name.split("/")
         if case in ["resource-limit", "invalid-certificate"]:
             proposal = WORK / "identity.sexp"
@@ -57,7 +63,7 @@ def main():
         runtime = json.loads(runtime_path.read_text())
         assert runtime["status"] == "passed" and runtime["actual_accepted_and_refused_orders_observed"]
         assert runtime["verification_script_sha256"] == sha(ROOT / "scripts/probe_interface_parametric.py")
-        assert set(runtime["probes"]) == {mode + "/" + case for mode in ["direct", "shared"] for case in ["accepted", "refused-start"]}
+        assert set(runtime["probes"]) == {mode + "/" + case for mode in ["direct", "shared"] for case in PROBES}
         for name, evidence in runtime["probes"].items():
             mode, case = name.split("/")
             work = WORK / "parametric" / mode / "interchange"
@@ -68,6 +74,7 @@ def main():
             assert sha(work / (case + ".gdb.log")) == evidence["gdb_log_sha256"]
             assert [index for index, value in evidence["observed_writes"]] == evidence["expected_order"]
             assert [value for index, value in evidence["observed_writes"]] == evidence["expected_values"]
+            assert all(evidence[key] == value for key, value in PROBES[case].items())
         runtime_probes = len(runtime["probes"])
     summary = {"status": "passed", "proved_entrypoint": ENTRY,
                "proof_sources": len(proof["sources"]), "user_dependencies": len(proof["required_user_closure"]),

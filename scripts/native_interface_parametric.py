@@ -58,7 +58,10 @@ def compile_run(fixture, source, model, mode, name, path, extra, expected, refus
             limits = re.findall(r"\$n\s*<=\s*(\d+)", body)
             counts[function] = {"candidate_exit_copies": body.count("$i = $n;"),
                                 "outer_guard_limits": sorted(set(map(int, limits))),
-                                "clight_body_bytes": len(body.encode())}
+                                "clight_body_bytes": len(body.encode()),
+                                "symbolic_envelope_test_sites": len(re.findall(r"if \(\$[\w]+\s*\*\s*0\b", body))}
+            if fixture == "parametric":
+                assert counts[function]["symbolic_envelope_test_sites"] >= 2, (fixture, mode, name, function, "new width check absent")
     assert selected == expected, (fixture, mode, name, selected, expected)
     return {"guarded_functions": sorted(selected), "branch_counts": counts,
             "expected_guarded_functions": sorted(expected),
@@ -150,6 +153,7 @@ def main():
               "proof_report_sha256": sha(proof_path), "verification_script_sha256": sha(Path(__file__)),
               "fixtures": fixtures, "configurations": configurations,
               "actual_schedule_generation_and_rechecking": True,
+              "affine_fixture_symbolic_envelope_guards_observed": True,
               "performance_measured": False, "native_compilation_workers": arguments.jobs}
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
 

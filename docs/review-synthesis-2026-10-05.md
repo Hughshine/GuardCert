@@ -72,3 +72,9 @@
 Peek、COVE/cSTOKE、Chamois 和 CoreJIT 继续约束跨 IR 的研究主张；新方向文档不是对它们能力的新的独立文献核实。不声称 runtime-conditioned assembly 优化或 local-to-global lifting 是首次提出。语言状态运输必须覆盖实际检查的 flags 副作用，不能因抽象 readonly 条件省略这一义务。已纳入[责任矩阵](framework-responsibilities.md)与[当前计划](current-work-plan.md)。
 
 首个 [named affine／tiling 使用者](clight-polyhedral-preservation.md) 已实际复用旧 source/model/candidate 和范围／alias 证书，消费真实 candidate/dependence checker，并通过主 readonly condition 与 direct/shared realization 接 Csem→Asm。source-to-candidate 保持与双向规则共用安装证明，未增加旧 checker 没有提供的反方向。原生多数组 40 配置和连续替换／空参数 8 配置已通过；主接口兼容性回归与阶段提交以[当前记录](research-checkpoint-2026-10-06.md)为准。这关闭首个使用者迁移；一般 affine 源、stateful pointer footprint 与新符号化 B⇒A 算法仍未关闭。
+
+## 10 月 6 日：条件推导阶段的再次同步
+
+再次 fetch 后，三个评审分支仍分别为 `f7936299fa6272fbf50db6b94a1bd0333808ea09`、`9673381676e18ed0afbc6114e0a62bea9c48002c` 和 `3e9f0080def8c029cceedbd35184b4de7b8b96bc`，没有新增意见。已有 narrative 对责任和困难位置的要求继续进入实现：[盒状 affine 包络](affine-box-condition-derivation.md) 将数学覆盖、机器编码和实际候选消费分别落实，复用局部与安装证明；性能／proof burden 和同例 related-work 对照仍待完成。
+
+本次实际语义核对还修正了 P3 的 pointer 计划：访问 `p+k` 有效不保证原始 p 可比较，不能把 base-valid 偷放到 D。先交付宽度条件的实际使用者，pointer separation 的符号推导继续要求源前缀／placement 提供合法观察，并证明覆盖全部源访问。旧一轴宽度检查本来就是符号算法，因此本次不把它描述成 footprint 枚举的替代。完整 P3 和研究目标继续保持未完成；当前实现／验证见[阶段记录](research-checkpoint-2026-10-06-envelope.md)。

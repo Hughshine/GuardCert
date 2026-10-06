@@ -13,10 +13,16 @@ from audit_interface_clight import ROOT, sha
 
 WORK = ROOT / "build/interface-parametric-native"
 PROBES = {
-    "accepted": {"arguments": [0, 2, 2, 0], "indices": [1, 20],
+    "accepted": {"function": "affine_growing", "arguments": [0, 2, 2, 0], "indices": [1, 20],
                  "expected_order": [20, 1], "expected_values": [44, 8]},
-    "refused-start": {"arguments": [2, 4, 5, 1], "indices": [41, 60],
+    "refused-start": {"function": "affine_growing", "arguments": [2, 4, 5, 1], "indices": [41, 60],
                       "expected_order": [41, 60], "expected_values": [82, 118]},
+    "refused-empty-first-row": {"function": "affine_growing", "arguments": [0, 3, 0, 0], "indices": [21, 40],
+                                "expected_order": [21, 40], "expected_values": [45, 81]},
+    "accepted-negative-coefficient": {"function": "affine_descending", "arguments": [0, 2, 5, -1], "indices": [1, 20],
+                                      "expected_order": [20, 1], "expected_values": [44, 8]},
+    "refused-negative-last-width": {"function": "affine_descending", "arguments": [0, 3, 3, 0], "indices": [1, 20],
+                                    "expected_order": [1, 20], "expected_values": [8, 44]},
 }
 
 
@@ -25,18 +31,19 @@ def main():
     for mode in ["direct", "shared"]:
         directory = WORK / "parametric" / mode / "interchange"
         assembly, binary = directory / "program.s", directory / "program"
-        body = re.search(r"^affine_growing:\n(.*?)^\s*\.cfi_endproc", assembly.read_text(),
-                         re.MULTILINE | re.DOTALL).group(1)
-        frame = int(re.search(r"subq\s+\$(\d+),\s*%rsp", body).group(1))
-        before_initializer = body.split("$-999", 1)[0]
-        array_offset = int(re.findall(r"leaq\s+(\d+)\(%rsp\)", before_initializer)[-1])
         for name, probe in PROBES.items():
+            function = probe["function"]
+            body = re.search(r"^" + re.escape(function) + r":\n(.*?)^\s*\.cfi_endproc", assembly.read_text(),
+                             re.MULTILINE | re.DOTALL).group(1)
+            frame = int(re.search(r"subq\s+\$(\d+),\s*%rsp", body).group(1))
+            before_initializer = body.split("$-999", 1)[0]
+            array_offset = int(re.findall(r"leaq\s+(\d+)\(%rsp\)", before_initializer)[-1])
             condition = " && ".join(f"${register} == {value}" for register, value in
                                      zip(["edi", "esi", "edx", "ecx"], probe["arguments"]))
             commands = directory / (name + ".gdb")
             commands.write_text("set pagination off\nset confirm off\nset startup-with-shell off\nset inferior-tty /dev/null\npython\n" + f'''
 import gdb, json
-gdb.execute("break affine_growing if {condition}", to_string=True)
+gdb.execute("break {function} if {condition}", to_string=True)
 gdb.execute("run", to_string=True)
 original_stack = int(gdb.parse_and_eval("$rsp"))
 gdb.execute("si", to_string=True)

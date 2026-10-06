@@ -47,7 +47,7 @@ D 不能预先包含待检查的 no-alias／稳定性事实。它说明当前哪
 | 证书 | 主要生产者 | 当前可核对的接口／证据 |
 | --- | --- | --- |
 | `C_opt` | 规则／优化实现者或已验证候选 checker | [conditional_equivalence](../prototype/interface/GuardedRewrite.v)、局部状态还原；完整循环也可使用 [open_region_protocol](../theories/ClightOpenRegionContract.v)，须提交实际执行的匹配 |
-| `C_derive` | 优化／domain library | [readonly_condition_entails](../prototype/interface/GuardedRewrite.v) 消费推导证明；它本身不是已实现的通用投影算法 |
+| `C_derive` | 优化／domain library | [readonly_condition_entails](../prototype/interface/GuardedRewrite.v) 消费推导证明；[盒状 affine 包络](affine-box-condition-derivation.md) 提供受限符号算法及实际宽度使用者，不是通用投影算法 |
 | `C_guard` | 核心参数化算法＋语言原语＋实例域证据 | [只读 tree 合成](../prototype/interface/ClightReadonlyTreeSynthesis.v)、[loaded tree](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v)、[依赖 prefix scan](../prototype/interface/ReadonlyPrefixScan.v)、[实际 private-scan host](../prototype/interface/ClightPrivateScanHost.v)；实例仍证明 coverage、原语安全和 source 支持 |
 | `C_host` | 语言实例／宿主库，规则提交边界 witness | [select_exact](../prototype/interface/GuardInterface.v) 是抽象定律；[共用实际 realization](clight-guard-realization.md)、[direct](../prototype/interface/ClightReadonlyProjectedCompiler.v)、[shared](../prototype/interface/ClightSharedProjectedCompiler.v) 和 [open host](../theories/ClightOpenRegionProof.v) 是具体证明；完整 Csem→Asm 结论是 backward simulation |
 
@@ -84,6 +84,8 @@ for (; i != *bound; ++i) *out = i + 2U;
 | 降低作者负担且有实际价值 | 增加 record／端点／相似模板；只量 Clight 打印字节 | 至少两条规则消费同一 condition／realization；记录专属 obligations 与证明代码；同源 direct/shared 对照和同版 CompCert 原生成本。核／adapter 复用、domain 接入、测量分别报告 |
 
 第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。10 月 6 日的第一项迁移复用矩形范围与 named memory 的全实例对应，第二项 [参数化仿射内层源](clight-parametric-preservation.md) 复用已有端点覆盖、机器范围 lowering 和不同布局／偏移／多读取的 body 对应，并运行实际 schedule generation 后重新核对候选。二者都消费仿射／分块依赖核对器，通过公共保持、分派和安装接入。此次没有新增一般 B⇒A 推导算法，实际参数化 pointer footprint 随后经公共 private-scan 路线迁移；一般深度 affine 源与该 pointer package 的组合仍待扩展。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
+
+随后新增的 [符号包络使用者](affine-box-condition-derivation.md) 明确分开三项新工作：domain 库证明系数符号推导覆盖任意有限维盒内的全部点，Clight 库证明 modular 仿射求值及最终 signed 比较范围，优化使用者证明接受建立所有行宽义务并接到旧局部证书。语言检查替换服务保留原 D／P／candidate，复用已有 reachable-test 安全、分派与安装证明。实际 compiler 替换宽度树，尚未替换 pointer scan。其困难观察边界是 `p+k` capability 不蕴含原始 p weak-valid，不能在没有源前缀证据时插入 base 比较；下一项 alias 条件推导必须同时取得这一观察许可和全实例足迹覆盖。
 
 ## 5. 研究主张与持续维护
 

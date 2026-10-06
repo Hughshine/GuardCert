@@ -4,7 +4,7 @@ From compcert.common Require Import AST.
 From compcert.cfrontend Require Import Ctypes Clight.
 From polcert.lib Require Import ImpureAlarmConfig.
 From Vpl Require Import Impure.
-From Guard Require Import ClightCondition ClightPureExpr ClightPrivateRule ClightPrivateRegion
+From Guard Require Import AbstractGuard SemanticFacts ClightGuard ClightDecisionRule ClightCondition ClightPureExpr ClightPrivateRule ClightPrivateRegion
   ClightPrivatePool ClightTempFootprint ClightRectangularStore ClightRectangularSelector ClightStraightLine ClightRegionProgress.
 From GuardMemory Require Import GuardMemoryInstr GuardMemoryLoops GuardMemoryAffineReindex GuardMemoryTiledCompiler
   GuardMemoryAffineSourceExpressions GuardMemoryAffineSourceContext GuardMemoryAffineSourceLoop
@@ -14,7 +14,9 @@ From GuardMemory Require Import GuardMemoryInstr GuardMemoryLoops GuardMemoryAff
   GuardMemoryParametricGuard GuardMemoryParametricWidth GuardMemoryParametricCandidate
   GuardMemoryParametricLoops GuardMemoryParametricTiling GuardMemoryScheduleProducer.
 From GuardInterface Require Import ClightReadonlyPreservation ClightReadonlyRuleEmbedding
-  ClightGuardRealization ClightSharedGuard ClightPolyhedralCompiler.
+  ClightGuardRealization ClightSharedGuard ClightPolyhedralCompiler
+  GuardedRewrite ClightReadonlyRewrite ClightReadonlyProjectedCompiler ClightRegionBoundary
+  ClightReadonlyCheckReplacement ClightConditionComposition ClightParametricEnvelopeGuard.
 Import ListNotations CoreAlarmed.
 Set Implicit Arguments.
 Local Open Scope Z_scope.
@@ -37,7 +39,9 @@ Definition parametric_preserving_tree source (package : memory_parametric_region
   decision_bind (memory_source_guard_tree (described_shape d)
     (memory_parametric_region_descriptors package) (rectangle_row d) (rectangle_bound d)
     (memory_source_context (rectangle_row d) (rectangle_bound d) (parametric_region_expression package))
-    bounds width_tree) (Decision true) (Decision false).
+    bounds (choose_parametric_envelope_width (rectangle_stride (described_shape d)) (rectangle_row d)
+      (memory_source_context (rectangle_row d) (rectangle_bound d) (parametric_region_expression package))
+      bounds (parametric_region_expression package) width_tree)) (Decision true) (Decision false).
 Definition parametric_preserving_branch source (package : memory_parametric_region_package source) code :=
   let d := parametric_region_description package in
   memory_parametric_candidate code (rectangle_row d) (rectangle_bound d)
@@ -99,12 +103,40 @@ Proof.
   unfold choose_parametric_preserving_target,parametric_preserving_tree,parametric_preserving_branch,
     memory_parametric_region_descriptors,memory_parametric_region_instructions,memory_parametric_region_model,
     compile_memory_parametric_region_candidate in *; cbn in *.
-  exact (@choose_preserving_dispatch_sound live
-    (rectangle_described_source d)
-    (encoded_private_as_preserving (@memory_parametric_body_candidate_rule (described_shape d) VALID
+  pose (rule := encoded_private_as_preserving (@memory_parametric_body_candidate_rule (described_shape d) VALID
       (rectangle_row d) (rectangle_bound d) (rectangle_column d) (rectangle_inner_bound d) expression encoded ENCODE
       (rectangle_inner_body d) (rectangle_described_outer_body d) MODEL RN RC NC RK NK CK SC SK OUTER
-      bounds live pairs candidate code COMPILE CHECK width_tree LOWER)) shared result target).
+      bounds live pairs candidate code COMPILE CHECK width_tree LOWER)).
+  set (guard := decision_bind (memory_source_guard_tree (described_shape d)
+    (parametric_body_descriptors MODEL) (rectangle_row d) (rectangle_bound d)
+    (memory_source_context (rectangle_row d) (rectangle_bound d) expression) bounds
+    (choose_parametric_envelope_width (rectangle_stride (described_shape d)) (rectangle_row d)
+      (memory_source_context (rectangle_row d) (rectangle_bound d) expression) bounds expression width_tree))
+    (Decision true) (Decision false)).
+  assert (NEW : forall temps, readonly_condition
+    (readonly_clight_host (adapter_entry temps) (boundary_observe (public_exit_ports live)))
+    (preserving_domain rule) (preserving_premise rule) guard).
+  { intro temps; pose proof (preserving_check rule temps) as OLD.
+    change (readonly_condition
+      (readonly_clight_host (adapter_entry temps) (boundary_observe (public_exit_ports live)))
+      (memory_source_guard_domain (described_shape d) (parametric_body_descriptors MODEL)
+        (rectangle_row d) (rectangle_bound d) (memory_source_context (rectangle_row d) (rectangle_bound d) expression) bounds expression)
+      (preserving_premise rule)
+      (decision_bind (memory_source_guard_tree (described_shape d) (parametric_body_descriptors MODEL)
+        (rectangle_row d) (rectangle_bound d) (memory_source_context (rectangle_row d) (rectangle_bound d) expression)
+        bounds width_tree) (Decision true) (Decision false))) in OLD.
+    change (readonly_condition
+      (readonly_clight_host (adapter_entry temps) (boundary_observe (public_exit_ports live)))
+      (memory_source_guard_domain (described_shape d) (parametric_body_descriptors MODEL)
+        (rectangle_row d) (rectangle_bound d) (memory_source_context (rectangle_row d) (rectangle_bound d) expression) bounds expression)
+      (preserving_premise rule) guard).
+    unfold guard; rewrite !decision_bind_identity in OLD |- *.
+    exact (@parametric_envelope_guard_condition (adapter_entry temps) _ (boundary_observe (public_exit_ports live))
+      (described_shape d) VALID (parametric_body_descriptors MODEL) (rectangle_row d) (rectangle_bound d)
+      (memory_source_other_parameters (rectangle_row d) (rectangle_bound d) expression)
+      bounds expression width_tree (preserving_premise rule) LOWER OLD). }
+  exact (@choose_preserving_dispatch_sound live (rectangle_described_source d)
+    (@preserving_rule_with_check live (rectangle_described_source d) rule guard NEW) shared result target).
 Qed.
 
 Definition checked_parametric_preserving_candidate source (package : memory_parametric_region_package source)

@@ -36,9 +36,9 @@ for (; i < n; ++i) {
 
 ## 最难的一步：入口 B 覆盖所有迭代的 A
 
-对上面的 U，domain 库在入口表达 U(0) 与 U(n−1)，并要求首行非空、两个端点均在可支持宽度内。已有 `memory_source_endpoint_test_sound` 根据 U 的仿射结构推出每个 `0 ≤ i < n` 的宽度界；不是运行时枚举所有 i。首行非空用于从实际源执行取得数组观察的安全性。不能取得这项证据的入口走源回退。
+对上面的 U，新 [符号包络算法](affine-box-condition-derivation.md) 根据行系数符号，生成 `lower=m-p`、`upper=2*(n-1)+m-p`，实际检查首行非空、`lower>=0`、`upper<=stride`。`compile_parametric_envelope_width_correct` 将盒内全点覆盖接到实际源，推出每个 `0 ≤ i < n` 的宽度界，不在运行时枚举 i。首行非空用于从实际源执行取得数组观察的安全性。不能取得这项证据的入口走源回退。
 
-端点覆盖是 `C_derive` 的一部分。参数 interval 和 `lower_test` 的证明另外保证实际机器表达的定义性及其数学意义，这属于 `C_guard`，不能由端点不等式代替。检查次序依次为源 header、参数范围、端点宽度、真实数组基址；后续观察只在已有结果允许时执行。D 从正常源执行获得，未预放 no-alias 或参数范围结论。
+包络覆盖是 `C_derive` 的一部分。Clight 编码另外证明 modular 仿射求值及最终 signed 比较范围，支持负参数与负系数，这属于 `C_guard`，不能由整数不等式代替。新条件接受推出旧条件接受，保留候选和局部证书；实际程序不再执行旧宽度树。静态编码拒绝时保留旧树，旧 `lower_test` 成功仍是 selector 与旧局部证书的条件。检查次序为源 header、参数范围、新宽度、真实数组基址；后续观察只在已有结果允许时执行。D 从正常源执行获得，未预放 no-alias 或参数范围结论。
 
 当前选择器先尝试默认范围，再尝试外层上界 8/4/3/2/1；还复用已有 width=1 的受限源证书作为候补。这是有限的保守 profile 搜索，并非最弱条件或完整 QE。每个实际返回的候选都有独立证书；profile 搜索只组合成功结果。源运行超出所选范围时保留原循环。
 
@@ -52,10 +52,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- make interface-parametric-nat
 
 工具链沿用 Rocq/Stdlib 9.2 和 CompCert v3.18。`GUARDCERT_LOOP_CANDIDATE` 指定不受信任候选文件；`GUARDCERT_GUARD_LOWERING=direct|shared` 指定实际 guard 实现，默认 shared。编译器位于 `build/compcert-readonly-parametric/ccomp`。
 
-原生测试复用六份 C 程序和各自独立模型，检查实际候选选择、公开出口、完整数组结果与 GCC。参数数量、重复／零倍参数、同一函数中的连续替换、空外层、非零起点、范围回退、不同 layout、偏移、多个读取与机器数据回绕均有覆盖。GCC 对照使用 `-fwrapv`，以匹配这些数据 fixture 的 word 语义。最新验证结果见 [阶段记录](research-checkpoint-2026-10-06-parametric.md)。
+原生测试复用六份 C 程序和各自独立模型，检查实际候选选择、公开出口、完整数组结果与 GCC。参数数量、重复／零倍参数、同一函数中的连续替换、空外层、非零起点、范围回退、不同 layout、偏移、多个读取与机器数据回绕均有覆盖。GCC 对照使用 `-fwrapv`，以匹配这些数据 fixture 的 word 语义。迁移时的历史证据见 [原阶段记录](research-checkpoint-2026-10-06-parametric.md)，条件推导的当前证据另记在 [符号包络阶段](research-checkpoint-2026-10-06-envelope.md)。
 
 134 个 direct/shared 编译配置已经通过。候选的接受集合取决于具体调度：例如 offset fixture 中 `offset_anchor_chain` 与 `offset_global_chain` 的 fission 被依赖核对器拒绝，其他候选仍可接受这些源。测试采用原有独立回归的拒绝策略，不将成功识别 source 等同于任意 schedule 均有效。
 
-可选 `make interface-parametric-runtime-order` 在 x86-64/GDB 中观察两个实际数组写入，不修改源或汇编。同一 `affine_growing` interchange 二进制在 `(i,n,m,p)=(0,2,2,0)` 下先写 `a[20]` 再写 `a[1]`；非零起点 `(2,4,5,1)` 下回退，先写 `a[41]` 再写 `a[60]`。两种 lowering 的四个探针通过，且其二进制／汇编摘要绑定完整回归报告。它们是实际分支的功能见证，没有测量性能。
+可选 `make interface-parametric-runtime-order` 在 x86-64/GDB 中观察两个实际数组写入，不修改源或汇编。同一 `affine_growing` interchange 二进制在 `(i,n,m,p)=(0,2,2,0)` 下先写 `a[20]` 再写 `a[1]`；非零起点 `(2,4,5,1)` 下回退，先写 `a[41]` 再写 `a[60]`。新探针另外覆盖首行空回退、负行系数／负参数接受及末行负宽度回退，两种 lowering 共十个探针。二进制／汇编摘要绑定完整回归报告；完成状态见当前阶段记录。它们是实际分支的功能见证，没有测量性能。
 
 当前只安装正常有限 region，继续要求独立 source progress。未覆盖任意无限 polyhedral 源回退、shared whole-loop、一般深度源、非仿射访问或动态 pointer footprint。对第一行为空的有定义源会回退；这些限制不能隐藏在 D 中。此次交付证明和运行的是已有仿射领域设施通过公共接口的复用，未声称新增通用入口条件推导算法或证明负担／性能收益。

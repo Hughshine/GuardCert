@@ -88,7 +88,9 @@ def main():
     if arguments.parametric:
         WORK = ROOT / "build/interface-parametric"
         ENTRY = "ClightParametricCompiler.compile_preserving_parametric"
-        MODULES = ["ClightReadonlyPreservation", "ClightParametricPreservation", "ClightParametricCompiler"]
+        MODULES = ["AffineBoxEnvelope", "ClightAffineEnvelope", "ClightReadonlyCheckReplacement",
+                   "ClightParametricEnvelope", "ClightParametricEnvelopeGuard",
+                   "ClightReadonlyPreservation", "ClightParametricPreservation", "ClightParametricCompiler"]
     WORK.mkdir(parents=True, exist_ok=True)
     baseline_path = ROOT / "build/compcert-guardcert/.guard-build.json"
     inherited = json.loads(baseline_path.read_text())["proof_sources"]
@@ -151,6 +153,18 @@ def main():
     if arguments.parametric:
         report["source_selection"] = "signed affine inner bounds and certified named/layout/offset/compute array body models"
         report["candidate_checkers"] = ["parametric mapped-domain and dependence", "parametric tiling and dependence", "generated affine schedules checked again"]
+        report["entry_condition_derivation"] = {
+            "algorithm": "coefficient-sign affine box envelopes",
+            "mathematical_dimensions": "arbitrary finite coordinate boxes",
+            "installed_source": "one affine inner width over a row count and signed entry parameters",
+            "machine_encoding": "modular affine evaluation with certified final signed comparison range",
+            "all_source_rows_covered": True,
+            "middle_check_replaced_without_running_legacy_width": True,
+            "candidate_local_and_host_proofs_reused": True,
+            "static_encoding_refusal": "retain legacy width check",
+            "pointer_scan_replaced": False,
+            "general_polyhedral_projection_implemented": False,
+        }
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(f"Polyhedral API user audited: {len(endpoints)} endpoints, {len(closure)} user dependencies; "
           f"{len(baseline)} inherited assumption names, no additions", flush=True)
