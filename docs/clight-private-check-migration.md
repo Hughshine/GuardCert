@@ -1,51 +1,67 @@
-# 循环式私有检查：公共接口迁移的证明缺口
+# 循环式私有检查：公共接口与实际 pointer compiler
 
-2026-10-06。本文记录私有检查的迁移义务和当前证明进展，新的公共 pointer pass 尚未完成。旧 pointer 扫描和对应 compiler 已有证明；参数化 readonly 使用者的真实迁移见 [ClightParametricCompiler](../prototype/interface/ClightParametricCompiler.v)。当前 15 个扫描／分派端点的证据见 [阶段记录](research-checkpoint-2026-10-06-private-scan.md)。
+2026-10-06 更新。实际参数化指针扫描已接入公开 `guard_host`、`guard_certificate` 和 kernel 的 `guardify_preservation`，完成 Csem→Asm 证明与编译器提取。上一阶段仅有扫描／分派 facts 的记录保留在 [历史阶段记录](research-checkpoint-2026-10-06-private-scan.md)；本阶段证据与验收见 [公共 compiler 记录](research-checkpoint-2026-10-06-private-scan-compiler.md)。
 
-## 实际输入和目标
+## 实际输入、条件与目标
 
-考虑一个由实际源 package 定义的指针循环：嵌套域使用稳定寄存器矩形 bounds，body 通过多个 pointer 进行参数化仿射访问。它与本次迁移的 `j<U(i,parameters)` 非矩形 readonly 源是两种 source package。候选 checker 在抽象单元分离的条件下证明重排成立。domain library 从该 source 的真实访问构造 footprint，入口检查依次验证活动 header、参数范围，再遍历访问对与坐标，比较实际地址。拒绝时保留 source。
+source package 定义稳定寄存器 bounds 的矩形嵌套循环；body 对多个真实 pointer 进行带入口参数的仿射访问，并支持独立 RHS scalars、多读取和多语句。它与 readonly 的 `j<U(i,parameters)` 非矩形源是不同 package，不能将两者组合描述成已实现的一般 affine pointer polyhedron。
 
-现有 [memory_param_axis_pointer_guard_statement](../adapters/compcert-memory/GuardMemoryParamAxisGuard.v) 就是实际检查代码：它写私有左右计数器与 flag，保持 memory 和声明的公开 temps。它使用的 [runtime_domain](../adapters/compcert-memory/GuardMemoryParamPointerProjectedCandidate.v) 要求源访问的 capability；source 的正常执行提供该证据，没有预先假设待检查的 non-alias。检查的是受限真实足迹，不是任意 allocation 的所有单元。
-
-目标仍由核心 [guard_host](../prototype/interface/GuardInterface.v) 表达：
+不受信任的使用者提供 mapped Loop／index-map、tiling 或 affine schedule。实际 schedule generation 的输出还须重新经过候选检查。domain library 从实际 source 访问构造受限 footprint；入口检查先核对活动 header 和机器／参数范围，再扫描访问对和坐标，比较实际地址。候选证书证明抽象单元下的对应与依赖保持；runtime separation 为它提供真实单元解释。拒绝时执行原 source。地址分离不能独自许可任意重排。
 
 ```text
-checks G original accepted checked
-select_exact: actual select ⇔ check followed by the chosen branch at checked
-accepted: P(original) and accepted_entry(original,checked)
-refused: refused_entry(original,checked)
+result = 0;
+一次性 loop {
+  raw check;                 // normal 接受；break 拒绝
+  result = 1;
+  break;
+}
+if (result) candidate; else source;
 ```
 
-核心已经允许私有检查状态。需要扩展的是具体 Clight 实现和与旧证书的桥接。
+一次性 loop 只包围检查，candidate 和 fallback 位于它外部。实际 prefix 保留 raw scan 的真实 cursor／flag 环境，不使用 `bool→original temps` 的固定状态函数。result 的初始化和物化都是真实 Clight 写入。
 
-## 四个不能省略的义务
+## 三方如何使用
 
-| 义务 | 已有证据 | 新迁移必须补的证明 | 归属 |
-| --- | --- | --- | --- |
-| 真正表示检查后状态 | 旧 `memory_projected_check_execution` 是真实 `exec_stmt`，包含 after temps、相同 memory、公开 agreement；normal 表示接受，break 表示拒绝。新 prefix 保留实际 scan after temps，再物化一个 result | 公共 host 的 `checks` 仍需固定这个实际关系，不能改成 `bool→initial temps` 的固定函数；result 初始化也是状态变化 | Clight 语言实例；domain 声明所用私有资源 |
-| 任意检查执行都正确 | [projected_check_witness_all](../prototype/interface/ClightPrivateCheckFacts.v) 复用确定性；[原入口 facts](../prototype/interface/ClightParamPointerEntryFacts.v) 和 [prefix bridge](../prototype/interface/ClightParamPointerScanBridge.v) 已覆盖真实 scan／prefix 的全部完成执行 | 已得到 protected frame 和 `accepts⇒P(original)`；完整 `guard_certificate` 还需消费实际 host、检查安全／可用性解释和状态关系 | 语言库提供确定性／解码设施，domain 提交实际 footprint 对应、安全与完成见证 |
-| 前提锚在什么状态 | 旧结论是 `P(checked)`；新 `param_pointer_presumption_temp_frame` 已证明 protected agreement 下的双向稳定，接受可运输回 original | 该实际 package 的入口锚点已关闭。新 source／footprint 若有额外观察，仍须提供依赖覆盖与 frame；仅有调用者 live agreement 不够 | domain 提交 P 的依赖与 coverage；语言提供 temp／memory frame 定律 |
-| 实际分派与宿主 | 新 [private_scan_select_exact](../prototype/interface/ClightPrivateScan.v) 对所有入口、任意实际分支的 trace／outcome 证明双向 statement 分解；`private_scan_prefix_dispatch` 给出真实小步前缀 | 实际 statement 分派已关闭。仍需公共 host 实例、source／candidate 分支运输、scope／private pool、完整 Csem→Asm 与提取；完成式 lemma 不自动提供无限行为观察 | Clight 语言实例／host；优化方给局部候选与边界 witness |
+| 责任 | 本阶段交付 | 每个新实例仍需提交 |
+| --- | --- | --- |
+| 语言无关框架 | 复用既有 `guard_certificate`／`preservation_certificate`／`guardify_preservation`，本阶段没有修改 kernel | 不承担任意前提抽取、footprint 建模或候选正确性 |
+| Clight 语言实例 | [Safety](../prototype/interface/ClightPrivateScanSafety.v)：已到达求值与有限续行；[Host](../prototype/interface/ClightPrivateScanHost.v)：实际 checked state、双向 dispatch 和安全到可用；[Preservation](../prototype/interface/ClightPrivateScanPreservation.v)：公开观察、分支运输、kernel 消费与小步 region contract | check 必须属于受支持语法、result 不在 raw 的读写 temps 中；使用者声明保护 ports、source effect bound／scope，宿主检查实际 target scope 和合法 source progress |
+| 优化／domain library | [Certificate](../prototype/interface/ClightParamPointerCertificate.v)：指针 guard 的 D、安全和原入口 P；[Preservation](../prototype/interface/ClightParamPointerPreservation.v)：消费实际 candidate 证书；[Candidates](../prototype/interface/ClightParamPointerCandidates.v)：核对 mapped／tiling／schedule 候选；[Compiler](../prototype/interface/ClightParamPointerCompiler.v)：实际表与 Csem→Asm | 实际 source／模型／candidate 对应、入口 footprint coverage、机器地址定义性、P 的 protected-frame 稳定、私有名字与新编码的安全证明 |
 
-`quiet_statement` 允许 `break` 与 `continue`，也允许这里的结构化循环；它排除 call、return、label、goto。不能因检查返回 break 就宣称确定性库不可复用。另一方面，quiet 仅支持完成执行的确定性，并不独自证明检查一定结束、安全或覆盖无限 source fallback。
+`private_scan_preserving_rule` 是语言适配器的接入接口。它要求实际 source/candidate/check、D/P、protected ports 和 source write bound；一份 guard certificate；P 在 checked frame 下的稳定；条件下 source→candidate 的正常执行与公开出口保持；以及从 source 正常执行导出 D。优化方不用重新证明实际 if／一次性 loop、source 的私有 temp 运输和 region 的小步安装。
 
-`select_exact` 本身量化所有入口与该 host 的所有 code，不以 D 为前提。因此在 source-derived D 下构造一个完成检查见证，还不能独自证明这个语言定律。实际 check 类型或实现库还须约束检查的 memory／公开 frame、可解码出口，以及真正的控制行为；D 则用于证明安全与可用。反向分解实际 wrapper 执行时，也必须建立这些事实，不能因为 `checks` 的定义包含 frame 就视为已证。
+`C_opt` 来自实际 body／candidate checker；`C_derive` 来自 source footprint／机器域与抽象单元的对应；`C_guard` 来自真实扫描的执行、范围和接受定理；`C_host` 来自通用语言适配器与既有 private-region 宿主。旧条件／候选数学证明继续复用，新 compiler 没有调用旧统一 compiler 的整程序入口。
 
-旧 wrapper 的 switch／loop 包住了 candidate 和 source：候选的 break／continue 若被 wrapper 吸收，可能改变其控制含义。新 Boolean wrapper 已实现并证明：`result=0；一次性 loop 包围 raw check；normal 后 result=1；break 退出；if result`。分支在 loop 外，因此 exact 端点允许任意分支的完成出口，包含 break／continue／return；没有要求分支 quiet 或正常完成。raw check 则使用已证明的受限语法，无 call／return／goto／continue 或内存写。实际参数化 pointer scan 已实例化这项语法证明。
+## 安全与检查关系
 
-`ClightParamPointerScanBridge` 另证明 result 的初始写入可通过真实 scan 的 temp transport 运输。result 对 raw 所有读写 temps 及 protected 集 fresh；wrapper 后的 frame 保护原入口前提的依赖。compiler 安装还须核对它对 source、candidate 和公开观察 fresh，不能把这一资源义务从语言库转嫁成一个新的任意分支等价定理。
+`private_scan_safe` 是独立的归纳判断，不把 `check_safe` 定义为“存在完成执行”。set 规则要求实际 `eval_expr`；if 要求可定义的实际 Boolean 测试和每个可选分支安全；sequence／loop 对实际子执行后的状态继续提出安全义务；loop 还需有限的递归续行证明。`private_scan_safe_execution` 在受支持语法下证明真实完成执行可取得。当前 bounded domain 的既有执行见证，经无事件执行的确定性，构造上述安全判断。这不是一般无限检查的安全定理。
 
-## 接口选择与实现顺序
+raw 语法支持 skip、set、break、sequence、if 和 loop。表达式可以读取内存；排除内存写、call、return、goto 和 continue。语法只保证完成检查没有 events／memory 写，不能独自保证终止。result freshness 使拒绝后 result 保持 0、接受后物化 1；`select_exact` 对任意入口与任意实际 branch 的完成 trace／outcome 成立，不以 domain D 为前提。
 
-现有 readonly 前台与 direct/shared 使用者保持。私有检查将消费一般 `guard_certificate`／`preservation_certificate`，逻辑 condition 不观察私有写入。已完成真实 witness 到所有完成执行、原入口前提稳定、result 初始化、statement exact dispatch 与小步 prefix。可用 `make interface-private-check-proof` 重现；15 个端点、392 个实际依赖和 805 份源摘要，无新增全局公理。公共 host／guard certificate、分支运输与 compiler 安装尚未完成。
+公开 `checks` 绑定 raw 从真实初始化环境执行到真实 after，并把 result 的物化计入 checked entry。`private_scan_checks_prefix` 证明它对应真实 prefix 和实际 Boolean 测试；`private_scan_prefix_checks` 反向分解真实 prefix。该 host 的观察量由语言使用者参数化，分派定律不强制分支 quiet 或正常完成，也不会吞掉分支的 break／continue／return。
 
-下一项先实例化实际 host 和检查安全／观察范围，构造公共 guard certificate。其检查关系绑定实际 prefix 和 checked state，分别消费 D 下的完成见证、所有执行的原入口 sound 和 protected frame；不得仅给 check_safe 换成一个更弱的名字来省略语义义务。再将旧局部 candidate 证书从检查后状态运输到实际 source／target 安装位置，核对名字分配与 source progress，接 CompCert 后端并运行真实 pointer fixtures。
+指针证书中的 D 是 [memory_param_pointer_runtime_domain](../adapters/compcert-memory/GuardMemoryParamPointerProjectedCandidate.v)：源所需的机器值和实际访问 capability；没有预先要求 header 接受或 nonalias。此有限 region 宿主从 source 的正常执行导出 D。所有完成检查执行都保持 globalenv、locals、memory 和 protected temps；接受时建立 P(original)，拒绝不意味着 P 的否定。
 
-这一阶段首先覆盖旧指针路线的正常有限 region。小步 dispatch 前缀可以独立于分支是否完成证明；这不意味着有限 macro host 已支持任意无限指针 source。完整无限回退需要对应的 open-region 协议，和 readonly unsigned 循环已有的小步路线分别验收。
+P 包括当前 header 接受和受限真实 footprint 的 nonalias。其依赖包含 bounds、入口参数和真实 pointer binding，不能只保护调用者关注的 live-out。已有 [EntryFacts](../prototype/interface/ClightParamPointerEntryFacts.v) 与 [ScanBridge](../prototype/interface/ClightParamPointerScanBridge.v) 提供依赖 coverage、原入口稳定和 result 初始化的实际运输。
 
-编译和审计当前 facts 已通过，后续验收依次是：构造已证明的公共证书；安装真实 pointer candidate；提取编译器；在 disjoint／alias、空源、参数范围、提前拒绝、地址回绕和私有 cursor 不同的入口运行对照；确认实际接受路径与公开出口；最后记录旧 compiler 与公共 compiler 分别复用了什么。不存在源 capability 时应回退或静态拒绝，不把危险的先行读取隐藏到 D 中。
+## 局部保持与完整程序
 
-## 与论文责任链的关系
+语言 adapter 使用正常、无事件 region 的公开 temp agreement 和 memory equivalence 作为 observation。先把原 source 执行运输到检查后的保护环境，再使用候选局部证明；fallback 也经相同运输。`guardify_preservation` 提供实际选中程序的 source→target 保持，随后 `private_scan_preserving_region_contract` 接入真实 Clight 小步 continuation。
 
-`C_opt` 仍来自实际 pointer body／candidate checker；`C_derive` 证明足迹和所有实例的覆盖；`C_guard` 证明原子比较的机器定义性、扫描进展与接受结论；`C_host` 证明真实状态、分派、边界与上下文。三方责任和验收顺序见 [framework-responsibilities.md](framework-responsibilities.md) 与 [current-work-plan.md](current-work-plan.md)。此次定位没有把 universal assumption extraction 或一般语言的 stateful check 合成交给 kernel。
+compiler 在 private pool 中先为 result 保留一个 slot，其余 pairs 用于 scan 和 candidate lowering。检查 result 对 raw 读写与 protected 集 fresh；source／candidate 的实际 scope 由安装宿主核对。candidate 在 Boolean 读取后执行，其私有写入由局部证书和公开观察处理，不另外要求保存整个检查后 temp 环境。既有 private-region traversal、source progress、frontend 和 CompCert 后端给出 `compile_preserving_pointer_scan_correct` 的 Csem→Asm backward simulation。
+
+局部 host 的完成执行定律仍不包含无限行为。上述 compiler 通过既有有限 region 宿主连接全程序 simulation；没有在此新增任意无限指针 source 的 open-region 协议，也没有把 source→candidate 保持改称双向全程序等价。
+
+## 复现与后续
+
+在固定 Rocq 工具链环境运行：
+
+```sh
+make interface-private-check-proof
+make interface-private-scan-native
+make interface-private-scan-runtime-order
+```
+
+最后一项使用 x86-64/GDB 硬件观察点。形式证明、完整汇编输出对照、实际路径探针分别报告；路径探针不计性能证据。审计覆盖 38 个端点、465 个实际依赖、812 份摘要；语言端点只继承 CompCert 假设，候选检查继承 7 项 PolCert/VPL 假设，没有新增公理。
+
+后续仍需受限符号化条件／足迹推导算法、一般 affine 域与 pointer 组合、机制成本和作者证明负担对照。继续按 [责任矩阵](framework-responsibilities.md) 和 [当前计划](current-work-plan.md) 验收，公共 pointer pass 完成不等于完整研究目标完成。

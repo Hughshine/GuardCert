@@ -18,9 +18,11 @@
 
 最新 topdown 补充也已采纳：抽象接口应能由 SSA／CFG 或汇编实例解释，Clight 继续是主验收。CFG 实例另证明 live-out／phi／控制出口；汇编实例另证明 scratch registers、flags、memory 和分支控制。若实际检查改变 flags，语言不能只说逻辑 condition 是只读：必须证明这些变化私有且不影响分支，或给出保存／恢复与真实状态运输。第二 IR 是可选的表达力证据，当前没有宣称已经实现，不把它加入主功能的强制验收。
 
-同样，当前 Clight 的 tree／单 Boolean realization 不自动包含运行时循环式 footprint 扫描。扫描后的私有游标可能依赖 memory 和拒绝位置；下一项语言接口要交付真实检查表示、入口／检查后关系、frame 和 branch transport。[迁移规格](clight-private-check-migration.md) 进一步区分旧证书的存在见证／checked 前提与公共证书的所有执行 sound／原入口前提，并要求实际 exact dispatch。语言无关 host 已允许一般检查和状态关系，当前具体语言适配器的限制不能改称框架已经验证了所有 stateful 检查。
+Clight 的 readonly tree／单 Boolean realization 与循环式私有 footprint 扫描有不同的检查状态。扫描后的游标可能依赖 memory 和拒绝位置；语言无关 host 已允许实际 checked state 和入口关系。10 月 6 日的 [公共 private-scan compiler](clight-private-check-migration.md) 已完成这条实例化，不将它描述成任意 stateful 检查的通用合成器。
 
-10 月 6 日后续已实际关闭其中几项语义义务：[ClightPrivateScan](../prototype/interface/ClightPrivateScan.v) 提供实际检查 wrapper 的双向 statement 分解和分支前的小步分派；[EntryFacts](../prototype/interface/ClightParamPointerEntryFacts.v) 证明 header、context、受限 footprint 和 pointer binding 的稳定，得到 `P(original)`；[ScanBridge](../prototype/interface/ClightParamPointerScanBridge.v) 证明真实 result 初始化的运输及所有完成 prefix 执行的 frame／原入口接受结论。前者是语言服务，后两者绑定实际 domain。公共 host／guard certificate、source／candidate 运输和完整安装尚未完成；完成执行的 exact lemma 与有限 prefix 不替代无限行为宿主。
+本阶段分工可以在源码中核对：[Safety](../prototype/interface/ClightPrivateScanSafety.v) 和 [Host](../prototype/interface/ClightPrivateScanHost.v) 由语言解释实际求值、有限循环续行、结果解码与任意完成分支的 exact dispatch；[Preservation](../prototype/interface/ClightPrivateScanPreservation.v) 提供公开观察、分支 temp 运输，并调用既有 kernel 的 `guardify_preservation` 和小步安装。domain 的 [Certificate](../prototype/interface/ClightParamPointerCertificate.v) 提供实际 source-derived D 下的扫描安全、protected frame 和 `accepts⇒P(original)`；候选对应和依赖核对继续由优化方的旧数学证书承担。source／candidate 的实际表和 private pool 接到了 Csem→Asm，并完成提取和原生验证。
+
+`check_safe` 使用覆盖已到达 `eval_expr`、if 测试和有限 loop 续行的归纳判断；它不是完成见证的改名。实际 bounded scan 的既有执行与确定性可构造该判断，再由语言定理推出可用性。保护集同时覆盖公开入口与前提所依赖的 header、参数和 pointer binding，语言无需知道这些维度的具体意义。局部保持接口观察完成的 silent normal region，完整程序结论是 backward simulation；没有新增任意无限 pointer fallback 宿主。38 个端点和实际运行的证据见 [阶段记录](research-checkpoint-2026-10-06-private-scan-compiler.md)。
 
 ## 2. 四张证书与一个安全域
 
@@ -46,7 +48,7 @@ D 不能预先包含待检查的 no-alias／稳定性事实。它说明当前哪
 | --- | --- | --- |
 | `C_opt` | 规则／优化实现者或已验证候选 checker | [conditional_equivalence](../prototype/interface/GuardedRewrite.v)、局部状态还原；完整循环也可使用 [open_region_protocol](../theories/ClightOpenRegionContract.v)，须提交实际执行的匹配 |
 | `C_derive` | 优化／domain library | [readonly_condition_entails](../prototype/interface/GuardedRewrite.v) 消费推导证明；它本身不是已实现的通用投影算法 |
-| `C_guard` | 核心参数化算法＋语言原语＋实例域证据 | [只读 tree 合成](../prototype/interface/ClightReadonlyTreeSynthesis.v)、[loaded tree](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v)、[依赖 prefix scan](../prototype/interface/ReadonlyPrefixScan.v)；实例仍证明 coverage、原语安全和 source 支持 |
+| `C_guard` | 核心参数化算法＋语言原语＋实例域证据 | [只读 tree 合成](../prototype/interface/ClightReadonlyTreeSynthesis.v)、[loaded tree](../prototype/interface/ClightReadonlyLoadedTreeSynthesis.v)、[依赖 prefix scan](../prototype/interface/ReadonlyPrefixScan.v)、[实际 private-scan host](../prototype/interface/ClightPrivateScanHost.v)；实例仍证明 coverage、原语安全和 source 支持 |
 | `C_host` | 语言实例／宿主库，规则提交边界 witness | [select_exact](../prototype/interface/GuardInterface.v) 是抽象定律；[共用实际 realization](clight-guard-realization.md)、[direct](../prototype/interface/ClightReadonlyProjectedCompiler.v)、[shared](../prototype/interface/ClightSharedProjectedCompiler.v) 和 [open host](../theories/ClightOpenRegionProof.v) 是具体证明；完整 Csem→Asm 结论是 backward simulation |
 
 这些是逻辑责任，不强迫每个使用者填四个重复的 record。可以将证书封装在一个已验证库中；验收仍逐项回答它们来自哪里。不能把 normal-completion 的 big-step 观察接口说成已经观察了全部无限行为，也不能把实际 forward 小步安装证明改称任意目标执行的双向等价。
@@ -81,7 +83,7 @@ for (; i != *bound; ++i) *out = i + 2U;
 | 保持有限／无限行为和公开上下文 | 仅 completed-run 等价；native 超时；把 cache 当不存在 | 正常出口／frame、私有 state 关系、局部小步匹配及宿主 forward simulation，明确内部 call／return／label 限制；最终 Csem→Asm 端点。规则 witness＋语言宿主 |
 | 降低作者负担且有实际价值 | 增加 record／端点／相似模板；只量 Clight 打印字节 | 至少两条规则消费同一 condition／realization；记录专属 obligations 与证明代码；同源 direct/shared 对照和同版 CompCert 原生成本。核／adapter 复用、domain 接入、测量分别报告 |
 
-第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。10 月 6 日的第一项迁移复用矩形范围与 named memory 的全实例对应，第二项 [参数化仿射内层源](clight-parametric-preservation.md) 复用已有端点覆盖、机器范围 lowering 和不同布局／偏移／多读取的 body 对应，并运行实际 schedule generation 后重新核对候选。二者都消费仿射／分块依赖核对器，通过公共保持、分派和安装接入。此次没有新增一般 B⇒A 推导算法，一般深度 affine 源与指针足迹仍待迁移。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
+第一行与第三行是主多面体使用者的核心难点；第二行是条件处理设施必须真正解决的难点；第四行是不可被抽象 if 隐去的语言实例工作。10 月 6 日的第一项迁移复用矩形范围与 named memory 的全实例对应，第二项 [参数化仿射内层源](clight-parametric-preservation.md) 复用已有端点覆盖、机器范围 lowering 和不同布局／偏移／多读取的 body 对应，并运行实际 schedule generation 后重新核对候选。二者都消费仿射／分块依赖核对器，通过公共保持、分派和安装接入。此次没有新增一般 B⇒A 推导算法，实际参数化 pointer footprint 随后经公共 private-scan 路线迁移；一般深度 affine 源与该 pointer package 的组合仍待扩展。都纳入 [当前计划](current-work-plan.md)，不以完成其中一行宣布全部目标完成。
 
 ## 5. 研究主张与持续维护
 

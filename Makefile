@@ -39,7 +39,7 @@ interface-polyhedral-native: interface-polyhedral-proof
 	python3 scripts/native_interface_polyhedral_context.py
 	python3 scripts/validate_interface_polyhedral.py
 
-.PHONY: interface-parametric-proof interface-parametric-native interface-parametric-runtime-order interface-private-check-proof
+.PHONY: interface-parametric-proof interface-parametric-native interface-parametric-runtime-order interface-private-check-proof interface-private-scan-native interface-private-scan-runtime-order
 interface-parametric-proof:
 	python3 scripts/audit_interface_polyhedral.py --parametric
 
@@ -54,6 +54,16 @@ interface-parametric-runtime-order:
 
 interface-private-check-proof:
 	python3 scripts/audit_interface_private_check.py
+
+interface-private-scan-native: interface-private-check-proof
+	python3 scripts/build_memory_compiler.py --private-scan > build/interface-private-check/build-compiler.log 2>&1
+	python3 scripts/native_interface_private_scan.py
+	python3 scripts/native_interface_private_scan_context.py
+	python3 scripts/validate_interface_private_scan.py --context
+
+interface-private-scan-runtime-order:
+	python3 scripts/probe_interface_private_scan.py
+	python3 scripts/validate_interface_private_scan.py --runtime-order --context
 
 interface-native: interface-compiler-proof
 	python3 scripts/build_interface_compiler.py > build/interface-compiler/build.log 2>&1
