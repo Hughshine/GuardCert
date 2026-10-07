@@ -323,6 +323,41 @@ The strongest examples should exercise the reasons the abstraction exists:
 - multiple guarded rewrites in one function;
 - preservation of public exits/state through CompCert.
 
+### Explicit region selection and the polyhedral pipeline
+
+The 2026-10-07 user decision is to use Pluto-compatible `#pragma scop` /
+`#pragma endscop` region annotations as the default user-facing selection
+mechanism (see the [Pluto README](https://github.com/bondhugula/pluto)).
+Only annotated regions should be offered to the optimistic loop optimizer;
+ordinary compilation continues outside them. A marker requests an optimization
+attempt, not an assertion that the region is already a valid SCoP or that its
+assumptions hold. Static refusal preserves the source; runtime guard refusal
+executes the original region. The frontend must retain the region selection
+through normalization. This is an implementation requirement, not a claim that
+pragma support is already installed.
+
+Keep the intended polyhedral optimization pipeline explicit: selected Clight
+region -> conditionally valid Loop/model extraction -> polyhedral representation
+-> scheduling/transformation phases and their validation -> generated candidate
+Loop/Clight -> certified guard and fallback installation. Document the actual
+intermediate representations and calls rather than treating all of this as one
+opaque "rewrite".
+
+At main `57cb9707c70059de5a3c75a7f18ac33621f2cfe0`, the native affine/tensor
+route instead proposes a candidate Loop AST directly through built-in policies
+or external input, extracts both source and candidate with PolCert's
+`ExtractorFrontend`, and checks their polyhedral correspondence/dependences
+using the instantiated affine/tiling validators. The accepted candidate is
+lowered to Clight and installed with its certified guard. In
+`GuardMemoryPolyhedral.v`, the scheduler/Pluto phase interfaces explicitly
+report that no external scheduler is connected. The separate
+`Opt_prepared` adapter has a proof interface but is not wired into the native
+C driver. Thus extraction and polyhedral validation are real; automatic
+multi-phase polyhedral optimization and the complete old optimizer/codegen
+pipeline must not be reported as already connected. Preserve the existing
+proof-first milestone while recording this optimizer integration as a distinct
+functional requirement.
+
 ### Functional coverage and usability: implementation order
 
 Clarification from the 2026-10-06 discussion: first complete the proof chain for
