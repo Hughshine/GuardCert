@@ -477,6 +477,43 @@ One possible narrative:
 This ordering keeps the framework and case study as one argument rather than two
 loosely connected projects.
 
+### Active writing track: CAV 2027
+
+Decision from the 2026-10-06 discussion: aim for **CAV 2027** and prepare the
+manuscript alongside implementation. The [official call](https://conferences.i-cav.org/2027/cfp/)
+lists January 20, 2027 (23:59 AoE) as the submission deadline. Start drafting
+the parts that are already sufficiently stable; do not wait for the full case
+study, all condition improvements, or performance results.
+
+- **Introduction and narrative:** turn the framing above into manuscript prose,
+  with the motivating problem, responsibilities, and intended contributions.
+  Keep outcome-dependent claims explicit until evidence is available.
+- **Related work:** draft the source-grounded comparison now, especially OLO,
+  COVE/cSTOKE, CoreJIT, Chamois, and Peek. The structure and established
+  distinctions can stabilize; novelty conclusions remain tied to verified
+  capabilities and the evidence from direct comparisons.
+- **Language- and optimizer-independent framework:** write the minimal kernel,
+  certificate interfaces, and local composition theorem against the actual
+  definitions. Treat this boundary as stable enough to explain and draft.
+  Keep condition-processing libraries and language-specific whole-program
+  installation separate; the open contract-clause discussion is not an
+  implemented kernel feature.
+- **Case study and evaluation:** write the established architecture and proved
+  paths now, while keeping source coverage, condition algorithms, final
+  examples, and measurements revisable. Mark pending results as TODOs rather
+  than assertions or invented numbers.
+
+The implementation work should include a small writing deliverable alongside
+each relevant completed milestone: update the corresponding manuscript section
+and record its source/theorem or experiment reference. The first writing
+deliverable is a compilable LNCS manuscript skeleton with prose drafts of the
+introduction, related work, and framework, plus case-study/evaluation outlines.
+These should be actual paper sections, not another planning note. Reuse an
+existing manuscript directory if one has appeared on the implementation branch;
+otherwise establish one there and keep this branch as the narrative reference.
+Writing proceeds concurrently with the proof-first order in Section 8 and does
+not require freezing unfinished case-study choices or changing the kernel.
+
 ## 12. Claims to avoid
 
 Do not claim, unless future work establishes them:

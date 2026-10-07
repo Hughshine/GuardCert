@@ -11,6 +11,10 @@ local result is lifted into whole-program verified compilation.
 Polyhedral/CompCert integration is the first demanding instantiation, not the
 definition of the framework.
 
+The active target is **CAV 2027**. Prepare manuscript sections alongside
+implementation, starting with the introduction, related work, and minimal
+framework; see the [active writing track](paper-narrative.md#active-writing-track-cav-2027).
+
 Current notes:
 
 - [Paper narrative](paper-narrative.md): intended framing as a small language-independent verified optimistic-transformation framework plus a substantive CompCert/Clight domain-specific optimization instantiation; separates framework, language, and optimizer responsibilities and records the claims to avoid.
