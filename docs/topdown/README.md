@@ -15,6 +15,14 @@ The active target is **CAV 2027**. Prepare manuscript sections alongside
 implementation, starting with the introduction, related work, and minimal
 framework; see the [active writing track](paper-narrative.md#active-writing-track-cav-2027).
 
+The next integration milestone is the **real polyhedral compilation pipeline
+with explicit SCoP selection**: implement `#pragma scop` / `#pragma endscop`,
+connect model extraction, scheduling/transformation, validation and code
+generation to guarded C-to-assembly compilation. See the
+[implementation directive](paper-narrative.md#explicit-region-selection-and-the-polyhedral-pipeline);
+directly constructed candidate loops are regression fixtures, not completion
+of this milestone.
+
 Current notes:
 
 - [Paper narrative](paper-narrative.md): intended framing as a small language-independent verified optimistic-transformation framework plus a substantive CompCert/Clight domain-specific optimization instantiation; separates framework, language, and optimizer responsibilities and records the claims to avoid.
