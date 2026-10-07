@@ -1,5 +1,33 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 本轮重新fetch并读完narrative与context-lifting：远端仍是
+`12419c1e1e3da450bf378742a2fb4e204e51e060`，两个正文与main一致。
+以下顺序落实澄清，不新增kernel接口或要求使用者手填四份语义callback。
+当前真实tiling路径已经闭合；loaded＋dynamic的后继验收细化为：
+
+1. **实际原源→完整缓存源。** 从loaded source的实际执行生产条件式capture、
+   原inner／outer前缀和每个动态word地址的检查许可。接受本点并证明两个raw
+   header保持后才推进原前缀；拒绝停止后续检查。完整接受再导出整个nested
+   cached源执行，禁止以假定cached源可执行来许可未来检查。语言库负责word／
+   permission／frame／scan执行定律，domain producer负责源shape与header接线。
+2. **缓存源→真实候选。** 连接literal准备、canonical tensor模型、numeric／
+   no-wrap／layout／dependence条件及actual guard-exit状态；复用已接通的真实
+   scheduler／prepared codegen、最终candidate checker和公开出口恢复。保持
+   raw-codegen与adapted-candidate两条证据的区别。静态AST／scope／freshness
+   由该family的数据checker生产，不能把缺失的对应变成caller语义假设。
+3. **同一个程序的安装验收。** 新factory接selected Clight host和Csem→Asm，
+   验收同一loaded＋runtime-Horner源的接受／alias拒绝／profile拒绝／条件式空域、
+   marked与unmarked、多site和continuation可见出口。已有首点／component定理，
+   或分离的loaded与dynamic示例，均不能替代该完整程序证据。
+4. **随后改善条件与衡量可用性。** 在上述范围闭合后提出紧凑充分条件，独立证明
+   安全、acceptance soundness及entry-state transport，复用candidate与host证明。
+   分别测接受域、guard工作、code size、编译／完整运行成本和实例作者工作，
+   与OLO同类源问题比较；cursor代码缩小不当作逐点成本消除。
+
+具体端点与责任见[narrative到真实候选接入记录](narrative-to-tiling-integration.md)。
+Host边界条款仍是待实际实例检验的设计问题，保持现有局部／安装责任边界。
+本轮为计划细化，没有新增proof／native／cost结论；完整目标继续active。
+
 2026-10-07 当前：[narrative 澄清与真实分块接入](narrative-to-tiling-integration.md)
 按远端12419c1落实三方责任：kernel组合局部证书；语言host负责检查语义、private
 资源、公开frame／出口、placement／progress及完整程序安装；domain负责前提、

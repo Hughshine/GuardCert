@@ -125,3 +125,51 @@ and dynamic address layouts, compact sufficient entry conditions where
 available, and separate measurements of guard work, accepted inputs, generated
 code size and performance. The existing bounded source family is not a claim
 of complete OLO coverage.
+
+## Loaded Bounds and Dynamic Addresses: Next Acceptance Gate
+
+A fresh fetch on 2026-10-07 still resolves the narrative branch to
+`12419c1e1e3da450bf378742a2fb4e204e51e060`. Both the narrative and
+`context-lifting.md` match main. The clarification determines the following
+proof dependencies for the next source family, without changing the kernel.
+
+The source combines `i < grid[0]+1`, `j < grid[1]+1`, a literal component
+bound, and the runtime address `a[((i*ld)+j)*5+k]`. The header storage may alias
+the data storage. Consequently, source-definedness, captured header words,
+mathematical no-wrap assumptions, and header stability are separate facts.
+
+| Certificate link | Current evidence for this source family | Obligation to close next |
+| --- | --- | --- |
+| `C_derive` | `tensor_header_capture_execution` produces conditional capture and prepared original-source execution. `tensor_header_original_first_point` licenses the first actual store address. | Extend the reached original-source prefix through columns and rows; complete acceptance must produce full cached-source execution and its canonical tensor correspondence. |
+| `C_guard` | `tensor_header_capture_point_ready` connects capture to the first actual check. `word_component_scan_execution` and `word_component_accepted_source_transport` cover one literal component loop. | Execute the full nested private scan safely, preserve memory and protected temporaries, then transport cached/model bindings to the actual complete-guard exit. |
+| `C_opt` | The connected tiling path checks its actual adapted candidate and proves candidate execution for the existing literal tensor family. | Supply the newly derived cached source and parameter view to that checker and prove actual candidate entry and public-exit correspondence for the original loaded source. |
+| `C_host` | The selected Clight host and whole-program compilation theorem are reusable language services. | Produce the loaded family's concrete rule, static resource/placement/progress evidence, and new selected compiler endpoint. |
+
+These links describe proof ownership and reuse. They are not four new records
+that an end user must prove for every marked region. The optimizer's data-only
+checker must produce the supported family's static syntax, scope, typing and
+freshness evidence. The language library owns arithmetic execution, permission
+transport, private-state frames and installation laws; the domain instance
+wires its loaded-bound shape and model to those laws.
+
+The safe scan must obtain each address permission from a reached original
+source execution. Acceptance at a point proves preservation of both captured
+raw observations before advancing that original prefix. A refusal stops later
+checks. Assuming that the entire cached source is already executable would
+reverse this dependency and would not establish guard safety. Likewise, a
+captured `raw+1` machine word does not itself prove the mathematical no-wrap
+condition needed by the polyhedral model.
+
+Acceptance of this milestone requires the same loaded/dynamic C input to run
+through capture, full stability checking, cached-source/model transport, the
+real scheduler and code generator, final candidate checking, original-source
+fallback, selected installation and assembly. Native cases must cover accepted
+inputs, alias and profile refusal, empty paths that skip unavailable reads,
+marked/unmarked regions, repeated sites and continuation-visible exits. Separate
+loaded-bound and dynamic-layout examples do not establish this combination.
+
+Once that declared slice is proved, guard improvements must independently
+establish safety, acceptance soundness and entry-state transport while reusing
+candidate and host certificates. Code size, per-point work, acceptance, full
+execution cost and per-instance manual work remain separate measurements. No
+new proof, native or cost result is claimed by this plan refinement.
