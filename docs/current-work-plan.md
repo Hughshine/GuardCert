@@ -1,5 +1,22 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[loaded word完整driver](tensor-loaded-word-driver.md)已组合
+原源许可的conditional capture／profile／helper初始化／全scan，并导出实际scan
+出口的canonical tensor源执行；完整numeric／layout guard及实际生成candidate
+checker接到同一次完整check出口，公开counter恢复与原final memory保持。新的
+局部`projected_region_contract`可供Clight host消费；原AST fallback有独立
+footprint运输。22端点／524依赖独立审计通过，无新增全局公理，kernel保持。
+Incoming caches／helper为None的接受、alias拒绝、profile拒绝跳过undefined data、
+空outer跳过不可用child／helper、非零起点跳过capture均已证明。通用full guard／
+candidate接线是语言／domain定理；实际fixture仍为旧wrapping地址，未实例化
+runtime-Horner RMW的完整候选路径，没有新的compiler／C／Asm／cost。
+**下一项直接实现data-only loaded-family factory，生产实际AST／WORD／scope／
+freshness和canonical tensor package及accepted-entry证据，接selected progress／
+placement和新Csem→Asm入口，再提取同一真实loaded／dynamic C流水线。**继续
+验收marked／unmarked、多site、alias／profile回退、条件式空域和continuation。
+完整goal保持active；不以局部contract或新端点替代完整程序与后续条件／成本验收。
+下面各阶段“下一项”保留核对当时范围，以本段为准。
+
 2026-10-07 最新：[完整word outer扫描](tensor-word-outer.md)已闭合全部
 row／column／literal-component检查及接受后的实际nested cached源执行，并将
 缓存源运输到实际scan出口，保持原final memory及protected public exit。Header

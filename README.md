@@ -1,5 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
+[Loaded word driver](docs/tensor-loaded-word-driver.md)已将条件式capture、计数
+profile gate、实际helper初始化和完整扫描接为同一次执行；接受后的canonical
+tensor源、完整numeric／layout guard和实际生成候选从真实检查出口执行，保持
+原final memory与公开出口，并交付Clight局部region契约。22端点／524依赖独立
+审计通过，沿既有CompCert／PolCert基线无新增公理；接受、alias／profile拒绝、
+空outer及未定义未来读取均有实际语义证明。**Data factory、selected安装、
+新Csem→Asm入口与同一loaded／runtime-Horner C验收仍待接通**；本阶段没有
+新增native或成本结果，完整目标active。以下较早记录保留当时边界。
+
 [完整word扫描](docs/tensor-word-outer.md)已接通全部row／column／component，
 接受后导出实际nested cached源，并从实际scan出口执行到原final memory与相关
 公开状态。Header求值由actual receipt推导，生成语法只用固定地址templates。

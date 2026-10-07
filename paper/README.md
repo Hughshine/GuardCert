@@ -6,6 +6,18 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [loaded-word driver](../docs/tensor-loaded-word-driver.md) now assembles
+conditional capture, count gates, emitted helper initialization and the full
+scan. Its derived canonical execution feeds the complete numeric/layout guard
+and actual generated-candidate checker at the actual complete-check exit,
+yielding a local Clight region contract. An independent 22-endpoint audit over
+524 dependencies adds no globals relative to the existing CompCert/PolCert
+baseline. Actual executions cover missing incoming private values, acceptance,
+alias/profile refusal and skipped unavailable reads. The fixture retains the
+earlier wrapping address; the full runtime-Horner candidate path, data-only
+factory, selected compiler installation and native/cost evidence remain pending.
+The following entries retain their historical stage scope.
+
 The [complete word scan](../docs/tensor-word-outer.md) proves full private
 row/column/component execution and accepted nested cached-source execution at
 the actual scan exit. Its receipt adapter derives header laws and uses static

@@ -485,6 +485,18 @@ proof consumes actual header receipts and fixed address templates. Separate
 empty and first-refusal cases skip undefined future loads. This stage adds no
 loaded-family compiler, native calls or cost measurement.
 
+The loaded-word driver adds a separate 22-endpoint audit over 524 dependencies.
+Two endpoints are closed; the others use at most 14 globals within the existing
+CompCert/PolCert baseline, with no additions. It proves capture/profile/helper/
+scan composition, canonical execution and complete guard/candidate transport
+at the actual check exit, and a local projected-region guarantee. Actual memory
+fixtures remove both caches and the helper from the incoming state, then prove
+scan acceptance, alias refusal and canonical/original exits. Profile refusal
+skips an undefined data pointer, an empty root skips child/helper reads, and a
+nonzero start skips capture. The fixture retains the earlier wrapping address;
+it does not instantiate full numeric/layout acceptance or the intended Horner
+RMW candidate. No new installed compiler, C/assembly calls or cost result is added.
+
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment
 has no confidence intervals or break-even inference. Extend the supported source class

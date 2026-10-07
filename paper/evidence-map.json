@@ -1304,7 +1304,7 @@
     },
     {
       "section": "case-study/evaluation",
-      "claim": "Complete source-licensed private row/column/component word scans derive accepted nested cached-source execution at the actual scan exit. A receipt adapter derives header laws and static runtime address templates. Actual-memory executions cover acceptance, alias refusal, potentially changing original bounds, empty paths and refusal before unlicensed future loads. The complete loaded-family driver, canonical tensor/candidate bridge and installed compiler remain pending; no C/assembly calls or cost results are added.",
+      "claim": "Historical outer-stage scope: Complete source-licensed private row/column/component word scans derive accepted nested cached-source execution at the actual scan exit. A receipt adapter derives header laws and static runtime address templates. Actual-memory executions cover acceptance, alias refusal, potentially changing original bounds, empty paths and refusal before unlicensed future loads. The following driver stage supplies capture/profile assembly and the canonical tensor/candidate bridge; compiler installation, C/assembly calls and cost results remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightTensorWordOuter.v",
@@ -1365,6 +1365,63 @@
       ],
       "documents": [
         "docs/tensor-word-outer.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Conditional capture, count-profile gates, emitted literal-helper initialization and the complete source-licensed word scan derive canonical tensor execution at the actual scan exit. The existing complete numeric/layout guard and actual generated-candidate checker compose at the actual complete-check exit, yielding a local projected Clight region guarantee and original-source fallback transport. Actual fixtures start without private caches/helper and cover scan acceptance, alias/profile refusal and skipped unavailable reads. The data-only loaded-family factory, accepted-entry packaging, selected installation, full runtime-Horner candidate path and same-C native/cost evidence remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
+          "name": "tensor_word_driver_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
+          "name": "tensor_word_driver_captured_scan"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
+          "name": "tensor_word_driver_execution_with_fallback"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
+          "name": "tensor_word_driver_complete_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
+          "name": "tensor_word_driver_generated_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
+          "name": "tensor_word_driver_generated_contract"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriverExample.v",
+          "name": "twd_incoming_private_undefined"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriverExample.v",
+          "name": "twd_accepted_canonical_and_original_exit"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriverExample.v",
+          "name": "twd_actual_initialized_alias_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriverExample.v",
+          "name": "twd_profile_refusal_without_data"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriverExample.v",
+          "name": "twd_empty_original_and_driver"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordDriverExample.v",
+          "name": "twd_nonzero_start_skips_capture"
+        }
+      ],
+      "documents": [
+        "docs/tensor-loaded-word-driver.md"
       ]
     }
   ],
@@ -3858,6 +3915,39 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_outer.py",
       "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_outer.py --validate"
+    ]
+  },
+  "tensor_loaded_word_driver_stage": {
+    "proof_report": "build/tensor-loaded-word-driver/proof/report.json",
+    "proof_report_sha256": "54ecdd0930f4fadb6a220c97153588d38e4135a60cb4ca8761b0b5692b3aa5b7",
+    "queried_endpoints": 22,
+    "required_dependencies": 524,
+    "closed_endpoints": 2,
+    "maximum_endpoint_globals": 14,
+    "generated_compiler_baseline_globals": 42,
+    "additional_global_axioms": [],
+    "minimal_kernel_changed": false,
+    "conditional_capture_profile_scan_composed": true,
+    "canonical_execution_at_actual_scan_exit": true,
+    "original_fallback_transport_proved": true,
+    "complete_guard_at_actual_exit_proved": true,
+    "actual_generated_candidate_execution_proved": true,
+    "local_projected_region_contract_proved": true,
+    "incoming_caches_and_helper_undefined_fixture": true,
+    "actual_initialized_acceptance_fixture": true,
+    "actual_initialized_alias_refusal_fixture": true,
+    "profile_refusal_skips_undefined_data_fixture": true,
+    "empty_outer_skips_child_and_helper_fixture": true,
+    "nonzero_start_skips_capture_fixture": true,
+    "data_only_loaded_family_factory_installed": false,
+    "new_materialized_kernel_rule_package": false,
+    "loaded_bound_dynamic_layout_composition_completed": false,
+    "new_whole_program_entrypoint": null,
+    "C_or_assembly_evidence_added": false,
+    "cost_or_profitability_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_loaded_word_driver.py",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_loaded_word_driver.py --validate"
     ]
   }
 }

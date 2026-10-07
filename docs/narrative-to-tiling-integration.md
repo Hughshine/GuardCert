@@ -140,11 +140,11 @@ mathematical no-wrap assumptions, and header stability are separate facts.
 
 | Certificate link | Current evidence for this source family | Obligation to close next |
 | --- | --- | --- |
-| `C_derive` | Conditional capture is proved. The audited outer service derives full nested cached-source execution; its header adapter derives evaluation and observer laws from actual receipts. | Compose capture/profile gating with scanning and derive canonical tensor correspondence. |
-| `C_guard` | `tensor_word_outer_scan_execution` safely executes the full private scan. `tensor_word_outer_original_scan_at_exit` transports cached execution to its actual exit; syntax uses fixed address templates. | Compose the complete loaded-family check and transport model/parameter bindings to the actual complete-guard exit. |
-| `C_opt` | The connected tiling path checks its actual adapted candidate and proves candidate execution for the existing literal tensor family. | Supply the newly derived cached source and parameter view to that checker and prove actual candidate entry and public-exit correspondence for the original loaded source. |
-| `C_host` | The materialized Clight check/choice services establish actual local dispatch. | Instantiate their law for the complete loaded-family check and its actual branches. |
-| Installation (language host and site) | The selected Clight installation and whole-program compilation theorems are reusable language services. | Produce the loaded family's region guarantee, static resource/placement/progress evidence, and new selected compiler endpoint. |
+| `C_derive` | The [loaded driver](tensor-loaded-word-driver.md) composes actual conditional capture, count gates, helper initialization and scanning; acceptance derives actual canonical tensor execution. | Produce the static source/resource facts and canonical package from actual AST data in a loaded-family factory. |
+| `C_guard` | The driver safely composes full word scanning with the numeric/layout guard; accepted canonical execution and the accepting tree are transported to the actual complete-check exit. | Package the derived accepted-entry evidence for the checked family and validate its complete generated check on the intended C source. |
+| `C_opt` | The new driver theorem consumes the actual affine/tiled candidate checker at that same check exit and proves final-memory/public-exit correspondence. | Bind real scheduler/codegen output to the new factory and instantiate the complete path for runtime-Horner RMW C. |
+| `C_host` | Existing check/choice laws implement the new concrete full-check and original/candidate dispatch. | Produce supported control and typed private-state evidence from the actual emitted AST. |
+| Installation (language host and site) | The new driver supplies a local projected-region guarantee; selected Clight installation and whole-program compilation theorems are reusable language services. | Connect the data-only factory, source progress, legal placement and new selected Csem-to-Asm endpoint. |
 
 The four certificate links describe local proof ownership and reuse; installation
 is a further language/IR step. They are not new records that an end user must
@@ -153,6 +153,14 @@ checker must produce the supported family's static syntax, scope, typing and
 freshness evidence. The language library owns arithmetic execution, permission
 transport, private-state frames and installation laws; the domain instance
 wires its loaded-bound shape and model to those laws.
+
+The loaded-driver audit queries 22 endpoints over 524 dependencies, with no
+globals added to the existing CompCert/PolCert baseline. Its actual-memory
+fixtures instantiate capture and full stability scanning with undefined
+incoming caches/helper, and prove canonical/original execution from the scan
+exit. Their wrapping address ignores row and column; the generic full
+guard/generated-candidate theorem is not yet a native runtime-Horner case or a
+loaded-family compiler installation.
 
 The safe scan must obtain each address permission from a reached original
 source execution. Acceptance at a point proves preservation of both captured

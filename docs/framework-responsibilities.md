@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [loaded word driver](tensor-loaded-word-driver.md)已将语言capture、
+receipt／helper frame、完整scan和Boolean materialization，与domain canonical
+tensor／完整numeric-layout guard／实际候选checker连接起来；候选从真实完整
+check出口执行。新的具体Clight局部region保证可供语言host消费；最小kernel和
+原source AST fallback保持，无新增公理。它尚不是新的materialized kernel-rule
+package或loaded编译器入口。最难后继变为factory从实际AST／typed pool生产
+静态资源和canonical package／accepted-entry证据，再消费已有progress／placement
+安装定理，并验收同一loaded／runtime-Horner C到Asm。源码使用者不应手填这些
+语义字段；语言／domain实现者和checker承担责任。当前无新native或成本结论。
+
 2026-10-07 [完整word outer扫描](tensor-word-outer.md)已由语言服务完成全nested
 检查和实际scan出口的cached执行运输。Domain header adapter从actual capture
 receipt推导两header求值、cache定义性和observer scope，生成语法只用静态地址
