@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+[显式SCoP选择](docs/selected-polyhedral-regions.md)已接入新编译器：pragma区域经
+归一化保留位置，安装只作用于选中区域，同形未标注循环保持。13端点／438依赖
+审计、提取、648汇编调用／216Clight分派与14个frontend边界案例通过，零新增公理。
+新入口复用既有literal tensor条件与候选验证，提供Csem→Asm；真实scheduler／
+prepared codegen仍待接通，当前候选策略不算该流水线完成。新入口默认只尝试
+标注区域，旧入口及报告保持为历史回归。完整目标active。
+
 [Narrative最新澄清](docs/narrative-pipeline-review-2026-10-07.md)已吸纳：下一集成
 里程碑是 `#pragma scop` 区域选择和真正的多面体调度／代码生成流水线，再接
 已有guard、原源回退与完整CompCert证明。当前native的直接Loop候选提案仍有

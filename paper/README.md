@@ -6,6 +6,15 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [selected-region successor](../docs/selected-polyhedral-regions.md) implements
+paired SCoP metadata and occurrence-sensitive discovery/installation with a new
+Csem-to-Asm endpoint. Its 13-endpoint/438-dependency audit adds no globals;
+648 assembly calls, 216 separate Clight dispatch observations and fourteen
+frontend cases cover marked/unmarked duplicates, repeated sites and refusal.
+The parser metadata boundary remains explicit. External scheduling and prepared
+code generation are the next integration task; the current candidate policies
+remain regression proposals rather than completion of that pipeline.
+
 The [latest pipeline review](../docs/narrative-pipeline-review-2026-10-07.md)
 absorbs narrative `12419c1`. The next integration milestone is explicit SCoP
 selection and real polyhedral scheduling/transformation plus prepared code

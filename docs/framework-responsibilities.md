@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [selected-region后继](selected-polyhedral-regions.md)实现了位置身份
+问题：语言host在chosen label下才允许selector改写，证明未选子树保持及完整
+小步／Csem→Asm连接；native frontend负责pragma配对、fresh名字与manifest运输，
+属于既有parser／Csyntax信任边界，annotation仍不是语义证书。Domain复用原tensor
+模型／guard／candidate checker，尚未接实际scheduler与prepared codegen。13端点
+审计及648汇编／216Clight／14frontend cases通过；kernel保持，没有新site语义
+callback。Shared host simulation目前保留单独实例，未声称减少证明代码／作者工时。
+最难下一项是生成Loop的实际执行／progress与checked entry连接，不只调用一个
+Opt_prepared端点；实际OpenScop exporter也须补齐。
+
 2026-10-07 narrative `12419c1` [最新接入复核](narrative-pipeline-review-2026-10-07.md)
 将annotated real polyhedral pipeline列为下一集成项。Kernel继续只组合局部
 证书；语言／frontend保留标注site身份、核对实际AST与合法边界、提供安装定律；

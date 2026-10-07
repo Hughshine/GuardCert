@@ -1174,6 +1174,28 @@
         "docs/narrative-pipeline-review-2026-10-07.md",
         "docs/topdown/paper-narrative.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Occurrence-sensitive selected-region host and literal tensor compiler; native pragma metadata boundary tested. External scheduler/prepared-codegen integration pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightSelectedRegion.v",
+          "name": "unselected_subtrees_unchanged"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedRegionProof.v",
+          "name": "transform_program_correct2"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedTensorLiteralCompiler.v",
+          "name": "compile_selected_tensor_literal_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/selected-polyhedral-regions.md",
+        "docs/narrative-pipeline-review-2026-10-07.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -3513,14 +3535,14 @@
     ]
   },
   "annotated_polyhedral_integration": {
-    "status": "next integration milestone; not installed",
+    "status": "selection and occurrence-sensitive installation implemented; real scheduler/codegen pending",
     "review": "docs/narrative-pipeline-review-2026-10-07.md",
     "default_selection": "#pragma scop / #pragma endscop; selected-site identity must constrain installation",
     "current_native_candidate_producer": "direct Loop AST proposals; real extraction and polyhedral validation",
     "external_scheduler_connected": false,
     "prepared_optimizer_called_by_native_C_driver": false,
-    "annotated_region_frontend_installed": false,
-    "new_whole_program_endpoint": null,
+    "annotated_region_frontend_installed": true,
+    "new_whole_program_endpoint": "ClightSelectedTensorLiteralCompiler.compile_selected_tensor_literal_regions_correct",
     "native_connected_pipeline_evidence": false,
     "acceptance": [
       "retained phase IRs and validator outcomes",
@@ -3529,6 +3551,41 @@
       "multiple marked sites",
       "static and runtime refusal",
       "connected Csem-to-Asm endpoint and native C execution"
+    ],
+    "selected_only_installation_proved": true,
+    "instruction_openscop_export_connected": false,
+    "verified_Cabs_selection_pass": false,
+    "stage_document": "docs/selected-polyhedral-regions.md"
+  },
+  "selected_region_stage": {
+    "proof_report": "build/selected-polyhedral-region/proof/report.json",
+    "proof_report_sha256": "ac8d247c270efedb494927958bcec77f6c7051886049dca9acf9abd6b9c18408",
+    "queried_endpoints": 13,
+    "required_dependencies": 438,
+    "closed_endpoints": 6,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "kernel_changed": false,
+    "native_report": "build/selected-polyhedral-region/native/report.json",
+    "native_report_sha256": "d7289b763eaa6057ae83e17b8b63916ce4b04b46acea294d5662740d9f49ffd0",
+    "assembly_calls": 648,
+    "separate_Clight_dispatch_calls": 216,
+    "frontend_report": "build/selected-polyhedral-region/frontend/report.json",
+    "frontend_report_sha256": "617ffaf3ff080069021e93daaae96393ff2b482b39031d7ac20994ef712ffe14",
+    "frontend_cases": 14,
+    "whole_program_endpoint": "ClightSelectedTensorLiteralCompiler.compile_selected_tensor_literal_regions_correct",
+    "selection": "paired pragma labels; manifest identity preserved through normalization and installation",
+    "candidate_generation": "inherited direct Loop policies; actual scheduler/prepared-codegen pending",
+    "frontend_proof_boundary": "native Cabs metadata pass; compiler theorem starts at resulting Csyntax",
+    "external_scheduler_connected": false,
+    "prepared_optimizer_connected": false,
+    "cost_or_profitability_measured": false,
+    "source_only_rebuild_added": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk compiler",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk native",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk frontend",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk validate"
     ]
   }
 }

@@ -1,5 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[显式标注选择与安装](selected-polyhedral-regions.md)已实际接通
+新selected compiler：Cabs中保留pragma请求、fresh label／manifest经归一化传递，
+Clight语言host按选中位置限制遍历，避免改写同形未标注循环。13端点／438依赖
+审计、提取、648汇编调用／216独立Clight分派和14个frontend边界案例通过，零新增
+公理；新Csem→Asm端点复用原literal tensor guard／candidate。Kernel和旧报告保持。
+此entry默认marker-only；旧binary仍是冻结回归。Parser metadata pass不是新的
+verified Cabs frontend，端点仍从Csyntax开始。当前candidate仍由旧Loop策略产生，
+**真实scheduler／prepared codegen未接通**，不能据此关闭polyhedral集成里程碑。
+下一项立即实例化实际流水线：补齐`GuardMemoryInstr.to_openscop=None`及phase
+export／scheduler，保留阶段IR和验证结果，消费真实prepared-codegen Loop并核对
+lowering／progress／guard-exit参数及公开出口，再跑同路径marked C。已有word-column
+工作保留，不先扩完所有源类。具体责任和边界见上述记录；完整目标active。
+
 2026-10-07 优先级更新：已读取 narrative 最新 `12419c1`（新增 `1c63ccb`／
 `12419c1`），同步正文并完成[真实流水线接入复核](narrative-pipeline-review-2026-10-07.md)。
 **下一集成里程碑改为 `#pragma scop`／`#pragma endscop` 显式区域选择，以及

@@ -32,17 +32,28 @@ currently refuse; the prepared optimizer adapter is proved separately but is
 not called by this C driver. These results establish conditional candidate
 validation, not an installed automatic scheduling/code-generation pipeline.
 
-The next integration milestone uses \code{\#pragma}\ \code{scop} and
-\code{\#pragma}\ \code{endscop} to select regions, retains their identities through
-normalization, and connects conditional model extraction, real scheduling and
-transformation phases, checked transitions, and prepared code generation to the
-existing guard and host. A marker requests an attempt and supplies no semantic
-assumption. Selection must also restrict installation: structural AST equality
-alone could otherwise rewrite an identical unmarked loop. Acceptance of this
-milestone requires retained intermediate representations, a generated candidate
-without a hand-written target loop, marked/unmarked and repeated-site cases,
-static and runtime refusal, and a connected whole-program theorem and native
-C-to-assembly run. Those integration results remain pending.
+The selected frontend now uses paired \code{\#pragma}\ \code{scop} and
+\code{\#pragma}\ \code{endscop} markers. It records fresh label identities
+before elaboration and retains them through normalization. The new Clight host
+restricts discovery and installation to selected occurrences; filtering a
+structural AST table alone could otherwise rewrite an identical unmarked loop.
+It proves identity on unselected subtrees and a whole-program simulation under
+the existing region, progress and resource contracts. The resulting compiler
+endpoint, \code{compile_selected_tensor_literal_regions_correct}, composes to
+Csem-to-Asm while reusing the literal tensor guard and candidate validation.
+The native metadata pass lies at the parser/elaborator boundary; this is not a
+new verified Cabs-to-Cabs pass. Direct declarations in a marked span refuse
+selection so a new surrounding block cannot shorten their scope. Malformed
+marker pairs also preserve their whole original function.
+
+A marker requests an attempt and supplies no semantic assumption. The next
+milestone connects conditional extraction to actual polyhedral scheduling,
+checked transformation phases and prepared code generation.
+The memory instruction's OpenScop exporter currently returns no representation,
+in addition to the disconnected scheduler hooks. Acceptance requires retained
+phase representations and validation results, an actual generated candidate
+without a hand-written target loop, and its lowering, execution and whole-program
+proof through this selected path. Scheduler/codegen integration remains pending.
 
 \subsection{Nested Loaded Bounds and Actual Candidate Execution}
 
