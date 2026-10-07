@@ -42,7 +42,7 @@ def cost_probe(label, directory):
     pointer_pattern = r"\$a \+ \([^\n)]+\) != \$shape(?: \+ 1)?"
     instrumented, pointer_sites = re.subn(pointer_pattern, lambda m: "(++stability_comparisons, " + m[0] + ")", body)
     instrumented, cache_sites = re.subn(r"\$[0-9]+ == 2", lambda m: "(++stability_equalities, " + m[0] + ")", instrumented)
-    assert (pointer_sites, cache_sites) == ((4, 2) if label == "new" else (2, 0))
+    assert (pointer_sites, cache_sites) == ((2, 2) if label == "new" else (2, 0))
     source = "int stability_comparisons,stability_equalities;\n" + source.replace(body, instrumented, 1)
     calls = ["stability_comparisons=0;stability_equalities=0;nested_case(" +
              ",".join(map(native.coverage.literal, row)) +
@@ -59,7 +59,7 @@ def cost_probe(label, directory):
     (directory / "output.txt").write_text(output)
     observed = [list(map(int, line.split()[1:])) for line in output.splitlines() if line.startswith("COST ")]
     expected = [[0 if label == "new" and row[3:5] == (1, 1) else scan_comparisons(row),
-                 (2 if row[3] == 1 else 1) if label == "new" else 0] for row in COST_CASES]
+                 2 if label == "new" else 0] for row in COST_CASES]
     assert observed == expected, (label, observed, expected)
     assert "\n".join(line for line in output.splitlines() if not line.startswith("COST ")) + "\n" == \
         "".join(native.coverage.run_model(row)[0] for row in COST_CASES)
@@ -150,7 +150,7 @@ def validate(report):
         actual = [list(map(int, line.split()[1:])) for line in lines if line.startswith("COST ")]
         assert actual == facts["header_pointer_comparisons_and_cache_equalities"]
         expected = [[0 if label == "new" and row[3:5] == (1, 1) else scan_comparisons(row),
-                     (2 if row[3] == 1 else 1) if label == "new" else 0] for row in COST_CASES]
+                     2 if label == "new" else 0] for row in COST_CASES]
         assert actual == expected and facts["calls"] == len(COST_CASES)
     for facts in report["machine_probes"]:
         assert sha(native.WORK / facts["mode"] / "program") == facts["binary_sha256"]

@@ -1,5 +1,21 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[单份扫描与较大域](nested-stability-shared.md)已关闭备用 scan
+重复：interchange 762→644 bytes，原矩阵的 762 assembly／381 Clight calls 与
+接受结果保持。新增 actual word=15／count≤16 profile 的 60 assembly calls、
+45 Clight calls、九个未修改汇编 probes，区分两种 header alias 下的交换与 tiling，
+并核对改变 header 后域增长的原源回退，见
+[本轮 checkpoint](research-checkpoint-2026-10-07-nested-stability-shared.md)。
+独立 23 端点／598 依赖审计、提取通过，
+kernel／候选／语言 host 保持。较大同值输入的 stability queries 2,560→0，加两次
+cache equality；numeric 等检查仍在，不能声称完整 guard 常数成本。
+
+下一项 **从已知 cache facts 生产可检查的 static range／footprint 证书，消去
+确实冗余的逐点 numeric checks，并验收实际 capture 许可、helper frame 和模型
+入口**；随后测完整 guard／program cost。地址含额外参数时保留所需范围检查。
+作者数据／语言库／实例证明比较，以及更广 affine source、动态布局与完整 BT
+仍按完整目标推进。以下记录保留前阶段范围，不能把旧 `.vo` 绑定称为当前验收。
+
 2026-10-07 最新后继：[独立源码树复现](nested-frontend-reproduction.md)已从修复版
 `1d3acc0` 的新空树通过 proof／extraction／全部既有 C matrix 和 probes。没有
 历史 report／objects 输入，复用已安装 pinned toolchain；585 dependencies／20

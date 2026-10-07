@@ -1,5 +1,12 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 后继：[单份扫描与较大域](nested-stability-shared.md)已在同一候选／
+host 下共享备用 scan，并用 language initialized-Boolean law 和 actual cache
+bindings 证明 eager conjunction 的安全。原矩阵接受保持，较大域的交换／tiling
+及动态 header 改写回退也实际验收。代码规模、局部检查工作和接受分别报告；
+numeric work 仍是完整成本的待办，下一项须生产 static range／footprint 证书和
+正确入口运输，不能以 mathematical projection 或字节下降替代这些义务。
+
 2026-10-07 后继：[独立复现](nested-frontend-reproduction.md)已关闭 fresh-checkout
 empty-build 待办，沿既有三方责任／四条证书链重建 proof→compiler→actual C。
 另 [constant-word BODY guarantee](constant-word-observation.md)提供 actual syntax

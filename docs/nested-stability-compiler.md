@@ -4,6 +4,10 @@
 条件装进实际 physical guard、multi-array adapter、typed factory 和独立提取入口。
 旧 nested frontend 编译器、源码矩阵与报告保留。最小 kernel 未改。
 
+本页保留 `64232ee` 阶段的双 scan 代码与测量。后继
+[单份扫描与较大域](nested-stability-shared.md)已替换当前 lowering，并将默认
+验证目录改为 `build/nested-stability-shared/`；当前操作与验收以该页为准。
+
 ## 使用者如何使用
 
 实际 source 仍由既有 `ncs_frontend_proposer` 描述，候选仍由既有

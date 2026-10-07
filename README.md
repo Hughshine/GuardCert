@@ -4,7 +4,16 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
-[当前 same-word compiler](docs/nested-stability-compiler.md)已把同值 BODY 保持
+[最新单份扫描与较大域](docs/nested-stability-shared.md)已证明 initialized cache
+comparisons 的 eager conjunction，备用 scan 仅生成一份；interchange 函数
+762→644 bytes，原 762 次汇编调用及接受结果保持。Word=15／count≤16 的实际
+C 又通过 60 次汇编调用、45 次 Clight 分派和九个真实写序 probes；两种 header
+alias 下的交换／tiling 与改变 bound 的回退均得到区分。独立 23 端点／598 依赖
+审计和提取通过，kernel／原候选／语言 host 保持。稳定性地址查询 2,560→0 加
+两次缓存比较，但 numeric 等工作仍在；完整成本、static condition derivation、
+更广源类及完整 BT／动态布局继续推进。当前工具使用独立 shared 报告目录。
+
+[前阶段 same-word compiler](docs/nested-stability-compiler.md)已把同值 BODY 保持
 接入 actual physical guard、multi adapter、typed factory 与完整 Csem→Asm。
 语言证明 store／check／frame，domain 生产 canonical execution，kernel 消费证书，
 原 candidate 与语言 host 证明直接复用。新条件接受时跳过 stability scan，其他

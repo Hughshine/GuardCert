@@ -15,9 +15,9 @@ import native_nested_frontend as frontend
 import native_nested_frontend_coverage as coverage
 import probe_nested_frontend_coverage as probe
 
-WORK = ROOT / "build/nested-stability/native"
-COMPILER = ROOT / "build/nested-stability/compiler/ccomp"
-PROOF = ROOT / "build/nested-stability/proof/report.json"
+WORK = ROOT / "build/nested-stability-shared/native"
+COMPILER = ROOT / "build/nested-stability-shared/compiler/ccomp"
+PROOF = ROOT / "build/nested-stability-shared/proof/report.json"
 ENTRY = "ClightGuardedNestedStabilityCompiler.compile_ncs_stability_regions"
 EXTRA = [(3, view, 0, u, v, 1, 1) for view, u, v in
          [(0, 1, 1), (1, 1, 1), (2, 1, 1), (1, 1, 2), (2, 2, 1),

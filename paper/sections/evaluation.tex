@@ -142,8 +142,30 @@ two same-word alias cases replace 10 and 20 address comparisons, respectively,
 with two cache equalities. Other tested inputs retain scan work and add one or
 two equalities. These counts exclude other guard stages and are not assembly
 instruction counts. The complete interchange function grows from 613 to 762
-bytes: the current lowering duplicates the fallback scan. Timing and
+bytes: that stage's lowering duplicates the fallback scan. Timing and
 profitability remain unmeasured.
+
+The current single-scan lowering has a separate 23-endpoint audit across 598
+dependencies and 897 source digests, with the same compiler baseline and closed
+kernel. It repeats the 762-call matrix and 381 Clight calls with unchanged
+acceptance. Identity, interchange, and tiling functions shrink from
+$(728,762,867)$ to $(611,644,755)$ bytes. Both cache comparisons are now evaluated
+when the shortcut is reached; this can add one comparison on former first-test
+refusals and is not a universal runtime improvement.
+
+For literal stores of 15 and a profile permitting counts up to 16, fifteen
+inputs give sixty new assembly calls, fifteen prior-compiler calls, and
+forty-five Clight dispatch calls. Each diagnostic configuration observes six
+fast and nine refusal entries. The inputs include header aliases that grow the
+original domain, empty paths with unreadable body inputs, nonzero entry rows,
+and legal source iterations outside the candidate profile. The reference model
+rereads headers after each body. Nine probes of unmodified assembly cover
+independent headers and two header aliases: source order $(15,80,160)$,
+interchange order $(80,160,15)$, and tiling order $(80,15,160)$, all with public
+exits $(16,16,5)$. Fourteen diagnostic Clight calls show that an independent
+$16\times16\times5$ same-word input replaces 2,560 stability address comparisons
+with two cache comparisons. Other inputs retain scan work. Numeric checks still
+precede this shortcut; complete guard cost remains to be measured.
 
 \subsection{Experiments Needed for the Final Paper}
 

@@ -19,7 +19,11 @@ Clight check with its exit frame. The successor compiler installs this check,
 retains the scan when it refuses, and reuses the candidate and host proofs.
 Independent native/dispatch runs and four assembly probes cover same-word
 header/data aliases. A same-input comparison separates local comparison counts,
-useful acceptance, and code growth. Broader affine source classes, more general
+useful acceptance, and code growth. The current lowering shares one fallback
+scan under a certified conjunction of initialized Boolean words. A larger
+16-by-16-by-5 C domain supplies full-array validation and nine assembly probes
+that distinguish source, interchange, and tiling through two header aliases.
+Earlier scan/shortcut reports retain their stage scope. Broader affine source classes, more general
 compact conditions, complete guard/program timing, and comparative proof-author
 effort remain pending.
 

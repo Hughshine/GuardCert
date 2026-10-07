@@ -183,6 +183,12 @@ the two comparisons can accept stability directly; otherwise it executes the
 original scan. Unsupported bodies retain the original guard. The existing
 alias-only check still follows stability acceptance.
 
+To generate only one fallback scan, the current lowering combines the two
+Boolean comparisons with eager int32 bitwise AND. A language lemma requires
+both operands to be defined Boolean words; the domain supplies this from the
+already initialized caches. Refusal leaves the scan entry unchanged. This
+lowering is unsuitable when the second check's reads still depend on the first.
+
 The new guard certificate supplies the same model anchor and checked-entry
 frame required by the existing candidate preservation certificate. The kernel,
 candidate proof, and language installation host are reused. A new compiler
@@ -213,7 +219,7 @@ Condition construction must preserve partial evaluation safety. A mathematically
 simpler condition can read a header or compare a pointer earlier than the source
 permits. Reuse therefore requires a certificate for the reordered or simplified
 check, not just Boolean equivalence on states where every expression is defined.
-\pending{Extend compact conditions beyond the constant-word case, factor
-duplicated fallback scans, and measure complete guard/program cost and manual
-proof work. General projection and arbitrary dependent preload expressions
+\pending{Extend compact conditions beyond the constant-word case, remove
+redundant numeric checks using certified range/footprint facts, and measure
+complete guard/program cost and manual proof work. General projection and arbitrary dependent preload expressions
 remain outside the established implementation claims.}

@@ -663,6 +663,35 @@
       "documents": [
         "docs/nested-stability-compiler.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The current same-word lowering shares one fallback scan using eager conjunction only after both int32 Boolean operands are defined. It reuses the guard/receipt interface, original candidate and language host proofs, and retains the previous acceptance matrix. A larger constant-fifteen C instance tests domain growth on fallback and distinguishes interchange/tiling store order through header aliases; local stability work is counted separately from remaining numeric work and unmeasured full cost.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightInitializedBooleanAnd.v",
+          "name": "initialized_boolean_and_evaluation"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantStability.v",
+          "name": "ncs_word_pair_expression_test"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantStability.v",
+          "name": "ncs_word_or_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedStabilityExample.v",
+          "name": "indexed_fifteen_stability_site_checked"
+        },
+        {
+          "source": "prototype/interface/ClightGuardedNestedStabilityCompiler.v",
+          "name": "compile_ncs_stability_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/nested-stability-shared.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -1037,6 +1066,62 @@
       613,
       762
     ],
+    "candidate_and_host_proofs_reused": true,
+    "counts_all_guard_work": false,
+    "timing_or_profitability_measured": false
+  },
+  "nested_stability_shared_stage": {
+    "proof_report": "build/nested-stability-shared/proof/report.json",
+    "proof_report_sha256": "9a9ed66634b07e1c3c40b56216d484c59ca682d224ec96baaa5298345b67e0b5",
+    "queried_endpoints": 23,
+    "required_dependencies": 598,
+    "source_digests": 897,
+    "baseline_globals": 42,
+    "kernel_assumptions": [],
+    "additional_global_axioms": [],
+    "language_eager_boolean_and_baseline_globals": 4,
+    "entrypoint": "ClightGuardedNestedStabilityCompiler.compile_ncs_stability_regions",
+    "native_report": "build/nested-stability-shared/native/report.json",
+    "native_report_sha256": "51a91985ae4f11edb2ceeaeedfd29a342a4e5fe9975cf433b2200f3b1bde671f",
+    "native_assembly_calls": 762,
+    "clight_dispatch_calls": 381,
+    "probe_report": "build/nested-stability-shared/native/stability-probes/report.json",
+    "probe_report_sha256": "b93ac10fb052ed72438dddf01dea14e15c58589348a0b4d80decf5e808b6b8c4",
+    "legacy_comparison_assembly_calls": 127,
+    "legacy_comparison_clight_calls": 127,
+    "small_diagnostic_clight_work_calls": 20,
+    "small_assembly_store_order_probes": 4,
+    "large_report": "build/nested-stability-shared/large/report.json",
+    "large_report_sha256": "0d52b982dfcd94630231601f100fa321472f68e8cc712616ac02c4cf55d8b55c",
+    "large_assembly_calls": 60,
+    "large_legacy_assembly_calls": 15,
+    "large_clight_dispatch_calls": 45,
+    "large_diagnostic_clight_work_calls": 14,
+    "large_assembly_store_order_probes": 9,
+    "large_store_word": 15,
+    "large_profile_max_count": 16,
+    "interchange_matrix_fast": 51,
+    "interchange_matrix_refusal": 75,
+    "constant_one_function_bytes_before_after": {
+      "identity": [
+        728,
+        611
+      ],
+      "interchange": [
+        762,
+        644
+      ],
+      "tile-2-3": [
+        867,
+        755
+      ]
+    },
+    "large_independent_stability_pointer_comparisons_old_new": [
+      2560,
+      0
+    ],
+    "new_same_word_cache_comparisons": 2,
+    "remaining_numeric_checks": true,
     "candidate_and_host_proofs_reused": true,
     "counts_all_guard_work": false,
     "timing_or_profitability_measured": false

@@ -9,10 +9,10 @@ import audit_interface_polyhedral as common
 from audit_compiler import names
 from audit_interface_clight import ROOT, sha
 
-WORK = ROOT / "build/nested-stability/proof"
+WORK = ROOT / "build/nested-stability-shared/proof"
 ENTRY = "ClightGuardedNestedStabilityCompiler.compile_ncs_stability_regions"
 CORRECT = ENTRY + "_correct"
-LANGUAGE = ["ClightGuardedNestedStabilityCompiler"]
+LANGUAGE = ["ClightInitializedBooleanAnd", "ClightGuardedNestedStabilityCompiler"]
 DOMAIN = ["ClightNestedConstantStability", "ClightNestedStabilityMulti",
           "ClightNestedStabilityCertificate", "ClightNestedStabilityPreservation", "ClightNestedStabilityFactory"]
 FIXTURES = ["ClightNestedStabilityExample"]
@@ -20,7 +20,7 @@ MODULES = LANGUAGE + DOMAIN + FIXTURES
 HELPERS = ["scripts/audit_nested_stability.py",
            "scripts/audit_affine_nest_materialized.py", "scripts/audit_interface_polyhedral.py",
            "scripts/audit_interface_clight.py", "scripts/audit_compiler.py", "scripts/polcert_core.py"]
-KIND = "standalone-nested-stability-compiler"
+KIND = "standalone-nested-stability-shared-compiler"
 
 
 def validate():

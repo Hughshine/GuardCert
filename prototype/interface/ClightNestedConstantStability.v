@@ -10,7 +10,8 @@ From GuardInterface Require Import CompCertWordObservation ClightNestedConstantS
   ClightNestedConstantHeaders ClightNestedConstantSitePrepare ClightNestedConstantSiteNumeric
   ClightNestedConstantOuterConsumer ClightNestedConstantWordModel ClightNestedConstantWordCheck
   ClightNestedConstantScanNames
-  ClightCheckPlanFrame ClightNestedConstantPhysicalGuard ClightNestedConstantEntryGate.
+  ClightCheckPlanFrame ClightNestedConstantPhysicalGuard ClightNestedConstantEntryGate
+  ClightInitializedBooleanAnd.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -35,11 +36,29 @@ Proof.
   intro SAME; inversion SAME; subst; exact CHECK.
 Qed.
 
+Definition ncs_word_pair_expression shape word :=
+  initialized_boolean_and
+    (ncs_word_equal_expression (ncs_root_cache shape) (Int.add word (ncs_delta shape)))
+    (ncs_word_equal_expression (ncs_child_cache shape) (Int.add word (ncs_child_delta shape))).
+
+Theorem ncs_word_pair_expression_test ge locals temps memory shape word root child :
+  temps!(ncs_root_cache shape) = Some (Vint root) ->
+  temps!(ncs_child_cache shape) = Some (Vint child) ->
+  expression_test (ncs_word_pair_expression shape word) (Entry ge locals temps memory)
+    (ncs_same_word_flag shape word (Entry ge locals temps memory)).
+Proof.
+  intros ROOT CHILD; unfold ncs_same_word_flag; cbn [entry_temps]; unfold temp_word;
+    rewrite ROOT, CHILD.
+  eexists; split; [|apply bool_of_bool].
+  unfold ncs_word_pair_expression.
+  apply initialized_boolean_and_evaluation; [reflexivity|reflexivity| |].
+  all: eapply eval_Ebinop; [constructor; eassumption|constructor|reflexivity].
+Qed.
+
 Definition ncs_word_or_scan shape proposal word :=
-  Sifthenelse (ncs_word_equal_expression (ncs_root_cache shape) (Int.add word (ncs_delta shape)))
-    (Sifthenelse (ncs_word_equal_expression (ncs_child_cache shape) (Int.add word (ncs_child_delta shape)))
-      (Sset (affine_proposed_result proposal) (Econst_int Int.one type_int32s))
-      (ncs_outer_code shape proposal)) (ncs_outer_code shape proposal).
+  Sifthenelse (ncs_word_pair_expression shape word)
+    (Sset (affine_proposed_result proposal) (Econst_int Int.one type_int32s))
+    (ncs_outer_code shape proposal).
 Definition ncs_stability_code shape proposal :=
   match ncs_stability_word shape with
   | Some word => ncs_word_or_scan shape proposal word
@@ -57,17 +76,9 @@ Theorem ncs_word_or_scan_execution fe ge locals temps memory shape proposal word
   exec_stmt fe ge locals temps memory (ncs_word_or_scan shape proposal word) trace after final outcome.
 Proof.
   intros ROOT CHILD RUN.
-  destruct (@ncs_word_equal_expression_test ge locals temps memory (ncs_root_cache shape)
-    root (Int.add word (ncs_delta shape)) ROOT) as [rv [REVAL RBOOL]].
-  destruct (@ncs_word_equal_expression_test ge locals temps memory (ncs_child_cache shape)
-    child (Int.add word (ncs_child_delta shape)) CHILD) as [cv [CEVAL CBOOL]].
-  unfold ncs_word_or_scan; unfold ncs_same_word_flag in RUN; cbn [entry_temps] in RUN.
-  unfold temp_word in RUN; rewrite ROOT, CHILD in RUN.
-  destruct (Int.eq root (Int.add word (ncs_delta shape))) eqn:R;
-    destruct (Int.eq child (Int.add word (ncs_child_delta shape))) eqn:C; cbn in RUN.
-  all: eapply exec_Sifthenelse; [exact REVAL|exact RBOOL|]; cbn.
-  all: try (eapply exec_Sifthenelse; [exact CEVAL|exact CBOOL|]; cbn).
-  all: exact RUN.
+  destruct (@ncs_word_pair_expression_test ge locals temps memory shape word root child ROOT CHILD)
+    as [value [EVAL BOOL]].
+  unfold ncs_word_or_scan; eapply exec_Sifthenelse; [exact EVAL|exact BOOL|exact RUN].
 Qed.
 
 Section STABILITY.
@@ -214,6 +225,7 @@ Qed.
 End PHYSICAL.
 
 Print Assumptions ncs_stability_word_sound.
+Print Assumptions ncs_word_pair_expression_test.
 Print Assumptions ncs_word_or_scan_execution.
 Print Assumptions ncs_stability_execution.
 Print Assumptions ncs_original_stability_guard_execution.
