@@ -1,11 +1,20 @@
 # Guard：带前提的程序变换与组合证明
 
-[真实多面体流水线](docs/connected-polyhedral-pipeline.md)已接通一个有界实例：
+[真实分块流水线](docs/narrative-to-tiling-integration.md)已接通：标注C→实际
+Pluto调度／分块→验证→prepared codegen→自动仿射边界适配→最终候选检查→
+guard／原源回退→selected host→Csem→Asm。候选由真实生成结果自动取得，
+保留raw与适配后Loop；最终checker提供正确性，没有单独raw→adapted等价性
+定理。13端点／442依赖审计、648汇编／288独立Clight调用通过，零新增公理；
+三组tile sizes、两种layout、重复标注及失败／回退均验收。Kernel不变，三方
+证明责任沿narrative澄清。Loaded bounds／动态layout的同路径组合和成本仍待
+推进，完整目标active。
+
+[前一多面体流水线](docs/connected-polyhedral-pipeline.md)已接通一个有界实例：
 标注C经实际提取、OpenScop／Pluto、验证和PolCert prepared codegen，生成候选
 Loop，再接既有guard、原源回退与Csem→Asm证明。桥接2端点／88依赖审计无新增
 公理；新路径792次汇编／432次Clight调用通过。额外layout phase从访问矩阵自动
 生成非恒等(j,i,k)调度；不是手写目标Loop，也不把这个heuristic归给Pluto。
-真实tiling、loaded-header／动态layout组合及该路径成本仍待推进，完整目标active。
+该冻结affine阶段不含tiling；loaded-header／动态layout组合及路径成本仍待推进。
 以下较早阶段保留其当时边界。
 
 [显式SCoP选择](docs/selected-polyhedral-regions.md)已接入新编译器：pragma区域经

@@ -1219,6 +1219,36 @@
         "docs/connected-polyhedral-pipeline.md",
         "docs/current-work-plan.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The generated-candidate tiling successor validates real affine and tiling phases, preserves raw codegen output, proposes an untrusted affine bound adaptation, then checks the actual adapted candidate for forward execution and public-exit restoration. The selected Csem-to-Asm entry is proved. Thirteen endpoints over 442 dependencies add no global axiom relative to the existing 42-global baseline. No separate raw-to-adapted equivalence or profitability result is claimed. Nine configurations passed 648 unmodified assembly calls and 288 independent Clight dispatch observations across three tile sizes, both layouts, selection, repeated regions, runtime refusal and external failures.",
+      "theorems": [
+        {
+          "source": "prototype/interface/GuardMemoryTiledPreparedPipeline.v",
+          "name": "checked_memory_tiled_prepared_phase_correct"
+        },
+        {
+          "source": "prototype/interface/GuardMemoryTiledPreparedPipeline.v",
+          "name": "checked_memory_scalar_generated_tiling_correct"
+        },
+        {
+          "source": "prototype/interface/ClightTensorGeneratedCandidates.v",
+          "name": "tensor_region_generated_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorGeneratedPreservation.v",
+          "name": "tensor_literal_generated_contract"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedTensorGeneratedCompiler.v",
+          "name": "compile_selected_tensor_generated_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/narrative-to-tiling-integration.md",
+        "docs/current-work-plan.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -3651,5 +3681,15 @@
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/polyhedral_pipeline.mk native",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/polyhedral_pipeline.mk validate"
     ]
+  },
+  "connected_tiled_stage": {
+    "proof_report": "build/polyhedral-tiling/proof/report.json",
+    "proof_report_sha256": "17408069e310f282eff66c1ab06eb1dffcc770d249f473fecfa99f585af9f8a2",
+    "minimal_kernel_changed": false,
+    "raw_codegen_to_adapted_equivalence_proved": false,
+    "native_report": "build/polyhedral-tiling/native/report.json",
+    "native_report_sha256": "7c35aeb104297c1d81f1cd639aa17a574a82425783bf293ee4140c61ef93c80b",
+    "assembly_calls": 648,
+    "clight_dispatch_calls": 288
   }
 }

@@ -1,6 +1,24 @@
 # 当前工作计划：评审吸收后的验收顺序
 
-2026-10-07 当前：[真实 affine pipeline](connected-polyhedral-pipeline.md)已接通
+2026-10-07 当前：[narrative 澄清与真实分块接入](narrative-to-tiling-integration.md)
+按远端12419c1落实三方责任：kernel组合局部证书；语言host负责检查语义、private
+资源、公开frame／出口、placement／progress及完整程序安装；domain负责前提、
+源／模型、真实候选执行和条件编码。最小kernel与原guard证书保持，不将host
+contract clauses的开放讨论当成已完成API。新的data接口携带实际候选Loop＋
+point-space witness；不再由两项tile size重构固定目标。真实Pluto affine／tiling
+phase经验证和prepared codegen；原始min／max／floor边界无法再提取的问题由
+不受信任的自动仿射边界展开提出候选，再通过已有已验证source／candidate
+checker取得完整对应、前向执行与公开出口恢复。两份Loop均保存；没有单独
+raw→adapted等价性定理，raw codegen后向定理不冒充最终候选证书。
+独立13端点／442依赖审计、提取与新selected Csem→Asm端点通过，保持42-global
+基线、零新增公理。新矩阵648汇编／288独立Clight调用通过三组tile sizes、两种
+layout、marked／unmarked、多site、runtime回退和外部失败／损坏输出；不是成本
+或收益结论。**下一项在同一真实pipeline组合loaded bounds＋dynamic layout，
+再验收稳定性条件、条件生成的手工负担、接受域、guard工作与完整成本。**
+继续把OLO作为功能和可用性验收参照，不用端点数或调用数代替能力覆盖。
+完整目标active，计划不再将固定候选fixture视作polyhedral pipeline完成。
+
+2026-10-07 前一阶段：[真实 affine pipeline](connected-polyhedral-pipeline.md)已接通
 标注C→canonical source／实际extractor→OpenScop→Pluto→checked affine import／
 validator→PolCert prepared codegen→原有mapped-domain factory／lowerer／guard→
 selected host→Csem→Asm。新增桥接2端点／88依赖独立审计，零新增全局公理；
@@ -12,7 +30,7 @@ selected host→Csem→Asm。新增桥接2端点／88依赖独立审计，零新
 兼容路径复用ExtractorCorrect／AffineValidator／PrepareCodegen，没有literal
 调用旧PolOpt.Opt_prepared；strengthening及真实tiling phase尚未连接。先前“真实
 scheduler／prepared codegen未接通”保留为当时记录，已由此有界slice推进。
-**下一项连接checked tiling transition与生成代码的point／reindex／progress witness**，
+**当时的下一项是连接checked tiling transition与生成代码的point／reindex／progress witness**，
 再扩loaded-header＋dynamic layout，并验收guard工作、接受域、代码尺寸和配对成本。
 Framework仍止于局部证书组合；语言负责安装，domain负责模型与实际候选执行。
 远端narrative再次fetch仍是12419c1，与main澄清正文一致；完整目标active。

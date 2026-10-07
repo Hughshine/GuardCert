@@ -6,6 +6,17 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [tiled successor](../docs/narrative-to-tiling-integration.md) connects actual
+Pluto tiling and prepared codegen to the selected compiler. It preserves raw
+codegen output and proposes an automatic affine bound adaptation, then checks
+the actual adapted Loop against the source. Thirteen endpoints over 442
+dependencies add no globals relative to the existing 42-global compiler
+baseline. Nine configurations give 648 assembly calls and 288 separate Clight
+observations, covering three tile-size choices, both layouts, selection,
+repeated regions and refusal paths. No separate raw-to-adapted equivalence or
+profitability result is claimed. The generic kernel, guard encoding and language
+host are reused; combined loaded headers and dynamic layouts remain pending.
+
 The [connected affine successor](../docs/connected-polyhedral-pipeline.md) now
 runs actual model extraction, OpenScop/Pluto scheduling, checked import and
 PolCert prepared codegen through the selected compiler. A further untrusted
@@ -13,9 +24,9 @@ access-matrix layout phase automatically produces the nonidentity traversal;
 it is not a handwritten target Loop or a permutation chosen by Pluto. Two
 new bridge endpoints over 88 dependencies add no globals, and the unchanged
 whole-program compiler proof covers the final checked candidate. The new path
-adds 792 assembly calls and 432 separate Clight observations. Tiling through
-this path, loaded-header/dynamic-layout integration, a fresh scheduler-recipe
-replay and its cost evaluation remain pending. Earlier entries retain their
+adds 792 assembly calls and 432 separate Clight observations. That frozen report
+excludes tiling. Combined loaded headers and dynamic layouts, a fresh scheduler
+recipe replay and cost evaluation remain pending. Earlier entries retain their
 historical boundaries.
 
 The [selected-region successor](../docs/selected-polyhedral-regions.md) implements

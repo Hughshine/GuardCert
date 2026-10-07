@@ -510,4 +510,26 @@ observations establish the declared functional slice, not profitability or
 assembly path probes. The scheduler build fingerprint records a completed
 manual build with LLVM~14 compatibility and isolated bundled ISL linkage;
 the supplied build recipe has not yet been replayed from an empty tree.
-Tiling through this path and its cost evaluation remain pending.
+That frozen report excludes tiling; the tiled successor has a separate audit.
+
+\paragraph{Connected tiling.}
+The successor's proof audit queries thirteen endpoints over 442 dependencies.
+Its new whole-program endpoint keeps the existing 42-global baseline, without
+an additional global axiom. It connects checked affine and tiling phases,
+prepared codegen, the actual candidate's forward execution and public-counter
+restoration, and the existing selected Clight host. The generic kernel and
+guard-encoding proofs remain unchanged. The raw codegen output requires an
+untrusted affine bound adaptation before candidate extraction; the final checker
+validates that adapted Loop against the source. A phase receipt alone does not
+establish installation or whole-program execution.
+
+The new native matrix contains nine configurations: 648 unmodified assembly
+calls and 288 separate Clight dispatch observations. It covers tile sizes
+$(2,3,2)$, $(4,2,3)$ and $(64,64,64)$, row and column layouts, repeated marked
+regions, excluded unmarked regions, runtime refusal, unsupported bodies, disabled
+optimization, failed scheduling and malformed outputs. Complete array, counter
+and context observations match the independent source model and GCC source
+execution. Raw and adapted candidates, phase matrices and actual Clight
+dispatch are bound to the report. These are functional results for the bounded
+source family; guard cost, profitability and combined loaded-header/dynamic-layout
+coverage are still pending.

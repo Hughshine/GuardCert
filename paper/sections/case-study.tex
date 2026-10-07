@@ -67,8 +67,24 @@ Two new bridge theorems map completed generated execution back to the source
 model and source Loop. They are backward correspondence results; they do not
 replace the factory's progress proof. The route reuses compatible extractor,
 affine-validator and prepared-codegen components, rather than literally calling
-the frozen older \code{Opt_prepared} objects. Strengthening, checked tiling
-through this route and loaded-header/dynamic-layout integration remain pending.
+the frozen older \code{Opt_prepared} objects. Strengthening and combined
+loaded-header/dynamic-layout integration remain pending.
+
+A tiled successor carries the actual proposed Loop and point-space witness
+data, rather than reconstructing a fixed target from tile sizes. It validates
+the affine and tiling phases and runs prepared codegen on the transformed
+point space. An actual C probe exposed a further boundary: codegen emits
+\code{min/max/floordiv} bounds, while the source extractor accepts affine bounds.
+An untrusted adapter keeps the generated loop skeleton and instruction arguments,
+proposes affine enclosing bounds, and adds affine membership guards. For positive
+$d$, it encodes $q<\lfloor e/d\rfloor$ as $d(q+1)\leq e$.
+The final checker validates the adapted candidate's complete correspondence with
+the assumed source; it trusts neither the proposed bounds nor that identity.
+Both raw and adapted Loop outputs are retained. No separate raw-to-adapted
+equivalence theorem is claimed. The codegen backward theorem concerns the raw
+output; the installed candidate obtains forward execution and public-exit
+restoration from its own checked certificate. The same guard encoding and
+selected-region language host are reused, with an unchanged generic kernel.
 
 \subsection{Nested Loaded Bounds and Actual Candidate Execution}
 
