@@ -140,13 +140,15 @@ mathematical no-wrap assumptions, and header stability are separate facts.
 
 | Certificate link | Current evidence for this source family | Obligation to close next |
 | --- | --- | --- |
-| `C_derive` | `tensor_header_capture_execution` produces conditional capture and prepared original-source execution. `tensor_header_original_first_point` licenses the first actual store address. | Extend the reached original-source prefix through columns and rows; complete acceptance must produce full cached-source execution and its canonical tensor correspondence. |
-| `C_guard` | `tensor_header_capture_point_ready` connects capture to the first actual check. `word_component_scan_execution` and `word_component_accepted_source_transport` cover one literal component loop. | Execute the full nested private scan safely, preserve memory and protected temporaries, then transport cached/model bindings to the actual complete-guard exit. |
+| `C_derive` | `tensor_header_capture_execution` produces conditional capture and prepared original-source execution. The audited column service derives cached child-loop execution and advances the original outer prefix after current-row acceptance. | Close all outer rows; complete acceptance must produce full nested cached-source execution and its canonical tensor correspondence. |
+| `C_guard` | `tensor_header_capture_point_ready` connects capture to the first actual check. `tensor_word_column_scan_execution` safely executes the full column/component scan for a current row. | Execute the full nested private scan safely, preserve memory and protected temporaries, then transport cached/model bindings to the actual complete-guard exit. |
 | `C_opt` | The connected tiling path checks its actual adapted candidate and proves candidate execution for the existing literal tensor family. | Supply the newly derived cached source and parameter view to that checker and prove actual candidate entry and public-exit correspondence for the original loaded source. |
-| `C_host` | The selected Clight host and whole-program compilation theorem are reusable language services. | Produce the loaded family's concrete rule, static resource/placement/progress evidence, and new selected compiler endpoint. |
+| `C_host` | The materialized Clight check/choice services establish actual local dispatch. | Instantiate their law for the complete loaded-family check and its actual branches. |
+| Installation (language host and site) | The selected Clight installation and whole-program compilation theorems are reusable language services. | Produce the loaded family's region guarantee, static resource/placement/progress evidence, and new selected compiler endpoint. |
 
-These links describe proof ownership and reuse. They are not four new records
-that an end user must prove for every marked region. The optimizer's data-only
+The four certificate links describe local proof ownership and reuse; installation
+is a further language/IR step. They are not new records that an end user must
+prove for every marked region. The optimizer's data-only
 checker must produce the supported family's static syntax, scope, typing and
 freshness evidence. The language library owns arithmetic execution, permission
 transport, private-state frames and installation laws; the domain instance

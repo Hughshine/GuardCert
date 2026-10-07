@@ -125,6 +125,19 @@ rewrite site supplies the required scope, placement, and resource evidence.
 Contract-clause factoring remains a design question, rather than an implemented
 generic installation algorithm.
 
+Here $C_{\mathrm{host}}$ denotes the local dispatch law in
+Eq.~\eqref{eq:dispatch}. Installation is a further language theorem consuming a
+region guarantee and evidence about its actual site. The current selected
+Clight compiler conservatively protects \code{program_temps}; it does not infer
+a minimal live set or implement an arbitrary boundary-contract algebra.
+
+These responsibilities distinguish three uses of the interface. A language
+author proves host laws and installation once. A domain implementer supplies
+source/model and assumption services for a supported transformation family.
+A user of that family proposes data or selects a source region; the concrete
+factory and site checkers produce the required certificates. Internal theorem
+hypotheses are not a promise that every new family already has such producers.
+
 Repeated rewrites are checked against their actual intermediate programs.
 The read-only frontend's \code{certified_rewrite_sequence_equivalent} composes
 finite sequences of installed equivalences. State relations, entry domains,

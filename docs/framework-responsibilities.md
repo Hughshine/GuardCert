@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [本次narrative责任核对](narrative-responsibility-check-2026-10-07.md)
+明确 `C_host` 的局部choice定律与整程序安装是不同证明；最小kernel、语言库、
+domain实例及具体site的证据生产责任分别记录。当前实际tiling路径已接通，
+loaded／dynamic组合的已审计成果到完整column／component及current-row step；
+outer草稿尚未计入交付。最难后继仍是原源许可的完整prefix链、cached/model到
+actual guard-exit的运输，以及family factory消费真实候选并接安装。以下各段保留
+当时的责任与验收范围，不将早期“scheduler未连接”当作当前流水线状态。
+
 2026-10-07 [selected-region后继](selected-polyhedral-regions.md)实现了位置身份
 问题：语言host在chosen label下才允许selector改写，证明未选子树保持及完整
 小步／Csem→Asm连接；native frontend负责pragma配对、fresh名字与manifest运输，

@@ -6,6 +6,12 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [narrative responsibility check](../docs/narrative-responsibility-check-2026-10-07.md)
+separates the local dispatch law from whole-program installation and distinguishes
+language authors, domain implementers and users of a supported family. The
+framework section records these boundaries against the actual kernel and
+selected Clight host. This clarification adds no proof or experimental result.
+
 The [loaded-column service](../docs/tensor-word-column.md) proves actual private
 column/component scans, accepted original/cached child-loop execution and the
 current-row step of the outer original prefix. Its 37-endpoint/452-dependency

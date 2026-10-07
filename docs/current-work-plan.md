@@ -1,5 +1,13 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 [本次 narrative 责任核对](narrative-responsibility-check-2026-10-07.md)
+重新 fetch 并读完12419c1的澄清，正文与main一致。明确区分 `C_host` 的局部
+choice定律与语言／site的整程序安装；逻辑证书链不变成源码使用者的语义callback。
+进行中的outer证明按“原源许可→接受推进前缀→cached源／模型到实际guard出口→
+真实候选与公开出口→factory／site／selected host”验收。Outer草稿不计入已审计
+成果；三方责任及最难的状态连接见上述记录。Host条款仍是开放设计问题，kernel
+保持；同一loaded／dynamic C的完整流水线及后续条件／成本验收继续属于active goal。
+
 2026-10-07 最新：[loaded column 扫描](tensor-word-column.md)已补齐当前行的完整
 column／literal-component私有扫描、逐列原源前缀推进、完整接受后的实际cached
 child-loop执行，以及接受当前行后推进原outer前缀。检查许可仍来自原源执行，

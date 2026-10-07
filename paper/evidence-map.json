@@ -36,6 +36,9 @@
           "source": "prototype/interface/GuardInterface.v",
           "name": "context_certificate"
         }
+      ],
+      "documents": [
+        "docs/narrative-responsibility-check-2026-10-07.md"
       ]
     },
     {
@@ -58,7 +61,7 @@
     },
     {
       "section": "framework",
-      "claim": "For loaded-source instances, safe checking domains are justified from the original source; execution encoding and cross-entry preservation are caller obligations, discharged by concrete language/domain producers rather than generic record fields.",
+      "claim": "For loaded-source instances, safe checking domains are justified from the original source; execution encoding and cross-entry preservation are language/domain library obligations, discharged by concrete producers rather than generic record fields or per-site user callbacks.",
       "theorems": [
         {
           "source": "prototype/interface/ClightMaterializedCertificate.v",
