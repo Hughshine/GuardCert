@@ -1255,7 +1255,7 @@
     },
     {
       "section": "case-study/evaluation",
-      "claim": "Source-licensed loaded-column and literal-component private scans derive actual cached child-loop execution and advance the original outer prefix after current-row acceptance. Real-memory fixtures cover acceptance, alias refusal, changing-bound source completion, identical original/cached exits and zero-column skipping of undefined checks. Full outer scanning, canonical tensor/candidate transport and loaded/dynamic compiler installation remain pending.",
+      "claim": "Source-licensed loaded-column and literal-component private scans derive actual cached child-loop execution and advance the original outer prefix after current-row acceptance. Real-memory fixtures cover acceptance, alias refusal, changing-bound source completion, identical original/cached exits and zero-column skipping of undefined checks. This audited column stage does not include full outer scanning or compiler installation; the subsequent outer stage is recorded separately.",
       "theorems": [
         {
           "source": "prototype/interface/ClightTensorWordColumn.v",
@@ -1300,6 +1300,71 @@
       ],
       "documents": [
         "docs/tensor-word-column.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Complete source-licensed private row/column/component word scans derive accepted nested cached-source execution at the actual scan exit. A receipt adapter derives header laws and static runtime address templates. Actual-memory executions cover acceptance, alias refusal, potentially changing original bounds, empty paths and refusal before unlicensed future loads. The complete loaded-family driver, canonical tensor/candidate bridge and installed compiler remain pending; no C/assembly calls or cost results are added.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorWordOuter.v",
+          "name": "tensor_word_outer_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuter.v",
+          "name": "tensor_word_outer_cached_source"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuter.v",
+          "name": "tensor_word_outer_original_scan_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuter.v",
+          "name": "tensor_word_outer_empty_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuter.v",
+          "name": "tensor_word_outer_first_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterHeaders.v",
+          "name": "tensor_word_header_scan_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterHeaders.v",
+          "name": "tensor_word_header_scan_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_original_complete"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_actual_source_scan"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_actual_accepted_cached"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_actual_alias_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_empty_skips_undefined_child"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordOuterExample.v",
+          "name": "two_refusal_skips_unlicensed_future"
+        }
+      ],
+      "documents": [
+        "docs/tensor-word-outer.md"
       ]
     }
   ],
@@ -3765,6 +3830,34 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_column.py",
       "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_column.py --validate"
+    ]
+  },
+  "tensor_word_outer_stage": {
+    "proof_report": "build/tensor-word-outer/proof/report.json",
+    "proof_report_sha256": "fbd5a4803b483a8ad1382d70a60774ff98bcf6d630e428601caa61032fe03177",
+    "queried_endpoints": 41,
+    "required_dependencies": 456,
+    "closed_endpoints": 13,
+    "maximum_endpoint_globals": 6,
+    "additional_global_axioms": [],
+    "minimal_kernel_changed": false,
+    "complete_nested_scan_proved": true,
+    "accepted_original_nested_transport_proved": true,
+    "actual_guard_exit_cached_transport_proved": true,
+    "receipt_derived_header_scan_proved": true,
+    "runtime_syntax_uses_static_address_templates_proved": true,
+    "original_changing_header_completion_fixture_proved": true,
+    "actual_nested_acceptance_fixture_proved": true,
+    "actual_nested_alias_refusal_fixture_proved": true,
+    "empty_outer_skips_undefined_child_proved": true,
+    "first_refusal_skips_unlicensed_future_proved": true,
+    "loaded_bound_dynamic_layout_composition_completed": false,
+    "new_whole_program_entrypoint": null,
+    "C_or_assembly_evidence_added": false,
+    "cost_or_profitability_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_outer.py",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_outer.py --validate"
     ]
   }
 }

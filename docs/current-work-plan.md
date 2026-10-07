@@ -1,5 +1,17 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[完整word outer扫描](tensor-word-outer.md)已闭合全部
+row／column／literal-component检查及接受后的实际nested cached源执行，并将
+缓存源运输到实际scan出口，保持原final memory及protected public exit。Header
+laws／observer scope由actual receipt生产，runtime语法只用固定地址templates；
+fixture实际消费该adapter。41端点／456依赖独立审计通过，13闭合端点，最多
+六项既有CompCert globals，无新增公理；真实两loaded bounds的接受／alias拒绝、
+可能变动bounds的原源完成、空outer和拒绝后跳过未定义读取均已证明。Kernel、
+旧报告及保留草稿保持。**下一项是条件式capture／profile／scan完整driver，
+canonical tensor与完整guard出口参数，接真实生成candidate，再由data factory
+交付local/site证据并接selected Csem→Asm。**本阶段没有新增compiler／native／
+cost；单独完整scan不算同一loaded／dynamic C的优化已安装。完整goal继续active。
+
 2026-10-07 [本次 narrative 责任核对](narrative-responsibility-check-2026-10-07.md)
 重新 fetch 并读完12419c1的澄清，正文与main一致。明确区分 `C_host` 的局部
 choice定律与语言／site的整程序安装；逻辑证书链不变成源码使用者的语义callback。

@@ -474,6 +474,17 @@ A zero-column fixture skips an undefined load and an undefined Boolean.
 This stage proves the current-row step for the outer prefix; it adds no complete
 outer scan, installed compiler, native calls or cost measurement.
 
+The complete word-scan stage has a separate 41-endpoint audit over 456
+dependencies, with 13 closed endpoints and at most six existing baseline globals.
+It adds no axiom. Real-memory fixtures prove an actual two-row, two-column,
+five-component scan, accepted cached execution at the actual scan exit, and
+header-alias refusal. Original completion permits both loaded bounds to change.
+The fixture uses a wrapping parameter product but keeps its address independent
+of row and column; it is not the full dynamic Horner RMW input. Its execution
+proof consumes actual header receipts and fixed address templates. Separate
+empty and first-refusal cases skip undefined future loads. This stage adds no
+loaded-family compiler, native calls or cost measurement.
+
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment
 has no confidence intervals or break-even inference. Extend the supported source class

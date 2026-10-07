@@ -6,6 +6,10 @@
 `12419c1e1e3da450bf378742a2fb4e204e51e060`，这两个正文与 main 一致。
 下面将澄清落实到当前实现和工作计划；本记录不新增证明、编译器能力或实验结果。
 
+本记录对应 main `6b91b27` 的核对时刻。后继的[完整word扫描](tensor-word-outer.md)
+现已独立审计 full outer、nested cached源和实际scan出口运输；下面关于outer
+草稿的描述保留核对当时范围。完整loaded／dynamic compiler仍未安装。
+
 ## 最小接口的责任
 
 框架消费实际 source、candidate、check 的证书，组合出局部 guarded correctness。

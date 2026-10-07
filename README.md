@@ -1,5 +1,13 @@
 # Guard：带前提的程序变换与组合证明
 
+[完整word扫描](docs/tensor-word-outer.md)已接通全部row／column／component，
+接受后导出实际nested cached源，并从实际scan出口执行到原final memory与相关
+公开状态。Header求值由actual receipt推导，生成语法只用固定地址templates。
+41端点／456依赖独立审计无新增公理；两loaded bounds的真实内存接受／拒绝、
+空域和拒绝后跳过未定义读取均已证明。条件式capture／profile完整driver、
+canonical tensor／完整guard到真实candidate及loaded compiler安装继续推进；
+本阶段没有新增C／Asm或成本结果，完整目标active。
+
 [真实分块流水线](docs/narrative-to-tiling-integration.md)已接通：标注C→实际
 Pluto调度／分块→验证→prepared codegen→自动仿射边界适配→最终候选检查→
 guard／原源回退→selected host→Csem→Asm。候选由真实生成结果自动取得，

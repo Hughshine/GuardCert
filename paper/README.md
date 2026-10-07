@@ -6,6 +6,15 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [complete word scan](../docs/tensor-word-outer.md) proves full private
+row/column/component execution and accepted nested cached-source execution at
+the actual scan exit. Its receipt adapter derives header laws and uses static
+address templates in runtime syntax. The independent 41-endpoint/456-dependency
+audit adds no globals; real-memory fixtures cover acceptance, alias refusal,
+changing original bounds, empty paths and refusal before unavailable future
+reads. The complete loaded-family driver/model/candidate/factory and installed
+compiler remain pending; this stage adds no native calls or cost results.
+
 The [narrative responsibility check](../docs/narrative-responsibility-check-2026-10-07.md)
 separates the local dispatch law from whole-program installation and distinguishes
 language authors, domain implementers and users of a supported family. The

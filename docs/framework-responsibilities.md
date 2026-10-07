@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [完整word outer扫描](tensor-word-outer.md)已由语言服务完成全nested
+检查和实际scan出口的cached执行运输。Domain header adapter从actual capture
+receipt推导两header求值、cache定义性和observer scope，生成语法只用静态地址
+templates；fixture不再提供这组语义callback。41端点独立审计通过，无新增公理，
+kernel保持。下一困难是条件式capture／profile接线、canonical tensor／完整guard
+出口参数和真实候选／public exit，再由family factory交付local与site证据接安装。
+这些不是kernel自动取得的性质；当前仍无新增loaded compiler／C／Asm／cost。
+
 2026-10-07 [本次narrative责任核对](narrative-responsibility-check-2026-10-07.md)
 明确 `C_host` 的局部choice定律与整程序安装是不同证明；最小kernel、语言库、
 domain实例及具体site的证据生产责任分别记录。当前实际tiling路径已接通，
