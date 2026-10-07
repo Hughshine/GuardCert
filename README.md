@@ -4,11 +4,17 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[完整三层 canonical model](docs/nested-constant-model.md)已将合法双缓存源接到
+旧 affine AST，并从 checked package 取得真实 Loop 内存执行；没有新增
+source/model 语义回调。12 端点审计通过，kernel／旧 compiler 保持。
+下一项是原 capture／numeric 的实际输入 producer、原 AST factory／候选／host；
+此阶段没有新提取或 native，Figure 2 适配源的优化尚未安装。
+
 [Outer 短路扫描与双缓存源](docs/constant-joint-outer-scan.md)已消费 inner producer，
 整段接受生产全部 rows／columns 的观察保持，实际取得原源与双缓存源的相同出口
 temps／memory。第一行拒绝停止 outer，空 outer 不要求 child／output receipt。
-14 端点／565 依赖审计通过，kernel／既有 compiler 绑定保持。完整 canonical 模型、
-原 AST factory／候选安装与新 compiler 仍未完成；本阶段没有新 native。
+14 端点／565 依赖审计通过，kernel／既有 compiler 绑定保持。完整 canonical 模型
+后继见上段；原 AST factory／候选安装与新 compiler 仍未完成，没有新 native。
 
 [Inner 短路扫描及整行接受](docs/constant-joint-inner-scan.md)已接到真实 Clight loop：
 每个 column 从原源 prefix 取得 BODY 许可，接受后推进；整行接受生产所有 column

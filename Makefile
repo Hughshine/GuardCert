@@ -27,6 +27,13 @@ paper-offline:
 .PHONY: constant-joint-proof constant-joint-validate
 .PHONY: constant-joint-inner-proof constant-joint-inner-validate
 .PHONY: constant-joint-outer-proof constant-joint-outer-validate
+.PHONY: nested-constant-model-proof nested-constant-model-validate
+nested-constant-model-proof:
+	python3 scripts/audit_nested_constant_model.py
+
+nested-constant-model-validate:
+	python3 scripts/audit_nested_constant_model.py --validate
+
 constant-joint-outer-proof:
 	python3 scripts/audit_constant_joint_outer.py
 

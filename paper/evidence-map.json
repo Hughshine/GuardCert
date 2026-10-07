@@ -234,7 +234,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Actual outer short-circuit scan consumes the original-source row producer; complete acceptance yields all-row/all-column observation preservation and full two-cache source execution with the same exit temps and memory. Independent empty guard and zero-header transport need no child/body receipt. Canonical full model, input-producing factory and optimizer installation remain pending.",
+      "claim": "Actual outer short-circuit scan consumes the original-source row producer; complete acceptance yields all-row/all-column observation preservation and full two-cache source execution with the same exit temps and memory. Independent empty guard and zero-header transport need no child/body receipt. Canonical model is supplied by the following stage; input-producing factory and optimizer installation remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightConstantJointOuterScan.v",
@@ -271,6 +271,31 @@
       ],
       "documents": [
         "docs/constant-joint-outer-scan.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Fixed three-axis cached source transported to the existing canonical affine AST and checked real-memory Loop execution, with exact exit temps and final memory. Checked leaf facts discharge concrete transport premises; no source/model semantic callback. Actual capture/numeric input producers, original AST factory, candidate and whole-program installation remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedConstantModel.v",
+          "name": "nested_constant_model_source_exact"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantModel.v",
+          "name": "constant_affine_body_preinitialized_model"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantModel.v",
+          "name": "nested_constant_closed_preinitialized_model"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantDecode.v",
+          "name": "nested_constant_package_source_decode"
+        }
+      ],
+      "documents": [
+        "docs/nested-constant-model.md"
       ]
     },
     {
@@ -385,6 +410,17 @@
     "complete_outer_runtime_scan_proved": true,
     "full_cached_source_execution_is_acceptance_result": true,
     "canonical_full_model_connected": false,
+    "new_compiler_or_native_execution": false
+  },
+  "nested_constant_model_proof_stage": {
+    "report": "build/nested-constant-model/proof/report.json",
+    "sha256": "da5a29a86acf1934d8242c9f0ba9765e7d831ed80cb4192ba4f2510f95bc52b0",
+    "endpoints": 12,
+    "required_dependencies": 557,
+    "source_digests": 1071,
+    "canonical_three_axis_source_transport_proved": true,
+    "checked_real_memory_loop_decode_connected": true,
+    "actual_capture_numeric_input_producers_connected": false,
     "new_compiler_or_native_execution": false
   }
 }

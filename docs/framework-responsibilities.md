@@ -4,7 +4,7 @@
 
 最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。
 
-[当前源码核对](narrative-implementation-check-2026-10-06.md)已更新到 `ea55a6f`，
+[当前源码核对](narrative-implementation-check-2026-10-06.md)已更新到 `fa8cbd8` 及本轮后继，
 并记录 [实际 BODY joint scan](constant-body-joint-scan.md) 和 inner loop 的连接。语言库提供
 observer expression receipts、真实 pointer comparison、private Boolean 积累和
 store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比较，证明完整
@@ -14,8 +14,10 @@ store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比
 和 outer-prefix advance。固定入口的 header 定律足够，不要求任意无关入口的 cache
 对应。[Outer 后继](constant-joint-outer-scan.md)现已接通真实扫描和全部 rows
 preservation，导出同出口／memory 的整段双缓存源。14 端点／565 依赖审计保持，
-无新增语义 BODY／PRESERVE 回调。完整 canonical model／候选和原 AST 安装仍待
-连接；numeric／word／namespace 事实须由实际 factory 生产。
+无新增语义 BODY／PRESERVE 回调。[Canonical 后继](nested-constant-model.md)已证明实际三层
+source transport 和 checked-package Loop 内存解码，静态 leaf/frame 输入在
+该实例内部生产。候选与原 AST 安装仍待连接；numeric／word／namespace 事实
+须由实际 factory 生产。
 `ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
 记录其 producer；这次没有把未完成的整段 guard／factory 计作已经自动取得。
 

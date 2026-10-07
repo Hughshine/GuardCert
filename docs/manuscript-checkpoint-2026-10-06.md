@@ -127,3 +127,20 @@ Offline 重建仍为 11 页，无未解析引用或 overfull box。渲染检查�
 新增段落、pending、evaluation 和后继页均无截断／重叠。
 最终 `build/paper/report.json` SHA-256：
 `fb1b7aaff10a9ff41c352fb7129f338afab99209966d04732b854b5d4d6d2911`。
+
+## 2026-10-07：完整三层 canonical model 同步
+
+[Canonical model 消费者](nested-constant-model.md)已将合法的双缓存源接到旧
+affine AST，并消费 checked package 取得真实 Loop 内存执行。12 domain
+endpoints／557 依赖／1,071 源摘要审计通过；kernel 闭合，旧 compiler 保持
+42 assumptions。原 outer／inner／BODY／constant model／nested-header／loaded-offset
+validators 及既有 native/path/work 绑定核对通过，没有新运行矩阵或计时。
+
+重新 fetch/read narrative `271f6fc`，main 正文一致。责任文档修正旧 outer 待办，
+计划继续分开 proof-first 功能链、紧凑条件／成本／接受域和作者负担验收。
+Case-study／evaluation／evidence map 同步当前模型接口；实际输入 producers、
+原 AST factory／候选／host／提取和本例 native 接受继续标记 pending。
+Offline 稿件仍为 11 页；修复新增段落的排版溢出后，无未解析引用或 overfull。
+渲染检查最终第 7–10 页，新增段落、pending 与后继内容均无截断／重叠。
+最终 `build/paper/report.json` SHA-256：
+`69156b7c1310551ee214cec60d3b24f61918e99148ccdf2c22879f847b7f7f53`。

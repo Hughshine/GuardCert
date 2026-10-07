@@ -1,12 +1,23 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[完整三层 canonical 模型连接](nested-constant-model.md)已将合法的
+双缓存源运输到旧 affine AST，并消费 checked package 取得真实 Loop 内存执行。
+12 端点／557 依赖／1,071 源摘要审计通过；kernel 不变，旧 compiler 保持 42 项
+assumptions。静态 leaf quiet/write 和本实例循环 frame 由证明生产，没有新增
+source/model 语义回调。私有 helper 初始化与原 source freshness 仍须实际组装。
+下一项从原 capture／numeric／namespace 生产扫描 typed inputs，接真正原 AST
+factory／typed pool／候选／host，随后提取和运行 Figure 2 适配源。
+Empty／negative／unknown 的有序 gate 与原源回退一起验收。本阶段没有新
+compiler／native，完整目标 active；compact 条件、成本／接受域与作者工作仍是
+后续最终要求。
+
 2026-10-07：[实际 outer scan／双缓存源](constant-joint-outer-scan.md)已从现有
 inner producer 生产全部 rows 的 preservation，填入旧 two-cache transport，取得
 原／缓存源的相同出口 temps 和 final memory。第一行拒绝、独立 empty outer guard
 和无需 child cache 的语言 empty transport 有实际端点；kernel 不变，没有新增
 BODY／PRESERVE 语义回调。14 端点／565 依赖／1,069 源摘要审计通过，旧 compiler
-保持 42 项 assumptions。下一项是完整 canonical model 及原 capture／numeric 到
-这些 typed inputs 的实际 producer，再接原 AST factory／typed pool／候选／host。
+保持 42 项 assumptions。完整 canonical model 的后继见上段；原 capture／numeric
+到 typed inputs 的实际 producer，以及原 AST factory／typed pool／候选／host 待连接。
 没有新数组 fixture、提取、native 或计时；完整目标 active。
 
 2026-10-07：[实际 inner 短路 loop／整行接受](constant-joint-inner-scan.md)已消费
@@ -15,8 +26,8 @@ advance。固定入口的 header 适配复用旧语言 prefix，guard 私有游�
 temps 分开；first refusal 和 empty child 的真实执行端点已证明。
 14 端点／563 required dependencies／1,067 源摘要审计及旧 compiler／native 绑定核对
 通过；kernel 无改动、无新增公理。
-该阶段之后的实际 outer scan／完整 rows 及 cached source 已由上段连接；完整
-canonical model、原 AST／typed pool／候选／host 和 compiler 尚未完成。
+该阶段之后的实际 outer scan／完整 rows 及 cached source 已由上段连接；
+canonical model 后继见首段，原 AST／typed pool／候选／host 和 compiler 尚未完成。
 
 本轮重新 fetch／完整读取 narrative `271f6fc` 及 context-lifting，main 正文无差异；
 [责任／实现核对](narrative-implementation-check-2026-10-06.md)已按 `ea55a6f` 更新到
@@ -29,8 +40,9 @@ canonical model、原 AST／typed pool／候选／host 和 compiler 尚未完成
 继续把 kernel、条件库、language host 和具体 optimizer/site 的责任分开；
 不把 `ENCODE`／coverage／`PRESERVE` 参数计作已实现 producer。
 Reached constant body 许可的双观察 joint scan 和接受后的 inner-prefix preservation
-已连接；实际 inner／outer 后继见上段。下一实现组装完整 canonical model 与
-原 AST 安装。功能链闭合后验收 compact 条件、成本／接受域和
+已连接；实际 inner／outer 后继见上段。下一实现组装原 capture／numeric 的实际
+输入 producer 与原 AST 安装；canonical model 后继见首段。
+功能链闭合后验收 compact 条件、成本／接受域和
 同例作者责任；相关里程碑同时更新实际稿件，不等待全部未来扩展。
 
 前一 [实际 BODY joint scan](constant-body-joint-scan.md)消费 reached source permissions，
