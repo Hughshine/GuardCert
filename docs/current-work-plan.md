@@ -1,12 +1,23 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[原源 capture／numeric 输入生产](nested-constant-numeric.md)已从实际
+first leaf 和旧参数使用 checker 生产参数定义性，执行有序 capture／双 gate，
+numeric 接受后生产完整整数域及 outer scan 的逐点 `DOMAIN`／`SOURCE_WORDS`。
+24 端点（6 language／11 domain／7 fixture）、565 依赖／1,076 源摘要审计通过；
+kernel 闭合，旧 compiler 保持 42 项 assumptions。BODY 专用参数的 data-only
+package 接受，空外层／内层在其余参数未定义时的实际拒绝均已证明。
+下一项连接 observer receipts、helper 准备和 scope／namespace 到完整 physical
+scan；组装原 AST site checker、guard certificate、cross-entry 候选和 typed host。
+没有新 compiler／extraction／native／timing。Figure 2 适配源仍未安装优化，
+完整目标 active。紧凑条件、成本／接受域及同例作者工作继续按 narrative 验收。
+
 2026-10-07：[完整三层 canonical 模型连接](nested-constant-model.md)已将合法的
 双缓存源运输到旧 affine AST，并消费 checked package 取得真实 Loop 内存执行。
 12 端点／557 依赖／1,071 源摘要审计通过；kernel 不变，旧 compiler 保持 42 项
 assumptions。静态 leaf quiet/write 和本实例循环 frame 由证明生产，没有新增
 source/model 语义回调。私有 helper 初始化与原 source freshness 仍须实际组装。
-下一项从原 capture／numeric／namespace 生产扫描 typed inputs，接真正原 AST
-factory／typed pool／候选／host，随后提取和运行 Figure 2 适配源。
+Capture／numeric 后继见上段；scope／namespace 及完整 guard 组装、真正原 AST
+factory／typed pool／候选／host 尚待连接，随后提取和运行 Figure 2 适配源。
 Empty／negative／unknown 的有序 gate 与原源回退一起验收。本阶段没有新
 compiler／native，完整目标 active；compact 条件、成本／接受域与作者工作仍是
 后续最终要求。
@@ -412,6 +423,11 @@ prefix、row-local joint preservation→outer advance 和 two-cache execution �
 `shape[1]+delta` 的 read 定律和 active-outer／empty-child fixture 已有；当前没有新 compiler。
 
 下一项依赖顺序：
+
+当前 first-leaf／parameter domains、实际 capture＋gated numeric 和逐点
+DOMAIN／SOURCE_WORDS 已由 [producer 后继](nested-constant-numeric.md)生产，
+inner／outer physical scan 和 canonical transport 也已有实际端点。
+下面按完整安装的剩余连接理解，不把独立端点相加称作已支持原 C。
 
 1. 原 reached child body → affine child／grandchild decode → 实际访问许可和 write coverage；
    实现所有 observations 的 actual private scan，证明 inner points／outer rows 的完整覆盖。

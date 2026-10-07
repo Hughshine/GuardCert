@@ -16,8 +16,11 @@ store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比
 preservation，导出同出口／memory 的整段双缓存源。14 端点／565 依赖审计保持，
 无新增语义 BODY／PRESERVE 回调。[Canonical 后继](nested-constant-model.md)已证明实际三层
 source transport 和 checked-package Loop 内存解码，静态 leaf/frame 输入在
-该实例内部生产。候选与原 AST 安装仍待连接；numeric／word／namespace 事实
-须由实际 factory 生产。
+该实例内部生产。[原源 numeric 后继](nested-constant-numeric.md)现已从首次实际
+leaf 和 checked 参数使用生产定义性，运行 ordered capture／双 gate，接受后
+生产逐点 DOMAIN／SOURCE_WORDS；新服务不要求调用者预设这些事实。
+24 端点审计通过。原 AST factory 仍须绑定 observer receipts、helper 准备、
+scope／namespace 和后续 scan 入口，再连接候选与语言安装。
 `ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
 记录其 producer；这次没有把未完成的整段 guard／factory 计作已经自动取得。
 

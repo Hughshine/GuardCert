@@ -4,10 +4,17 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[原嵌套源的 capture／numeric 输入生产](docs/nested-constant-numeric.md)已从实际首次
+leaf 取得已用参数定义性，运行有序 capture 和两层短路 gate；numeric 接受直接
+生产 outer scan 所需的逐点整数域及 word view。BODY 专用参数的 checked package、
+参数未定义时的空外层／内层实际拒绝均已证明。24 端点独立审计通过，没有新增
+semantic callback，kernel／旧 compiler 保持。下一项组装 namespace／helper／observer
+输入与完整 physical guard、原 AST factory／候选／host；没有新 compiler 或 native。
+
 [完整三层 canonical model](docs/nested-constant-model.md)已将合法双缓存源接到
 旧 affine AST，并从 checked package 取得真实 Loop 内存执行；没有新增
 source/model 语义回调。12 端点审计通过，kernel／旧 compiler 保持。
-下一项是原 capture／numeric 的实际输入 producer、原 AST factory／候选／host；
+Capture／numeric 后继见上段；原 AST factory／候选／host 仍待连接；
 此阶段没有新提取或 native，Figure 2 适配源的优化尚未安装。
 
 [Outer 短路扫描与双缓存源](docs/constant-joint-outer-scan.md)已消费 inner producer，

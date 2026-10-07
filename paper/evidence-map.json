@@ -275,7 +275,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Fixed three-axis cached source transported to the existing canonical affine AST and checked real-memory Loop execution, with exact exit temps and final memory. Checked leaf facts discharge concrete transport premises; no source/model semantic callback. Actual capture/numeric input producers, original AST factory, candidate and whole-program installation remain pending.",
+      "claim": "Fixed three-axis cached source transported to the existing canonical affine AST and checked real-memory Loop execution, with exact exit temps and final memory. Checked leaf facts discharge concrete transport premises; no source/model semantic callback. Original AST factory, candidate and whole-program installation remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightNestedConstantModel.v",
@@ -296,6 +296,43 @@
       ],
       "documents": [
         "docs/nested-constant-model.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Original source completion produces actual first-leaf parameter words, ordered capture and gated numeric execution. Acceptance supplies per-coordinate DOMAIN/SOURCE_WORDS anchored at the captured entry. Empty root/child refuse with BODY inputs undefined. Full physical guard assembly, original AST factory, candidate and compiler installation remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedConstantFirstLeaf.v",
+          "name": "nested_constant_original_first_leaf"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantNumericInputs.v",
+          "name": "nested_constant_original_parameter_domains"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantNumericInputs.v",
+          "name": "nested_constant_package_scan_inputs"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantCapturedNumeric.v",
+          "name": "nested_constant_captured_numeric_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantNumericExample.v",
+          "name": "nested_constant_body_parameter_package_checked"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantNumericExample.v",
+          "name": "nested_constant_empty_root_actual_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantNumericExample.v",
+          "name": "nested_constant_empty_child_actual_refusal"
+        }
+      ],
+      "documents": [
+        "docs/nested-constant-numeric.md"
       ]
     },
     {
@@ -421,6 +458,22 @@
     "canonical_three_axis_source_transport_proved": true,
     "checked_real_memory_loop_decode_connected": true,
     "actual_capture_numeric_input_producers_connected": false,
+    "new_compiler_or_native_execution": false
+  },
+  "nested_constant_numeric_proof_stage": {
+    "report": "build/nested-constant-numeric/proof/report.json",
+    "sha256": "0574bda833e58435b2d8000f9c70284d0bec95bfb2320acd0c8cf9dbf29bead8",
+    "endpoints": 24,
+    "language_endpoints": 6,
+    "domain_endpoints": 11,
+    "fixture_endpoints": 7,
+    "required_dependencies": 565,
+    "source_digests": 1076,
+    "actual_ordered_capture_and_gated_numeric_execution": true,
+    "parameter_domains_derived_from_original_source": true,
+    "accepted_numeric_produces_scan_domain_and_source_words": true,
+    "empty_root_and_child_refuse_with_undefined_body_inputs": true,
+    "complete_nested_physical_guard_and_factory_assembled": false,
     "new_compiler_or_native_execution": false
   }
 }
