@@ -323,6 +323,45 @@ The strongest examples should exercise the reasons the abstraction exists:
 - multiple guarded rewrites in one function;
 - preservation of public exits/state through CompCert.
 
+### Functional coverage and usability: implementation order
+
+Clarification from the 2026-10-06 discussion: first complete the proof chain for
+the agreed implementation scope, then improve condition derivation and guard
+generation. A certified scan is a valid intermediate implementation; there is
+no need to interrupt that proof work merely because its checks are expensive.
+This sequencing does not make efficient condition handling an optional polish
+item or require completing every roadmap extension before improving guards.
+
+[Optimistic Loop Optimization (CGO 2017)](https://pollylabs.org/publications/grosser-2017-Optimistic-Loop-Optimization.pdf),
+especially Figures 2a–2b and Sections 5–7, is a functional and usability
+reference as well as related work: assumptions are generalized to parameter
+conditions, simplified, and checked with measured runtime cost. Within our
+declared scope, the target is an end-to-end usable optimizer with mechanized
+guarantees. Assess automatic condition handling and per-instance manual work,
+not just whether one guarded example can be proved.
+
+Keep three guard properties separate: generated code size, runtime checking
+cost, and the useful inputs accepted. Replacing an unrolled scan with a cursor
+loop reduces code growth but does not eliminate per-point work. For supported
+affine obligations, pursue compact entry checks through verified projection,
+range/footprint reasoning, or certified sufficient-condition proposals; retain
+scans or conservative refusal where justified. Mathematical projection alone
+does not establish safe machine arithmetic, pointer observations, or dependent
+reads. A replacement guard must prove safety, acceptance implying the required
+semantic obligations, and entry-state transport; it should reuse the existing
+candidate and host proofs where their contracts still apply. Identical old/new
+acceptance sets and globally minimal conditions are not required.
+
+Use selected C examples and benchmark kernels from the CGO 2017 work to compare
+the source problem, required assumptions, enabled transformation, guard cost,
+and acceptance. Record source adaptations and attribute gaps to frontend/source
+coverage, condition algorithms, unfinished proofs, or a specific semantic
+difference. LLVM/Polly and CompCert/Clight need not produce identical guards or
+support every same program, but verification alone does not explain a
+functional gap. Correctness, functional coverage, and usability are separate
+acceptance criteria; this note does not claim that the comparison or cost
+evaluation is already complete.
+
 ## 9. How to present generality
 
 The main body should not attempt to demonstrate every possible application

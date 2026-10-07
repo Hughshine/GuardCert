@@ -16,6 +16,18 @@
 
 [完整 scan 后继](research-checkpoint-2026-10-06-loaded-affine-scan.md)已关闭前段的检查执行与接受结果义务：语言提供实际 Mint32 地址比较和 root 拒绝短路；领域库用当前 body 的真实许可实例化递归 child scan，并在 body 接受后推进实际源前缀。静态描述器将 capture、numeric、runtime gate 和全部 scan 合成一段代码，没有逐 body 语义回调；现行 certificate 库以原 source completion 为 D，给出安全、分派、全部完成检查的 soundness 和 public frame。接受导出完整缓存源执行与同一最终 memory。38 端点审计及真实自别名拒绝／同 block 接受通过，kernel 和现行 host 不变。优化方仍须连接候选 checker；完整程序安装、typed allocation、提取和真实 C 是后续语言／使用者验收，不从这张稳定性证书推断已完成。
 
+
+[候选／compiler 后继](research-checkpoint-2026-10-06-loaded-affine-multi.md)关闭上一段当时未连接的
+candidate 与完整编译证明：语言构造器支持 kernel 已有的 arbitrary entry relations，携带新 cache；
+domain 从稳定性接受生产真实 cached execution，再运行旧多数组 alias，取得旧 candidate validator／backend
+的实际执行与出口。checked factory 接受数据提案，语言的既有 loaded-region host 独立核对原源 progress
+和 private placement。32 端点审计、新 Csem→Asm 与旧两条 42-assumption 回归通过，旧对象绑定保持。
+最难关闭的是 cached completion 只能是 stability 的结果而不能是 guard safety 的假设；整个连接没有新增
+kernel 能力。本入口的 frontend／提取／新 native 与 guard 成本、作者负担仍未验收。
+
+narrative 本轮更新为 `226ba94`：先闭合约定范围的证明链，然后改进条件推导／生成；scan 是中间实现。
+自动化／可用性是最终要求。代码大小、运行检查成本和接受域分开评估，具体同例对照仍待完成。
+
 ## 1. 三方各自证明什么
 
 “框架提供 conditional correctness 接口”不表示框架替优化作者证明任意候选正确。“语言提供语义”也不表示每个优化作者都要重新证明语言的 if、load 和上下文定律。

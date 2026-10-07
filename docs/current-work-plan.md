@@ -2,6 +2,12 @@
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
+最新证明接入是 [deep＋loaded multi compiler](research-checkpoint-2026-10-06-loaded-affine-multi.md)：
+cache entry transport、依赖稳定性之后的 alias 安全、旧 candidate validator／backend、原 loaded fallback、
+语言 region／progress host 和新 Csem→Asm 已连接。32 端点／692 依赖／1,021 源摘要审计通过，
+compiler 保持旧 42 项假设，旧 source/object bindings 未变。尚无本入口的提取／新 native；
+下一验收是实际 frontend adapter、完整 C 的非空递归变换／回退和上下文，随后推进紧凑条件与成本。
+
 前一可运行交付是 [循环化 dependent guard compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)：真实 `**root` 源的两个 private captures、双观察稳定性、mapped／tiling／schedule 候选和 original fallback 已完整安装；实际 guard 改为两个短路私有 cursor 循环。43 个新证明端点、提取、两类 affine 域共 444 调用，以及 store-order／guard comparison-order 探针均通过。默认 cap 的完整函数从约 13 MB 的 Clight 打印体降到约 25 KB，机器函数大小也已单独核对；没有性能收益结论。以下阶段保留各自历史范围，当前未完成项以文末最新接入阶段的验收为准。
 
 最新可运行交付是 [deep affine 接入当前证书接口](research-checkpoint-2026-10-06-materialized-affine.md)：复用已有递归 canonical 源／模型和候选 checker，Clight 新增正常返回的 private Boolean host；单／多指针使用者消费当前 kernel，并接实际 Csem→Asm、提取、十二配置共 5,118 次新 assembly 调用及四组独立 Clight 插桩。26 端点／462 依赖／982 源摘要审计通过，kernel 不变。旧 source IR 和多指针物理 scan 不是本次新增算法；stable-temp 深层域与两层 loaded/dependent 路线尚未组合。共享 `.vo` 重编导致旧冻结 cursor 对象绑定失配，当前消费者独立重编／535 依赖审计通过，原 42 项假设保持；152 个对象摘要已不同，不把旧 validator 称为通过。
@@ -227,3 +233,27 @@ guard 循环化、一般深层域、不同 body base 的 alias 接受、P4 和�
 六个新 `.v`、26 端点审计和提取通过。单／多指针的交换和 2×3 tiling 实际安装，错误 reindex／domain 和资源限制拒绝；十二配置共 5,118 次新 assembly 调用核对完整数组与公开出口。四组 actual emitted Clight 插桩另核对 1,366 调用的接受／fallback、共享存储的分离访问、重叠拒绝和 undefined 参数零读取；不是新的机器路径证据。前阶段及旧 deep 的 source/native 报告保持历史范围。
 
 后继顺序据源码核对修正：先明确 stable-temp 深层实例与 loaded/dependent 实例能够共享的 source／前提／候选接口，再处理实际阻碍组合的 memory-bound 语义；多指针 scan 已在 stable-temp 路线接入，下一项是与 header/多观察稳定性的物理分离组合。一般 source 域形状、typed pointer-store body、P4 独立计时和同例已有工作／作者责任比较仍未完成。新实例的三方分工沿 narrative `7d94d81`，不以 code wrapping、端点数或测试次数主张新颖性或作者负担下降。完整 goal active。
+
+## Narrative 226ba94：功能闭合后改进条件可用性
+
+本轮重新 fetch 到 `origin/topdown/research-positioning = 226ba94`，已同步
+[paper narrative](topdown/paper-narrative.md) 的新增实施顺序澄清。先闭合约定范围的
+实际证明链，scan 可作为合法中间实现，不因昂贵而中断正在进行的接入；但自动条件推导、
+guard 成本和 per-instance 人工负担是最终验收内容。无需先完成整个未来路线图才改进条件。
+
+后继行动按这个顺序约束：
+
+1. 完成当前 recursive affine＋loaded bound 的候选／host／compiler 接入及实际提取和 C 运行。
+   已存在的私有缓存、源前缀、alias 和候选证明继续复用；新缺口优先落实到真实 frontend、
+   typed pool、非空递归例、接受／loaded fallback 和完整上下文，不用抽象接口增加代替它们。
+2. 在已声明 affine 范围内实现紧凑 entry 条件：验证 projection、range／footprint 包络，
+   或核对不受信任充分条件提案。保留 scan／保守拒绝作为剩余路径。
+   替换条件必须证明实际检查安全、接受 ⇒ 所需语义义务和入口运输；不要求与旧条件接受集相同，
+   也不要求全局最小条件。只做数学投影不会自动证明机器算术或依赖读取安全。
+3. 分别测量生成代码规模、运行检查成本、实际接受输入；cursor 循环化只能直接改善代码增长，
+   不能据此宣称消除了逐点检查。候选 proof 和 host proof 在契约不变时应保持复用。
+4. 选择 CGO 2017 的具体 C 例和 benchmark kernel，与当前支持范围逐项对照：源问题、假设、
+   变换、检查成本、接受率及实例作者需手写的内容。记录源适配，将差距归到 frontend／源覆盖、
+   条件算法、未完证明或具体语义差异；验证本身不构成功能差距的解释。
+
+上述顺序吸收的是当前 narrative 的新澄清，不改写旧阶段的固定能力或报告；最终完整目标保持 active。

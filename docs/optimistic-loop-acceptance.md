@@ -43,6 +43,17 @@
 
 起步实例可限制为二维、两个普通整数指针及结构化顺序循环。随后加入内存载入的边界、参数 stride、多个语句和 tiling。论文评估中的一般性与性能不能由一个模板推出；每项能力分别记录实际证据。
 
+
+10 月 6 日的 [后继 loaded-affine multi compiler](research-checkpoint-2026-10-06-loaded-affine-multi.md)
+已闭合前一 scan 的候选／host／Csem→Asm 缺口：带捕获 cache 的入口关系、依赖稳定性接受之后的 alias
+可执行性、旧 validator 和实际候选／fallback 均进入 checked factory。32 新端点审计通过，新 compiler
+保持旧 42 项假设。尚无该入口的新提取／C／native；三轴 static descriptor／progress 与单数组的实际
+接受／提前停止回退例不计作非空三轴候选运行。
+
+按 narrative `226ba94`，功能、正确性和可用性分别验收：先完成约定范围的实际链，再改进紧凑 entry
+条件及自动生成。guard 代码大小、检查工作和有用输入接受范围单独记账；CGO 2017 选定 C/kernel
+的源适配、变换、成本和实例人工工作对照仍未完成，不以 verification 本身解释功能差距。
+
 ## 推进顺序
 
 当前已固定 [语言接入设计](clight-guarded-rewrite-design.md) 中的职责，编译核心接口、真实只读条件和 effect 设施。延迟读取原子已接入公式合成，从实际源执行导出检查域，并通过一个分支 rewrite 实例消费新接口接到完整 Csem→Asm 定理。C 前端的空语句规范化也有执行对应证明。

@@ -240,3 +240,16 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 [后继实现](research-checkpoint-2026-10-06-loaded-affine-scan.md)已将 general child scan 的包围坐标、actual root break、接受后的源前缀推进和 cached-source transport 接通；没有把旧 decision-tree `BODY_CHECK` 当作 statement execution。静态 site checker 只接收语法／interval／names，实际 capture、numeric、root=0／count 非负 gate 与 recursive scan 组成一段 materialized check。当前 `guard_certificate` 的 D 只有原 source completion；未来访问许可和 bound preservation 都由库生产。语言提供 pointer primitive 与短路／frame，domain 提供模型／point coverage 和接受推进，kernel／whole-program host 不变。
 
 38 端点／682 依赖／1,012 源摘要审计通过，先前 body domain／numeric／compiler 对象绑定保持。具体自别名源 bound=2→1、同 block 相邻字接受／缓存源执行、零次迭代且 child 参数未定义均有实际 Clight 证明。重新 fetch narrative 仍为 `7d94d81`，main 正文一致。完整候选、typed pool、原 fallback／程序安装与新 native 入口尚未连接，仍是下一项验收；没有将 source-domain 正常完成证书扩张为发散源结论。
+
+
+## Narrative 新澄清：226ba94（本轮 fetch）
+
+相对上轮 `7d94d81`，新增 Functional coverage and usability 段；正文已同步到
+[paper narrative](topdown/paper-narrative.md)。**采纳**：先闭合约定范围的证明链，再改进条件推导／
+生成；scan 是有效中间实现，自动化程度与人工工作、接受域和检查成本仍是必须验收的可用性。
+**计划已调整**：不因当前 scan 昂贵而停下 stability→candidate→host 接入，也不等整个路线图
+扩展完成才处理 entry 条件。具体顺序见 [当前计划](current-work-plan.md)。
+
+代码规模、检查成本、接受范围分别记账；循环化不计作消除逐点工作。后继 compact guard 可是
+更强充分条件，但需实际 safety／soundness／entry transport，并检查旧候选与 host 是否仍可复用。
+CGO 2017 选定 C/kernel 的同例比较与成本／作者负担评估仍**未完成**，新增编译定理不替代它们。
