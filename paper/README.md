@@ -15,9 +15,13 @@ of historical reports, using the installed pinned toolchain. A separate Clight
 library checks constant-word bodies and proves fixed-address observation
 preservation, including same-cell aliasing. A successor producer proves the actual
 loop effects, transports the source to its cached model, and proves a two-comparison
-Clight check with its exit frame. Its compiler shortcut is still pending.
-Broader affine source classes, compact conditions, condition-cost evaluation, and comparative
-proof-author effort remain pending.
+Clight check with its exit frame. The successor compiler installs this check,
+retains the scan when it refuses, and reuses the candidate and host proofs.
+Independent native/dispatch runs and four assembly probes cover same-word
+header/data aliases. A same-input comparison separates local comparison counts,
+useful acceptance, and code growth. Broader affine source classes, more general
+compact conditions, complete guard/program timing, and comparative proof-author
+effort remain pending.
 
 ## Build
 

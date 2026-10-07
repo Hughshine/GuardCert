@@ -2,7 +2,8 @@
 
 2026-10-07，接续 [constant-word observation](constant-word-observation.md)。
 本阶段把固定 cell 的语言性质接到实际三层原循环、canonical 模型和两次比较的
-Clight 检查。当前 compiler 仍运行原 guard；新的 producer 尚未接入 factory／提取。
+Clight 检查。本页保留这个局部证明阶段；后继
+[same-word compiler](nested-stability-compiler.md)已完成实际安装、独立提取及运行对照。
 
 ## 条件及使用方式
 
@@ -68,7 +69,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_nested_
 和查询 artifacts，不依赖旧 proof report。
 
 `build/nested-word/proof/report.json` SHA-256：
-`ce5c202de41b517fc4b9e51b81b239754a5278758dadef995255c731695677ae`。
+原阶段为 `ce5c202de41b517fc4b9e51b81b239754a5278758dadef995255c731695677ae`；
+同日独立重新查询的当前报告为
+`4f7b40a60fca5705682721919cef435e8553db5b59ee5e9f85e3b1544d1f047d`，
+端点、依赖和 6 项基线保持。它仍记录本局部阶段，compiler／native 证据另见后继报告。
 
 Fixtures 核对实际三层语法、旧 package／新 BODY checker 同时接受、两个缓存值的
 接受／拒绝，以及实际 accepting check 和 first-refusal 跳过未定义 child cache。

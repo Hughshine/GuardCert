@@ -6,14 +6,24 @@
 queries，compiler 42-global 集合保持、kernel 闭合，未扩展 source class。
 另 [constant-word observation](constant-word-observation.md)的 actual Clight BODY
 checker／memory-effect producer 7 端点通过，6 项既有基线、零新增 global axiom。
-它提供 fixed-cell observation 保持，不保证 pointer bindings／progress，也未
-安装新 guard。后继 [same-word producer](nested-word-model.md)已将实际循环的
+它提供 fixed-cell observation 保持，不保证 pointer bindings／progress。
+后继 [same-word producer](nested-word-model.md)已将实际循环的
 observation 保持接到 cached source／canonical model，并证明两次缓存比较的
 真实执行、接受义务和 actual check-exit ports frame；22 端点／508 依赖审计通过。
-下一项 **接入 actual physical guard／multi candidate adapter／typed factory，
-新条件接受时跳过 stability scan，其他路径复用旧扫描；复用候选及 host，运行
-alias 接受／不同 raw word 回退并比较 scan work／完整成本**。其他 source class、动态
-布局和作者工作验收继续按下列计划推进；完整目标 active。
+[same-word compiler](nested-stability-compiler.md)现已完成 actual physical guard、
+multi adapter、typed factory 和新 Csem→Asm entry；新条件成立时跳过 stability scan，
+其他路径保留旧 scan，原 candidate／host 证明直接复用。独立 19 端点／597 依赖
+审计、提取、762 assembly calls、381 Clight dispatch calls 和四个未修改汇编
+probes 通过。同输入旧 binary 对照新增两个 alias fast calls，局部地址查询下降，
+但完整函数代码增长；详见
+[新 checkpoint](research-checkpoint-2026-10-07-nested-stability.md)。
+Narrative `271f6fc` 最新澄清继续约束验收。
+
+下一项 **在相同 source／candidate 上降低备用 scan 的代码重复，并拓展 compact
+condition 的有效范围；分别验收完整检查／program timing、代码大小及接受域，
+建立三方作者需要提供的数据、库证明和实例证明对照**。Constant-word shortcut
+不等于整份 guard 常数成本；一般 projection、动态布局、更多 affine source
+classes 和完整 BT 适配仍继续按下列计划推进。完整目标 active，阶段完成不关闭目标。
 
 以下为先前阶段；其中 fresh-build 待办已由上述后继关闭。
 

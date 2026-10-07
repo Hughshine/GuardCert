@@ -7,8 +7,14 @@ checker 和实际执行到 memory observation 的 producer；它是 language ser
 不扩大最小 kernel。后继 [same-word producer](nested-word-model.md)已消费该保证，
 从实际 subloop 保持生产 cached／canonical 模型，证明实际 residual check 和
 actual check-exit frame；22 端点审计通过。Source-derived capture 与 numeric 前提
-继续由旧 receipts 提供。下一项按 narrative 要求将这个局部 producer 安装进实际
-factory／compiler，复用候选和 host；随后比较成本、接受域与作者 obligations。
+继续由旧 receipts 提供。[same-word compiler](nested-stability-compiler.md)现已
+按 narrative 将其接入 actual guard／multi adapter／factory／Csem→Asm，直接复用
+候选证书、kernel 和语言 host。独立 19 端点／597 依赖审计、提取、762 assembly
+calls、381 Clight dispatch calls 和四个未修改汇编 alias probes 通过。旧 binary
+同输入对照显示 fast dispatch 49→51，一组稳定性地址比较 40→0 加两次缓存比较；
+完整函数增长 613→762 bytes。局部工作量、代码规模和接受分别记录，无计时／
+profitability 结论。下一项更广 compact 条件、代码 factoring、完整成本和作者
+obligations 对照；不把本阶段写成 generic condition inference 或全目标完成。
 
 2026-10-07 重新 fetch：`origin/topdown/research-positioning` 仍为
 `271f6fc941910456da43a76e9f0eed38e8a5e200`，main 中的 paper-narrative 与

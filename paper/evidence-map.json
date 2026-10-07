@@ -587,7 +587,7 @@
     },
     {
       "section": "case-study/evaluation",
-      "claim": "A language library statically checks actual Clight constant-word bodies and derives a fixed-address memory observation guarantee from their execution. It permits same-cell stores of an observed equal Mint32 word, excludes bitfield/unsupported assignment syntax, and retains separate pointer frames, read licensing, source progress and model correspondence. No runtime shortcut is installed.",
+      "claim": "A language library statically checks actual Clight constant-word bodies and derives a fixed-address memory observation guarantee from their execution. It permits same-cell stores of an observed equal Mint32 word, excludes bitfield/unsupported assignment syntax, and retains separate pointer frames, read licensing, source progress and model correspondence. This library stage supplies a memory guarantee; the later same-word compiler stage installs its consumer separately.",
       "theorems": [
         {
           "source": "prototype/interface/CompCertWordObservation.v",
@@ -604,7 +604,7 @@
     },
     {
       "section": "case-study/evaluation",
-      "claim": "For the supported nested source, a constant-word control checker supplies complete subloop observation preservation; the same-word cache condition produces actual cached/canonical model execution from existing original-source preparation receipts. The emitted Clight residual check has actual execution and check-exit ports-frame proofs. Compiler installation and native/cost measurements remain pending.",
+      "claim": "For the supported nested source, a constant-word control checker supplies complete subloop observation preservation; the same-word cache condition produces actual cached/canonical model execution from existing original-source preparation receipts. The emitted Clight residual check has actual execution and check-exit ports-frame proofs. This local proof stage is consumed by the independently audited successor compiler below.",
       "theorems": [
         {
           "source": "prototype/interface/ClightWordObservationControl.v",
@@ -625,6 +625,43 @@
       ],
       "documents": [
         "docs/nested-word-model.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The same-word compiler statically checks the actual typed BODY, emits a cache-equality shortcut followed by the old stability scan on refusal, and reuses the existing candidate preservation and language host proofs. Its own Csem-to-Asm entry is audited and extracted. Actual same-input matrices, diagnostic Clight work counts and unmodified-assembly alias store-order probes distinguish acceptance, local guard work and code growth; they do not establish full guard cost or timing profitability.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedConstantStability.v",
+          "name": "ncs_stability_word_sound"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantStability.v",
+          "name": "ncs_original_stability_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedStabilityMulti.v",
+          "name": "ncs_stability_canonical_at_guard_exit"
+        },
+        {
+          "source": "prototype/interface/ClightNestedStabilityCertificate.v",
+          "name": "ncs_stability_guard_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightNestedStabilityPreservation.v",
+          "name": "ncs_stability_guarded_preservation"
+        },
+        {
+          "source": "prototype/interface/ClightNestedStabilityFactory.v",
+          "name": "check_ncs_stability_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightGuardedNestedStabilityCompiler.v",
+          "name": "compile_ncs_stability_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/nested-stability-compiler.md"
       ]
     }
   ],
@@ -952,7 +989,7 @@
   },
   "nested_word_model_stage": {
     "report": "build/nested-word/proof/report.json",
-    "sha256": "ce5c202de41b517fc4b9e51b81b239754a5278758dadef995255c731695677ae",
+    "sha256": "4f7b40a60fca5705682721919cef435e8553db5b59ee5e9f85e3b1544d1f047d",
     "queried_endpoints": 22,
     "required_dependencies": 508,
     "baseline_global_assumptions": 6,
@@ -962,5 +999,46 @@
     "compiler_shortcut_installed": false,
     "guard_cost_measured": false,
     "new_native_execution": false
+  },
+  "nested_stability_compiler_stage": {
+    "proof_report": "build/nested-stability/proof/report.json",
+    "proof_report_sha256": "fd70c4022b5c3db489ebeedd0643d536368ab8c5910ce16879ea2017e8ebda7b",
+    "queried_endpoints": 19,
+    "required_dependencies": 597,
+    "source_digests": 896,
+    "baseline_globals": 42,
+    "kernel_assumptions": [],
+    "additional_global_axioms": [],
+    "entrypoint": "ClightGuardedNestedStabilityCompiler.compile_ncs_stability_regions",
+    "native_report": "build/nested-stability/native/report.json",
+    "native_report_sha256": "3e1743c280a596ad1563d2532e90e477691c6287268f58357060200cdca2ab7f",
+    "native_assembly_calls": 762,
+    "clight_dispatch_calls": 381,
+    "probe_report": "build/nested-stability/native/stability-probes/report.json",
+    "probe_report_sha256": "b367e2b5ff1b5eea741d7f3d9c78a4cab98956a7740a7b45a4b0d5fda3842414",
+    "legacy_comparison_assembly_calls": 127,
+    "legacy_comparison_clight_calls": 127,
+    "diagnostic_clight_work_calls": 20,
+    "unmodified_assembly_store_order_probes": 4,
+    "interchange_matrix_fast_old_new": [
+      49,
+      51
+    ],
+    "interchange_matrix_refusal_old_new": [
+      77,
+      75
+    ],
+    "one_independent_same_word_stability_pointer_comparisons_old_new": [
+      40,
+      0
+    ],
+    "new_same_word_cache_comparisons": 2,
+    "interchange_function_bytes_old_new": [
+      613,
+      762
+    ],
+    "candidate_and_host_proofs_reused": true,
+    "counts_all_guard_work": false,
+    "timing_or_profitability_measured": false
   }
 }

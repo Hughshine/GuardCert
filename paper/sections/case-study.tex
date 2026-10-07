@@ -177,8 +177,21 @@ $w$. The producer then reuses the nested cached-source transport and canonical
 model bridge. The emitted Clight check performs at most two cache comparisons,
 preserves memory, and supplies the model-entry relation to its actual exit.
 This residual check introduces no header loads or pointer comparisons.
-Its compiler installation remains pending; its bounded work does not establish
-the cost of the complete guard or optimization profitability.
+The successor compiler statically proposes a literal store word and checks
+the whole typed BODY before using it. After safe capture and numeric checks,
+the two comparisons can accept stability directly; otherwise it executes the
+original scan. Unsupported bodies retain the original guard. The existing
+alias-only check still follows stability acceptance.
+
+The new guard certificate supplies the same model anchor and checked-entry
+frame required by the existing candidate preservation certificate. The kernel,
+candidate proof, and language installation host are reused. A new compiler
+entry composes this actual guarded replacement with the verified backend to
+obtain Csem-to-Asm backward simulation. For a constant-one BODY and two raw
+headers equal to one, stores through either header alias preserve its value,
+allowing loop interchange where the separation scan refused. The bounded
+residual check does not establish the cost of the complete guard or
+optimization profitability.
 
 The supported services cover machine-word ranges/no-wrap, byte-level memory
 separation, permissions for typed accesses, and preservation of loaded values.
@@ -200,7 +213,7 @@ Condition construction must preserve partial evaluation safety. A mathematically
 simpler condition can read a header or compare a pointer earlier than the source
 permits. Reuse therefore requires a certificate for the reordered or simplified
 check, not just Boolean equivalence on states where every expression is defined.
-\pending{Select the final compact stability condition and compare its guard
-work and useful acceptance against the existing scan on the same source. General
-projection and arbitrary dependent preload expressions remain outside the
-established implementation claims.}
+\pending{Extend compact conditions beyond the constant-word case, factor
+duplicated fallback scans, and measure complete guard/program cost and manual
+proof work. General projection and arbitrary dependent preload expressions
+remain outside the established implementation claims.}

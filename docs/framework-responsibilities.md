@@ -8,8 +8,15 @@
 prefix／model 对应或候选正确性。Domain 后继 [same-word producer](nested-word-model.md)
 已生产实际 subloop 保持、cached source／canonical 模型和两次比较的 Clight check，
 接受后明确模型入口到 actual check exit 的 ports frame。它复用旧 source-derived
-capture／numeric／helper receipts；不是新的 kernel 功能。Factory／compiler 的
-shortcut 安装、候选及语言 host 复用和运行成本仍须继续验收。
+capture／numeric／helper receipts；不是新的 kernel 功能。后继
+[same-word compiler](nested-stability-compiler.md)已完成实际 physical guard、
+multi adapter、typed factory 和完整 Csem→Asm entry。新 guard certificate 直接
+消费原 `ncs_multi_local_certificate`，经原 kernel 和语言 host 安装；域实现承担
+实际 source/model 及 model-entry→check-exit frame。19 端点／597 依赖独立审计、
+提取、完整数组和四个真实汇编 alias 路径探针通过，没有新增使用者语义回调。
+同输入 old/new 对照分别记录局部检查工作、接受和代码增长；完整 timing、
+更广条件与作者工作量仍待验收。最困难的证明环节仍是安全 capture、实际模型
+对应及入口运输，不能用两次 Boolean 比较替代。
 
 2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)在
 同一 compiler 上扩展了实际读写、dependence、重复 sites 与程序上下文验证。

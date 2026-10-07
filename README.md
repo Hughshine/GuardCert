@@ -4,6 +4,18 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[当前 same-word compiler](docs/nested-stability-compiler.md)已把同值 BODY 保持
+接入 actual physical guard、multi adapter、typed factory 与完整 Csem→Asm。
+语言证明 store／check／frame，domain 生产 canonical execution，kernel 消费证书，
+原 candidate 与语言 host 证明直接复用。新条件接受时跳过 stability scan，其他
+路径保留旧 scan；不同常量／未支持 BODY 保守使用原 guard。独立 19 端点／597
+依赖审计、提取、762 次完整汇编调用、381 次 Clight 分派和四个真实汇编 alias
+探针通过。旧／新同输入对照新增两次 fast dispatch；一组稳定性查询由 40 次地址
+比较变为两次缓存比较，完整函数由 613 增至 762 bytes。完整 guard cost／计时、
+更广条件及作者工作仍待验收；完整多面体目标 active。
+`make -f scripts/nested_stability.mk validate`
+核对独立证据。以下旧阶段保留各自当时范围，当前能力以最新 checkpoint 为准。
+
 [完整原源 header-stability guard](docs/nested-constant-physical.md)已把 checked site、
 实际 helper 准备和完整 outer scan 接起来；接受后取得 canonical Clight 与真实
 Loop source 执行，并明确保留 model entry 到 actual guard exit 的 frame。
