@@ -6,7 +6,20 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
-The latest [coordinate-guard checkpoint](../docs/research-checkpoint-2026-10-07-tensor-box.md)
+The latest [tensor compiler checkpoint](../docs/research-checkpoint-2026-10-07-tensor-region.md)
+connects actual input ASTs, data-only factories, kernel preservation, and the
+Clight installation host to a Csem-to-Asm theorem. A language normalization proof
+handles frontend skip-wrapped bodies. Its audit covers 181 endpoints across 368
+dependencies with no added globals. Six configurations give 216 complete
+assembly calls on arrays, public exits, repeated sites, and goto/memory contexts;
+108 separate Clight calls observe acceptance/refusal. Code-size results are
+recorded separately from timing and author effort, which remain pending.
+The [narrative clarification check](../docs/narrative-implementation-check-2026-10-07.md)
+maintains the kernel/library/host boundary and the proof-first order. This entry
+supports temporary-bound rectangular nests with one Horner RMW leaf and one
+tensor; it does not establish full OLO or BT coverage.
+
+The prior [coordinate-guard checkpoint](../docs/research-checkpoint-2026-10-07-tensor-box.md)
 compiles affine coordinate extrema to safe signed32 Clight checks. A runtime
 parameter profile gates their arithmetic; source-derived read safety preserves
 empty-loop refusal before undefined stride/RHS inputs. Full guard acceptance
@@ -14,9 +27,9 @@ produces the mathematical coverage, bindings, and layout views used by the
 existing affine/tiling candidate bridge and public iterator restoration.
 The audit covers 142 endpoints, including 31 new endpoints; thirteen extracted
 synthesis/lowering and mathematical-flag checks pass. They do not execute
-generated Clight. Literal-bound frontend transport, a checked region/local
-certificate factory, progress/private-resource obligations, and a new
-whole-program compiler connection remain unfinished. The narrative has been
+generated Clight. The successor above supplies the checked region/local
+certificate factory and host connection; literal-bound frontend transport
+remains unfinished. The narrative has been
 fetched and re-read at `271f6fc`; its kernel boundary and proof-first/usability
 requirements continue to guide these deliverables.
 

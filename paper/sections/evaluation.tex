@@ -341,10 +341,32 @@ stage), with no added global axioms; candidate theorems inherit the existing
 checker baseline. Thirteen extracted checks exercise condition synthesis,
 lowering, and mathematical acceptance/refusal. Actual guard results also have
 Clight execution proofs; the extracted checks do not execute generated Clight.
-Literal-bound frontend transport, a checked region/local-certificate factory,
-progress and private-resource obligations, and host installation remain
-unfinished. These library results add no source-to-assembly or native program
-evidence to the compiler measurements above.
+These library checks are separate from the successor compiler evidence below.
+
+A checked factory now binds data proposals to actual input ASTs and produces
+the static source, parameter-use, and namespace certificates. A language lemma
+transports frontend skip-wrapped bodies to the modeled source without changing
+terminating traces, outcomes, or states. The local adapter consumes the existing
+kernel preservation theorem; the Clight host separately checks source progress,
+scope, and typed private resources. The resulting compiler has a Csem-to-Asm
+backward simulation. Its independent audit covers 181 endpoints across 368
+dependencies, including 39 endpoints beyond the coordinate-guard stage. The
+compiler inherits the queried 42-global CompCert/checker baseline without
+additional global axioms; the kernel is unchanged.
+
+Three real C functions exercise one rewrite, two consecutive rewrites, and a
+region surrounded by memory effects and a goto skip. Six configurations give
+216 complete assembly calls, each checking all 1,024 array words, public counter
+exits, the first region's exit, and context markers against a source-word model.
+Identity, interchange, and tiling each install four sites; wrong reindexing and
+zero tile sizes install none. A separate 108-call instrumented Clight matrix
+records twelve fast and 35 refusal dispatches per installed configuration.
+These are Clight dispatch observations, not unmodified-assembly path probes.
+The single-region source/identity/interchange/tiling functions occupy
+218/622/624/870 bytes. This compiler supports temporary-bound rectangular nests
+with one Horner read-modify-write leaf and one tensor. Literal-bound transport,
+broader bodies, cross-tensor aliasing, timing, and comparative author effort
+remain pending for this entry.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

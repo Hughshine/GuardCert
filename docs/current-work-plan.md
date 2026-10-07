@@ -1,5 +1,19 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[tensor region compiler](tensor-region-compiler.md)已连接实际原
+AST、数据 factory、kernel local certificate、typed pool／progress／语言 host 与
+Csem→Asm。行政 skip 运输修复了真实前端全回退；181端点（旧142＋新39）／368
+依赖审计、完整提取、216 assembly／108 Clight dispatch calls 通过。三个函数
+覆盖 RMW 交换／tiling、两次 rewrite、公开退出值、goto 和外围 memory effects。
+当前仍是 positive rectangular temp-bound nests、单 Horner RMW leaf、一个 tensor。
+[本轮 narrative 核对](narrative-implementation-check-2026-10-07.md)固定三方责任、
+四条逻辑链和 local／installation 边界：kernel 保持，host 与 site 另证安装。
+该子集端到端闭合，下一项立即做同例 OLO 的 code／check-work／接受域／完整成本
+与作者负担比较，再扩展 literal-bound、body／affine domains、跨 tensor alias／
+loaded stability 和完整 BT。暂无新入口成本、GDB probes 或 source-only rebuild。
+证据见 [checkpoint](research-checkpoint-2026-10-07-tensor-region.md)。完整目标 active，
+以下保留此前阶段的当时范围。
+
 2026-10-07 当前：[tensor 坐标条件](tensor-coordinate-guard.md)已将全部 affine
 read/write 的 box extrema 编码为安全 signed32 Clight checks。实际 full guard
 接受生产 count/scalar bindings、pointer/dimension view、BOX 和 candidate 输入，

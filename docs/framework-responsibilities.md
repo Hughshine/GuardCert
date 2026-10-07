@@ -1,5 +1,17 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 当前：[tensor factory／compiler](tensor-region-compiler.md)已由实际 AST
+数据核对生产静态 source、shape、namespace 和用值证据。Domain 复用 full guard、
+真实源／候选／出口对应；新语言 readonly adapter 实际调用 kernel preservation，
+语言 host 独立核对原源 progress、scope 与 typed private resources，连接 Csem→Asm。
+前端行政 skip 的执行等价属于语言服务，无须修改 kernel 或候选证明。181端点
+审计、216 assembly／108 Clight calls 通过。没有新增使用者 SOURCE／BOX／bindings
+语义 callback；另一种 source class 仍由 domain 提供对应证明。
+[Narrative 核对](narrative-implementation-check-2026-10-07.md)明确四条逻辑链并非
+四份用户手填 record；finite completion 不替代 host progress，choice law 不替代
+region 安装。下一项比较已闭合子集的条件成本、接受域和作者责任；更多 source／
+alias／loaded stability 与完整 BT 继续按完整目标推进。以下保留前阶段边界。
+
 2026-10-07 当前：[tensor 坐标条件](tensor-coordinate-guard.md)继续落实 narrative：
 domain 条件库生成 affine extrema 并证明全部活动坐标覆盖；Clight 库交付实际
 profile gate、signed32 安全算术和 readonly certificate。原源许可的 full guard

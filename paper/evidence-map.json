@@ -966,6 +966,37 @@
         "docs/tensor-coordinate-guard.md",
         "docs/research-checkpoint-2026-10-07-tensor-box.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Actual AST data factory, frontend skip transport, kernel-backed local preservation and Clight host installation give a tensor Csem-to-Asm compiler; native arrays/exits and separate Clight dispatch are validated.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightLoopAdministrative.v",
+          "name": "trim_loop_skips_equivalent"
+        },
+        {
+          "source": "prototype/interface/ClightTensorRegionPackage.v",
+          "name": "check_tensor_region_description"
+        },
+        {
+          "source": "prototype/interface/ClightReadonlyPreservationKernel.v",
+          "name": "readonly_kernel_guarded_preservation"
+        },
+        {
+          "source": "prototype/interface/ClightTensorRegionPreservation.v",
+          "name": "tensor_region_preserving_rule"
+        },
+        {
+          "source": "prototype/interface/ClightTensorRegionCompiler.v",
+          "name": "compile_tensor_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/tensor-region-compiler.md",
+        "docs/research-checkpoint-2026-10-07-tensor-region.md",
+        "docs/narrative-implementation-check-2026-10-07.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2278,6 +2309,120 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_box.mk prototype",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_box.mk validate"
+    ]
+  },
+  "tensor_region_compiler_stage": {
+    "proof_report": "build/tensor-region-factory/proof/report.json",
+    "proof_report_sha256": "640d768bbbe74f456e04c7bfbbf848f994fbcaa6c4018c31ecc82a32feb4e4e3",
+    "proof_endpoints": 181,
+    "new_endpoints": 39,
+    "required_closure_count": 368,
+    "closed_endpoints": 89,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "kernel_changed": false,
+    "source_selector_installed": true,
+    "whole_program_compiler_installed": true,
+    "whole_program_entrypoint": "ClightTensorRegionCompiler.compile_tensor_regions",
+    "literal_bound_transport_connected": false,
+    "native_report": "build/tensor-region-factory/native/report.json",
+    "native_report_sha256": "0a3fb6525463765c330321beafe1c636a3ba0257666e7ca27c48929e9926887d",
+    "source_scope": "positive rectangular temp-bound nests, one Horner-address RMW leaf, one tensor",
+    "assembly_calls": 216,
+    "clight_dispatch_calls": 108,
+    "clight_calls_are_assembly_probes": false,
+    "new_machine_dispatch_probes": false,
+    "profitability_measured": false,
+    "proof_burden_measured": false,
+    "functions_by_mode": {
+      "disabled": {
+        "tensor_single": {
+          "installed_sites": 0,
+          "machine_bytes": 218
+        },
+        "tensor_twice": {
+          "installed_sites": 0,
+          "machine_bytes": 345
+        },
+        "tensor_context": {
+          "installed_sites": 0,
+          "machine_bytes": 317
+        }
+      },
+      "identity": {
+        "tensor_single": {
+          "installed_sites": 1,
+          "machine_bytes": 622
+        },
+        "tensor_twice": {
+          "installed_sites": 2,
+          "machine_bytes": 1137
+        },
+        "tensor_context": {
+          "installed_sites": 1,
+          "machine_bytes": 707
+        }
+      },
+      "interchange": {
+        "tensor_single": {
+          "installed_sites": 1,
+          "machine_bytes": 624
+        },
+        "tensor_twice": {
+          "installed_sites": 2,
+          "machine_bytes": 1154
+        },
+        "tensor_context": {
+          "installed_sites": 1,
+          "machine_bytes": 708
+        }
+      },
+      "tile-2-3": {
+        "tensor_single": {
+          "installed_sites": 1,
+          "machine_bytes": 870
+        },
+        "tensor_twice": {
+          "installed_sites": 2,
+          "machine_bytes": 1627
+        },
+        "tensor_context": {
+          "installed_sites": 1,
+          "machine_bytes": 952
+        }
+      },
+      "wrong-reindex": {
+        "tensor_single": {
+          "installed_sites": 0,
+          "machine_bytes": 218
+        },
+        "tensor_twice": {
+          "installed_sites": 0,
+          "machine_bytes": 345
+        },
+        "tensor_context": {
+          "installed_sites": 0,
+          "machine_bytes": 317
+        }
+      },
+      "zero-tile": {
+        "tensor_single": {
+          "installed_sites": 0,
+          "machine_bytes": 218
+        },
+        "tensor_twice": {
+          "installed_sites": 0,
+          "machine_bytes": 345
+        },
+        "tensor_context": {
+          "installed_sites": 0,
+          "machine_bytes": 317
+        }
+      }
+    },
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_region.mk native",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_region.mk validate"
     ]
   }
 }

@@ -1,5 +1,15 @@
 # Guard：带前提的程序变换与组合证明
 
+[最新 tensor 整程序接入](docs/tensor-region-compiler.md)已由原 AST／metadata 数据
+factory 生产 local certificate，实际消费 kernel 并通过语言 host 接到 Csem→Asm。
+前端 leaf 的 skip 运输已证明；181端点／368依赖审计、提取、216 assembly／108
+Clight dispatch calls 通过，包含真实 RMW 交换／tiling、两次 rewrite、公开出口
+和 goto／外围 memory effects。零新增公理，原 kernel 保持。
+[Narrative 澄清核对](docs/narrative-implementation-check-2026-10-07.md)已纳入计划，
+见 [阶段证据及边界](docs/research-checkpoint-2026-10-07-tensor-region.md)。
+下一项是当前子集的同例成本、接受域与作者责任比较；完整目标 active。
+以下阶段报告保留各自当时范围。
+
 [最新 tensor 坐标条件](docs/tensor-coordinate-guard.md)已生成安全 signed32 Clight
 检查，并由真实 full guard 接受生产 BOX、bindings 和实际候选执行的输入；
 复用原 Horner 源和公开 iterator 恢复。142 端点（31 新增）／306 依赖审计、
