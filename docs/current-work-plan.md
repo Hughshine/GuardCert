@@ -1,5 +1,19 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 优先级更新：已读取 narrative 最新 `12419c1`（新增 `1c63ccb`／
+`12419c1`），同步正文并完成[真实流水线接入复核](narrative-pipeline-review-2026-10-07.md)。
+**下一集成里程碑改为 `#pragma scop`／`#pragma endscop` 显式区域选择，以及
+真正的多面体提取→调度／变换→验证→代码生成→guard／原源fallback→Csem→Asm。**
+默认只向loop pass提供标注区域；同形未标注循环也必须不被安装表改写。
+先选择一个已有完整证明的source family接通实际流水线，不等待所有word
+inner／outer与后续source扩展。已开展的word-column证明保留；只优先关闭本次
+集成需要的直接依赖。先证明后改进guard成本的顺序继续成立，但不用于推迟实际
+optimizer接入。内置Loop候选仍作回归／外部API，不再作为该里程碑完成的证据。
+验收须同路径保存中间IR／validator结果、实际scheduler／codegen调用，覆盖
+标注与未标注、多site、静态拒绝和动态回退，并有新完整程序端点及native C。
+最小kernel保持；语言负责位置／安装，domain负责条件模型与生成候选对应。
+全文以下较早的“下一项”保留当时记录，以本段和新复核的顺序为准。完整目标active。
+
 2026-10-07 当前：[narrative复核](narrative-review-2026-10-07.md)确认远端
 `271f6fc`与main正文一致。保持“先闭合约定范围、再改进条件”的顺序，并行
 维护实际LNCS正文；kernel只负责局部证书组合，语言提供执行／安装定律，domain

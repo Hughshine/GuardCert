@@ -9,9 +9,12 @@ tracked in [the synthesis](../review-synthesis-2026-10-05.md) and
 This branch is reserved for top-down positioning and design notes that run in
 parallel with the bottom-up implementation work on `main`.
 
-The latest narrative update, `271f6fc` (2026-10-06), starts the CAV 2027 writing
-track alongside implementation. The main-branch [working manuscript](../../paper/README.md)
-contains actual LNCS sections; the narrative remains the direction reference.
+The latest narrative update, `12419c1` (2026-10-07), prioritizes explicit
+`#pragma scop` region selection and the real polyhedral scheduling/code-generation
+pipeline. The [integration review](../narrative-pipeline-review-2026-10-07.md)
+records the source gaps, revised work order and milestone acceptance. The CAV
+2027 [working manuscript](../../paper/README.md) continues alongside implementation.
+Earlier imported reviews below retain their historical implementation boundaries.
 
 The working object is **verified guarded transformation**: a transformation may
 be correct only under a semantic condition; that condition is turned into a

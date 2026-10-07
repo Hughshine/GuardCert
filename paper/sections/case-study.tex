@@ -23,6 +23,27 @@ SimplExpr, SimplLocals, the expression-region host, and the verified backend.
 The region contracts and host progress obligations determine the source class;
 the theorem is not a license to install arbitrary Clight fragments.
 
+\paragraph{Candidate production and the next integration boundary.}
+The current native routes propose a candidate Loop AST through built-in
+policies or external input. They use PolCert extraction and polyhedral
+correspondence/dependence validation before concrete lowering and guarded
+installation. The memory instance's external scheduler and phase-export hooks
+currently refuse; the prepared optimizer adapter is proved separately but is
+not called by this C driver. These results establish conditional candidate
+validation, not an installed automatic scheduling/code-generation pipeline.
+
+The next integration milestone uses \code{\#pragma}\ \code{scop} and
+\code{\#pragma}\ \code{endscop} to select regions, retains their identities through
+normalization, and connects conditional model extraction, real scheduling and
+transformation phases, checked transitions, and prepared code generation to the
+existing guard and host. A marker requests an attempt and supplies no semantic
+assumption. Selection must also restrict installation: structural AST equality
+alone could otherwise rewrite an identical unmarked loop. Acceptance of this
+milestone requires retained intermediate representations, a generated candidate
+without a hand-written target loop, marked/unmarked and repeated-site cases,
+static and runtime refusal, and a connected whole-program theorem and native
+C-to-assembly run. Those integration results remain pending.
+
 \subsection{Nested Loaded Bounds and Actual Candidate Execution}
 
 An adapted Figure~2 source from OLO~\cite{olo2017} supplies the concrete

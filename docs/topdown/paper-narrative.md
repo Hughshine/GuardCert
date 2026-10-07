@@ -323,6 +323,86 @@ The strongest examples should exercise the reasons the abstraction exists:
 - multiple guarded rewrites in one function;
 - preservation of public exits/state through CompCert.
 
+### Explicit region selection and the polyhedral pipeline
+
+The 2026-10-07 user decision is to use Pluto-compatible `#pragma scop` /
+`#pragma endscop` region annotations as the default user-facing selection
+mechanism (see the [Pluto README](https://github.com/bondhugula/pluto)).
+Only annotated regions should be offered to the optimistic loop optimizer;
+ordinary compilation continues outside them. A marker requests an optimization
+attempt, not an assertion that the region is already a valid SCoP or that its
+assumptions hold. Static refusal preserves the source; runtime guard refusal
+executes the original region. The frontend must retain the region selection
+through normalization. This is an implementation requirement, not a claim that
+pragma support is already installed.
+
+Keep the intended polyhedral optimization pipeline explicit: selected Clight
+region -> conditionally valid Loop/model extraction -> polyhedral representation
+-> scheduling/transformation phases and their validation -> generated candidate
+Loop/Clight -> certified guard and fallback installation. Document the actual
+intermediate representations and calls rather than treating all of this as one
+opaque "rewrite".
+
+At main `57cb9707c70059de5a3c75a7f18ac33621f2cfe0`, the native affine/tensor
+route instead proposes a candidate Loop AST directly through built-in policies
+or external input, extracts both source and candidate with PolCert's
+`ExtractorFrontend`, and checks their polyhedral correspondence/dependences
+using the instantiated affine/tiling validators. The accepted candidate is
+lowered to Clight and installed with its certified guard. In
+`GuardMemoryPolyhedral.v`, the scheduler/Pluto phase interfaces explicitly
+report that no external scheduler is connected. The separate
+`Opt_prepared` adapter has a proof interface but is not wired into the native
+C driver. Thus extraction and polyhedral validation are real; automatic
+multi-phase polyhedral optimization and the complete old optimizer/codegen
+pipeline must not be reported as already connected.
+
+**Implementation directive (2026-10-07): start connecting the real polyhedral
+compilation pipeline and annotated-region frontend as the next integration
+milestone.** These are active implementation tasks, not merely future narrative
+or optional usability work. Close any immediate proof dependency needed for
+this integration, but do not defer it until all source-family extensions or
+hand-constructed candidate cases are complete. The earlier proof-first decision
+concerned when to optimize guard cost; it is not a reason to postpone connecting
+the actual optimizer.
+
+The implementation agent should proceed as follows:
+
+1. Add `#pragma scop` / `#pragma endscop` selection to the C frontend and
+   preserve the selected region through Clight normalization. Default loop
+   optimization must be restricted to these regions. Retain automatic discovery
+   only as an explicit experimental mode if useful. Check actual ASTs and
+   installation boundaries regardless of annotations.
+2. Connect a first supported annotated C region to the real PolCert pipeline:
+   extract its conditionally valid model, run polyhedral scheduling and
+   transformation phases, validate the relevant transitions, and use the
+   pipeline's code generation to obtain the candidate Loop/Clight. Start from
+   the existing `Opt_prepared` adapter and PolCert/Pluto phase interfaces;
+   document and resolve concrete representation or proof gaps. Reusing the
+   existing pipeline is preferred; any necessary replacement must still
+   perform real optimization in the polyhedral representation and preserve
+   the end-to-end certificate chain.
+3. Carry the model/transformation assumptions through this path into the
+   existing safe guard producer, original-source fallback, public-exit
+   restoration and CompCert host. An annotation supplies no semantic evidence.
+   Obtain a native C-to-assembly run and its whole-program correctness endpoint
+   through this connected path before claiming integration complete.
+
+Acceptance must show both selection and actual optimizer execution: an annotated
+region transformed by a real scheduler/codegen result, a comparable unannotated
+region excluded from this loop pass, and multiple marked regions handled
+independently. Preserve intermediate source/model, scheduled/transformed model,
+generated candidate and validator results so that the actual calls can be
+audited. Include static refusal and runtime guard fallback cases. Phase options
+and tile sizes may be user inputs; hand-writing the target loop must not be
+required for the main demonstrated workflow.
+
+Direct Loop-AST candidate generators remain useful unit/regression fixtures and
+the external candidate API remains a supported framework use case. Neither
+counts as completion of this polyhedral compiler milestone. Update the active
+implementation plan and manuscript evidence when absorbing this directive;
+report partial integration and blockers explicitly rather than describing
+another candidate fixture as the complete pipeline.
+
 ### Functional coverage and usability: implementation order
 
 Clarification from the 2026-10-06 discussion: first complete the proof chain for

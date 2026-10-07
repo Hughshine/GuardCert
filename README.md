@@ -1,5 +1,11 @@
 # Guard：带前提的程序变换与组合证明
 
+[Narrative最新澄清](docs/narrative-pipeline-review-2026-10-07.md)已吸纳：下一集成
+里程碑是 `#pragma scop` 区域选择和真正的多面体调度／代码生成流水线，再接
+已有guard、原源回退与完整CompCert证明。当前native的直接Loop候选提案仍有
+真实提取／验证，但外部scheduler与prepared codegen尚未接通；标注也不提供
+语义证据。[当前计划](docs/current-work-plan.md)已调整优先级，以下保留阶段记录。
+
 [Word component scan](docs/word-component-scan.md)已把动态乘积首点服务推进为
 完整literal第三层私有扫描及原源／cached-loop执行运输。40端点／447依赖审计
 通过，零新增公理；真实内存五次store、actual扫描接受／首点alias拒绝已证明。

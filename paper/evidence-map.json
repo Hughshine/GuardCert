@@ -1,6 +1,6 @@
 {
   "date": "2026-10-07",
-  "narrative_reference": "271f6fc941910456da43a76e9f0eed38e8a5e200",
+  "narrative_reference": "12419c1e1e3da450bf378742a2fb4e204e51e060",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
   "claims": [
@@ -1155,6 +1155,24 @@
       "documents": [
         "docs/word-component-scan.md",
         "docs/narrative-review-2026-10-07.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Current native proposals use real extraction/validation; annotated external scheduling/prepared-codegen integration is pending.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryPolyhedral.v",
+          "name": "validated_memory_equivalence_at"
+        },
+        {
+          "source": "theories/PolCertOptimizer.v",
+          "name": "optimize_version_correct"
+        }
+      ],
+      "documents": [
+        "docs/narrative-pipeline-review-2026-10-07.md",
+        "docs/topdown/paper-narrative.md"
       ]
     }
   ],
@@ -3492,6 +3510,25 @@
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/word_component_scan.mk proof",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/word_component_scan.mk extracted",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/word_component_scan.mk validate"
+    ]
+  },
+  "annotated_polyhedral_integration": {
+    "status": "next integration milestone; not installed",
+    "review": "docs/narrative-pipeline-review-2026-10-07.md",
+    "default_selection": "#pragma scop / #pragma endscop; selected-site identity must constrain installation",
+    "current_native_candidate_producer": "direct Loop AST proposals; real extraction and polyhedral validation",
+    "external_scheduler_connected": false,
+    "prepared_optimizer_called_by_native_C_driver": false,
+    "annotated_region_frontend_installed": false,
+    "new_whole_program_endpoint": null,
+    "native_connected_pipeline_evidence": false,
+    "acceptance": [
+      "retained phase IRs and validator outcomes",
+      "actual scheduler/codegen candidate",
+      "unannotated identical site excluded",
+      "multiple marked sites",
+      "static and runtime refusal",
+      "connected Csem-to-Asm endpoint and native C execution"
     ]
   }
 }

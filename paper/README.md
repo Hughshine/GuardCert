@@ -6,6 +6,15 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [latest pipeline review](../docs/narrative-pipeline-review-2026-10-07.md)
+absorbs narrative `12419c1`. The next integration milestone is explicit SCoP
+selection and real polyhedral scheduling/transformation plus prepared code
+generation. The case-study prose now distinguishes existing native Loop
+proposals and real validation from the pending connected optimizer pipeline.
+The evidence map records these gaps and the marked/unmarked, repeated-site,
+refusal and C-to-assembly acceptance requirements. Earlier stage evidence below
+retains its original scope.
+
 The [literal-bound successor](../docs/tensor-literal-bound.md) proves actual
 private initialization, raw/prepared source transport, check-exit candidate
 execution, and original-AST fallback, then installs through the existing

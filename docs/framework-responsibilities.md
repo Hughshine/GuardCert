@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 narrative `12419c1` [最新接入复核](narrative-pipeline-review-2026-10-07.md)
+将annotated real polyhedral pipeline列为下一集成项。Kernel继续只组合局部
+证书；语言／frontend保留标注site身份、核对实际AST与合法边界、提供安装定律；
+domain实例化条件提取、真实scheduler／phase验证／codegen及生成候选的执行桥。
+使用者标注源码并给phase／tile选项，annotation不提供语义前提，不要求手写
+target Loop。关键缺口是原源许可→模型假设→生成Loop→actual guard-exit入口和
+public exit／progress的连接，以及防止按AST相等的安装误改同形未标注site。
+当前native仍是直接Loop候选提案＋真实提取／验证，尚未调用完整流水线。
+
 2026-10-07 当前：[word component scan](word-component-scan.md)把首点推进为
 完整literal第三层。语言提供exact word重命名／求值、实际pointer check／private
 loop及cached transport定律；domain将原源prefix、source/scan坐标frame、capture
