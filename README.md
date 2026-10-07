@@ -10,8 +10,13 @@ comparisons 的 eager conjunction，备用 scan 仅生成一份；interchange �
 C 又通过 60 次汇编调用、45 次 Clight 分派和九个真实写序 probes；两种 header
 alias 下的交换／tiling 与改变 bound 的回退均得到区分。独立 23 端点／598 依赖
 审计和提取通过，kernel／原候选／语言 host 保持。稳定性地址查询 2,560→0 加
-两次缓存比较，但 numeric 等工作仍在；完整成本、static condition derivation、
-更广源类及完整 BT／动态布局继续推进。当前工具使用独立 shared 报告目录。
+两次缓存比较。[完整成本实验](docs/nested-stability-cost.md)现已完成 30 轮／1,200
+raw batches；同值独立输入的新 interchange 约为 source 的 1.65×，仍有 slowdown。
+Numeric 为 first-path／区间 tree，并非逐点检查；单数组 same-word guard 已无
+域遍历。[已知 word 的静态充分事实](docs/nested-numeric-word-facts.md)通过四个
+闭合新定理取得真实 numeric/domain 前提，未改 runtime guard。下一项实际证明
+紧凑公开出口恢复，随后验收净收益；非同值／多数组 footprint 条件、更广源类、
+作者工作和完整 BT／动态布局继续推进。当前工具使用独立 shared 报告目录。
 
 [前阶段 same-word compiler](docs/nested-stability-compiler.md)已把同值 BODY 保持
 接入 actual physical guard、multi adapter、typed factory 与完整 Csem→Asm。

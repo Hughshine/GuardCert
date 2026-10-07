@@ -5,9 +5,12 @@ host。语言新服务只在两项均已初始化为 int32 Boolean words 时证�
 domain 从实际 cache bindings 建立其输入，失败不改变旧 scan 入口。它不属于最小
 kernel，也不能用于仍依赖前项许可后项读取的条件。23 端点审计沿既有 baseline。
 Word=15 的实际 C profile 自动消费相同 descriptor／checker，无新增使用者语义
-回调；九个较大域汇编 probes 区分 source／交换／tiling。接下来最困难的是将
-已知 cache facts 推成实际 numeric/domain 义务，安全消去逐点检查；并非简单把
-两次比較移到 captures 前面。完整成本与作者责任比较仍须交付。
+回调；九个较大域汇编 probes 区分 source／交换／tiling。后继
+[已知 word 的 numeric facts](nested-numeric-word-facts.md)由数据 checker 导出实际
+numeric/domain 前提，四个新定理闭合，不扩大 kernel，不修改 runtime guard。
+此前将 numeric 称作逐点成本有误；它是 first-path／参数区间检查。实际逐点工作
+来自 stability／alias scans。完整成本验收和紧凑 footprint 条件应针对这些成本，
+并保持实际 captures/helpers/model-entry 的许可和运输；作者责任比较仍待交付。
 
 2026-10-07 最新：[source-only reproduction](nested-frontend-reproduction.md)已从
 锁定源码重建既有 compiler／运行路径，独立基线查询替代历史报告输入；kernel

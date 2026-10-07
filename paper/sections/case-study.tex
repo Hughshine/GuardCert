@@ -219,7 +219,20 @@ Condition construction must preserve partial evaluation safety. A mathematically
 simpler condition can read a header or compare a pointer earlier than the source
 permits. Reuse therefore requires a certificate for the reordered or simplified
 check, not just Boolean equivalence on states where every expression is defined.
-\pending{Extend compact conditions beyond the constant-word case, remove
-redundant numeric checks using certified range/footprint facts, and measure
-complete guard/program cost and manual proof work. General projection and arbitrary dependent preload expressions
+An additional data checker evaluates the existing numeric condition under known
+root and child cache words and a zero entry row. Its sufficiency theorem
+transports the result to the actual entry and obtains the existing affine math
+domain. It conservatively refuses extra unknown parameters, profile violations,
+and wrapped inactive counts. These fact-derivation theorems have empty assumption
+sets. They do not replace the production check or its execution receipts.
+
+The numeric stage is a first-path probe followed by parameter interval tests;
+it does not scan iteration points. Per-point work comes from header-stability
+and cross-array alias scans. On the single-array same-word path, the former is
+skipped and the latter lowers to \code{skip}, leaving a guard whose work is
+independent of iteration-domain size. This does not establish a faster complete
+transformation: candidate traversal and public-exit restoration also cost work.
+\pending{Extend compact conditions to other stability and array
+footprints, connect certified residualization to actual execution, and compare
+manual proof work. General projection and arbitrary dependent preload expressions
 remain outside the established implementation claims.}

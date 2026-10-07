@@ -4,8 +4,11 @@
 host 下共享备用 scan，并用 language initialized-Boolean law 和 actual cache
 bindings 证明 eager conjunction 的安全。原矩阵接受保持，较大域的交换／tiling
 及动态 header 改写回退也实际验收。代码规模、局部检查工作和接受分别报告；
-numeric work 仍是完整成本的待办，下一项须生产 static range／footprint 证书和
-正确入口运输，不能以 mathematical projection 或字节下降替代这些义务。
+完整成本仍须独立验收，不能以 mathematical projection 或字节下降替代这些义务。
+后继 [numeric word facts](nested-numeric-word-facts.md)已提供静态充分事实和实际
+入口运输，未改 runtime guard。成本核对更正：numeric 是 first-path／区间 tree，
+不是逐点检查；迭代工作来自 stability／alias scans。单数组 same-word 快捷
+接受路径的完整 guard 工作已不随迭代域增长，其他路径需继续改进。
 
 2026-10-07 后继：[独立复现](nested-frontend-reproduction.md)已关闭 fresh-checkout
 empty-build 待办，沿既有三方责任／四条证书链重建 proof→compiler→actual C。

@@ -75,6 +75,7 @@ def main():
               "full_original_olo_capabilities_claimed": False,
               "adapted_nested_source_native_execution_claimed": "nested_frontend_native_stage" in evidence,
               "speedup_or_author_effort_results_claimed": False}
+    report["exploratory_kernel_cost_results_claimed"] = "nested_stability_cost_stage" in evidence
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"status": "compiled", "pages": pages, "pdf": str(pdf),
                       "report_sha256": sha(WORK / "report.json")}, indent=2))

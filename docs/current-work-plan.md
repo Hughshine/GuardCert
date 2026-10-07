@@ -10,9 +10,18 @@
 kernel／候选／语言 host 保持。较大同值输入的 stability queries 2,560→0，加两次
 cache equality；numeric 等检查仍在，不能声称完整 guard 常数成本。
 
-下一项 **从已知 cache facts 生产可检查的 static range／footprint 证书，消去
-确实冗余的逐点 numeric checks，并验收实际 capture 许可、helper frame 和模型
-入口**；随后测完整 guard／program cost。地址含额外参数时保留所需范围检查。
+成本核对更正：numeric 是 first-path／参数区间检查，不是逐点扫描。单数组
+same-word 接受路径的 stability scan 被跳过，alias-only code 为 `skip`，完整
+guard 工作已不随域大小增长；其他路径及多数组 alias scan 仍有迭代工作。
+当前 [完整成本](nested-stability-cost.md)已验收 30 轮／1,200 batches，完整数组与
+公开状态前后核对，包含逐 call header reset。新同值 interchange 比旧版快，
+但仍约为 source 的 1.65×；非同值独立输入约 5.91×。Guard-prefix 同值 decisions
+4,673→17，说明紧凑 guard 不保证净收益。另 [numeric word facts](nested-numeric-word-facts.md)
+生产真实 numeric/domain 充分事实，34 端点审计中四个新定理闭合；未替换 runtime。
+下一项 **对已接受的固定矩形 nested 源，生产既有 `affine_exit_statement` 所需
+exit-domain/frame，替代候选后的 shadow traversal，再验收完整计时**；不以成本
+相减代替归因。非同值 stability／多数组 alias 的 footprint 条件继续推进。
+Actual capture 许可、helper frame、模型入口及 host/candidate 责任必须保持。
 作者数据／语言库／实例证明比较，以及更广 affine source、动态布局与完整 BT
 仍按完整目标推进。以下记录保留前阶段范围，不能把旧 `.vo` 绑定称为当前验收。
 

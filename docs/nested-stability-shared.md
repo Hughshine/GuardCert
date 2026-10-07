@@ -99,12 +99,17 @@ independent／两种 header alias，在未修改汇编中得到：
 
 ## 下一项的实际困难
 
-**完整检查还不是常数工作**：本条件放在现有 numeric gate 后，不能用 stability
-comparisons 的下降掩盖此前的逐点 numeric work。下一项须将 word equality 的
-已知 cache facts 推成实际 machine/domain obligations，再用 certified static
-range／footprint 检查消去可证明冗余的 numeric tests。不能仅把运行时条件搬到
-前面：须保留 dependent capture 的读许可、原源码 domain、helper frame 及真正
-模型入口。地址含额外参数的 BODY 也不能仅凭 store word 跳过其范围检查。
+2026-10-07 成本核对更正：先前此处将 numeric 检查说成逐点工作，这是错误的。
+`affine_package_guard_code` 只执行 first-path probe 与参数区间 tree；其成本随
+nest depth／parameter 数量增长，不随 iteration-point 数量增长。逐点工作来自
+header-stability scan 与多数组的 alias-pair scan。单数组 literal-word 快捷接受时，
+前者被跳过，后者实际生成 `skip`，因此这条路径的完整 guard 工作已经不依赖域大小。
+拒绝快捷条件后仍可能扫描，且多个数组的 alias 检查需要另行处理。
+
+已知 cache facts 仍可用于 certified static range derivation，但它主要消去冗余的
+固定成本检查，不能被说成消除了这里不存在的逐点 numeric 工作。改变实际 guard
+仍须保留 dependent capture 的读许可、原源码 domain、helper frame 及模型入口。
+地址含额外参数的 BODY 不能仅凭 store word 跳过其范围检查。
 
 完整 guard／program timing、条件接受域对照、编译成本和作者工作比较继续推进。
 更多 source classes、参数域变换、动态 layout／delinearization 及完整 BT 适配

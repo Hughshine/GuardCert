@@ -692,6 +692,37 @@
       "documents": [
         "docs/nested-stability-shared.md"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Known-word numeric facts transport a sufficient static condition to the actual cache entry and existing affine math domain; production guard unchanged.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedNumericWordFacts.v",
+          "name": "ncs_numeric_temps_flag_exact"
+        },
+        {
+          "source": "prototype/interface/ClightNestedNumericWordFacts.v",
+          "name": "ncs_numeric_word_sufficient"
+        },
+        {
+          "source": "prototype/interface/ClightNestedNumericWordFacts.v",
+          "name": "ncs_numeric_word_math_domain"
+        }
+      ],
+      "documents": [
+        "docs/nested-numeric-word-facts.md",
+        "prototype/interface/ClightNestedNumericWordExample.v",
+        "scripts/audit_nested_numeric_word.py"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Thirty rounds and 1200 fresh-process matched-input batches measure full kernel-call CPU cost, including slowdowns, separately from printed-Clight guard-prefix counters.",
+      "documents": [
+        "docs/nested-stability-cost.md",
+        "scripts/native_nested_stability_cost.py"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -1125,5 +1156,254 @@
     "candidate_and_host_proofs_reused": true,
     "counts_all_guard_work": false,
     "timing_or_profitability_measured": false
+  },
+  "nested_numeric_word_facts_stage": {
+    "report": "build/nested-stability-shared/numeric-facts/proof/report.json",
+    "report_sha256": "8f0dc06f7c6d578fc4c1fda2392f2218066c4e16b297d47773b2a57f43a94281",
+    "endpoints": 34,
+    "dependencies": 600,
+    "bound_sources": 899,
+    "new_fact_theorems_closed": 4,
+    "runtime_guard_changed": false,
+    "whole_program_compiler_unchanged": true
+  },
+  "nested_stability_cost_stage": {
+    "report": "build/nested-stability-shared/cost/report.json",
+    "report_sha256": "8490f3a6a2a03fa197e7a9c782b91fa712cf0d243b70522bd653dc0f296d0542",
+    "samples": 1200,
+    "rounds": 30,
+    "cases": 8,
+    "kernel_cost_measured": true,
+    "representative_benchmark_speedup_claimed": false,
+    "same_word_prefix_if_decisions_old_new": [
+      4673,
+      17
+    ],
+    "prefix_excludes_final_dispatch": true,
+    "same_word_header_loads": 2,
+    "numeric_checks_per_point": false,
+    "source_same_word_median_ns": 909.9363536465746,
+    "interchange_same_word_median_ns": 1503.367968013854,
+    "prior_interchange_same_word_median_ns": 2725.106105125694,
+    "all_cost_summaries": {
+      "0": {
+        "disabled": {
+          "median_ns_per_call": 909.9363536465746,
+          "iqr_ns_per_call": 8.815904950845606,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 1397.483439185959,
+          "iqr_ns_per_call": 22.22051492180549,
+          "median_paired_cost_over_source": 1.5315457442048372
+        },
+        "interchange": {
+          "median_ns_per_call": 1503.367968013854,
+          "iqr_ns_per_call": 15.458272849975629,
+          "median_paired_cost_over_source": 1.6543349707552397
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1622.689880150344,
+          "iqr_ns_per_call": 18.215020211332558,
+          "median_paired_cost_over_source": 1.7841137605839643
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 2725.106105125694,
+          "iqr_ns_per_call": 52.856071873374276,
+          "median_paired_cost_over_source": 2.9965541368172603
+        }
+      },
+      "1": {
+        "disabled": {
+          "median_ns_per_call": 910.5446085713485,
+          "iqr_ns_per_call": 12.828392842127187,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 1394.9004620386743,
+          "iqr_ns_per_call": 16.426615709315,
+          "median_paired_cost_over_source": 1.5338345294558864
+        },
+        "interchange": {
+          "median_ns_per_call": 1506.3900734233225,
+          "iqr_ns_per_call": 29.649876559043378,
+          "median_paired_cost_over_source": 1.651433437037432
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1628.030303030303,
+          "iqr_ns_per_call": 18.934365781710767,
+          "median_paired_cost_over_source": 1.789169694931086
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 795.2694576676594,
+          "iqr_ns_per_call": 10.91599191978753,
+          "median_paired_cost_over_source": 0.8759326690873437
+        }
+      },
+      "2": {
+        "disabled": {
+          "median_ns_per_call": 914.3785685933253,
+          "iqr_ns_per_call": 18.278067845256714,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 1390.8215786668825,
+          "iqr_ns_per_call": 17.949055241872884,
+          "median_paired_cost_over_source": 1.5156111897142126
+        },
+        "interchange": {
+          "median_ns_per_call": 1511.5660082155746,
+          "iqr_ns_per_call": 28.098449762197333,
+          "median_paired_cost_over_source": 1.6525285837480803
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1624.474991741443,
+          "iqr_ns_per_call": 19.56266727791217,
+          "median_paired_cost_over_source": 1.783781188306139
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 854.18132155953,
+          "iqr_ns_per_call": 22.133877123400453,
+          "median_paired_cost_over_source": 0.9330385895730905
+        }
+      },
+      "3": {
+        "disabled": {
+          "median_ns_per_call": 158.3195932283079,
+          "iqr_ns_per_call": 1.3123334153541464,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 441.4614680460553,
+          "iqr_ns_per_call": 4.148343307680648,
+          "median_paired_cost_over_source": 2.790406968043646
+        },
+        "interchange": {
+          "median_ns_per_call": 936.1030944364278,
+          "iqr_ns_per_call": 13.36479878146531,
+          "median_paired_cost_over_source": 5.912610349652897
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1142.761226842224,
+          "iqr_ns_per_call": 9.163586885479617,
+          "median_paired_cost_over_source": 7.207583919735837
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 918.237874747766,
+          "iqr_ns_per_call": 9.661465840299797,
+          "median_paired_cost_over_source": 5.801477663461913
+        }
+      },
+      "4": {
+        "disabled": {
+          "median_ns_per_call": 911.3863863863864,
+          "iqr_ns_per_call": 10.032147532147519,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 796.5906078115333,
+          "iqr_ns_per_call": 8.966408975562217,
+          "median_paired_cost_over_source": 0.8739015315324392
+        },
+        "interchange": {
+          "median_ns_per_call": 875.2620583027674,
+          "iqr_ns_per_call": 12.872991791555478,
+          "median_paired_cost_over_source": 0.9587622332047709
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 798.1818373864089,
+          "iqr_ns_per_call": 9.754491713699167,
+          "median_paired_cost_over_source": 0.8742451220638656
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 796.9028687908742,
+          "iqr_ns_per_call": 11.192433082235198,
+          "median_paired_cost_over_source": 0.8757930332767413
+        }
+      },
+      "5": {
+        "disabled": {
+          "median_ns_per_call": 853.7127415424718,
+          "iqr_ns_per_call": 7.394139230464248,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 745.0352019644716,
+          "iqr_ns_per_call": 18.102202259764113,
+          "median_paired_cost_over_source": 0.8745308680901576
+        },
+        "interchange": {
+          "median_ns_per_call": 811.5210112337288,
+          "iqr_ns_per_call": 10.397638341291326,
+          "median_paired_cost_over_source": 0.9518363412488555
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 757.4640361023769,
+          "iqr_ns_per_call": 12.098206285332594,
+          "median_paired_cost_over_source": 0.8892848429760186
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 742.6123917888265,
+          "iqr_ns_per_call": 5.635087920088267,
+          "median_paired_cost_over_source": 0.869495684463216
+        }
+      },
+      "6": {
+        "disabled": {
+          "median_ns_per_call": 2.509655,
+          "iqr_ns_per_call": 0.049265000000000114,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3.2398334008298626,
+          "iqr_ns_per_call": 0.04036718834098307,
+          "median_paired_cost_over_source": 1.296261870420274
+        },
+        "interchange": {
+          "median_ns_per_call": 3.3807084037647583,
+          "iqr_ns_per_call": 0.03217708400368924,
+          "median_paired_cost_over_source": 1.3475956755262246
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3.414640696138348,
+          "iqr_ns_per_call": 0.06229687629785152,
+          "median_paired_cost_over_source": 1.3566188995766857
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 3.2326550000000003,
+          "iqr_ns_per_call": 0.03617999999999988,
+          "median_paired_cost_over_source": 1.2924000542922998
+        }
+      },
+      "7": {
+        "disabled": {
+          "median_ns_per_call": 967.662030524687,
+          "iqr_ns_per_call": 11.35114819243222,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 841.4569808634337,
+          "iqr_ns_per_call": 9.763208298727022,
+          "median_paired_cost_over_source": 0.8679288571955701
+        },
+        "interchange": {
+          "median_ns_per_call": 917.7177327928448,
+          "iqr_ns_per_call": 9.623791535414057,
+          "median_paired_cost_over_source": 0.9491872332733556
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 858.860888639494,
+          "iqr_ns_per_call": 8.75967500336219,
+          "median_paired_cost_over_source": 0.8870873474894445
+        },
+        "legacy-interchange": {
+          "median_ns_per_call": 842.4969059942246,
+          "iqr_ns_per_call": 8.400615681149247,
+          "median_paired_cost_over_source": 0.8729902495109843
+        }
+      }
+    },
+    "confidence_intervals_claimed": false,
+    "author_effort_compared": false
   }
 }

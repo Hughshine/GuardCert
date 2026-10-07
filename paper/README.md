@@ -1,13 +1,17 @@
 # GuardCert Working Manuscript
 
-This is the first manuscript deliverable from the CAV 2027 writing track in
+This is the working manuscript from the CAV 2027 writing track in
 [the narrative](../docs/topdown/paper-narrative.md). It contains prose drafts of
 the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
 The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
-uncompleted results. The extracted nested compiler now installs interchange and
+uncompleted results. An exploratory complete-call experiment now records 30
+rounds/1,200 raw batches on one literal-store kernel, including observed
+slowdowns; it is not a representative benchmark speedup result. A separate
+known-word numeric/domain fact checker has four closed sufficiency theorems and
+does not change the production guard. The extracted nested compiler installs interchange and
 tiling on the fixed-layout adapted OLO Figure 2 source; its new execution reports
 are recorded separately from prior loaded-root results. A committed source-only
 export now rebuilds the proof, compiler, and existing C experiments independently

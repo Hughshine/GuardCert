@@ -164,8 +164,65 @@ independent headers and two header aliases: source order $(15,80,160)$,
 interchange order $(80,160,15)$, and tiling order $(80,15,160)$, all with public
 exits $(16,16,5)$. Fourteen diagnostic Clight calls show that an independent
 $16\times16\times5$ same-word input replaces 2,560 stability address comparisons
-with two cache comparisons. Other inputs retain scan work. Numeric checks still
-precede this shortcut; complete guard cost remains to be measured.
+with two cache comparisons. Other inputs retain scan work.
+
+An additional independent audit queries 34 endpoints over 600 dependencies and
+899 bound sources, including the unchanged compiler endpoint. Four new
+known-word numeric/domain fact-derivation theorems have empty assumption sets;
+the kernel remains closed and the compiler baseline is unchanged. These facts
+have not replaced the production numeric check.
+
+\paragraph{Complete call cost.}
+For the literal-15 source, thirty seeded rounds compare eight matched inputs
+and five compiler configurations, giving 1,200 fresh-process batches. We pin
+CPU~0 on a Ryzen 7 7800X3D under WSL2 Linux 5.15 and use C \code{clock()} process
+CPU time. Batches target 200ms and all exceed 100ms. Timing includes header reset,
+capture, dispatch, candidate or fallback, and public-exit restoration. Resetting
+aliased headers on every call prevents a refused first input from silently
+becoming accepted later. Full arrays and public state are checked against the
+independent source model before and after each batch, outside timing.
+The timed code is unmodified CompCert assembly; no proof or tool builds run
+during the final sampling. Table~\ref{tab:nested-cost} reports median amortized
+CPU cost; the report retains IQRs and all raw batches.
+
+\begin{table}[t]
+\centering
+\caption{CPU ns/call for one fixed-layout literal-store kernel. These are
+mechanism measurements, not representative benchmark speedups.}
+\label{tab:nested-cost}
+\begin{tabular}{lrrrr}
+\hline
+Input & Source & Identity & Interchange & Tile $2\times3$\\
+\hline
+Independent, same word & 909.9 & 1397.5 & 1503.4 & 1622.7\\
+Root header alias, same word & 910.5 & 1394.9 & 1506.4 & 1628.0\\
+Shifted alias, same word & 914.4 & 1390.8 & 1511.6 & 1624.5\\
+Independent, counts $6,8$ & 158.3 & 441.5 & 936.1 & 1142.8\\
+Root alias, growing domain & 911.4 & 796.6 & 875.3 & 798.2\\
+Nonzero entry row & 853.7 & 745.0 & 811.5 & 757.5\\
+Empty outer, one-cell header & 2.5 & 3.2 & 3.4 & 3.4\\
+Root count outside profile & 967.7 & 841.5 & 917.7 & 858.9\\
+\hline
+\end{tabular}
+\end{table}
+
+On the independent same-word input, interchange drops from the prior
+scan-only compiler's 2,725.1ns to 1,503.4ns, but remains about $1.65\times$
+the source cost. For counts $6,8$, interchange costs about $5.91\times$ the
+source and tiling $7.21\times$. Wider acceptance and cheaper checking have not
+established net optimization gains. Some refusal configurations cost less than
+the disabled source; these measurements include lowering and backend effects,
+so their differences cannot be interpreted as pure guard cost.
+
+Separate GCC diagnostics count all \emph{guard-prefix} \code{if} evaluations,
+excluding the final source/candidate choice. The same-word input changes from
+4,673 to 17 decisions with two header loads in both versions. The non-word
+$6\times8\times5$ input changes from 899 to 900 decisions. These are not machine
+instruction counts. Numeric checks are first-path and parameter interval tests;
+per-point work comes from stability and alias scans. The production candidate
+still restores public counters by traversing a body-free shadow nest.
+Replacing that traversal with a certified compact exit is a concrete next
+target; these timings do not by themselves attribute the slowdown to it.
 
 \subsection{Experiments Needed for the Final Paper}
 
@@ -198,8 +255,9 @@ domain services. List the site-specific assumptions and source/model bridges
 still supplied by the author. Compare a common example against the nearest
 existing interfaces before claiming reduced proof burden.
 
-\pending{No timing, speedup, final acceptance fraction, or comparative author
-effort has been measured for this manuscript. Extend the supported source class
+\pending{No representative benchmark speedup, final acceptance fraction, or
+comparative author effort has been established. The kernel timing experiment
+has no confidence intervals or break-even inference. Extend the supported source class
 beyond these loaded-header templates, and
 measure compact conditions and author obligations on common examples. Dynamic
 layout and delinearization of the full original BT kernel remain uncovered.}

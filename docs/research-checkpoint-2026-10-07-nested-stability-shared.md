@@ -69,3 +69,10 @@ observers。新 guard 还需证明 ordered capture 的许可、private helper fr
 完整 guard／program cost、作者工作比较、更广 affine source／基本域变换及
 动态布局／delinearization、完整 BT 适配仍继续。本阶段没有把 constant-word
 实例重定义成完整目标。
+
+## 后继成本核对更正
+
+先前计划中的「逐点 numeric work」不是当前实现事实。Numeric code 为固定深度
+first-path probe 与参数区间 tree；逐点工作是 stability／alias scans。单数组
+same-word 快捷接受时这两个扫描均不执行。后继报告单列完整 guard 决策与程序
+计时；本 checkpoint 的旧计数和报告摘要保持其原始实验范围。
