@@ -232,3 +232,5 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 再次 fetch `topdown/research-positioning` 后仍为 `7d94d81`，正文与 main 一致。按其责任边界完成的 [body prefix 阶段](research-checkpoint-2026-10-06-loaded-affine-body.md)没有修改 kernel：语言从真实结构化执行取得权限运输和 temp frame，prefix library 组合 domain 的 body check，语言从接受后的观察保持导出完整缓存源执行。递归 affine adapter 复用 checked package 并核对 pointer register freshness。
 
 34 端点／665 依赖审计通过，numeric 和两个当前 compiler 的对象绑定保持；具体 allocation 下的 alias 源、首次 guard 拒绝、实际 lowering 与观察不保持均有证明。下一项仍须实际实现 recursive physical body probe 的访问许可、覆盖和接受后字节分离，不能把 `BODY_CHECK` 参数或缓存运输桥算成该 domain 算法已经完成。完整 body receipt 可许可其内部全部稳定-temp child points；跨 loaded root header 的推进必须等待 body 观察保持。这一粒度已吸收到计划；新增 compiler、提取、native／性能结果仍未交付。
+
+后继 [body domain 实现](research-checkpoint-2026-10-06-loaded-affine-body-domain.md)关闭了参数 words、当前 body 的递归模型执行／实际 point capabilities、guard entry 权限运输、private cursor 比较域和写 trace coverage→观察保持。25 端点／674 依赖审计通过，既有报告绑定保持。重新 fetch 的 narrative 仍为 `7d94d81`，没有新的正文差异；沿其 kernel 截止继续实现领域库，未扩张内核。仍须接完整 child scan 与 root 拒绝短路的实际 materialized 执行；只读 decision tree 的 `BODY_CHECK` 不能直接替代 statement scan 的执行证据。完成后再接既有缓存运输和完整 compiler，这项未完成验收已写入当前计划。

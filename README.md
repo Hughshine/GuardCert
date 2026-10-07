@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-[最新 body prefix／缓存源证明](docs/research-checkpoint-2026-10-06-loaded-affine-body.md)已将前缀服务推广到不固定维数的完整结构化 body，并接到 checked recursive affine package：语言统一证明权限／temp frame，domain body check 接受后才推进 loaded header，观察保持后导出实际完整缓存源。34 端点／665 依赖／992 源摘要审计通过，既有 numeric／compiler 对象保持；具体 alias 源与首次拒绝的实际 Clight 检查通过。本阶段尚未实现 recursive physical body probe 或新增 compiler／native 入口。
+[最新递归 body domain 证明](docs/research-checkpoint-2026-10-06-loaded-affine-body-domain.md)从原 loaded source 生产参数 word view，并从当前完整 body 生产递归模型执行、各点物理许可和 private cursor 的实际地址比较域；写 trace 对应证明将点写分离推成 body 的 bound 保持，允许 reads alias bound。25 端点／674 依赖／1,001 源摘要审计通过，既有 body／numeric／compiler 对象保持。尚须证明完整 child scan 和 root 短路的实际执行，再接缓存源／candidate／完整 compiler；本阶段没有新增提取或 native 入口。
 
 [Deep＋loaded 的 numeric guard 接入](docs/research-checkpoint-2026-10-06-loaded-affine-numeric.md)已从真正原 loaded 源生产 first-path receipt 和安全 private capture，复用既有递归 affine numeric guard 及当前证书接口；不以完整缓存源执行或未来稳定性许可检查。五个新 `.v`、25 端点／660 依赖／987 源摘要审计通过，零次迭代时未定义 child 参数及 body pointer 的实际 Clight 检查也有具体 memory 见证。此阶段接受只证明 numeric math domain；深层 physical stability scan、候选和全程序安装仍需继续接入，没有新增 compiler／native 能力。
 

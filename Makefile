@@ -147,6 +147,10 @@ loaded-affine-numeric-proof:
 loaded-affine-body-proof:
 	python3 scripts/audit_loaded_affine_body.py
 
+.PHONY: loaded-affine-body-domain-proof
+loaded-affine-body-domain-proof:
+	python3 scripts/audit_loaded_affine_body_domain.py
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 

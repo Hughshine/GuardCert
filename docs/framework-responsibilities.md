@@ -10,6 +10,8 @@
 
 [body prefix／缓存源桥](research-checkpoint-2026-10-06-loaded-affine-body.md)进一步划清复用责任：语言统一从 actual structured body 证明权限运输和 protected-temp frame，prefix library 组合 domain 的逐 body check，语言再从已证明的观察保持取得完整缓存源执行。递归 affine adapter 复用 checked package，增加 loaded/body pointer register freshness 核对；domain 仍须生产实际 body 的全部访问许可、覆盖和 byte separation，并构造 `BODY_CHECK`。34 个端点及 alias 源／拒绝／具体 allocation fixtures 通过；不是新的完整 recursive physical scan 或 compiler。
 
+[body domain 阶段](research-checkpoint-2026-10-06-loaded-affine-body-domain.md)已生产上述实际访问许可与写 coverage：原 first-body receipt 提供参数 words，当前完整 body 提供递归 Loop 执行，语言权限运输把实际点 capabilities 带回 guard entry；领域地址适配许可 private cursor 的实际比较。点写分离经真实写 trace 推出 body preservation，reads 可以 alias bound。25 端点审计通过，kernel／旧 host 不变。领域库仍须证明完整扫描覆盖与检查执行／接受结果；语言 materialized host 负责其 private frame、结果和 root 短路实现，之后完整程序安装继续由现行 Clight host 承担。单点比较域和写 footprint 不算已经完成该扫描或 compiler。
+
 非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 从真实 source prefix／有限正常源执行生产 D；[新 compiler](clight-affine-inner-pointer-compiler.md) 已进一步组装两套 candidate ranges、独立 certificate、实际 lowering／restore 和 local contract，消费已有 progress／placement host 接到 Csem→Asm，不归作 framework 自动发现优化前提。
 
 ## 1. 三方各自证明什么

@@ -18,6 +18,8 @@
 
 10 月 6 日阶段同步吸收 `f793629` 的 cross-IR 补充：保持核心不依赖 Clight 语法；SSA／汇编使用者须实例化自己的控制、live-out／phi、scratch／flags 定律。它们是接口讨论和同例 related-work 比较的方向，第二 IR 实现是可选证据，当前主实现／验收继续是 CompCert/Clight。
 
+[最新 body domain 阶段](research-checkpoint-2026-10-06-loaded-affine-body-domain.md)已实现前项中参数定义性、实际递归 child 模型、当前 body 的各点权限→guard entry 运输、private cursor 地址比较 domain，以及写 trace coverage／点写分离→实际观察保持。25 端点／674 依赖／1,001 源摘要审计通过，先前 body／numeric／compiler 绑定保持。下一项实际接合 general child scan 与 materialized root scan：前者使用包围 root 的 coordinate prefix，后者拒绝后立即停止、仅在整个 body 接受后运输源前缀。已有 `BODY_CHECK` 消费 decision tree，private cursor scan 是 statement，必须证明实际 host 执行与 frame／result，不能直接把二者当成同一对象。完成后才接缓存源、旧候选 checker、typed pool、原 source key 与 fallback、Csem→Asm 和真实 C。完整目标继续 active。
+
 最新同步到 `8c098ed` 的 [context lifting](topdown/context-lifting.md)：kernel 的局部正确性与语言的程序安装分开陈述；host 提供可复用 region/boundary 契约，优化与具体位置提供 guarantee／placement 证据。已完成 [源码核对](clight-boundary-contract-review.md)，已有 temp/memory／scope／private 运输继续复用；finite 与 open 的 progress 是实质差异，不按自由 clause 组合重新设计 kernel。guarantee/requirement API 仍待实际受阻案例支持，不称已经实现。
 
 最新 `7d94d81` 的 kernel 截止澄清已同步：只读前台、条件组合、prefix scan、simplification 和 assumption derivation 属于上层库；语言 host 承担完整程序安装。沿此边界继续实现和记录责任，不做无实例依据的文件重排或新 kernel 接口。
