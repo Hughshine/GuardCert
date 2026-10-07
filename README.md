@@ -4,16 +4,23 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[Outer 短路扫描与双缓存源](docs/constant-joint-outer-scan.md)已消费 inner producer，
+整段接受生产全部 rows／columns 的观察保持，实际取得原源与双缓存源的相同出口
+temps／memory。第一行拒绝停止 outer，空 outer 不要求 child／output receipt。
+14 端点／565 依赖审计通过，kernel／既有 compiler 绑定保持。完整 canonical 模型、
+原 AST factory／候选安装与新 compiler 仍未完成；本阶段没有新 native。
+
 [Inner 短路扫描及整行接受](docs/constant-joint-inner-scan.md)已接到真实 Clight loop：
 每个 column 从原源 prefix 取得 BODY 许可，接受后推进；整行接受生产所有 column
 的观察保持及下一 outer prefix。首次拒绝不递增扫描游标，空 child 无需 output
-receipt。实际 outer loop、完整模型和新 compiler 仍待连接，本阶段没有新 native。
+receipt。该阶段没有新 native；实际 outer loop／缓存源的后继见上段，完整模型
+和新 compiler 仍待连接。
 
 [已到达常量子循环的 joint scan](docs/constant-body-joint-scan.md)现已从原 BODY 的
 访问权限许可真实写地址与 `shape`、`shape+1` 的比较；接受后保持全部 raw
 observations，生产 inner source-prefix 的推进证据。30 端点审计通过，具体
 Figure 2 BODY 证明完整五次原 store 和检查执行，同 block 分离接受、重叠拒绝。
-完整 inner/outer 扫描、canonical model 和原 AST 安装仍待连接，没有新 native。
+其 inner/outer 扫描后继见上两段；canonical model 和原 AST 安装仍待连接，没有新 native。
 
 [常量子循环的模型／权限桥](docs/constant-bound-model.md)已把原 `<5` 子循环执行接到
 canonical affine decode 和 guard-entry point capabilities；private helpers 有实际准备

@@ -19,6 +19,13 @@ first refusal／empty execution，并从整行接受直接生产全 column prese
 outer-prefix advance。14 端点审计通过。下表已按这个消费者更新责任与剩余缺口；
 当前未完成项是实际 outer runtime loop、完整模型与原 AST／compiler 安装。
 
+后继 [outer scan／完整双缓存源](constant-joint-outer-scan.md)已落实下面要求：实际
+outer 运行消费 row producer，整段接受生产所有 rows／columns preservation，再
+填入旧 two-cache transport。14 端点审计通过，kernel／既有 compiler 保持。
+下表及验收顺序按这个后继更新；下面“重新阅读后的执行决策”仍保留 `ea55a6f`
+复核时的任务说明，不将当时的计划算作本阶段证明。当前下一项是完整 canonical
+model、实际输入 producer 和原 AST／candidate／whole-program 安装。
+
 ## 重新阅读后的执行决策
 
 三方责任是代码与证明的归属；四个 `C_opt`／`C_derive`／`C_guard`／`C_host`
@@ -131,8 +138,8 @@ for (int i = 0; i < *bound; ++i)
 | --- | --- | --- |
 | 有序读取 | `nested_expression_capture_execution`：outer 活动才读取 child，保持原 source public 执行 | 具体 site 绑定实际两个 header expressions、类型、freshness；不是任意 dependent preload |
 | 已到达子域的权限 | `constant_body_joint_scan_execution` 已把原 `<5` BODY capabilities 接到全部写地址与 observer expressions 的实际比较 | Factory 仍须生产 checked leaf、scope／freshness 和原源绑定；权限不带回已改写数据，也不许可下一 column |
-| 接受与推进 | `constant_joint_inner_loop_execution` 已运行真实 inner scan；`constant_joint_current_row_execution` 生产全 column preservation 与 outer-prefix advance；first refusal／empty execution 有独立端点 | Domain 将这个 producer 接到实际 outer 短路循环，证明全部 rows coverage／fuel；每 row 接受才取得下一 prefix，拒绝后不读下一 row |
-| 缓存模型与候选 | `nested_expression_initial_cached` 和 private model-bound 桥分别已有；旧 candidate checker 可复用 | Domain 组装接受后的完整 canonical model 与 cross-entry candidate execution，不能先假设缓存源完成 |
+| 接受与推进 | `constant_joint_outer_scan_execution` 已运行真实 outer；`constant_joint_outer_acceptance_preserves_all` 生产全部 rows／columns preservation，first-row refusal／empty execution 有独立端点 | Factory 从实际 capture／numeric 和 namespace checker 生产 DOMAIN／SOURCE_WORDS／scope／header 等 typed inputs，组装真正完整 guard certificate |
+| 缓存模型与候选 | `constant_joint_outer_cached_source` 已消费实际 preservation 取得整段双缓存源；private model-bound 桥和旧 candidate checker 可复用 | Domain 组装完整 canonical model 与 cross-entry candidate execution；cached source 已是接受的结果，不能移到检查许可的前提中 |
 | 整程序安装 | 原 root-offset compiler 的具体语言 host 已有 | Factory／site 核对新 original AST、typed pool、scope／progress／placement 和 fallback；语言 host 消费这些证据，随后提取并验收原 Figure 2 适配 C |
 
 上述表格列的是已有服务和待实例化义务。`BODY_CHECK`／`PRESERVE`／`ENCODE`
@@ -141,9 +148,9 @@ for (int i = 0; i < *bound; ++i)
 
 ## 已纳入活动目标的验收顺序
 
-1. 单个 reached BODY 的两个观察比较、实际 inner scan 和整行推进已经完成；
-   下一项连接实际 outer 短路循环及全部 rows 的 preservation。未到达 child
-   时不得读取 child cache；numeric 接受不代替稳定性。
+1. 实际 inner／outer scan、全部 rows preservation 和接受后的完整双缓存源已
+   完成。下一项连接 canonical model 与实际入口 producer；未到达 child 时
+   消费独立 empty 服务，不为得到双观察 prefix 而读取第二 word。
 2. 每个 BODY 的实际读写许可其内部全部比较；只有检查成功才能扫描下一
    BODY。Domain 另证跨 column/row 的完整覆盖和足够 scan fuel；入口的某个
    cell 有权限，不代表整个数学包络都可安全比较。

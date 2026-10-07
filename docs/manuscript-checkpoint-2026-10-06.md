@@ -110,3 +110,20 @@ Case-study、evaluation 和 evidence map 同步真实执行端点、fixed-entry 
 或 overfull box。渲染检查修改后的第 7、9、10 页，段落和红色 pending 无截断。
 最终 `build/paper/report.json` SHA-256：
 `2adbee8ae42aa94e1b3938543dded5f946397221e7b32968278eb1b7150435ff`。
+
+## 2026-10-07：outer scan 与完整双缓存源同步
+
+[Outer 消费者](constant-joint-outer-scan.md)已从原 source prefix 许可真实逐 row
+检查，整段接受生产所有 rows／columns preservation，实际填入旧 two-cache
+transport，保留原／缓存源的出口 temps 与 final memory。独立 empty outer guard、
+zero-header transport 和 first-row refusal 分别有实际执行端点。14 endpoints
+（2 language、12 domain）／565 依赖／1,069 源摘要审计及先前 validators 通过，
+kernel 闭合、完整 compiler 保持 42 assumptions；旧 native/path/work 仅核对绑定。
+
+Case-study／evaluation／evidence map 同步这一能力和输入责任；canonical model、
+实际 capture/numeric producers、原 AST factory／candidate／whole-program compiler
+与新 native 接受继续标记 pending。没有新增数组 fixture、提取或计时。
+Offline 重建仍为 11 页，无未解析引用或 overfull box。渲染检查第 7–10 页，
+新增段落、pending、evaluation 和后继页均无截断／重叠。
+最终 `build/paper/report.json` SHA-256：
+`fb1b7aaff10a9ff41c352fb7129f338afab99209966d04732b854b5d4d6d2911`。

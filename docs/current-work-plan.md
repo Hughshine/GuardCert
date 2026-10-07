@@ -1,26 +1,35 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[实际 outer scan／双缓存源](constant-joint-outer-scan.md)已从现有
+inner producer 生产全部 rows 的 preservation，填入旧 two-cache transport，取得
+原／缓存源的相同出口 temps 和 final memory。第一行拒绝、独立 empty outer guard
+和无需 child cache 的语言 empty transport 有实际端点；kernel 不变，没有新增
+BODY／PRESERVE 语义回调。14 端点／565 依赖／1,069 源摘要审计通过，旧 compiler
+保持 42 项 assumptions。下一项是完整 canonical model 及原 capture／numeric 到
+这些 typed inputs 的实际 producer，再接原 AST factory／typed pool／候选／host。
+没有新数组 fixture、提取、native 或计时；完整目标 active。
+
 2026-10-07：[实际 inner 短路 loop／整行接受](constant-joint-inner-scan.md)已消费
 原 BODY 的检查 producer，整行接受直接取得所有 column 的观察保持和 outer-prefix
 advance。固定入口的 header 适配复用旧语言 prefix，guard 私有游标与逻辑 source
 temps 分开；first refusal 和 empty child 的真实执行端点已证明。
 14 端点／563 required dependencies／1,067 源摘要审计及旧 compiler／native 绑定核对
 通过；kernel 无改动、无新增公理。
-下一实现是实际 outer 短路扫描及完整 rows 覆盖，再组装接受后的 cached model、
-原 AST／typed pool／候选／host 和完整 compiler。没有新提取或 native，goal active。
+该阶段之后的实际 outer scan／完整 rows 及 cached source 已由上段连接；完整
+canonical model、原 AST／typed pool／候选／host 和 compiler 尚未完成。
 
 本轮重新 fetch／完整读取 narrative `271f6fc` 及 context-lifting，main 正文无差异；
 [责任／实现核对](narrative-implementation-check-2026-10-06.md)已按 `ea55a6f` 更新到
 实际 inner 消费者，消除把已接通 inner scan 列为待办的旧状态。
 三方证明归属与四个逻辑证书环节分开；实际 guarded-choice 分派不代替整程序安装。
-下一 outer 任务必须由 inner producer 生产全部 rows 的 preservation，填入现有
-cached-source transport，不新增一个要求使用者假定它的 `PRESERVE` 回调。
+这一要求已由最新 outer 阶段落实：inner producer 生产全部 rows 的 preservation，
+填入现有 cached-source transport，没有新增一个要求使用者假定它的 `PRESERVE` 回调。
 原 source memory／guard-entry memory、private cursor 对应、empty outer／child
 读门控和负 computed count 的实际回退策略分别验收。
 继续把 kernel、条件库、language host 和具体 optimizer/site 的责任分开；
 不把 `ENCODE`／coverage／`PRESERVE` 参数计作已实现 producer。
 Reached constant body 许可的双观察 joint scan 和接受后的 inner-prefix preservation
-已连接；实际 inner loop 的后继见上段。下一实现是实际 outer 短路扫描，再组装 cached model 与
+已连接；实际 inner／outer 后继见上段。下一实现组装完整 canonical model 与
 原 AST 安装。功能链闭合后验收 compact 条件、成本／接受域和
 同例作者责任；相关里程碑同时更新实际稿件，不等待全部未来扩展。
 

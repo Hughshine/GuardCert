@@ -12,8 +12,10 @@ store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比
 30 端点审计保持，kernel 不变。[Inner loop 后继](constant-joint-inner-scan.md)已将
 检查 producer 接到真实短路循环，并从整行接受直接生产全 column 的 preservation
 和 outer-prefix advance。固定入口的 header 定律足够，不要求任意无关入口的 cache
-对应。完整 outer scan、canonical model／候选和原 AST 安装仍未接通；后继继续
-保留实际 source memory，只在接受后许可下一 row，再导出整段缓存源。
+对应。[Outer 后继](constant-joint-outer-scan.md)现已接通真实扫描和全部 rows
+preservation，导出同出口／memory 的整段双缓存源。14 端点／565 依赖审计保持，
+无新增语义 BODY／PRESERVE 回调。完整 canonical model／候选和原 AST 安装仍待
+连接；numeric／word／namespace 事实须由实际 factory 生产。
 `ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
 记录其 producer；这次没有把未完成的整段 guard／factory 计作已经自动取得。
 

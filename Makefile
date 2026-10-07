@@ -26,6 +26,13 @@ paper-offline:
 .PHONY: constant-model-proof constant-model-validate
 .PHONY: constant-joint-proof constant-joint-validate
 .PHONY: constant-joint-inner-proof constant-joint-inner-validate
+.PHONY: constant-joint-outer-proof constant-joint-outer-validate
+constant-joint-outer-proof:
+	python3 scripts/audit_constant_joint_outer.py
+
+constant-joint-outer-validate:
+	python3 scripts/audit_constant_joint_outer.py --validate
+
 constant-joint-inner-proof:
 	python3 scripts/audit_constant_joint_inner.py
 
