@@ -16,6 +16,14 @@
 
 论文里的维度界与 CompCert 内存权限不能互相代替。我们的实例必须分别证明“多维表示忠实”与“实际执行的 load/store 有定义”。同样，省略检查只能使用已证明的静态入口事实或源语义约束。
 
+10 月 6 日的 [deep＋loaded 完整稳定性检查](research-checkpoint-2026-10-06-loaded-affine-scan.md)
+进一步组合真实初次读取、整数包络检查、任意有限深度 canonical child 域的写地址扫描，
+以及拒绝后停止的 root 前缀运输。当前证书的安全域只有原 source completion；
+接受才导出完整 cached-source receipt，不用未来稳定性或缓存源完成性许可检查。
+静态描述器没有逐 body 的语义回调；自别名拒绝、同 block 相邻字接受与未定义 body 参数
+的零次迭代均有实际 Clight 执行证明。此阶段补上前提处理链的一段，尚未接入新的
+候选、全程序 compiler 或 native，不能与旧 deep／loaded 运行矩阵相加后判作主线完成。
+
 ## 怎样判定已达到主线验收
 
 需要一个可重复构建的实际循环实例，消费新 `readonly_condition`／局部接口，再连接完整程序定理和提取后的编译器。只打印模块名、接受一个未消费的 schedule，或运行脱离编译器的 Python 模型都不算通过。

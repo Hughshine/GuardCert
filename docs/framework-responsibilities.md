@@ -14,6 +14,8 @@
 
 非矩形 pointer 阶段的具体归属见 [接入设计](affine-pointer-domain-next.md)：kernel 保持不变；语言提供 stable frame 的 counted-loop decode、实际 first-body 到达和公开游标恢复；domain 提供实际 ragged 点集、pointer body 模型对应、访问覆盖与充分条件推导。candidate checker 仍独立证明域／重排合法性。[完整条件](research-checkpoint-2026-10-06-affine-pointer-alias.md) 从真实 source prefix／有限正常源执行生产 D；[新 compiler](clight-affine-inner-pointer-compiler.md) 已进一步组装两套 candidate ranges、独立 certificate、实际 lowering／restore 和 local contract，消费已有 progress／placement host 接到 Csem→Asm，不归作 framework 自动发现优化前提。
 
+[完整 scan 后继](research-checkpoint-2026-10-06-loaded-affine-scan.md)已关闭前段的检查执行与接受结果义务：语言提供实际 Mint32 地址比较和 root 拒绝短路；领域库用当前 body 的真实许可实例化递归 child scan，并在 body 接受后推进实际源前缀。静态描述器将 capture、numeric、runtime gate 和全部 scan 合成一段代码，没有逐 body 语义回调；现行 certificate 库以原 source completion 为 D，给出安全、分派、全部完成检查的 soundness 和 public frame。接受导出完整缓存源执行与同一最终 memory。38 端点审计及真实自别名拒绝／同 block 接受通过，kernel 和现行 host 不变。优化方仍须连接候选 checker；完整程序安装、typed allocation、提取和真实 C 是后续语言／使用者验收，不从这张稳定性证书推断已完成。
+
 ## 1. 三方各自证明什么
 
 “框架提供 conditional correctness 接口”不表示框架替优化作者证明任意候选正确。“语言提供语义”也不表示每个优化作者都要重新证明语言的 if、load 和上下文定律。

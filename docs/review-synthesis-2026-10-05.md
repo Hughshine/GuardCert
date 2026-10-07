@@ -234,3 +234,9 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 34 端点／665 依赖审计通过，numeric 和两个当前 compiler 的对象绑定保持；具体 allocation 下的 alias 源、首次 guard 拒绝、实际 lowering 与观察不保持均有证明。下一项仍须实际实现 recursive physical body probe 的访问许可、覆盖和接受后字节分离，不能把 `BODY_CHECK` 参数或缓存运输桥算成该 domain 算法已经完成。完整 body receipt 可许可其内部全部稳定-temp child points；跨 loaded root header 的推进必须等待 body 观察保持。这一粒度已吸收到计划；新增 compiler、提取、native／性能结果仍未交付。
 
 后继 [body domain 实现](research-checkpoint-2026-10-06-loaded-affine-body-domain.md)关闭了参数 words、当前 body 的递归模型执行／实际 point capabilities、guard entry 权限运输、private cursor 比较域和写 trace coverage→观察保持。25 端点／674 依赖审计通过，既有报告绑定保持。重新 fetch 的 narrative 仍为 `7d94d81`，没有新的正文差异；沿其 kernel 截止继续实现领域库，未扩张内核。仍须接完整 child scan 与 root 拒绝短路的实际 materialized 执行；只读 decision tree 的 `BODY_CHECK` 不能直接替代 statement scan 的执行证据。完成后再接既有缓存运输和完整 compiler，这项未完成验收已写入当前计划。
+
+## 完整 scan：从前缀服务到无回调的实际生产器
+
+[后继实现](research-checkpoint-2026-10-06-loaded-affine-scan.md)已将 general child scan 的包围坐标、actual root break、接受后的源前缀推进和 cached-source transport 接通；没有把旧 decision-tree `BODY_CHECK` 当作 statement execution。静态 site checker 只接收语法／interval／names，实际 capture、numeric、root=0／count 非负 gate 与 recursive scan 组成一段 materialized check。当前 `guard_certificate` 的 D 只有原 source completion；未来访问许可和 bound preservation 都由库生产。语言提供 pointer primitive 与短路／frame，domain 提供模型／point coverage 和接受推进，kernel／whole-program host 不变。
+
+38 端点／682 依赖／1,012 源摘要审计通过，先前 body domain／numeric／compiler 对象绑定保持。具体自别名源 bound=2→1、同 block 相邻字接受／缓存源执行、零次迭代且 child 参数未定义均有实际 Clight 证明。重新 fetch narrative 仍为 `7d94d81`，main 正文一致。完整候选、typed pool、原 fallback／程序安装与新 native 入口尚未连接，仍是下一项验收；没有将 source-domain 正常完成证书扩张为发散源结论。

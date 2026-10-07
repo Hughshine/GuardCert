@@ -18,7 +18,9 @@
 
 10 月 6 日阶段同步吸收 `f793629` 的 cross-IR 补充：保持核心不依赖 Clight 语法；SSA／汇编使用者须实例化自己的控制、live-out／phi、scratch／flags 定律。它们是接口讨论和同例 related-work 比较的方向，第二 IR 实现是可选证据，当前主实现／验收继续是 CompCert/Clight。
 
-[最新 body domain 阶段](research-checkpoint-2026-10-06-loaded-affine-body-domain.md)已实现前项中参数定义性、实际递归 child 模型、当前 body 的各点权限→guard entry 运输、private cursor 地址比较 domain，以及写 trace coverage／点写分离→实际观察保持。25 端点／674 依赖／1,001 源摘要审计通过，先前 body／numeric／compiler 绑定保持。下一项实际接合 general child scan 与 materialized root scan：前者使用包围 root 的 coordinate prefix，后者拒绝后立即停止、仅在整个 body 接受后运输源前缀。已有 `BODY_CHECK` 消费 decision tree，private cursor scan 是 statement，必须证明实际 host 执行与 frame／result，不能直接把二者当成同一对象。完成后才接缓存源、旧候选 checker、typed pool、原 source key 与 fallback、Csem→Asm 和真实 C。完整目标继续 active。
+[前一 body domain 阶段](research-checkpoint-2026-10-06-loaded-affine-body-domain.md)已实现前项中参数定义性、实际递归 child 模型、当前 body 的各点权限→guard entry 运输、private cursor 地址比较 domain，以及写 trace coverage／点写分离→实际观察保持。25 端点／674 依赖／1,001 源摘要审计通过，先前 body／numeric／compiler 绑定保持。它提供单点许可与 coverage；完整检查的后继验证范围单独列在下段。
+
+[最新完整 scan 阶段](research-checkpoint-2026-10-06-loaded-affine-scan.md)已接合带包围 root coordinate 的递归 child scan、root 拒绝 break／前缀推进、实际 capture＋numeric＋runtime gate，并导出 cached-source receipt。静态 site checker 不暴露逐 body 安全性回调；当前 guard certificate 的 D 只有原 source completion。自别名 bound=2→1 的实际源／整段拒绝、同 block 相邻字的真实接受／缓存源执行，以及未定义 child 参数的零次迭代都已通过；38 端点／682 依赖／1,012 源摘要审计通过，kernel／既有对象绑定保持。下一项先连接旧多指针 alias guard 与 candidate checker，再接 typed pool、原 source key／fallback 和 whole-program host、Csem→Asm、提取与真实 C。新三层非空完整执行 fixture、多观察 dependent header、typed pointer-store body、P4 和同例证明负担仍未完成。本轮没有新增 compiler／native 能力，完整目标 active。
 
 最新同步到 `8c098ed` 的 [context lifting](topdown/context-lifting.md)：kernel 的局部正确性与语言的程序安装分开陈述；host 提供可复用 region/boundary 契约，优化与具体位置提供 guarantee／placement 证据。已完成 [源码核对](clight-boundary-contract-review.md)，已有 temp/memory／scope／private 运输继续复用；finite 与 open 的 progress 是实质差异，不按自由 clause 组合重新设计 kernel。guarantee/requirement API 仍待实际受阻案例支持，不称已经实现。
 

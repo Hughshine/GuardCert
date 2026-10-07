@@ -1,6 +1,8 @@
 # Guard：带前提的程序变换与组合证明
 
-[最新递归 body domain 证明](docs/research-checkpoint-2026-10-06-loaded-affine-body-domain.md)从原 loaded source 生产参数 word view，并从当前完整 body 生产递归模型执行、各点物理许可和 private cursor 的实际地址比较域；写 trace 对应证明将点写分离推成 body 的 bound 保持，允许 reads alias bound。25 端点／674 依赖／1,001 源摘要审计通过，既有 body／numeric／compiler 对象保持。尚须证明完整 child scan 和 root 短路的实际执行，再接缓存源／candidate／完整 compiler；本阶段没有新增提取或 native 入口。
+[完整 deep＋loaded 稳定性检查](docs/research-checkpoint-2026-10-06-loaded-affine-scan.md)已把 private capture、numeric check、起点／次数 gate、递归 child scan 与 root 拒绝短路连成实际 Clight 代码。静态描述器不携带逐 body 语义回调；当前 `guard_certificate` 的 D 只有原 source completion，接受导出 bound preservation 和完整缓存源执行。真实自别名写入拒绝、同一 block 相邻字写入接受、零次迭代且 body 参数未定义的执行均通过。38 端点／682 依赖／1,012 源摘要审计通过，旧报告绑定保持、kernel 不变。尚须接旧候选、完整程序安装、提取与真实 C；本阶段没有新增 compiler／native 入口。
+
+[前一递归 body domain 证明](docs/research-checkpoint-2026-10-06-loaded-affine-body-domain.md)从原 loaded source 生产参数 word view，并从当前完整 body 生产递归模型执行、各点物理许可和 private cursor 的实际地址比较域；写 trace 对应证明将点写分离推成 body 的 bound 保持，允许 reads alias bound。25 端点／674 依赖／1,001 源摘要审计通过，既有 body／numeric／compiler 对象保持。本段保留前阶段验证范围；完整检查与缓存源连接见上段。
 
 [Deep＋loaded 的 numeric guard 接入](docs/research-checkpoint-2026-10-06-loaded-affine-numeric.md)已从真正原 loaded 源生产 first-path receipt 和安全 private capture，复用既有递归 affine numeric guard 及当前证书接口；不以完整缓存源执行或未来稳定性许可检查。五个新 `.v`、25 端点／660 依赖／987 源摘要审计通过，零次迭代时未定义 child 参数及 body pointer 的实际 Clight 检查也有具体 memory 见证。此阶段接受只证明 numeric math domain；深层 physical stability scan、候选和全程序安装仍需继续接入，没有新增 compiler／native 能力。
 

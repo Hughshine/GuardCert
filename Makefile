@@ -151,6 +151,10 @@ loaded-affine-body-proof:
 loaded-affine-body-domain-proof:
 	python3 scripts/audit_loaded_affine_body_domain.py
 
+.PHONY: loaded-affine-scan-proof
+loaded-affine-scan-proof:
+	python3 scripts/audit_loaded_affine_scan.py
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 
