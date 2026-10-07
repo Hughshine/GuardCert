@@ -1,14 +1,13 @@
 # 当前工作计划：评审吸收后的验收顺序
 
-当前阶段是 [接受事实下的 guard 简化](research-checkpoint-2026-10-06-loaded-affine-reduced.md)：
-numeric／first-path 事实运输与 alias-only 实际 execution 已证明并接回原 compiler。
-候选 P／host／kernel 不变；35 端点／694 依赖／1,023 源摘要、独立提取与六配置 624 调用、
-208 Clight 路径调用、21 机器路径及四个工作量探针通过。实际 pointer comparisons 未减少，
-分别仍是 46 和 6,394；不能将代码规模下降计成解决 runtime scan 成本。
-[Figure 2 源覆盖探针](olo-figure2-coverage.md)的 16 调用保持原源，但没有优化安装。
-此缺口据实际 emitted Clight 和 source matcher 归到 load＋1 根／loaded child 的 source coverage。
-下一项同时推进 compact write-vs-observation 条件与 checked expression-header／dependent child，
-不再用零散旧实例推断该具体源已经覆盖。前一阶段的 proof/object 报告保持历史范围。
+当前阶段是 [loaded＋offset 根的完整程序接入](research-checkpoint-2026-10-06-loaded-offset-affine.md)：
+真实 `i<*limit+1` 的 raw observation 保持扫描、接受后缓存源执行、候选验证、entry transport、
+checked factory 和 signed-expression host 已连接到新 Csem→Asm 入口并提取运行。
+56 端点／567 依赖／1,047 源摘要审计、六配置 708 次完整汇编调用、236 次 Clight 路径调用和
+21 个未修改汇编探针通过。旧 expression-header／reduced 绑定保持。
+[Figure 2 源覆盖探针](olo-figure2-coverage.md)仍未支持 loaded child；根加一接入没有关闭这个缺口。
+下一项继续 dependent loaded child 的 reached capture／层次前缀，同时推进紧凑稳定性充分条件。
+当前条件仍扫描访问点及跨数组点对；功能链闭合不等于 guard 成本已解决。
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
@@ -306,3 +305,25 @@ Figure 2 覆盖探针确认 main grammar 的两个具体缺口：先接真实 lo
 空外层的一 word shape、alias 改变后续次数及失败后的原 repeated-load fallback 必须保留。
 前端自动提出元数据、checker 核对原 AST 与执行对应；不能手工缓存第二维后称原例已支持。
 通用 projection、实际 guard／运行计时、full kernel 和 per-instance 人工工作继续未完成。
+
+## Loaded＋offset 根接通后的验收
+
+[本阶段](research-checkpoint-2026-10-06-loaded-offset-affine.md)已实际完成上一节 expression-header
+计划中 recursive body receipts、write-vs-observation check、cached-source bridge、entry relation、
+factory／host 与提取运行。原 43 端点服务报告仍保留其历史范围；新链有独立报告。
+框架 kernel 未增加语言或 polyhedral 操作，检查器接受蕴含 semantic P；没有要求接受集合完备。
+
+后续两个切口按 narrative `226ba94` 继续：
+
+1. OLO Figure 2 的第二 loaded child。先定义层次源前缀／reached-header receipt，让叶子检查
+   从真实源到达取得权限，在先前检查接受之后保持所有已捕获观察。内层缓存模型必须在对应
+   子扫描接受后导出；不得把尚待证明的完整 cached child 执行用作 guard 安全的输入。
+   对 Figure 2 的 child 首次读取，用已到达的外层非空条件许可 capture；空外层保持 shape[1]
+   未读。明确前置 stores 是否存在：未来才发现的 observation 不能自动假定过去 stores 不修改它。
+2. 已接通范围的紧凑条件。复用 body receipts、numeric envelope 和 byte-separation 服务，
+   提出安全的充分条件，检查接受后跳过点枚举；失败保留既有 scan／源回退。
+   必须报告实际比较工作和有用接受范围，随后做独立计时与选定 CGO kernel 对照。
+
+新的 native 元数据适配只识别 `load + signed constant` 根，其他 expression 服务仍须相应实例。
+本阶段不提供一般自动 assumption extraction／projection，也不以 708 次调用推断 benchmark
+接受率。全功能目标继续 active，文档与 main 持续提交。

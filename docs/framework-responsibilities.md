@@ -223,3 +223,11 @@ Affine client 核对原 AST／类型／private scope，复用旧递归 numeric c
 自动完成这些证明。语言 host 仍须生产 typed allocation、entry transport、source progress、
 scope／placement 与全程序安装。43 端点审计、新空域／回绕检查及具体 alias 源执行只验证
 上述服务和第一 numeric client；没有新完整 guarded rule／factory／compiler/native 能力。
+
+
+[Loaded＋offset 后继](loaded-offset-affine.md)已用 actual body receipt 填入上述 prefix 服务：
+raw load 与 computed upper 不再要求相等；body 检查由真实到达权限许可，接受后保持原观察，
+再导出 cached-source 执行。新 domain producer 提供 guard soundness、candidate P 和 entry
+transport，signed-expression 语言 host 提供安装。generic kernel、旧候选 validator／backend
+均保持；新 Csem→Asm 与提取运行有独立验收。主使用者当前只自动提出 loaded-plus-constant
+根，不能把一般 signed-expression 库的证明参数算作已经自动支持的语法。

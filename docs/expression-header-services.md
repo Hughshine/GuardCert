@@ -106,3 +106,13 @@ CompCert allocation/store/load 证明这个执行；`offset_alias_header_observa
 下一步由 recursive domain 实际填入此 prefix 的 body-check／coverage，接 guard 的原入口和
 checked-entry 关系，再由 typed host 安装。随后把第二 loaded child 的 reached capture 和
 观察合到同一三层 package，同时推进 compact write-vs-observation 条件及实际工作量验收。
+
+## 完整接入的后继记录
+
+本页描述的 43 端点服务阶段保持原范围。其后的
+[loaded＋offset 完整链](loaded-offset-affine.md)已实际填入 recursive body receipt、
+raw-observation byte separation 和源前缀推进，连接 entry relation、候选、factory 和新的
+signed-expression host，证明并提取新 Csem→Asm 入口。独立阶段记录见
+[验收报告](research-checkpoint-2026-10-06-loaded-offset-affine.md)。
+这关闭了本页所列根 expression 的接入工作；loaded child、一般 observation 实例化、
+紧凑 guard 和成本／人工工作评估继续未完成。

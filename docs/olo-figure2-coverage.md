@@ -63,3 +63,10 @@ raw=2 与 cache=3，并用真实 alias 源证明提前停止；另证 `INT_MAX+1
 这些服务尚未被提取编译器消费，不能更新本例的 `not-supported` 结果。原表达式的数学
 non-overflow 与 cached-word 数值域也保持不同义务，具体 HEADER／body-preservation／coverage
 参数必须由完整 domain 实例填入。
+
+
+[Loaded＋offset 完整后继](research-checkpoint-2026-10-06-loaded-offset-affine.md)已在真实 C 上
+接通根 `load + signed constant` 的稳定性 scan、候选／factory／host、Csem→Asm 和提取运行。
+其 native 三层例中的 child 仍是稳定 temp 上的 affine expression。此进展消除根表达式这一项
+接入缺口，但不是本页 Figure 2 探针的优化验收；第二 loaded child 的层次 receipt／安全 capture
+仍未实现。原 16 调用 coverage 报告保持 `not-supported`，没有借新例改写旧证据。

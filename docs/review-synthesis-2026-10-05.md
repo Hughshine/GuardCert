@@ -290,3 +290,11 @@ Expression-header 阶段再次 fetch 并确认 narrative 仍为 `226ba94`，正�
 cache 保持不同对象，source 首读许可不当作未来稳定性。43 端点通过，原 compiler 42 项假设
 与 source／object 绑定保持；没有把新服务参数或旧 native 回归计成完整源覆盖、成本下降或
 作者负担收益。下一项继续实际 domain／host 接入及 compact condition 验收。
+
+
+2026-10-06 loaded＋offset 后继已按 narrative `226ba94` 的职责边界完成根 expression 的
+功能链，而没有只停在新服务签名：domain body receipts／安全扫描、guard soundness／entry
+transport、旧 candidate checker 和 signed-expression host 已接到 Csem→Asm 并提取运行。
+[阶段记录](research-checkpoint-2026-10-06-loaded-offset-affine.md)明确区分 native 样例、
+未完成的 Figure 2 loaded child、逐点／点对工作和尚未测量的 profitability。下一计划继续
+hierarchical prefix 与 compact sufficient conditions，不以源码规模或单例证明宣称框架贡献成立。

@@ -181,6 +181,23 @@ loaded-affine-multi-validate:
 	python3 scripts/native_olo_figure2.py --validate
 	python3 scripts/probe_loaded_affine_guard_work.py --validate
 
+.PHONY: loaded-offset-affine-proof loaded-offset-affine-native loaded-offset-affine-validate
+loaded-offset-affine-proof:
+	python3 scripts/audit_loaded_offset_affine.py
+
+loaded-offset-affine-native: loaded-offset-affine-proof
+	python3 scripts/build_loaded_offset_affine.py > build/loaded-offset-affine/build.log 2>&1
+	python3 scripts/native_loaded_offset_affine.py
+	python3 scripts/probe_loaded_offset_affine.py
+	python3 scripts/probe_loaded_offset_affine_guard_work.py
+	python3 scripts/validate_loaded_offset_affine.py --paths
+	python3 scripts/probe_loaded_offset_affine_guard_work.py --validate
+
+loaded-offset-affine-validate:
+	python3 scripts/audit_loaded_offset_affine.py --validate
+	python3 scripts/validate_loaded_offset_affine.py --paths
+	python3 scripts/probe_loaded_offset_affine_guard_work.py --validate
+
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py
 
