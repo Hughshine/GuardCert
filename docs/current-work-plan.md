@@ -1,5 +1,12 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+最新服务阶段是 [ordered child capture／层次源前缀](research-checkpoint-2026-10-06-nested-headers.md)：
+外层实际进入才捕获 child；inner prefix 保留实际 source memory 和 global observation／permission
+anchor；这一 row 的全部观察保持成立后才推进 outer。缓存源是接受后的结果，numeric probe
+另从 captured words 许可。48 端点／571 依赖／1,057 摘要审计和原 Csem→Asm／native 绑定保持。
+没有新 factory、提取或 native；完整 goal active。下一项连接实际 joint scan、canonical
+cached model 和原源安装，同时保留紧凑条件与真实 guard 成本验收。
+
 当前阶段是 [loaded＋offset 根的完整程序接入](research-checkpoint-2026-10-06-loaded-offset-affine.md)：
 真实 `i<*limit+1` 的 raw observation 保持扫描、接受后缓存源执行、候选验证、entry transport、
 checked factory 和 signed-expression host 已连接到新 Csem→Asm 入口并提取运行。
@@ -327,3 +334,25 @@ factory／host 与提取运行。原 43 端点服务报告仍保留其历史范�
 新的 native 元数据适配只识别 `load + signed constant` 根，其他 expression 服务仍须相应实例。
 本阶段不提供一般自动 assumption extraction／projection，也不以 708 次调用推断 benchmark
 接受率。全功能目标继续 active，文档与 main 持续提交。
+
+## 第二 loaded header：服务完成后的接入顺序
+
+[本阶段](research-checkpoint-2026-10-06-nested-headers.md)已关闭 ordered capture、reached child
+prefix、row-local joint preservation→outer advance 和 two-cache execution 的语言服务。
+权限运输自动复用 structured-store 定律，numeric probe 由 captured words 许可。
+`shape[1]+delta` 的 read 定律和 active-outer／empty-child fixture 已有；当前没有新 compiler。
+
+下一项依赖顺序：
+
+1. 原 reached child body → affine child／grandchild decode → 实际访问许可和 write coverage；
+   实现所有 observations 的 actual private scan，证明 inner points／outer rows 的完整覆盖。
+   point 接受才推进 child，当前 row 接受才推进下一 outer row。
+2. 接受后把 two-cache 原 nested syntax 运输到 canonical affine model：child captured parameter
+   与 model bound 用不同 private temps，额外 assignments 和第三层原 `<5` 保持 public exits。
+   不手工缓存输入 C 或只改 proposer metadata 后称原 source 已接通。
+3. 接旧 multi-alias／candidate checker，核对 typed pools、原 AST key、capture-entry／checked-entry
+   relations、fallback 和实际 host；新 Csem→Asm、提取和完整 C 接受／回退作为该切口验收。
+
+功能链闭合后继续 compact sufficient conditions、实际 comparisons／有用接受域和同版 CompCert
+计时，沿 narrative `226ba94` 不等全部未来 headers／BODY 扩展才开始。kernel 不增新操作，
+model／candidate／placement 责任继续由相应使用者／checker／host 提供。

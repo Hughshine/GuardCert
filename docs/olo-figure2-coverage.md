@@ -70,3 +70,17 @@ non-overflow 与 cached-word 数值域也保持不同义务，具体 HEADER／bo
 其 native 三层例中的 child 仍是稳定 temp 上的 affine expression。此进展消除根表达式这一项
 接入缺口，但不是本页 Figure 2 探针的优化验收；第二 loaded child 的层次 receipt／安全 capture
 仍未实现。原 16 调用 coverage 报告保持 `not-supported`，没有借新例改写旧证据。
+
+
+## 后继语言服务：原 coverage 结果仍保持
+
+[第二 loaded header 阶段](research-checkpoint-2026-10-06-nested-headers.md)已证明 outer-active
+才读取 child 的 ordered capture、保持真实 memory 的 inner prefix、保护全部 observations 后的
+两层缓存源运输，以及从 captured words 许可旧 numeric probe。`shape[1]+delta` 的 actual
+Mint32 read／raw snapshot 定律已提供；active outer／empty indexed child、changing-bound 原源
+和相邻 word store 的真实 Clight fixtures 单列。
+
+这些服务没有改变 coverage producer、factory 或 compiler。本文原 `not-supported` 报告和
+16 次原生行为对照保持；没有新增本例的 native 优化接受。下一项仍是 actual child 访问许可／
+joint scan、canonical model（含第三层原 `<5`）的 projected transport、真正原 AST 的安装和
+完整提取运行。不将 generic service 参数或手动 cached model 当作此源已被 optimizer 覆盖。

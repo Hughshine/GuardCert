@@ -231,3 +231,16 @@ raw load 与 computed upper 不再要求相等；body 检查由真实到达权�
 transport，signed-expression 语言 host 提供安装。generic kernel、旧候选 validator／backend
 均保持；新 Csem→Asm 与提取运行有独立验收。主使用者当前只自动提出 loaded-plus-constant
 根，不能把一般 signed-expression 库的证明参数算作已经自动支持的语法。
+
+
+[第二 loaded header 的新服务](nested-header-services.md)继续遵守上述分工：语言从原 outer
+和 child headers 提供 conditional captures、actual child receipts、temp 运输和 indexed read
+定律；prefix 库携带全 observation list，单 row 的 preservation 成立才推进 outer。语言再导出
+双 cached-source execution，structured stores 的权限运输复用现有定律，优化方不用额外交任意
+memory-effect 回调。Affine 库从 captured words 许可旧 numeric probe，不借完整缓存源执行。
+
+48 端点审计和原 compiler／native 绑定保持，kernel 不变。joint physical scan 的许可／覆盖／
+接受⇒preservation、原 nested syntax 到 canonical model 的 projected transport，以及新 factory
+和语言安装仍需实际接入。点比较和相邻 word 的真实 Clight 接受证明不算新完整 optimizer；
+整程序责任没有搬入 kernel。先闭合这些连接，再按 narrative `226ba94` 验收 compact 条件和
+实际 guard 工作／接受域／计时，最终仍需自动化与作者负担证据。

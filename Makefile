@@ -15,6 +15,13 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRest
 all: check
 
 .PHONY: expression-header-proof expression-header-validate
+.PHONY: nested-header-proof nested-header-validate
+nested-header-proof:
+	python3 scripts/audit_nested_headers.py
+
+nested-header-validate:
+	python3 scripts/audit_nested_headers.py --validate
+
 expression-header-proof:
 	python3 scripts/audit_expression_headers.py
 

@@ -116,3 +116,17 @@ signed-expression host，证明并提取新 Csem→Asm 入口。独立阶段记�
 [验收报告](research-checkpoint-2026-10-06-loaded-offset-affine.md)。
 这关闭了本页所列根 expression 的接入工作；loaded child、一般 observation 实例化、
 紧凑 guard 和成本／人工工作评估继续未完成。
+
+
+## 后继：第二 loaded header
+
+[新 nested-header 服务](nested-header-services.md)已从原 outer/child execution 许可 ordered
+captures：inactive outer 不读 child；actual inner prefix 保留 reached memory 和 global
+observation／permission anchor；单 row 的全部观察保持才推进 outer。双 loaded＋offset client
+导出 actual two-cache execution，indexed child 另提供 read／observation 定律。Numeric input
+可由 captured words 生产，不以完整 cached body 为许可。48 新端点及 source／store／point-check
+fixtures 通过，旧完整 compiler／native 绑定保持；本阶段没有新 compiler、提取或 native。
+
+一般 expression 服务的 HEADER／PRESERVE 输入仍须实例化。当前新的两层 cache 语法尚未连接
+含额外 private assignments 的 canonical affine model，joint physical scan、factory／host 与
+Figure 2 的完整优化接受仍未完成；详见 [阶段记录](research-checkpoint-2026-10-06-nested-headers.md)。
