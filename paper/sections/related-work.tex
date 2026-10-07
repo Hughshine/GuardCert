@@ -1,0 +1,60 @@
+\section{Related Work}
+\label{sec:related}
+
+The comparison separates condition discovery, safe executable checking,
+conditional candidate proofs, and complete-program installation. Evidence for
+one link does not imply all four, and names such as ``optimistic'' or ``peephole''
+do not determine an interface's expressive power.
+
+\paragraph{Optimistic loops and candidate conditioning.}
+Doerfert et al.'s OLO~\cite{olo2017} organizes assumptions from polyhedral
+modeling, derives and simplifies runtime conditions, and handles conditional
+preloads and check arithmetic. These are direct algorithmic precedents for the
+case study. Our comparison concerns a mechanical proof chain for a declared
+Clight source class, not the invention of runtime loop versioning. OLO's
+production compiler and performance results also set a practical standard that
+our current proof endpoints alone do not meet.
+
+COVE/cSTOKE~\cite{cove2015} accepts independently produced program candidates,
+infers sufficient conditions using tests and analysis, and verifies conditional
+equivalence. Its dynamic-check experiments use C instrumentation compiled and
+joined with the optimized binary. This makes candidate conditioning a broader
+motivation than loop optimization. GuardCert's current template-based adapters
+do not provide COVE's general condition-inference capability. Our relevant
+comparison is the proved connection between the actual generated check, its
+safe evaluation domain, the candidate, and installation.
+
+\paragraph{Verified speculation and recovery.}
+CoreJIT~\cite{corejit2021} mechanically verifies speculative optimization and
+deoptimization in an IR with explicit assumptions and synchronization points.
+It separates optimization policy from verified execution mechanisms. This is a
+precedent for verified dynamic assumptions, not merely an equivalence checker.
+Our present entry-versioning contract retains an original fragment as fallback;
+it does not reconstruct an active frame at an internal deoptimization point.
+CoreJIT's 2021 native experiment lies outside that paper's proof boundary.
+A later effectful-JIT development~\cite{fmjit2023} connects native generation to
+the CompCert backend under its own scope. These two results should not be
+combined into an unstated theorem about all speculative passes.
+
+\paragraph{Local validation and whole-program lifting.}
+Peek~\cite{peek2016} provides verified assembly peephole rules and a
+liveness-based connection from local simulation to complete programs. Its
+published framework imposes replacement/control restrictions and source
+normalization obligations. These establish a substantial local-to-global
+precedent. A comparison must identify the extra check-safety, private-state,
+and source-prefix obligations of our loop example; moving the example to
+Clight or adding a conditional is insufficient.
+
+Chamois~\cite{chamois2023} validates oracle-proposed control-flow graphs using
+block simulations and relational invariants, with integration into CompCert.
+Its documented memory-copy expansion proves concrete CFG and private-resource
+simulation~\cite{chamoisapi}. We have inspected those interfaces, but have not
+instantiated its artifact with our loaded-bound example. The absence of such a
+comparison is not evidence that its framework cannot express a guarded rewrite.
+
+\paragraph{Comparison still required.}
+\pending{For one fixed alias-sensitive loaded-bound source, record which
+obligations and proof services OLO, CoreJIT, Chamois, Peek, and GuardCert supply.
+Where artifacts are instantiated, report the additional source/model,
+condition-safety, frame, and placement work. Distinguish unknown capabilities
+from demonstrated restrictions before making a novelty or author-effort claim.}

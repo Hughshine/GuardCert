@@ -1,0 +1,137 @@
+\section{A Small Certificate Kernel}
+\label{sec:framework}
+
+This section describes the implemented interfaces in
+\code{prototype/interface/GuardInterface.v}. State, code, checks, and
+observations are parameters. The kernel neither interprets C expressions nor
+extracts assumptions from arbitrary source/candidate pairs.
+
+\subsection{Host Semantics and Private Check State}
+
+A \code{guard_host} supplies relations $\run{c}{s}{o}$ for code execution and
+$\checkrun{g}{s}{(b,s')}$ for check execution, together with a safety predicate
+and a guarded-choice constructor $\operatorname{select}(g,t,f)$. Its dispatch law
+is exact:
+\begin{equation}
+\run{\operatorname{select}(g,t,f)}{s}{o}
+\ \Longleftrightarrow\
+\exists b,s'.\ \checkrun{g}{s}{(b,s')}\ \land\
+\run{(\mathbf{if}\ b\ \mathbf{then}\ t\ \mathbf{else}\ f)}{s'}{o}.
+\label{eq:dispatch}
+\end{equation}
+The language instance proves this law for its declared observations. It must
+account for observable check effects and any exceptional or divergent behavior
+it claims to include. The constructor need not be a single syntactic conditional.
+
+Checks may alter private temporaries. Consequently, the interface retains both
+the original entry $s$ and the checked state $s'$. Accepted and refused entry
+relations $R_+(s,s')$ and $R_-(s,s')$ state what the selected branch may rely on.
+For a read-only frontend, these relations can be equality. For a private cursor
+scan, they instead express preservation of public temporaries and memory.
+
+\subsection{Guard and Transformation Certificates}
+
+A \code{guard_certificate} is parameterized by an entry domain $D$, premise $P$,
+the two entry relations, and the actual check $g$. It requires:
+\begin{align}
+D(s)&\Rightarrow\operatorname{safe}(g,s),\label{eq:safety}\\
+D(s)&\Rightarrow\exists b,s'.\ \checkrun{g}{s}{(b,s')},\label{eq:available}\\
+D(s)\land\checkrun{g}{s}{(b,s')}&\Rightarrow
+\begin{cases}P(s)\land R_+(s,s')&b=\mathit{true},\\R_-(s,s')&b=\mathit{false}.
+\end{cases}\label{eq:sound}
+\end{align}
+The premise is anchored at the original entry. Refusal establishes a valid
+fallback entry, not $\neg P$. A conservative condition is therefore permitted.
+Availability is existential; it is not a general check termination theorem.
+Safety is a host predicate whose intended interpretation the language must
+justify separately.
+
+A \code{conditional_certificate} proves target-to-source refinement for both
+branches. Let $o_t\preceq o_s$ be the supplied observation relation. Its accepted
+clause is
+\begin{equation}
+D(s)\land P(s)\land R_+(s,s')\land\run{T}{s'}{o_t}
+\ \Rightarrow\ \exists o_s.\ \run{S}{s}{o_s}\land o_t\preceq o_s.
+\label{eq:conditional}
+\end{equation}
+The refused clause has $R_-$ and the fallback $F$, without requiring $P$.
+When $F=S$, private-state transport still needs proof; syntactic reuse of the
+source does not imply that it behaves correctly from $s'$.
+
+\begin{theorem}[Local guarded refinement]
+Let the guard and conditional certificates share a domain, premise, entry
+relations, and branches. Every behavior of
+$\operatorname{select}(g,T,F)$ from an entry satisfying $D$ is related to a
+behavior of $S$ from that entry.
+\end{theorem}
+\begin{proof}
+Apply the dispatch law to obtain the actual check result and checked state.
+Guard soundness yields the appropriate entry relation and, on acceptance, $P$.
+Apply the corresponding branch refinement clause.
+\end{proof}
+This is \code{guardify_refinement}. Source-to-target behavior preservation is
+provided independently by \code{preservation_certificate} and
+\code{guardify_preservation}, which also use check availability. Neither theorem
+silently supplies the other direction or upgrades a finite big-step host to a
+divergence theorem.
+
+\subsection{Condition Libraries and Assumption Derivation}
+
+The logical certificate chain distinguishes four links:
+\begin{center}
+\begin{tabular}{ll}
+$C_{\mathrm{opt}}$&$A$ suffices for candidate correctness;\\
+$C_{\mathrm{derive}}$&entry property $B$ implies the local/model obligations $A$;\\
+$C_{\mathrm{guard}}$&the actual check safely establishes $B$ on acceptance;\\
+$C_{\mathrm{host}}$&concrete guarded choice implements Eq.~\eqref{eq:dispatch}.
+\end{tabular}
+\end{center}
+The kernel can consume the resulting certificate for $P=A$ without knowing how
+$B$ was proposed. A transformation may supply a proof directly or submit an
+untrusted candidate and witness to a verified checker.
+
+Reusable condition services sit above the kernel. For example,
+\code{sequence_readonly_conditions} composes a first check on $D$ with a second
+check certified on $D\land P_1$. A refused first stage skips the second;
+acceptance of both establishes $P_1\land P_2$. This stronger continuation domain
+allows earlier checks to license later reads. Prefix-scan and probe-simplification
+libraries expose further proof obligations rather than adding concrete memory
+or optimizer semantics to the kernel.
+
+\subsection{Local Reasoning and Complete Programs}
+
+Language services establish local source/candidate execution bridges and the
+frame that restores public observations. A domain implementation proves the
+relation between the localized source and candidate models. Their composition
+can discharge conditional equivalence, as implemented by
+\code{localized_conditional_equivalence} in the read-only frontend.
+
+Installation into a complete program is a separate language/IR obligation.
+The generic \code{context_certificate} is a hook for a supplied lifting theorem:
+it requires legal placement and admissibility of the actual replacement. It
+does not prove that an arbitrary context preserves an arbitrary local relation.
+The concrete Clight hosts establish control, private-resource, and progress
+conditions and then compose with the CompCert backend.
+
+Repeated rewrites are checked against their actual intermediate programs.
+The read-only frontend's \code{certified_rewrite_sequence_equivalent} composes
+finite sequences of installed equivalences. State relations, entry domains,
+and placement evidence cannot simply be reused after an intervening rewrite
+without showing that their requirements still hold.
+
+\begin{table}[t]
+\caption{Responsibilities at the proof boundary.}
+\label{tab:responsibilities}
+\centering\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{.19\textwidth}
+  >{\raggedright\arraybackslash}p{.35\textwidth}
+  >{\raggedright\arraybackslash}p{.36\textwidth}}
+\toprule
+Party&Supplies once or as a reusable library&Supplies for a transformation/site\\
+\midrule
+Kernel&Certificate interfaces and local composition&Consumes certificates for actual code/checks\\
+Language/IR&Execution, primitive safety, dispatch, frames, installation laws&Site evidence satisfying host contracts\\
+Domain implementer&Candidate checker, range/footprint and assumption services&Source/model bridge, sufficient premise, candidate and placement data\\
+\bottomrule
+\end{tabular}
+\end{table}

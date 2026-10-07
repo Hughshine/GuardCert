@@ -1,0 +1,87 @@
+\section{CompCert Case Study: Optimistic Affine Loops}
+\label{sec:case-study}
+
+The case study tests the interfaces against real Clight execution and memory.
+PolCert supplies a capability reference for affine domains, candidate schedules,
+and tiling; the integration uses GuardCert's own source/guard adapters together
+with the existing vendored optimizer proof infrastructure. The concrete toolchain
+is pinned to CompCert~3.18, Rocq~9.2, and Stdlib~9.2.
+
+\subsection{Established Compiler Path}
+
+The current complete path supports a loaded signed root bound with a constant
+offset and canonical affine descendants. It captures the initial header word,
+executes private numeric and memory checks, validates an untrusted candidate,
+and retains the original source on refusal. Candidates include schedule
+reordering and supported tiling/domain witnesses; successful checking binds the
+candidate to the actual source description.
+
+For this path, \code{compile_offset_affine_multi_regions_correct} proves that a
+successful compiler result is related to the original Csem program by a
+backward simulation into CompCert assembly semantics. The proof composes
+SimplExpr, SimplLocals, the expression-region host, and the verified backend.
+The region contracts and host progress obligations determine the source class;
+the theorem is not a license to install arbitrary Clight fragments.
+
+\subsection{A Nested Loaded-Bound Acceptance Target}
+
+An adapted Figure~2 source from OLO~\cite{olo2017} supplies a concrete pending
+acceptance target:
+\begin{lstlisting}[language=C]
+for (row = 0; row < shape[0] + 1; row++)
+  for (column = 0; column < shape[1] + 1; column++)
+    for (component = 0; component < 5; component++)
+      output[(row * 16 + column) * 5 + component] =
+          row + column + component;
+\end{lstlisting}
+This preserves the three-level control pattern and two repeatedly loaded
+headers. It uses a flat fixed layout and an arithmetic store body; it is not
+the full NAS BT kernel. The output may alias either header. A store can then
+change the next source test, so the captured iteration domain need not describe
+the original execution until preservation has been established.
+
+The language services first capture the outer header. They capture the child
+header only if the actual outer test is active. An empty outer loop therefore
+requires neither a defined child counter nor a readable second header. The
+source's modular \code{Int.add} computation is kept distinct from the raw memory
+observation; no-wrap facts belong to the accepted modeling condition.
+
+For an active prefix, the proof retains a witness in the memory actually reached
+by the source. It transports access permissions back to the guard-entry memory,
+not loaded data values. Each accepted body check must protect \emph{all} captured
+observations before the next child test is justified. Completion of those checks
+for the current row permits the next outer test. Only after this preservation
+chain can the proof derive execution of the cached source and consume the
+affine candidate certificate.
+
+The ordered capture, indexed-load primitives, nested source-prefix services,
+and two-cache transport are proved. A numeric probe can already run from
+captured parameter words without assuming completion of the cached source.
+Additional adapters now initialize private model bounds and transport execution
+of a reached literal-bound subbody into the canonical affine model. They derive
+that subdomain's access permissions at guard entry while retaining the reached
+source memory. This bridge requires no stability assumption for the enclosing
+loaded headers; the domain client still must instantiate it for the joint scan.
+\pending{Connect these services to the physical joint scan, the canonical
+three-level affine model, the original-source matcher/factory, and a new
+whole-program compiler entry. The current adapted Figure~2 native probe retains
+the original source and does not demonstrate an installed optimization.}
+
+\subsection{Condition Expressiveness and Reuse}
+
+The supported services cover machine-word ranges/no-wrap, byte-level memory
+separation, permissions for typed accesses, and preservation of loaded values.
+These are sufficient-condition libraries with declared syntax and semantic
+domains. They do not decide arbitrary propositions or infer weakest conditions
+for arbitrary program pairs. For a source-derived scan, the domain implementation
+still proves access coverage and the source/model bridge. The language library
+supplies the physical comparison and load/store preservation lemmas.
+
+Condition construction must preserve partial evaluation safety. A mathematically
+simpler condition can read a header or compare a pointer earlier than the source
+permits. Reuse therefore requires a certificate for the reordered or simplified
+check, not just Boolean equivalence on states where every expression is defined.
+\pending{Select the final compact stability condition and compare its guard
+work and useful acceptance against the existing scan on the same source. General
+projection and arbitrary dependent preload expressions remain outside the
+established implementation claims.}

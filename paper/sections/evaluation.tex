@@ -1,0 +1,58 @@
+\section{Evaluation Plan and Established Evidence}
+\label{sec:evaluation}
+
+The evaluation distinguishes semantic proof, compilation, execution validation,
+and cost. A successful native test is not a universal correctness proof, and
+proof counts are not a measure of practical optimization value.
+
+\subsection{Current Artifact Evidence}
+
+For the loaded-root-with-offset compiler, the existing report records six
+configurations and 708 full assembly calls. Separate path probes record 236
+Clight calls and 21 probes of unmodified assembly. These cover candidate
+acceptance and fallback, changing bounds through aliases, empty paths,
+multi-array bodies, and repeated rewrites. The reports are bound to their
+compiler/source digests; these are prior execution results, not a new matrix run
+for this manuscript.
+
+The ordered nested-header stage audits 48 language/domain/fixture endpoints
+and preserves the loaded-offset compiler binding. It supplies no new extracted
+compiler or native optimizer result. The adapted Figure~2 coverage probe records
+16 calls through unchanged-source compilation; it is explicitly not an
+optimization-success count. Detailed commands and hashes are kept in the
+manuscript evidence map rather than used as research outcome metrics.
+
+\subsection{Experiments Needed for the Final Paper}
+
+\paragraph{Semantic coverage.}
+Classify accepted candidates, runtime refusals, and static matcher/validator
+refusals. Use the same source for independent arrays, header/data aliasing,
+empty outer and inner loops, overflowing offset expressions, limited readable
+allocations, invalid candidate domains, and conflicting dependencies. Verify
+complete arrays and public loop exits, and inspect executed store order to
+distinguish a real fast path from unchanged-source compilation.
+
+\paragraph{Condition construction.}
+Compare the scan and compact sufficient conditions on a common source class.
+Report accepted input domains and refused cases. Count captures, pointer
+comparisons, numeric operations, and iterations separately. Existing work
+counts show that loop-shaped guard code can still perform expensive repeated
+comparisons; code-size reduction does not establish cheaper checking.
+
+\paragraph{Runtime and compilation cost.}
+Use the same CompCert version, target, and backend configuration for the original
+and transformed programs. Measure check-only work where separable and total
+execution cost, including refusal and empty paths. Report machine code size,
+compile time, measurement environment, raw batches, and dispersion. Avoid
+concurrent proof/build work during timing. Slowdowns and narrow acceptance are
+results to explain rather than cases to remove.
+
+\paragraph{Proof reuse.}
+For multiple transformations, identify the shared kernel, language lemmas, and
+domain services. List the site-specific assumptions and source/model bridges
+still supplied by the author. Compare a common example against the nearest
+existing interfaces before claiming reduced proof burden.
+
+\pending{No timing, speedup, final acceptance fraction, or comparative author
+effort has been measured for this manuscript. Fill these results only after the
+functional nested-header compiler path closes and the relevant experiments run.}

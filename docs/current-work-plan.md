@@ -1,5 +1,12 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+新增 [常量子循环模型／权限桥](constant-bound-model.md)：private helper 初始化有实际
+Clight 执行和原 source public transport；原 literal-bound 子循环完成导出 affine 模型
+及全部点在 guard entry 的 permissions，不预设 enclosing loaded headers 稳定。
+14 端点／565 required dependencies／1,060 源摘要审计通过，旧 compiler 与 prior
+对象绑定保持。下一项是使用 reached inner BODY 实例化 joint scan，再组装整段
+cached model 和 original AST factory。没有新完整 compiler 或 native，goal active。
+
 最新服务阶段是 [ordered child capture／层次源前缀](research-checkpoint-2026-10-06-nested-headers.md)：
 外层实际进入才捕获 child；inner prefix 保留实际 source memory 和 global observation／permission
 anchor；这一 row 的全部观察保持成立后才推进 outer。缓存源是接受后的结果，numeric probe
@@ -33,6 +40,14 @@ compiler 保持旧 42 项假设，scan／旧 deep／当前 cursor 绑定保持�
 本计划吸收 [三个分支的评审](review-synthesis-2026-10-05.md)。既有研究路线保留在 [contribution-plan.md](contribution-plan.md)，当前执行优先级以下表为准。
 
 活动目标补充（用户 2026-10-06）：持续按 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md) 改进整体定位；以“小的语言无关框架＋实质 CompCert 循环实例”组织研究，明确框架、语言实例、优化／domain 实现者的验证责任。具体约束与最难验收见 [责任矩阵](framework-responsibilities.md)。这项补充与原完整实现目标同时有效，每个阶段检查，不将方向文档算作功能完成。
+
+最新 fetch 取得 `271f6fc`：新增 **CAV 2027 并行写作**。已建立
+[实际 LNCS 稿件](../paper/README.md)，introduction／related work／framework 为正文，
+case study／evaluation 写既有架构与待验收结果，逐节绑定源码、定理与一手文献。
+每个相关实现里程碑同步改对应稿件和 evidence map；不等全部功能／测量完成才写，
+也不把未完成结果写成贡献。写作与原 proof-first 功能目标并行，完整 goal active。
+[首轮构建记录](manuscript-checkpoint-2026-10-06.md)保存 10 页 PDF／offline 构建、
+渲染检查、一手文献范围和本轮 constant-body 证明同步；没有新运行测量。
 
 上轮重新 fetch 并核对 narrative 澄清，分支仍为 `7d94d81`，主线正文一致。[实现责任与下一项验收](narrative-implementation-check-2026-10-06.md) 将 deep＋loaded 接入细化为：原源 first-path receipt → 安全物理扫描与覆盖 → 观察保持后的缓存运输 → 原 AST／fallback／host 安装。检查安全不能以完整缓存源执行或未来稳定性为前提。该核对阶段尚未交付新的 producer／compiler；下段记录实际后继结果。
 

@@ -14,8 +14,22 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRest
         polcert-optimizer-proof polcert-store-native clean
 all: check
 
+.PHONY: paper paper-offline
+paper:
+	python3 scripts/build_paper.py
+
+paper-offline:
+	python3 scripts/build_paper.py --offline
+
 .PHONY: expression-header-proof expression-header-validate
 .PHONY: nested-header-proof nested-header-validate
+.PHONY: constant-model-proof constant-model-validate
+constant-model-proof:
+	python3 scripts/audit_constant_bound_model.py
+
+constant-model-validate:
+	python3 scripts/audit_constant_bound_model.py --validate
+
 nested-header-proof:
 	python3 scripts/audit_nested_headers.py
 

@@ -1,5 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
+[CAV 2027 稿件](paper/README.md)已按 narrative `271f6fc` 开始并行写作：实际 LNCS
+introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
+写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
+
+[常量子循环的模型／权限桥](docs/constant-bound-model.md)已把原 `<5` 子循环执行接到
+canonical affine decode 和 guard-entry point capabilities；private helpers 有实际准备
+和原 source public transport。14 端点审计通过，仍需实例化 joint scan、整段模型与
+原源 factory；本阶段没有新提取或汇编结果，Figure 2 的优化仍未安装。
+
 [第二个 loaded header 的服务](docs/nested-header-services.md)已证明 conditional child capture、保持实际 memory 的层次源前缀、保护全部观察后的双缓存源运输，以及不假设 cached-source completion 的 numeric probe。48 端点审计及真实 indexed child、changing-bound 拒绝、相邻 word 接受／prefix 推进通过，旧 compiler／native 绑定保持。完整 loaded-child scan、canonical model 和 factory 尚待接入；本阶段没有新提取或汇编调用，Figure 2 仍记未支持。[交付与后续验收](docs/research-checkpoint-2026-10-06-nested-headers.md)列出证明边界。
 
 [Loaded＋offset 根的完整接入](docs/research-checkpoint-2026-10-06-loaded-offset-affine.md)已把真实 `i<*limit+1` 的安全捕获、raw observation 保持检查、缓存源运输与旧候选验证接到新 factory／signed-expression host 和 Csem→Asm 入口，并提取运行。56 端点审计、六配置 708 次汇编调用、236 次 Clight 分支调用和 21 个机器路径通过；alias 回退保留实际提前停止，短源拒绝后不检查未来地址。任意有限层 canonical affine children 可使用此根，但 Figure 2 的 loaded child 仍未接通；扫描成本与 compact 条件仍需改进。[接口 walkthrough](docs/loaded-offset-affine.md)区分框架、语言与优化实现者的责任。

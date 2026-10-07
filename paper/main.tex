@@ -1,0 +1,56 @@
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\guardcert}{GuardCert}
+\newcommand{\code}[1]{{\small\nolinkurl{#1}}}
+\newcommand{\pending}[1]{\par\noindent\textcolor{red!65!black}{\textbf{Pending evidence.} #1}\par}
+\newcommand{\run}[3]{#1\mathrel{\Downarrow}_{#2}#3}
+\newcommand{\checkrun}[3]{#1\mathrel{\Downarrow}_{#2}#3}
+\lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,
+  showstringspaces=false,frame=single,breaklines=true}
+
+\begin{document}
+\title{GuardCert: Verified Optimistic Transformation with Safe Runtime Conditions}
+\titlerunning{Verified Optimistic Transformation}
+\author{Anonymous Authors}
+\authorrunning{Anonymous Authors}
+\institute{Anonymous Institution}
+\maketitle
+
+\begin{abstract}
+An optimistic transformation replaces a program fragment when a runtime
+condition establishes the assumptions of a conditional correctness proof.
+The replacement must preserve behavior even when the condition refuses.
+Constructing that condition raises a separate verification problem: its reads,
+arithmetic, and private state must be safe before the assumptions have been
+established. We present \guardcert, a language-independent certificate interface
+for local guarded transformations, together with a CompCert/Clight instance.
+The interface separates check execution, conditional transformation proofs,
+and the language-specific installation of replacements into complete programs.
+The current implementation connects supported affine loop candidates and
+loaded-root bounds to a complete-program simulation theorem. Nested loaded bounds
+motivate additional services for ordered capture and source-prefix reasoning;
+their complete optimizer integration remains in progress.
+\keywords{Verified compilation \and Runtime conditions \and Polyhedral transformation}
+\end{abstract}
+
+\noindent\textbf{Working draft, 2026-10-06.}
+This manuscript records proved interfaces and established execution paths.
+Red paragraphs identify results still required for the intended case study.
+This is not a submission-ready claim of complete OLO coverage or speedup.
+
+\input{sections/introduction}
+\input{sections/framework}
+\input{sections/case-study}
+\input{sections/related-work}
+\input{sections/evaluation}
+\input{sections/conclusion}
+\bibliographystyle{splncs04}
+\bibliography{references}
+\end{document}

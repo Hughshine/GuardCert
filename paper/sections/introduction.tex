@@ -1,0 +1,64 @@
+\section{Introduction}
+\label{sec:introduction}
+
+A loop transformation may require stable bounds, non-overlapping memory
+accesses, or arithmetic that agrees with mathematical integers. Static analysis
+may fail to establish these facts for a useful candidate. A compiler can retain
+the original fragment as a fallback and execute the candidate only after a
+runtime check accepts. This choice also supports a candidate proposed by a
+programmer or an external tool: the producer need not be the compiler pass that
+eventually installs it.
+
+The motivating object is a source fragment $S$, a candidate $T$, and a semantic
+premise $A$ under which $T$ preserves the relevant behavior of $S$. An executable
+condition $G$ establishes a sufficient entry property $B$, with $B\Rightarrow A$.
+The transformed fragment selects $T$ when $G$ accepts and $S$ otherwise. This
+composition rule is simple. The difficult question is how to obtain reusable
+certificates for its premises on an actual language and program.
+
+In particular, checking an assumption can require the assumption itself.
+Consider an inner bound loaded from memory. Hoisting that load requires evidence
+that the source reaches it. Treating its captured value as constant requires
+evidence that intervening stores preserve the observed location. Checking those
+stores may require addresses whose validity follows only from the source's
+actual execution. A proof that starts with the entire cached loop execution
+would therefore assume a result the guard is meant to establish.
+
+Optimistic Loop Optimization (OLO) already addresses assumption construction,
+condition simplification, and safe conditional preloading in a production
+polyhedral setting~\cite{olo2017}. Our purpose is to investigate the mechanical
+proof interfaces connecting these obligations, conditional candidate validation,
+and complete-program compilation. The CompCert case study supplies concrete
+machine integers, memory permissions, and control semantics~\cite{compcert2009}.
+
+\paragraph{Research question.}
+Can a small language-independent interface support a substantial guarded loop
+transformation while reusable language and domain services discharge the
+condition's safety, sufficiency, and installation obligations? The intended
+contribution lies in this verified chain and its reuse. A generic conditional
+composition theorem, insertion of an \code{if}, or use of the C layer alone does
+not establish novelty relative to existing verified transformation systems.
+
+\paragraph{Design and current results.}
+\guardcert\ divides responsibility among three parties. The generic kernel
+combines certificates for checks and local transformations. A language/IR
+instance proves concrete execution, guarded choice, private-state transport,
+and legal installation. A transformation implementer selects fragments and
+supplies candidate proofs, source/model correspondence, and domain-specific
+assumption derivation. In the present CompCert instance, supported affine
+candidates, dependency checks, runtime conditions, source fallback, and backend
+compilation are connected to a whole-program simulation theorem. Separate
+nested-header services prove ordered capture and source-prefix advancement.
+
+\pending{Complete the joint nested-header scan and original-source installation
+for the adapted OLO Figure~2 kernel. Then state the final supported source class,
+condition algorithms, and evidence for proof reuse. Measure condition cost and
+useful acceptance separately from code size before claiming practical benefit.}
+
+\paragraph{Scope.}
+The current concrete target is sequential, behavior-preserving transformation
+with entry fallback. The kernel abstracts over states, observations, and their
+relation, but each host must prove the laws for the behaviors it exposes.
+Checkpoint deoptimization, concurrent interference, approximate computation,
+and patch specifications require different host or correctness contracts; they
+are not established by the present Clight instance.

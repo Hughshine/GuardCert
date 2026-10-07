@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-06",
+  "narrative_reference": "271f6fc941910456da43a76e9f0eed38e8a5e200",
+  "target": "CAV 2027, intended regular-paper working format; category not submitted",
+  "venue_source": "https://conferences.i-cav.org/2027/cfp/",
+  "claims": [
+    {
+      "section": "framework",
+      "claim": "Minimal kernel and independent refinement/preservation; entry relations retain checked state.",
+      "theorems": [
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "guard_host"
+        },
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "guard_certificate"
+        },
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "conditional_certificate"
+        },
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "preservation_certificate"
+        },
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "guardify_refinement"
+        },
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "guardify_preservation"
+        },
+        {
+          "source": "prototype/interface/GuardInterface.v",
+          "name": "context_certificate"
+        }
+      ]
+    },
+    {
+      "section": "framework",
+      "claim": "Read-only local equivalence, source/model localization, dependency-ordered condition libraries and finite installed rewrite composition.",
+      "theorems": [
+        {
+          "source": "prototype/interface/GuardedRewrite.v",
+          "name": "localized_conditional_equivalence"
+        },
+        {
+          "source": "prototype/interface/ReadonlyConditionComposition.v",
+          "name": "sequence_readonly_conditions"
+        },
+        {
+          "source": "prototype/interface/RewriteComposition.v",
+          "name": "certified_rewrite_sequence_equivalent"
+        }
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Installed loaded-root-plus-offset affine compiler has an actual Csem-to-Asm backward simulation.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightGuardedLoadedOffsetAffineMultiCompiler.v",
+          "name": "compile_offset_affine_multi_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/research-checkpoint-2026-10-06-loaded-offset-affine.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Ordered nested-header capture, actual-memory prefix services, cached-source transport and source-independent captured-word numeric probe; no installed Figure 2 optimization.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedExpressionCapture.v",
+          "name": "nested_expression_capture_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedExpressionPrefix.v",
+          "name": "nested_expression_prefix_open"
+        },
+        {
+          "source": "prototype/interface/ClightNestedExpressionPrefix.v",
+          "name": "nested_expression_prefix_advance"
+        },
+        {
+          "source": "prototype/interface/ClightNestedExpressionTransport.v",
+          "name": "nested_expression_initial_cached"
+        },
+        {
+          "source": "prototype/interface/ClightCapturedAffineNumericGuard.v",
+          "name": "affine_captured_package_guard_execution"
+        }
+      ],
+      "documents": [
+        "docs/research-checkpoint-2026-10-06-nested-headers.md",
+        "docs/olo-figure2-coverage.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual private helper preparation and public source transport; reached literal-bound subbody decoded to affine execution and guard-entry point permissions without enclosing loaded-header stability. No joint scan or installed Figure 2 candidate.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightConstantBoundModel.v",
+          "name": "model_bounds_prepare_execution"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBoundModel.v",
+          "name": "model_bounds_prepare_source"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyCapabilities.v",
+          "name": "constant_affine_prefix_body_decode"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyCapabilities.v",
+          "name": "constant_affine_prefix_body_capabilities"
+        }
+      ],
+      "documents": [
+        "docs/constant-bound-model.md"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Prior bound execution reports: 708 assembly calls, 236 Clight calls, 21 machine probes; nested service proof audit 48 endpoints; unchanged Figure 2 probe 16 calls. No new native matrix or timing result.",
+      "documents": [
+        "docs/research-checkpoint-2026-10-06-loaded-offset-affine.md",
+        "docs/research-checkpoint-2026-10-06-nested-headers.md",
+        "docs/olo-figure2-coverage.md"
+      ]
+    },
+    {
+      "section": "related-work",
+      "claim": "Primary-source comparison; no claim of complete near-neighbor artifact instantiation or reduced author effort.",
+      "documents": [
+        "docs/evidence-to-claim-2026-10-05.md",
+        "docs/related-work-interface-check-2026-10-06.md",
+        "docs/survey-general.md"
+      ]
+    }
+  ],
+  "bibliography_evidence": [
+    {
+      "key": "olo2017",
+      "primary_url": "https://pollylabs.org/publications/grosser-2017-Optimistic-Loop-Optimization.pdf",
+      "checked_scope": "Selected sections 4-6 and Figure 2; title/authors on first page."
+    },
+    {
+      "key": "cove2015",
+      "primary_url": "https://theory.stanford.edu/~aiken/publications/papers/oopsla15a.pdf",
+      "checked_scope": "Introduction and section 5.5; authors and conditional inference/runtime checking."
+    },
+    {
+      "key": "corejit2021",
+      "primary_url": "https://janvitek.org/pubs/popl21.pdf",
+      "checked_scope": "Introduction and scope boundary, source-grounded earlier interface review."
+    },
+    {
+      "key": "fmjit2023",
+      "primary_url": "https://arxiv.org/abs/2212.03129",
+      "checked_scope": "Author abstract and existing project survey scope; not added to CoreJIT theorem."
+    },
+    {
+      "key": "peek2016",
+      "primary_url": "https://darzu.io/files/pldi2016.pdf",
+      "checked_scope": "Sections 3-4; local simulation, liveness and normalization restrictions."
+    },
+    {
+      "key": "chamois2023",
+      "primary_url": "https://www-verimag.imag.fr/~boulme/pub/poster_OOPSLA23.pdf",
+      "checked_scope": "Author poster; article DOI from prior project source review; full article not read for this draft."
+    },
+    {
+      "key": "chamoisapi",
+      "primary_url": "https://certicompil.gricad-pages.univ-grenoble-alpes.fr/Chamois-CompCert/html/compcert.arm.BTL_ExpanseMemcpyproof.html",
+      "checked_scope": "Project proof documentation; no external artifact build. Oracle API access failed during this refresh."
+    },
+    {
+      "key": "compcert2009",
+      "primary_url": "https://xavierleroy.org/publi/compcert-CACM.pdf",
+      "checked_scope": "Author manuscript and bibliographic metadata cross-check."
+    }
+  ],
+  "official_template_source": "https://cms-resources.apps.public.k8s.springernature.io/springer-cms/rest/v1/content/27851904/data/LaTeX2e%20Proceedings%20Template%20ZIP",
+  "official_template_zip_sha256": "42afb32ed4fadc9e209134ec65dab1bd2a7ead42f9a3f8abb184f250c4a197b9",
+  "official_template_sha256": {
+    "llncs.cls": "04ec99046ad9867f6cd54ffd1ef8c47c767b327d1baec77536db0528cd492fa2",
+    "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
+  },
+  "pending": [
+    "complete nested-loaded joint scan/canonical model/installation",
+    "compact sufficient conditions",
+    "same-source near-neighbor obligations comparison",
+    "runtime/compilation cost",
+    "comparative author proof effort"
+  ],
+  "base_implementation_reference": "6bcd880748b74ea0d73e19d9427604931bbb9fba",
+  "new_proof_stage": {
+    "report": "build/constant-bound-model/proof/report.json",
+    "sha256": "3d0d95a6de499127db58406ffe8854b63090c58002948024751d891688d3d1b8",
+    "endpoints": 14,
+    "new_compiler_or_native_execution": false
+  }
+}

@@ -1,0 +1,80 @@
+# GuardCert Working Manuscript
+
+This is the first manuscript deliverable from the CAV 2027 writing track in
+[the narrative](../docs/topdown/paper-narrative.md). It contains prose drafts of
+the introduction, framework, and related work, plus the established case-study
+architecture and an evaluation plan. The intended reader is a verification
+researcher who has not read the repository history.
+
+The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
+uncompleted results. The adapted OLO Figure 2 optimizer, final condition-cost
+evaluation, and comparative proof-author effort are still pending. Existing
+native results retain their original report scope and are not new experiments
+performed for this paper.
+
+## Build
+
+Use Tectonic 0.15.0 and Poppler's `pdfinfo`/`pdftotext`:
+
+```sh
+python3 scripts/build_paper.py --engine /path/to/tectonic
+```
+
+Alternatively, set `GUARDCERT_TECTONIC` and run `make paper`. The first build
+downloads public TeX resources into `build/paper/cache`. After that:
+
+```sh
+python3 scripts/build_paper.py --engine /path/to/tectonic --offline
+```
+
+The builder enables Tectonic's `--untrusted` mode, keeps logs and bibliography
+intermediates, checks source/theorem anchors and official-template digests,
+and rejects unresolved citations/references or overfull boxes. It writes:
+
+- `build/paper/main.pdf`: reviewable manuscript;
+- `build/paper/main.txt`: extracted text;
+- `build/paper/report.json`: source, engine, PDF, and log digests;
+- `build/paper/main.log` and `build.log`: full compilation logs.
+
+The tested Linux binary is the upstream
+[Tectonic 0.15.0 musl release](https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.15.0).
+Its archive SHA-256 is
+`dfb82876f2986862996e564fa507a9e576e0c1e3bee63c2c1bd677c2543e6407`.
+The build does not install a system package or invoke shell escape. It does
+not re-run Rocq proofs, compiler extraction, native matrices, or measurements.
+
+## Source and Evidence
+
+[main.tex](main.tex) includes the six files in `sections/`. The certificate
+description follows the actual definitions in `GuardInterface.v`; the read-only
+frontend and condition services are separate. Whole-program lifting belongs
+to language hosts, with the generic context record serving as a hook.
+
+[evidence-map.json](evidence-map.json) records source/theorem anchors,
+implementation and narrative reference commits, primary literature URLs and
+checked scope, and the pending results. It is an author-facing map, not a
+new proof audit. A source anchor's presence does not establish a build result;
+the corresponding stage report supplies that evidence.
+
+For each implementation milestone, update the relevant section and its map
+entry. Keep the source/matcher class, runtime check, candidate model, and
+compiler theorem aligned. A service lemma is not an installed optimizer.
+No novelty claim should depend on capabilities marked unknown in the related
+work comparison.
+
+The current title and anonymous author block are working placeholders.
+The venue target follows the narrative; no submission category or submission
+action has been finalized. The
+[official CAV 2027 call](https://conferences.i-cav.org/2027/cfp/) currently lists
+January 20, 2027, 23:59 AoE as the deadline and LNCS formatting.
+
+## Template Provenance
+
+`llncs.cls` and `splncs04.bst` are unmodified files extracted from Springer's
+[official proceedings template](https://link.springer.com/series/558/information-for-authors-and-editors).
+Their original notices remain in the files. The downloaded ZIP URL and file
+digests are recorded in `evidence-map.json`; the ZIP SHA-256 is
+`42afb32ed4fadc9e209134ec65dab1bd2a7ead42f9a3f8abb184f250c4a197b9`.
+
+The PDF/log/cache outputs are generated under the ignored `build/` directory.
+The tracked source contains no timing data or complete Figure 2 success claim.
