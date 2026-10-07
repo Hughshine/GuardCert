@@ -189,11 +189,35 @@ both operands to be defined Boolean words; the domain supplies this from the
 already initialized caches. Refusal leaves the scan entry unchanged. This
 lowering is unsuitable when the second check's reads still depend on the first.
 
-The new guard certificate supplies the same model anchor and checked-entry
-frame required by the existing candidate preservation certificate. The kernel,
-candidate proof, and language installation host are reused. A new compiler
-entry composes this actual guarded replacement with the verified backend to
-obtain Csem-to-Asm backward simulation. For a constant-one BODY and two raw
+A successor condition producer also supports loop-invariant affine int32
+store values computed from entry parameters. For example, a fill body stores
+\code{(alpha+beta)+1} throughout the nest. The language checker certifies that
+every store writes that expression and that control assignments preserve all
+its temporary inputs. The domain checks that those inputs belong to the
+package's parameters. Their definedness follows from the existing preparation
+receipt, ultimately justified by the reached original source body. The new
+comparison runs after the same capture and numeric gates; inactive paths do
+not require evaluating the value expression.
+
+The emitted check compares both caches with the computed word plus their
+respective header offsets. Its actual Clight evaluation, Boolean result, and
+model-entry frame are proved. Equality establishes observation preservation
+even when stores alias the headers. For \code{alpha=beta=INT\_MIN}, the example
+expression wraps to word one; two raw headers equal to one still yield positive
+counts of two. The value expression uses modular semantics, while control and
+address conditions remain separate. Literal bodies retain their established
+lowering; unsupported or unequal values retain the stability scan.
+
+The new guard certificate satisfies the existing candidate presumption and
+entry relation. The compact candidate, dependence checker, minimal kernel,
+and language installation host are reused, yielding another actual
+Csem-to-Asm compiler entry. The source descriptor supplies no additional
+value-definedness, effect, or execution callback. This is a supported
+condition service, rather than arbitrary assumption extraction or a
+quantitative result about author effort.
+
+Both condition producers supply the model anchor and checked-entry frame
+required by the existing candidate preservation certificate. For a constant-one BODY and two raw
 headers equal to one, stores through either header alias preserve its value,
 allowing loop interchange where the separation scan refused. The bounded
 residual check does not establish the cost of the complete guard or
@@ -258,7 +282,8 @@ is supplied by the new producer. The resulting compiler has a Csem-to-Asm
 backward simulation. This is a certified candidate implementation change, not
 a general loop-exit synthesizer or a simplification of the guard condition.
 
-\pending{Extend compact conditions to other stability and array
+\pending{Measure the entry-parameter guard's complete cost and acceptance,
+extend compact conditions to other stability and array
 footprints, connect certified residualization to actual execution, and compare
 manual proof work. General projection and arbitrary dependent preload expressions
 remain outside the established implementation claims.}

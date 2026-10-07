@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+最新 [入口参数同值条件](docs/nested-invariant-word.md)已支持 loop-invariant
+仿射 int32 store 值，包括 wrap 后仍保持 header 的 alias 输入。真实 source-derived
+定义性、guard 执行／模型生产、candidate 与 host 连接到新 Csem→Asm entry；35 端点
+审计、提取、120 assembly／60 Clight calls 通过。原 literal lowering 保留，其他
+路径回到原 scan；没有新增 caller semantic callback。新实例没有成本或 GDB
+测量；更广条件、source/domain、动态布局与完整 BT 仍继续推进。
+
 [CAV 2027 稿件](paper/README.md)已按 narrative `271f6fc` 开始并行写作：实际 LNCS
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。

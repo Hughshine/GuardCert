@@ -33,7 +33,13 @@ useful acceptance, and code growth. The current lowering shares one fallback
 scan under a certified conjunction of initialized Boolean words. A larger
 16-by-16-by-5 C domain supplies full-array validation and nine assembly probes
 that distinguish source, interchange, and tiling through two header aliases.
-Earlier scan/shortcut reports retain their stage scope. Broader affine source classes, more general
+A further successor supports loop-invariant affine int32 store values obtained
+from entry parameters. Its actual guard receives definedness from original-source
+receipts, reuses the compact candidate and language host, and has an extracted
+Csem-to-Asm compiler. A separate 35-endpoint audit and 120 assembly/60 Clight calls
+cover ordinary and wrapped values, same-value header aliases, changing source
+domains, and fallback. This successor has no new machine dispatch probes or cost
+measurement. Earlier scan/shortcut reports retain their stage scope. Broader affine source classes, more general
 compact conditions, complete guard/program timing, and comparative proof-author
 effort remain pending.
 

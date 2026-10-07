@@ -1,5 +1,14 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 最新复核：重新 fetch 与检查远端 heads，narrative 仍为 `271f6fc`，
+main 正文相同。其责任划分已具体约束 [入口值 guard](nested-invariant-word.md)：
+语言提供 actual typed-store effect 和 affine modular evaluation，domain 从已有
+真实源 receipt 生产 value definedness／source-model／entry transport，新的 guard
+certificate 复用候选与语言安装 host。最小 kernel 没有变化，也没有增加使用者
+语义 callback。35 端点审计、提取、120 assembly／60 Clight calls 通过；性能、
+作者工作比较与 latest-entry fresh rebuild 分别保留待办，不借前一 literal cost
+或 reproduction report 证明新的运行结果。完整目标 active。
+
 2026-10-07 最新：[紧凑公开出口](nested-compact-exit.md)已以语言级幂等 control
 loop 定律、固定 temp patch 和 domain 的 accepted-word/active producer，取代
 当前 uniform model 的 shadow 遍历，接到新的实际 Csem→Asm entry。C_guard、

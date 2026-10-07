@@ -1,5 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新后继：[入口参数同值条件](nested-invariant-word.md)已将 literal
+shortcut 扩展到 loop-invariant affine int32 store values，实际 physical guard、
+模型生产、data-only factory 和新 Csem→Asm entry 全部连接。新值定义性由原源
+prepared/domain receipt 生产，没有新增 caller callback；原 literal lowering、
+candidate validator、五赋值出口和 language host 复用。35 端点／591 依赖审计、
+提取、120 assembly／60 Clight calls 通过，包含 wrap 后 word-one 的 header alias
+接受与动态域变化回退。没有新的 GDB probes、成本或最新入口的 source-only rebuild。
+本轮确认 narrative 远端仍为 `271f6fc`、main 正文一致。
+下一项按 [本轮 checkpoint](research-checkpoint-2026-10-07-nested-invariant.md)
+验收实际成本／作者责任比较、进一步非同值与多数组 footprint 条件，继续更广
+source/domain 与动态布局／BT。Kernel 仍止于 local correctness；四条逻辑链不
+变成四份用户手填证明。完整目标 active，以下保留各阶段当时边界。
+
 2026-10-07 最新后继：[紧凑公开出口](nested-compact-exit.md)已将当前 accepted
 uniform nested 模型的 shadow traversal 替换为五个 temp 赋值，完整源出口、
 检查后实际入口、candidate memory 和 Csem→Asm 均已证明。42 端点／606 依赖

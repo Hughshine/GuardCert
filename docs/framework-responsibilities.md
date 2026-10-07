@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新：[入口参数同值条件](nested-invariant-word.md)复核了 narrative
+三方责任的实际含义。Clight 语言库证明 affine word 的纯求值/frame 和 actual
+full-int32 store effect；domain 从原源 prepared/domain receipt 生产定义性与
+同值 header 保持，连接原源到缓存模型和 guard-exit frame；实际比较交付 C_guard。
+候选 C_opt、kernel、语言 installation host 复用。新 data-only factory 没有 value／
+definedness／effect callback。35 端点审计、提取和新的 120 assembly／60 Clight calls
+通过；没有定量作者工作比较、成本或新 machine probes。当前子集仍是 uniform
+loop-invariant affine value，不是任意 effect 或普遍的条件推导。详见
+[本轮 checkpoint](research-checkpoint-2026-10-07-nested-invariant.md)。
+
 2026-10-07 后继：[五赋值公开出口](nested-compact-exit.md)连接当前 accepted
 uniform nested 模型与实际 candidate 出口。语言库证明幂等 control BODY 的真实
 循环执行及固定 temp patch 定律；domain 从 guard 接受／模型执行生产实际

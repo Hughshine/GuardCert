@@ -796,6 +796,52 @@
         "docs/nested-compact-cost.md",
         "docs/research-checkpoint-2026-10-07-nested-compact.md"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Checked loop-invariant affine int32 store values produce actual source-derived stability guards, reuse the compact candidate and installation host, and yield an extracted Csem-to-Asm compiler; supported wrap and alias inputs are validated separately from literal-kernel cost results.",
+      "theorems": [
+        {
+          "source": "prototype/interface/CompCertInvariantWordObservation.v",
+          "name": "checked_invariant_word_control_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantWordCheck.v",
+          "name": "ncs_invariant_expression_sound"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantWordCheck.v",
+          "name": "ncs_prepared_invariant_value"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantWordCheck.v",
+          "name": "ncs_invariant_pair_expression_test"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantWordModel.v",
+          "name": "ncs_invariant_word_accepted_model"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantStability.v",
+          "name": "ncs_original_invariant_stability_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantCertificate.v",
+          "name": "ncs_invariant_stability_guard_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightNestedInvariantFactory.v",
+          "name": "check_ncs_invariant_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightGuardedNestedInvariantCompiler.v",
+          "name": "compile_ncs_invariant_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/nested-invariant-word.md",
+        "docs/research-checkpoint-2026-10-07-nested-invariant.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -1906,5 +1952,103 @@
     "confidence_intervals_claimed": false,
     "representative_benchmark_speedups_claimed": false,
     "author_effort_compared": false
+  },
+  "nested_invariant_word_stage": {
+    "proved_entrypoint": "ClightGuardedNestedInvariantCompiler.compile_ncs_invariant_regions",
+    "whole_program_correctness": "ClightGuardedNestedInvariantCompiler.compile_ncs_invariant_regions_correct",
+    "proof_report": "build/nested-invariant/proof/report.json",
+    "proof_report_sha256": "d884ae94133cec8ac23648a36e892cc3fd3614a16411aea1268654b12dac2866",
+    "proof_endpoints": 35,
+    "required_dependencies": 591,
+    "bound_sources": 890,
+    "additional_global_axioms": [],
+    "kernel_assumptions": [],
+    "compiler_baseline_globals": 42,
+    "compiler_sha256": "c0e5ce1c4510abc0dc55e3f4a0bdd42785397fd8bbbcc708b63ee6a425e97916",
+    "native_report": "build/nested-invariant/native/report.json",
+    "native_report_sha256": "198f06bcbc9a4864c7ac174ecc371ddceaa957bfea2924df34504c23596a832b",
+    "assembly_calls": 120,
+    "clight_dispatch_calls": 60,
+    "inputs": 20,
+    "source_bodies": [
+      "loop-invariant affine entry words",
+      "coordinate-dependent value with original scan"
+    ],
+    "word_expression": "int32(int32(alpha+beta)+1)",
+    "guard_value_definedness": "from prepared parameter domains obtained from reached original source execution",
+    "new_caller_semantic_callbacks": 0,
+    "literal_lowering_preserved": true,
+    "candidate_and_host_reused": true,
+    "minimal_semantic_kernel_changed": false,
+    "new_unmodified_assembly_dispatch_probes": false,
+    "source_only_fresh_build_claimed": false,
+    "cost_or_profitability_measured": false,
+    "comparative_author_effort_measured": false,
+    "machine_bytes": {
+      "disabled": {
+        "invariant_fill": {
+          "installed": false,
+          "machine_bytes": 203
+        },
+        "changing_fill": {
+          "installed": false,
+          "machine_bytes": 205
+        }
+      },
+      "identity": {
+        "invariant_fill": {
+          "installed": true,
+          "machine_bytes": 662
+        },
+        "changing_fill": {
+          "installed": true,
+          "machine_bytes": 616
+        }
+      },
+      "interchange": {
+        "invariant_fill": {
+          "installed": true,
+          "machine_bytes": 708
+        },
+        "changing_fill": {
+          "installed": true,
+          "machine_bytes": 658
+        }
+      },
+      "tile-2-3": {
+        "invariant_fill": {
+          "installed": true,
+          "machine_bytes": 807
+        },
+        "changing_fill": {
+          "installed": true,
+          "machine_bytes": 763
+        }
+      },
+      "wrong-reindex": {
+        "invariant_fill": {
+          "installed": false,
+          "machine_bytes": 203
+        },
+        "changing_fill": {
+          "installed": false,
+          "machine_bytes": 205
+        }
+      },
+      "invalid-domain": {
+        "invariant_fill": {
+          "installed": false,
+          "machine_bytes": 203
+        },
+        "changing_fill": {
+          "installed": false,
+          "machine_bytes": 205
+        }
+      }
+    },
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_invariant.mk native",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_invariant.mk validate"
+    ]
   }
 }
