@@ -4,6 +4,11 @@
 证明了固定内存观察的保持，并提供 actual Clight BODY 的静态 checker。
 这是下一项紧凑条件工作的语言库基础；当前 compiler 尚未使用它跳过扫描。
 
+后继 [实际循环／缓存模型与检查出口](nested-word-model.md)现已消费此保证，
+生产相同 word 条件的真实 Clight 检查及接受后的 canonical source/model execution。
+它补齐旧文下述 prefix／模型及出口 frame 的局部义务；factory／compiler 安装和
+运行测量仍待完成。本文保留最初 7 端点语言阶段的证据边界。
+
 ## 已证明的条件
 
 如果 `Mem.load Mint32` 在某 cell 取得 word `w`，后续每次成功的 `Mem.store Mint32`

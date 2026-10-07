@@ -601,6 +601,31 @@
       "documents": [
         "docs/constant-word-observation.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "For the supported nested source, a constant-word control checker supplies complete subloop observation preservation; the same-word cache condition produces actual cached/canonical model execution from existing original-source preparation receipts. The emitted Clight residual check has actual execution and check-exit ports-frame proofs. Compiler installation and native/cost measurements remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordObservationControl.v",
+          "name": "checked_constant_word_control_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantWordModel.v",
+          "name": "ncs_same_word_accepted_model"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantWordCheck.v",
+          "name": "ncs_prepared_same_word_check"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantWordExample.v",
+          "name": "ncw_indexed_constant_site_checked"
+        }
+      ],
+      "documents": [
+        "docs/nested-word-model.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -924,5 +949,18 @@
     "fixed_memory_observation_only": true,
     "runtime_shortcut_installed": false,
     "guard_cost_measured": false
+  },
+  "nested_word_model_stage": {
+    "report": "build/nested-word/proof/report.json",
+    "sha256": "ce5c202de41b517fc4b9e51b81b239754a5278758dadef995255c731695677ae",
+    "queried_endpoints": 22,
+    "required_dependencies": 508,
+    "baseline_global_assumptions": 6,
+    "additional_global_axioms": [],
+    "actual_subloop_to_model_producer": true,
+    "actual_residual_check_execution_and_exit_frame": true,
+    "compiler_shortcut_installed": false,
+    "guard_cost_measured": false,
+    "new_native_execution": false
   }
 }

@@ -109,6 +109,15 @@ only the queried memory/Clight baseline, whose union has six assumptions.
 No new runtime guard, acceptance result, or cost measurement is attributed to
 these language lemmas.
 
+The new producer has 22 audited endpoints across 508 required dependencies.
+Its endpoints use only the six assumptions of the independently queried memory
+and Clight baseline. The kernel remains closed. A typed indexed constant-store
+instance passes both the existing source/model package
+and the new BODY checker. Further fixtures establish actual check acceptance,
+refusal, and skipping an undefined child cache after the first comparison
+refuses. The producer proves cached-model execution and the check-exit frame;
+it has not yet changed the extracted compiler or supplied native measurements.
+
 \subsection{Experiments Needed for the Final Paper}
 
 \paragraph{Semantic coverage.}

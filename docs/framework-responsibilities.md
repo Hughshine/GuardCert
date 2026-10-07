@@ -5,8 +5,11 @@
 与证明责任划分不变。[constant-word observation](constant-word-observation.md)
 由语言库证明 typed `Mem.store` 保持和 actual Clight BODY checker soundness。
 这是 fixed-address memory guarantee，不能替代 pointer-binding frame、读许可、
-prefix／model 对应或候选正确性。Domain 下一项消费它生产 compact entry condition；
-实际 guard／模型入口及语言安装继续分开验收，当前没有 runtime shortcut。
+prefix／model 对应或候选正确性。Domain 后继 [same-word producer](nested-word-model.md)
+已生产实际 subloop 保持、cached source／canonical 模型和两次比较的 Clight check，
+接受后明确模型入口到 actual check exit 的 ports frame。它复用旧 source-derived
+capture／numeric／helper receipts；不是新的 kernel 功能。Factory／compiler 的
+shortcut 安装、候选及语言 host 复用和运行成本仍须继续验收。
 
 2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)在
 同一 compiler 上扩展了实际读写、dependence、重复 sites 与程序上下文验证。

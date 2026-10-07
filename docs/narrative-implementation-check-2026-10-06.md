@@ -4,9 +4,11 @@
 empty-build 待办，沿既有三方责任／四条证书链重建 proof→compiler→actual C。
 另 [constant-word BODY guarantee](constant-word-observation.md)提供 actual syntax
 checker 和实际执行到 memory observation 的 producer；它是 language service，
-不扩大最小 kernel，也不声称已经替换 guard。下一项按 narrative 要求消费该
-保证实现 compact sufficient condition，另证 safe capture／entry transport／model
-义务并复用候选和 host；随后分别比较成本、接受域与作者 obligations。
+不扩大最小 kernel。后继 [same-word producer](nested-word-model.md)已消费该保证，
+从实际 subloop 保持生产 cached／canonical 模型，证明实际 residual check 和
+actual check-exit frame；22 端点审计通过。Source-derived capture 与 numeric 前提
+继续由旧 receipts 提供。下一项按 narrative 要求将这个局部 producer 安装进实际
+factory／compiler，复用候选和 host；随后比较成本、接受域与作者 obligations。
 
 2026-10-07 重新 fetch：`origin/topdown/research-positioning` 仍为
 `271f6fc941910456da43a76e9f0eed38e8a5e200`，main 中的 paper-narrative 与

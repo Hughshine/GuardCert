@@ -13,7 +13,9 @@ are recorded separately from prior loaded-root results. A committed source-only
 export now rebuilds the proof, compiler, and existing C experiments independently
 of historical reports, using the installed pinned toolchain. A separate Clight
 library checks constant-word bodies and proves fixed-address observation
-preservation, including same-cell aliasing; its runtime shortcut is still pending.
+preservation, including same-cell aliasing. A successor producer proves the actual
+loop effects, transports the source to its cached model, and proves a two-comparison
+Clight check with its exit frame. Its compiler shortcut is still pending.
 Broader affine source classes, compact conditions, condition-cost evaluation, and comparative
 proof-author effort remain pending.
 

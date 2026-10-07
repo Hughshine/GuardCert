@@ -7,9 +7,12 @@ queries，compiler 42-global 集合保持、kernel 闭合，未扩展 source cla
 另 [constant-word observation](constant-word-observation.md)的 actual Clight BODY
 checker／memory-effect producer 7 端点通过，6 项既有基线、零新增 global axiom。
 它提供 fixed-cell observation 保持，不保证 pointer bindings／progress，也未
-安装新 guard。下一项 **消费该 producer，把 cached headers 等于写入 word 的
-充分条件接入实际 physical guard／model anchor；复用 frames、候选及 host，运行
-alias 接受／不匹配回退并比较 scan work／完整成本**。其他 source class、动态
+安装新 guard。后继 [same-word producer](nested-word-model.md)已将实际循环的
+observation 保持接到 cached source／canonical model，并证明两次缓存比较的
+真实执行、接受义务和 actual check-exit ports frame；22 端点／508 依赖审计通过。
+下一项 **接入 actual physical guard／multi candidate adapter／typed factory，
+新条件接受时跳过 stability scan，其他路径复用旧扫描；复用候选及 host，运行
+alias 接受／不同 raw word 回退并比较 scan work／完整成本**。其他 source class、动态
 布局和作者工作验收继续按下列计划推进；完整目标 active。
 
 以下为先前阶段；其中 fresh-build 待办已由上述后继关闭。
