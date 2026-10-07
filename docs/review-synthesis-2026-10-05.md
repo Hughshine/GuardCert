@@ -282,3 +282,11 @@ numeric fact transport，稳定性接受后直接运行旧 alias scan，删除�
 
 阶段提交前再次 fetch 三个评审 refs：topdown `226ba94`、evidence `9673381`、performance `3e9f008`，
 没有新增提交；paper narrative 正文与 main 相同。上述工作吸纳既有澄清，不重复算成新评审意见。
+
+Expression-header 阶段再次 fetch 并确认 narrative 仍为 `226ba94`，正文一致。
+[新服务与责任记录](research-checkpoint-2026-10-06-expression-headers.md)把 Figure 2 的根表达式
+缺口拆成已证明的语言 capture／prefix／cache transport、已接入的第一 numeric client，以及
+待实例化的真实 body check／coverage 和 typed factory／host。raw observation 与 computed
+cache 保持不同对象，source 首读许可不当作未来稳定性。43 端点通过，原 compiler 42 项假设
+与 source／object 绑定保持；没有把新服务参数或旧 native 回归计成完整源覆盖、成本下降或
+作者负担收益。下一项继续实际 domain／host 接入及 compact condition 验收。

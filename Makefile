@@ -14,6 +14,13 @@ SOURCES := theories/AbstractGuard.v theories/SemanticFacts.v theories/DomainRest
         polcert-optimizer-proof polcert-store-native clean
 all: check
 
+.PHONY: expression-header-proof expression-header-validate
+expression-header-proof:
+	python3 scripts/audit_expression_headers.py
+
+expression-header-validate:
+	python3 scripts/audit_expression_headers.py --validate
+
 proof:
 	@mkdir -p build
 	@$(ROCQ) --version > build/compiler.txt

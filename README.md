@@ -1,5 +1,7 @@
 # Guard：带前提的程序变换与组合证明
 
+[表达式 header 服务](docs/research-checkpoint-2026-10-06-expression-headers.md)已证明真实 `i<*limit+1` 的安全 capture、raw observation／computed cache 对应、任意 structured body 的源前缀与接受后缓存执行运输，并接到现有递归 affine numeric checker。43 端点审计通过；空域与回绕时不读未定义 child 参数，具体 alias 源保留“cache=3、实际两轮后停止”的行为。完整稳定性 scan、factory／typed host 和新的提取运行仍待接入，Figure 2 优化仍未支持；新服务没有改变现有 compiler/native 绑定。[接口 walkthrough](docs/expression-header-services.md)列明三方证明责任和剩余义务。
+
 [当前 guard 简化](docs/research-checkpoint-2026-10-06-loaded-affine-reduced.md)已证明稳定性接受后运输 numeric／first-path 事实，删除 alias 阶段的重复检查；候选前提、局部证明、语言 host 和 kernel 保持。35 端点／694 依赖／1,023 源摘要审计、独立提取、624 次新 assembly 调用、208 次 Clight 路径调用及 21 个机器路径探针通过。三轴 accumulator 的完整函数 896→782 bytes，多数组 2,061→1,936；没有计时收益结论。四个机器工作量探针确认 pointer comparisons 仍分别为 46 和 6,394，逐点／逐点对成本未消除。[OLO Figure 2 适配例](docs/olo-figure2-coverage.md)另有 16 次原生调用保持原行为，但当前未安装优化：load＋1 根和 loaded child 的组合仍是具体源覆盖缺口。
 
 前一 native 阶段的当前 `.vo` 绑定因本次 guard 简化而失配，旧报告／二进制原样保留。当前验证入口是 `make loaded-affine-multi-validate`，使用独立 reduced proof／build／native 报告；旧产物只用于已核对摘要的代码规模与工作量对照。

@@ -270,6 +270,16 @@ guard 成本和 per-instance 人工负担是最终验收内容。无需先完成
 
 上述顺序吸收的是当前 narrative 的新澄清，不改写旧阶段的固定能力或报告；最终完整目标保持 active。
 
+Expression-header 后继的具体切口见
+[阶段记录](research-checkpoint-2026-10-06-expression-headers.md)和
+[接口 walkthrough](expression-header-services.md)：真实 signed-expression capture、raw observation
+与 computed cache 的对应、任意 structured body 的源前缀及缓存运输、递归 affine numeric
+site 已证明。43 端点审计保持原基线；没有新完整 candidate rule／compiler/native 覆盖。
+后续先用实际 recursive write receipts 和 byte separation 填入新 prefix 的 body-check／coverage，
+然后运输 numeric facts、连接 entry relation 和 typed factory／host。不能把库要求的这些参数
+当成已经自动生产的证据，也不能把 first capture 许可推广到未来 loaded child。完整 Figure 2
+接入与 compact sufficient-condition／实际 guard 工作量验收继续执行，不以本阶段为目标完成。
+
 ## 当前范围的运行链闭合后的下一项
 
 [本轮运行阶段](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)已完成上述第 1 项的

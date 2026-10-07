@@ -32,7 +32,7 @@
 
 | 具体需求 | 当前可复用设施 | 此源尚缺什么／归因 |
 | --- | --- | --- |
-| 根 header 的 load＋1 | 机器 affine 运算、实际 source receipt、private capture 和 no-wrap 条件 | 当前 main descriptor／source protocol 只支持直接 `i<*limit`；需要 checked expression-header adapter 与它的原源执行对应，属于 frontend／语言证明缺口 |
+| 根 header 的 load＋1 | 新 signed-expression capture、raw observation／computed cache 对应、generic body-prefix／cached-source transport 和 checked affine numeric site | 可运行 main descriptor 仍只接直接 `i<*limit`；新服务的真实 body stability scan、entry relation、factory／typed host 尚未接入，属于 domain／frontend 与语言安装证明缺口 |
 | 在外层可达后读取第二 bound | 两观察 dependent prefix、旧 dual-loaded 有界矩形、源许可运输 | recursive child decoder 当前要求稳定 temp affine bounds；不能把这些旧实例当作该三层源已经支持，属于 domain／源覆盖缺口 |
 | 写入可能改变两个观察 | 实际写 trace coverage、byte separation、接受后 cached-source bridge | 当前 recursive main 只稳定一个根观察；需要将多个依赖观察的服务接到同一三层 package |
 | 第三层五次迭代与实际 body | 当前 canonical arbitrary-finite child depth、Mint32 多操作 body、依赖 checker | 深度本身已有一般证明；适配 body 是新 store，原 BT 计算并未建模或证明 |
@@ -56,3 +56,10 @@ residualization；没有自动解出此例的 parameter condition，也没有消
 checked load-expression root 和 dependent loaded child 覆盖。每个新条件需证明检查安全、
 接受可靠性和原入口／checked-entry 运输。继续保留安全 scan／refusal，允许更强条件缩小接受域，
 并单独测量这项代价。
+
+[Expression-header 后继](research-checkpoint-2026-10-06-expression-headers.md)已关闭 capture、
+generic source prefix／cache transport 和第一 numeric 检查阶段的语言服务缺口。它区分
+raw=2 与 cache=3，并用真实 alias 源证明提前停止；另证 `INT_MAX+1` 的实际空域检查。
+这些服务尚未被提取编译器消费，不能更新本例的 `not-supported` 结果。原表达式的数学
+non-overflow 与 cached-word 数值域也保持不同义务，具体 HEADER／body-preservation／coverage
+参数必须由完整 domain 实例填入。

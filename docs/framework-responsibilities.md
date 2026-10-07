@@ -211,3 +211,15 @@ for (; i != *bound; ++i) *out = i + 2U;
 [Deep affine 的当前接口接入](research-checkpoint-2026-10-06-materialized-affine.md)进一步检验这条边界：已有 guard 正常返回并在 private temp 中写/read Boolean，不能直接作为 result-fresh／break-refusal scan。新的 Clight library 提供实际执行、primitive safety、defined dispatch、全部完成执行 sound 和原入口／checked-entry 运输；domain 提供原源 quiet／writes、实际 guard execution、足迹／范围及 conditional candidate-local。两类实际 factory 消费同一语言服务，kernel 使用 `guardify_preservation`，原 table host 另证程序安装。六个新模块／26 端点、提取、5,118 次 assembly 调用和四组独立 Clight 插桩通过；没有把旧递归 IR、旧 source/candidate checker 或库参数算作新功能。
 
 本实例的 source domain 仍是有限正常完成；actual select 的有限执行分解不要求所选分支完成，但该 host 不因此获得任意 divergence 定理。Stable-temp 深层域与两层 loaded/dependent 源尚未组合；新 alias scan 复用旧多指针能力，typed pointer stores／general source domains、P4 和同例责任／负担比较仍待交付。共享 proof 对象重编后的旧 cursor 精确摘要验证失败另记，当前 proof regression 不改写旧 frozen/native 报告。
+
+[Expression-header 服务](expression-header-services.md)的最新切口延续 narrative `226ba94`：
+语言库提供真实 signed header 求值、safe private capture、actual body receipt、generic source
+prefix 与接受后的缓存源运输；raw memory observation 和 computed cache 不再合成一个值。
+Affine client 核对原 AST／类型／private scope，复用旧递归 numeric checker，证明第一阶段
+检查可用与接受后的 cached-word math domain。最小 kernel 与 candidate validator 保持。
+
+剩余 domain 责任是由 actual body receipts 解码写 trace、给出每一轮观察覆盖／许可，并证明
+实际 readonly body check 接受 ⇒ 观察保持；library 的 HEADER／PRESERVE／coverage 参数不
+自动完成这些证明。语言 host 仍须生产 typed allocation、entry transport、source progress、
+scope／placement 与全程序安装。43 端点审计、新空域／回绕检查及具体 alias 源执行只验证
+上述服务和第一 numeric client；没有新完整 guarded rule／factory／compiler/native 能力。
