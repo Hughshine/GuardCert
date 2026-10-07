@@ -554,6 +554,23 @@
       "documents": [
         "docs/nested-frontend-native.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Same extracted nested frontend entry, without kernel/proof/producer changes: seven array/control functions, 119 inputs and six configurations give 714 full assembly calls. Separate two unguarded assembly counterexamples confirm real dependence. Three Clight configurations give 357 calls and 370 dispatches, ten selected-store assembly probes cover same-allocation disjoint/aliased pointers, repeated sites, and surrounding return/effects. Body-only scalar wrap retains source modular behavior. A proposed one-column profile makes the same dependent chain admissible to the same checker and runtime guard; 238 additional assembly calls and 238 Clight calls distinguish fast from wider-domain fallback. No generic assumption/WP inference.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightGuardedNestedFrontendCompiler.v",
+          "name": "compile_ncs_frontend_regions_correct"
+        },
+        {
+          "source": "prototype/affine-nest/AffineNestLeafModel.v",
+          "name": "affine_leaf_real_memory_decode"
+        }
+      ],
+      "documents": [
+        "docs/nested-frontend-coverage.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -605,10 +622,9 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "nested frontend coverage: multi-array read/write bodies, dependency refusals, same-allocation slices, nonzero entry counters, undefined body parameters, repeated/control contexts",
     "fresh-checkout empty-build bootstrap",
+    "broader affine/polyhedral source classes and full original BT dynamic layout/delinearization beyond the fixed-layout adaptation",
     "compact sufficient conditions and guard cost/useful acceptance",
-    "full original BT dynamic layout/delinearization beyond the fixed-layout adaptation",
     "same-source near-neighbor obligations comparison",
     "runtime/compilation cost",
     "comparative author proof effort"
@@ -775,6 +791,67 @@
     "same_kernel_and_context_prefix": true,
     "machine_order_confirms_interchange_and_tiling": true,
     "both_header_alias_fallback_cases_observed": true,
+    "timing_or_profitability_measured": false
+  },
+  "nested_frontend_coverage_stage": {
+    "report": "build/nested-frontend/coverage/report.json",
+    "sha256": "9330c60bb3a1b51bfc785d80248747203fcd2f81ecc6f5dab562e2762705d6e2",
+    "source": "examples/native_nested_frontend_coverage.c",
+    "functions": 7,
+    "inputs": 119,
+    "configurations": 6,
+    "full_assembly_calls": 714,
+    "separate_unguarded_counterexample_assembly_calls": 2,
+    "words_per_array": {
+      "A": 6144,
+      "B": 2048,
+      "C": 2048
+    },
+    "body_scalar_wrap_matches_source": true,
+    "proof_and_compiler_changed": false,
+    "timing_or_profitability_measured": false,
+    "exclusive_range_upper_boundary_refused": true
+  },
+  "nested_frontend_coverage_clight_stage": {
+    "report": "build/nested-frontend/coverage/clight-report.json",
+    "sha256": "2b7e2429203f0a4fe1bf8413b6b702371878c32a48fac7ba9d992d6fb1e42d02",
+    "instrumented_clight_calls": 357,
+    "dispatches": 370,
+    "fast": 147,
+    "runtime_refusal": 223,
+    "assembly_path_evidence": false
+  },
+  "nested_frontend_coverage_machine_stage": {
+    "report": "build/nested-frontend/coverage/path-report.json",
+    "sha256": "6d61ac9ab746ace0a4a76e5e9c329dd676b35ae7de5f259b28785a299b85eb5b",
+    "separate_machine_probes": 10,
+    "watched_indices": [
+      15,
+      80,
+      160
+    ],
+    "full_store_trace": false,
+    "candidate_and_fallback_order_observed": true,
+    "same_allocation_disjoint_slices_accepted": true,
+    "repeated_sites_and_context_markers_observed": true,
+    "timing_or_profitability_measured": false
+  },
+  "nested_frontend_one_column_profile_stage": {
+    "report": "build/nested-frontend/coverage/one-column-profile/report.json",
+    "sha256": "63f30c900e6b0f8199cc5bec427ac219a2b41f87d507c0503ec4816ee5147ec2",
+    "full_assembly_calls": 238,
+    "instrumented_clight_calls": 238,
+    "configurations": 2,
+    "proposed_child_count_interval": [
+      1,
+      2
+    ],
+    "upper_is_exclusive": true,
+    "same_checker_accepts_dependent_chain_under_tighter_premise": true,
+    "fast_per_configuration": 16,
+    "runtime_refusal_per_configuration": 118,
+    "generic_assumption_inference": false,
+    "extra_machine_probe": false,
     "timing_or_profitability_measured": false
   }
 }

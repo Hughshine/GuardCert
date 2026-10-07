@@ -1,5 +1,34 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)已沿
+同一实际 Csem→Asm compiler 验证多数组读写、真实 dependence、same-allocation
+slices、alias 回退、BODY value wrap、重复 sites 与前后副作用／return。七类函数
+的 default profile 为 714 assembly calls；提出 child-count∈[1,2) 的更强前提后，
+同一 checker 接受原来被拒绝的 chain，另有 238 assembly calls 验证条件内 fast、
+条件外回退。Clight 分支与 GDB machine probes 分列，不能用调用数推断通用性。
+
+本轮重新 fetch narrative `271f6fc`，main 正文一致。吸收后的验收顺序为：
+
+1. **可复现性**：建立 fresh-checkout、empty-build 路径，确认完整证明、提取与
+   实际输入编译不依赖本工作树的旧 objects／reports。
+2. **紧凑条件**：在同一 source/candidate 上用经认证的充分条件替换逐点扫描。
+   语言证明 primitive 的安全／partiality 与状态运输，domain 证明新入口条件
+   覆盖实际模型义务；复用候选和 host 证明，不要求新旧接受集合相同。
+3. **OLO usability**：分别测量 guard work／完整运行成本、接受域、代码大小及
+   编译成本；统计 kernel／语言库／domain／site 作者各自仍要提供的证据。
+   Cursor loop 缩小代码不等于消除逐点检查，代码 bytes 也不等于优化收益。
+4. **功能扩展**：推进更广 affine/polyhedral source、参数化域变换及原 BT 的
+   动态布局／delinearization；按 source coverage、condition algorithm、未闭合
+   证明或语义差别归因，不能用 verified 标签解释功能缺口。
+5. **宿主接口复核**：从现有 finite／shared／open hosts 核对重复 clauses 和
+   真正的 progress／control 差异，再决定是否抽取契约库。最小核保持局部
+   correctness 边界，不先按文档建议增加抽象；每阶段同步实际 manuscript。
+
+完整目标 active；本阶段没有修改 kernel／Rocq／compiler，也没有成本或作者
+工作量测量。更详细的运行和证据边界见新 coverage 文档。
+
+以下为先前固定阶段；其后继待办以本段及最新 checkpoint 为准。
+
 2026-10-07：[actual nested frontend／native](nested-frontend-native.md)现已运行既有
 Figure 2 适配 C，保留源文件和旧 coverage report。语言证明覆盖 `shape[0]` 零偏移
 及 CompCert reset 前的 skips，原 AST 为 fallback key。新入口实际提取，identity／

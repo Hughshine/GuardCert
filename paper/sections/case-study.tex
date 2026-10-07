@@ -128,6 +128,32 @@ and confirm source behavior on header-alias fallback (Section~\ref{sec:evaluatio
 This establishes the functional path for the fixed-layout profile, not the full
 BT kernel or a result about guard affordability.
 
+Additional C programs use the same compiler entry and source descriptor for
+in-place array updates, reads from two arrays with writes to a third, two guarded
+sites in one function, and global effects and returns around a region. Disjoint
+slices within one allocation execute reordered candidates; equal or shifted
+data pointers follow the source fallback. Empty paths also exercise a scalar
+defined only when the body is reached. None of these tests changes the kernel,
+language proofs, or candidate producer.
+
+A chain body reads \code{a[index+75]} before writing \code{a[index]}, where
+\code{index=80*row+5*column+component}. The offset corresponds to
+$(\mathit{row}+1,\mathit{column}-1,\mathit{component})$ and can cross the proposed
+traversal order. The checked pipeline retains the original chain for interchange
+and tiling. Separate unguarded C variants compiled to assembly change 30 and five
+output words on one input, respectively. This supplies a concrete dependence
+counterexample, rather than only invalid-metadata tests; the observation records
+pipeline refusal without identifying an internal rejection branch.
+
+The proposer can instead restrict the child-count profile to $[1,2)$ while
+retaining the root range $[1,5)$. The same checker then accepts the chain's
+interchange and tiling candidates. The same guard producer encodes the tighter
+premise: a three-row, one-column input executes the candidate, whereas the
+counterexample input executes the original AST. The condition still includes
+safe capture and header preservation; the child range alone is not the complete
+guard. This demonstrates how an instance-proposed sufficient premise enables a
+conditional rewrite, without generic weakest-precondition inference.
+
 \subsection{Condition Expressiveness and Reuse}
 
 The supported services cover machine-word ranges/no-wrap, byte-level memory
@@ -137,6 +163,14 @@ domains. They do not decide arbitrary propositions or infer weakest conditions
 for arbitrary program pairs. For a source-derived scan, the domain implementation
 still proves access coverage and the source/model bridge. The language library
 supplies the physical comparison and load/store preservation lemmas.
+
+The obligations depend on how a value is used. In the new array bodies, the
+scalar \code{alpha} affects stored values only: active INT\_MAX and INT\_MIN
+inputs still execute candidates with the source's signed32 modular results.
+Definedness follows from the reached source leaf. Control and address ranges
+remain separate modeling conditions; not every arithmetic expression requires a
+no-wrap premise. This distinction belongs to the concrete source/model proof,
+rather than to a generic assumption about all language arithmetic.
 
 Condition construction must preserve partial evaluation safety. A mathematically
 simpler condition can read a header or compare a pointer earlier than the source

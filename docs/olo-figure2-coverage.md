@@ -1,5 +1,20 @@
 # CGO 2017 Figure 2：源问题与当前覆盖
 
+2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)在
+既有三层 loaded-header／固定 flat-stride source profile 上验证七类函数，包含
+真实多数组读写、dependence、alias、同 allocation 分离 slices、BODY value wrap、
+重复 sites 和外围 control。Default profile 为 714 assembly calls；另提出更强
+child-count∈[1,2) 前提，同一 checker 接受 chain 的 interchange／tiling，238
+assembly calls 验证 fast／fallback。Clight 和 GDB 的分支证据分别报告。
+
+这是已声明 profile 内的能力，不覆盖完整原 BT 的动态 stride／delinearization。
+原 16-call `not-supported` report 固定保留；新 source 与报告另列。重新核对
+narrative `271f6fc` 后，OLO 仍同时是功能与 usability 参照：guard size、runtime
+work 和有用接受域分开验收。当前扫描证明已接通；compact condition、成本、
+作者工作及更广 affine source 仍有缺口，不能用调用数量或 verification 解释。
+
+以下为先前固定阶段；其后继待办以本段及最新 checkpoint 为准。
+
 2026-10-07 最新实运行：[actual nested frontend](nested-frontend-native.md)已在既有
 Figure 2 适配源实际安装并运行 interchange／tiling；zero-index root 和 prefixed
 resets 的执行对应由语言库证明，fallback 保留原 AST。新 Csem→Asm entry 已提取；

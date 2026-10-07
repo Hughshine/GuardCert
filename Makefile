@@ -33,6 +33,24 @@ paper-offline:
 .PHONY: nested-constant-physical-proof nested-constant-physical-validate
 .PHONY: nested-constant-multi-proof nested-constant-multi-validate
 .PHONY: nested-frontend-proof nested-frontend-compiler nested-frontend-native nested-frontend-paths nested-frontend-validate
+.PHONY: nested-frontend-coverage nested-frontend-coverage-clight nested-frontend-coverage-machine nested-frontend-coverage-validate nested-frontend-profile
+nested-frontend-profile:
+	python3 scripts/native_nested_frontend_profile.py
+
+nested-frontend-coverage:
+	python3 scripts/native_nested_frontend_coverage.py
+
+nested-frontend-coverage-clight:
+	python3 scripts/probe_nested_frontend_coverage.py --clight
+
+nested-frontend-coverage-machine:
+	python3 scripts/probe_nested_frontend_coverage.py --machine
+
+nested-frontend-coverage-validate:
+	python3 scripts/native_nested_frontend_coverage.py --validate
+	python3 scripts/probe_nested_frontend_coverage.py --validate
+	python3 scripts/native_nested_frontend_profile.py --validate
+
 nested-frontend-proof:
 	python3 scripts/audit_nested_frontend.py
 

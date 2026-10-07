@@ -61,6 +61,35 @@ Interchange & 80, 160, 15 & 564 \\
 The identity configuration uses 528 function bytes. Code size is an observation
 of the current generated programs, not a timing or profitability result.
 
+A separate coverage matrix uses seven functions and 119 inputs at the same
+frontend entry. Six configurations give 714 full assembly calls, each comparing
+6,144 words in array A, 2,048 each in B and C, two headers, three public counters,
+and two context markers. It covers multi-array reads/writes, actual dependence,
+same-allocation slices, nonzero entry counters, conditionally defined body
+scalars, body-value wrap, repeated sites, and surrounding control. Two additional
+assembly calls execute deliberately unguarded incorrect variants and confirm the
+dependence counterexamples; they are separate from the successful matrix.
+
+Three instrumented Clight configurations give 357 calls. Identity records
+53 fast and 81 refusal dispatches; interchange and tiling each record 47 and 71.
+There are 370 dispatches across those calls because repeated sites can execute
+twice, whereas static rejection and context skip execute no select. Ten separate
+assembly probes observe selected stores: independent arrays and disjoint slices
+use candidate order, aliased data uses source order, repeated sites each use
+candidate order, and context markers distinguish pre-loop return from post-loop
+return. These are additional behavioral checks under the existing compiler
+theorem, not new proof endpoints or generality inferred from call counts.
+The multi-array function grows from 211 bytes to 1,579 for interchange and 1,682
+for tiling, reinforcing the need to measure check work and total cost separately.
+
+The one-column profile adds 238 complete assembly calls and 238 separate Clight
+calls across interchange and tiling. All seven functions install candidates,
+including the chain; each configuration observes 16 fast and 118 refusal
+dispatches. The three-row, one-column chain executes fast, and its wider-domain
+counterexample falls back. The default matrix also tests effective root/child
+count five: the profile's exclusive upper bound rejects those inputs. No
+additional assembly debugger probe is claimed for the tighter profile.
+
 \subsection{Experiments Needed for the Final Paper}
 
 \paragraph{Semantic coverage.}
@@ -93,7 +122,7 @@ still supplied by the author. Compare a common example against the nearest
 existing interfaces before claiming reduced proof burden.
 
 \pending{No timing, speedup, final acceptance fraction, or comparative author
-effort has been measured for this manuscript. Extend this frontend's coverage to
-multi-array read/write bodies, dependency refusals, same-allocation slices,
-nonzero entry counters, and repeated/control contexts; validate a fresh-build
-bootstrap. Measure compact conditions and author obligations on common examples.}
+effort has been measured for this manuscript. Validate a fresh-build bootstrap,
+extend the supported source class beyond these loaded-header templates, and
+measure compact conditions and author obligations on common examples. Dynamic
+layout and delinearization of the full original BT kernel remain uncovered.}

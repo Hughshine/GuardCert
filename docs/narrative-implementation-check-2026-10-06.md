@@ -1,5 +1,27 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 重新 fetch：`origin/topdown/research-positioning` 仍为
+`271f6fc941910456da43a76e9f0eed38e8a5e200`，main 中的 paper-narrative 与
+context-lifting 正文直接 diff 无差异。以下澄清继续作为实现验收，而非新功能：
+
+- 最小 kernel 止于局部 guarded correctness；条件处理属于上层库，整程序
+  installation 属于语言／IR host，placement 与具体 region 证据由实例提供。
+- 四条证书链不能隐藏 source/model 对应、检查安全或 progress／divergence。
+  不通用推导任意 source/candidate 的前提，也不要求生成最弱或最优 guard。
+- 先闭合所声明 scope 的证明链，再改进条件；已有扫描是有效中间实现，但
+  紧凑条件、guard 成本、实用接受域与作者工作量仍是 OLO 验收要求。
+- 新 guard 可以改变接受域；须证明安全、接受蕴含义务、实际入口运输，并尽量
+  复用候选和 host 证明。Contract clauses 的进一步拆分仍须由真实 host 需求驱动。
+
+本阶段的实证后继是 [nested frontend BODY／contexts](nested-frontend-coverage.md)：
+714 assembly calls 验证 default profile；另 238 calls 验证更强 one-column 前提
+使 chain 成为真正的 conditional rewrite。Clight 分支与 assembly probes 单列。
+Kernel／Rocq／compiler 不变；候选/profile proposer 仍不受信任。实际 manuscript
+已同步。下一项 fresh-checkout empty-build，随后在同例验收紧凑条件及成本；
+更广 source class、完整 BT 动态布局和作者比较仍未完成。
+
+以下为先前固定阶段；其后继待办以本段及最新 checkpoint 为准。
+
 2026-10-07 最新实运行：[actual nested frontend](nested-frontend-native.md)已在既有
 Figure 2 适配源实际安装并运行 interchange／tiling；zero-index root 和 prefixed
 resets 的执行对应由语言库证明，fallback 保留原 AST。新 Csem→Asm entry 已提取；

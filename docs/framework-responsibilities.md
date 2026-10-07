@@ -1,5 +1,20 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)在
+同一 compiler 上扩展了实际读写、dependence、重复 sites 与程序上下文验证。
+更强 child-count∈[1,2) profile 使 chain 的重排被同一 checker 接受，runtime guard
+在前提外保留原 AST。这个使用过程保持三方责任：优化方提出候选和 profile；
+domain checker／producer 证明条件正确性及入口到模型义务的覆盖；语言库解释
+安全 capture、检查、实际状态运输和 region 安装；kernel 消费既有证书。
+三方是证明归属，四个 certificate links 是逻辑环节，不增加四份用户手填 record。
+
+重新 fetch narrative `271f6fc` 后确认 main 正文一致。下一项紧凑条件工作必须
+分别提交安全、accepts⇒所需义务和入口状态运输的证据，复用现有 C_opt／host；
+整程序安装继续由语言实例与具体 region／site 证据共同完成。当前没有 generic
+WP、最优 guard、任意 contract-clause 组合或第二 IR 实现；成本／作者负担待测。
+
+以下为先前固定阶段；其后继待办以本段及最新 checkpoint 为准。
+
 2026-10-07 最新实运行：[actual nested frontend](nested-frontend-native.md)已在既有
 Figure 2 适配源实际安装并运行 interchange／tiling；zero-index root 和 prefixed
 resets 的执行对应由语言库证明，fallback 保留原 AST。新 Csem→Asm entry 已提取；
