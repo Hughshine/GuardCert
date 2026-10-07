@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "narrative_reference": "271f6fc941910456da43a76e9f0eed38e8a5e200",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
@@ -192,6 +192,47 @@
       ]
     },
     {
+      "section": "case-study",
+      "claim": "Fixed-entry header services and distinct source/guard frames; actual inner short-circuit loop licensed per column from original prefix, first refusal with cursor zero, empty execution without observer/output receipt, and accepted current row produces all-column preservation plus outer-prefix advance. No complete outer runtime loop or new compiler installation.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightExpressionPrefixAt.v",
+          "name": "expression_body_prefix_receipt_at"
+        },
+        {
+          "source": "prototype/interface/ClightExpressionPrefixAt.v",
+          "name": "expression_body_prefix_advance_at"
+        },
+        {
+          "source": "prototype/interface/ClightJointInnerRowFrame.v",
+          "name": "joint_inner_row_frame"
+        },
+        {
+          "source": "prototype/interface/ClightJointInnerRowFrame.v",
+          "name": "joint_inner_cache_frame"
+        },
+        {
+          "source": "prototype/interface/ClightConstantJointInnerScan.v",
+          "name": "constant_joint_inner_loop_execution"
+        },
+        {
+          "source": "prototype/interface/ClightConstantJointInnerScan.v",
+          "name": "constant_joint_inner_first_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightConstantJointInnerScan.v",
+          "name": "constant_joint_inner_empty_execution"
+        },
+        {
+          "source": "prototype/interface/ClightConstantJointInnerScan.v",
+          "name": "constant_joint_current_row_execution"
+        }
+      ],
+      "documents": [
+        "docs/constant-joint-inner-scan.md"
+      ]
+    },
+    {
       "section": "evaluation",
       "claim": "Prior bound execution reports: 708 assembly calls, 236 Clight calls, 21 machine probes; nested service proof audit 48 endpoints; unchanged Figure 2 probe 16 calls. No new native matrix or timing result.",
       "documents": [
@@ -259,7 +300,7 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "complete nested-loaded inner/outer runtime scans, canonical model and installation",
+    "complete nested-loaded outer runtime scan, canonical model and installation",
     "compact sufficient conditions",
     "same-source near-neighbor obligations comparison",
     "runtime/compilation cost",
@@ -279,6 +320,17 @@
     "required_dependencies": 569,
     "source_digests": 1064,
     "complete_inner_outer_runtime_scans_installed": false,
+    "new_compiler_or_native_execution": false
+  },
+  "joint_inner_proof_stage": {
+    "report": "build/constant-joint-inner/proof/report.json",
+    "sha256": "173626b13944a2572027a52ba3836560ea6f3fbfcac08d34372edd35d296732d",
+    "endpoints": 14,
+    "required_dependencies": 563,
+    "source_digests": 1067,
+    "complete_inner_scan_execution_proved": true,
+    "accepted_current_row_produces_preservation_and_outer_prefix": true,
+    "complete_outer_runtime_scan_proved": false,
     "new_compiler_or_native_execution": false
   }
 }

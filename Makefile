@@ -25,6 +25,13 @@ paper-offline:
 .PHONY: nested-header-proof nested-header-validate
 .PHONY: constant-model-proof constant-model-validate
 .PHONY: constant-joint-proof constant-joint-validate
+.PHONY: constant-joint-inner-proof constant-joint-inner-validate
+constant-joint-inner-proof:
+	python3 scripts/audit_constant_joint_inner.py
+
+constant-joint-inner-validate:
+	python3 scripts/audit_constant_joint_inner.py --validate
+
 constant-joint-proof:
 	python3 scripts/audit_constant_joint_scan.py
 

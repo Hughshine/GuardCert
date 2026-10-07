@@ -1,16 +1,25 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[实际 inner 短路 loop／整行接受](constant-joint-inner-scan.md)已消费
+原 BODY 的检查 producer，整行接受直接取得所有 column 的观察保持和 outer-prefix
+advance。固定入口的 header 适配复用旧语言 prefix，guard 私有游标与逻辑 source
+temps 分开；first refusal 和 empty child 的真实执行端点已证明。
+14 端点／563 required dependencies／1,067 源摘要审计及旧 compiler／native 绑定核对
+通过；kernel 无改动、无新增公理。
+下一实现是实际 outer 短路扫描及完整 rows 覆盖，再组装接受后的 cached model、
+原 AST／typed pool／候选／host 和完整 compiler。没有新提取或 native，goal active。
+
 本轮重新读取 narrative `271f6fc`，main 正文无差异；
 [责任／实现核对](narrative-implementation-check-2026-10-06.md)记录 `db6704c` 的复核及
 下述实际 BODY 消费者的后继进展。
 继续把 kernel、条件库、language host 和具体 optimizer/site 的责任分开；
 不把 `ENCODE`／coverage／`PRESERVE` 参数计作已实现 producer。
 Reached constant body 许可的双观察 joint scan 和接受后的 inner-prefix preservation
-已连接。下一实现是实际 inner/outer 短路扫描，再组装接受后的 cached model 与
+已连接；实际 inner loop 的后继见上段。下一实现是实际 outer 短路扫描，再组装 cached model 与
 原 AST 安装。功能链闭合后验收 compact 条件、成本／接受域和
 同例作者责任；相关里程碑同时更新实际稿件，不等待全部未来扩展。
 
-最新 [实际 BODY joint scan](constant-body-joint-scan.md)消费 reached source permissions，
+前一 [实际 BODY joint scan](constant-body-joint-scan.md)消费 reached source permissions，
 使用有实际求值／load receipts 的 observer expressions，保护两个 raw header words。
 接受推出全部 point writes 分离及任意同 view 实际 BODY 的 preservation，填入 inner
 prefix advance；具体 Figure 2 leaf 的五次原 store 和完整检查执行均有 fixture。

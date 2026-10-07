@@ -91,3 +91,9 @@ advance。具体适配 leaf 在 `row=column=0` 的完整五次 store 和检查�
 分离接受、与 headers 重叠拒绝。30 端点审计通过，没有新 compiler 或 native。
 下一项是完整 inner/outer 短路扫描、canonical model、真正原 AST 的安装和提取运行；
 完整 acceptance、成本与人工工作尚未验收，原 coverage 结果不变。
+
+2026-10-07：[inner scan 后继](constant-joint-inner-scan.md)已将此 BODY 消费者接到
+实际 private short-circuit loop，整行接受生产所有 column 的观察保持和下一 outer
+prefix。14 端点审计通过；首次拒绝保持 private cursor 为零，空 child 不要求
+output/BODY receipts。上述 runtime 内层的证明缺口已关闭，实际 outer loop、完整
+模型／安装与本例的新 native 接受仍待完成。原 16 调用 coverage 报告继续保持。

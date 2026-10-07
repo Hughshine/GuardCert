@@ -4,6 +4,11 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[Inner 短路扫描及整行接受](docs/constant-joint-inner-scan.md)已接到真实 Clight loop：
+每个 column 从原源 prefix 取得 BODY 许可，接受后推进；整行接受生产所有 column
+的观察保持及下一 outer prefix。首次拒绝不递增扫描游标，空 child 无需 output
+receipt。实际 outer loop、完整模型和新 compiler 仍待连接，本阶段没有新 native。
+
 [已到达常量子循环的 joint scan](docs/constant-body-joint-scan.md)现已从原 BODY 的
 访问权限许可真实写地址与 `shape`、`shape+1` 的比较；接受后保持全部 raw
 observations，生产 inner source-prefix 的推进证据。30 端点审计通过，具体

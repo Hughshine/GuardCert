@@ -96,3 +96,17 @@ pending 标记。Evidence map 绑定实际端点、文档和独立 proof report 
 旧 native/path/work 报告只核对绑定，没有重跑，没有新成本或收益数字。
 本次最终 `build/paper/report.json` SHA-256：
 `0312828065a85389fef055ac4c3514866ba8544a29c280206fb3f705d9fc8ea2`。
+
+## 2026-10-07：inner loop 与整行接受同步
+
+[Inner scan](constant-joint-inner-scan.md)已把 BODY producer 接到实际短路 loop，并
+从原 outer prefix 打开 inner prefix；整行接受导出全 column 的观察保持和下一
+outer prefix。14 endpoints 独立审计通过，原 BODY／model／nested-header／compiler
+及 native/path/work 绑定核对通过，没有新增数组 fixture、提取或运行矩阵。
+
+Case-study、evaluation 和 evidence map 同步真实执行端点、fixed-entry header
+责任与源／guard 状态区分。实际 outer loop、完整模型、factory／whole-program
+编译和新 native 接受继续标记 pending。Offline 重建仍为 11 页；无未解析引用
+或 overfull box。渲染检查修改后的第 7、9、10 页，段落和红色 pending 无截断。
+最终 `build/paper/report.json` SHA-256：
+`2adbee8ae42aa94e1b3938543dded5f946397221e7b32968278eb1b7150435ff`。

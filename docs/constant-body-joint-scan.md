@@ -120,8 +120,9 @@ fixture）、569 required dependencies、含 inherited material 的 1,064 源摘
 native 矩阵。当前是 inherited build 上的增量 audit，未另验空 build bootstrap；
 没有新 compiler、extraction、native 或 timing。
 
-下一连接：用原 inner prefix receipt 填入每个 column 的 actual BODY scan，组装
-short-circuit inner loop；这一 row 检查完所有 observations 才推进 outer。随后将
+后继 [inner 短路扫描](constant-joint-inner-scan.md)已用原 prefix receipt 组装实际
+loop，并在整行接受后生产全 column 的 preservation 和 outer-prefix advance。
+下一连接是实际 outer runtime loop 及全部 rows 覆盖。随后将
 已接受的 two-cache source 运输到完整 canonical model，接候选证书、original AST
 factory、typed pool、host、Csem→Asm 与真实 C 的接受／fallback／context 验收。
 功能链闭合后继续 compact sufficient conditions、实际工作量／接受域和计时。

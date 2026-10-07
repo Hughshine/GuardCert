@@ -14,6 +14,11 @@ BODY permissions 许可写地址与两个观察地址的实际比较；接受后
 stores／实际 scan fixture 通过。以下责任表按该消费者更新；原文的文档复核与
 这项证明交付分开。完整 inner/outer runtime loops 和新 compiler 仍未安装。
 
+2026-10-07 后继 [inner 短路扫描](constant-joint-inner-scan.md)已证明实际 loop、
+first refusal／empty execution，并从整行接受直接生产全 column preservation 和
+outer-prefix advance。14 端点审计通过。下表保留前一 BODY 阶段的责任快照；
+当前未完成项是实际 outer runtime loop、完整模型与原 AST／compiler 安装。
+
 ## 本轮澄清的执行含义
 
 最小 kernel 只证明局部 guarded correctness。条件处理库和具体 language host

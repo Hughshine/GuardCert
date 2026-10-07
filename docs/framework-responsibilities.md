@@ -9,9 +9,12 @@
 observer expression receipts、真实 pointer comparison、private Boolean 积累和
 store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比较，证明完整
 子域覆盖和接受后保持所有 observations，填入 inner-prefix preservation／advance。
-30 端点审计通过，kernel 不变。完整 inner/outer scan、canonical model／候选和
-原 AST 安装仍未接通；最难的后继是只在接受后许可下一 BODY，保留实际 source
-memory，再导出整段缓存源。`ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
+30 端点审计保持，kernel 不变。[Inner loop 后继](constant-joint-inner-scan.md)已将
+检查 producer 接到真实短路循环，并从整行接受直接生产全 column 的 preservation
+和 outer-prefix advance。固定入口的 header 定律足够，不要求任意无关入口的 cache
+对应。完整 outer scan、canonical model／候选和原 AST 安装仍未接通；后继继续
+保留实际 source memory，只在接受后许可下一 row，再导出整段缓存源。
+`ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
 记录其 producer；这次没有把未完成的整段 guard／factory 计作已经自动取得。
 
 验收继续按 `226ba94` 的 proof-first 顺序；compact 条件、实际检查成本、有用
