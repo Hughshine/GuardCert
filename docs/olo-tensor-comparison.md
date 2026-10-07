@@ -5,6 +5,11 @@
 并讨论机器溢出检查和按实际访问域安排预加载。这些要求仍是本项目的功能与
 可用性验收依据；当前已证明的 tensor 子集不能替代完整论文场景。
 
+后继[loaded tensor 首点服务](tensor-header-point.md)已连接条件式capture与实际
+动态`i*ld`首点，并证明原store许可的检查、接受后的两header保持及alias拒绝路径。
+40端点独立审计通过；它尚未关闭完整source-prefix／cached模型／candidate／安装
+链。本页的loaded＋动态layout缺口仍保留，不能把首点证明称为完整loop版本化。
+
 后继[实际坐标次序扩展](tensor-coordinate-order.md)已在原proof report下接入
 `[j,i,k]` 数据提案并保留 `[i,j,k]` 源；[另一轮完整成本](tensor-coordinate-cost.md)
 记录大stride输入的交换收益和小输入负结果，使用单独的stride<2048 profile。

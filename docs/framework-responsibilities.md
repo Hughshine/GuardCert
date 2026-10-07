@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新：[loaded tensor 首点服务](tensor-header-point.md)落实“检查
+许可不能依赖待检查前提”：语言库在确切word语义下运输变量乘积，从实际store
+取得guard-entry权限，并证明actual check及接受后的raw observation保持；domain
+从原loaded source生产条件式capture、首点和同入口接线。40端点审计通过。
+现有kernel／host均未修改，后继全循环prefix、cached model／candidate运输与
+安装仍由domain／语言host承担。该family的新data factory尚未交付，theorem的
+静态语法／freshness参数仍需checker生产；不把首点接口称完整data-only使用体验。
+
 2026-10-07 最新：[literal-bound接入](tensor-literal-bound.md)按
 [narrative逐项核对](narrative-literal-bound-check-2026-10-07.md)完成语言helper
 初始化／public frame、domain source/model及checked-entry运输、materialized

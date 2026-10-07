@@ -1,5 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[loaded tensor 首点服务](tensor-header-point.md)交付 typed
+word算术运输、原store权限到guard-entry运输、observation分离／保持、条件式
+header capture和同一次原源执行到首点实际check的组合producer。40端点／445
+依赖独立审计，无新增公理；fixture覆盖真实动态Horner RMW、机器中间值wrap、
+两header保持及alias拒绝后跳过未定义测试。旧208端点／native／cost保持。
+**接下来关闭完整逐点source-prefix链**：每次接受后生产下一第三层／child／outer
+点的实际执行与权限；拒绝停止未来检查；完整接受再导出cached source。随后
+连接动态tensor guard、literal准备、实际candidate入口／公开出口、data factory
+和语言host，验收同一loaded＋动态layout C 的接受／回退／上下文及完整成本。
+首点服务不是完整优化器；本阶段没有新Csem→Asm入口、C／Asm matrix、成本或
+比较作者工时。Narrative的最小kernel与三方责任保持，完整目标active。
+以下保留各阶段的当时范围。
+
 2026-10-07 最新：[literal-bound tensor](tensor-literal-bound.md)已把实际 `<5>`
 接入private初始化、原源到prepared canonical执行、guard-exit候选运输、原AST
 fallback和expression-progress安装，完整Csem→Asm与提取／运行均通过。

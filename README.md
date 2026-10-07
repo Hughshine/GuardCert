@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+[Loaded tensor 首点服务](docs/tensor-header-point.md)已证明原源许可的动态
+`i*ld` 地址检查、条件式双 header capture，以及同一入口从 capture 到实际
+check statement 的连接。40端点／445依赖审计通过，零新增公理；真实内存
+RMW 保持两个 header，alias 拒绝路径跳过未定义的后续测试。最小 kernel 保持。
+完整 nested scan／cached source、loaded tensor candidate 与 Csem→Asm 安装仍待
+连接，本阶段没有新的 C／Asm 运行或成本结果。完整目标active。
+
 [Literal-bound tensor](docs/tensor-literal-bound.md)已从实际 `<5>` 源，经private
 初始化、原源／检查后状态运输、原AST回退和语言host接到完整Csem→Asm。
 208端点／440依赖审计与提取通过，无新增全局公理；八配置1,152汇编／432

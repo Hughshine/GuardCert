@@ -446,6 +446,16 @@ The single-site source/identity/interchange/tiling functions occupy
 author-time result; earlier timing results remain evidence for their own
 compiler entries.
 
+The loaded/dynamic first-point service has a separate forty-endpoint audit with
+445 dependencies; fifteen endpoints are closed and the others use at most six
+globals from the existing CompCert baseline. It adds no global axiom.
+Concrete memory fixtures prove a wrapping dynamic-address RMW, preservation of
+both raw header words, and an actual alias-refusal check that skips an undefined
+later test. This stage adds neither an installed loaded tensor compiler nor
+complete C/assembly calls or cost measurements.
+Eight extracted runs check the arithmetic syntax subset, coordinate
+substitution, and guard/capture construction; they do not execute generated Clight.
+
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment
 has no confidence intervals or break-even inference. Extend the supported source class

@@ -1059,6 +1059,49 @@
         "docs/tensor-literal-bound.md",
         "docs/narrative-literal-bound-check-2026-10-07.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Source-licensed first-point dynamic word checks and conditional header capture; complete loaded tensor installation remains pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordArithmeticTransport.v",
+          "name": "word_replacement_evaluation"
+        },
+        {
+          "source": "prototype/interface/ClightDirectWordObservation.v",
+          "name": "direct_word_point_sound"
+        },
+        {
+          "source": "prototype/interface/ClightDirectWordObservation.v",
+          "name": "direct_word_point_check_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorHeaderFirstPoint.v",
+          "name": "tensor_header_original_first_point"
+        },
+        {
+          "source": "prototype/interface/ClightTensorHeaderCapture.v",
+          "name": "tensor_header_capture_point_ready"
+        },
+        {
+          "source": "prototype/interface/ClightTensorHeaderPointExample.v",
+          "name": "thp_actual_wrapping_rmw"
+        },
+        {
+          "source": "prototype/interface/ClightTensorHeaderPointExample.v",
+          "name": "thp_acceptance_preserves_both_headers"
+        },
+        {
+          "source": "prototype/interface/ClightTensorHeaderPointExample.v",
+          "name": "thp_actual_alias_check_statement"
+        }
+      ],
+      "documents": [
+        "docs/tensor-header-point.md",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -3341,6 +3384,33 @@
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk compiler",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk native",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk validate"
+    ]
+  },
+  "tensor_header_point_stage": {
+    "proof_report": "build/tensor-header-point/proof/report.json",
+    "proof_report_sha256": "ab7fb8352ec476d156f9a975153e65f4c1014d8c1190ea752b42d2911c5921ec",
+    "queried_endpoints": 40,
+    "required_dependencies": 445,
+    "closed_endpoints": 15,
+    "maximum_endpoint_globals": 6,
+    "additional_global_axioms": [],
+    "minimal_kernel_changed": false,
+    "extracted_report": "build/tensor-header-point/extracted/report.json",
+    "extracted_report_sha256": "0510fef0c31cf1dd98cba1b2c07cc17cff2a5e64618a4627f7621310ee096e30",
+    "extracted_cases": 8,
+    "generated_Clight_executed_by_extracted_program": false,
+    "original_source_first_point_proved": true,
+    "conditional_capture_and_first_point_composed": true,
+    "point_acceptance_preserves_both_header_observations": true,
+    "complete_nested_scan_proved": false,
+    "loaded_bound_dynamic_layout_composition_completed": false,
+    "new_whole_program_entrypoint": null,
+    "C_or_assembly_evidence_added": false,
+    "cost_or_profitability_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_header_point.mk proof",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_header_point.mk extracted",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_header_point.mk validate"
     ]
   }
 }
