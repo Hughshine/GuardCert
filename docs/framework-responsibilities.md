@@ -1,13 +1,16 @@
 # 验证责任、证书边界与最难的验收
 
-2026-10-07 当前：[原 tensor 源 producer](tensor-original-source.md)继续落实 narrative：
-Clight 库证明实际 Horner operands／load/store 的反推、原源许可的短路 layout guard
-和实际 count-temp restoration；domain 从真实源 execution 生产模型并消费数学
-坐标 BOX、原 affine／tiling checker。Framework kernel 保持。源端不再要求假设
-Loop execution，公开出口已与候选连接；C_guard 尚只覆盖 layout，BOX 的机器编码
-和新的 C_host 安装仍未闭合。使用者目前仍提交结构、binding、profile 等明确证明，
-region factory 的自动生产尚待实现。111 端点／12 项提取通过；无新完整 C/native。
-详见 [checkpoint](research-checkpoint-2026-10-07-tensor-source.md)。
+2026-10-07 当前：[tensor 坐标条件](tensor-coordinate-guard.md)继续落实 narrative：
+domain 条件库生成 affine extrema 并证明全部活动坐标覆盖；Clight 库交付实际
+profile gate、signed32 安全算术和 readonly certificate。原源许可的 full guard
+接受直接生产 BOX、bindings、pointer/dimension view，完整 candidate bridge
+内部生产 Loop SOURCE 并复用原 checker／公开 iterator restoration。Framework
+最小 kernel 保持。C_derive／C_guard 和局部 C_opt 已接通；新的 C_host 仍缺实际
+region factory、progress、private resources／placement。优化方还需给 metadata
+和源结构的静态证书，尚未由 data checker 自动生产。142 端点／13 项提取通过，
+不执行生成 Clight，无新完整 C/native。最难位置已移到从输入 AST 生产局部证书
+及全程序安装；不能用 finite-normal-completion D 代替 reachable-state progress。
+详见 [checkpoint](research-checkpoint-2026-10-07-tensor-box.md)。
 
 2026-10-07 当前：[动态 tensor backend](dynamic-tensor-backend.md)按 narrative 的
 三方责任接通实际 lowering 与原 affine／tiling checker。语言库生产维度 word、

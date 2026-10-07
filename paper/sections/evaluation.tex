@@ -329,17 +329,22 @@ execution with the same complete memory; restoration from original count
 temporaries preserves public iterator exits. A read-only layout condition derives
 dimension-read safety from original silent normal completion. Empty outer loops
 refuse before reading undefined stride or RHS inputs. The volume guard checks
-positivity and quotient bounds before accumulating products. A separate
-mathematical interval-box checker covers all read/write coordinates, including
-negative affine coefficients; volume acceptance alone does not justify coverage.
-The audit covers 111 endpoints (45 added to the candidate-backend stage), with no
-added global axioms; candidate theorems inherit the existing checker baseline.
-Twelve extracted checks exercise source recognition, coordinate
-acceptance/refusal, and candidate validation/lowering. They do not execute
-generated Clight. Machine lowering of the complete coordinate condition,
-literal-bound frontend transport, a checked region factory, and host installation
-remain unfinished. These library results add no source-to-assembly or native
-program evidence to the compiler measurements above.
+positivity and quotient bounds before accumulating products. Affine extrema
+cover all read/write coordinates, including negative coefficients; volume
+acceptance alone does not justify coverage. A condition compiler lowers these
+extrema to actual signed32 checks after a runtime parameter-profile gate.
+Static range analysis rejects unsupported or potentially overflowing intermediate
+arithmetic; runtime inputs outside the profile refuse. Full guard acceptance
+produces the coverage, bindings, and layout views consumed by the candidate
+execution bridge. The audit covers 142 endpoints (31 added to the source-adapter
+stage), with no added global axioms; candidate theorems inherit the existing
+checker baseline. Thirteen extracted checks exercise condition synthesis,
+lowering, and mathematical acceptance/refusal. Actual guard results also have
+Clight execution proofs; the extracted checks do not execute generated Clight.
+Literal-bound frontend transport, a checked region/local-certificate factory,
+progress and private-resource obligations, and host installation remain
+unfinished. These library results add no source-to-assembly or native program
+evidence to the compiler measurements above.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

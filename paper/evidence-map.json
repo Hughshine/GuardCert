@@ -928,6 +928,44 @@
         "docs/tensor-original-source.md",
         "docs/research-checkpoint-2026-10-07-tensor-source.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Profiled affine tensor-coordinate extrema are lowered to safe signed32 Clight checks. Source-derived full guard acceptance produces BOX, bindings and layout views for actual mapped/tiled candidate execution with public iterator restoration. No new whole-program installation or generated-code execution evidence.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryTensorBoxExpressions.v",
+          "name": "tensor_box_entry_value"
+        },
+        {
+          "source": "prototype/interface/ClightTensorBoxGuard.v",
+          "name": "tensor_box_checked_exact"
+        },
+        {
+          "source": "prototype/interface/ClightTensorCompleteGuard.v",
+          "name": "tensor_complete_guard_sound"
+        },
+        {
+          "source": "prototype/interface/ClightTensorCompleteCandidates.v",
+          "name": "tensor_complete_tiled_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorCompleteCandidates.v",
+          "name": "tensor_complete_mapped_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorBoxExample.v",
+          "name": "tensor_box_demo_actual_coordinate_accepts"
+        },
+        {
+          "source": "prototype/interface/ClightTensorBoxExample.v",
+          "name": "tensor_box_demo_empty_full_guard_refuses"
+        }
+      ],
+      "documents": [
+        "docs/tensor-coordinate-guard.md",
+        "docs/research-checkpoint-2026-10-07-tensor-box.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2209,6 +2247,37 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_source.mk prototype",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_source.mk validate"
+    ]
+  },
+  "profiled_tensor_coordinate_stage": {
+    "proof_report": "build/tensor-coordinate-guard/proof/report.json",
+    "proof_report_sha256": "deeb2b67bd7dbbe87459ead7d2c62f2c5f5863af27e2c8815f14b09f193852ec",
+    "proof_endpoints": 142,
+    "new_endpoints": 31,
+    "required_closure_count": 306,
+    "closed_endpoints": 69,
+    "maximum_endpoint_globals": 14,
+    "additional_global_axioms": [],
+    "kernel_changed": false,
+    "machine_coordinate_condition_proved": true,
+    "guard_produces_candidate_inputs": true,
+    "parameter_profile_checked_at_runtime": true,
+    "static_signed32_intermediates_checked": true,
+    "whole_program_compiler_installed": false,
+    "source_selector_installed": false,
+    "literal_bound_transport_connected": false,
+    "extraction_report": "build/tensor-coordinate-guard/extracted/report.json",
+    "extraction_report_sha256": "9df367b1b737cbed002f25ded637e063c2a80e128c6c128bcf4202ee5bdbfe2a",
+    "extracted_cases": 13,
+    "condition_synthesis_and_lowering_executed": true,
+    "semantic_coordinate_flag_executed": true,
+    "generated_machine_guard_executed": false,
+    "C_or_assembly_evidence_added": false,
+    "profitability_measured": false,
+    "proof_burden_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_box.mk prototype",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_box.mk validate"
     ]
   }
 }

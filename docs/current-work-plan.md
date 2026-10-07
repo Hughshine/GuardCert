@@ -1,15 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
-2026-10-07 当前：[原 Horner tensor 源](tensor-original-source.md)已从真实原 Clight
-execution 生产模型，连接 affine／tiling candidate 并恢复公开 iterator exits；
-source-derived readonly layout condition 以原 silent normal completion 许可读取。
-111 端点＝旧 66＋新 45／291 依赖审计、12 项提取检查通过；无新 kernel／整程序
-compiler。数学 BOX 覆盖每个 read/write 的全部活动坐标，但尚未编码为机器 guard。
-当前为 positive rectangular temp-bound nest、单 leaf operation、一个 tensor；
-literal `<5` transport、region factory／private resources／progress／placement 与
-Csem→Asm 继续沿 [checkpoint](research-checkpoint-2026-10-07-tensor-source.md)验收。
-Narrative 远端重新 fetch 仍为 `271f6fc`，main 正文相同。三方责任／四条链保持；
-不把源模型假设、guard-only certificate 或可运行 checker 当成完整安装。完整目标 active。
+2026-10-07 当前：[tensor 坐标条件](tensor-coordinate-guard.md)已将全部 affine
+read/write 的 box extrema 编码为安全 signed32 Clight checks。实际 full guard
+接受生产 count/scalar bindings、pointer/dimension view、BOX 和 candidate 输入，
+连接真实原 execution 到 mapped／tiled execution 与公开 iterator 恢复。
+142 端点＝此前 111＋新 31／306 依赖审计、13 项提取运行通过；提取不执行生成
+Clight，无新整程序 compiler。静态 profile 必须由实际入口 checks 验证，不是
+caller semantic callback；不支持的运算静态拒绝，profile 外输入运行时拒绝。
+下一项按 [checkpoint](research-checkpoint-2026-10-07-tensor-box.md)交付原 AST
+data factory／kernel local certificate，再接 literal-bound transport、source
+progress／private resources／placement 与 Csem→Asm；当前仍为 positive
+rectangular temp-bound nest、单 leaf、一个 tensor。Narrative 重新 fetch 仍为
+`271f6fc`，main 正文相同。最小 kernel 保持；不把执行桥当作完整安装。约定子集
+闭合后立即同例比较成本、接受域、bytes 与作者工作，不等待全部扩展。完整目标 active。
 
 2026-10-07 当前：[动态 tensor candidate backend](dynamic-tensor-backend.md)已完成
 vector affine read／RMW lowering、runtime layout 参数保护、实际 guard 到 registry
