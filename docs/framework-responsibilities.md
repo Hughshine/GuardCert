@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 当前：[tensor 责任清单](tensor-proof-ownership.md)逐项记录已有family
+的一次使用与扩展family／首次语言host的差别。39新查询端点分为10语言服务、
+14domain factory／rule、5compiler接线和10fixtures；源码LOC和endpoint counts
+仅为复用清单，不是作者工时或相对其他framework的负担优势。
+九字段metadata和candidate/witness经factory生产实际证据，没有每个site新增
+SOURCE／BOX等语义callback；更广source／domain仍需新的对应和条件证明。
+[实际成本](tensor-region-cost.md)独立验收guard work／bytes／完整调用，当前行
+连续源的重排没有净收益；[OLO对照](olo-tensor-comparison.md)明确loaded／literal
+与动态layout组合仍需交付。原kernel／语言host保持，完整目标active。
+
 2026-10-07 当前：[tensor factory／compiler](tensor-region-compiler.md)已由实际 AST
 数据核对生产静态 source、shape、namespace 和用值证据。Domain 复用 full guard、
 真实源／候选／出口对应；新语言 readonly adapter 实际调用 kernel preservation，

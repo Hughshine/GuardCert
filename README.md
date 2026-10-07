@@ -1,5 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
+[Tensor usability 实测](docs/tensor-region-cost.md)已完成同源30轮／960批次完整
+调用：接受路径无pointwise guard扫描，30／1,125／4,805迭代点都执行39次
+Clight条件判断；当前行连续源的交换／tiling仍慢于source。完整RMW累积结果、
+公开状态、raw timings和负结果保持，未把guarded-source差值当作纯检查成本。
+[证明归属清单](docs/tensor-proof-ownership.md)和[OLO对照](docs/olo-tensor-comparison.md)
+已更新；下一项接入坐标次序不同的真实源，复用相同checker／host检验有利重排，
+再推进literal-bound／loaded-bound与动态布局的组合。完整目标active，见
+[checkpoint](docs/research-checkpoint-2026-10-07-tensor-usability.md)。
+
 [最新 tensor 整程序接入](docs/tensor-region-compiler.md)已由原 AST／metadata 数据
 factory 生产 local certificate，实际消费 kernel 并通过语言 host 接到 Csem→Asm。
 前端 leaf 的 skip 运输已证明；181端点／368依赖审计、提取、216 assembly／108

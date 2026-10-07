@@ -93,8 +93,11 @@ Native matrix 比较完整数组、公开 counters、首个 rewrite 出口和外
 当前 source class 是 positive rectangular temp-bound nests、单个 Horner-address
 RMW leaf、一个 tensor。候选仍由原 affine／tiling checker 保证依赖正确性。
 没有 literal-bound transport、多 statement leaf、跨 tensor alias 或完整 BT。
-新完整入口还没有 guard-cost、净收益、作者负担或 source-only rebuild 结果。
+[同例成本](tensor-region-cost.md)现已验收30轮／960批次完整调用和独立guard诊断；
+当前行连续源没有重排净收益。[证明归属清单](tensor-proof-ownership.md)记录数据
+使用者和新domain／语言的责任，尚未测量其他framework同例作者工时。
+新入口的source-only rebuild仍待验收。
 
-下一项对这个闭合子集做同例成本／接受域／作者工作比较，再扩展 source/domain。
+下一项用已有parametric coordinates接入坐标次序不同的真实源，再扩展source/domain。
 规范化与数据 factory 的成功不证明任意优化前提可自动抽取，也不证明当前 guard
 已最小或有收益。

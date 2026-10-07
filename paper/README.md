@@ -6,6 +6,17 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The latest [tensor usability checkpoint](../docs/research-checkpoint-2026-10-07-tensor-usability.md)
+adds a same-source 30-round/960-batch complete-call experiment. The actual guard
+prefix has no loop scan or input-array load; three accepted inputs with
+30/1,125/4,805 source points each evaluate 39 Clight conditions. Interchange and
+tiling slow down this row-major source. Timing uses unmodified CompCert assembly
+and validates accumulated RMW results at the actual call count. Raw batches and
+negative results are retained. A [proof ownership inventory](../docs/tensor-proof-ownership.md)
+separates supported-family use from domain/host development; it does not measure
+comparative author hours. The [OLO comparison](../docs/olo-tensor-comparison.md)
+keeps loaded/literal-bound and full BT coverage gaps explicit.
+
 The latest [tensor compiler checkpoint](../docs/research-checkpoint-2026-10-07-tensor-region.md)
 connects actual input ASTs, data-only factories, kernel preservation, and the
 Clight installation host to a Csem-to-Asm theorem. A language normalization proof
@@ -13,7 +24,7 @@ handles frontend skip-wrapped bodies. Its audit covers 181 endpoints across 368
 dependencies with no added globals. Six configurations give 216 complete
 assembly calls on arrays, public exits, repeated sites, and goto/memory contexts;
 108 separate Clight calls observe acceptance/refusal. Code-size results are
-recorded separately from timing and author effort, which remain pending.
+separate from the exploratory timing above; comparative author effort remains pending.
 The [narrative clarification check](../docs/narrative-implementation-check-2026-10-07.md)
 maintains the kernel/library/host boundary and the proof-first order. This entry
 supports temporary-bound rectangular nests with one Horner RMW leaf and one

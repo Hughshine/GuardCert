@@ -365,8 +365,38 @@ These are Clight dispatch observations, not unmodified-assembly path probes.
 The single-region source/identity/interchange/tiling functions occupy
 218/622/624/870 bytes. This compiler supports temporary-bound rectangular nests
 with one Horner read-modify-write leaf and one tensor. Literal-bound transport,
-broader bodies, cross-tensor aliasing, timing, and comparative author effort
+broader bodies, cross-tensor aliasing, and comparative author effort
 remain pending for this entry.
+
+A separate same-source measurement uses thirty rounds, eight inputs, and four
+configurations, giving 960 fresh-process CPU batches on a pinned core. Timing
+includes the actual call, guard, dispatch, candidate or fallback, and public
+exit writes. Array initialization and validation are outside timing; repeated
+RMW results are checked over all 6,144 words at each batch's actual call count.
+Three accepted inputs evaluate 39 conditions in the diagnostic Clight guard
+prefix despite having 30, 1,125, and 4,805 source points. This prefix contains no
+loop scan or input-array load. Diagnostic counts exclude the final dispatch and
+are separate from uninstrumented assembly timing.
+
+The source already traverses rows contiguously. Interchange's median paired
+cost is about 1.14--1.22 times source on the accepted inputs; tiling costs about
+1.06--1.25 times source. Some fallback configurations also execute faster than
+source, reflecting backend and code-layout effects. Complete-call differences
+do not isolate guard cost. All raw batches and slowdowns are retained; these
+measurements establish no representative benchmark speedup or workload
+acceptance frequency. The next experiment should use the same correspondence
+services on a source whose address/traversal order makes reordering useful.
+
+The proof inventory separates supported-family use from developing a new domain
+or language host. Of the 39 new queried endpoints, ten concern Clight services,
+fourteen the tensor factory and rule, five compiler integration, and ten
+fixtures. The audit retains 142 prior tensor queries,
+including fixtures. The actual proofs consume existing source/guard/candidate
+correspondence and the installation host; this is not a count of 142 direct
+theorem calls. A supported use supplies nine
+data fields and a candidate/witness rather than new SOURCE, coverage, binding,
+or exit callbacks. These counts document the concrete interface boundary;
+they do not measure author hours or comparative proof effort.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

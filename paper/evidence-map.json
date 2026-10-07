@@ -997,6 +997,16 @@
         "docs/research-checkpoint-2026-10-07-tensor-region.md",
         "docs/narrative-implementation-check-2026-10-07.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Same-source tensor guard diagnostics and 30-round complete-call costs preserve raw negative results; supported-family inputs and domain/host proof ownership are inventoried without measured author-time claims.",
+      "documents": [
+        "docs/tensor-region-cost.md",
+        "docs/tensor-proof-ownership.md",
+        "docs/olo-tensor-comparison.md",
+        "docs/research-checkpoint-2026-10-07-tensor-usability.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2423,6 +2433,335 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_region.mk native",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_region.mk validate"
+    ]
+  },
+  "tensor_region_usability_stage": {
+    "cost_report": "build/tensor-region-factory/cost/report.json",
+    "cost_report_sha256": "80459c66b80689c1b348677a17330d46d2c4453558765d5e2e629a2c3ba9bc49",
+    "samples": 960,
+    "samples_sha256": "4b6445566d331685af2261940470f226713fd2a07a43aa26f7b17072560ea4b9",
+    "rounds": 30,
+    "cases": [
+      [
+        0,
+        3,
+        31,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        5,
+        7
+      ],
+      [
+        0,
+        15,
+        63,
+        15,
+        5,
+        2147483647
+      ],
+      [
+        0,
+        2,
+        31,
+        32,
+        5,
+        -2
+      ],
+      [
+        1,
+        31,
+        31,
+        31,
+        5,
+        7
+      ],
+      [
+        0,
+        0,
+        1001,
+        99,
+        99,
+        2147483647
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        0,
+        7
+      ],
+      [
+        0,
+        1,
+        1001,
+        2,
+        5,
+        7
+      ]
+    ],
+    "case_names": [
+      "small-accepted",
+      "dense-accepted",
+      "strided-wrapped-accepted",
+      "coordinate-refusal",
+      "nonzero-root-refusal",
+      "empty-outer-null",
+      "empty-inner",
+      "stride-profile-refusal"
+    ],
+    "summaries": {
+      "0": {
+        "disabled": {
+          "median_ns_per_call": 23.7239,
+          "iqr_ns_per_call": 0.4298499999999983,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 24.5312088684817,
+          "iqr_ns_per_call": 0.22093962568009573,
+          "median_paired_cost_over_source": 1.029375022732515
+        },
+        "interchange": {
+          "median_ns_per_call": 27.63482523029021,
+          "iqr_ns_per_call": 0.47602292063352536,
+          "median_paired_cost_over_source": 1.16361406183634
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 29.6929529692953,
+          "iqr_ns_per_call": 0.2251875225187483,
+          "median_paired_cost_over_source": 1.2481749921451444
+        }
+      },
+      "1": {
+        "disabled": {
+          "median_ns_per_call": 3039.792972509038,
+          "iqr_ns_per_call": 42.77094332752449,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3093.5831804867366,
+          "iqr_ns_per_call": 52.43094527635594,
+          "median_paired_cost_over_source": 1.0153063970859812
+        },
+        "interchange": {
+          "median_ns_per_call": 3496.993262389018,
+          "iqr_ns_per_call": 44.6445437944717,
+          "median_paired_cost_over_source": 1.1439116288295956
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3268.5624229135265,
+          "iqr_ns_per_call": 79.77250925037742,
+          "median_paired_cost_over_source": 1.077392996438967
+        }
+      },
+      "2": {
+        "disabled": {
+          "median_ns_per_call": 719.0123262993444,
+          "iqr_ns_per_call": 10.266932777192096,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 756.4810462494124,
+          "iqr_ns_per_call": 10.690676932413908,
+          "median_paired_cost_over_source": 1.055129166866394
+        },
+        "interchange": {
+          "median_ns_per_call": 876.6148789506519,
+          "iqr_ns_per_call": 9.331679778443913,
+          "median_paired_cost_over_source": 1.2200160594907339
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 759.4603979093313,
+          "iqr_ns_per_call": 9.790872208482142,
+          "median_paired_cost_over_source": 1.0578389439010631
+        }
+      },
+      "3": {
+        "disabled": {
+          "median_ns_per_call": 206.69442267083008,
+          "iqr_ns_per_call": 3.478870313497225,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 190.8791096849772,
+          "iqr_ns_per_call": 2.3477092724170063,
+          "median_paired_cost_over_source": 0.9227543080705228
+        },
+        "interchange": {
+          "median_ns_per_call": 190.50714724208615,
+          "iqr_ns_per_call": 2.174263895152677,
+          "median_paired_cost_over_source": 0.9229655794450529
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 198.61946072329818,
+          "iqr_ns_per_call": 4.419882186919494,
+          "median_paired_cost_over_source": 0.9599675735469729
+        }
+      },
+      "4": {
+        "disabled": {
+          "median_ns_per_call": 2951.672228582564,
+          "iqr_ns_per_call": 27.622829025893225,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 2719.6958829436235,
+          "iqr_ns_per_call": 46.31090709128284,
+          "median_paired_cost_over_source": 0.9187053716262032
+        },
+        "interchange": {
+          "median_ns_per_call": 2705.9927405614953,
+          "iqr_ns_per_call": 36.54411220030124,
+          "median_paired_cost_over_source": 0.9177363477512703
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 2841.127098321343,
+          "iqr_ns_per_call": 62.632586238701606,
+          "median_paired_cost_over_source": 0.9636679407629964
+        }
+      },
+      "5": {
+        "disabled": {
+          "median_ns_per_call": 3.1035250000000003,
+          "iqr_ns_per_call": 0.07110416666666675,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3.28206263675261,
+          "iqr_ns_per_call": 0.07755208656467039,
+          "median_paired_cost_over_source": 1.0573822848227699
+        },
+        "interchange": {
+          "median_ns_per_call": 3.2823333333333333,
+          "iqr_ns_per_call": 0.07944583333333366,
+          "median_paired_cost_over_source": 1.0562634658298125
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3.6546772356115516,
+          "iqr_ns_per_call": 0.04339062680794337,
+          "median_paired_cost_over_source": 1.1741059400638398
+        }
+      },
+      "6": {
+        "disabled": {
+          "median_ns_per_call": 459.1377091377092,
+          "iqr_ns_per_call": 12.388512388512368,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 488.33804042137376,
+          "iqr_ns_per_call": 8.998581915248565,
+          "median_paired_cost_over_source": 1.0630359172644877
+        },
+        "interchange": {
+          "median_ns_per_call": 471.63344143290567,
+          "iqr_ns_per_call": 14.305196094482028,
+          "median_paired_cost_over_source": 1.0254737894587462
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 807.5365137159171,
+          "iqr_ns_per_call": 7.034838015639934,
+          "median_paired_cost_over_source": 1.7495109308287153
+        }
+      },
+      "7": {
+        "disabled": {
+          "median_ns_per_call": 11.042375,
+          "iqr_ns_per_call": 0.16762499999999925,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 11.05490625,
+          "iqr_ns_per_call": 0.09990625000000009,
+          "median_paired_cost_over_source": 0.9993316255106806
+        },
+        "interchange": {
+          "median_ns_per_call": 11.02590625,
+          "iqr_ns_per_call": 0.09431249999999913,
+          "median_paired_cost_over_source": 0.9984552249376264
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 11.454,
+          "iqr_ns_per_call": 0.1347187500000011,
+          "median_paired_cost_over_source": 1.033125800287957
+        }
+      }
+    },
+    "guard_diagnostics": [
+      {
+        "case": 0,
+        "accepted": true,
+        "if_decisions": 39,
+        "source_point_count": 30
+      },
+      {
+        "case": 1,
+        "accepted": true,
+        "if_decisions": 39,
+        "source_point_count": 4805
+      },
+      {
+        "case": 2,
+        "accepted": true,
+        "if_decisions": 39,
+        "source_point_count": 1125
+      },
+      {
+        "case": 3,
+        "accepted": false,
+        "if_decisions": 31,
+        "source_point_count": 320
+      },
+      {
+        "case": 4,
+        "accepted": false,
+        "if_decisions": 1,
+        "source_point_count": 4650
+      },
+      {
+        "case": 5,
+        "accepted": false,
+        "if_decisions": 2,
+        "source_point_count": 0
+      },
+      {
+        "case": 6,
+        "accepted": false,
+        "if_decisions": 6,
+        "source_point_count": 0
+      },
+      {
+        "case": 7,
+        "accepted": false,
+        "if_decisions": 21,
+        "source_point_count": 10
+      }
+    ],
+    "guard_counts_are_machine_operations": false,
+    "timing_is_uninstrumented_compcert_assembly": true,
+    "accumulated_rmw_result_checked": true,
+    "representative_benchmark_speedup_claimed": false,
+    "ownership_report": "build/tensor-region-factory/ownership/report.json",
+    "ownership_report_sha256": "18d37a4d81d17f4ef46569baddd66401d1e937a50cb3d50aca3f5509c103fe2a",
+    "new_endpoints_by_group": {
+      "language_services": 10,
+      "tensor_domain_factory_and_rule": 14,
+      "compiler_integration": 5,
+      "fixtures": 10
+    },
+    "prior_tensor_endpoints_reused": 142,
+    "measured_author_hours": false,
+    "kernel_changed": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_region_usability.mk validate"
     ]
   }
 }

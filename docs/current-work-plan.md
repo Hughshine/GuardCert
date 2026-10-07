@@ -1,5 +1,19 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[tensor 成本](tensor-region-cost.md)已验收30轮／960 fresh-process
+batches。实际prefix无scan，三个接受输入30／1,125／4,805源点都执行39次判断；
+当前行连续RMW源的交换／tiling无净收益，所有negative results／raw data保持。
+[责任清单](tensor-proof-ownership.md)核对39新端点的语言／domain／接线／fixture
+归属；数据factory生产已支持family的local/site证据，未测其他framework作者工时。
+[OLO核对](olo-tensor-comparison.md)继续区分本例的temp bounds和Figure1的loaded
+bounds／+1／literal third bound，不把分离实例相加称完整覆盖。
+下一项用已有parametric coordinates接入原先按列访问、重排后按行访问的实际源，
+复用原checker／host并测有利场景；继续literal-bound transport和loaded-bound／
+动态layout实际组合，再扩展body／alias／affine domain与完整BT。
+Kernel与原181端点／native证据保持，完整目标active，见
+[checkpoint](research-checkpoint-2026-10-07-tensor-usability.md)。
+以下保留各阶段当时验收状态。
+
 2026-10-07 当前：[tensor region compiler](tensor-region-compiler.md)已连接实际原
 AST、数据 factory、kernel local certificate、typed pool／progress／语言 host 与
 Csem→Asm。行政 skip 运输修复了真实前端全回退；181端点（旧142＋新39）／368
