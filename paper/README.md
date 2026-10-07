@@ -7,10 +7,11 @@ architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
 The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
-uncompleted results. The adapted OLO Figure 2 optimizer, final condition-cost
-evaluation, and comparative proof-author effort are still pending. Existing
-native results retain their original report scope and are not new experiments
-performed for this paper.
+uncompleted results. The extracted nested compiler now installs interchange and
+tiling on the fixed-layout adapted OLO Figure 2 source; its new execution reports
+are recorded separately from prior loaded-root results. Wider source/context
+coverage, compact conditions, condition-cost evaluation, and comparative
+proof-author effort remain pending.
 
 ## Build
 
@@ -77,4 +78,7 @@ digests are recorded in `evidence-map.json`; the ZIP SHA-256 is
 `42afb32ed4fadc9e209134ec65dab1bd2a7ead42f9a3f8abb184f250c4a197b9`.
 
 The PDF/log/cache outputs are generated under the ignored `build/` directory.
-The tracked source contains no timing data or complete Figure 2 success claim.
+The tracked source contains no timing data or full original OLO/BT capability
+claim. The adapted-source functionality is established by the separately bound
+proof, extraction, native matrix, and assembly-path reports. The paper builder
+checks source anchors and builds the manuscript; it does not rerun those results.

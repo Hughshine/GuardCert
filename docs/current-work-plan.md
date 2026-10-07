@@ -1,5 +1,20 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[actual nested frontend／native](nested-frontend-native.md)现已运行既有
+Figure 2 适配 C，保留源文件和旧 coverage report。语言证明覆盖 `shape[0]` 零偏移
+及 CompCert reset 前的 skips，原 AST 为 fallback key。新入口实际提取，identity／
+interchange／2×3 tiling 安装；20-endpoint proof audit 及 48＋27 full assembly calls、
+16 Clight branch calls、6 GDB machine probes 通过。真实 independent-array 写序
+区分 source、interchange、tiling；两个 header regions 的 alias 均回退，完整数组
+和公开 exits 对照一致。Kernel 不变，compiler baseline 42 项保持。
+下一项 **在这个 frontend 上运行多数组 read/write、真实 dependence 静态拒绝、
+same-allocation slices、非零 row、undefined BODY inputs、重复 rewrites 和 control
+contexts，并提供 fresh-build 路径**；随后关闭 compact 条件、guard work／完整
+运行成本、接受域、code growth／compile time和同例作者比较。不能借旧 root-only
+矩阵替代新 frontend 验证，也不能把 code bytes 当成优化收益。完整目标 active。
+
+以下为先前阶段固定记录，其后继待办以本段及最新 checkpoint 为准。
+
 2026-10-07：[nested guarded candidate／compiler](nested-constant-multi.md)已接通：
 canonical source 沿 ports frame 运到实际 physical guard exit，许可现有多数组
 alias-only 检查；接受生产 private model anchor 和到 checked entry 的关系，供

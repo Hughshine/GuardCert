@@ -443,12 +443,13 @@
     },
     {
       "section": "evaluation",
-      "claim": "Prior bound execution reports: 708 assembly calls, 236 Clight calls, 21 machine probes; latest nested compiler proof audit 25 endpoints and 597 dependencies; unchanged Figure 2 probe 16 calls. New nested compiler theorem, but no new extraction, native matrix or timing.",
+      "claim": "Prior loaded-root bound reports remain fixed: 708 assembly calls, 236 Clight calls, 21 machine probes. New nested frontend closure: 20 endpoints, 569 dependencies, unchanged 42 compiler globals. Extracted adapted-source execution: 48 + 27 full assembly calls, 16 instrumented Clight dispatch calls, six separate unmodified-assembly probes. No timing or profitability results.",
       "documents": [
         "docs/research-checkpoint-2026-10-06-loaded-offset-affine.md",
         "docs/research-checkpoint-2026-10-06-nested-headers.md",
         "docs/olo-figure2-coverage.md",
-        "docs/nested-constant-multi.md"
+        "docs/nested-constant-multi.md",
+        "docs/nested-frontend-native.md"
       ]
     },
     {
@@ -462,7 +463,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Nested original-source checking derives private model anchor and actual checked-entry frame, reuses alias/candidate proofs, and connects kernel preservation to typed factory and existing signed-expression host; new Csem-to-Asm endpoint. Native nonidentity optimization pending.",
+      "claim": "Parent nested certificate stage: original-source checking derives private model anchor and actual checked-entry frame, reuses alias/candidate proofs, and connects kernel preservation to typed factory and existing signed-expression host. Native frontend correspondence and extraction are supplied by the following stage.",
       "theorems": [
         {
           "source": "prototype/interface/ClightNestedConstantMultiExecution.v",
@@ -507,6 +508,51 @@
       ],
       "documents": [
         "docs/nested-constant-multi.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Language proofs transport zero-index header reads and skip-prefixed resets from actual C frontend AST into the checked nested model. Data-only frontend factory retains original AST fallback, derives local region contracts, and connects to Csem-to-Asm compilation. New extraction and bound native reports establish installed interchange and tiling on the fixed-layout adapted source; no full original BT or OLO coverage claim.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightZeroIndexHeader.v",
+          "name": "signed_zero_index_load_equivalent"
+        },
+        {
+          "source": "prototype/interface/ClightExecutionCongruence.v",
+          "name": "statement_skip_prefix_equivalent"
+        },
+        {
+          "source": "prototype/interface/ClightExecutionCongruence.v",
+          "name": "statement_strict_body_equivalent"
+        },
+        {
+          "source": "prototype/interface/ClightNestedFrontendRegion.v",
+          "name": "ncs_frontend_execution_equivalent"
+        },
+        {
+          "source": "prototype/interface/ClightNestedFrontendRegion.v",
+          "name": "ncs_frontend_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightNestedFrontendFactory.v",
+          "name": "check_ncs_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightGuardedNestedFrontendCompiler.v",
+          "name": "compile_ncs_frontend_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightNestedFrontendExample.v",
+          "name": "array_zero_root_progress_is_host_supported"
+        },
+        {
+          "source": "prototype/interface/ClightNestedFrontendExample.v",
+          "name": "actual_array_zero_root_empty_source_executes"
+        }
+      ],
+      "documents": [
+        "docs/nested-frontend-native.md"
       ]
     }
   ],
@@ -559,8 +605,10 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "nested candidate cross-entry/dependence/alias adapter, guarded factory, typed host progress/divergence installation and runnable compiler",
-    "compact sufficient conditions",
+    "nested frontend coverage: multi-array read/write bodies, dependency refusals, same-allocation slices, nonzero entry counters, undefined body parameters, repeated/control contexts",
+    "fresh-checkout empty-build bootstrap",
+    "compact sufficient conditions and guard cost/useful acceptance",
+    "full original BT dynamic layout/delinearization beyond the fixed-layout adaptation",
     "same-source near-neighbor obligations comparison",
     "runtime/compilation cost",
     "comparative author proof effort"
@@ -685,5 +733,48 @@
     "new_extraction": false,
     "new_native_execution": false,
     "olo_figure2_optimizer_supported": false
+  },
+  "nested_frontend_proof_stage": {
+    "report": "build/nested-frontend/proof/report.json",
+    "sha256": "bf12d374fad912538dd16a9e71aae6366106fa44fe4ae9eb3ffb2f280252759c",
+    "endpoints": 20,
+    "language_endpoints": 17,
+    "domain_endpoints": 1,
+    "fixture_endpoints": 2,
+    "required_dependencies": 569,
+    "source_digests": 1104,
+    "compiler_assumptions": 42,
+    "additional_global_axioms": 0,
+    "minimal_semantic_kernel_changed": false,
+    "actual_frontend_ast_execution_correspondence_proved": true,
+    "original_actual_ast_fallback_retained": true,
+    "proved_entrypoint": "ClightGuardedNestedFrontendCompiler.compile_ncs_frontend_regions",
+    "native_stage_separately_bound": true
+  },
+  "nested_frontend_native_stage": {
+    "report": "build/nested-frontend/native/report.json",
+    "sha256": "8665f46362aa85b53e23074469f6d67809cee504f9f91e64e80e3e139ca62859",
+    "configurations": 6,
+    "full_assembly_calls": 48,
+    "installed_candidates": [
+      "identity",
+      "interchange",
+      "tile-2-3"
+    ],
+    "source": "examples/olo_figure2_adapted.c",
+    "source_unchanged": true,
+    "full_arrays_and_public_exits_compared": true,
+    "timing_or_profitability_measured": false
+  },
+  "nested_frontend_path_stage": {
+    "report": "build/nested-frontend/native/path-report.json",
+    "sha256": "6e00c1b3cd85dfa1de46385e6b8ca80e3b07658516d7932d84e0a2c8cb685039",
+    "instrumented_clight_calls": 16,
+    "additional_full_assembly_calls": 27,
+    "separate_machine_probes": 6,
+    "same_kernel_and_context_prefix": true,
+    "machine_order_confirms_interchange_and_tiling": true,
+    "both_header_alias_fallback_cases_observed": true,
+    "timing_or_profitability_measured": false
   }
 }

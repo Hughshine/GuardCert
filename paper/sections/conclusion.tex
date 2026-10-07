@@ -5,6 +5,8 @@ certificates without fixing a source language or optimizer. Its CompCert instanc
 makes check safety, private-state transport, and installation concrete for
 supported loop transformations. The nested loaded-bound proof path derives
 the cached model from checks licensed by original-source execution and connects
-it to the existing candidate and whole-program proofs. Extracting and running
-that compiler, constructing affordable sufficient conditions, and measuring
-reuse and cost will determine the final case-study and contribution claims.
+it to the existing candidate and whole-program proofs. The extracted frontend
+compiler installs interchange and tiling on the fixed-layout adapted source,
+with observed candidate and fallback behavior in assembly. Wider source/context
+coverage, affordable sufficient conditions, and measurements of reuse and cost
+remain necessary for the final case-study and contribution claims.

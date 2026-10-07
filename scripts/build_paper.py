@@ -71,8 +71,9 @@ def main():
                                    for path in [*[a["source"] for a in entry.get("theorems", [])],
                                                 *entry.get("documents", [])]},
               "helper_sha256": sha(Path(__file__)), "undefined_citations_or_refs": False,
-              "overfull_boxes": False, "research_results_freshly_executed": False,
-              "complete_olo_figure2_optimizer_claimed": False,
+              "overfull_boxes": False, "build_reruns_research_experiments": False,
+              "full_original_olo_capabilities_claimed": False,
+              "adapted_nested_source_native_execution_claimed": "nested_frontend_native_stage" in evidence,
               "speedup_or_author_effort_results_claimed": False}
     (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"status": "compiled", "pages": pages, "pdf": str(pdf),

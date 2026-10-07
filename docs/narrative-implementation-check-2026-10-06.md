@@ -1,5 +1,13 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 最新实运行：[actual nested frontend](nested-frontend-native.md)已在既有
+Figure 2 适配源实际安装并运行 interchange／tiling；zero-index root 和 prefixed
+resets 的执行对应由语言库证明，fallback 保留原 AST。新 Csem→Asm entry 已提取；
+75 full assembly calls、16 Clight dispatch calls 与 6 machine probes 单列并通过。
+Kernel 未改，三方责任／四条证书链保持。下面旧阶段与原 16-call `not-supported`
+报告固定保留其当时范围；当前能力以新 native 报告为准，仍无 compact 条件／
+成本／完整 BT layout／作者工作验收，完整目标 active。
+
 2026-10-07 最新后继：[nested guarded candidate／compiler](nested-constant-multi.md)
 已连接实际 canonical source→alias guard→candidate→kernel preservation→projected region
 contract→typed factory／语言 host→Csem→Asm。Model anchor 及实际 checked-entry frame

@@ -23,10 +23,10 @@ SimplExpr, SimplLocals, the expression-region host, and the verified backend.
 The region contracts and host progress obligations determine the source class;
 the theorem is not a license to install arbitrary Clight fragments.
 
-\subsection{A Nested Loaded-Bound Acceptance Target}
+\subsection{Nested Loaded Bounds and Actual Candidate Execution}
 
-An adapted Figure~2 source from OLO~\cite{olo2017} supplies a concrete pending
-acceptance target:
+An adapted Figure~2 source from OLO~\cite{olo2017} supplies the concrete
+source for the new nested compiler:
 \begin{lstlisting}[language=C]
 for (row = 0; row < shape[0] + 1; row++)
   for (column = 0; column < shape[1] + 1; column++)
@@ -108,10 +108,25 @@ endpoint establishes Csem-to-Asm backward simulation for successful compilation.
 A fixture confirms that the original three-level AST passes the host's progress
 check; whole-program installation remains a language-host theorem rather than
 a consequence of the local completion domain alone.
-\pending{Extract the new compiler entry, implement the concrete C source
-descriptor and candidate proposal, and run active array acceptance and fallback.
-The current adapted Figure~2 native probe retains the original source and does
-not demonstrate an installed optimization.}
+
+The actual C frontend retains a zero-offset address in \code{shape[0]} and
+skip-prefixed counter resets. Language lemmas prove execution equivalence for
+these forms, preserving trace, memory, and outcomes; an untrusted matcher cannot
+erase them without this correspondence. The frontend factory checks the actual
+AST, reuses the normalized nested instance, and restores the original frontend
+AST as fallback. An untrusted descriptor proposes the shape, private names, and
+candidate data. The checked factory, rather than a semantic callback from that
+descriptor, produces the local contract.
+
+The extracted driver calls the frontend compiler whose endpoint is
+\code{compile_ncs_frontend_regions_correct}. Successful compilation has the same
+Csem-to-Asm conclusion through the existing language host. On the unchanged
+adapted source, identity, interchange, and $2\times3$ tiling install candidates;
+disabled and invalid proposals retain the original loops. Observations of
+unmodified assembly distinguish the reordered traversals from source execution
+and confirm source behavior on header-alias fallback (Section~\ref{sec:evaluation}).
+This establishes the functional path for the fixed-layout profile, not the full
+BT kernel or a result about guard affordability.
 
 \subsection{Condition Expressiveness and Reuse}
 
