@@ -1,5 +1,24 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[narrative复核](narrative-review-2026-10-07.md)确认远端
+`271f6fc`与main正文一致。保持“先闭合约定范围、再改进条件”的顺序，并行
+维护实际LNCS正文；kernel只负责局部证书组合，语言提供执行／安装定律，domain
+生产模型假设、入口义务和实际源／候选对应。四条逻辑链不变成四份用户手填record。
+
+[Word component scan](word-component-scan.md)已关闭动态变量乘积下的完整
+literal第三层私有cursor扫描：逐点许可来自真实源前缀，接受保持两个header后
+才推进，拒绝停止未来检查。完整接受导出实际cached-loop执行和相同退出状态。
+40端点／447依赖独立审计通过，无新增公理；真实内存五次原源store与actual
+scan接受／alias拒绝已证明。最小kernel及旧报告保持，没有新loaded tensor
+compiler／C／Asm入口。该family的data-only factory仍需生产静态scope／freshness
+证据；当前语言服务不等于新使用者界面已经交付。
+
+下一项：把该component保持接到真实inner-prefix advance，继而覆盖全部outer
+rows，导出完整nested cached源与canonical模型；核对model-entry到actual check
+exit的frame、numeric／dependence和候选出口，接factory／语言host并运行完整C。
+这一slice闭合后转入紧凑充分条件、实际guard工作／接受域／配对计时与作者责任
+比较，不等待全部未来frontend／polyhedral扩展。Cursor缩小代码不等于消除逐点成本。
+
 2026-10-07 最新：[loaded tensor 首点服务](tensor-header-point.md)交付 typed
 word算术运输、原store权限到guard-entry运输、observation分离／保持、条件式
 header capture和同一次原源执行到首点实际check的组合producer。40端点／445

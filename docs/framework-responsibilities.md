@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 当前：[word component scan](word-component-scan.md)把首点推进为
+完整literal第三层。语言提供exact word重命名／求值、实际pointer check／private
+loop及cached transport定律；domain将原源prefix、source/scan坐标frame、capture
+receipts接成逐点domain，接受后生产观察保持并推进真实源，完整接受才导出cached
+source。Kernel未变，whole-program安装继续属于语言host与具体site保证；新family
+的data factory／全inner-outer覆盖／模型候选与入口运输仍待接通。
+40端点独立审计和actual五store／scan fixtures已通过。
+[Narrative澄清复核](narrative-review-2026-10-07.md)将这些责任与证明优先顺序纳入
+当前计划；紧凑条件仍须分别证明安全、接受所需义务和入口运输，再复用C_opt／host。
+
 2026-10-07 最新：[loaded tensor 首点服务](tensor-header-point.md)落实“检查
 许可不能依赖待检查前提”：语言库在确切word语义下运输变量乘积，从实际store
 取得guard-entry权限，并证明actual check及接受后的raw observation保持；domain

@@ -1102,6 +1102,60 @@
         "docs/current-work-plan.md",
         "docs/framework-responsibilities.md"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Exact typed word-coordinate renaming and executable evaluation; source-licensed private literal-component scan; complete acceptance derives actual original/cached-loop execution correspondence and snapshot preservation. Real-memory fixtures prove five source stores plus actual accepting and alias-refusing scans. Full inner/outer coverage, model/candidate transport and loaded tensor optimizer installation remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordCoordinateRename.v",
+          "name": "word_rename_evaluation"
+        },
+        {
+          "source": "prototype/interface/ClightWordCoordinateRename.v",
+          "name": "word_evaluate_sound"
+        },
+        {
+          "source": "prototype/interface/ClightWordCoordinateRename.v",
+          "name": "word_evaluate_complete"
+        },
+        {
+          "source": "prototype/interface/ClightRenamedWordObservation.v",
+          "name": "renamed_word_point_condition"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScan.v",
+          "name": "word_component_point_domain"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScan.v",
+          "name": "word_component_prefix_advance"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScan.v",
+          "name": "word_component_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScan.v",
+          "name": "word_component_accepted_source_transport"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScanExample.v",
+          "name": "wcs_original_five_store_prefix"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScanExample.v",
+          "name": "wcs_actual_five_point_acceptance"
+        },
+        {
+          "source": "prototype/interface/ClightWordComponentScanExample.v",
+          "name": "wcs_actual_first_alias_refusal"
+        }
+      ],
+      "documents": [
+        "docs/word-component-scan.md",
+        "docs/narrative-review-2026-10-07.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -3411,6 +3465,33 @@
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_header_point.mk proof",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_header_point.mk extracted",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_header_point.mk validate"
+    ]
+  },
+  "word_component_scan_stage": {
+    "proof_report": "build/word-component-scan/proof/report.json",
+    "proof_report_sha256": "b38e8a98058879c85c8908af900914ac23168d5b8422ecc97828a9380946083f",
+    "queried_endpoints": 40,
+    "required_dependencies": 447,
+    "closed_endpoints": 15,
+    "maximum_endpoint_globals": 6,
+    "additional_global_axioms": [],
+    "minimal_kernel_changed": false,
+    "extracted_report": "build/word-component-scan/extracted/report.json",
+    "extracted_report_sha256": "1a952dc9d065733a87d53d2cd4b8dcb6e9ceb05ddb2e84302bd48f6fae5274e5",
+    "extracted_cases": 10,
+    "generated_Clight_executed_by_extracted_program": false,
+    "complete_literal_component_scan_proved": true,
+    "accepted_original_component_transport_proved": true,
+    "actual_scan_acceptance_refusal_fixtures_proved": true,
+    "complete_nested_scan_proved": false,
+    "loaded_bound_dynamic_layout_composition_completed": false,
+    "new_whole_program_entrypoint": null,
+    "C_or_assembly_evidence_added": false,
+    "cost_or_profitability_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/word_component_scan.mk proof",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/word_component_scan.mk extracted",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/word_component_scan.mk validate"
     ]
   }
 }
