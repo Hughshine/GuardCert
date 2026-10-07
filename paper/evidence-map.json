@@ -1029,6 +1029,36 @@
         "docs/tensor-coordinate-order.md",
         "docs/tensor-coordinate-cost.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Literal-bound tensor compilation proves emitted private preparation, original/prepared and check-exit candidate execution, raw literal fallback and separate expression-host installation; 208 queried endpoints and 1,152 assembly/432 Clight calls add no global axioms. No new cost or author-time result.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightLiteralBoundPreparation.v",
+          "name": "literal_prepared_source_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLiteralPreservation.v",
+          "name": "tensor_literal_check_encoding"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLiteralPreservation.v",
+          "name": "tensor_literal_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLiteralPreservation.v",
+          "name": "tensor_literal_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLiteralCompiler.v",
+          "name": "compile_tensor_literal_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/tensor-literal-bound.md",
+        "docs/narrative-literal-bound-check-2026-10-07.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -3251,5 +3281,66 @@
     "comparative_author_effort_measured": false,
     "literal_loaded_bound_composition_completed": false,
     "source_only_rebuild_completed_for_this_entry": false
+  },
+  "tensor_literal_bound_stage": {
+    "proof_report": "build/tensor-literal-region/proof/report.json",
+    "proof_report_sha256": "3e3023f6356f95a1d183ee1ac5e47711d1117b5c90e5e8ab2444776729682546",
+    "parent_proof_report_sha256": "640d768bbbe74f456e04c7bfbbf848f994fbcaa6c4018c31ecc82a32feb4e4e3",
+    "proof_endpoints": 208,
+    "new_endpoints": 27,
+    "required_closure_count": 440,
+    "closed_endpoints": 102,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "minimal_kernel_changed": false,
+    "proved_entrypoint": "ClightTensorLiteralCompiler.compile_tensor_literal_regions",
+    "native_report": "build/tensor-literal-region/native/report.json",
+    "native_report_sha256": "9dd4ab29acba9ffa3aa68753d649dd552a685b0b38f142b2b78c19b2d95c5065",
+    "compiler_stamp_sha256": "a8ae785fe2332964e5a617dac0e73487fa63020db1df17b9d9e098ca03c87e92",
+    "assembly_calls": 1152,
+    "clight_calls": 432,
+    "words_per_call": 6144,
+    "literal_bounds": [
+      3,
+      5,
+      0,
+      6
+    ],
+    "configurations": [
+      "disabled",
+      "identity",
+      "interchange",
+      "tile-2-3",
+      "wrong-reindex",
+      "zero-tile",
+      "wrong-coordinates",
+      "wrong-literal"
+    ],
+    "sites_per_installed_configuration": 14,
+    "fast_dispatches_per_installed_configuration": 55,
+    "refused_dispatches_per_installed_configuration": 111,
+    "single_site_machine_bytes": {
+      "disabled": 210,
+      "identity": 550,
+      "interchange": 550,
+      "tile-2-3": 802,
+      "wrong-reindex": 210,
+      "zero-tile": 210,
+      "wrong-coordinates": 210,
+      "wrong-literal": 210
+    },
+    "raw_ast_fallback_preserved": true,
+    "private_literal_preparation_and_state_transport_proved": true,
+    "new_machine_dispatch_probes": false,
+    "cost_or_profitability_measured": false,
+    "comparative_author_time_measured": false,
+    "source_only_rebuild_added": false,
+    "loaded_bound_dynamic_layout_composition_completed": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk proof",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk compiler",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk native",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_literal_region.mk validate"
+    ]
   }
 }

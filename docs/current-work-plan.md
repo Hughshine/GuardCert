@@ -1,5 +1,20 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[literal-bound tensor](tensor-literal-bound.md)已把实际 `<5>`
+接入private初始化、原源到prepared canonical执行、guard-exit候选运输、原AST
+fallback和expression-progress安装，完整Csem→Asm与提取／运行均通过。
+208端点（旧181＋新27）／440依赖，无新增全局公理；八配置1,152汇编／432
+独立Clight调用，含两种地址次序、literal 3／5／0／6、两site和goto／memory。
+[本轮narrative吸收](narrative-literal-bound-check-2026-10-07.md)落实三方责任、
+四条逻辑链与最难的状态连接；重新fetch仍为`271f6fc`，main正文一致。
+Kernel、旧proof／native／cost证据保持；没有新成本或作者工时测量。
+**下一功能项是 loaded `grid[0]`／`grid[1]+1` 与实际动态Horner layout的同次
+rewrite**：必须生产源路径capture许可、header稳定、raw→cached→prepared入口、
+guard exit与候选／公开出口对应，再验收同一实际C的接受／回退、安装及完整成本。
+不能将旧固定布局loaded实例和新tensor实例相加称已覆盖完整OLO／BT。
+随后继续更多body／cross-tensor alias／affine domains、最新入口source-only
+rebuild与代表性性能／比较作者工作。完整目标active。以下各段保留历史状态。
+
 2026-10-07 最新：[坐标次序实例](tensor-coordinate-order.md)已经以数据提案接入
 `[j,i,k]`，并保持旧`[i,j,k]`实际源。原181端点证明／kernel／host不变，七配置
 504汇编／216 Clight调用核对两种源、全部6,144 words、连续两site和goto／内存

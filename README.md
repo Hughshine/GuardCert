@@ -1,5 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
+[Literal-bound tensor](docs/tensor-literal-bound.md)已从实际 `<5>` 源，经private
+初始化、原源／检查后状态运输、原AST回退和语言host接到完整Csem→Asm。
+208端点／440依赖审计与提取通过，无新增全局公理；八配置1,152汇编／432
+独立Clight调用覆盖literal 3／5／0／6、两种地址次序、两次rewrite及goto／memory
+上下文。[本轮narrative核对](docs/narrative-literal-bound-check-2026-10-07.md)落实
+三方责任和四条证明链，kernel保持。下一项是loaded grid bounds／+1与动态
+layout的实际组合；新入口成本和比较作者工时未测。完整目标active。
+以下保留此前阶段结果与当时计划。
+
 [坐标次序实例](docs/tensor-coordinate-order.md)通过不受信任数据策略接入两种
 Horner 源，复用原181端点整程序证明，没有新语义callback；504汇编／216 Clight
 调用核对完整数组、连续两次rewrite和goto／内存上下文。[完整计时](docs/tensor-coordinate-cost.md)

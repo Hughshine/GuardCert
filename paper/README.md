@@ -6,6 +6,17 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [literal-bound successor](../docs/tensor-literal-bound.md) proves actual
+private initialization, raw/prepared source transport, check-exit candidate
+execution, and original-AST fallback, then installs through the existing
+expression host and CompCert backend. Its 208-endpoint/440-dependency audit adds
+no globals. Eight configurations give 1,152 assembly calls and 432 separate
+Clight observations on literal 3/5/0/6, both address orders, repeated sites,
+and goto/memory contexts. The [narrative check](../docs/narrative-literal-bound-check-2026-10-07.md)
+records the three owners and four logical links. This entry has no new cost or
+author-time measurement; loaded headers plus dynamic layout remain unfinished.
+Earlier entries below retain their stage scope.
+
 The [coordinate-order instance](../docs/tensor-coordinate-order.md) reuses the
 same Rocq proof report with a second untrusted data policy. Seven configurations
 give 504 assembly calls and 216 separate Clight probes on both address orders,
@@ -15,7 +26,7 @@ under an explicit stride-below-2048 profile. Interchange costs 0.764 times sourc
 on the selected large-stride input; small inputs still slow down. All accumulated
 array words are checked at the actual repetition count. These results establish
 a concrete use of the parametric interface and one declared profitable case;
-literal/loaded-bound composition and representative performance remain pending.
+loaded-bound/dynamic-layout composition and representative performance remain pending.
 
 The latest [tensor usability checkpoint](../docs/research-checkpoint-2026-10-07-tensor-usability.md)
 adds a same-source 30-round/960-batch complete-call experiment. The actual guard
@@ -26,7 +37,7 @@ and validates accumulated RMW results at the actual call count. Raw batches and
 negative results are retained. A [proof ownership inventory](../docs/tensor-proof-ownership.md)
 separates supported-family use from domain/host development; it does not measure
 comparative author hours. The [OLO comparison](../docs/olo-tensor-comparison.md)
-keeps loaded/literal-bound and full BT coverage gaps explicit.
+keeps loaded-bound/dynamic-layout and full BT coverage gaps explicit.
 
 The latest [tensor compiler checkpoint](../docs/research-checkpoint-2026-10-07-tensor-region.md)
 connects actual input ASTs, data-only factories, kernel preservation, and the
@@ -50,8 +61,8 @@ existing affine/tiling candidate bridge and public iterator restoration.
 The audit covers 142 endpoints, including 31 new endpoints; thirteen extracted
 synthesis/lowering and mathematical-flag checks pass. They do not execute
 generated Clight. The successor above supplies the checked region/local
-certificate factory and host connection; literal-bound frontend transport
-remains unfinished. The narrative has been
+certificate factory and host connection; the literal-bound successor above
+adds frontend transport separately. The narrative has been
 fetched and re-read at `271f6fc`; its kernel boundary and proof-first/usability
 requirements continue to guide these deliverables.
 

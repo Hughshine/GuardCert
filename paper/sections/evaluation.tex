@@ -425,6 +425,27 @@ results. These measurements establish one declared profitable input; they do
 not establish representative performance, hardware-event attribution, or
 comparative author effort.
 
+The literal-bound successor adds 27 queried endpoints to the prior 181,
+with 440 dependencies and 102 closed endpoints. The compiler retains the
+42-global baseline and adds no global axioms; the kernel is unchanged.
+Eight configurations give 1,152 complete assembly calls on twelve C functions,
+covering both address orders, literal bounds 3, 5, 0, and 6, repeated sites,
+and goto/memory contexts. Each call checks all 6,144 array words and public
+exits against the source and an independent word model. The unused former
+component-bound parameter also varies, so it cannot silently replace the
+literal test. Empty outer and literal-zero cases use null pointers.
+
+Identity, interchange, and tiling each install fourteen Clight sites.
+Separate instrumentation gives 432 Clight calls and, per installed
+configuration, 55 fast and 111 refusal dispatches. Literal 3 and 5 can accept;
+zero and coordinate-out-of-range 6 refuse. Every fallback retains its original
+literal test. Wrong literal, coordinate description, reindexing, and zero tile
+proposals install none. These are not new unmodified-assembly path probes.
+The single-site source/identity/interchange/tiling functions occupy
+210/550/550/802 bytes. This successor has no new cost measurement or comparative
+author-time result; earlier timing results remain evidence for their own
+compiler entries.
+
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment
 has no confidence intervals or break-even inference. Extend the supported source class

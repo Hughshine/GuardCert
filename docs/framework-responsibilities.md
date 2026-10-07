@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新：[literal-bound接入](tensor-literal-bound.md)按
+[narrative逐项核对](narrative-literal-bound-check-2026-10-07.md)完成语言helper
+初始化／public frame、domain source/model及checked-entry运输、materialized
+kernel certificate和expression host／Csem→Asm。208端点审计、提取、1,152汇编／
+432独立Clight调用通过；private helper不假设原入口定义，拒绝体是原literal AST。
+使用者仍只提出数据，不填SOURCE／ENCODE／helper-word语义callback。三方责任
+与四条逻辑链保持，kernel未变；新语言和domain服务是实际执行producer，不是
+泛化框架自动得出的语义知识。Loaded bounds＋动态layout组合、最新入口成本和
+比较作者工作尚待验收。以下保留各阶段当时边界。
+
 2026-10-07 最新：[两种坐标次序](tensor-coordinate-order.md)已在相同Rocq proof
 report下通过实际数据提案，不新增SOURCE／BOX／binding／exit callback。新原生
 矩阵和[独立成本](tensor-coordinate-cost.md)证明这个具体接口使用及声明输入的

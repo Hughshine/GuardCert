@@ -154,6 +154,32 @@ safe capture and header preservation; the child range alone is not the complete
 guard. This demonstrates how an instance-proposed sufficient premise enables a
 conditional rewrite, without generic weakest-precondition inference.
 
+\subsection{Literal Bounds and Private Preparation}
+
+A separate tensor path keeps the dynamic Horner address
+$((j\cdot\mathit{ld})+i)\cdot5+k$ or its $i,j$ coordinate order and
+permits an actual literal third test, such as $k<5$. The existing tensor
+factory expects a temporary bound. A language mapper replaces only exact typed
+signed tests; address, value, and store syntax remain unchanged. Replacing the
+AST is insufficient: a fresh helper is undefined at the original entry.
+
+The emitted materialized check initializes that helper before executing the
+shared guard. Original silent normal completion supplies prepared-source
+execution and therefore the existing guard's source-definedness domain.
+The premise names the prepared original entry. Public ports exclude the helper
+but protect the source and guard's public inputs; the check preserves memory.
+The candidate reinitializes the helper so its local proof applies to any actual
+check-exit state satisfying that public frame. Refusal executes the original
+literal-bound AST. These execution producers reuse tensor guard and candidate
+proofs without a caller-supplied helper-word or source/model callback.
+
+The unchanged kernel consumes the materialized certificate. Installation uses
+the existing signed-expression host because the older temporary-bound progress
+classifier refuses this literal subloop. The new compiler has a Csem-to-Asm
+backward simulation; source progress, placement, and private allocation remain
+language-host obligations. This path does not yet combine loaded grid headers
+with the dynamic tensor layout in one rewrite.
+
 \subsection{Condition Expressiveness and Reuse}
 
 A separate Clight library supplies a memory guarantee that permits aliasing.
