@@ -63,7 +63,8 @@ def main():
     entries = [ROOT / "prototype/interface" / (m + ".v") for m in MODULES]
     entries += [ROOT / "prototype/affine-nest" / (m + ".v") for m in
                 ["AffineNestPropose", "AffineNestRangeProposal", "AffineNestMultiProposal"]]
-    entries += [ROOT / "adapters/compcert-memory/GuardMemoryScalarTiling.v"]
+    entries += [ROOT / "adapters/compcert-memory" / (m + ".v") for m in
+                ["GuardMemoryScalarTiling", "GuardMemoryNamedMappedChecker", "GuardMemoryNamedChecker"]]
     closure = deep.compile_closure(deep.flags(), entries=entries)
     endpoints = []
     for module in MODULES:
