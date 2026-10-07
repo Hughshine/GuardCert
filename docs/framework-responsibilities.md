@@ -36,6 +36,16 @@ Clight 路径调用和 21 个未修改汇编探针确认非空递归重排、多
 narrative 本轮更新为 `226ba94`：先闭合约定范围的证明链，然后改进条件推导／生成；scan 是中间实现。
 自动化／可用性是最终要求。代码大小、运行检查成本和接受域分开评估，具体同例对照仍待完成。
 
+[后继 guard 简化](research-checkpoint-2026-10-06-loaded-affine-reduced.md)把接受事实的复用落到当前
+domain library：`affine_first_path_flag_frame` 根据 header dependencies 运输事实，未来 child controls
+无需一致；语言的 protected-temp entry relation 提供输入 frame。`affine_multi_alias_only_execution`
+在已证 numeric=true／result=true 下执行实际 residual scan。优化方继续提供原 metadata／candidate，
+不新增每个实例的语义回调；factory、候选 P、local rule、host 和 kernel 不变。
+此为具体 domain 的 residualization，不称通用 assumption extraction 或完整 guard minimizer。
+35 端点、当前新 native／路径通过；旧 native proof/object binding 保持历史。
+工作量探针证明 point／point-pair comparisons 没有减少，Figure 2 的组合源也未安装优化。
+后续职责与难点见 [具体覆盖差距](olo-figure2-coverage.md)。
+
 ## 1. 三方各自证明什么
 
 “框架提供 conditional correctness 接口”不表示框架替优化作者证明任意候选正确。“语言提供语义”也不表示每个优化作者都要重新证明语言的 if、load 和上下文定律。

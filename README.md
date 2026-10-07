@@ -1,5 +1,9 @@
 # Guard：带前提的程序变换与组合证明
 
+[当前 guard 简化](docs/research-checkpoint-2026-10-06-loaded-affine-reduced.md)已证明稳定性接受后运输 numeric／first-path 事实，删除 alias 阶段的重复检查；候选前提、局部证明、语言 host 和 kernel 保持。35 端点／694 依赖／1,023 源摘要审计、独立提取、624 次新 assembly 调用、208 次 Clight 路径调用及 21 个机器路径探针通过。三轴 accumulator 的完整函数 896→782 bytes，多数组 2,061→1,936；没有计时收益结论。四个机器工作量探针确认 pointer comparisons 仍分别为 46 和 6,394，逐点／逐点对成本未消除。[OLO Figure 2 适配例](docs/olo-figure2-coverage.md)另有 16 次原生调用保持原行为，但当前未安装优化：load＋1 根和 loaded child 的组合仍是具体源覆盖缺口。
+
+前一 native 阶段的当前 `.vo` 绑定因本次 guard 简化而失配，旧报告／二进制原样保留。当前验证入口是 `make loaded-affine-multi-validate`，使用独立 reduced proof／build／native 报告；旧产物只用于已核对摘要的代码规模与工作量对照。
+
 [Deep＋loaded multi 的可运行编译器](docs/research-checkpoint-2026-10-06-loaded-affine-multi-native.md)已闭合当前范围的真实 C→检查→候选／原源回退→完整编译链。提取入口处理两／三层参数化循环、多数组读写、真实依赖和同函数两次改写；六配置共 624 次新 assembly 调用、208 次独立 Clight 路径调用和 21 个未修改汇编的路径探针通过。循环交换／2×3 tiling 确实改变访问顺序，同 block 分离切片接受、部分重叠和改变 bound 的别名保留原回退；短数组例确认 guard 不比较未来未获许可地址。真实运行发现并修复了 cache 与候选 counter pool 的冲突；独立 32 端点／692 依赖／1,021 源摘要审计及旧 42 项假设回归通过，最小 kernel 不变。检查成本与收益尚未测量，下一阶段推进紧凑 entry 条件及 CGO 2017 同例对照。
 
 [前一递归 body domain 证明](docs/research-checkpoint-2026-10-06-loaded-affine-body-domain.md)从原 loaded source 生产参数 word view，并从当前完整 body 生产递归模型执行、各点物理许可和 private cursor 的实际地址比较域；写 trace 对应证明将点写分离推成 body 的 bound 保持，允许 reads alias bound。25 端点／674 依赖／1,001 源摘要审计通过，既有 body／numeric／compiler 对象保持。本段保留前阶段验证范围；完整检查与缓存源连接见上段。

@@ -8,6 +8,7 @@ From GuardMemory Require Import GuardMemoryWindowParameterGuard GuardMemoryInter
 From GuardAffineNest Require Import AffineNestSyntax AffineNestExit AffineNestGuardPackage AffineNestPackageGuard
   AffineNestDomainGuard AffineNestNumericGuard AffineNestProbe AffineNestScanAccesses AffineNestScanSeparation
   AffineNestMultiPresumption AffineNestPackageExamples AffineNestShadowTransport.
+From GuardAffineNest Require Import AffineNestAliasOnlyGuard.
 From GuardInterface Require Import ClightMaterializedCheck ClightCheckPlanFrame ClightSharedGuard ClightLoadedAffineNumericExamples ClightLoadedBodyPrefixExamples
   ClightLoadedAffineNumericSite ClightLoadedAffineScanSite ClightLoadedAffineScanExecution ClightLoadedAffineScanTransfer
   ClightLoadedAffineScanExamples ClightLoadedAffineScanAcceptExample ClightLoadedAffineMultiGuard ClightLoadedAffineCandidate
@@ -136,8 +137,10 @@ Proof.
     (affine_nest_controls(affine_proposal_nest lns_proposal))
     (ClightAffineNestMaterialized.affine_materialized_source_writes(AffineNestMultiStaticPackage.affine_multi_guard(loaded_multi_package lnm_site)))
     (loaded_multi_cached_scope lnm_site) FRAME) as [reference_after [REFERENCE_SOURCE _]].
-  destruct(@AffineNestMultiGuardExecution.affine_multi_guard_execution _ _ _ _ _ (loaded_multi_package lnm_site)
-    fe ge locals reference lns_initial reference_after lns_last REFERENCE_SOURCE) as [after [ALIAS [AFTER RESULT]]].
+  assert(NUMERIC:affine_package_guard_flag [2%positive] lns_proposal(Entry ge locals reference lns_initial)=true).
+  { unfold affine_multi_guard_flag in ALIAS_FLAG; apply andb_true_iff in ALIAS_FLAG; tauto. }
+  destruct(@affine_multi_alias_only_execution _ _ _ _ _ (loaded_multi_package lnm_site)
+    fe ge locals reference lns_initial reference_after lns_last REFERENCE_SOURCE NUMERIC FLAG) as [after [ALIAS [AFTER RESULT]]].
   rewrite ALIAS_FLAG in RESULT.
   exists after; split.
   - unfold loaded_affine_multi_guard_body; eapply exec_Sseq_1 with(t1:=E0)(t2:=E0); [exact SCAN|].

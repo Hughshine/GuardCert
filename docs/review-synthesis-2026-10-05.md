@@ -265,3 +265,20 @@ frontend、typed private pool、提取及完整 C 运行。真实提案最初全
 独立证明报告记录唯一 factory source 变化并绑定当前对象，不重写前一报告。再次 fetch narrative
 仍为 `226ba94`，正文一致。**计划据此推进** compact entry 条件和 CGO 2017 同例差距／人工工作，
 并分别测量代码规模、检查成本与接受域；不等未来扩展全部完成，也不把本次正确执行算成收益。
+
+## 将可用性澄清落实到实际检查与源例
+
+[Reduced guard](research-checkpoint-2026-10-06-loaded-affine-reduced.md)新增受保护输入下的 first-path／
+numeric fact transport，稳定性接受后直接运行旧 alias scan，删除重复 numeric checks。
+35 端点审计保持旧 42 项假设；新提取、624 次主矩阵调用、208 Clight 路径与 21 机器路径通过。
+完整函数大小减少，四个机器工作量探针仍观察到 46／6,394 次 pointer comparisons。
+**采纳后的结论**：减少代码和减少逐点工作是两项验收，不能互相代替。
+
+[Figure 2 具体覆盖](olo-figure2-coverage.md)保留原 loaded-plus-one／第二 loaded bound 的结构，
+两个模式共 16 调用保持原源，但 emitted Clight 完全相同，没有安装优化。
+**计划吸纳**：推进 checked expression-root 和同一递归 package 的 dependent child；同时处理
+已支持源的 compact sufficient conditions。源适配、scope gaps、人工工作与成本继续单独记录。
+前一 proof/native 报告与 binary 保持，当前 compiler 消费新的独立 source/object 绑定。
+
+阶段提交前再次 fetch 三个评审 refs：topdown `226ba94`、evidence `9673381`、performance `3e9f008`，
+没有新增提交；paper narrative 正文与 main 相同。上述工作吸纳既有澄清，不重复算成新评审意见。

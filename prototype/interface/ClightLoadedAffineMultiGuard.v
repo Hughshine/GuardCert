@@ -4,8 +4,9 @@ From compcert.common Require Import AST Values Memory Events.
 From compcert.cfrontend Require Import Clight ClightBigstep.
 From Guard Require Import ClightCondition ClightTempFrame ClightTempFootprint ClightProjectedExecution.
 From GuardMemory Require Import GuardMemoryBooleanScan.
-From GuardAffineNest Require Import AffineNestSyntax AffineNestExit AffineNestGuardPackage AffineNestShadowTransport
+From GuardAffineNest Require Import AffineNestSyntax AffineNestExit AffineNestGuardPackage AffineNestPackageGuard AffineNestShadowTransport
   AffineNestMultiStaticPackage AffineNestMultiPresumption AffineNestMultiGuardExecution.
+From GuardAffineNest Require Import AffineNestGuardFactTransport AffineNestAliasOnlyGuard.
 From GuardInterface Require Import GuardInterface ClightSharedGuard ClightMaterializedCheck ClightMaterializedCertificate
   ClightMaterializedEntryCertificate ClightPrivateScanHost ClightLoadedAffineNumericGuard ClightLoadedAffineNumericSite
   ClightLoadedAffineScanSite ClightLoadedAffineScanExecution ClightLoadedAffineScanTransfer ClightLoadedAffineCandidate
@@ -18,7 +19,7 @@ Definition loaded_affine_multi_guard_body source parameters live allocated propo
   (package : affine_multi_static_package (affine_nest_source(affine_proposal_nest proposal)) parameters
     (loaded_affine_scan_ports parameters proposal live) allocated proposal) :=
   Ssequence (loaded_affine_scan_body(loaded_scan_numeric(loaded_transfer_scan transfer)))
-    (Sifthenelse(shared_guard_choice(affine_proposed_result proposal))(affine_multi_guard_code package) Sskip).
+    (Sifthenelse(shared_guard_choice(affine_proposed_result proposal))(affine_multi_alias_only_code package) Sskip).
 
 Record loaded_affine_multi_site source parameters live allocated proposal pointer := {
   loaded_multi_transfer : loaded_affine_transfer_site source parameters live proposal pointer;
@@ -88,8 +89,22 @@ Proof.
       (affine_nest_controls(affine_proposal_nest proposal))
       (affine_materialized_source_writes(affine_multi_guard(loaded_multi_package site)))
       (loaded_multi_cached_scope site) FRAME) as [reference_after [REFERENCE_SOURCE _]].
-    destruct(@affine_multi_guard_execution _ _ _ _ _ (loaded_multi_package site) fe ge locals reference memory
-      reference_after final REFERENCE_SOURCE) as [after [ALIAS [AFTER RESULT]]].
+    assert(NUMERIC:affine_package_guard_flag parameters proposal(Entry ge locals reference memory)=true).
+    { destruct STABILITY as [word [WORD_SNAPSHOT [[NUMERIC MATH] REST]]].
+      assert(SAME:word=upper).
+      { eapply loaded_affine_snapshot_word_unique;
+          [exact(loaded_affine_pointer_cache_distinct(loaded_transfer_scan(loaded_multi_transfer site)))|
+           exact WORD_SNAPSHOT|exact SNAPSHOT]. }
+      subst word.
+      rewrite (@affine_package_guard_flag_frame _ _ _ _ (affine_multi_guard(loaded_multi_package site))
+        ge locals memory (PTree.set(affine_proposed_bound proposal)(Vint upper) temps) reference).
+      - exact NUMERIC.
+      - intros identifier MEMBER; apply FRAME.
+        destruct(loaded_affine_scan_ports_inclusions parameters proposal live) as [PARAMETERS ROOT].
+        apply in_app_or in MEMBER as [MEMBER|MEMBER]; [apply PARAMETERS; exact MEMBER|].
+        apply ROOT; cbn [List.In] in *; tauto. }
+    destruct(@affine_multi_alias_only_execution _ _ _ _ _ (loaded_multi_package site) fe ge locals reference memory
+      reference_after final REFERENCE_SOURCE NUMERIC FLAG) as [after [ALIAS [AFTER RESULT]]].
     exists(affine_multi_guard_flag parameters proposal(Entry ge locals reference memory)),after.
     split.
     + unfold loaded_affine_multi_guard_body; eapply exec_Sseq_1 with(t1:=E0)(t2:=E0); [exact SCAN|].

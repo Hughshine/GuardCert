@@ -157,16 +157,22 @@ loaded-affine-scan-proof:
 
 .PHONY: loaded-affine-multi-proof loaded-affine-multi-native loaded-affine-multi-validate
 loaded-affine-multi-proof:
-	python3 scripts/audit_loaded_affine_multi_native.py
+	python3 scripts/audit_loaded_affine_reduced.py
 
 loaded-affine-multi-native: loaded-affine-multi-proof
-	python3 scripts/build_loaded_affine_multi.py > build/loaded-affine-multi-native/build.log 2>&1
-	python3 scripts/native_loaded_affine_multi.py
-	python3 scripts/probe_loaded_affine_multi.py
-	python3 scripts/validate_loaded_affine_multi.py --paths
+	python3 scripts/build_loaded_affine_reduced.py > build/loaded-affine-multi-reduced/build.log 2>&1
+	python3 scripts/loaded_affine_reduced.py run
+	python3 scripts/loaded_affine_reduced.py paths
+	python3 scripts/native_olo_figure2.py
+	python3 scripts/probe_loaded_affine_guard_work.py
+	python3 scripts/loaded_affine_reduced.py validate
+	python3 scripts/native_olo_figure2.py --validate
+	python3 scripts/probe_loaded_affine_guard_work.py --validate
 
 loaded-affine-multi-validate:
-	python3 scripts/validate_loaded_affine_multi.py --paths
+	python3 scripts/loaded_affine_reduced.py validate
+	python3 scripts/native_olo_figure2.py --validate
+	python3 scripts/probe_loaded_affine_guard_work.py --validate
 
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py

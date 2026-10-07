@@ -1,8 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+当前阶段是 [接受事实下的 guard 简化](research-checkpoint-2026-10-06-loaded-affine-reduced.md)：
+numeric／first-path 事实运输与 alias-only 实际 execution 已证明并接回原 compiler。
+候选 P／host／kernel 不变；35 端点／694 依赖／1,023 源摘要、独立提取与六配置 624 调用、
+208 Clight 路径调用、21 机器路径及四个工作量探针通过。实际 pointer comparisons 未减少，
+分别仍是 46 和 6,394；不能将代码规模下降计成解决 runtime scan 成本。
+[Figure 2 源覆盖探针](olo-figure2-coverage.md)的 16 调用保持原源，但没有优化安装。
+此缺口据实际 emitted Clight 和 source matcher 归到 load＋1 根／loaded child 的 source coverage。
+下一项同时推进 compact write-vs-observation 条件与 checked expression-header／dependent child，
+不再用零散旧实例推断该具体源已经覆盖。前一阶段的 proof/object 报告保持历史范围。
+
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
-最新可运行接入是 [deep＋loaded multi native](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)：
+前一可运行接入是 [deep＋loaded multi native](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)：
 cache entry transport、稳定性之后的 alias 安全、旧 candidate validator／backend、原 loaded fallback、
 语言 host、新 Csem→Asm、真实 frontend 和提取已连接。六配置 624 次 assembly 调用、208 次 Clight
 路径调用和 21 个未修改汇编的路径探针通过，包含非空三层、多数组和同函数两次改写。
@@ -275,3 +285,14 @@ source access 推出，也不能用待证稳定性许可预读。候选 validato
 同步选定 CGO 2017 Figure 2 的源例，记录 frontend 适配与人工元数据；对每项无支持结果归因。
 成本先分别记录 guard code bytes、实际点／地址比较工作和接受范围，再做同版 CompCert 独立计时。
 本次 41 个 fast 分派是固定测试集的路径证据，不计作 benchmark 接受率或性能收益。
+
+后继 [简化与工作量验收](research-checkpoint-2026-10-06-loaded-affine-reduced.md)完成了重复 numeric
+probe elimination；没有消除稳定性／跨指针 point-pair scan。当前 46 个源点的三数组例仍有
+`46 + 3*46² = 6,394` 次 guard pointer comparisons，已在旧／新未修改机器程序上分别观察。
+需要优先减少此实际工作，而不是继续只统计打印体缩小。
+
+Figure 2 覆盖探针确认 main grammar 的两个具体缺口：先接真实 loaded expression root（含加一
+和机器回绕），然后将 dependent loaded child 接到同一递归 package／观察保持链。
+空外层的一 word shape、alias 改变后续次数及失败后的原 repeated-load fallback 必须保留。
+前端自动提出元数据、checker 核对原 AST 与执行对应；不能手工缓存第二维后称原例已支持。
+通用 projection、实际 guard／运行计时、full kernel 和 per-instance 人工工作继续未完成。

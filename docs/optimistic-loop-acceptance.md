@@ -63,6 +63,14 @@ reindex 和资源耗尽保持原程序；检查在短源上拒绝后不比较未
 
 ## 推进顺序
 
+当前 [reduced guard 阶段](research-checkpoint-2026-10-06-loaded-affine-reduced.md)已删除重复
+numeric／first-path 检查，保持旧 candidate P 与 host，独立 35 端点审计、新提取及六配置 624 调用、
+208 Clight 路径调用和 21 机器路径通过；旧报告不改写。代码大小减少，但四个机器工作量探针
+确认当前 46-point 单数组／三数组例仍有 46／6,394 次 guard pointer comparisons。
+[OLO Figure 2 适配源](olo-figure2-coverage.md)另有 16 次调用保持原源，**未支持优化**。
+直接 load＋1 与 loaded child 组合属于 source adapter／执行对应的功能缺口，紧凑条件和实际计时
+仍是算法／可用性缺口；不将其归咎为“验证需要”。完整目标继续 active。
+
 当前已固定 [语言接入设计](clight-guarded-rewrite-design.md) 中的职责，编译核心接口、真实只读条件和 effect 设施。延迟读取原子已接入公式合成，从实际源执行导出检查域，并通过一个分支 rewrite 实例消费新接口接到完整 Csem→Asm 定理。C 前端的空语句规范化也有执行对应证明。
 
 `make interface-native` 已通过：实际提取的 `ClightPreloadCompiler.compile_preload_rewrites` 处理 C fixture，输出 Clight 确认 guard／候选／源回退树。68 组 C 调用含四组计数为零且指针为 null 的输入，原生结果与 GCC 参考一致，输出 `172 0`。输入覆盖零／正／最大 unsigned 计数、零／正边界值及数据加法回绕；未运行循环变换或测量性能。报告绑定编译器、源码、Clight 和汇编摘要。
