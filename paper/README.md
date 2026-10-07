@@ -103,6 +103,34 @@ measurement. Earlier scan/shortcut reports retain their stage scope. Broader aff
 compact conditions, complete guard/program timing, and comparative proof-author
 effort remain pending.
 
+## Automatic PDF and download
+
+[Download the latest successfully compiled PDF](https://github.com/Hughshine/GuardCert/releases/download/paper-latest/guardcert-paper.pdf)
+or open the [working-paper release](https://github.com/Hughshine/GuardCert/releases/tag/paper-latest).
+The release appears after the first successful
+[Paper PDF workflow](https://github.com/Hughshine/GuardCert/actions/workflows/paper.yml).
+Keep the manuscript compilable as prose and implementation evidence change.
+
+Every push to `main` builds the manuscript in the container defined by
+[Dockerfile](Dockerfile), using the same pinned Tectonic 0.15.0 builder below.
+A successful build updates the rolling `paper-latest` prerelease with the PDF,
+build report, and source-commit provenance. Failed builds retain the previous
+published PDF and expose compilation logs in Actions. Pull requests build and
+upload artifacts without publishing a release. The workflow can also be run
+manually from Actions; only a run on `main` publishes.
+
+To reproduce the container build locally (Linux x86-64; Docker required), run
+from the repository root:
+
+```sh
+docker build --tag guardcert-paper --file paper/Dockerfile paper
+docker run --rm --user "$(id -u):$(id -g)" --volume "$PWD:/work" guardcert-paper
+```
+
+The PDF is written to `build/paper/main.pdf`. The first build needs network
+access to fetch the verified engine binary and TeX resources. The workflow uses
+GitHub's repository token; no additional publishing secret is required.
+
 ## Build
 
 Use Tectonic 0.15.0 and Poppler's `pdfinfo`/`pdftotext`:

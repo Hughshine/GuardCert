@@ -1,0 +1,114 @@
+name: Paper PDF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paper-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Build the manuscript container
+        run: docker build --tag guardcert-paper --file paper/Dockerfile paper
+      - name: Compile and check the PDF
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/work" guardcert-paper
+      - name: Prepare downloadable files
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          mkdir -p build/paper/release
+          cp build/paper/main.pdf build/paper/release/guardcert-paper.pdf
+          cp build/paper/report.json build/paper/release/paper-build-report.json
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          work = Path("build/paper")
+          report = json.loads((work / "report.json").read_text())
+          provenance = {
+              "source_commit": os.environ["SOURCE_COMMIT"],
+              "workflow_run": os.environ["GITHUB_SERVER_URL"] + "/" + os.environ["GITHUB_REPOSITORY"] + "/actions/runs/" + os.environ["GITHUB_RUN_ID"],
+              "pdf_sha256": report["pdf_sha256"],
+              "pages": report["pages"],
+              "engine": report["engine"],
+          }
+          (work / "release/provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
+          PY
+      - name: Save checked PDF and build provenance
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: paper-${{ github.sha }}
+          path: build/paper/release/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Save compilation logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: paper-logs-${{ github.sha }}
+          path: |
+            build/paper/*.log
+            build/paper/main.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+  publish:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: paper-${{ github.sha }}
+          path: release
+      - name: Update the rolling manuscript release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          data = json.loads(Path("release/provenance.json").read_text())
+          assert data["source_commit"] == os.environ["SOURCE_COMMIT"]
+          notes = (
+              "Automatically compiled working manuscript; not a submitted or final paper.\n\n"
+              + "Source commit: " + data["source_commit"] + "\n\n"
+              + "Build: " + data["workflow_run"] + "\n\n"
+              + "Engine: " + data["engine"] + "; pages: " + str(data["pages"]) + "\n\n"
+              + "PDF SHA-256: " + data["pdf_sha256"] + "\n\n"
+              + "This release tracks the latest successful main-branch PDF build. "
+              + "Compilation checks manuscript references and evidence anchors; it does not rerun research proofs or experiments.\n"
+          )
+          Path("release-notes.md").write_text(notes)
+          PY
+          if gh release view paper-latest >/dev/null 2>&1; then
+            gh api --method PATCH "repos/$GH_REPO/git/refs/tags/paper-latest" \
+              -f sha="$SOURCE_COMMIT" -F force=true
+            gh release upload paper-latest release/* --clobber
+            gh release edit paper-latest --title "GuardCert — latest working paper" \
+              --notes-file release-notes.md --prerelease
+          else
+            gh release create paper-latest release/* --target "$SOURCE_COMMIT" \
+              --title "GuardCert — latest working paper" \
+              --notes-file release-notes.md --prerelease
+          fi
