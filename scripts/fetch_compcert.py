@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Fetch the checksum-pinned release into this workspace; never install it."""
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -10,7 +11,7 @@ import tempfile
 import urllib.request
 
 
-def main() -> None:
+def main(archive_path=None) -> None:
     root = Path(__file__).resolve().parents[1]
     pin = json.loads((root / "toolchain.lock.json").read_text())["compcert"]
     destination = root / "vendor" / "CompCert"
@@ -24,9 +25,12 @@ def main() -> None:
     destination.parent.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(dir=destination.parent) as staging:
         archive = Path(staging) / "source.tar.gz"
-        with urllib.request.urlopen(pin["archive_url"], timeout=60) as response:
-            with archive.open("wb") as output:
-                shutil.copyfileobj(response, output)
+        if archive_path is None:
+            with urllib.request.urlopen(pin["archive_url"], timeout=60) as response:
+                with archive.open("wb") as output:
+                    shutil.copyfileobj(response, output)
+        else:
+            shutil.copyfile(archive_path, archive)
         digest = hashlib.sha256(archive.read_bytes()).hexdigest()
         if digest != pin["archive_sha256"]:
             raise SystemExit(f"CompCert archive checksum mismatch: {digest}")
@@ -56,4 +60,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--archive", type=Path,
+                        help="use a local release archive, checking the same pinned checksum")
+    main(parser.parse_args().archive)

@@ -34,6 +34,16 @@ paper-offline:
 .PHONY: nested-constant-multi-proof nested-constant-multi-validate
 .PHONY: nested-frontend-proof nested-frontend-compiler nested-frontend-native nested-frontend-paths nested-frontend-validate
 .PHONY: nested-frontend-coverage nested-frontend-coverage-clight nested-frontend-coverage-machine nested-frontend-coverage-validate nested-frontend-profile
+.PHONY: nested-frontend-from-source nested-frontend-reproduce
+# Use an independent source tree; this path never reads historical stage reports.
+nested-frontend-from-source: compcert-proof
+	python3 scripts/polcert_core.py restore --profile optimizer $(POLCERT_SOURCE_ARG)
+	python3 scripts/audit_nested_frontend_standalone.py
+	python3 scripts/build_nested_frontend.py
+
+nested-frontend-reproduce:
+	python3 scripts/reproduce_nested_frontend.py $(FRESH_ARGS)
+
 nested-frontend-profile:
 	python3 scripts/native_nested_frontend_profile.py
 
