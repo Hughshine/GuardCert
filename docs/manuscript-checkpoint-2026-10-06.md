@@ -81,3 +81,18 @@ producer 的责任；表格明确语言安装定理消费 region/site 证据。E
 `c650d7cc5462e52a40c54ae5655627da1ddfa62e784aff30b119de831f15174e`。
 文档 links、JSON 和 `git diff --check` 通过。本轮没有修改 kernel／证明源码，
 没有重跑 Rocq、提取、native 或计时；不增加功能或实验结果。
+
+## Constant BODY joint scan 的实现同步
+
+[实际 BODY 消费者](constant-body-joint-scan.md)现已连接源许可、双观察地址比较、
+完整子域覆盖和接受后的 inner-prefix preservation／advance。30 个 language／
+domain／fixture 端点审计通过；新 fixture 包含适配 Figure 2 leaf 的完整五次原
+store 和检查执行。Case-study 和 evaluation 正文同步这些 Clight 证明结果，保留
+完整 inner/outer runtime loops、canonical model、factory／Csem→Asm／native 的
+pending 标记。Evidence map 绑定实际端点、文档和独立 proof report 摘要。
+
+同一 offline 构建命令通过，当前为 11 页；无未解析引用或 overfull box。
+渲染检查修改后的第 6、7、9 页，代码、段落和 pending 标记无截断或重叠。
+旧 native/path/work 报告只核对绑定，没有重跑，没有新成本或收益数字。
+本次最终 `build/paper/report.json` SHA-256：
+`0312828065a85389fef055ac4c3514866ba8544a29c280206fb3f705d9fc8ea2`。

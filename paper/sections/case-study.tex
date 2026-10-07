@@ -61,8 +61,19 @@ Additional adapters now initialize private model bounds and transport execution
 of a reached literal-bound subbody into the canonical affine model. They derive
 that subdomain's access permissions at guard entry while retaining the reached
 source memory. This bridge requires no stability assumption for the enclosing
-loaded headers; the domain client still must instantiate it for the joint scan.
-\pending{Connect these services to the physical joint scan, the canonical
+loaded headers.
+
+The domain adapter now consumes these permissions to execute a joint scan for
+the reached constant-bound subbody. Observation descriptors carry actual address
+expressions and load receipts, permitting comparisons against both
+\code{shape} and \code{shape + 1} without another pointer temporary. Acceptance
+establishes separation of every point write from every captured word, then
+preservation for actual subbody executions with the same coordinate and pointer
+view. This evidence discharges the inner-prefix preservation obligation.
+A concrete fixture proves all five original stores and the actual scan: data
+and headers overlapping are refused, while adjacent disjoint regions within one
+allocation are accepted. It does not install an enclosing loop optimizer.
+\pending{Assemble the actual inner and outer short-circuit scans, the canonical
 three-level affine model, the original-source matcher/factory, and a new
 whole-program compiler entry. The current adapted Figure~2 native probe retains
 the original source and does not demonstrate an installed optimization.}

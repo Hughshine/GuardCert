@@ -1,28 +1,39 @@
 # 当前工作计划：评审吸收后的验收顺序
 
 本轮重新读取 narrative `271f6fc`，main 正文无差异；
-[责任／实现核对](narrative-implementation-check-2026-10-06.md)已更新到 `db6704c`。
+[责任／实现核对](narrative-implementation-check-2026-10-06.md)记录 `db6704c` 的复核及
+下述实际 BODY 消费者的后继进展。
 继续把 kernel、条件库、language host 和具体 optimizer/site 的责任分开；
 不把 `ENCODE`／coverage／`PRESERVE` 参数计作已实现 producer。
-下一实现仍是 reached constant body 许可的双观察 joint scan，随后组装接受后的
-cached model 与原 AST 安装。功能链闭合后验收 compact 条件、成本／接受域和
+Reached constant body 许可的双观察 joint scan 和接受后的 inner-prefix preservation
+已连接。下一实现是实际 inner/outer 短路扫描，再组装接受后的 cached model 与
+原 AST 安装。功能链闭合后验收 compact 条件、成本／接受域和
 同例作者责任；相关里程碑同时更新实际稿件，不等待全部未来扩展。
 
-新增 [常量子循环模型／权限桥](constant-bound-model.md)：private helper 初始化有实际
+最新 [实际 BODY joint scan](constant-body-joint-scan.md)消费 reached source permissions，
+使用有实际求值／load receipts 的 observer expressions，保护两个 raw header words。
+接受推出全部 point writes 分离及任意同 view 实际 BODY 的 preservation，填入 inner
+prefix advance；具体 Figure 2 leaf 的五次原 store 和完整检查执行均有 fixture。
+30 端点／569 required dependencies／1,064 源摘要审计及既有 compiler／native 绑定核对
+通过，没有新 compiler、extraction、native 或 timing。完整 inner/outer scan 尚未
+安装；下一项保持拒绝后不探测下一 BODY、empty outer 不读取 child，以及实际
+source memory／guard-entry permission anchor 的区分。完整 goal active。
+
+前一 [常量子循环模型／权限桥](constant-bound-model.md)：private helper 初始化有实际
 Clight 执行和原 source public transport；原 literal-bound 子循环完成导出 affine 模型
 及全部点在 guard entry 的 permissions，不预设 enclosing loaded headers 稳定。
 14 端点／565 required dependencies／1,060 源摘要审计通过，旧 compiler 与 prior
-对象绑定保持。下一项是使用 reached inner BODY 实例化 joint scan，再组装整段
-cached model 和 original AST factory。没有新完整 compiler 或 native，goal active。
+对象绑定保持。其 reached inner BODY 权限已由上段消费；整段 cached model 和
+original AST factory 仍未完成。该阶段没有新完整 compiler 或 native。
 
-最新服务阶段是 [ordered child capture／层次源前缀](research-checkpoint-2026-10-06-nested-headers.md)：
+前一服务阶段是 [ordered child capture／层次源前缀](research-checkpoint-2026-10-06-nested-headers.md)：
 外层实际进入才捕获 child；inner prefix 保留实际 source memory 和 global observation／permission
 anchor；这一 row 的全部观察保持成立后才推进 outer。缓存源是接受后的结果，numeric probe
 另从 captured words 许可。48 端点／571 依赖／1,057 摘要审计和原 Csem→Asm／native 绑定保持。
 没有新 factory、提取或 native；完整 goal active。下一项连接实际 joint scan、canonical
 cached model 和原源安装，同时保留紧凑条件与真实 guard 成本验收。
 
-当前阶段是 [loaded＋offset 根的完整程序接入](research-checkpoint-2026-10-06-loaded-offset-affine.md)：
+最近可运行阶段是 [loaded＋offset 根的完整程序接入](research-checkpoint-2026-10-06-loaded-offset-affine.md)：
 真实 `i<*limit+1` 的 raw observation 保持扫描、接受后缓存源执行、候选验证、entry transport、
 checked factory 和 signed-expression host 已连接到新 Csem→Asm 入口并提取运行。
 56 端点／567 依赖／1,047 源摘要审计、六配置 708 次完整汇编调用、236 次 Clight 路径调用和

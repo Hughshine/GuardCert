@@ -123,7 +123,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Actual private helper preparation and public source transport; reached literal-bound subbody decoded to affine execution and guard-entry point permissions without enclosing loaded-header stability. No joint scan or installed Figure 2 candidate.",
+      "claim": "Constant-model bridge stage: actual private helper preparation and public source transport; reached literal-bound subbody decoded to affine execution and guard-entry point permissions without enclosing loaded-header stability. Joint scan is supplied by the following stage; no installed Figure 2 candidate.",
       "theorems": [
         {
           "source": "prototype/interface/ClightConstantBoundModel.v",
@@ -144,6 +144,51 @@
       ],
       "documents": [
         "docs/constant-bound-model.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Reached constant-subbody joint scan executes actual write/observer address comparisons, acceptance preserves all raw observations and discharges inner-prefix preservation; concrete Figure 2 BODY has five actual original stores and scan execution. Complete inner/outer loops and optimizer installation remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightAffineJointObservation.v",
+          "name": "observed_word_expression_check_evaluation"
+        },
+        {
+          "source": "prototype/interface/ClightNestedIndexedObservers.v",
+          "name": "nested_indexed_observer_receipts"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointScan.v",
+          "name": "constant_body_joint_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointScan.v",
+          "name": "constant_body_joint_scan_preserves_all_sources"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointScan.v",
+          "name": "constant_body_joint_scan_inner_advance"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointExample.v",
+          "name": "figure2_original_five_store_body"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointExample.v",
+          "name": "figure2_joint_five_store_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointExample.v",
+          "name": "figure2_joint_scan_same_block_apart_accepted"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyJointExample.v",
+          "name": "figure2_joint_scan_alias_refused"
+        }
+      ],
+      "documents": [
+        "docs/constant-body-joint-scan.md"
       ]
     },
     {
@@ -214,7 +259,7 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "complete nested-loaded joint scan/canonical model/installation",
+    "complete nested-loaded inner/outer runtime scans, canonical model and installation",
     "compact sufficient conditions",
     "same-source near-neighbor obligations comparison",
     "runtime/compilation cost",
@@ -225,6 +270,15 @@
     "report": "build/constant-bound-model/proof/report.json",
     "sha256": "3d0d95a6de499127db58406ffe8854b63090c58002948024751d891688d3d1b8",
     "endpoints": 14,
+    "new_compiler_or_native_execution": false
+  },
+  "joint_scan_proof_stage": {
+    "report": "build/constant-joint-scan/proof/report.json",
+    "sha256": "ec30fcaf06fc7c32e2c2249e5a359b508633db935d27ac40086d6b5bad328284",
+    "endpoints": 30,
+    "required_dependencies": 569,
+    "source_digests": 1064,
+    "complete_inner_outer_runtime_scans_installed": false,
     "new_compiler_or_native_execution": false
   }
 }

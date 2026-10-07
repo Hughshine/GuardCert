@@ -4,13 +4,15 @@
 
 最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。
 
-[当前源码核对](narrative-implementation-check-2026-10-06.md) 已更新到实现 `db6704c`：
-单 loaded-plus-offset 根的 recursive affine compiler 已运行；第二 loaded header 与
-原 `<5` 的完整 joint scan／canonical model／安装仍未接通。新
-[constant-body 权限桥](constant-bound-model.md)只从实际到达的子域许可 guard-entry
-cells，不假定 enclosing headers 稳定。最难连接仍是：从原源许可实际比较，接受后
-保持全部观察并推进前缀，再导出缓存源。`ENCODE`／`PRESERVE` 等参数是需要由
-实际 language/domain producer 完成的证明，不能算作框架自动提供的能力。
+[当前源码核对](narrative-implementation-check-2026-10-06.md)保留 `db6704c` 的复核，
+并记录 [实际 BODY joint scan](constant-body-joint-scan.md) 的后继连接。语言库提供
+observer expression receipts、真实 pointer comparison、private Boolean 积累和
+store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比较，证明完整
+子域覆盖和接受后保持所有 observations，填入 inner-prefix preservation／advance。
+30 端点审计通过，kernel 不变。完整 inner/outer scan、canonical model／候选和
+原 AST 安装仍未接通；最难的后继是只在接受后许可下一 BODY，保留实际 source
+memory，再导出整段缓存源。`ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
+记录其 producer；这次没有把未完成的整段 guard／factory 计作已经自动取得。
 
 验收继续按 `226ba94` 的 proof-first 顺序；compact 条件、实际检查成本、有用
 接受域和实例作者工作是最终要求。`271f6fc` 的并行写作已落实到

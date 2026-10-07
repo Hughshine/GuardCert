@@ -24,6 +24,13 @@ paper-offline:
 .PHONY: expression-header-proof expression-header-validate
 .PHONY: nested-header-proof nested-header-validate
 .PHONY: constant-model-proof constant-model-validate
+.PHONY: constant-joint-proof constant-joint-validate
+constant-joint-proof:
+	python3 scripts/audit_constant_joint_scan.py
+
+constant-joint-validate:
+	python3 scripts/audit_constant_joint_scan.py --validate
+
 constant-model-proof:
 	python3 scripts/audit_constant_bound_model.py
 

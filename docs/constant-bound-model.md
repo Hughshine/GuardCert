@@ -86,6 +86,9 @@ objects 在编译前后保持；旧完整 compiler regression 保持 42 项 assu
 这是当前 inherited build 上的增量 audit；没有另验空 build bootstrap。
 没有新 compiler、extraction、native 矩阵或 timing。
 
-下一连接是使用 reached inner BODY receipt 实例化这些 point capabilities，
-在 guard entry 逐写地址保护**全部** captured observations；检查接受才推进
-inner prefix，一 row 接受才推进 outer，再导出整个 cached model 和原 AST 安装。
+后继 [BODY joint scan](constant-body-joint-scan.md)已消费这里的 point capabilities，
+在 guard entry 逐写地址保护**全部** captured observations，并填入接受后的 inner
+prefix preservation／advance。它另证明具体 Figure 2 BODY 的完整五次原 store 和
+检查执行；本页的一次 tail fixture 和 14 端点报告仍保留原验证范围。
+下一连接是实际 inner/outer 短路扫描：检查接受才到达下一 column，一 row 接受
+才推进 outer，再导出整个 cached model 和原 AST 安装。

@@ -32,10 +32,10 @@
 
 | 具体需求 | 当前可复用设施 | 此源尚缺什么／归因 |
 | --- | --- | --- |
-| 根 header 的 load＋1 | 新 signed-expression capture、raw observation／computed cache 对应、generic body-prefix／cached-source transport 和 checked affine numeric site | 可运行 main descriptor 仍只接直接 `i<*limit`；新服务的真实 body stability scan、entry relation、factory／typed host 尚未接入，属于 domain／frontend 与语言安装证明缺口 |
-| 在外层可达后读取第二 bound | 两观察 dependent prefix、旧 dual-loaded 有界矩形、源许可运输 | recursive child decoder 当前要求稳定 temp affine bounds；不能把这些旧实例当作该三层源已经支持，属于 domain／源覆盖缺口 |
-| 写入可能改变两个观察 | 实际写 trace coverage、byte separation、接受后 cached-source bridge | 当前 recursive main 只稳定一个根观察；需要将多个依赖观察的服务接到同一三层 package |
-| 第三层五次迭代与实际 body | 当前 canonical arbitrary-finite child depth、Mint32 多操作 body、依赖 checker | 深度本身已有一般证明；适配 body 是新 store，原 BT 计算并未建模或证明 |
+| 根 header 的 load＋1 | Loaded-offset compiler 已连接实际 stability scan、factory／host、Csem→Asm 和提取 | 单根接入缺口已关闭；仍须与第二 loaded child 组合，不能改写原 Figure 2 的 `not-supported` 报告 |
+| 在外层可达后读取第二 bound | Ordered capture 已从原 outer-active header 许可 indexed child load；实际 memory prefix 和两观察运输已证明 | 组装完整 inner/outer runtime scan、canonical model 与原 AST factory，属于 domain／源覆盖及语言安装缺口 |
+| 写入可能改变两个观察 | Constant BODY joint scan 已实际比较全部写地址与两个观察，接受后填入 inner-prefix preservation／advance | 当前消费者只覆盖已到达 BODY；跨 column/row 拒绝短路、完整覆盖及整 row 的 outer advance 仍待组装 |
+| 第三层五次迭代与实际 body | Literal-bound model／permissions 桥及适配 leaf 完整五次原 store／实际检查 fixture 已证明 | Enclosing loaded source 与候选安装仍待完成；适配 body 不等于原 BT 计算 |
 | 整数／逻辑维度与物理地址 | numeric/profile 编码、affine math domain、window locations／capabilities | flat adapter 的 window 不代替原多维 delinearization／维度证书；须明确取舍或加入恢复证据 |
 | 由前提生成紧凑入口条件 | affine 包络编码、同许可基址的物理分离、short-circuit／保守拒绝、当前 fact transport | 尚无此例的 compact guard；数学 endpoint 非空／非重叠不自动许可真实 pointer comparison，属于条件算法与语言证明缺口 |
 | repeated rewrite／完整程序 | 当前 materialized certificate、region progress／placement、Csem→Asm | 本 source 没有 accepted site，不能用 host 的一般定理推断其优化已经安装 |
@@ -69,7 +69,8 @@ non-overflow 与 cached-word 数值域也保持不同义务，具体 HEADER／bo
 接通根 `load + signed constant` 的稳定性 scan、候选／factory／host、Csem→Asm 和提取运行。
 其 native 三层例中的 child 仍是稳定 temp 上的 affine expression。此进展消除根表达式这一项
 接入缺口，但不是本页 Figure 2 探针的优化验收；第二 loaded child 的层次 receipt／安全 capture
-仍未实现。原 16 调用 coverage 报告保持 `not-supported`，没有借新例改写旧证据。
+当时仍未实现，后继服务见下段。原 16 调用 coverage 报告保持 `not-supported`，没有借
+新例改写旧证据。
 
 
 ## 后继语言服务：原 coverage 结果仍保持
@@ -81,6 +82,12 @@ Mint32 read／raw snapshot 定律已提供；active outer／empty indexed child�
 和相邻 word store 的真实 Clight fixtures 单列。
 
 这些服务没有改变 coverage producer、factory 或 compiler。本文原 `not-supported` 报告和
-16 次原生行为对照保持；没有新增本例的 native 优化接受。下一项仍是 actual child 访问许可／
-joint scan、canonical model（含第三层原 `<5`）的 projected transport、真正原 AST 的安装和
-完整提取运行。不将 generic service 参数或手动 cached model 当作此源已被 optimizer 覆盖。
+16 次原生行为对照保持；没有新增本例的 native 优化接受。后继的 BODY 消费者与当前
+待连接义务如下；不将 generic service 参数或手动 cached model 当作此源已被 optimizer 覆盖。
+
+[Constant BODY joint scan](constant-body-joint-scan.md)已从原 `<5` BODY permissions
+许可写地址与 `shape`、`shape+1` 的实际比较，接受后生产全部观察保持及 inner-prefix
+advance。具体适配 leaf 在 `row=column=0` 的完整五次 store 和检查执行已证明，同 block
+分离接受、与 headers 重叠拒绝。30 端点审计通过，没有新 compiler 或 native。
+下一项是完整 inner/outer 短路扫描、canonical model、真正原 AST 的安装和提取运行；
+完整 acceptance、成本与人工工作尚未验收，原 coverage 结果不变。

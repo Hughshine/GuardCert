@@ -34,7 +34,7 @@ def main():
     for entry in evidence["claims"]:
         for anchor in entry.get("theorems", []):
             path, name = anchor["source"], anchor["name"]
-            if not re.search(r"\b(?:Theorem|Lemma|Definition|Record)\s+" + re.escape(name) + r"\b",
+            if not re.search(r"\b(?:Theorem|Lemma|Example|Corollary|Definition|Record)\s+" + re.escape(name) + r"\b",
                              (ROOT / path).read_text()):
                 raise SystemExit("Missing source anchor: " + path + ":" + name)
         for path in entry.get("documents", []):

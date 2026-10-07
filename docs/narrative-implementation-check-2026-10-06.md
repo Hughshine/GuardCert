@@ -8,6 +8,12 @@
 root-loaded 接入和 constant-body 权限桥已有后继结果，以下更新到当前范围。
 本次是责任与验收核对，没有新增功能、证明或运行测量。
 
+后继实现已连接 [constant BODY joint scan](constant-body-joint-scan.md)：从真实原
+BODY permissions 许可写地址与两个观察地址的实际比较；接受后生产所有 BODY
+执行的观察保持，并填入 inner-prefix advance。30 端点审计及完整五次 source
+stores／实际 scan fixture 通过。以下责任表按该消费者更新；原文的文档复核与
+这项证明交付分开。完整 inner/outer runtime loops 和新 compiler 仍未安装。
+
 ## 本轮澄清的执行含义
 
 最小 kernel 只证明局部 guarded correctness。条件处理库和具体 language host
@@ -92,8 +98,8 @@ for (int i = 0; i < *bound; ++i)
 | 当前服务／缺口 | 已有证据 | 接下来由谁完成什么 |
 | --- | --- | --- |
 | 有序读取 | `nested_expression_capture_execution`：outer 活动才读取 child，保持原 source public 执行 | 具体 site 绑定实际两个 header expressions、类型、freshness；不是任意 dependent preload |
-| 已到达子域的权限 | `constant_affine_prefix_body_capabilities`：实际 `<5` subbody 完成和权限运输，许可其全部点在 guard entry 的 cells | Affine adapter 将这些 cells 接到实际只读比较；权限运输不带回已改写的 source 数据值，也不许可下一 column |
-| 接受与推进 | `nested_expression_prefix_open`／`nested_expression_prefix_advance` 携带实际 source memory；后一项消费整 row 的 joint preservation | Domain 证明实际 scan 覆盖全部 writes、接受保持两个 raw observations、足够 fuel 和拒绝短路，再实例化推进定理 |
+| 已到达子域的权限 | `constant_body_joint_scan_execution` 已把原 `<5` BODY capabilities 接到全部写地址与 observer expressions 的实际比较 | Factory 仍须生产 checked leaf、scope／freshness 和原源绑定；权限不带回已改写数据，也不许可下一 column |
+| 接受与推进 | `constant_body_joint_scan_inner_advance` 已从完整子域覆盖／接受导出全部 observations 保持，填入内层推进；outer prefix 服务已有 | Domain 组装实际 inner/outer 短路循环、足够 coverage／fuel，整 row 接受才推进 outer；当前 BODY 内部比较继续累积拒绝 flag |
 | 缓存模型与候选 | `nested_expression_initial_cached` 和 private model-bound 桥分别已有；旧 candidate checker 可复用 | Domain 组装接受后的完整 canonical model 与 cross-entry candidate execution，不能先假设缓存源完成 |
 | 整程序安装 | 原 root-offset compiler 的具体语言 host 已有 | Factory／site 核对新 original AST、typed pool、scope／progress／placement 和 fallback；语言 host 消费这些证据，随后提取并验收原 Figure 2 适配 C |
 
@@ -103,10 +109,11 @@ for (int i = 0; i < *bound; ++i)
 
 ## 已纳入活动目标的验收顺序
 
-1. 消费已有 ordered capture 和 constant-body 权限桥，完成两个观察的实际
-   joint scan。未到达 child 时不得读取 child cache；numeric 接受不代替稳定性。
-2. 从已到达的实际读写生产物理比较许可；只有检查成功才能安全推进后续
-   点。Domain 另证完整写足迹覆盖、足够 scan fuel 和观察保持。入口的某个
+1. 单个 reached BODY 的两个观察比较和内层推进证据已完成；下一项将它接到
+   实际 inner/outer 短路循环。未到达 child 时不得读取 child cache；numeric
+   接受不代替稳定性。
+2. 每个 BODY 的实际读写许可其内部全部比较；只有检查成功才能扫描下一
+   BODY。Domain 另证跨 column/row 的完整覆盖和足够 scan fuel；入口的某个
    cell 有权限，不代表整个数学包络都可安全比较。
 3. 在稳定性已成立后，用语言执行运输接到缓存源，再消费原 candidate
    certificate。可复用的

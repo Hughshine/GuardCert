@@ -4,10 +4,16 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[已到达常量子循环的 joint scan](docs/constant-body-joint-scan.md)现已从原 BODY 的
+访问权限许可真实写地址与 `shape`、`shape+1` 的比较；接受后保持全部 raw
+observations，生产 inner source-prefix 的推进证据。30 端点审计通过，具体
+Figure 2 BODY 证明完整五次原 store 和检查执行，同 block 分离接受、重叠拒绝。
+完整 inner/outer 扫描、canonical model 和原 AST 安装仍待连接，没有新 native。
+
 [常量子循环的模型／权限桥](docs/constant-bound-model.md)已把原 `<5` 子循环执行接到
 canonical affine decode 和 guard-entry point capabilities；private helpers 有实际准备
-和原 source public transport。14 端点审计通过，仍需实例化 joint scan、整段模型与
-原源 factory；本阶段没有新提取或汇编结果，Figure 2 的优化仍未安装。
+和原 source public transport。该前阶段的 14 端点审计保持；joint BODY 消费者已由
+上段连接，整段模型与原源 factory 仍待完成，Figure 2 的优化尚未安装。
 
 [第二个 loaded header 的服务](docs/nested-header-services.md)已证明 conditional child capture、保持实际 memory 的层次源前缀、保护全部观察后的双缓存源运输，以及不假设 cached-source completion 的 numeric probe。48 端点审计及真实 indexed child、changing-bound 拒绝、相邻 word 接受／prefix 推进通过，旧 compiler／native 绑定保持。完整 loaded-child scan、canonical model 和 factory 尚待接入；本阶段没有新提取或汇编调用，Figure 2 仍记未支持。[交付与后续验收](docs/research-checkpoint-2026-10-06-nested-headers.md)列出证明边界。
 
