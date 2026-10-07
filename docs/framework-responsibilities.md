@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新：[source-only reproduction](nested-frontend-reproduction.md)已从
+锁定源码重建既有 compiler／运行路径，独立基线查询替代历史报告输入；kernel
+与证明责任划分不变。[constant-word observation](constant-word-observation.md)
+由语言库证明 typed `Mem.store` 保持和 actual Clight BODY checker soundness。
+这是 fixed-address memory guarantee，不能替代 pointer-binding frame、读许可、
+prefix／model 对应或候选正确性。Domain 下一项消费它生产 compact entry condition；
+实际 guard／模型入口及语言安装继续分开验收，当前没有 runtime shortcut。
+
 2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)在
 同一 compiler 上扩展了实际读写、dependence、重复 sites 与程序上下文验证。
 更强 child-count∈[1,2) profile 使 chain 的重排被同一 checker 接受，runtime guard

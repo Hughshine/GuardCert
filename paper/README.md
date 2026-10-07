@@ -9,8 +9,12 @@ researcher who has not read the repository history.
 The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
 uncompleted results. The extracted nested compiler now installs interchange and
 tiling on the fixed-layout adapted OLO Figure 2 source; its new execution reports
-are recorded separately from prior loaded-root results. Wider source/context
-coverage, compact conditions, condition-cost evaluation, and comparative
+are recorded separately from prior loaded-root results. A committed source-only
+export now rebuilds the proof, compiler, and existing C experiments independently
+of historical reports, using the installed pinned toolchain. A separate Clight
+library checks constant-word bodies and proves fixed-address observation
+preservation, including same-cell aliasing; its runtime shortcut is still pending.
+Broader affine source classes, compact conditions, condition-cost evaluation, and comparative
 proof-author effort remain pending.
 
 ## Build

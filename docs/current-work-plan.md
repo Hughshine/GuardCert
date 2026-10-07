@@ -1,5 +1,19 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新后继：[独立源码树复现](nested-frontend-reproduction.md)已从修复版
+`1d3acc0` 的新空树通过 proof／extraction／全部既有 C matrix 和 probes。没有
+历史 report／objects 输入，复用已安装 pinned toolchain；585 dependencies／20
+queries，compiler 42-global 集合保持、kernel 闭合，未扩展 source class。
+另 [constant-word observation](constant-word-observation.md)的 actual Clight BODY
+checker／memory-effect producer 7 端点通过，6 项既有基线、零新增 global axiom。
+它提供 fixed-cell observation 保持，不保证 pointer bindings／progress，也未
+安装新 guard。下一项 **消费该 producer，把 cached headers 等于写入 word 的
+充分条件接入实际 physical guard／model anchor；复用 frames、候选及 host，运行
+alias 接受／不匹配回退并比较 scan work／完整成本**。其他 source class、动态
+布局和作者工作验收继续按下列计划推进；完整目标 active。
+
+以下为先前阶段；其中 fresh-build 待办已由上述后继关闭。
+
 2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)已沿
 同一实际 Csem→Asm compiler 验证多数组读写、真实 dependence、same-allocation
 slices、alias 回退、BODY value wrap、重复 sites 与前后副作用／return。七类函数

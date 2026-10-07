@@ -90,6 +90,25 @@ counterexample falls back. The default matrix also tests effective root/child
 count five: the profile's exclusive upper bound rejects those inputs. No
 additional assembly debugger probe is claimed for the tighter profile.
 
+The current pipeline also passes a source-only reproduction at a fixed commit.
+It exports 1,853 committed files into a new tree with no project build outputs,
+restores checksum-pinned dependencies, rebuilds the target CompCert proof and
+585 GuardCert/PolCert dependencies, and queries twenty endpoints independently
+of historical reports. The compiler retains the same 42-global assumption set;
+the kernel is closed. The new tree repeats 1,027 successful complete assembly
+calls, two separate dependence counterexamples, 611 Clight calls, and sixteen
+selected-store assembly probes. These totals repeat the existing matrices;
+they establish rebuildability rather than broader source coverage or binary
+identity. The installed pinned toolchain is reused. A first attempt exposed
+missing audit-baseline build roots; after repair, the complete run started from
+another empty tree.
+
+The separate constant-word library has seven audited endpoints. Its syntax
+checker soundness theorem is closed; the execution and observation theorems use
+only the queried memory/Clight baseline, whose union has six assumptions.
+No new runtime guard, acceptance result, or cost measurement is attributed to
+these language lemmas.
+
 \subsection{Experiments Needed for the Final Paper}
 
 \paragraph{Semantic coverage.}
@@ -122,7 +141,7 @@ still supplied by the author. Compare a common example against the nearest
 existing interfaces before claiming reduced proof burden.
 
 \pending{No timing, speedup, final acceptance fraction, or comparative author
-effort has been measured for this manuscript. Validate a fresh-build bootstrap,
-extend the supported source class beyond these loaded-header templates, and
+effort has been measured for this manuscript. Extend the supported source class
+beyond these loaded-header templates, and
 measure compact conditions and author obligations on common examples. Dynamic
 layout and delinearization of the full original BT kernel remain uncovered.}

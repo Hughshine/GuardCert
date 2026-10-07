@@ -571,6 +571,36 @@
       "documents": [
         "docs/nested-frontend-coverage.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "A fixed committed source-only export rebuilds the current nested proof and compiler without historical reports or project objects, then repeats the existing C matrices and machine probes using the installed pinned toolchain. This establishes rebuildability, not broader source coverage or bit-identical output.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightGuardedNestedFrontendCompiler.v",
+          "name": "compile_ncs_frontend_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/nested-frontend-reproduction.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "A language library statically checks actual Clight constant-word bodies and derives a fixed-address memory observation guarantee from their execution. It permits same-cell stores of an observed equal Mint32 word, excludes bitfield/unsupported assignment syntax, and retains separate pointer frames, read licensing, source progress and model correspondence. No runtime shortcut is installed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/CompCertWordObservation.v",
+          "name": "checked_constant_word_body_preserves_observation"
+        },
+        {
+          "source": "prototype/interface/CompCertWordObservation.v",
+          "name": "check_constant_word_statement_sound"
+        }
+      ],
+      "documents": [
+        "docs/constant-word-observation.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -622,7 +652,6 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "fresh-checkout empty-build bootstrap",
     "broader affine/polyhedral source classes and full original BT dynamic layout/delinearization beyond the fixed-layout adaptation",
     "compact sufficient conditions and guard cost/useful acceptance",
     "same-source near-neighbor obligations comparison",
@@ -853,5 +882,47 @@
     "generic_assumption_inference": false,
     "extra_machine_probe": false,
     "timing_or_profitability_measured": false
+  },
+  "nested_frontend_source_only_reproduction": {
+    "source_revision": "1d3acc0cb8a38341ba105ba321e745e9b3a0704b",
+    "report": "build/nested-frontend/reproduction/report.json",
+    "sha256": "e7e7b1422f84825f7731c72f59551e835d5e62d3940e553a923eaa92587d4afa",
+    "source_export_files": 1853,
+    "initial_generated_artifacts": [],
+    "historical_proof_reports_required": false,
+    "toolchain_installed_from_scratch": false,
+    "proof_dependencies": 585,
+    "queried_endpoints": 20,
+    "source_digests": 884,
+    "compiled_objects": 767,
+    "compiler_global_assumptions": 42,
+    "compiler_sha256": "dbe2035ef71cff5ca1030eeb536b965db273a19b2cec2268f61791ad58a66a79",
+    "successful_full_assembly_calls": 1027,
+    "separate_incorrect_assembly_calls": 2,
+    "instrumented_clight_calls": 611,
+    "selected_store_machine_probes": 16,
+    "source_class_extended": false,
+    "binary_identity_claimed": false,
+    "inner_reports": {
+      "build/nested-frontend/proof/report.json": "65e5a4492b762aa629da81628ba2ea9d857c641f3ee168402418678fae6f4284",
+      "build/nested-frontend/native/report.json": "859b54d1d54f692b76979494088ded638b414eeb126f990d716674901fc7c3e5",
+      "build/nested-frontend/coverage/report.json": "1af6be96946df60f35f7c2aba17be137fb02770f1ea0bc8d71262176480f8b2c",
+      "build/nested-frontend/coverage/clight-report.json": "96d48948e0e715bf561a2ddeb315ce22d85bb99305403f8697c32b22d850c9b8",
+      "build/nested-frontend/coverage/one-column-profile/report.json": "f88e7e060f062cdbe7ef8d3dfef2e2dd35c2a025437ad1cc62390f182c463808",
+      "build/nested-frontend/native/path-report.json": "1f894c9622b713fb3143280169d8707bb9664f8ed365054909a5d117b93f8607",
+      "build/nested-frontend/coverage/path-report.json": "f2a4af02c84035fdb8e91defc28b7497f50a31b6a4d802cef162b0e58be56e01"
+    }
+  },
+  "constant_word_language_stage": {
+    "report": "build/word-observation/report.json",
+    "sha256": "c41d8275f74d0a74673d31eab25628a4d0a480ee5c114f65d9d5206e2d99139b",
+    "queried_endpoints": 7,
+    "baseline_global_assumptions": 6,
+    "additional_global_axioms": [],
+    "static_checker_soundness_closed": true,
+    "actual_clight_body_execution_consumed": true,
+    "fixed_memory_observation_only": true,
+    "runtime_shortcut_installed": false,
+    "guard_cost_measured": false
   }
 }

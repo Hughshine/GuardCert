@@ -156,6 +156,17 @@ conditional rewrite, without generic weakest-precondition inference.
 
 \subsection{Condition Expressiveness and Reuse}
 
+A separate Clight library supplies a memory guarantee that permits aliasing.
+If a \code{Mint32} observation holds word $w$, successful \code{Mint32} stores
+of that same word preserve the observation, including stores to the observed
+cell. Successful accesses supply the alignment facts that exclude partial
+overlap at different addresses. A static checker recognizes typed constant-word
+bodies and proves this guarantee from their actual Clight execution. It rejects
+general field assignments, whose lvalues may be bitfields. This is a fixed-address
+memory guarantee: pointer-binding frames, read licensing, source progress, and
+model correspondence remain separate obligations. The library has not yet been
+used to install a runtime shortcut in the current compiler.
+
 The supported services cover machine-word ranges/no-wrap, byte-level memory
 separation, permissions for typed accesses, and preservation of loaded values.
 These are sufficient-condition libraries with declared syntax and semantic
