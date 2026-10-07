@@ -30,12 +30,19 @@
 
 ## 按义务记录差距
 
+2026-10-07：[完整 physical guard 后继](nested-constant-physical.md)已从 data-only
+原 site 接入 helper 准备与全部 scan inputs，接受导出 canonical Clight 与真实
+Loop source；model entry framed 到 actual guard exit。安全域是原源 silent
+normal completion。Candidate 跨入口／dependency-alias、typed factory／host
+progress-divergence／placement 和新的 frontend／extraction／native 优化安装
+仍待完成；本文 16-call 原 coverage 结果不变。
+
 | 具体需求 | 当前可复用设施 | 此源尚缺什么／归因 |
 | --- | --- | --- |
 | 根 header 的 load＋1 | Loaded-offset compiler 已连接实际 stability scan、factory／host、Csem→Asm 和提取 | 单根接入缺口已关闭；仍须与第二 loaded child 组合，不能改写原 Figure 2 的 `not-supported` 报告 |
-| 在外层可达后读取第二 bound | Checked 原 site 已绑定两个实际 headers／scope／namespace；entry gate＋ordered capture 已生产实际检查后的域、word view、observers 和初始 prefix | Helper 准备、完整 outer 消费者与 guard／candidate factory 尚待组装，属于 domain／源覆盖及语言安装缺口 |
-| 写入可能改变两个观察 | BODY／outer scan 的接受后 preservation 已证明；checked entry 已生产 raw observer receipts 与具体 header laws，template guard AST 不依赖 runtime ghost fields | 完整 guard certificate／factory 仍须消费实际 helper words 与这些 inputs，连接 candidate／host；局部 endpoints 不证明本例已安装优化 |
-| 第三层五次迭代与实际 body | Literal-bound model／permissions 桥及适配 leaf 完整五次原 store／实际检查 fixture 已证明 | Enclosing loaded source 与候选安装仍待完成；适配 body 不等于原 BT 计算 |
+| 在外层可达后读取第二 bound | Checked 原 site、ordered capture、numeric、helper 新入口与完整 physical guard 已接通 | Candidate factory 和语言 host 尚待安装；profile 的安全域为原源 silent normal completion |
+| 写入可能改变两个观察 | 完整 guard 在原源许可下实际比较，接受保护全部观察并导出 canonical／Loop source；代码使用固定 observer templates | Candidate 跨入口及 dependency/alias 检查、typed host／progress-divergence 接入；局部 endpoints 不证明本例已安装优化 |
+| 第三层五次迭代与实际 body | Literal-bound model／permissions 桥及适配 leaf 完整五次原 store／实际检查 fixture 已证明；quantified outer consumer 已接受任意 checked leaf | 完整 active 原 C 接受／回退与候选安装仍待完成；适配 body 不等于原 BT 计算 |
 | 整数／逻辑维度与物理地址 | numeric/profile 编码、affine math domain、window locations／capabilities | flat adapter 的 window 不代替原多维 delinearization／维度证书；须明确取舍或加入恢复证据 |
 | 由前提生成紧凑入口条件 | affine 包络编码、同许可基址的物理分离、short-circuit／保守拒绝、当前 fact transport | 尚无此例的 compact guard；数学 endpoint 非空／非重叠不自动许可真实 pointer comparison，属于条件算法与语言证明缺口 |
 | repeated rewrite／完整程序 | 当前 materialized certificate、region progress／placement、Csem→Asm | 本 source 没有 accepted site，不能用 host 的一般定理推断其优化已经安装 |

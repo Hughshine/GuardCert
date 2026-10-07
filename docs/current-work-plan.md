@@ -1,13 +1,29 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[完整 header-stability guard](nested-constant-physical.md)已从 checked
+原 site 生产 helper 后新入口，填入全部 outer scan 输入，合成真实代码；接受
+取得 canonical Clight 与 Loop source 执行，model entry 明确 framed 到 actual
+guard exit。39 端点（36 domain／3 fixture）、590 依赖／1,089 源摘要审计通过，
+kernel／旧 compiler 保持。安全域仍是原 source silent normal completion。
+下一项 **沿 frame 完成实际 candidate 的跨入口 context／pointer-cell 对应**，
+接既有多数组 dependency/alias guard、candidate validator/lowering/public exits；
+优先复用旧 loaded-offset multi 的模式：由数据 checker 取得 canonical source
+scope，以 `structured_execution_temp_transport` 沿 ports frame 把已生产的 model
+execution 运到实际 guard exit，再许可 alias guard／候选；不强求任意 location
+map 完全相等。由 data-only factory 组装 guarded rule。随后接 typed pool、原源 key／fallback
+及 language host 的合法 placement 和 **progress／divergence** 合同，完成新
+Csem→Asm、extraction 和 active accepting／refusing native matrix。不能把 normal
+completion 下的 guard theorem 等同于任意上下文的程序正确性。最终 compact
+condition／成本／实用接受域／作者工作量仍各自验收。Figure 2 优化未安装，目标 active。
+
 2026-10-07：[原 AST checked site／actual entry](nested-constant-site.md)现已绑定
 实际 source、scope／fresh names、旧 package、scan namespace 与 lowering；observer
 syntax 只依赖编译时地址表达式，runtime raw receipts 另从真实读取生产。
 ROW0 profile 有实际 gate，入口 theorem 只消费原 source completion；接受后的
 DOMAIN／SOURCE_WORDS／observers／initial prefix 均锚定实际检查后入口。37 端点
 （4 language／23 domain／10 fixture）、584 依赖／1,083 源摘要审计通过。
-Kernel 不变、旧 compiler 基线保持。下一项执行 helper 准备，填入完整 outer
-scan 的其余 static inputs，组装 guard／candidate factory、typed pool 与 host。
+Kernel 不变、旧 compiler 基线保持。Helper／outer／完整 guard 后继见上段；
+candidate factory、typed pool 与 host 仍待完成。
 没有新 compiler／extraction／native／timing，Figure 2 原 C 的优化仍未安装；
 完整目标 active，最终 compact 条件／成本／接受域及作者工作要求保持。
 

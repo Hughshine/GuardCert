@@ -148,7 +148,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Reached constant-subbody joint scan executes actual write/observer address comparisons, acceptance preserves all raw observations and discharges inner-prefix preservation; concrete Figure 2 BODY has five actual original stores and scan execution. Complete inner/outer loops and optimizer installation remain pending.",
+      "claim": "Historical stage scope: Reached constant-subbody joint scan executes actual write/observer address comparisons, acceptance preserves all raw observations and discharges inner-prefix preservation; concrete Figure 2 BODY has five actual original stores and scan execution. Complete inner/outer loops and optimizer installation remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightAffineJointObservation.v",
@@ -234,7 +234,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Actual outer short-circuit scan consumes the original-source row producer; complete acceptance yields all-row/all-column observation preservation and full two-cache source execution with the same exit temps and memory. Independent empty guard and zero-header transport need no child/body receipt. Canonical model is supplied by the following stage; input-producing factory and optimizer installation remain pending.",
+      "claim": "Historical stage scope: Actual outer short-circuit scan consumes the original-source row producer; complete acceptance yields all-row/all-column observation preservation and full two-cache source execution with the same exit temps and memory. Independent empty guard and zero-header transport need no child/body receipt. Canonical model is supplied by the following stage; input-producing factory and optimizer installation remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightConstantJointOuterScan.v",
@@ -275,7 +275,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Fixed three-axis cached source transported to the existing canonical affine AST and checked real-memory Loop execution, with exact exit temps and final memory. Checked leaf facts discharge concrete transport premises; no source/model semantic callback. Original AST factory, candidate and whole-program installation remain pending.",
+      "claim": "Historical stage scope: Fixed three-axis cached source transported to the existing canonical affine AST and checked real-memory Loop execution, with exact exit temps and final memory. Checked leaf facts discharge concrete transport premises; no source/model semantic callback. Original AST factory, candidate and whole-program installation remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightNestedConstantModel.v",
@@ -300,7 +300,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Original source completion produces actual first-leaf parameter words, ordered capture and gated numeric execution. Acceptance supplies per-coordinate DOMAIN/SOURCE_WORDS anchored at the captured entry. Empty root/child refuse with BODY inputs undefined. Full physical guard assembly, original AST factory, candidate and compiler installation remain pending.",
+      "claim": "Historical stage scope: Original source completion produces actual first-leaf parameter words, ordered capture and gated numeric execution. Acceptance supplies per-coordinate DOMAIN/SOURCE_WORDS anchored at the captured entry. Empty root/child refuse with BODY inputs undefined. Full physical guard assembly, original AST factory, candidate and compiler installation remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightNestedConstantFirstLeaf.v",
@@ -337,7 +337,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Data-only checker binds the actual original AST, source scope, caches/helpers, namespace and lowering. A runtime row-zero gate makes entry safety consume original-source completion only. Acceptance produces actual check-exit domains, word views, observer receipts and initial prefix; concrete header laws consume receipts. Observer ghost witnesses do not change generated outer-scan AST. Helper preparation, full physical guard, candidate and host assembly remain pending.",
+      "claim": "Historical stage scope: Data-only checker binds the actual original AST, source scope, caches/helpers, namespace and lowering. A runtime row-zero gate makes entry safety consume original-source completion only. Acceptance produces actual check-exit domains, word views, observer receipts and initial prefix; concrete header laws consume receipts. Observer ghost witnesses do not change generated outer-scan AST. Helper preparation, full physical guard, candidate and host assembly remain pending.",
       "theorems": [
         {
           "source": "prototype/interface/ClightNestedConstantSite.v",
@@ -386,6 +386,59 @@
       ],
       "documents": [
         "docs/nested-constant-site.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Assembled original-source header-stability guard executes ordered capture, gated numeric probe, helper preparation and complete outer scan. All scan inputs come from the checked site and actual receipts. Acceptance derives canonical Clight and Loop source execution, with model entry framed to actual guard exit. Safety requires original silent normal completion; candidate cross-entry/dependence/alias rule and host progress/divergence installation remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedConstantSitePrepare.v",
+          "name": "ncs_accepted_numeric_prepare"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantSitePrepare.v",
+          "name": "ncs_prepared_initial_prefix"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantScanNames.v",
+          "name": "ncs_scan_component_private"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantScanStatic.v",
+          "name": "ncs_scan_source_effects"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantOuterConsumer.v",
+          "name": "ncs_outer_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantOuterConsumer.v",
+          "name": "ncs_outer_accepted_model"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantPhysicalGuard.v",
+          "name": "ncs_original_physical_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantPhysicalGuard.v",
+          "name": "ncs_physical_accepted_source_loop"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantPhysicalExample.v",
+          "name": "original_site_full_source_loop_lowering_available"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantPhysicalExample.v",
+          "name": "actual_empty_original_complete_physical_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantPhysicalExample.v",
+          "name": "actual_full_physical_nonzero_row_refusal"
+        }
+      ],
+      "documents": [
+        "docs/nested-constant-physical.md"
       ]
     },
     {
@@ -456,7 +509,7 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "private helper preparation, complete nested physical guard, candidate factory and host installation",
+    "nested candidate cross-entry/dependence/alias adapter, guarded factory, typed host progress/divergence installation and runnable compiler",
     "compact sufficient conditions",
     "same-source near-neighbor obligations comparison",
     "runtime/compilation cost",
@@ -545,6 +598,23 @@
     "row_zero_profile_checked_at_runtime": true,
     "nonzero_row_refusal_skips_all_headers": true,
     "complete_nested_physical_guard_and_factory_assembled": false,
+    "new_compiler_or_native_execution": false
+  },
+  "nested_constant_physical_proof_stage": {
+    "report": "build/nested-constant-physical/proof/report.json",
+    "sha256": "73482e061adbb772a0faad52840152b4d33f2375000c36ab2d55b4090a289dab",
+    "endpoints": 39,
+    "language_endpoints": 0,
+    "domain_endpoints": 36,
+    "fixture_endpoints": 3,
+    "required_dependencies": 590,
+    "source_digests": 1089,
+    "complete_original_source_header_stability_guard_assembled": true,
+    "accepted_actual_source_loop_decode_connected": true,
+    "model_entry_explicitly_framed_to_actual_guard_exit": true,
+    "safety_domain": "original silent normal source completion",
+    "new_complete_nested_guarded_candidate_rule": false,
+    "language_host_progress_divergence_installation_pending": true,
     "new_compiler_or_native_execution": false
   }
 }

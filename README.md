@@ -4,12 +4,19 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[完整原源 header-stability guard](docs/nested-constant-physical.md)已把 checked site、
+实际 helper 准备和完整 outer scan 接起来；接受后取得 canonical Clight 与真实
+Loop source 执行，并明确保留 model entry 到 actual guard exit 的 frame。
+39 端点审计通过，kernel／旧 compiler 保持。安全域是原源 silent normal
+completion；candidate 跨入口、dependency/alias guard、typed host 与 progress/
+divergence 安装仍待完成。没有新 compiler／native，Figure 2 优化仍未安装。
+
 [原 AST checked site 与实际 entry](docs/nested-constant-site.md)已从 proposer 数据
 检查 source、scope／private names、旧 affine package、scan namespace 与 lowering。
 实际 row gate 去掉额外 row=0 context 假设；接受后的域、word view、raw observers
 及原 prefix 锚定到真正检查后状态。Guard AST 只依赖 observer 地址表达式。
-37 端点独立审计通过；下一项 helper 准备、完整 physical scan／候选 factory 和
-host 安装，没有新 compiler／native，Figure 2 原 C 优化仍未安装。
+37 端点独立审计通过；完整 physical guard 后继见上段，候选 factory 和
+host 安装仍待完成，没有新 compiler／native，Figure 2 原 C 优化仍未安装。
 
 [原嵌套源的 capture／numeric 输入生产](docs/nested-constant-numeric.md)已从实际首次
 leaf 取得已用参数定义性，运行有序 capture 和两层短路 gate；numeric 接受直接

@@ -4,7 +4,7 @@
 `origin/topdown/research-positioning` 为 `271f6fc`；主线的
 [paper narrative](topdown/paper-narrative.md) 和
 [context-lifting](topdown/context-lifting.md) 正文与该分支一致。
-本次对 `9700b66` 和本轮 checked-site／actual-entry 后继复核。远端基线为 `271f6fc`，
+本次对 `18e1b50` 和本轮完整 header-stability guard 后继复核。远端基线为 `271f6fc`，
 没有新的未同步正文。下表按当前消费者更新；重新阅读本身不计作功能交付。
 本轮另有原源入口证据的实际 producer 与独立 proof audit，见下段；没有新运行测量。
 
@@ -16,8 +16,11 @@
 审计通过。[Checked site／actual entry](nested-constant-site.md)后继已核对原 AST、
 scope／namespace，实际生产 observer receipts、header laws 和检查后的初始 prefix。
 Runtime ROW0 gate 去掉额外的 context 初值前提，template AST 与 runtime ghost
-fields 的分离也已证明。37 端点审计通过。下一项 helper 准备及完整 scan 消费者、
-guard／candidate factory 和 whole-program 安装。三方责任、四个
+fields 的分离也已证明。37 端点审计通过。[完整 physical guard](nested-constant-physical.md)
+已完成 helper 新入口与全部 scan inputs；接受生产真实 canonical/Loop source 执行，
+model entry 明确 framed 到实际 guard exit。39 端点审计通过。下一项 candidate
+跨入口／dependency-alias checker、guarded factory 和 whole-program 安装；原源
+silent normal completion 域不替代 host progress/divergence 合同。三方责任、四个
 逻辑环节及独立语言安装边界继续有效。
 
 后继实现已连接 [constant BODY joint scan](constant-body-joint-scan.md)：从真实原
@@ -51,9 +54,10 @@ definedness 定律和 domain 的 reached-write receipt。`C_host` 的 guarded-ch
 当前 [capture／numeric producer](nested-constant-numeric.md)已由原 first leaf
 生产参数定义性，执行有序 capture／双 gate，接受后提供逐点 DOMAIN／SOURCE_WORDS。
 24 端点审计通过，没有要求调用者新增对应语义回调。Checked-entry 后继已经
-生产 namespace／scope 和实际 observers／header／initial prefix。下一项执行
-helper 准备，填入 physical scan，组装 guard certificate、candidate factory、
-cross-entry 候选及 host。继续复用已有语言服务，
+生产 namespace／scope 和实际 observers／header／initial prefix。最新后继实际
+执行 helper 准备并完整实例化 physical scan；接受导出 canonical／Loop source，
+model entry framed 到 actual guard exit。下一项 candidate dependency/alias 检查、
+cross-entry 候选和 guarded factory／host。继续复用已有语言服务，
 不因这次澄清扩大 kernel。
 不能以新增的 `ENCODE`／scope／freshness 语义字段代替这些实际 producer。
 
@@ -153,11 +157,11 @@ for (int i = 0; i < *bound; ++i)
 
 | 当前服务／缺口 | 已有证据 | 接下来由谁完成什么 |
 | --- | --- | --- |
-| 有序读取 | `check_nested_constant_site` 已绑定实际两个 headers／scope／freshness；`ncs_entry_numeric_execution` 用实际 row gate 和 ordered capture 生产检查后入口 | Helper 准备与完整 scan 消费者，随后接 guard／candidate factory；不是任意 dependent preload |
-| 已到达子域的权限 | `constant_body_joint_scan_execution` 已把原 `<5` BODY capabilities 接到全部写地址与 observer expressions 的实际比较 | Factory 仍须生产 checked leaf、scope／freshness 和原源绑定；权限不带回已改写数据，也不许可下一 column |
-| 接受与推进 | 真实 outer 接受已生产全部 preservation；checked entry 已生产 DOMAIN／SOURCE_WORDS、observers、header laws 及初始 prefix，并证明 template AST 等式 | 消费这些证据与实际 helper words，实例化完整 outer；组装真正完整 guard certificate |
-| 缓存模型与候选 | `constant_joint_outer_cached_source` 取得完整双缓存源；`nested_constant_package_source_decode` 已从该源形状和 checked package 取得真实 Loop 执行 | Factory 生产实际 helper words／名称分离／numeric 接受和模型数据等式，再接 cross-entry candidate；cached execution 不能移到检查许可的前提中 |
-| 整程序安装 | 原 root-offset compiler 的具体语言 host 已有 | Factory／site 核对新 original AST、typed pool、scope／progress／placement 和 fallback；语言 host 消费这些证据，随后提取并验收原 Figure 2 适配 C |
+| 有序读取 | 原 site、runtime row gate、有序 capture、helper 初始化已接入完整 `ncs_physical_guard` | 接候选 factory；不是任意 dependent preload |
+| 已到达子域的权限 | 完整 outer consumer 从 site 的 checked leaf／scope／freshness 和实际 prefix 许可所有 BODY comparisons | 保持此 source-definedness 顺序连接 candidate guard；权限不带回已改写数据，也不自行许可下一 column |
+| 接受与推进 | 完整代码消费 DOMAIN／SOURCE_WORDS、observers/header 和 helper 后 prefix，接受后推进全部 rows／columns；template syntax 等式已证明 | 接受条件还要交付 candidate 所需 dependency/alias 事实，不能把 header stability 等同于任意重排合法 |
+| 缓存模型与候选 | `ncs_original_physical_guard_execution` 的接受结果取得 canonical Clight；`ncs_physical_accepted_source_loop` 取得真实 Loop 以及 model entry→guard exit frame | Domain 沿此 frame 证明 candidate 的实际 context／pointer-cell 视图，再接 validator／lowering／public exits；cached execution 不能成为检查许可前提 |
+| 整程序安装 | 原 root-offset compiler 的具体语言 host 已有；新 guard 安全域为原源 silent normal completion | Factory 核对新 original AST、typed pool 与 fallback；language host 连接 scope／progress-divergence／placement，随后提取并验收原 Figure 2 适配 C |
 
 上述表格列的是已有服务和待实例化义务。`BODY_CHECK`／`PRESERVE`／`ENCODE`
 有类型，不代表实际检查实现或其 producer 已完成。当前未发现必须扩充
@@ -166,8 +170,8 @@ for (int i = 0; i < *bound; ++i)
 ## 已纳入活动目标的验收顺序
 
 1. 实际 inner／outer scan、全部 rows preservation、接受后的完整双缓存源和
-   canonical model 已完成；原源已生产 numeric／DOMAIN／SOURCE_WORDS。下一项连接
-   其余入口证据及完整 guard；未到达 child 时
+   canonical model 已完成；全部 numeric／DOMAIN／SOURCE_WORDS、helper 后入口和
+   完整 guard 已连接。下一项 cross-entry candidate／factory；未到达 child 时
    消费独立 empty 服务，不为得到双观察 prefix 而读取第二 word。
 2. 每个 BODY 的实际读写许可其内部全部比较；只有检查成功才能扫描下一
    BODY。Domain 另证跨 column/row 的完整覆盖和足够 scan fuel；入口的某个

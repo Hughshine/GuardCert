@@ -23,8 +23,12 @@ leaf 和 checked 参数使用生产定义性，运行 ordered capture／双 gate
 scope／namespace 的静态证据，并由实际检查接受生产当前入口的 observers 和
 初始 prefix；两项具体 header 定律复用实际 raw receipts。代码对 observer ghost
 fields 不敏感，有完整 AST 等式；入口 ROW0 通过 runtime gate 检查而非 context
-语义前提。37 端点审计通过。下一项 helper 准备、完整 scan／candidate factory
-及语言安装；entry site 不等于完整 guarded rule。
+语义前提。37 端点审计通过。[完整 physical guard 后继](nested-constant-physical.md)
+已执行 helper 准备并填入全部 outer inputs；接受生产真实 canonical/Loop source
+执行，明确 model entry 到 actual guard exit 的 frame。39 端点审计通过。语言
+服务原有实现被 domain 实例消费；kernel 不变。安全域为原源 silent normal
+completion，candidate 跨入口、dependency/alias guard 与 host progress/divergence
+安装仍须完成；完整 header-stability guard 不等于完整 guarded candidate rule。
 `ENCODE`／`PRESERVE` 等参数本身仍不是能力，须逐个
 记录其 producer；这次没有把未完成的整段 guard／factory 计作已经自动取得。
 
