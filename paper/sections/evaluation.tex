@@ -465,6 +465,15 @@ cursor-loop construction. They do not execute generated Clight or assembly.
 This stage supplies component execution transport but adds no installed loaded
 tensor optimizer, full-program calls or cost measurement.
 
+The loaded-column successor has a separate 37-endpoint audit over 452
+dependencies, with 13 closed endpoints and at most six existing CompCert
+globals. It adds no axiom. Actual Clight fixtures prove an accepting two-column,
+five-component scan, alias refusal, original completion with potentially
+changing loaded bounds, and the same original/cached exit temporaries and memory.
+A zero-column fixture skips an undefined load and an undefined Boolean.
+This stage proves the current-row step for the outer prefix; it adds no complete
+outer scan, installed compiler, native calls or cost measurement.
+
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment
 has no confidence intervals or break-even inference. Extend the supported source class

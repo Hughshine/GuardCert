@@ -6,6 +6,14 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [loaded-column service](../docs/tensor-word-column.md) proves actual private
+column/component scans, accepted original/cached child-loop execution and the
+current-row step of the outer original prefix. Its 37-endpoint/452-dependency
+audit adds no globals. Real-memory fixtures cover acceptance, alias refusal,
+the same source/cached exit and zero-column skipping of undefined checks.
+Full outer scanning and the loaded/dynamic compiler remain pending; this stage
+adds no native calls or cost results.
+
 The [tiled successor](../docs/narrative-to-tiling-integration.md) connects actual
 Pluto tiling and prepared codegen to the selected compiler. It preserves raw
 codegen output and proposes an automatic affine bound adaptation, then checks

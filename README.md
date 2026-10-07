@@ -9,6 +9,12 @@ guard／原源回退→selected host→Csem→Asm。候选由真实生成结果�
 证明责任沿narrative澄清。Loaded bounds／动态layout的同路径组合和成本仍待
 推进，完整目标active。
 
+[Loaded column扫描](docs/tensor-word-column.md)已在动态word地址下证明完整
+column／component私有扫描、接受后的原源／cached child-loop同出口执行，以及
+当前行接受后推进原outer前缀。独立37端点／452依赖审计无新增公理；实际内存
+接受／alias拒绝和零列跳过未定义检查通过。完整outer扫描、canonical模型和
+loaded tensor编译器仍待接通，本阶段没有新C／Asm调用或成本结果。
+
 [前一多面体流水线](docs/connected-polyhedral-pipeline.md)已接通一个有界实例：
 标注C经实际提取、OpenScop／Pluto、验证和PolCert prepared codegen，生成候选
 Loop，再接既有guard、原源回退与Csem→Asm证明。桥接2端点／88依赖审计无新增

@@ -1,5 +1,17 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[loaded column 扫描](tensor-word-column.md)已补齐当前行的完整
+column／literal-component私有扫描、逐列原源前缀推进、完整接受后的实际cached
+child-loop执行，以及接受当前行后推进原outer前缀。检查许可仍来自原源执行，
+不预设cached源可执行。独立37端点／452依赖审计通过，13闭合端点，其余最多
+六项既有CompCert globals，无新增公理；真实内存接受／alias拒绝、原loaded
+child-bound可能变化时的完成执行、同出口cached执行和零列跳过未定义检查均已
+证明。最小kernel、旧报告和未跟踪草稿保持；没有新增compiler／C／Asm／cost。
+**下一项是用当前行step执行完整outer扫描，导出整个nested cached源与canonical
+tensor对应，再接真实candidate、完整guard、data factory和selected Csem→Asm。**
+首点、component或column服务均不当作loaded／dynamic整程序集成完成。
+完整目标active；下面保持narrative验收顺序和历史阶段范围。
+
 2026-10-07 本轮重新fetch并读完narrative与context-lifting：远端仍是
 `12419c1e1e3da450bf378742a2fb4e204e51e060`，两个正文与main一致。
 以下顺序落实澄清，不新增kernel接口或要求使用者手填四份语义callback。

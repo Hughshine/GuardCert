@@ -1249,6 +1249,55 @@
         "docs/narrative-to-tiling-integration.md",
         "docs/current-work-plan.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Source-licensed loaded-column and literal-component private scans derive actual cached child-loop execution and advance the original outer prefix after current-row acceptance. Real-memory fixtures cover acceptance, alias refusal, changing-bound source completion, identical original/cached exits and zero-column skipping of undefined checks. Full outer scanning, canonical tensor/candidate transport and loaded/dynamic compiler installation remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorWordColumn.v",
+          "name": "tensor_word_column_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumn.v",
+          "name": "tensor_word_column_accepted_source_transport"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumn.v",
+          "name": "tensor_word_column_current_row_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumn.v",
+          "name": "tensor_word_column_first_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumn.v",
+          "name": "tensor_word_column_empty_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumnExample.v",
+          "name": "twc_original_source_complete"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumnExample.v",
+          "name": "twc_actual_acceptance"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumnExample.v",
+          "name": "twc_actual_alias_refusal"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumnExample.v",
+          "name": "twc_actual_cached_source"
+        },
+        {
+          "source": "prototype/interface/ClightTensorWordColumnExample.v",
+          "name": "twc_empty_skips_undefined_check"
+        }
+      ],
+      "documents": [
+        "docs/tensor-word-column.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -3588,14 +3637,14 @@
     ]
   },
   "annotated_polyhedral_integration": {
-    "status": "first marked literal-tensor affine scheduler/codegen slice connected; checked tiling and broader model extraction pending",
+    "status": "marked literal-tensor affine scheduling and checked tiling/codegen connected; combined loaded headers/dynamic layout and usability pending",
     "review": "docs/narrative-pipeline-review-2026-10-07.md",
     "default_selection": "#pragma scop / #pragma endscop; selected-site identity must constrain installation",
-    "current_native_candidate_producer": "actual extracted canonical source -> OpenScop/Pluto (+ optional access-matrix layout phase) -> verified affine validation -> proved prepared codegen -> checked generated Loop",
+    "current_native_candidate_producer": "actual extracted canonical source -> OpenScop/Pluto affine and tiling phases -> checked imports/validators -> prepared codegen -> untrusted affine bound adaptation -> checked actual candidate Loop",
     "external_scheduler_connected": true,
     "prepared_optimizer_called_by_native_C_driver": false,
     "annotated_region_frontend_installed": true,
-    "new_whole_program_endpoint": "ClightSelectedTensorLiteralCompiler.compile_selected_tensor_literal_regions_correct",
+    "new_whole_program_endpoint": "ClightSelectedTensorGeneratedCompiler.compile_selected_tensor_generated_regions_correct",
     "native_connected_pipeline_evidence": true,
     "acceptance": [
       "retained phase IRs and validator outcomes",
@@ -3608,12 +3657,11 @@
     "selected_only_installation_proved": true,
     "instruction_openscop_export_connected": true,
     "verified_Cabs_selection_pass": false,
-    "stage_document": "docs/connected-polyhedral-pipeline.md",
+    "stage_document": "docs/narrative-to-tiling-integration.md",
     "prepared_codegen_called_by_native_C_driver": true,
-    "connected_stage_document": "docs/connected-polyhedral-pipeline.md",
-    "connected_stage_evidence": "connected_affine_pipeline_stage",
+    "connected_stage_document": "docs/narrative-to-tiling-integration.md",
+    "connected_stage_evidence": "connected_tiled_stage",
     "remaining_obligations": [
-      "checked tiling transition and generated point/reindex/progress bridge",
       "loaded-header/dynamic-layout source/model transport through real pipeline",
       "guard cost, acceptance, code size and paired full-call timings",
       "fresh empty-tree scheduler build recipe replay"
@@ -3691,5 +3739,29 @@
     "native_report_sha256": "7c35aeb104297c1d81f1cd639aa17a574a82425783bf293ee4140c61ef93c80b",
     "assembly_calls": 648,
     "clight_dispatch_calls": 288
+  },
+  "tensor_word_column_stage": {
+    "proof_report": "build/tensor-word-column/proof/report.json",
+    "proof_report_sha256": "bb766431372686764d500c57b0cd0b6982e050cbdca1435ddf63b967281dd328",
+    "queried_endpoints": 37,
+    "required_dependencies": 452,
+    "closed_endpoints": 13,
+    "maximum_endpoint_globals": 6,
+    "additional_global_axioms": [],
+    "minimal_kernel_changed": false,
+    "actual_column_scan_proved": true,
+    "accepted_original_column_transport_proved": true,
+    "accepted_current_row_advances_outer_prefix_proved": true,
+    "same_exit_cached_source_fixture_proved": true,
+    "empty_column_skips_undefined_checks_proved": true,
+    "complete_nested_scan_proved": false,
+    "loaded_bound_dynamic_layout_composition_completed": false,
+    "new_whole_program_entrypoint": null,
+    "C_or_assembly_evidence_added": false,
+    "cost_or_profitability_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_column.py",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_word_column.py --validate"
+    ]
   }
 }
