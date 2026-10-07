@@ -1,12 +1,12 @@
 # Narrative 澄清的实现核对与下一项验收
 
-2026-10-06。面向框架使用者及实现者。重新 fetch 后，
+2026-10-07 更新。面向框架使用者及实现者。重新 fetch 后，
 `origin/topdown/research-positioning` 为 `271f6fc`；主线的
 [paper narrative](topdown/paper-narrative.md) 和
 [context-lifting](topdown/context-lifting.md) 正文与该分支一致。
-正文无差异。本次按实现 `db6704c` 复核；早先 `7d94d81` 核对后的
-root-loaded 接入和 constant-body 权限桥已有后继结果，以下更新到当前范围。
-本次是责任与验收核对，没有新增功能、证明或运行测量。
+本次按实现 `ea55a6f` 复核。原 `db6704c` 的核对已有 BODY／inner loop 后继；
+下表更新到当前消费者，不再用当时的缺口描述已经接通的 inner scan。
+此次重新阅读与计划更新没有新增功能、证明或运行测量。
 
 后继实现已连接 [constant BODY joint scan](constant-body-joint-scan.md)：从真实原
 BODY permissions 许可写地址与两个观察地址的实际比较；接受后生产所有 BODY
@@ -16,8 +16,35 @@ stores／实际 scan fixture 通过。以下责任表按该消费者更新；原
 
 2026-10-07 后继 [inner 短路扫描](constant-joint-inner-scan.md)已证明实际 loop、
 first refusal／empty execution，并从整行接受直接生产全 column preservation 和
-outer-prefix advance。14 端点审计通过。下表保留前一 BODY 阶段的责任快照；
+outer-prefix advance。14 端点审计通过。下表已按这个消费者更新责任与剩余缺口；
 当前未完成项是实际 outer runtime loop、完整模型与原 AST／compiler 安装。
+
+## 重新阅读后的执行决策
+
+三方责任是代码与证明的归属；四个 `C_opt`／`C_derive`／`C_guard`／`C_host`
+是逻辑环节，两者没有一一对应关系。比如一个安全比较会同时用语言的 pointer
+definedness 定律和 domain 的 reached-write receipt。`C_host` 的 guarded-choice
+分派也不等于 whole-program installation；后者还消费 region 与具体 site 证据。
+不增加四个需要用户手写的 record 作为默认使用流程。
+
+当前下一项保持为 domain 的真实 outer scan，复用现成语言服务和 inner producer，
+不因这次澄清扩大 kernel。需交付的结论是：每个实际到达的 row 检查有许可；
+拒绝不探测下一 row；整段接受生产所有 `(row,column)` 的观察保持，足以填入
+`nested_expression_initial_cached` 的 `PRESERVE`。不能以一个新的同名语义回调
+替代这项生产证明。
+
+这里有两份不同的状态：原源 prefix 在执行过 stores 的 memory 中，guard 在原
+入口 memory 中用 private cursors 读地址。逻辑 row／column 与 private cursors 的
+word 对应、受保护参数／指针的 frame 都须实际建立；权限运输只能给比较许可，
+不能给未来 header 稳定性或完整 cached execution。Empty outer 不读取 child，
+empty child 不要求 BODY 参数／output pointer；负的 computed count 的保守回退策略
+须由实际入口 gate 明确，不能以非负数学域代替原 machine test。
+
+沿 narrative 第 8 节，先闭合这个约定范围的功能链；随后在同一 source／candidate
+上替换或补充 certified compact 条件。验收分别记录代码大小、检查工作与计时、
+有用接受域，且追踪替换条件时是否复用原候选与安装证明。同例作者负担区分数据
+提案、checker 自动证明、手写语义桥和新增 language 定律；端点数量不代表复用收益。
+这些仍是未完成项，已有 cursor scan 不作为它们的替代证据。
 
 ## 本轮澄清的执行含义
 
@@ -104,7 +131,7 @@ for (int i = 0; i < *bound; ++i)
 | --- | --- | --- |
 | 有序读取 | `nested_expression_capture_execution`：outer 活动才读取 child，保持原 source public 执行 | 具体 site 绑定实际两个 header expressions、类型、freshness；不是任意 dependent preload |
 | 已到达子域的权限 | `constant_body_joint_scan_execution` 已把原 `<5` BODY capabilities 接到全部写地址与 observer expressions 的实际比较 | Factory 仍须生产 checked leaf、scope／freshness 和原源绑定；权限不带回已改写数据，也不许可下一 column |
-| 接受与推进 | `constant_body_joint_scan_inner_advance` 已从完整子域覆盖／接受导出全部 observations 保持，填入内层推进；outer prefix 服务已有 | Domain 组装实际 inner/outer 短路循环、足够 coverage／fuel，整 row 接受才推进 outer；当前 BODY 内部比较继续累积拒绝 flag |
+| 接受与推进 | `constant_joint_inner_loop_execution` 已运行真实 inner scan；`constant_joint_current_row_execution` 生产全 column preservation 与 outer-prefix advance；first refusal／empty execution 有独立端点 | Domain 将这个 producer 接到实际 outer 短路循环，证明全部 rows coverage／fuel；每 row 接受才取得下一 prefix，拒绝后不读下一 row |
 | 缓存模型与候选 | `nested_expression_initial_cached` 和 private model-bound 桥分别已有；旧 candidate checker 可复用 | Domain 组装接受后的完整 canonical model 与 cross-entry candidate execution，不能先假设缓存源完成 |
 | 整程序安装 | 原 root-offset compiler 的具体语言 host 已有 | Factory／site 核对新 original AST、typed pool、scope／progress／placement 和 fallback；语言 host 消费这些证据，随后提取并验收原 Figure 2 适配 C |
 
@@ -114,9 +141,9 @@ for (int i = 0; i < *bound; ++i)
 
 ## 已纳入活动目标的验收顺序
 
-1. 单个 reached BODY 的两个观察比较和内层推进证据已完成；下一项将它接到
-   实际 inner/outer 短路循环。未到达 child 时不得读取 child cache；numeric
-   接受不代替稳定性。
+1. 单个 reached BODY 的两个观察比较、实际 inner scan 和整行推进已经完成；
+   下一项连接实际 outer 短路循环及全部 rows 的 preservation。未到达 child
+   时不得读取 child cache；numeric 接受不代替稳定性。
 2. 每个 BODY 的实际读写许可其内部全部比较；只有检查成功才能扫描下一
    BODY。Domain 另证跨 column/row 的完整覆盖和足够 scan fuel；入口的某个
    cell 有权限，不代表整个数学包络都可安全比较。

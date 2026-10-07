@@ -9,9 +9,14 @@ temps 分开；first refusal 和 empty child 的真实执行端点已证明。
 下一实现是实际 outer 短路扫描及完整 rows 覆盖，再组装接受后的 cached model、
 原 AST／typed pool／候选／host 和完整 compiler。没有新提取或 native，goal active。
 
-本轮重新读取 narrative `271f6fc`，main 正文无差异；
-[责任／实现核对](narrative-implementation-check-2026-10-06.md)记录 `db6704c` 的复核及
-下述实际 BODY 消费者的后继进展。
+本轮重新 fetch／完整读取 narrative `271f6fc` 及 context-lifting，main 正文无差异；
+[责任／实现核对](narrative-implementation-check-2026-10-06.md)已按 `ea55a6f` 更新到
+实际 inner 消费者，消除把已接通 inner scan 列为待办的旧状态。
+三方证明归属与四个逻辑证书环节分开；实际 guarded-choice 分派不代替整程序安装。
+下一 outer 任务必须由 inner producer 生产全部 rows 的 preservation，填入现有
+cached-source transport，不新增一个要求使用者假定它的 `PRESERVE` 回调。
+原 source memory／guard-entry memory、private cursor 对应、empty outer／child
+读门控和负 computed count 的实际回退策略分别验收。
 继续把 kernel、条件库、language host 和具体 optimizer/site 的责任分开；
 不把 `ENCODE`／coverage／`PRESERVE` 参数计作已实现 producer。
 Reached constant body 许可的双观察 joint scan 和接受后的 inner-prefix preservation

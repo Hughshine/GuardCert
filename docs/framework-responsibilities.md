@@ -1,11 +1,11 @@
 # 验证责任、证书边界与最难的验收
 
-这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日重新 fetch 到 `271f6fc`，main 正文一致。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 7 日重新 fetch 并读完 `271f6fc`，main 正文一致。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
 最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。
 
-[当前源码核对](narrative-implementation-check-2026-10-06.md)保留 `db6704c` 的复核，
-并记录 [实际 BODY joint scan](constant-body-joint-scan.md) 的后继连接。语言库提供
+[当前源码核对](narrative-implementation-check-2026-10-06.md)已更新到 `ea55a6f`，
+并记录 [实际 BODY joint scan](constant-body-joint-scan.md) 和 inner loop 的连接。语言库提供
 observer expression receipts、真实 pointer comparison、private Boolean 积累和
 store-load 保持；domain 从已到达的原 `<5` BODY 许可全部写地址比较，证明完整
 子域覆盖和接受后保持所有 observations，填入 inner-prefix preservation／advance。
@@ -85,6 +85,11 @@ Clight 的 readonly tree／单 Boolean realization 与循环式私有 footprint 
 `check_safe` 使用覆盖已到达 `eval_expr`、if 测试和有限 loop 续行的归纳判断；它不是完成见证的改名。实际 bounded scan 的既有执行与确定性可构造该判断，再由语言定理推出可用性。保护集同时覆盖公开入口与前提所依赖的 header、参数和 pointer binding，语言无需知道这些维度的具体意义。局部保持接口观察完成的 silent normal region，完整程序结论是 backward simulation；没有新增任意无限 pointer fallback 宿主。38 个端点和实际运行的证据见 [阶段记录](research-checkpoint-2026-10-06-private-scan-compiler.md)。
 
 ## 2. 四张证书与一个安全域
+
+下面四项是逻辑环节，与上述三方责任不是一一对应，也不要求每个使用者手填
+四份 record。库与 checker 可以共同生产一个环节的证据。这里 `C_host` 表示
+实际 guarded choice／checked-state 运输；region 安装与具体 rewrite site 的合法性
+仍在后续独立验证，不能把分派 law 当作整程序定理。
 
 对真实 source S、candidate T，区分局部／模型义务 A、入口语义条件 B、实际 guard G，以及 G 可以有定义地执行的域 D：
 
