@@ -319,20 +319,26 @@ domain services. List the site-specific assumptions and source/model bridges
 still supplied by the author. Compare a common example against the nearest
 existing interfaces before claiming reduced proof burden.
 
-\paragraph{Dynamic-layout candidate services.}
+\paragraph{Dynamic-layout source and candidate services.}
 Separate library proofs connect logical coordinate vectors to runtime row-major
-layouts and actual CompCert pointer/load/store operations. A read-only volume
-guard checks positivity and quotient bounds before accumulating products.
-The successor connects vector affine read/modify/write lowering and the existing
-affine/tiling checkers to actual candidate Clight execution, preserving layout
-temporaries and complete memory. Its audit covers 66 endpoints, including the
-previous 33 service endpoints, with no added global axioms. Candidate theorems
-inherit the existing checker baseline. An extracted checker/lowerer passes seven
-cases, including accepted three-dimensional RMW identity and tiling candidates.
-This harness does not execute the generated statements. Original-source
-dimension readiness, coordinate coverage, source/model correspondence, public
-exits, and host installation remain unfinished. The volume guard alone does not
-justify those obligations. These results add no source-to-assembly or native
+layouts and actual CompCert pointer/load/store operations. For positive
+rectangular, temporary-bound nests with one tensor assignment at the leaf, an
+adapter decodes actual Horner-address Clight execution into the memory model.
+The existing affine/tiling checkers and concrete lowering then produce candidate
+execution with the same complete memory; restoration from original count
+temporaries preserves public iterator exits. A read-only layout condition derives
+dimension-read safety from original silent normal completion. Empty outer loops
+refuse before reading undefined stride or RHS inputs. The volume guard checks
+positivity and quotient bounds before accumulating products. A separate
+mathematical interval-box checker covers all read/write coordinates, including
+negative affine coefficients; volume acceptance alone does not justify coverage.
+The audit covers 111 endpoints (45 added to the candidate-backend stage), with no
+added global axioms; candidate theorems inherit the existing checker baseline.
+Twelve extracted checks exercise source recognition, coordinate
+acceptance/refusal, and candidate validation/lowering. They do not execute
+generated Clight. Machine lowering of the complete coordinate condition,
+literal-bound frontend transport, a checked region factory, and host installation
+remain unfinished. These library results add no source-to-assembly or native
 program evidence to the compiler measurements above.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or

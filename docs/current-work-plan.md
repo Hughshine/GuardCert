@@ -1,5 +1,16 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[原 Horner tensor 源](tensor-original-source.md)已从真实原 Clight
+execution 生产模型，连接 affine／tiling candidate 并恢复公开 iterator exits；
+source-derived readonly layout condition 以原 silent normal completion 许可读取。
+111 端点＝旧 66＋新 45／291 依赖审计、12 项提取检查通过；无新 kernel／整程序
+compiler。数学 BOX 覆盖每个 read/write 的全部活动坐标，但尚未编码为机器 guard。
+当前为 positive rectangular temp-bound nest、单 leaf operation、一个 tensor；
+literal `<5` transport、region factory／private resources／progress／placement 与
+Csem→Asm 继续沿 [checkpoint](research-checkpoint-2026-10-07-tensor-source.md)验收。
+Narrative 远端重新 fetch 仍为 `271f6fc`，main 正文相同。三方责任／四条链保持；
+不把源模型假设、guard-only certificate 或可运行 checker 当成完整安装。完整目标 active。
+
 2026-10-07 当前：[动态 tensor candidate backend](dynamic-tensor-backend.md)已完成
 vector affine read／RMW lowering、runtime layout 参数保护、实际 guard 到 registry
 nonalias，以及原 affine／tiling checker 到实际 Clight candidate execution 的连接。

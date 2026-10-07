@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 当前：[原 tensor 源 producer](tensor-original-source.md)继续落实 narrative：
+Clight 库证明实际 Horner operands／load/store 的反推、原源许可的短路 layout guard
+和实际 count-temp restoration；domain 从真实源 execution 生产模型并消费数学
+坐标 BOX、原 affine／tiling checker。Framework kernel 保持。源端不再要求假设
+Loop execution，公开出口已与候选连接；C_guard 尚只覆盖 layout，BOX 的机器编码
+和新的 C_host 安装仍未闭合。使用者目前仍提交结构、binding、profile 等明确证明，
+region factory 的自动生产尚待实现。111 端点／12 项提取通过；无新完整 C/native。
+详见 [checkpoint](research-checkpoint-2026-10-07-tensor-source.md)。
+
 2026-10-07 当前：[动态 tensor backend](dynamic-tensor-backend.md)按 narrative 的
 三方责任接通实际 lowering 与原 affine／tiling checker。语言库生产维度 word、
 真实指令／循环执行和 protected temp frame；domain 消费布局 nonalias 及 verified

@@ -6,16 +6,18 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
-The latest [dynamic-tensor checkpoint](../docs/research-checkpoint-2026-10-07-tensor-backend.md)
-connects vector affine read/modify/write lowering and the existing affine/tiling
-checkers to actual candidate Clight execution. The audit covers 66 endpoints,
-including the previous 33 layout/access/volume-check endpoints. An extracted
-checker/lowerer prototype passes seven cases, including accepted three-dimensional
-RMW identity and tiling candidates. It does not execute the generated statements.
-Original-source receipts, complete coordinate conditions, public exits, and a
-new whole-program compiler connection remain unfinished. The narrative has been
-re-read at `271f6fc`; the kernel boundary and proof-first/usability requirements
-continue to guide these deliverables.
+The latest [tensor-source checkpoint](../docs/research-checkpoint-2026-10-07-tensor-source.md)
+decodes actual Horner-address Clight nests into the memory model, connects the
+existing affine/tiling checkers to candidate execution, and restores public
+iterator exits. A source-derived read-only layout guard refuses empty outer loops
+without reading undefined stride/RHS inputs. A mathematical interval checker
+covers all active read/write coordinates. The audit covers 111 endpoints, including
+45 new endpoints; twelve extracted source/coordinate/candidate checks pass.
+They do not execute generated Clight. The complete coordinate condition still
+needs machine lowering; literal-bound frontend transport, a checked region
+factory, and a new whole-program compiler connection remain unfinished. The
+narrative has been re-read at `271f6fc`; the kernel boundary and
+proof-first/usability requirements continue to guide these deliverables.
 
 The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
 uncompleted results. An exploratory complete-call experiment now records 30

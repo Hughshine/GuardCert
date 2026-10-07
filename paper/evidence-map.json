@@ -894,6 +894,40 @@
         "docs/dynamic-tensor-backend.md",
         "docs/research-checkpoint-2026-10-07-tensor-backend.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Original Horner tensor source execution produces the model, checked candidates restore public exits, and source-derived readonly layout safety is proved; mathematical coordinate coverage is separate from its pending machine encoding and host installation.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryTensorSourceRegion.v",
+          "name": "tensor_source_region_decode"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryTensorSourceRegion.v",
+          "name": "tensor_source_operation_box_sound"
+        },
+        {
+          "source": "prototype/interface/ClightTensorSourceCandidates.v",
+          "name": "tensor_original_mapped_restored"
+        },
+        {
+          "source": "prototype/interface/ClightTensorSourceCandidates.v",
+          "name": "tensor_original_tiled_restored"
+        },
+        {
+          "source": "prototype/interface/ClightTensorSourceGuard.v",
+          "name": "tensor_source_layout_condition"
+        },
+        {
+          "source": "prototype/interface/ClightTensorSourceExample.v",
+          "name": "tensor_source_demo_empty_guard_falls_back"
+        }
+      ],
+      "documents": [
+        "docs/tensor-original-source.md",
+        "docs/research-checkpoint-2026-10-07-tensor-source.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2145,6 +2179,36 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_backend.mk prototype",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_backend.mk validate"
+    ]
+  },
+  "original_tensor_source_stage": {
+    "proof_report": "build/tensor-original-source/proof/report.json",
+    "proof_report_sha256": "2ff5cae0461440cc9d5c76c5872db90a2736f4c4d2b72ea8d5ea1f6ca8839c94",
+    "proof_endpoints": 111,
+    "new_endpoints": 45,
+    "required_closure_count": 291,
+    "closed_endpoints": 53,
+    "maximum_endpoint_globals": 14,
+    "original_source_correspondence_proved": true,
+    "source_defined_guard_readiness_proved": true,
+    "public_iterator_restoration_proved": true,
+    "runtime_coordinate_condition_installed": false,
+    "literal_bound_transport_connected": false,
+    "original_source_adapter_installed": false,
+    "source_selector_installed": false,
+    "whole_program_compiler_installed": false,
+    "kernel_changed": false,
+    "extraction_report": "build/tensor-original-source/extracted/report.json",
+    "extraction_report_sha256": "e916cdfb9986399466d056d0670e39433ea2962d977e00c311f774f1d2d7568a",
+    "extracted_cases": 12,
+    "generated_statements_executed": false,
+    "machine_coordinate_guard_executed": false,
+    "C_or_assembly_evidence_added": false,
+    "profitability_measured": false,
+    "proof_burden_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_source.mk prototype",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_source.mk validate"
     ]
   }
 }

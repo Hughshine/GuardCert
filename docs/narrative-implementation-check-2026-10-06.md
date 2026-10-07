@@ -1,5 +1,14 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 当前核对：[原 Horner tensor 源](tensor-original-source.md)补上了真实
+source execution→model→checked candidate 的桥，并连接 public iterator restoration。
+新 readonly layout condition 的 D 来自原正常完成，不提前假设 stride 已定义；
+空 outer、缺 stride/RHS 参数的实际 guard 拒绝已证明。数学 BOX 与机器 guard
+明确分开，后者、literal-bound transport、完整 factory／C_host 安装仍待完成。
+111 端点＝旧 66＋新 45／12 项提取通过；kernel 不变。重新 fetch narrative 仍为
+`271f6fc`、main 正文相同，三方责任／四条链与 proof-first/usability 要求继续保持。
+[本轮 checkpoint](research-checkpoint-2026-10-07-tensor-source.md)将余下难点具体排入计划。
+
 2026-10-07 当前核对：重新 fetch 的 narrative `271f6fc` 与 main 正文一致，澄清
 commits 和 context-lifting 说明已读完。[本轮吸收表](research-checkpoint-2026-10-07-tensor-backend.md)
 将最小 kernel、三方责任／四条链、proof-first 与 OLO usability 写成实际验收。

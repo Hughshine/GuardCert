@@ -1,5 +1,11 @@
 # Guard：带前提的程序变换与组合证明
 
+[最新原 tensor 源](docs/tensor-original-source.md)已将真实 Horner 地址和原 Clight
+execution 接到模型／checked candidate，并证明公开 iterator 退出值恢复。
+Source-derived readonly layout guard 在空 outer 时不读未初始化 stride／RHS 参数。
+111 端点（45 新增）／291 依赖审计和 12 项提取检查通过；完整坐标 guard 的机器
+编码及新 factory／Csem→Asm 安装仍待完成。Narrative 已重新同步，完整目标 active。
+
 [最新动态 tensor backend](docs/dynamic-tensor-backend.md)已将 vector affine
 read／RMW、runtime layout、实际 Clight lowering 接到原 affine／tiling checker。
 新旧 66 端点／238 依赖审计通过，零新增公理；七项 checker／lowerer 提取运行
