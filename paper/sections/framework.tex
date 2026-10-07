@@ -90,6 +90,14 @@ The kernel can consume the resulting certificate for $P=A$ without knowing how
 $B$ was proposed. A transformation may supply a proof directly or submit an
 untrusted candidate and witness to a verified checker.
 
+These links must also justify the domain $D$ on which checking is safe.
+For loaded loop bounds, $D$ must come from the original source and its reached
+accesses. It cannot assume the header stability or full cached-loop execution
+that the check is meant to establish. A typed obligation such as
+\code{ENCODE}, footprint coverage, or observation preservation still needs an
+actual producer. A language or domain library may discharge it once for a
+supported source class; the generic record alone does not provide that service.
+
 Reusable condition services sit above the kernel. For example,
 \code{sequence_readonly_conditions} composes a first check on $D$ with a second
 check certified on $D\land P_1$. A refused first stage skips the second;
@@ -112,6 +120,10 @@ it requires legal placement and admissibility of the actual replacement. It
 does not prove that an arbitrary context preserves an arbitrary local relation.
 The concrete Clight hosts establish control, private-resource, and progress
 conditions and then compose with the CompCert backend.
+The optimizer proves that its region satisfies the chosen host contract; the
+rewrite site supplies the required scope, placement, and resource evidence.
+Contract-clause factoring remains a design question, rather than an implemented
+generic installation algorithm.
 
 Repeated rewrites are checked against their actual intermediate programs.
 The read-only frontend's \code{certified_rewrite_sequence_equivalent} composes
@@ -127,11 +139,11 @@ without showing that their requirements still hold.
   >{\raggedright\arraybackslash}p{.35\textwidth}
   >{\raggedright\arraybackslash}p{.36\textwidth}}
 \toprule
-Party&Supplies once or as a reusable library&Supplies for a transformation/site\\
+Party&Reusable responsibility&Concrete evidence or input\\
 \midrule
 Kernel&Certificate interfaces and local composition&Consumes certificates for actual code/checks\\
-Language/IR&Execution, primitive safety, dispatch, frames, installation laws&Site evidence satisfying host contracts\\
-Domain implementer&Candidate checker, range/footprint and assumption services&Source/model bridge, sufficient premise, candidate and placement data\\
+Language/IR&Execution, primitive safety, dispatch, frames, installation laws&Consumes region and site evidence satisfying host contracts\\
+Domain implementer&Candidate checker, range/footprint and assumption services&Source/model bridge, sufficient premise, candidate data\\
 \bottomrule
 \end{tabular}
 \end{table}

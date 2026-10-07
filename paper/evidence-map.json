@@ -57,6 +57,28 @@
       ]
     },
     {
+      "section": "framework",
+      "claim": "For loaded-source instances, safe checking domains are justified from the original source; execution encoding and cross-entry preservation are caller obligations, discharged by concrete language/domain producers rather than generic record fields.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightMaterializedCertificate.v",
+          "name": "materialized_execution_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightMaterializedPreservation.v",
+          "name": "materialized_preserving_rule"
+        },
+        {
+          "source": "prototype/interface/ClightConstantBodyCapabilities.v",
+          "name": "constant_affine_prefix_body_capabilities"
+        }
+      ],
+      "documents": [
+        "docs/narrative-implementation-check-2026-10-06.md",
+        "docs/framework-responsibilities.md"
+      ]
+    },
+    {
       "section": "case-study",
       "claim": "Installed loaded-root-plus-offset affine compiler has an actual Csem-to-Asm backward simulation.",
       "theorems": [

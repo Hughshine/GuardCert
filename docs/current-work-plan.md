@@ -1,5 +1,13 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+本轮重新读取 narrative `271f6fc`，main 正文无差异；
+[责任／实现核对](narrative-implementation-check-2026-10-06.md)已更新到 `db6704c`。
+继续把 kernel、条件库、language host 和具体 optimizer/site 的责任分开；
+不把 `ENCODE`／coverage／`PRESERVE` 参数计作已实现 producer。
+下一实现仍是 reached constant body 许可的双观察 joint scan，随后组装接受后的
+cached model 与原 AST 安装。功能链闭合后验收 compact 条件、成本／接受域和
+同例作者责任；相关里程碑同时更新实际稿件，不等待全部未来扩展。
+
 新增 [常量子循环模型／权限桥](constant-bound-model.md)：private helper 初始化有实际
 Clight 执行和原 source public transport；原 literal-bound 子循环完成导出 affine 模型
 及全部点在 guard entry 的 permissions，不预设 enclosing loaded headers 稳定。

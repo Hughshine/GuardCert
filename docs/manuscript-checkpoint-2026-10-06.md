@@ -65,3 +65,19 @@ overfull；这些是构建过程，不是实验结果。Docker image 查询未�
 BODY →all-observation physical scan →nested cached model →original AST factory／
 Csem→Asm／native，再验收 compact sufficient condition、guard 工作量和运行成本。
 接口、论文与成本测量保持同一个源范围，不延迟所有正文到功能完成之后。
+
+## Narrative 责任澄清的后续复核
+
+再次 fetch 后远端仍为 `271f6fc`，main narrative 和 context 正文与其一致。
+[实现责任核对](narrative-implementation-check-2026-10-06.md)已更新到 `db6704c`，
+删除单 loaded 根 numeric producer 仍未完成的过时表述，保留第二 header 的
+实际 joint scan／安装缺口。Framework 正文新增 original-source 安全域与具体
+producer 的责任；表格明确语言安装定理消费 region/site 证据。Evidence map
+绑定实际 certificate、preserving rule、constant-body capabilities 和两份责任文档。
+
+同一 offline 命令重建通过，仍为 10 页；无未解析引用或 overfull box。
+渲染检查修改后的第 4、5 页，表格、公式和段落无截断或重叠。
+本轮 `build/paper/report.json` SHA-256：
+`c650d7cc5462e52a40c54ae5655627da1ddfa62e784aff30b119de831f15174e`。
+文档 links、JSON 和 `git diff --check` 通过。本轮没有修改 kernel／证明源码，
+没有重跑 Rocq、提取、native 或计时；不增加功能或实验结果。

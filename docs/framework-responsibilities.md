@@ -1,10 +1,21 @@
 # 验证责任、证书边界与最难的验收
 
-这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `226ba94`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日重新 fetch 到 `271f6fc`，main 正文一致。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
 最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。
 
-再次 fetch 后正文仍与 narrative `7d94d81` 一致。[本次源码核对](narrative-implementation-check-2026-10-06.md) 逐项说明 current materialized 接口消费的证明，并把下一 deep＋loaded producer 的安全循环依赖列为验收限制：D 来自原源到达的访问，完整缓存源执行只能在观察保持成立后取得，不能倒过来用于许可 guard。
+[当前源码核对](narrative-implementation-check-2026-10-06.md) 已更新到实现 `db6704c`：
+单 loaded-plus-offset 根的 recursive affine compiler 已运行；第二 loaded header 与
+原 `<5` 的完整 joint scan／canonical model／安装仍未接通。新
+[constant-body 权限桥](constant-bound-model.md)只从实际到达的子域许可 guard-entry
+cells，不假定 enclosing headers 稳定。最难连接仍是：从原源许可实际比较，接受后
+保持全部观察并推进前缀，再导出缓存源。`ENCODE`／`PRESERVE` 等参数是需要由
+实际 language/domain producer 完成的证明，不能算作框架自动提供的能力。
+
+验收继续按 `226ba94` 的 proof-first 顺序；compact 条件、实际检查成本、有用
+接受域和实例作者工作是最终要求。`271f6fc` 的并行写作已落实到
+[LNCS 稿件](../paper/README.md)，每个相关实现阶段同步正文及证据。
+以下后继段落保留各阶段的固定能力边界；当前缺口以上述核对及工作计划为准。
 
 [最新 numeric producer](research-checkpoint-2026-10-06-loaded-affine-numeric.md)已按该限制实现：语言从原 header 提供安全 capture／temp 运输与真实 first body；domain 将 receipt 接到旧递归 headers／已用参数及 numeric/profile 编码；当前 certificate 库负责 primitive safety、defined dispatch 和全部完成检查的 soundness。静态 site checker 绑定原 loaded AST 和 cache freshness。25 个新端点通过，kernel 不变。Prepared-entry snapshot 是当前读值，由 producer 取得；不是未来稳定性。扫描 coverage、字节级观察保持、conditional candidate 和实际语言安装仍是后继义务，不能从这张 numeric certificate 推出。
 

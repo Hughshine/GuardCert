@@ -1,10 +1,25 @@
 # Narrative 澄清的实现核对与下一项验收
 
 2026-10-06。面向框架使用者及实现者。重新 fetch 后，
-`origin/topdown/research-positioning` 为 `7d94d81`；主线的
+`origin/topdown/research-positioning` 为 `271f6fc`；主线的
 [paper narrative](topdown/paper-narrative.md) 和
 [context-lifting](topdown/context-lifting.md) 正文与该分支一致。
-本次核对采用其最小 kernel 截止与三方责任划分，没有新的功能或证明结果。
+正文无差异。本次按实现 `db6704c` 复核；早先 `7d94d81` 核对后的
+root-loaded 接入和 constant-body 权限桥已有后继结果，以下更新到当前范围。
+本次是责任与验收核对，没有新增功能、证明或运行测量。
+
+## 本轮澄清的执行含义
+
+最小 kernel 只证明局部 guarded correctness。条件处理库和具体 language host
+保持各自责任，不因目录或 record 名称而被算入核。`C_opt`、`C_derive`、
+`C_guard`、`C_host` 是四个逻辑环节；使用者可以通过已验证的库或 checker
+取得证据，不必重复填写四个 record，也不能省略某个环节。
+
+验收顺序沿 `226ba94`：先闭合约定范围的实际功能链，随后改进条件推导与
+生成；scan 可作中间实现。紧凑条件、运行成本、实际接受域和 per-instance
+人工工作仍是最终要求。`271f6fc` 增加并行 CAV 写作，已有
+[实际稿件](../paper/README.md)；相关里程碑同时更新正文和 evidence map。
+不等待所有未来扩展，也不把文档核对算作功能交付。
 
 ## 澄清怎样落实到现有接口
 
@@ -20,6 +35,11 @@ prefix scan、简化和条件推导属于核上的库。语言 host 另证完整
 | Clight region 库：局部到可安装契约 | 同文件的 `materialized_preserving_region_contract` 复用 temp transport 和 big-step→small-step | 作用域、源 writes、protected ports；该契约仍以 silent normal 源完成为前提 |
 | Language host＋具体 site：完整程序 | [compile_materialized_affine_regions_correct](../prototype/interface/ClightGuardedAffineNestCompiler.v) 消费 checked table、实际安装证明和 CompCert 后端 | 实际 source key、supported/progress、pool freshness、placement；局部正确性本身不免除这些证据 |
 
+当前 root-loaded-plus-offset 使用者已有
+[compile_offset_affine_multi_regions_correct](../prototype/interface/ClightGuardedLoadedOffsetAffineMultiCompiler.v)
+和提取／native 验收。它支持单个 loaded expression 根与 canonical affine
+children，不能据此声称原 Figure 2 的第二 loaded child 已安装。
+
 这些接口字段是证明义务，不能当作框架已经自动解决的功能。
 `context_certificate.lift_refinement`／`rewrite_context.rewrite_lift` 是语言定律
 的输入接口，也不能作为已完成 contextual closure 的独立证据。
@@ -28,9 +48,9 @@ Finite host 与 open host 的进展责任仍按
 
 ## 下一项的真正阻碍：安全域不能依赖缓存优化已经合法
 
-当前已接入的 deep affine 源使用稳定 temps；loaded/dependent compiler 则
-已经处理受限的两层源。把两者组合时，需要从**原 loaded 源**生产检查许可，
-再证明缓存和重排合法。
+单 loaded 根与 recursive affine body 的运行链已闭合。当前连接的是两个
+loaded headers 与第三层原 `<5` 子循环：检查许可仍须由**原 loaded 源**生产，
+随后才能证明完整缓存和重排合法。
 
 以下只是说明证明义务的 C 例子，不计为 matcher 或 compiler 的新能力：
 
@@ -55,18 +75,36 @@ for (int i = 0; i < *bound; ++i)
 它调用的
 [affine_domain_guard_execution](../prototype/affine-nest/AffineNestDomainGuard.v)
 只消费这两类 receipt，不要求完整缓存源执行。
-下一实现应从真正 loaded 源及安全 private capture 生产这些 receipt，复用
-后者的 numeric guard；这一 producer 尚未证明。
+早先要求的单 loaded 根 producer 已由
+[affine_loaded_numeric_capture_domain](../prototype/interface/ClightLoadedAffineNumericGuard.v)
+提供；后继
+[affine_captured_package_guard_execution](../prototype/interface/ClightCapturedAffineNumericGuard.v)
+从 captured words 许可 numeric probe，不要求完整 cached-source completion。
+它们只关闭对应 numeric 检查义务，不提供两项观察的实际 joint scan。
 
 [loaded_header_snapshot_read](../prototype/interface/ClightLoadedSnapshotInsertion.v)
 已提供实际首次 header 的读取许可，零次 body 也有该 header。
 同文件的 `private_source_preparation_contract` 已提供 private 初值无需一致的
 原源运输桥。二者不会自动证明未来写入不改变观察。
 
+## 当前最难连接的责任归属
+
+| 当前服务／缺口 | 已有证据 | 接下来由谁完成什么 |
+| --- | --- | --- |
+| 有序读取 | `nested_expression_capture_execution`：outer 活动才读取 child，保持原 source public 执行 | 具体 site 绑定实际两个 header expressions、类型、freshness；不是任意 dependent preload |
+| 已到达子域的权限 | `constant_affine_prefix_body_capabilities`：实际 `<5` subbody 完成和权限运输，许可其全部点在 guard entry 的 cells | Affine adapter 将这些 cells 接到实际只读比较；权限运输不带回已改写的 source 数据值，也不许可下一 column |
+| 接受与推进 | `nested_expression_prefix_open`／`nested_expression_prefix_advance` 携带实际 source memory；后一项消费整 row 的 joint preservation | Domain 证明实际 scan 覆盖全部 writes、接受保持两个 raw observations、足够 fuel 和拒绝短路，再实例化推进定理 |
+| 缓存模型与候选 | `nested_expression_initial_cached` 和 private model-bound 桥分别已有；旧 candidate checker 可复用 | Domain 组装接受后的完整 canonical model 与 cross-entry candidate execution，不能先假设缓存源完成 |
+| 整程序安装 | 原 root-offset compiler 的具体语言 host 已有 | Factory／site 核对新 original AST、typed pool、scope／progress／placement 和 fallback；语言 host 消费这些证据，随后提取并验收原 Figure 2 适配 C |
+
+上述表格列的是已有服务和待实例化义务。`BODY_CHECK`／`PRESERVE`／`ENCODE`
+有类型，不代表实际检查实现或其 producer 已完成。当前未发现必须扩充
+最小 kernel 才能表达的责任；主要工作在 language/domain 库及实际接入。
+
 ## 已纳入活动目标的验收顺序
 
-1. 从原 loaded header 和实际到达的 child/body 取得 numeric guard 所需的
-   first-path receipt。未到达 body 时保守拒绝，并核对未定义参数没有被读取。
+1. 消费已有 ordered capture 和 constant-body 权限桥，完成两个观察的实际
+   joint scan。未到达 child 时不得读取 child cache；numeric 接受不代替稳定性。
 2. 从已到达的实际读写生产物理比较许可；只有检查成功才能安全推进后续
    点。Domain 另证完整写足迹覆盖、足够 scan fuel 和观察保持。入口的某个
    cell 有权限，不代表整个数学包络都可安全比较。
@@ -78,7 +116,8 @@ for (int i = 0; i < *bound; ++i)
    pool、scope、公开出口、独立 source progress 和完整程序安装。之后才提取
    并验收真实 C 的接受、拒绝与上下文，包括 bound 被写后提前停的源。
 
-各项分别记录新语言定律、domain 证据和复用的库。当前没有发现需要修改
-kernel 的不可表达义务；contract clause factoring 保留为实际受阻案例驱动
-的设计问题。P4 计时和同例已有工作／作者责任比较继续独立验收，完整目标
-保持 active。
+各项分别记录新语言定律、domain 证据和复用的库；每个实际使用者列明数据
+提案、checker 自动取得的证明和仍需手写的语义桥。Contract clause factoring
+保留为实际受阻案例驱动的设计问题。功能链闭合后验收 compact sufficient
+conditions、P4 计时和同例已有工作／作者责任比较；代码大小、运行检查成本、
+有用接受域分别报告。完整目标保持 active。
