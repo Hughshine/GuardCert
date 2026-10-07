@@ -84,5 +84,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_
 是哪些证据已由库／checker 自动生产，哪些扩展还需要新证明；不能声称已测得
 相对其他框架的作者负担优势。OLO 的功能／算法比较和本实例成本另列。
 
+后继的[坐标次序实例](tensor-coordinate-order.md)已经换用 `[j,i,k]` 数据提案，
+并在实际两种源／单次／连续／goto上下文中复用本 proof report。它没有新增
+Rocq definition 或 semantic callback；这是一项可核对的接口使用结果，仍不是
+其他框架同例作者工时的比较。
+
 报告 `build/tensor-region-factory/ownership/report.json` 的 SHA256 为
 `18d37a4d81d17f4ef46569baddd66401d1e937a50cb3d50aca3f5509c103fe2a`。

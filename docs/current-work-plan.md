@@ -1,5 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[坐标次序实例](tensor-coordinate-order.md)已经以数据提案接入
+`[j,i,k]`，并保持旧`[i,j,k]`实际源。原181端点证明／kernel／host不变，七配置
+504汇编／216 Clight调用核对两种源、全部6,144 words、连续两site和goto／内存
+上下文；错误坐标、reindex和零tile均静态拒绝。[单独成本实验](tensor-coordinate-cost.md)
+30轮／960批次在stride<2048 profile上测得大stride输入的交换／tile完整成本为
+source的0.764／0.899倍；小输入负结果、回退和raw数据均保留。
+下一功能项：复用`constant_loop_preinitialized_model`，把实际literal `<5>`
+接到fresh typed helper准备、raw→prepared canonical source、guard exit／原AST
+fallback运输；安装实际使用已有expression-progress host。当前temp-bound host
+不能直接接受literal子循环，不能只做AST替换。随后组合loaded-bound／动态
+layout、更多body／cross-tensor alias／affine domains；source-only rebuild和
+比较作者工时仍未由这轮实测完成。完整目标active。下面是各阶段的历史状态。
+
 2026-10-07 当前：[tensor 成本](tensor-region-cost.md)已验收30轮／960 fresh-process
 batches。实际prefix无scan，三个接受输入30／1,125／4,805源点都执行39次判断；
 当前行连续RMW源的交换／tiling无净收益，所有negative results／raw data保持。

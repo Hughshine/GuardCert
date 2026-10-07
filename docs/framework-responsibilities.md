@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新：[两种坐标次序](tensor-coordinate-order.md)已在相同Rocq proof
+report下通过实际数据提案，不新增SOURCE／BOX／binding／exit callback。新原生
+矩阵和[独立成本](tensor-coordinate-cost.md)证明这个具体接口使用及声明输入的
+执行结果；不能作为任意source grammar或比较作者工时的完成证据。
+下一literal-bound扩展的责任明确落在语言准备／私有frame、domain source/model
+入口运输，以及实际expression-progress安装接线；不向kernel增加泛化规则，
+也不让site作者用待证语义callback代替这些producer。
+
 2026-10-07 当前：[tensor 责任清单](tensor-proof-ownership.md)逐项记录已有family
 的一次使用与扩展family／首次语言host的差别。39新查询端点分为10语言服务、
 14domain factory／rule、5compiler接线和10fixtures；源码LOC和endpoint counts

@@ -5,6 +5,13 @@
 并讨论机器溢出检查和按实际访问域安排预加载。这些要求仍是本项目的功能与
 可用性验收依据；当前已证明的 tensor 子集不能替代完整论文场景。
 
+后继[实际坐标次序扩展](tensor-coordinate-order.md)已在原proof report下接入
+`[j,i,k]` 数据提案并保留 `[i,j,k]` 源；[另一轮完整成本](tensor-coordinate-cost.md)
+记录大stride输入的交换收益和小输入负结果，使用单独的stride<2048 profile。
+这没有关闭下表的loaded／literal／cross-tensor／nonrectangular缺口，也没有原
+BT／Polly对跑或其他framework作者工时测量。后面的“下一项”保留本页创建时
+的判定；最新功能计划是literal-bound准备／运输／expression-progress安装。
+
 | 相同问题／验收维度 | 当前 tensor 的实际处理 | 当前缺口或区别 |
 | --- | --- | --- |
 | 动态逻辑布局与物理地址 | 真实 `((i*ld)+j)*5+k`，动态 stride，source/model/Horner 与 pointer correspondence | 一个 tensor和单 leaf；native第一个extent选源bound，不支持任意未读取的dimension参数 |

@@ -1,15 +1,22 @@
 # Guard：带前提的程序变换与组合证明
 
-[Tensor usability 实测](docs/tensor-region-cost.md)已完成同源30轮／960批次完整
+[坐标次序实例](docs/tensor-coordinate-order.md)通过不受信任数据策略接入两种
+Horner 源，复用原181端点整程序证明，没有新语义callback；504汇编／216 Clight
+调用核对完整数组、连续两次rewrite和goto／内存上下文。[完整计时](docs/tensor-coordinate-cost.md)
+另验30轮／960批次：大stride输入的交换／tile成本为source的0.764／0.899倍，
+小输入仍更慢，guard仍为39次源级判断。此次profile为stride<2048，所有负结果
+保持；下一步接入literal bound的私有准备、状态运输和progress，再组合loaded
+bounds与动态布局。完整目标active。
+
+此前[Tensor usability 实测](docs/tensor-region-cost.md)完成同源30轮／960批次完整
 调用：接受路径无pointwise guard扫描，30／1,125／4,805迭代点都执行39次
 Clight条件判断；当前行连续源的交换／tiling仍慢于source。完整RMW累积结果、
 公开状态、raw timings和负结果保持，未把guarded-source差值当作纯检查成本。
 [证明归属清单](docs/tensor-proof-ownership.md)和[OLO对照](docs/olo-tensor-comparison.md)
-已更新；下一项接入坐标次序不同的真实源，复用相同checker／host检验有利重排，
-再推进literal-bound／loaded-bound与动态布局的组合。完整目标active，见
+已保留当时的判断，后继坐标次序扩展见上段。原阶段范围及结果见
 [checkpoint](docs/research-checkpoint-2026-10-07-tensor-usability.md)。
 
-[最新 tensor 整程序接入](docs/tensor-region-compiler.md)已由原 AST／metadata 数据
+此前[tensor 整程序接入](docs/tensor-region-compiler.md)由原 AST／metadata 数据
 factory 生产 local certificate，实际消费 kernel 并通过语言 host 接到 Csem→Asm。
 前端 leaf 的 skip 运输已证明；181端点／368依赖审计、提取、216 assembly／108
 Clight dispatch calls 通过，包含真实 RMW 交换／tiling、两次 rewrite、公开出口

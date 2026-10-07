@@ -384,8 +384,8 @@ cost is about 1.14--1.22 times source on the accepted inputs; tiling costs about
 source, reflecting backend and code-layout effects. Complete-call differences
 do not isolate guard cost. All raw batches and slowdowns are retained; these
 measurements establish no representative benchmark speedup or workload
-acceptance frequency. The next experiment should use the same correspondence
-services on a source whose address/traversal order makes reordering useful.
+acceptance frequency. These results motivate testing a source whose address
+and traversal orders make reordering useful.
 
 The proof inventory separates supported-family use from developing a new domain
 or language host. Of the 39 new queried endpoints, ten concern Clight services,
@@ -397,6 +397,33 @@ theorem calls. A supported use supplies nine
 data fields and a candidate/witness rather than new SOURCE, coverage, binding,
 or exit callbacks. These counts document the concrete interface boundary;
 they do not measure author hours or comparative proof effort.
+
+A second extracted policy handles both Horner coordinate orders, including
+$((j\cdot\mathit{ld})+i)\cdot5+k$ with the original iterator order
+$i,j,k$. It proposes dimensions $[\mathit{columns},\mathit{ld},5]$ and coordinates
+$[j,i,k]$. The same data factory, guard compiler, candidate checker, kernel,
+and installation theorem consume these proposals without new Rocq definitions
+or semantic callbacks. The policy retains the original row-traversal source.
+Seven configurations give 504 assembly calls over both orders and single,
+repeated, and goto/memory contexts, each checking all 6,144 array words and
+public exits. Separate Clight probes give 216 calls; each installed
+configuration has eight sites, 28 fast dispatches, and 66 refusals. A deliberately
+wrong coordinate description installs no site, as do wrong reindexing and zero
+tile sizes. This demonstrates one concrete use of the parametric interface,
+without extending its source grammar or measuring comparative author effort.
+
+Another experiment measures this function with thirty rounds and 960 CPU
+batches under an explicit stride-below-2048 profile; the earlier experiment
+uses a different source and profile. All 160,000 array words and public exits
+are checked at each batch's actual accumulated call count. On the selected
+large-stride input, interchange's median paired complete-call cost is 0.764
+times source and tiling's is 0.899. Small-input costs remain 1.048 and 1.265;
+dense interchange is near source. Diagnostics again count 39 prefix conditions
+on accepted inputs, with no loop scan or input-array load. All four timed
+versions use the same profile, and both experiments retain their negative
+results. These measurements establish one declared profitable input; they do
+not establish representative performance, hardware-event attribution, or
+comparative author effort.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

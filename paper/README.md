@@ -6,6 +6,17 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [coordinate-order instance](../docs/tensor-coordinate-order.md) reuses the
+same Rocq proof report with a second untrusted data policy. Seven configurations
+give 504 assembly calls and 216 separate Clight probes on both address orders,
+including repeated rewrites and goto/memory contexts. Its separate
+[complete-call experiment](../docs/tensor-coordinate-cost.md) has 960 batches
+under an explicit stride-below-2048 profile. Interchange costs 0.764 times source
+on the selected large-stride input; small inputs still slow down. All accumulated
+array words are checked at the actual repetition count. These results establish
+a concrete use of the parametric interface and one declared profitable case;
+literal/loaded-bound composition and representative performance remain pending.
+
 The latest [tensor usability checkpoint](../docs/research-checkpoint-2026-10-07-tensor-usability.md)
 adds a same-source 30-round/960-batch complete-call experiment. The actual guard
 prefix has no loop scan or input-array load; three accepted inputs with

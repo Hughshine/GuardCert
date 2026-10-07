@@ -1007,6 +1007,28 @@
         "docs/olo-tensor-comparison.md",
         "docs/research-checkpoint-2026-10-07-tensor-usability.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "A second data-only policy uses both Horner coordinate orders without new Rocq definitions or semantic callbacks; the same compiler theorem supports 504 assembly calls, 216 separate Clight probes and an exploratory 960-batch complete-call experiment with an explicitly separate stride profile.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorRegionCompiler.v",
+          "name": "compile_tensor_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightTensorRegionPackage.v",
+          "name": "check_tensor_region_description"
+        },
+        {
+          "source": "prototype/interface/ClightTensorCompleteGuard.v",
+          "name": "tensor_complete_guard_sound"
+        }
+      ],
+      "documents": [
+        "docs/tensor-coordinate-order.md",
+        "docs/tensor-coordinate-cost.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2763,5 +2785,471 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_region_usability.mk validate"
     ]
+  },
+  "tensor_coordinate_order_stage": {
+    "proof_report_sha256": "640d768bbbe74f456e04c7bfbbf848f994fbcaa6c4018c31ecc82a32feb4e4e3",
+    "new_rocq_definitions_or_semantic_callbacks": false,
+    "minimal_kernel_changed": false,
+    "proved_entrypoint": "ClightTensorRegionCompiler.compile_tensor_regions",
+    "compiler_stamp_sha256": "7b0b7b46d4841868286caf6ea9a71242bec345b15a0cc59b6532ba468985aa0f",
+    "native_policy": "prototype/interface/native/GuardTensorAffineRegionCandidate.ml",
+    "native_policy_sha256": "2bc3c90eefc439b42668d0df97b8e9ff7b1011e7f79f1ef64bd65610d7888197",
+    "coordinate_orders": [
+      [
+        "i",
+        "j",
+        "k"
+      ],
+      [
+        "j",
+        "i",
+        "k"
+      ]
+    ],
+    "native_report_sha256": "6b4fc69ebfefcc4b4437c300225c8bd21c5adb8c60f927391561ef5cde032c05",
+    "assembly_calls": 504,
+    "clight_dispatch_calls": 216,
+    "array_words_checked_per_native_call": 6144,
+    "installed_sites_per_configuration": 8,
+    "fast_dispatches_per_configuration": 28,
+    "refusal_dispatches_per_configuration": 66,
+    "static_refusals": [
+      "wrong-reindex",
+      "zero-tile",
+      "wrong-coordinates"
+    ],
+    "cost_report_sha256": "b8cf24d69e7558c67040327eeeec1f0559b5c99b21bddaac6b9b86f09f88ad4d",
+    "raw_samples_sha256": "a662459c8ec2cbaf648421df679916049bf32f0213204f880272bcb7f8901e55",
+    "cost_samples": 960,
+    "cost_protocol": {
+      "rounds": 30,
+      "seed": 20261007,
+      "target_batch_cpu_seconds": 0.1,
+      "minimum_batch_cpu_seconds": 0.05,
+      "fresh_process_per_batch": true,
+      "pinned_cpu": 0,
+      "clock": "C clock() process CPU time",
+      "warmup_calls": 1,
+      "array_reset_per_call": false,
+      "array_initialization_and_validation_timed": false,
+      "accumulated_result_checked_at_actual_call_count": true
+    },
+    "cost_policy_environment": {
+      "GUARDCERT_TENSOR_CAP": "32",
+      "GUARDCERT_TENSOR_STRIDE_HIGH": "2048"
+    },
+    "cost_array_words_checked_at_actual_call_count": 160000,
+    "cost_source": "column-traversal single tensor Horner RMW",
+    "cost_case_names": [
+      "small-accepted",
+      "dense-accepted",
+      "conflict-strided-wrapped-accepted",
+      "coordinate-refusal",
+      "nonzero-root-refusal",
+      "empty-outer-null",
+      "empty-inner",
+      "stride-profile-refusal"
+    ],
+    "cost_cases": [
+      [
+        0,
+        3,
+        31,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        5,
+        7
+      ],
+      [
+        0,
+        31,
+        1024,
+        31,
+        5,
+        2147483647
+      ],
+      [
+        0,
+        32,
+        31,
+        2,
+        5,
+        -2
+      ],
+      [
+        1,
+        31,
+        31,
+        31,
+        5,
+        7
+      ],
+      [
+        0,
+        0,
+        1001,
+        99,
+        99,
+        2147483647
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        0,
+        7
+      ],
+      [
+        0,
+        1,
+        2048,
+        2,
+        5,
+        7
+      ]
+    ],
+    "cost_summaries": {
+      "0": {
+        "disabled": {
+          "median_ns_per_call": 22.92688050406803,
+          "iqr_ns_per_call": 0.2296166800609747,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 24.1766,
+          "iqr_ns_per_call": 0.3315999999999981,
+          "median_paired_cost_over_source": 1.0488743251112753
+        },
+        "interchange": {
+          "median_ns_per_call": 23.9844,
+          "iqr_ns_per_call": 0.4092999999999982,
+          "median_paired_cost_over_source": 1.0480035930460085
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 29.069875,
+          "iqr_ns_per_call": 0.4227499999999971,
+          "median_paired_cost_over_source": 1.2646536395958292
+        }
+      },
+      "1": {
+        "disabled": {
+          "median_ns_per_call": 3069.8306208866898,
+          "iqr_ns_per_call": 38.7735319626554,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3059.5496267903973,
+          "iqr_ns_per_call": 37.39030663707854,
+          "median_paired_cost_over_source": 0.994427099286487
+        },
+        "interchange": {
+          "median_ns_per_call": 3042.8170274098557,
+          "iqr_ns_per_call": 24.011580229119772,
+          "median_paired_cost_over_source": 0.9896511451685497
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3249.9367696899185,
+          "iqr_ns_per_call": 51.855177297789396,
+          "median_paired_cost_over_source": 1.060197676965982
+        }
+      },
+      "2": {
+        "disabled": {
+          "median_ns_per_call": 4054.214881482214,
+          "iqr_ns_per_call": 45.84940493851536,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3975.4975802057625,
+          "iqr_ns_per_call": 48.26768372808601,
+          "median_paired_cost_over_source": 0.9848668082699761
+        },
+        "interchange": {
+          "median_ns_per_call": 3108.0729492407377,
+          "iqr_ns_per_call": 58.314362194480964,
+          "median_paired_cost_over_source": 0.7642596991611157
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3639.264692286357,
+          "iqr_ns_per_call": 146.42978211963418,
+          "median_paired_cost_over_source": 0.8989935109431809
+        }
+      },
+      "3": {
+        "disabled": {
+          "median_ns_per_call": 210.21365643303966,
+          "iqr_ns_per_call": 2.3067719098268924,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 198.44210453754286,
+          "iqr_ns_per_call": 4.332230920715574,
+          "median_paired_cost_over_source": 0.942332480223971
+        },
+        "interchange": {
+          "median_ns_per_call": 197.33026237667735,
+          "iqr_ns_per_call": 4.46501618329745,
+          "median_paired_cost_over_source": 0.9369368269438703
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 196.41932141932142,
+          "iqr_ns_per_call": 4.548306631639974,
+          "median_paired_cost_over_source": 0.9368317580095247
+        }
+      },
+      "4": {
+        "disabled": {
+          "median_ns_per_call": 2961.4640951588426,
+          "iqr_ns_per_call": 21.195359537911827,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 2755.7150571505717,
+          "iqr_ns_per_call": 42.28354783547866,
+          "median_paired_cost_over_source": 0.9302316944448663
+        },
+        "interchange": {
+          "median_ns_per_call": 2763.2362017280902,
+          "iqr_ns_per_call": 35.59226767765813,
+          "median_paired_cost_over_source": 0.9313449172242625
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 2747.145258837143,
+          "iqr_ns_per_call": 56.55990043885504,
+          "median_paired_cost_over_source": 0.9276134054677544
+        }
+      },
+      "5": {
+        "disabled": {
+          "median_ns_per_call": 3.0903,
+          "iqr_ns_per_call": 0.0804791666666671,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3.2486499999999996,
+          "iqr_ns_per_call": 0.10972500000000007,
+          "median_paired_cost_over_source": 1.048737385705029
+        },
+        "interchange": {
+          "median_ns_per_call": 3.2819000000000003,
+          "iqr_ns_per_call": 0.05783750000000065,
+          "median_paired_cost_over_source": 1.0645504005827897
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3.655333333333333,
+          "iqr_ns_per_call": 0.06499999999999995,
+          "median_paired_cost_over_source": 1.1888228636478364
+        }
+      },
+      "6": {
+        "disabled": {
+          "median_ns_per_call": 463.5801477674269,
+          "iqr_ns_per_call": 11.54345731085624,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 490.7495980808045,
+          "iqr_ns_per_call": 9.197814360910968,
+          "median_paired_cost_over_source": 1.0544655035051576
+        },
+        "interchange": {
+          "median_ns_per_call": 487.2774508113965,
+          "iqr_ns_per_call": 11.486370016498824,
+          "median_paired_cost_over_source": 1.0531626986249132
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 492.1107113424856,
+          "iqr_ns_per_call": 15.593907660147522,
+          "median_paired_cost_over_source": 1.0627514529289264
+        }
+      },
+      "7": {
+        "disabled": {
+          "median_ns_per_call": 10.375475864622988,
+          "iqr_ns_per_call": 0.13376459448038247,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 10.813092567757714,
+          "iqr_ns_per_call": 0.2181208515100721,
+          "median_paired_cost_over_source": 1.0443557321070553
+        },
+        "interchange": {
+          "median_ns_per_call": 10.78435,
+          "iqr_ns_per_call": 0.14652500000000046,
+          "median_paired_cost_over_source": 1.042880685248658
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 10.93363424446952,
+          "iqr_ns_per_call": 0.15791876315989484,
+          "median_paired_cost_over_source": 1.0546597983535824
+        }
+      }
+    },
+    "diagnostic_guards": {
+      "identity": [
+        {
+          "case": 0,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 30
+        },
+        {
+          "case": 1,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 4805
+        },
+        {
+          "case": 2,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 4805
+        },
+        {
+          "case": 3,
+          "accepted": false,
+          "if_decisions": 31,
+          "source_point_count": 320
+        },
+        {
+          "case": 4,
+          "accepted": false,
+          "if_decisions": 1,
+          "source_point_count": 4650
+        },
+        {
+          "case": 5,
+          "accepted": false,
+          "if_decisions": 2,
+          "source_point_count": 0
+        },
+        {
+          "case": 6,
+          "accepted": false,
+          "if_decisions": 6,
+          "source_point_count": 0
+        },
+        {
+          "case": 7,
+          "accepted": false,
+          "if_decisions": 21,
+          "source_point_count": 10
+        }
+      ],
+      "interchange": [
+        {
+          "case": 0,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 30
+        },
+        {
+          "case": 1,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 4805
+        },
+        {
+          "case": 2,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 4805
+        },
+        {
+          "case": 3,
+          "accepted": false,
+          "if_decisions": 31,
+          "source_point_count": 320
+        },
+        {
+          "case": 4,
+          "accepted": false,
+          "if_decisions": 1,
+          "source_point_count": 4650
+        },
+        {
+          "case": 5,
+          "accepted": false,
+          "if_decisions": 2,
+          "source_point_count": 0
+        },
+        {
+          "case": 6,
+          "accepted": false,
+          "if_decisions": 6,
+          "source_point_count": 0
+        },
+        {
+          "case": 7,
+          "accepted": false,
+          "if_decisions": 21,
+          "source_point_count": 10
+        }
+      ],
+      "tile-2-3": [
+        {
+          "case": 0,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 30
+        },
+        {
+          "case": 1,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 4805
+        },
+        {
+          "case": 2,
+          "accepted": true,
+          "if_decisions": 39,
+          "source_point_count": 4805
+        },
+        {
+          "case": 3,
+          "accepted": false,
+          "if_decisions": 31,
+          "source_point_count": 320
+        },
+        {
+          "case": 4,
+          "accepted": false,
+          "if_decisions": 1,
+          "source_point_count": 4650
+        },
+        {
+          "case": 5,
+          "accepted": false,
+          "if_decisions": 2,
+          "source_point_count": 0
+        },
+        {
+          "case": 6,
+          "accepted": false,
+          "if_decisions": 6,
+          "source_point_count": 0
+        },
+        {
+          "case": 7,
+          "accepted": false,
+          "if_decisions": 21,
+          "source_point_count": 10
+        }
+      ]
+    },
+    "representative_performance_or_workload_frequency": false,
+    "hardware_event_attribution": false,
+    "comparative_author_effort_measured": false,
+    "literal_loaded_bound_composition_completed": false,
+    "source_only_rebuild_completed_for_this_entry": false
   }
 }
