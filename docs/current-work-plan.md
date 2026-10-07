@@ -1,5 +1,22 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[真实 affine pipeline](connected-polyhedral-pipeline.md)已接通
+标注C→canonical source／实际extractor→OpenScop→Pluto→checked affine import／
+validator→PolCert prepared codegen→原有mapped-domain factory／lowerer／guard→
+selected host→Csem→Asm。新增桥接2端点／88依赖独立审计，零新增全局公理；
+既有selected compiler／42-global基线和最小kernel保持。新native矩阵648汇编／
+288 Clight调用验收实际phase、marked／unmarked、多site、runtime回退及外部失败／
+损坏输出。独立layout phase从访问矩阵自动提出非恒等(j,i,k)调度，另144汇编／
+144 Clight调用通过；目标Loop由真实codegen产生。Pluto在这批源上自身保持原序，
+不把layout heuristic归给Pluto。实际完整调用链和中间IR已保存；没有新成本结果。
+兼容路径复用ExtractorCorrect／AffineValidator／PrepareCodegen，没有literal
+调用旧PolOpt.Opt_prepared；strengthening及真实tiling phase尚未连接。先前“真实
+scheduler／prepared codegen未接通”保留为当时记录，已由此有界slice推进。
+**下一项连接checked tiling transition与生成代码的point／reindex／progress witness**，
+再扩loaded-header＋dynamic layout，并验收guard工作、接受域、代码尺寸和配对成本。
+Framework仍止于局部证书组合；语言负责安装，domain负责模型与实际候选执行。
+远端narrative再次fetch仍是12419c1，与main澄清正文一致；完整目标active。
+
 2026-10-07 当前：[显式标注选择与安装](selected-polyhedral-regions.md)已实际接通
 新selected compiler：Cabs中保留pragma请求、fresh label／manifest经归一化传递，
 Clight语言host按选中位置限制遍历，避免改写同形未标注循环。13端点／438依赖

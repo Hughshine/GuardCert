@@ -1,5 +1,13 @@
 # Guard：带前提的程序变换与组合证明
 
+[真实多面体流水线](docs/connected-polyhedral-pipeline.md)已接通一个有界实例：
+标注C经实际提取、OpenScop／Pluto、验证和PolCert prepared codegen，生成候选
+Loop，再接既有guard、原源回退与Csem→Asm证明。桥接2端点／88依赖审计无新增
+公理；新路径792次汇编／432次Clight调用通过。额外layout phase从访问矩阵自动
+生成非恒等(j,i,k)调度；不是手写目标Loop，也不把这个heuristic归给Pluto。
+真实tiling、loaded-header／动态layout组合及该路径成本仍待推进，完整目标active。
+以下较早阶段保留其当时边界。
+
 [显式SCoP选择](docs/selected-polyhedral-regions.md)已接入新编译器：pragma区域经
 归一化保留位置，安装只作用于选中区域，同形未标注循环保持。13端点／438依赖
 审计、提取、648汇编调用／216Clight分派与14个frontend边界案例通过，零新增公理。

@@ -1,0 +1,16 @@
+--- a/pet/pet.cc
++++ b/pet/pet.cc
+@@ -1024,8 +1024,11 @@
+ 
+ static void set_lang_defaults(CompilerInstance *Clang)
+ {
+-	CompilerInvocation::setLangDefaults(Clang->getLangOpts(), IK_C,
+-					    LangStandard::lang_unspecified);
++	PreprocessorOptions &PO = Clang->getPreprocessorOpts();
++	TargetOptions &TO = Clang->getTargetOpts();
++	llvm::Triple T(TO.Triple);
++	CompilerInvocation::setLangDefaults(Clang->getLangOpts(), IK_C, T,
++					    PO.Includes, LangStandard::lang_unspecified);
+ }
+ 
+ #endif

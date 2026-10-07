@@ -6,6 +6,18 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The [connected affine successor](../docs/connected-polyhedral-pipeline.md) now
+runs actual model extraction, OpenScop/Pluto scheduling, checked import and
+PolCert prepared codegen through the selected compiler. A further untrusted
+access-matrix layout phase automatically produces the nonidentity traversal;
+it is not a handwritten target Loop or a permutation chosen by Pluto. Two
+new bridge endpoints over 88 dependencies add no globals, and the unchanged
+whole-program compiler proof covers the final checked candidate. The new path
+adds 792 assembly calls and 432 separate Clight observations. Tiling through
+this path, loaded-header/dynamic-layout integration, a fresh scheduler-recipe
+replay and its cost evaluation remain pending. Earlier entries retain their
+historical boundaries.
+
 The [selected-region successor](../docs/selected-polyhedral-regions.md) implements
 paired SCoP metadata and occurrence-sensitive discovery/installation with a new
 Csem-to-Asm endpoint. Its 13-endpoint/438-dependency audit adds no globals;

@@ -1159,7 +1159,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Current native proposals use real extraction/validation; annotated external scheduling/prepared-codegen integration is pending.",
+      "claim": "Earlier direct Loop proposals retain real extraction/validation; the connected affine successor now runs OpenScop/Pluto, checked schedule import and proved prepared codegen. General strengthening/tiling and loaded-header/dynamic-layout integration through that successor remain pending.",
       "theorems": [
         {
           "source": "adapters/compcert-memory/GuardMemoryPolyhedral.v",
@@ -1172,12 +1172,13 @@
       ],
       "documents": [
         "docs/narrative-pipeline-review-2026-10-07.md",
-        "docs/topdown/paper-narrative.md"
+        "docs/topdown/paper-narrative.md",
+        "docs/connected-polyhedral-pipeline.md"
       ]
     },
     {
       "section": "case-study/evaluation",
-      "claim": "Occurrence-sensitive selected-region host and literal tensor compiler; native pragma metadata boundary tested. External scheduler/prepared-codegen integration pending.",
+      "claim": "Occurrence-sensitive selected-region host and literal tensor compiler; native pragma metadata boundary tested. The separate affine successor now connects actual scheduler/prepared codegen while reusing this arbitrary-proposer whole-program endpoint.",
       "theorems": [
         {
           "source": "prototype/interface/ClightSelectedRegion.v",
@@ -1195,6 +1196,28 @@
       "documents": [
         "docs/selected-polyhedral-regions.md",
         "docs/narrative-pipeline-review-2026-10-07.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Connected affine pipeline uses actual Pluto plus optional untrusted access-matrix locality scheduling, verified affine validation and prepared codegen, then the original source/candidate factory and selected Csem-to-Asm entry. Two bridge endpoints over 88 dependencies add no globals. 792 assembly/432 separate Clight calls include an automatically generated nonidentity (j,i,k) schedule, refusals and contexts. No new tiling, profitability or fresh empty-tree scheduler-recipe replay is claimed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/GuardMemoryPreparedPipeline.v",
+          "name": "checked_memory_prepared_phase_correct"
+        },
+        {
+          "source": "prototype/interface/GuardMemoryPreparedPipeline.v",
+          "name": "checked_memory_prepared_loop_correct"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedTensorLiteralCompiler.v",
+          "name": "compile_selected_tensor_literal_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/connected-polyhedral-pipeline.md",
+        "docs/current-work-plan.md"
       ]
     }
   ],
@@ -3535,15 +3558,15 @@
     ]
   },
   "annotated_polyhedral_integration": {
-    "status": "selection and occurrence-sensitive installation implemented; real scheduler/codegen pending",
+    "status": "first marked literal-tensor affine scheduler/codegen slice connected; checked tiling and broader model extraction pending",
     "review": "docs/narrative-pipeline-review-2026-10-07.md",
     "default_selection": "#pragma scop / #pragma endscop; selected-site identity must constrain installation",
-    "current_native_candidate_producer": "direct Loop AST proposals; real extraction and polyhedral validation",
-    "external_scheduler_connected": false,
+    "current_native_candidate_producer": "actual extracted canonical source -> OpenScop/Pluto (+ optional access-matrix layout phase) -> verified affine validation -> proved prepared codegen -> checked generated Loop",
+    "external_scheduler_connected": true,
     "prepared_optimizer_called_by_native_C_driver": false,
     "annotated_region_frontend_installed": true,
     "new_whole_program_endpoint": "ClightSelectedTensorLiteralCompiler.compile_selected_tensor_literal_regions_correct",
-    "native_connected_pipeline_evidence": false,
+    "native_connected_pipeline_evidence": true,
     "acceptance": [
       "retained phase IRs and validator outcomes",
       "actual scheduler/codegen candidate",
@@ -3553,9 +3576,18 @@
       "connected Csem-to-Asm endpoint and native C execution"
     ],
     "selected_only_installation_proved": true,
-    "instruction_openscop_export_connected": false,
+    "instruction_openscop_export_connected": true,
     "verified_Cabs_selection_pass": false,
-    "stage_document": "docs/selected-polyhedral-regions.md"
+    "stage_document": "docs/connected-polyhedral-pipeline.md",
+    "prepared_codegen_called_by_native_C_driver": true,
+    "connected_stage_document": "docs/connected-polyhedral-pipeline.md",
+    "connected_stage_evidence": "connected_affine_pipeline_stage",
+    "remaining_obligations": [
+      "checked tiling transition and generated point/reindex/progress bridge",
+      "loaded-header/dynamic-layout source/model transport through real pipeline",
+      "guard cost, acceptance, code size and paired full-call timings",
+      "fresh empty-tree scheduler build recipe replay"
+    ]
   },
   "selected_region_stage": {
     "proof_report": "build/selected-polyhedral-region/proof/report.json",
@@ -3586,6 +3618,38 @@
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk native",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk frontend",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/selected_regions.mk validate"
+    ]
+  },
+  "connected_affine_pipeline_stage": {
+    "proof_report": "build/polyhedral-pipeline/proof/report.json",
+    "proof_report_sha256": "137ba84b5621dce408c16c6e652c1d0be3c4ae0e8d1ea2773b33a94686cd2048",
+    "scheduler_build_report": "build/polyhedral-pipeline/pluto-build.json",
+    "scheduler_build_report_sha256": "e367d9bdfe18b264537bddf746b1a2f828750bdbb02246bc26bff3d7a4c17743",
+    "native_report": "build/polyhedral-pipeline/native/report.json",
+    "native_report_sha256": "aa9a92b956161499e538e9d417d0fe2aaa8317e0392620094a51612fcc6f462e",
+    "layout_native_report": "build/polyhedral-layout/native/report.json",
+    "layout_native_report_sha256": "2dc0c2db9d8cd819427a585fa51b9f83022ee4364d6320e904beae9608954149",
+    "queried_new_endpoints": 2,
+    "required_bridge_dependencies": 88,
+    "additional_global_axioms": [],
+    "compiler_baseline_globals": 42,
+    "assembly_calls": 792,
+    "clight_dispatch_calls": 432,
+    "target_loop_handwritten": false,
+    "external_scheduler_executed": true,
+    "prepared_codegen_candidate_executed": true,
+    "nonidentity_layout_schedule_generated_automatically": true,
+    "pluto_selected_layout_permutation": false,
+    "old_Opt_prepared_called_literally": false,
+    "strengthening_or_tiling_integrated_in_new_path": false,
+    "fresh_scheduler_recipe_replayed": false,
+    "profitability_measured": false,
+    "whole_program_endpoint": "ClightSelectedTensorLiteralCompiler.compile_selected_tensor_literal_regions_correct",
+    "stage_document": "docs/connected-polyhedral-pipeline.md",
+    "reproduction": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/polyhedral_pipeline.mk compiler",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/polyhedral_pipeline.mk native",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/polyhedral_pipeline.mk validate"
     ]
   }
 }

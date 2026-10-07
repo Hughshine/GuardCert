@@ -23,13 +23,13 @@ SimplExpr, SimplLocals, the expression-region host, and the verified backend.
 The region contracts and host progress obligations determine the source class;
 the theorem is not a license to install arbitrary Clight fragments.
 
-\paragraph{Candidate production and the next integration boundary.}
-The current native routes propose a candidate Loop AST through built-in
+\paragraph{Candidate production and the connected affine successor.}
+The earlier native routes propose a candidate Loop AST through built-in
 policies or external input. They use PolCert extraction and polyhedral
 correspondence/dependence validation before concrete lowering and guarded
 installation. The memory instance's external scheduler and phase-export hooks
-currently refuse; the prepared optimizer adapter is proved separately but is
-not called by this C driver. These results establish conditional candidate
+still refuse; the older prepared optimizer adapter is proved separately but is
+not called by those C drivers. These results establish conditional candidate
 validation, not an installed automatic scheduling/code-generation pipeline.
 
 The selected frontend now uses paired \code{\#pragma}\ \code{scop} and
@@ -46,14 +46,29 @@ new verified Cabs-to-Cabs pass. Direct declarations in a marked span refuse
 selection so a new surrounding block cannot shorten their scope. Malformed
 marker pairs also preserve their whole original function.
 
-A marker requests an attempt and supplies no semantic assumption. The next
-milestone connects conditional extraction to actual polyhedral scheduling,
-checked transformation phases and prepared code generation.
-The memory instruction's OpenScop exporter currently returns no representation,
-in addition to the disconnected scheduler hooks. Acceptance requires retained
-phase representations and validation results, an actual generated candidate
-without a hand-written target loop, and its lowering, execution and whole-program
-proof through this selected path. Scheduler/codegen integration remains pending.
+A marker requests an attempt and supplies no semantic assumption. A connected
+successor now exports the checked family's canonical source model, invokes
+Pluto on OpenScop, imports and validates the affine schedule, and calls
+PolCert's proved prepared code generator. The installed candidate Loop comes
+from that generator. The final existing mapped-domain factory rechecks it and
+supplies forward execution and progress; the selected compiler's theorem
+already permits an arbitrary data-only proposer. Source, scheduled model,
+generated Loop and phase receipts are retained alongside actual Clight output.
+
+Pluto retains the original order on the evaluated tensor examples. A further
+untrusted layout phase reads the affine WRITE matrix and proposes traversal in
+logical coordinate order: a column-order address yields a nonidentity
+$(j,i,k)$ schedule. This phase constructs a scattering matrix, rather than
+target Loop code; the same validator, prepared codegen and final factory check
+its result. The generic kernel is unchanged, while the domain supplies the
+model/transition obligations and the language host supplies installation.
+
+Two new bridge theorems map completed generated execution back to the source
+model and source Loop. They are backward correspondence results; they do not
+replace the factory's progress proof. The route reuses compatible extractor,
+affine-validator and prepared-codegen components, rather than literally calling
+the frozen older \code{Opt_prepared} objects. Strengthening, checked tiling
+through this route and loaded-header/dynamic-layout integration remain pending.
 
 \subsection{Nested Loaded Bounds and Actual Candidate Execution}
 
