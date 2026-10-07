@@ -6,6 +6,11 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
+The latest [dynamic-layout checkpoint](../docs/research-checkpoint-2026-10-07-dynamic-tensor.md)
+adds audited local layout/access/volume-check services. Its 33 endpoints are
+separate from the installed compiler and native evidence; source-derived
+dimension receipts and a new compiler connection remain unfinished.
+
 The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
 uncompleted results. An exploratory complete-call experiment now records 30
 rounds/1,200 raw batches on one literal-store kernel, including observed

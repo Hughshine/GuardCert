@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新：[动态布局服务](dynamic-tensor-layout.md)继续按照 narrative 划分。
+Domain 提供 mixed-radix 单射与布局到 footprint 的局部推导；Clight 库交付真实
+word／division／pointer／load/store 及 readonly 检查定律；现有依赖契约消费物理
+nonalias，kernel 和语言 host 未变。33 端点审计通过，没有新全程序编译能力。
+原源读取许可／坐标覆盖／layout temp 保持、候选 lowering／公开出口和 placement
+仍由实际 optimizer/site 接入生产。标准 condition 的 D 暂要求所有维度已定义；
+单独的首维拒绝定理允许后续未初始化，不自动解决一般 source-derived D。
+多维库不是 universal precondition inference，也没有 proof burden 收益证据。
+
 2026-10-07 最新：[入口参数同值条件](nested-invariant-word.md)复核了 narrative
 三方责任的实际含义。Clight 语言库证明 affine word 的纯求值/frame 和 actual
 full-int32 store effect；domain 从原源 prepared/domain receipt 生产定义性与

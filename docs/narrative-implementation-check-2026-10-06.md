@@ -1,5 +1,14 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 本轮重新 fetch 后，narrative 仍为 `271f6fc`，main 正文相同。
+[动态布局局部服务](dynamic-tensor-layout.md)落实了条件编码的另一困难点：任意
+rank 的 volume 不能假定 signed64 足够，实际检查需证明先正数、再除法界、再
+累计。标准 readonly certificate 已交付，原源维度许可、source/model 和 host
+安装仍未接入；[新计划](research-checkpoint-2026-10-07-dynamic-tensor.md)将它们
+列为下一验收。33 端点审计与 actual guard fixtures 不算新 compiler／native。
+已有二维参数 stride 的实际 compiler 已核对，不能因当前主 matcher 限制忽略
+它，也不把前一配置能力自动计入新 package。最小 kernel 截止继续保持。
+
 2026-10-07 最新复核：重新 fetch 与检查远端 heads，narrative 仍为 `271f6fc`，
 main 正文相同。其责任划分已具体约束 [入口值 guard](nested-invariant-word.md)：
 语言提供 actual typed-store effect 和 affine modular evaluation，domain 从已有

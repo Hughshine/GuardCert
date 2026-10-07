@@ -1,5 +1,17 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[动态 tensor 服务](dynamic-tensor-layout.md)补齐逻辑坐标向量到
+modular pointer 地址的局部连接与安全 volume guard。33 端点／160 依赖审计通过，
+13 闭合端点，零新增公理。已有二维 runtime-stride compiler 已保留变量 stride；
+本轮不重复声称新增这种能力。最小 kernel 与原 instruction／dependence contract
+保持，尚无新完整 compiler／native。Narrative 远端 `271f6fc` 已再次 fetch，main
+正文一致。[新 checkpoint](research-checkpoint-2026-10-07-dynamic-tensor.md)固定后续
+顺序：vector affine accesses／真实 reads/value backend → 原源维度读取许可与
+保护／坐标覆盖 → candidate lowering／公开出口 → selector／语言 host／Csem→Asm
+→ 提取和完整 C 接受／回退。数学 span 不代替实际权限，单 tensor nonalias 不
+代替 header 稳定性或跨 array 分离。完整 BT、成本和作者负担继续独立验收。
+完整目标 active。以下保留先前阶段当时范围。
+
 2026-10-07 最新后继：[入口参数同值条件](nested-invariant-word.md)已将 literal
 shortcut 扩展到 loop-invariant affine int32 store values，实际 physical guard、
 模型生产、data-only factory 和新 Csem→Asm entry 全部连接。新值定义性由原源

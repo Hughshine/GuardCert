@@ -842,6 +842,32 @@
         "docs/nested-invariant-word.md",
         "docs/research-checkpoint-2026-10-07-nested-invariant.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Dynamic tensor layout/access/independent-instruction exchange and safe readonly volume guard are audited local services; no new source selector or whole-program compiler installed.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDynamicTensorLayout.v",
+          "name": "tensor_pointer_locations_nonalias"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDynamicTensorAccess.v",
+          "name": "tensor_pointer_store_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDynamicTensorReorder.v",
+          "name": "tensor_instruction_reorder"
+        },
+        {
+          "source": "prototype/interface/ClightTensorVolumeGuard.v",
+          "name": "tensor_volume_guard_condition"
+        }
+      ],
+      "documents": [
+        "docs/dynamic-tensor-layout.md",
+        "docs/research-checkpoint-2026-10-07-dynamic-tensor.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2049,6 +2075,23 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_invariant.mk native",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_invariant.mk validate"
+    ]
+  },
+  "dynamic_tensor_service_stage": {
+    "proof_report": "build/dynamic-tensor/proof/report.json",
+    "proof_report_sha256": "d5d3622f044b82a842a691ab9234e8d820b79b797fd40b1664051494e5b8c578",
+    "proof_endpoints": 33,
+    "required_closure_count": 160,
+    "closed_endpoints": 13,
+    "maximum_endpoint_globals": 6,
+    "source_selector_installed": false,
+    "whole_program_compiler_installed": false,
+    "native_evidence_added": false,
+    "profitability_measured": false,
+    "proof_burden_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/dynamic_tensor.mk proof",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/dynamic_tensor.mk validate"
     ]
   }
 }
