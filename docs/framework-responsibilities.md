@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 最新后继：[nested guarded candidate／compiler](nested-constant-multi.md)
+已连接实际 canonical source→alias guard→candidate→kernel preservation→projected region
+contract→typed factory／语言 host→Csem→Asm。Model anchor 及实际 checked-entry frame
+由执行 receipt 生产，没有 source/model 语义回调；kernel 不变。三层原 AST 的 host
+progress 支持有 fixture。后文阶段记录保留当时边界；新入口的 extraction／实际 C
+识别和非空数组非 identity 优化运行仍待验收，原 Figure 2 16-call report 不变。
+Narrative 重新 fetch 到 `271f6fc`，正文与 main 一致；三方责任和四条证书链按新文档核对。
+
 这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 7 日重新 fetch 并读完 `271f6fc`，main 正文一致。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
 最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。

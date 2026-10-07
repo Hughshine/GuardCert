@@ -31,6 +31,13 @@ paper-offline:
 .PHONY: nested-constant-numeric-proof nested-constant-numeric-validate
 .PHONY: nested-constant-site-proof nested-constant-site-validate
 .PHONY: nested-constant-physical-proof nested-constant-physical-validate
+.PHONY: nested-constant-multi-proof nested-constant-multi-validate
+nested-constant-multi-proof:
+	python3 scripts/audit_nested_constant_multi.py
+
+nested-constant-multi-validate:
+	python3 scripts/audit_nested_constant_multi.py --validate
+
 nested-constant-physical-proof:
 	python3 scripts/audit_nested_constant_physical.py
 

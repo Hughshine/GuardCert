@@ -443,11 +443,12 @@
     },
     {
       "section": "evaluation",
-      "claim": "Prior bound execution reports: 708 assembly calls, 236 Clight calls, 21 machine probes; nested service proof audit 48 endpoints; unchanged Figure 2 probe 16 calls. No new native matrix or timing result.",
+      "claim": "Prior bound execution reports: 708 assembly calls, 236 Clight calls, 21 machine probes; latest nested compiler proof audit 25 endpoints and 597 dependencies; unchanged Figure 2 probe 16 calls. New nested compiler theorem, but no new extraction, native matrix or timing.",
       "documents": [
         "docs/research-checkpoint-2026-10-06-loaded-offset-affine.md",
         "docs/research-checkpoint-2026-10-06-nested-headers.md",
-        "docs/olo-figure2-coverage.md"
+        "docs/olo-figure2-coverage.md",
+        "docs/nested-constant-multi.md"
       ]
     },
     {
@@ -457,6 +458,55 @@
         "docs/evidence-to-claim-2026-10-05.md",
         "docs/related-work-interface-check-2026-10-06.md",
         "docs/survey-general.md"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Nested original-source checking derives private model anchor and actual checked-entry frame, reuses alias/candidate proofs, and connects kernel preservation to typed factory and existing signed-expression host; new Csem-to-Asm endpoint. Native nonidentity optimization pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiExecution.v",
+          "name": "ncs_multi_canonical_at_guard_exit"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiExecution.v",
+          "name": "ncs_multi_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantCandidate.v",
+          "name": "ncs_candidate_reference_local"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiCertificate.v",
+          "name": "ncs_multi_guard_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiPreservation.v",
+          "name": "ncs_multi_guarded_preservation"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiPreservation.v",
+          "name": "ncs_multi_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiFactory.v",
+          "name": "check_ncs_multi_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightGuardedNestedConstantMultiCompiler.v",
+          "name": "compile_ncs_multi_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiExample.v",
+          "name": "source_nested_progress_is_host_supported"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantMultiExample.v",
+          "name": "checked_three_axis_source_candidate_has_actual_backend_code"
+        }
+      ],
+      "documents": [
+        "docs/nested-constant-multi.md"
       ]
     }
   ],
@@ -616,5 +666,24 @@
     "new_complete_nested_guarded_candidate_rule": false,
     "language_host_progress_divergence_installation_pending": true,
     "new_compiler_or_native_execution": false
+  },
+  "nested_constant_multi_proof_stage": {
+    "report": "build/nested-constant-multi/proof/report.json",
+    "sha256": "d569c7a3a85a05130a2fe9d31b1c8eb39993f9bd4554cccaf1fe0adb39779744",
+    "endpoints": 25,
+    "language_endpoints": 3,
+    "domain_endpoints": 15,
+    "fixture_endpoints": 7,
+    "required_dependencies": 597,
+    "source_digests": 1097,
+    "compiler_assumptions": 42,
+    "source_model_anchor_produced_from_actual_execution": true,
+    "source_model_semantic_callback_supplied": false,
+    "new_complete_nested_guarded_candidate_rule": true,
+    "new_compiler_entrypoint": true,
+    "original_nested_host_progress_fixture": true,
+    "new_extraction": false,
+    "new_native_execution": false,
+    "olo_figure2_optimizer_supported": false
   }
 }

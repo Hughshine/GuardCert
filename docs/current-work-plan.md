@@ -1,5 +1,20 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[nested guarded candidate／compiler](nested-constant-multi.md)已接通：
+canonical source 沿 ports frame 运到实际 physical guard exit，许可现有多数组
+alias-only 检查；接受生产 private model anchor 和到 checked entry 的关系，供
+候选 validator／实际 Clight lowering 和 public exit restoration 使用。既有 kernel
+消费 guard／preservation certificates，实例交付 projected region contract；新 typed
+factory 和 compiler 通过原 signed-expression region host 合成 Csem→Asm backward
+simulation。三层原 AST 的 host progress 检查及三层 identity candidate 的实际 backend
+代码有 fixture。最小 kernel 未改；dispatch 与整程序 installation 分别证明。
+下一项 **提取新入口、实现实际 C descriptor／非 identity candidate、确认原 AST key
+和真实候选安装，再运行完整非空数组接受／回退 matrix**。没有新 nested native 或
+计时，不能改写 Figure 2 原 `not-supported` 报告；最终 compact 条件、成本／有用
+接受域和同例作者工作仍分别验收。完整目标 active。
+
+以下为先前阶段的固定记录；其中的后继待办以本段及最新 checkpoint 为准。
+
 2026-10-07：[完整 header-stability guard](nested-constant-physical.md)已从 checked
 原 site 生产 helper 后新入口，填入全部 outer scan 输入，合成真实代码；接受
 取得 canonical Clight 与 Loop source 执行，model entry 明确 framed 到 actual

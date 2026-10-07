@@ -1,5 +1,13 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 最新后继：[nested guarded candidate／compiler](nested-constant-multi.md)
+已连接实际 canonical source→alias guard→candidate→kernel preservation→projected region
+contract→typed factory／语言 host→Csem→Asm。Model anchor 及实际 checked-entry frame
+由执行 receipt 生产，没有 source/model 语义回调；kernel 不变。三层原 AST 的 host
+progress 支持有 fixture。后文阶段记录保留当时边界；新入口的 extraction／实际 C
+识别和非空数组非 identity 优化运行仍待验收，原 Figure 2 16-call report 不变。
+Narrative 重新 fetch 到 `271f6fc`，正文与 main 一致；三方责任和四条证书链按新文档核对。
+
 2026-10-07 更新。面向框架使用者及实现者。重新 fetch 后，
 `origin/topdown/research-positioning` 为 `271f6fc`；主线的
 [paper narrative](topdown/paper-narrative.md) 和

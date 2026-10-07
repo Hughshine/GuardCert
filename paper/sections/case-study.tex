@@ -88,15 +88,30 @@ Full acceptance now produces cached-source execution and the canonical
 three-axis Clight model with the same final memory and public exit. The existing
 verified package decoder connects that actual model execution to Loop semantics
 when its data lowering succeeds. The model entry is kept distinct from private
-guard cursors and explicitly framed to the actual guard exit. The safety theorem
-currently consumes original \emph{silent normal completion}; it does not itself
-establish the language host's progress or divergence contract. Header stability
-is an acceptance result, never a premise used to execute the guard.
-\pending{Connect candidate dependence and alias checks, prove candidate correspondence
-across check entries, then assemble the guarded candidate factory, typed allocation, and
-language host with its progress and divergence obligations. The current adapted
-Figure~2 native probe retains the original source and does not demonstrate an
-installed optimization.}
+guard cursors and explicitly framed to the actual guard exit. The local safety
+theorem consumes original \emph{silent normal completion}. Header stability is an
+acceptance result, never a premise used to execute the guard.
+
+The nested adapter now transports canonical execution to the actual check exit
+before executing the existing multi-array alias guard. Acceptance produces a
+private model anchor and its frame to the checked candidate entry. Quiet
+determinacy makes the anchor valid for every completed source execution at that
+entry. The adapter consumes the existing candidate certificate and actual
+lowering result, restores public exits, and invokes the unchanged kernel's
+guarded-preservation theorem. No source/model semantic callback is supplied by
+the source proposer.
+
+The checked factory connects this local proof to the existing projected-region
+contract and signed-expression host, including typed private resources and
+source progress checking. The new \code{compile_ncs_multi_regions_correct}
+endpoint establishes Csem-to-Asm backward simulation for successful compilation.
+A fixture confirms that the original three-level AST passes the host's progress
+check; whole-program installation remains a language-host theorem rather than
+a consequence of the local completion domain alone.
+\pending{Extract the new compiler entry, implement the concrete C source
+descriptor and candidate proposal, and run active array acceptance and fallback.
+The current adapted Figure~2 native probe retains the original source and does
+not demonstrate an installed optimization.}
 
 \subsection{Condition Expressiveness and Reuse}
 
