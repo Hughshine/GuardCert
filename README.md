@@ -4,12 +4,19 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+[原 AST checked site 与实际 entry](docs/nested-constant-site.md)已从 proposer 数据
+检查 source、scope／private names、旧 affine package、scan namespace 与 lowering。
+实际 row gate 去掉额外 row=0 context 假设；接受后的域、word view、raw observers
+及原 prefix 锚定到真正检查后状态。Guard AST 只依赖 observer 地址表达式。
+37 端点独立审计通过；下一项 helper 准备、完整 physical scan／候选 factory 和
+host 安装，没有新 compiler／native，Figure 2 原 C 优化仍未安装。
+
 [原嵌套源的 capture／numeric 输入生产](docs/nested-constant-numeric.md)已从实际首次
 leaf 取得已用参数定义性，运行有序 capture 和两层短路 gate；numeric 接受直接
 生产 outer scan 所需的逐点整数域及 word view。BODY 专用参数的 checked package、
 参数未定义时的空外层／内层实际拒绝均已证明。24 端点独立审计通过，没有新增
-semantic callback，kernel／旧 compiler 保持。下一项组装 namespace／helper／observer
-输入与完整 physical guard、原 AST factory／候选／host；没有新 compiler 或 native。
+semantic callback，kernel／旧 compiler 保持。Checked entry 后继见上段；完整
+physical guard、candidate factory／host 仍待连接，没有新 compiler 或 native。
 
 [完整三层 canonical model](docs/nested-constant-model.md)已将合法双缓存源接到
 旧 affine AST，并从 checked package 取得真实 Loop 内存执行；没有新增

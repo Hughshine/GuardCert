@@ -4,7 +4,7 @@
 `origin/topdown/research-positioning` 为 `271f6fc`；主线的
 [paper narrative](topdown/paper-narrative.md) 和
 [context-lifting](topdown/context-lifting.md) 正文与该分支一致。
-本次对 `82ae4ee` 和本轮 capture／numeric 后继复核。远端仍为 `271f6fc`，
+本次对 `9700b66` 和本轮 checked-site／actual-entry 后继复核。远端基线为 `271f6fc`，
 没有新的未同步正文。下表按当前消费者更新；重新阅读本身不计作功能交付。
 本轮另有原源入口证据的实际 producer 与独立 proof audit，见下段；没有新运行测量。
 
@@ -13,8 +13,11 @@
 和 leaf quiet/write 的具体循环运输已闭合，没有 source/model 语义回调。
 [Capture／numeric 后继](nested-constant-numeric.md)已从实际首次 leaf 生产参数
 定义性，执行有序双 gate，并由接受生产逐点 DOMAIN／SOURCE_WORDS。24 端点
-审计通过。下一项连接 observer／helper／namespace 的其余输入，组装完整
-physical guard、原 AST factory 和候选／whole-program 安装。三方责任、四个
+审计通过。[Checked site／actual entry](nested-constant-site.md)后继已核对原 AST、
+scope／namespace，实际生产 observer receipts、header laws 和检查后的初始 prefix。
+Runtime ROW0 gate 去掉额外的 context 初值前提，template AST 与 runtime ghost
+fields 的分离也已证明。37 端点审计通过。下一项 helper 准备及完整 scan 消费者、
+guard／candidate factory 和 whole-program 安装。三方责任、四个
 逻辑环节及独立语言安装边界继续有效。
 
 后继实现已连接 [constant BODY joint scan](constant-body-joint-scan.md)：从真实原
@@ -47,9 +50,10 @@ definedness 定律和 domain 的 reached-write receipt。`C_host` 的 guarded-ch
 观察保持并填入旧 `PRESERVE`。Canonical source transport 现也闭合。
 当前 [capture／numeric producer](nested-constant-numeric.md)已由原 first leaf
 生产参数定义性，执行有序 capture／双 gate，接受后提供逐点 DOMAIN／SOURCE_WORDS。
-24 端点审计通过，没有要求调用者新增对应语义回调。下一项绑定实际 observer
-receipts、helper 准备和静态 namespace／scope 到 physical scan，再组装 guard
-certificate、原 AST factory、cross-entry 候选及 host。继续复用已有语言服务，
+24 端点审计通过，没有要求调用者新增对应语义回调。Checked-entry 后继已经
+生产 namespace／scope 和实际 observers／header／initial prefix。下一项执行
+helper 准备，填入 physical scan，组装 guard certificate、candidate factory、
+cross-entry 候选及 host。继续复用已有语言服务，
 不因这次澄清扩大 kernel。
 不能以新增的 `ENCODE`／scope／freshness 语义字段代替这些实际 producer。
 
@@ -149,9 +153,9 @@ for (int i = 0; i < *bound; ++i)
 
 | 当前服务／缺口 | 已有证据 | 接下来由谁完成什么 |
 | --- | --- | --- |
-| 有序读取 | `nested_expression_capture_execution`：outer 活动才读取 child，保持原 source public 执行 | 具体 site 绑定实际两个 header expressions、类型、freshness；不是任意 dependent preload |
+| 有序读取 | `check_nested_constant_site` 已绑定实际两个 headers／scope／freshness；`ncs_entry_numeric_execution` 用实际 row gate 和 ordered capture 生产检查后入口 | Helper 准备与完整 scan 消费者，随后接 guard／candidate factory；不是任意 dependent preload |
 | 已到达子域的权限 | `constant_body_joint_scan_execution` 已把原 `<5` BODY capabilities 接到全部写地址与 observer expressions 的实际比较 | Factory 仍须生产 checked leaf、scope／freshness 和原源绑定；权限不带回已改写数据，也不许可下一 column |
-| 接受与推进 | `constant_joint_outer_scan_execution` 已运行真实 outer；整段接受生产全部 preservation；`nested_constant_captured_numeric_execution` 已从原源生产 DOMAIN／SOURCE_WORDS | Factory 绑定实际 header／observer receipts、helper、scope／namespace 和检查后的入口；组装真正完整 guard certificate |
+| 接受与推进 | 真实 outer 接受已生产全部 preservation；checked entry 已生产 DOMAIN／SOURCE_WORDS、observers、header laws 及初始 prefix，并证明 template AST 等式 | 消费这些证据与实际 helper words，实例化完整 outer；组装真正完整 guard certificate |
 | 缓存模型与候选 | `constant_joint_outer_cached_source` 取得完整双缓存源；`nested_constant_package_source_decode` 已从该源形状和 checked package 取得真实 Loop 执行 | Factory 生产实际 helper words／名称分离／numeric 接受和模型数据等式，再接 cross-entry candidate；cached execution 不能移到检查许可的前提中 |
 | 整程序安装 | 原 root-offset compiler 的具体语言 host 已有 | Factory／site 核对新 original AST、typed pool、scope／progress／placement 和 fallback；语言 host 消费这些证据，随后提取并验收原 Figure 2 适配 C |
 

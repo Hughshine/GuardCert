@@ -1,13 +1,24 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07：[原 AST checked site／actual entry](nested-constant-site.md)现已绑定
+实际 source、scope／fresh names、旧 package、scan namespace 与 lowering；observer
+syntax 只依赖编译时地址表达式，runtime raw receipts 另从真实读取生产。
+ROW0 profile 有实际 gate，入口 theorem 只消费原 source completion；接受后的
+DOMAIN／SOURCE_WORDS／observers／initial prefix 均锚定实际检查后入口。37 端点
+（4 language／23 domain／10 fixture）、584 依赖／1,083 源摘要审计通过。
+Kernel 不变、旧 compiler 基线保持。下一项执行 helper 准备，填入完整 outer
+scan 的其余 static inputs，组装 guard／candidate factory、typed pool 与 host。
+没有新 compiler／extraction／native／timing，Figure 2 原 C 的优化仍未安装；
+完整目标 active，最终 compact 条件／成本／接受域及作者工作要求保持。
+
 2026-10-07：[原源 capture／numeric 输入生产](nested-constant-numeric.md)已从实际
 first leaf 和旧参数使用 checker 生产参数定义性，执行有序 capture／双 gate，
 numeric 接受后生产完整整数域及 outer scan 的逐点 `DOMAIN`／`SOURCE_WORDS`。
 24 端点（6 language／11 domain／7 fixture）、565 依赖／1,076 源摘要审计通过；
 kernel 闭合，旧 compiler 保持 42 项 assumptions。BODY 专用参数的 data-only
 package 接受，空外层／内层在其余参数未定义时的实际拒绝均已证明。
-下一项连接 observer receipts、helper 准备和 scope／namespace 到完整 physical
-scan；组装原 AST site checker、guard certificate、cross-entry 候选和 typed host。
+其 checked-site 后继已由上段绑定 observer receipts、scope／namespace；helper
+准备及完整 physical scan 消费者、guard／candidate factory 和 typed host 仍待组装。
 没有新 compiler／extraction／native／timing。Figure 2 适配源仍未安装优化，
 完整目标 active。紧凑条件、成本／接受域及同例作者工作继续按 narrative 验收。
 

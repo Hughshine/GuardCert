@@ -33,8 +33,8 @@
 | 具体需求 | 当前可复用设施 | 此源尚缺什么／归因 |
 | --- | --- | --- |
 | 根 header 的 load＋1 | Loaded-offset compiler 已连接实际 stability scan、factory／host、Csem→Asm 和提取 | 单根接入缺口已关闭；仍须与第二 loaded child 组合，不能改写原 Figure 2 的 `not-supported` 报告 |
-| 在外层可达后读取第二 bound | Ordered capture 已许可 indexed child load；inner／outer scan、canonical decode 已证明；原源 capture／numeric 已生产参数域与逐点 word view | 连接 observer／helper／namespace 输入、完整 guard 与原 AST factory，属于 domain／源覆盖及语言安装缺口 |
-| 写入可能改变两个观察 | Constant BODY joint scan 已实际比较全部写地址与两观察；完整短路扫描接受后生产全部 rows／columns 的 preservation；numeric producer 已生产 scan word view | 完整 guard certificate／factory 仍须绑定实际 observer、scope／namespace、helper 和原源位置，不能由局部 proof endpoints 推断本例已经安装优化 |
+| 在外层可达后读取第二 bound | Checked 原 site 已绑定两个实际 headers／scope／namespace；entry gate＋ordered capture 已生产实际检查后的域、word view、observers 和初始 prefix | Helper 准备、完整 outer 消费者与 guard／candidate factory 尚待组装，属于 domain／源覆盖及语言安装缺口 |
+| 写入可能改变两个观察 | BODY／outer scan 的接受后 preservation 已证明；checked entry 已生产 raw observer receipts 与具体 header laws，template guard AST 不依赖 runtime ghost fields | 完整 guard certificate／factory 仍须消费实际 helper words 与这些 inputs，连接 candidate／host；局部 endpoints 不证明本例已安装优化 |
 | 第三层五次迭代与实际 body | Literal-bound model／permissions 桥及适配 leaf 完整五次原 store／实际检查 fixture 已证明 | Enclosing loaded source 与候选安装仍待完成；适配 body 不等于原 BT 计算 |
 | 整数／逻辑维度与物理地址 | numeric/profile 编码、affine math domain、window locations／capabilities | flat adapter 的 window 不代替原多维 delinearization／维度证书；须明确取舍或加入恢复证据 |
 | 由前提生成紧凑入口条件 | affine 包络编码、同许可基址的物理分离、short-circuit／保守拒绝、当前 fact transport | 尚无此例的 compact guard；数学 endpoint 非空／非重叠不自动许可真实 pointer comparison，属于条件算法与语言证明缺口 |

@@ -336,6 +336,59 @@
       ]
     },
     {
+      "section": "case-study",
+      "claim": "Data-only checker binds the actual original AST, source scope, caches/helpers, namespace and lowering. A runtime row-zero gate makes entry safety consume original-source completion only. Acceptance produces actual check-exit domains, word views, observer receipts and initial prefix; concrete header laws consume receipts. Observer ghost witnesses do not change generated outer-scan AST. Helper preparation, full physical guard, candidate and host assembly remain pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightNestedConstantSite.v",
+          "name": "check_nested_constant_site"
+        },
+        {
+          "source": "prototype/interface/ClightJointObserverSyntax.v",
+          "name": "constant_joint_outer_same_addresses"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantHeaders.v",
+          "name": "ncs_headers_from_actual_evaluations"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantHeaders.v",
+          "name": "ncs_root_header_from_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantHeaders.v",
+          "name": "ncs_child_header_from_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantSiteNumeric.v",
+          "name": "ncs_numeric_site_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantSiteNumeric.v",
+          "name": "ncs_numeric_initial_prefix"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantEntryGate.v",
+          "name": "ncs_entry_numeric_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantSiteExample.v",
+          "name": "actual_loaded_indexed_original_site_checked"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantSiteExample.v",
+          "name": "checked_original_empty_entry_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightNestedConstantSiteExample.v",
+          "name": "nonzero_row_actual_refusal_skips_all_headers"
+        }
+      ],
+      "documents": [
+        "docs/nested-constant-site.md"
+      ]
+    },
+    {
       "section": "evaluation",
       "claim": "Prior bound execution reports: 708 assembly calls, 236 Clight calls, 21 machine probes; nested service proof audit 48 endpoints; unchanged Figure 2 probe 16 calls. No new native matrix or timing result.",
       "documents": [
@@ -403,7 +456,7 @@
     "splncs04.bst": "f36c3a17e5304a692706359aafa9de709395a085e579eb47c027095aeaa35174"
   },
   "pending": [
-    "complete nested-loaded canonical model, actual input producers and installation",
+    "private helper preparation, complete nested physical guard, candidate factory and host installation",
     "compact sufficient conditions",
     "same-source near-neighbor obligations comparison",
     "runtime/compilation cost",
@@ -473,6 +526,24 @@
     "parameter_domains_derived_from_original_source": true,
     "accepted_numeric_produces_scan_domain_and_source_words": true,
     "empty_root_and_child_refuse_with_undefined_body_inputs": true,
+    "complete_nested_physical_guard_and_factory_assembled": false,
+    "new_compiler_or_native_execution": false
+  },
+  "nested_constant_site_proof_stage": {
+    "report": "build/nested-constant-site/proof/report.json",
+    "sha256": "567669aec6d81a8f7a732a66e76c68b5aa9c36c869ced80681ec5b21c91e36d5",
+    "endpoints": 37,
+    "language_endpoints": 4,
+    "domain_endpoints": 23,
+    "fixture_endpoints": 10,
+    "required_dependencies": 584,
+    "source_digests": 1083,
+    "data_only_original_ast_site_checker": true,
+    "observer_runtime_receipts_do_not_change_generated_ast": true,
+    "numeric_facts_and_observer_receipts_at_actual_check_exit": true,
+    "entry_safety_needs_source_completion_only": true,
+    "row_zero_profile_checked_at_runtime": true,
+    "nonzero_row_refusal_skips_all_headers": true,
     "complete_nested_physical_guard_and_factory_assembled": false,
     "new_compiler_or_native_execution": false
   }
