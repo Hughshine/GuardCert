@@ -1,5 +1,22 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新后继：[紧凑公开出口](nested-compact-exit.md)已将当前 accepted
+uniform nested 模型的 shadow traversal 替换为五个 temp 赋值，完整源出口、
+检查后实际入口、candidate memory 和 Csem→Asm 均已证明。42 端点／606 依赖
+审计、提取、762 assembly／381 Clight calls、较大域 60 assembly／45 Clight
+calls／九个真实汇编 probes 通过。Guard、validator、kernel、语言 host 保持；
+candidate 的出口对应由新 producer 交付，不新增使用者语义 callback。
+Identity/interchange/tiling bytes 为 587/626/719。[配对完整计时](nested-compact-cost.md)
+已通过 30 轮／1,200 batches：同值独立输入的 interchange 从相同 guard 的
+shadow 版 1,521.1ns 降至 1,229.8ns，仍为 source 的约 1.35×；identity 为
+约 0.88×。非同值 interchange／tile 仍为 source 的约 5.73×／7.65×。
+新／旧 guard 的分派、prefix decisions/loads 在八个输入上完全相同；结果包含
+backend/layout 效应，不把差值当作纯 shadow 成本。
+下一项继续非同值 stability／多数组 alias 的 compact footprint 条件，并整理
+语言库、domain 和 site 作者各自的证据及复用。更广 affine source、动态布局、
+完整 BT 和新入口的 source-only fresh rebuild 仍待验收。Narrative 分支重新
+fetch，仍为 `271f6fc`，两份正文与 main 一致。以下段落保留各阶段当时边界。
+
 2026-10-07 当前：[单份扫描与较大域](nested-stability-shared.md)已关闭备用 scan
 重复：interchange 762→644 bytes，原矩阵的 762 assembly／381 Clight calls 与
 接受结果保持。新增 actual word=15／count≤16 profile 的 60 assembly calls、
@@ -18,8 +35,9 @@ guard 工作已不随域大小增长；其他路径及多数组 alias scan 仍�
 但仍约为 source 的 1.65×；非同值独立输入约 5.91×。Guard-prefix 同值 decisions
 4,673→17，说明紧凑 guard 不保证净收益。另 [numeric word facts](nested-numeric-word-facts.md)
 生产真实 numeric/domain 充分事实，34 端点审计中四个新定理闭合；未替换 runtime。
-下一项 **对已接受的固定矩形 nested 源，生产既有 `affine_exit_statement` 所需
-exit-domain/frame，替代候选后的 shadow traversal，再验收完整计时**；不以成本
+当时下一项 **对已接受的固定矩形 nested 源生产紧凑 exit-domain/frame，替代
+候选后的 shadow traversal，再验收完整计时**，现已由上述五赋值 producer
+连接；本实例没有直接采用一般 last-path `affine_exit_statement`。不以成本
 相减代替归因。非同值 stability／多数组 alias 的 footprint 条件继续推进。
 Actual capture 许可、helper frame、模型入口及 host/candidate 责任必须保持。
 作者数据／语言库／实例证明比较，以及更广 affine source、动态布局与完整 BT

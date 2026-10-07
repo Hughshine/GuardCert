@@ -1,5 +1,9 @@
 # 单份 stability guard 的完整成本
 
+后继：[紧凑出口](nested-compact-exit.md)已证明五次赋值替代本阶段 candidate 的
+shadow 遍历，并连接新的完整 compiler。下面报告保留本阶段的源、binary 和
+计时事实；新入口另用相同 guard 的 shadow compiler 作配对实验，不混合报告。
+
 2026-10-07，生产入口仍为 `compile_ncs_stability_regions`。本轮未改变 runtime compiler。
 由 [成本脚本](../scripts/native_nested_stability_cost.py)编译一个 literal-15、固定
 `80*row+5*column+component` 地址的 kernel；检查窗口允许 root/child counts≤16。

@@ -1,5 +1,14 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 最新：[紧凑公开出口](nested-compact-exit.md)已以语言级幂等 control
+loop 定律、固定 temp patch 和 domain 的 accepted-word/active producer，取代
+当前 uniform model 的 shadow 遍历，接到新的实际 Csem→Asm entry。C_guard、
+C_derive 和 C_host 保持；C_opt 的 memory validator/lowering 复用，公开出口
+对应重新生产。42 端点审计及完整数组、拒绝、重复 site、上下文和九个真实
+汇编 probes 通过；五赋值 producer 不要求使用者再填 exit-domain/frame。
+成本另与相同 guard 的旧 candidate 比较。最小 kernel 和 narrative `271f6fc`
+保持，论文区分局部正确性与语言安装，并继续报告不成立的收益与源类限制。
+
 2026-10-07 后继：[单份扫描与较大域](nested-stability-shared.md)已在同一候选／
 host 下共享备用 scan，并用 language initialized-Boolean law 和 actual cache
 bindings 证明 eager conjunction 的安全。原矩阵接受保持，较大域的交换／tiling

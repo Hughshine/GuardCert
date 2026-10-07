@@ -723,6 +723,79 @@
         "docs/nested-stability-cost.md",
         "scripts/native_nested_stability_cost.py"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "For accepted uniform nested models, a proved five-assignment exit patch replaces shadow traversal and connects actual checked-entry candidate execution to Csem-to-Asm correctness; no additional factory semantic callback.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightIdempotentControlLoop.v",
+          "name": "frontend_idempotent_control_execution"
+        },
+        {
+          "source": "prototype/interface/ClightFixedTempPatch.v",
+          "name": "fixed_temp_patch_idempotent"
+        },
+        {
+          "source": "prototype/interface/ClightFixedTempPatch.v",
+          "name": "fixed_temp_patch_frame"
+        },
+        {
+          "source": "prototype/interface/ClightFixedTempPatch.v",
+          "name": "patched_frontend_control_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactExit.v",
+          "name": "ncs_compact_exit_execution"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactExit.v",
+          "name": "ncs_compact_source_exit"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactExit.v",
+          "name": "ncs_compact_accepted_inputs"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactExit.v",
+          "name": "ncs_compact_exit_frame"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactCandidate.v",
+          "name": "ncs_compact_reference_local"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactCertificate.v",
+          "name": "ncs_compact_local_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactPreservation.v",
+          "name": "ncs_compact_frontend_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightNestedCompactFactory.v",
+          "name": "check_ncs_compact_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightGuardedNestedCompactCompiler.v",
+          "name": "compile_ncs_compact_regions_correct"
+        },
+        {
+          "source": "prototype/affine-nest/AffineNestMultiCandidatePrefix.v",
+          "name": "affine_multi_candidate_prefix"
+        }
+      ],
+      "documents": [
+        "docs/nested-compact-exit.md"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Matched complete-call costs for compact exit and same-guard shadow compiler, with full output validation and unchanged guard-prefix decisions/loads on eight inputs. Reordered candidates remain slower than source on accepted inputs.",
+      "documents": [
+        "docs/nested-compact-cost.md",
+        "docs/research-checkpoint-2026-10-07-nested-compact.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -1404,6 +1477,434 @@
       }
     },
     "confidence_intervals_claimed": false,
+    "author_effort_compared": false
+  },
+  "nested_compact_stage": {
+    "proved_entrypoint": "ClightGuardedNestedCompactCompiler.compile_ncs_compact_regions",
+    "whole_program_correctness": "ClightGuardedNestedCompactCompiler.compile_ncs_compact_regions_correct",
+    "proof_report": "build/nested-compact/proof/report.json",
+    "proof_report_sha256": "7446909a2cd059f47b98b59eaacd3ab0d2d8510887fca6de3fcf1b01b926370e",
+    "proof_endpoints": 42,
+    "required_dependencies": 606,
+    "bound_sources": 905,
+    "compiler_sha256": "7cd55f3379f40e3b6a324554077c44ff24abf535dcb3b18d6d044a61b6cb7529",
+    "additional_global_axioms": [],
+    "compiler_baseline_globals": 42,
+    "kernel_assumptions": [],
+    "native_report": "build/nested-compact/native/report.json",
+    "native_report_sha256": "59090ec1155d4ee4fbf6bae08e86aa4d825f6501b73a3acd7a1b05153e02a879",
+    "large_report": "build/nested-compact/large/report.json",
+    "large_report_sha256": "2606062b1320944df1fecd1ae91b0e5f78a59a54946f5e26adcd36b95f2422d8",
+    "assembly_calls": 762,
+    "clight_dispatch_calls": 381,
+    "large_assembly_calls": 60,
+    "large_clight_calls": 45,
+    "unmodified_assembly_probes": 9,
+    "exit_assignments": 5,
+    "guard_condition_changed": false,
+    "minimal_semantic_kernel_changed": false,
+    "source_only_fresh_build_claimed": false,
+    "machine_bytes": {
+      "source": 161,
+      "identity": 587,
+      "interchange": 626,
+      "tile-2-3": 719
+    },
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_compact.mk native",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_compact.mk large",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_compact.mk cost",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/nested_compact.mk validate"
+    ]
+  },
+  "nested_compact_cost_stage": {
+    "report": "build/nested-compact/cost/report.json",
+    "report_sha256": "540f83698417f637a8b35ddf9198322f30becf04833a9e80b5010d21513f294a",
+    "samples_sha256": "ef253bdad423803349f07f2502477d8047e5940286bf73bfcb7a0a8fad004fba",
+    "samples": 1200,
+    "protocol": {
+      "rounds": 30,
+      "seed": 20261007,
+      "target_batch_cpu_seconds": 0.2,
+      "minimum_batch_cpu_seconds": 0.1,
+      "fresh_process_per_batch": true,
+      "pinned_cpu": 0,
+      "clock": "C clock() process CPU time",
+      "warmup_calls": 1,
+      "inclusive_per_call_header_reset": true,
+      "array_initialization_and_validation_timed": false
+    },
+    "environment": {
+      "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "available_cpus": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "cpu_model": "AMD Ryzen 7 7800X3D 8-Core Processor",
+      "gcc": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+    },
+    "bindings": {
+      "compiler_sha256": "7cd55f3379f40e3b6a324554077c44ff24abf535dcb3b18d6d044a61b6cb7529",
+      "shadow_compiler_sha256": "cf565f8f8374af84631e08878cb8f67ee56b44cd16ba884a0b2eae329a0d8a59",
+      "shadow_proof_report_sha256": "9a9ed66634b07e1c3c40b56216d484c59ca682d224ec96baaa5298345b67e0b5",
+      "shadow_native_report_sha256": "0d52b982dfcd94630231601f100fa321472f68e8cc712616ac02c4cf55d8b55c",
+      "proof_report_sha256": "7446909a2cd059f47b98b59eaacd3ab0d2d8510887fca6de3fcf1b01b926370e",
+      "native_report_sha256": "2606062b1320944df1fecd1ae91b0e5f78a59a54946f5e26adcd36b95f2422d8",
+      "source_sha256": "32b224cd30be18042f29a28fbf1873570073931153284665af588f66a4383bc9",
+      "helper_sources": {
+        "scripts/native_nested_compact_cost.py": "b49799fdc9a84e807acbf6c3152f9113327a62977340f0aa13a02dec76127d2d",
+        "scripts/native_nested_compact_large.py": "8485b57f94c6b2ee75726973e2f7147dcb3789081cfc89bf75c28464451cc34f",
+        "scripts/native_nested_stability_large.py": "30ab594efb6d1182530c43d06c98d9ee960823d6079fdf87db17e70ed5c02d6e",
+        "scripts/native_nested_compact.py": "68458dece9d6171f4deaecffb1bf40c1b7bd3cb82f5e3cf3231eb76d0501283b",
+        "scripts/native_nested_stability.py": "0946cdbc7d982cd434ede8cac39c3d805ddbf697c8a84ea1782a8bf46b2c84a6",
+        "scripts/probe_nested_frontend_coverage.py": "8d4e6bec540d8a926ab7073366e625e690ea58a4c1f80cd0e34244468cff7a85",
+        "scripts/native_nested_frontend_coverage.py": "77b36c9bff2f43dbd9c6d8cb36b4a508a429b119b0e5d154b4377d67215d9c86",
+        "scripts/native_nested_frontend.py": "89ebf3afabb8f831c40240e3c525d1341c4c68e205b8882fe994b38aaaa851a1",
+        "scripts/native_olo_figure2.py": "d3a2101f00f95a8e2c0f58eb9bccbdd1922714db5faaf1df9ba2c373d8d0ee60",
+        "scripts/loaded_affine_reduced.py": "e37febe8148e3a6c17bd975cec0a8ce4347d011fe80971bfcc31932df9b7f8c5",
+        "scripts/native_loaded_affine_multi.py": "7947f2588424490da89955950e58f76413202f0bde65efb0ed90f3394cd0ffd0",
+        "scripts/native_zero_trip.py": "4c3bd8be684cc6be53cbf148c5db840e70efae7cee8dbbeb1f5a040951ff1261",
+        "scripts/audit_interface_clight.py": "6c869a064eb3c48d84b3e9b50a9da250ad3a772211de6269c1c9923307becb90",
+        "scripts/native_affine_nest_paths.py": "31732cb713dc5cfb83cc4cd280bab609e97ac1b23ee2a916f658f9599a7e20e3",
+        "scripts/native_memory_layout_sequence_paths.py": "2f734f100d19cf52ba4c632d0eba4313f6c5cb5301a4a9bf4982adcf00009224"
+      },
+      "toolchain_lock_sha256": "d71beabc7a48851e85d160f70da4c25a8848e9feb084d69d82f52304ca63caec"
+    },
+    "summaries": {
+      "0": {
+        "disabled": {
+          "median_ns_per_call": 911.1192266870571,
+          "iqr_ns_per_call": 8.805716916030406,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 804.319509009832,
+          "iqr_ns_per_call": 8.283259914875089,
+          "median_paired_cost_over_source": 0.8812086341213898
+        },
+        "interchange": {
+          "median_ns_per_call": 1229.8390314527069,
+          "iqr_ns_per_call": 19.538241430021117,
+          "median_paired_cost_over_source": 1.3532381154906128
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1358.1937848871116,
+          "iqr_ns_per_call": 21.362714876836435,
+          "median_paired_cost_over_source": 1.487459607739097
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 1521.1190997637023,
+          "iqr_ns_per_call": 24.00257910206892,
+          "median_paired_cost_over_source": 1.665148395152534
+        }
+      },
+      "1": {
+        "disabled": {
+          "median_ns_per_call": 910.0650031453135,
+          "iqr_ns_per_call": 11.557597361749345,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 802.5381148942812,
+          "iqr_ns_per_call": 10.107794333989887,
+          "median_paired_cost_over_source": 0.8816900312375744
+        },
+        "interchange": {
+          "median_ns_per_call": 1229.946268783383,
+          "iqr_ns_per_call": 18.931899793667753,
+          "median_paired_cost_over_source": 1.35487246093787
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1352.056210538079,
+          "iqr_ns_per_call": 20.732525004190848,
+          "median_paired_cost_over_source": 1.4875329549677367
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 1515.1148345172492,
+          "iqr_ns_per_call": 25.699996814576252,
+          "median_paired_cost_over_source": 1.6613375891253923
+        }
+      },
+      "2": {
+        "disabled": {
+          "median_ns_per_call": 912.0322289809753,
+          "iqr_ns_per_call": 13.138673635917485,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 803.8811784597232,
+          "iqr_ns_per_call": 16.026010751022454,
+          "median_paired_cost_over_source": 0.8846263885497327
+        },
+        "interchange": {
+          "median_ns_per_call": 1228.1570645678785,
+          "iqr_ns_per_call": 13.232269942613584,
+          "median_paired_cost_over_source": 1.3453575996471163
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1346.3087716442983,
+          "iqr_ns_per_call": 15.352266584516883,
+          "median_paired_cost_over_source": 1.4796113747576345
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 1505.8699413593054,
+          "iqr_ns_per_call": 26.159308525213874,
+          "median_paired_cost_over_source": 1.6536067284299687
+        }
+      },
+      "3": {
+        "disabled": {
+          "median_ns_per_call": 158.43983045394066,
+          "iqr_ns_per_call": 1.8684256539489752,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 361.8492731934774,
+          "iqr_ns_per_call": 4.283960981485393,
+          "median_paired_cost_over_source": 2.27813515911416
+        },
+        "interchange": {
+          "median_ns_per_call": 907.2233031504902,
+          "iqr_ns_per_call": 12.729177579884777,
+          "median_paired_cost_over_source": 5.732110606786319
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 1216.239517596403,
+          "iqr_ns_per_call": 20.039999799499583,
+          "median_paired_cost_over_source": 7.655406589154012
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 938.1703785463482,
+          "iqr_ns_per_call": 12.293237853865662,
+          "median_paired_cost_over_source": 5.939673983793877
+        }
+      },
+      "4": {
+        "disabled": {
+          "median_ns_per_call": 913.8086575586576,
+          "iqr_ns_per_call": 10.181541431541405,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 803.3821690435352,
+          "iqr_ns_per_call": 10.43026219583021,
+          "median_paired_cost_over_source": 0.8781179654158328
+        },
+        "interchange": {
+          "median_ns_per_call": 839.841449603624,
+          "iqr_ns_per_call": 10.458663646659033,
+          "median_paired_cost_over_source": 0.9185428722632372
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 806.141265977513,
+          "iqr_ns_per_call": 10.19768385335999,
+          "median_paired_cost_over_source": 0.8815026316745349
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 875.1703530037864,
+          "iqr_ns_per_call": 11.308023401738183,
+          "median_paired_cost_over_source": 0.9547600933473359
+        }
+      },
+      "5": {
+        "disabled": {
+          "median_ns_per_call": 854.7548728022244,
+          "iqr_ns_per_call": 11.06841981490959,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 745.6696278939617,
+          "iqr_ns_per_call": 10.236682933429279,
+          "median_paired_cost_over_source": 0.8701068012768739
+        },
+        "interchange": {
+          "median_ns_per_call": 756.9498435264372,
+          "iqr_ns_per_call": 11.82535067718095,
+          "median_paired_cost_over_source": 0.8850800267081482
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 744.8691173169906,
+          "iqr_ns_per_call": 8.414362286918504,
+          "median_paired_cost_over_source": 0.8735711117782121
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 811.8957725059827,
+          "iqr_ns_per_call": 15.093960769856153,
+          "median_paired_cost_over_source": 0.9504545059281488
+        }
+      },
+      "6": {
+        "disabled": {
+          "median_ns_per_call": 2.5000125,
+          "iqr_ns_per_call": 0.04689687499999984,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 3.433,
+          "iqr_ns_per_call": 0.04157083333333311,
+          "median_paired_cost_over_source": 1.3759491234713765
+        },
+        "interchange": {
+          "median_ns_per_call": 3.2487344426819673,
+          "iqr_ns_per_call": 0.037533854948621936,
+          "median_paired_cost_over_source": 1.3017483856878784
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 3.4552,
+          "iqr_ns_per_call": 0.061510000000000176,
+          "median_paired_cost_over_source": 1.3795875118744507
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 3.36865632018034,
+          "iqr_ns_per_call": 0.05935156373649075,
+          "median_paired_cost_over_source": 1.3425655704000723
+        }
+      },
+      "7": {
+        "disabled": {
+          "median_ns_per_call": 973.8778245982303,
+          "iqr_ns_per_call": 16.755992123079523,
+          "median_paired_cost_over_source": 1.0
+        },
+        "identity": {
+          "median_ns_per_call": 839.75797511771,
+          "iqr_ns_per_call": 15.22118664034997,
+          "median_paired_cost_over_source": 0.8634350855940762
+        },
+        "interchange": {
+          "median_ns_per_call": 854.3888359379215,
+          "iqr_ns_per_call": 11.185080115812752,
+          "median_paired_cost_over_source": 0.8763510586349137
+        },
+        "tile-2-3": {
+          "median_ns_per_call": 843.0571596678942,
+          "iqr_ns_per_call": 10.826668700560163,
+          "median_paired_cost_over_source": 0.8668080532200964
+        },
+        "shadow-interchange": {
+          "median_ns_per_call": 916.6562850379968,
+          "iqr_ns_per_call": 14.046343590382435,
+          "median_paired_cost_over_source": 0.9418151551824038
+        }
+      }
+    },
+    "guard_diagnostics_new": [
+      {
+        "case": 0,
+        "accepted": true,
+        "if_decisions": 17,
+        "header_loads": 2
+      },
+      {
+        "case": 1,
+        "accepted": true,
+        "if_decisions": 17,
+        "header_loads": 2
+      },
+      {
+        "case": 2,
+        "accepted": true,
+        "if_decisions": 17,
+        "header_loads": 2
+      },
+      {
+        "case": 3,
+        "accepted": true,
+        "if_decisions": 900,
+        "header_loads": 2
+      },
+      {
+        "case": 4,
+        "accepted": false,
+        "if_decisions": 37,
+        "header_loads": 2
+      },
+      {
+        "case": 5,
+        "accepted": false,
+        "if_decisions": 3,
+        "header_loads": 0
+      },
+      {
+        "case": 6,
+        "accepted": false,
+        "if_decisions": 5,
+        "header_loads": 1
+      },
+      {
+        "case": 7,
+        "accepted": false,
+        "if_decisions": 12,
+        "header_loads": 2
+      }
+    ],
+    "guard_diagnostics_shadow": [
+      {
+        "case": 0,
+        "accepted": true,
+        "if_decisions": 17,
+        "header_loads": 2
+      },
+      {
+        "case": 1,
+        "accepted": true,
+        "if_decisions": 17,
+        "header_loads": 2
+      },
+      {
+        "case": 2,
+        "accepted": true,
+        "if_decisions": 17,
+        "header_loads": 2
+      },
+      {
+        "case": 3,
+        "accepted": true,
+        "if_decisions": 900,
+        "header_loads": 2
+      },
+      {
+        "case": 4,
+        "accepted": false,
+        "if_decisions": 37,
+        "header_loads": 2
+      },
+      {
+        "case": 5,
+        "accepted": false,
+        "if_decisions": 3,
+        "header_loads": 0
+      },
+      {
+        "case": 6,
+        "accepted": false,
+        "if_decisions": 5,
+        "header_loads": 1
+      },
+      {
+        "case": 7,
+        "accepted": false,
+        "if_decisions": 12,
+        "header_loads": 2
+      }
+    ],
+    "same_guard_comparison": true,
+    "confidence_intervals_claimed": false,
+    "representative_benchmark_speedups_claimed": false,
     "author_effort_compared": false
   }
 }

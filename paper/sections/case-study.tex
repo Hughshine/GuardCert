@@ -232,6 +232,32 @@ and cross-array alias scans. On the single-array same-word path, the former is
 skipped and the latter lowers to \code{skip}, leaving a guard whose work is
 independent of iteration-domain size. This does not establish a faster complete
 transformation: candidate traversal and public-exit restoration also cost work.
+
+\paragraph{Public-exit restoration.}
+The shadow-based candidate restores public counters by replaying the source's
+pure control nest after its memory computation. A successor compiler replaces
+that replay with five temporary assignments for the accepted uniform nested
+model. Acceptance and actual source execution supply typed cache words, an
+active root, and a positive child count; the checked site supplies a positive
+literal component bound. Thus each level has executed, and its final counter
+equals its upper bound. Empty paths retain the original source fallback.
+
+A language lemma constructs actual execution of a counted loop whose pure body
+performs an idempotent settlement, preserves that loop's header, and commutes
+with its counter update. Fixed temporary patches satisfy these laws on fresh
+keys. The domain instantiates the lemma at all three levels and uses the
+existing source-to-shadow correspondence and quiet determinacy to establish
+the exact source exit. The candidate lowering preserves the cache bindings;
+the patch then restores the source's public ports from the actual checked
+entry, without changing memory.
+
+The data-only factory consumes the same site and candidate proposals. It adds
+no caller-supplied exit or execution callback. Guard correctness, memory
+validation, and the installation host are reused; candidate exit correspondence
+is supplied by the new producer. The resulting compiler has a Csem-to-Asm
+backward simulation. This is a certified candidate implementation change, not
+a general loop-exit synthesizer or a simplification of the guard condition.
+
 \pending{Extend compact conditions to other stability and array
 footprints, connect certified residualization to actual execution, and compare
 manual proof work. General projection and arbitrary dependent preload expressions

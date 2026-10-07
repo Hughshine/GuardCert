@@ -11,7 +11,13 @@ uncompleted results. An exploratory complete-call experiment now records 30
 rounds/1,200 raw batches on one literal-store kernel, including observed
 slowdowns; it is not a representative benchmark speedup result. A separate
 known-word numeric/domain fact checker has four closed sufficiency theorems and
-does not change the production guard. The extracted nested compiler installs interchange and
+does not change the production guard. A compact-exit successor replaces the
+accepted uniform model's shadow traversal with five proved assignments. Its
+42-endpoint audit, array/context matrices, and nine assembly probes pass without
+changing the guard or kernel. Its separate 30-round/1,200-batch comparison uses
+the same-guard shadow compiler as well as source: same-word interchange is
+cheaper than shadow but still costs about 1.35 times source, and non-word inputs
+remain substantially slower. The extracted nested compiler installs interchange and
 tiling on the fixed-layout adapted OLO Figure 2 source; its new execution reports
 are recorded separately from prior loaded-root results. A committed source-only
 export now rebuilds the proof, compiler, and existing C experiments independently

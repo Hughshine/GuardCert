@@ -220,9 +220,57 @@ excluding the final source/candidate choice. The same-word input changes from
 $6\times8\times5$ input changes from 899 to 900 decisions. These are not machine
 instruction counts. Numeric checks are first-path and parameter interval tests;
 per-point work comes from stability and alias scans. The production candidate
-still restores public counters by traversing a body-free shadow nest.
-Replacing that traversal with a certified compact exit is a concrete next
-target; these timings do not by themselves attribute the slowdown to it.
+in that stage restores public counters by traversing a body-free shadow nest.
+Those timings do not by themselves attribute the slowdown to that traversal.
+
+A compact-exit successor has a separate 42-endpoint audit over 606 dependencies
+and 905 source digests. The kernel is closed and the compiler retains the same
+42-global baseline. It passes 762 assembly calls and 381 Clight dispatch calls,
+plus sixty larger-domain assembly calls, forty-five Clight calls, and nine
+probes of unmodified assembly. Acceptance, refusal, full arrays, and public
+exits agree with the source model. Identity, interchange, and tiling functions
+use $(587,626,719)$ bytes, compared with $(611,644,755)$ for the shadow compiler.
+The guard and candidate proposals are unchanged; the new exit producer adds
+no semantic callback to the checked factory. A matched complete-call experiment
+compares this compiler against the same-guard shadow compiler and source.
+
+\paragraph{Matched compact-exit cost.}
+A separate thirty rounds give 1,200 batches under the same protocol, inputs,
+profile, and measurement environment. The shadow comparison now uses the
+single-scan same-word guard, so it accepts the same header aliases. The two
+versions have identical guard-prefix decisions, header loads, and dispatch
+results on all eight inputs. Table~\ref{tab:compact-cost} keeps this experiment
+separate from the earlier scan-only comparison.
+
+\begin{table}[t]
+\centering
+\caption{Median CPU ns/call after compact exit restoration, with a matched
+same-guard shadow interchange comparison.}
+\label{tab:compact-cost}
+\begin{tabular}{lrrrr}
+\hline
+Input & Source & Compact inter. & Shadow inter. & Compact tile\\
+\hline
+Independent, same word & 911.1 & 1229.8 & 1521.1 & 1358.2\\
+Root header alias, same word & 910.1 & 1230.0 & 1515.1 & 1352.1\\
+Shifted alias, same word & 912.0 & 1228.2 & 1505.9 & 1346.3\\
+Independent, counts $6,8$ & 158.4 & 907.2 & 938.2 & 1216.2\\
+Root alias, growing domain & 913.8 & 839.8 & 875.2 & 806.1\\
+Nonzero entry row & 854.8 & 757.0 & 811.9 & 744.9\\
+Empty outer, one-cell header & 2.5 & 3.3 & 3.4 & 3.5\\
+Root count outside profile & 973.9 & 854.4 & 916.7 & 843.1\\
+\hline
+\end{tabular}
+\end{table}
+
+On the independent same-word input, compact interchange costs about 19\%
+less than the matched shadow version but remains $1.35\times$ source; tiling
+costs $1.49\times$ source. Compact identity costs 804.3ns, about $0.88\times$
+source on this input. This is a complete lowering/backend observation, not a
+general speedup guarantee for identity rewrites. For counts $6,8$, interchange
+and tiling cost $5.73\times$ and $7.65\times$ source. Fallback layouts also
+change cost; subtracting complete timings does not isolate the CPU cost of
+shadow restoration. Raw batches and dispersion remain in the bound report.
 
 \subsection{Experiments Needed for the Final Paper}
 

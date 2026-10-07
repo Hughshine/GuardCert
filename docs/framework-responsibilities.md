@@ -1,5 +1,17 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 后继：[五赋值公开出口](nested-compact-exit.md)连接当前 accepted
+uniform nested 模型与实际 candidate 出口。语言库证明幂等 control BODY 的真实
+循环执行及固定 temp patch 定律；domain 从 guard 接受／模型执行生产实际
+int32 words、root 活跃和 child positive，证明精确 source exit 并运输 cache
+frame。Memory candidate 验证及 lowering 定律复用，guard/kernel/host 不变。
+这属于 C_opt 的执行对应，不是 C_guard 或 C_derive 的新条件。最难的位置是
+“每层确实执行过”的来源与检查后入口 cache/public frame；不能一律将空循环
+的 child counter 设为 upper。Checked factory 没有新增语义回调。42 端点审计、
+实际数组／上下文矩阵和九个 machine probes 已通过。[配对成本](nested-compact-cost.md)
+30 轮完成，同值 interchange 下降但仍慢于 source，非同值路径仍明显变慢；
+guard 工作保持，不能把全部差值归为纯出口恢复成本。
+
 2026-10-07 最新：[单份扫描](nested-stability-shared.md)沿原证书接口复用 candidate／
 host。语言新服务只在两项均已初始化为 int32 Boolean words 时证明 eager `Oand`；
 domain 从实际 cache bindings 建立其输入，失败不改变旧 scan 入口。它不属于最小

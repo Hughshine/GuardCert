@@ -4,6 +4,16 @@
 introduction／related work／framework 初稿，以及 case-study／evaluation 的证据与待验收项。
 写作跟随真实源码和证明边界，不等待所有后续扩展，也不预设性能收益。
 
+最新 [紧凑公开出口](docs/nested-compact-exit.md)已把 accepted 三层 uniform model
+的 shadow 遍历替换为五个已证明的 temp 赋值，并接到新 Csem→Asm compiler。
+42 端点／606 依赖审计、提取、762 assembly／381 Clight calls、较大域 60
+assembly／45 Clight calls 和九个真实汇编 probes 通过。Guard、kernel、validator
+和 host 保持；原始 source fallback、公开 counter 及上下文保持。
+`make -f scripts/nested_compact.mk validate` 核对独立后继目录。
+[配对成本](docs/nested-compact-cost.md)通过 30 轮／1,200 batches：同值独立
+输入的交换从 shadow 版 1,521ns 降至 1,230ns，仍约为 source 的 1.35×；
+非同值交换／tiling 仍显著慢于 source。以下为前阶段证据。
+
 [最新单份扫描与较大域](docs/nested-stability-shared.md)已证明 initialized cache
 comparisons 的 eager conjunction，备用 scan 仅生成一份；interchange 函数
 762→644 bytes，原 762 次汇编调用及接受结果保持。Word=15／count≤16 的实际
