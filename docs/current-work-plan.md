@@ -1,5 +1,18 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 当前：[动态 tensor candidate backend](dynamic-tensor-backend.md)已完成
+vector affine read／RMW lowering、runtime layout 参数保护、实际 guard 到 registry
+nonalias，以及原 affine／tiling checker 到实际 Clight candidate execution 的连接。
+66 端点（33 旧＋33 新）／238 依赖审计、七项提取运行通过；无新完整 C compiler。
+重新 fetch 并读完 narrative `271f6fc` 和 context-lifting 说明，main 正文一致。
+[新 checkpoint](research-checkpoint-2026-10-07-tensor-backend.md)将澄清具体纳入
+目标：保持最小 kernel；下一项是原源 Horner 地址／活动路径／完整坐标覆盖的
+producer，然后 public exits、typed factory／progress／placement 和 Csem→Asm。
+按约定三层子集先闭合证明链，再同例验收条件成本、接受域、bytes、完整运行和
+三方作者负担；不等所有扩展做完才比较。C_opt 已接模型，C_derive 尚缺实际源，
+不把接口字段、observer 或 checker 可运行当作全程序证明。完整目标 active。
+以下阶段记录保留原范围，其后继顺序以本段和新 checkpoint 为准。
+
 2026-10-07 最新：[动态 tensor 服务](dynamic-tensor-layout.md)补齐逻辑坐标向量到
 modular pointer 地址的局部连接与安全 volume guard。33 端点／160 依赖审计通过，
 13 闭合端点，零新增公理。已有二维 runtime-stride compiler 已保留变量 stride；

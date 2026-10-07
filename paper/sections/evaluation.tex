@@ -319,15 +319,21 @@ domain services. List the site-specific assumptions and source/model bridges
 still supplied by the author. Compare a common example against the nearest
 existing interfaces before claiming reduced proof burden.
 
-\paragraph{Dynamic-layout service scope.}
-Separate library proofs connect logical coordinate vectors to row-major layouts
-with runtime dimensions, actual CompCert pointer/load/store operations, and the
-existing independent-instruction exchange theorem. A read-only volume guard
-checks positivity and quotient bounds before accumulating products. Its audit
-covers 33 endpoints, with no added global axioms. These services have no new
-source-to-assembly installation: source-derived dimension readiness, coordinate
-coverage, stable layout parameters, and candidate/host connections remain
-client obligations. Their proof audit is separate from the native results above.
+\paragraph{Dynamic-layout candidate services.}
+Separate library proofs connect logical coordinate vectors to runtime row-major
+layouts and actual CompCert pointer/load/store operations. A read-only volume
+guard checks positivity and quotient bounds before accumulating products.
+The successor connects vector affine read/modify/write lowering and the existing
+affine/tiling checkers to actual candidate Clight execution, preserving layout
+temporaries and complete memory. Its audit covers 66 endpoints, including the
+previous 33 service endpoints, with no added global axioms. Candidate theorems
+inherit the existing checker baseline. An extracted checker/lowerer passes seven
+cases, including accepted three-dimensional RMW identity and tiling candidates.
+This harness does not execute the generated statements. Original-source
+dimension readiness, coordinate coverage, source/model correspondence, public
+exits, and host installation remain unfinished. The volume guard alone does not
+justify those obligations. These results add no source-to-assembly or native
+program evidence to the compiler measurements above.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

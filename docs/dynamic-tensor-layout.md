@@ -2,6 +2,10 @@
 
 日期：2026-10-07。此阶段交付局部库，不新增完整 C 编译入口。
 
+后继 [动态 tensor backend](dynamic-tensor-backend.md)已连接 vector 指令／真实
+RMW、原 affine／tiling checker 和实际 candidate lowering，另有七项提取运行。
+本文保留原 33 端点服务阶段的证据范围；真实原源接入及新完整 compiler 仍待完成。
+
 ## 要覆盖的源问题
 
 考虑有 padding 的布局，`ld` 为运行时行宽：

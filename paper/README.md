@@ -6,10 +6,16 @@ the introduction, framework, and related work, plus the established case-study
 architecture and an evaluation plan. The intended reader is a verification
 researcher who has not read the repository history.
 
-The latest [dynamic-layout checkpoint](../docs/research-checkpoint-2026-10-07-dynamic-tensor.md)
-adds audited local layout/access/volume-check services. Its 33 endpoints are
-separate from the installed compiler and native evidence; source-derived
-dimension receipts and a new compiler connection remain unfinished.
+The latest [dynamic-tensor checkpoint](../docs/research-checkpoint-2026-10-07-tensor-backend.md)
+connects vector affine read/modify/write lowering and the existing affine/tiling
+checkers to actual candidate Clight execution. The audit covers 66 endpoints,
+including the previous 33 layout/access/volume-check endpoints. An extracted
+checker/lowerer prototype passes seven cases, including accepted three-dimensional
+RMW identity and tiling candidates. It does not execute the generated statements.
+Original-source receipts, complete coordinate conditions, public exits, and a
+new whole-program compiler connection remain unfinished. The narrative has been
+re-read at `271f6fc`; the kernel boundary and proof-first/usability requirements
+continue to guide these deliverables.
 
 The source is an LNCS working draft. Red `Pending evidence` paragraphs identify
 uncompleted results. An exploratory complete-call experiment now records 30

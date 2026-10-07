@@ -1,11 +1,11 @@
 # Guard：带前提的程序变换与组合证明
 
-[最新动态布局服务](docs/dynamic-tensor-layout.md)提供任意 rank 的逻辑 cell、
-真实 CompCert pointer/load/store 对应与安全 volume 条件编码，复用已有依赖
-契约。33 端点／160 依赖审计通过，零新增公理；它是局部服务阶段，尚未新增
-完整 C 编译器。已重新读取 narrative 澄清，下一步按
-[checkpoint](docs/research-checkpoint-2026-10-07-dynamic-tensor.md)接原源 receipts、
-candidate backend 和语言 host；完整目标继续 active。
+[最新动态 tensor backend](docs/dynamic-tensor-backend.md)已将 vector affine
+read／RMW、runtime layout、实际 Clight lowering 接到原 affine／tiling checker。
+新旧 66 端点／238 依赖审计通过，零新增公理；七项 checker／lowerer 提取运行
+通过，包括三维 RMW identity／tiling。没有新的完整 C 编译器或生成代码的运行。
+已重新读取 narrative 澄清，按 [checkpoint](docs/research-checkpoint-2026-10-07-tensor-backend.md)
+继续接真实原源、完整入口条件与语言 host；完整目标 active。
 
 最新 [入口参数同值条件](docs/nested-invariant-word.md)已支持 loop-invariant
 仿射 int32 store 值，包括 wrap 后仍保持 header 的 alias 输入。真实 source-derived

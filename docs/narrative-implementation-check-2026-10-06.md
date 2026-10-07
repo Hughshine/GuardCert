@@ -1,5 +1,15 @@
 # Narrative 澄清的实现核对与下一项验收
 
+2026-10-07 当前核对：重新 fetch 的 narrative `271f6fc` 与 main 正文一致，澄清
+commits 和 context-lifting 说明已读完。[本轮吸收表](research-checkpoint-2026-10-07-tensor-backend.md)
+将最小 kernel、三方责任／四条链、proof-first 与 OLO usability 写成实际验收。
+[动态 tensor backend](dynamic-tensor-backend.md)已有原 checker 到真实 candidate
+Clight execution 的连接及七项提取运行；66 端点包含旧 33 项，不能全计为新。
+下一项的难点是原源读取许可、Horner 地址／模型坐标和全部活动范围的 producer，
+再交付公开出口、具体 region/site 与语言安装。没有新的 Csem→Asm entry，
+kernel 或通用 host contract algebra 没有变化。成本、接受域和作者负担同例比较
+继续为最终要求，不以拓展更多 source classes 推迟；同步实际 manuscript。
+
 2026-10-07 本轮重新 fetch 后，narrative 仍为 `271f6fc`，main 正文相同。
 [动态布局局部服务](dynamic-tensor-layout.md)落实了条件编码的另一困难点：任意
 rank 的 volume 不能假定 signed64 足够，实际检查需证明先正数、再除法界、再

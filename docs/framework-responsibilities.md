@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 当前：[动态 tensor backend](dynamic-tensor-backend.md)按 narrative 的
+三方责任接通实际 lowering 与原 affine／tiling checker。语言库生产维度 word、
+真实指令／循环执行和 protected temp frame；domain 消费布局 nonalias 及 verified
+candidate certificate，交付候选实际执行，无新候选语义 callback。66 端点审计和
+七项提取运行通过，最小 kernel 保持。四条链中 C_guard 的 D 明确要求维度已有
+Vint，C_derive 仍缺实际原源读取许可／坐标覆盖，C_opt 的 source 端仍是 Loop
+模型，新 C_host 安装未发生。最难的下一项是原 C 活动路径和 Horner 地址到模型
+的 producer／entry transport，随后实际出口与 progress／placement；它们属于
+语言／domain／site 责任。详见 [澄清吸收和验收顺序](research-checkpoint-2026-10-07-tensor-backend.md)。
+
 2026-10-07 最新：[动态布局服务](dynamic-tensor-layout.md)继续按照 narrative 划分。
 Domain 提供 mixed-radix 单射与布局到 footprint 的局部推导；Clight 库交付真实
 word／division／pointer／load/store 及 readonly 检查定律；现有依赖契约消费物理

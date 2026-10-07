@@ -868,6 +868,32 @@
         "docs/dynamic-tensor-layout.md",
         "docs/research-checkpoint-2026-10-07-dynamic-tensor.md"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Dynamic tensor vector-affine RMW backend connects existing verified affine/tiling candidate checkers to actual candidate Clight execution under original Loop-model and entry receipts; extracted checker/lowerer prototype runs seven cases without executing generated statements or installing a new whole-program compiler.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDynamicTensorBackend.v",
+          "name": "compile_tensor_buffer_loop_correct"
+        },
+        {
+          "source": "prototype/interface/ClightTensorBackendGuard.v",
+          "name": "tensor_backend_guard_condition"
+        },
+        {
+          "source": "prototype/interface/ClightTensorCandidates.v",
+          "name": "check_tensor_mapped_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorCandidates.v",
+          "name": "check_tensor_tiled_execution"
+        }
+      ],
+      "documents": [
+        "docs/dynamic-tensor-backend.md",
+        "docs/research-checkpoint-2026-10-07-tensor-backend.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -2092,6 +2118,33 @@
     "commands": [
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/dynamic_tensor.mk proof",
       "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/dynamic_tensor.mk validate"
+    ]
+  },
+  "dynamic_tensor_candidate_backend_stage": {
+    "proof_report": "build/dynamic-tensor-backend/proof/report.json",
+    "proof_report_sha256": "2b0fe57f9a8e31a21845acbac3c82a10251c7a651819d52d4c3da472a3098d1f",
+    "proof_endpoints": 66,
+    "new_endpoints": 33,
+    "required_closure_count": 238,
+    "closed_endpoints": 30,
+    "maximum_endpoint_globals": 14,
+    "candidate_globals_from_existing_checker_baseline": true,
+    "kernel_changed": false,
+    "candidate_backend_installed": true,
+    "candidate_checker_connected": true,
+    "original_source_adapter_installed": false,
+    "source_selector_installed": false,
+    "whole_program_compiler_installed": false,
+    "extraction_report": "build/dynamic-tensor-backend/extracted/report.json",
+    "extraction_report_sha256": "50f6f7994dfcca6af19ffbb9e3892ff43e13bcc3b9ec96467e22b41a661503c5",
+    "extracted_checker_cases": 7,
+    "generated_statements_executed": false,
+    "C_or_assembly_evidence_added": false,
+    "profitability_measured": false,
+    "proof_burden_measured": false,
+    "commands": [
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_backend.mk prototype",
+      "opam exec --root=/tmp/guard-opam --switch=guard -- make -f scripts/tensor_backend.mk validate"
     ]
   }
 }
