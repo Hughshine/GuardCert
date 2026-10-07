@@ -155,9 +155,18 @@ loaded-affine-body-domain-proof:
 loaded-affine-scan-proof:
 	python3 scripts/audit_loaded_affine_scan.py
 
-.PHONY: loaded-affine-multi-proof
+.PHONY: loaded-affine-multi-proof loaded-affine-multi-native loaded-affine-multi-validate
 loaded-affine-multi-proof:
-	python3 scripts/audit_loaded_affine_multi.py
+	python3 scripts/audit_loaded_affine_multi_native.py
+
+loaded-affine-multi-native: loaded-affine-multi-proof
+	python3 scripts/build_loaded_affine_multi.py > build/loaded-affine-multi-native/build.log 2>&1
+	python3 scripts/native_loaded_affine_multi.py
+	python3 scripts/probe_loaded_affine_multi.py
+	python3 scripts/validate_loaded_affine_multi.py --paths
+
+loaded-affine-multi-validate:
+	python3 scripts/validate_loaded_affine_multi.py --paths
 
 affine-dependent-compiler-proof:
 	python3 scripts/audit_affine_dependent_compiler.py

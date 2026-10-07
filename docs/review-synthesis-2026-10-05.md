@@ -253,3 +253,15 @@ narrative `7d94d81` 的边界继续有效：没有修改 kernel；条件／prefi
 代码规模、检查成本、接受范围分别记账；循环化不计作消除逐点工作。后继 compact guard 可是
 更强充分条件，但需实际 safety／soundness／entry transport，并检查旧候选与 host 是否仍可复用。
 CGO 2017 选定 C/kernel 的同例比较与成本／作者负担评估仍**未完成**，新增编译定理不替代它们。
+
+## 按 226ba94 顺序完成当前运行接入
+
+[Deep＋loaded multi native](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)已实际连接
+frontend、typed private pool、提取及完整 C 运行。真实提案最初全部被 backend 拒绝：受保护 cache
+仍在 candidate counter pool；保留 cache allocation 并过滤该 pair 后，旧 checker 正确接受非空
+递归／多数组候选，无需更改 kernel 或加入假设。六配置 624 次新 assembly 调用、208 次 Clight
+路径调用和 21 个未修改汇编探针通过；真实依赖与 alias 改变 bound 的拒绝保持。
+
+独立证明报告记录唯一 factory source 变化并绑定当前对象，不重写前一报告。再次 fetch narrative
+仍为 `226ba94`，正文一致。**计划据此推进** compact entry 条件和 CGO 2017 同例差距／人工工作，
+并分别测量代码规模、检查成本与接受域；不等未来扩展全部完成，也不把本次正确执行算成收益。

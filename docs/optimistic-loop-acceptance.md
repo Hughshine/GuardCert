@@ -47,8 +47,15 @@
 10 月 6 日的 [后继 loaded-affine multi compiler](research-checkpoint-2026-10-06-loaded-affine-multi.md)
 已闭合前一 scan 的候选／host／Csem→Asm 缺口：带捕获 cache 的入口关系、依赖稳定性接受之后的 alias
 可执行性、旧 validator 和实际候选／fallback 均进入 checked factory。32 新端点审计通过，新 compiler
-保持旧 42 项假设。尚无该入口的新提取／C／native；三轴 static descriptor／progress 与单数组的实际
-接受／提前停止回退例不计作非空三轴候选运行。
+保持旧 42 项假设。该阶段当时没有新提取／C／native；后继验收如下，旧 static descriptor 不计新调用。
+
+[后继提取与运行](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)已经处理真实
+`i<*limit` 根和两／三层 affine children。六配置 624 次 assembly 调用逐单元／公开出口核对，
+208 次 Clight 路径调用和 21 个未修改机器程序的探针确认 interchange、2×3 tiling、多数组、
+同 block 切片、两次 rewrite，以及 alias 改变上界后的提前停止。真实依赖交换、错误 domain／
+reindex 和资源耗尽保持原程序；检查在短源上拒绝后不比较未来未许可地址。
+新审计保持原 42 项假设，resource pool 修复后的 factory 独立绑定，kernel 不变。
+这关闭当前声明范围的功能链，不代表全部 OLO 源覆盖、紧凑条件生成或可用性已通过。
 
 按 narrative `226ba94`，功能、正确性和可用性分别验收：先完成约定范围的实际链，再改进紧凑 entry
 条件及自动生成。guard 代码大小、检查工作和有用输入接受范围单独记账；CGO 2017 选定 C/kernel

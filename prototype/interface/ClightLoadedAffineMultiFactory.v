@@ -1,4 +1,4 @@
-From Stdlib Require Import List Bool.
+From Stdlib Require Import List Bool PArith.
 From compcert.common Require Import AST.
 From compcert.cfrontend Require Import Clight Ctypes.
 From polcert.lib Require Import ImpureAlarmConfig.
@@ -18,6 +18,11 @@ Set Implicit Arguments.
 Definition loaded_affine_source_proposer := list ident -> list(ident*type) -> statement ->
   option(list ident*affine_guard_proposal*ident).
 
+(** Captured inputs are protected by candidate lowering. Their declarations
+    stay in the checked integer pool, but their pair is not a counter resource. *)
+Definition loaded_affine_candidate_pairs cache pairs :=
+  filter(fun pair=>negb(Pos.eqb(fst pair)cache || Pos.eqb(snd pair)cache)) pairs.
+
 Definition check_loaded_affine_multi_region live pool
   (describe : loaded_affine_source_proposer)(propose : affine_candidate_proposer) source :=
   match describe live pool source with
@@ -29,7 +34,8 @@ Definition check_loaded_affine_multi_region live pool
       | Some(candidate,evidence) =>
         match compile_window_multi_pointer_buffer_loop(affine_proposed_pointers proposal)
           (affine_package_context parameters proposal)(affine_package_encoder_bounds proposal)
-          (loaded_affine_scan_ports parameters proposal live) pairs candidate with
+          (loaded_affine_scan_ports parameters proposal live)
+          (loaded_affine_candidate_pairs(affine_proposed_bound proposal)pairs) candidate with
         | Some code =>
           BIND valid <- checked_affine_candidate(affine_package_validator_bounds proposal)
             (affine_multi_source_loop(loaded_multi_package site))(affine_package_context parameters proposal)
@@ -58,11 +64,13 @@ Proof.
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   destruct(compile_window_multi_pointer_buffer_loop(affine_proposed_pointers proposal)
     (affine_package_context parameters proposal)(affine_package_encoder_bounds proposal)
-    (loaded_affine_scan_ports parameters proposal live) pairs candidate) as [code|] eqn:COMPILE;
+    (loaded_affine_scan_ports parameters proposal live)
+    (loaded_affine_candidate_pairs(affine_proposed_bound proposal)pairs) candidate) as [code|] eqn:COMPILE;
     [|intro RUN; apply mayReturn_pure in RUN; discriminate].
   intro RUN; bind_imp_destruct RUN valid VALID; apply mayReturn_pure in RUN; destruct valid; [|discriminate].
   inversion RUN; subst target.
-  eapply loaded_affine_multi_region_contract with(candidate:=candidate)(pool:=pairs).
+  eapply loaded_affine_multi_region_contract with(candidate:=candidate)
+    (pool:=loaded_affine_candidate_pairs(affine_proposed_bound proposal)pairs).
   - eapply checked_affine_candidate_correct; exact VALID.
   - exact COMPILE.
 Qed.

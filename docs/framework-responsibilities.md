@@ -1,6 +1,6 @@
 # 验证责任、证书边界与最难的验收
 
-这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `7d94d81`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
+这是当前活动目标的一部分，按用户的补充要求维护。研究叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)，10 月 6 日更新到 `226ba94`。该稿是方向；本文区分已经实现的设施、使用者还需提交的证明和后续验收。完整多面体目标仍未完成。
 
 最新澄清已采纳：最小 semantic kernel 止于局部 guarded correctness；只读前台、条件组合、prefix scan、simplification 和 assumption derivation 是核上的库。完整程序安装属于 language/IR host，generic lifting record 只是组合入口。这里的“框架责任”包含可复用库，不等于这些服务全部属于最小 kernel。此边界不要求重排文件；只有真实 optimizer／host 暴露无法表达的语义义务时才考虑修改 kernel。
 
@@ -23,7 +23,15 @@ domain 从稳定性接受生产真实 cached execution，再运行旧多数组 a
 的实际执行与出口。checked factory 接受数据提案，语言的既有 loaded-region host 独立核对原源 progress
 和 private placement。32 端点审计、新 Csem→Asm 与旧两条 42-assumption 回归通过，旧对象绑定保持。
 最难关闭的是 cached completion 只能是 stability 的结果而不能是 guard safety 的假设；整个连接没有新增
-kernel 能力。本入口的 frontend／提取／新 native 与 guard 成本、作者负担仍未验收。
+kernel 能力。该阶段当时尚未验收 frontend／提取／新 native；后继结果如下，成本和作者负担仍待验收。
+
+[可运行后继](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)关闭上述运行缺口：
+不受信任 frontend 只提出 source metadata、cache 和 candidate；checked factory 仍绑定实际 source AST。
+语言层保留完整 typed allocation，候选资源池剔除受保护 cache 所在 pair；domain 的原 disjointness
+checker 与候选证明继续负责安全，无新 kernel 接口。六配置 624 次 C→assembly 调用、208 次
+Clight 路径调用和 21 个未修改汇编探针确认非空递归重排、多数组、两次 rewrite 及原 loaded fallback。
+独立证明报告绑定资源修复后的 factory，前一报告不改写。下一项是 compact guard 的安全、接受与
+入口运输，不能仅凭包络的数学正确性或 runtime 成功推断这些证明已经完成。
 
 narrative 本轮更新为 `226ba94`：先闭合约定范围的证明链，然后改进条件推导／生成；scan 是中间实现。
 自动化／可用性是最终要求。代码大小、运行检查成本和接受域分开评估，具体同例对照仍待完成。

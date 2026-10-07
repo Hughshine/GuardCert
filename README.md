@@ -1,6 +1,6 @@
 # Guard：带前提的程序变换与组合证明
 
-[Deep＋loaded 候选与完整编译证明](docs/research-checkpoint-2026-10-06-loaded-affine-multi.md)已把安全 capture／稳定性接受接到旧多数组 alias、依赖 validator、实际候选和语言 whole-program host，得到新的 Csem→Asm 定理。检查后的入口关系保留实际捕获值，kernel 不变；bound 被写成 1 时，完整 guard 拒绝后的原 repeated-load fallback 仍只执行一次。同一 block 相邻字的实际源和完整检查接受也通过。32 端点／692 依赖／1,021 源摘要审计通过，新 compiler 保持旧 42 项假设和旧对象绑定。本入口的提取、真实 C／非空递归候选运行尚未完成；旧 native 不计新结果。
+[Deep＋loaded multi 的可运行编译器](docs/research-checkpoint-2026-10-06-loaded-affine-multi-native.md)已闭合当前范围的真实 C→检查→候选／原源回退→完整编译链。提取入口处理两／三层参数化循环、多数组读写、真实依赖和同函数两次改写；六配置共 624 次新 assembly 调用、208 次独立 Clight 路径调用和 21 个未修改汇编的路径探针通过。循环交换／2×3 tiling 确实改变访问顺序，同 block 分离切片接受、部分重叠和改变 bound 的别名保留原回退；短数组例确认 guard 不比较未来未获许可地址。真实运行发现并修复了 cache 与候选 counter pool 的冲突；独立 32 端点／692 依赖／1,021 源摘要审计及旧 42 项假设回归通过，最小 kernel 不变。检查成本与收益尚未测量，下一阶段推进紧凑 entry 条件及 CGO 2017 同例对照。
 
 [前一递归 body domain 证明](docs/research-checkpoint-2026-10-06-loaded-affine-body-domain.md)从原 loaded source 生产参数 word view，并从当前完整 body 生产递归模型执行、各点物理许可和 private cursor 的实际地址比较域；写 trace 对应证明将点写分离推成 body 的 bound 保持，允许 reads alias bound。25 端点／674 依赖／1,001 源摘要审计通过，既有 body／numeric／compiler 对象保持。本段保留前阶段验证范围；完整检查与缓存源连接见上段。
 
@@ -8,7 +8,7 @@
 
 [最近可运行的 deep affine compiler](docs/research-checkpoint-2026-10-06-materialized-affine.md)把已有递归 affine 源、真实单／多指针 body 和候选 checker 接到当前 kernel：Clight 提供正常返回的私有 Boolean check、安全／分派／状态运输及程序安装；domain 复用源／模型与候选证明。新的 Csem→Asm 入口、26 端点审计、提取和十二配置共 5,118 次 assembly 调用通过；四组实际 Clight 插桩另核对接受／fallback、物理 alias 和条件读取。最小 kernel 没有改动，[接口说明](docs/clight-materialized-check.md)列明使用者责任和限制。
 
-当前有两条实际路线：深层 canonical affine nest 使用稳定 temp bounds；两层 dependent cursor 路线处理 `**root` header／多观察稳定性。二者尚未组合成任意深度 loaded-bound optimizer，typed pointer-store body、独立计时及同例 proof-burden 比较仍未完成。共享 `.vo` 重编后旧冻结 cursor 对象摘要失配，当前消费者独立重编／535 依赖审计通过，42 项假设保持；旧编译器和 native 报告保持历史记录。以下阶段各按其保存时的验证范围阅读。
+当前主入口组合 canonical 递归 affine children 与单个 repeated-load `*bound` 根；另一两层 dependent cursor 路线处理 `**root` header／多观察稳定性。任意深度 dependent loaded headers、typed pointer-store body、独立计时及同例 proof-burden 比较仍未完成。共享 `.vo` 重编后旧冻结 cursor 对象摘要失配，当前消费者独立重编／535 依赖审计通过，42 项假设保持；旧编译器和 native 报告保持历史记录。以下阶段各按其保存时的验证范围阅读。
 
 [循环化 dependent guard compiler](docs/research-checkpoint-2026-10-06-cursor-dependent-compiler.md)已把完整双观察扫描降低为两个实际私有 cursor 循环，连接真实 source package、mapped／tiling／schedule factory、完整 Csem→Asm 定理和提取。八个新模块、43 端点／537 依赖／976 source 摘要审计通过；完整 compiler 保持原 42 项假设，kernel 没有改动。两个真实 affine C 域共 444 次新入口调用、28 个 store-order 探针（含两个旧入口对照）及 18 个新 guard comparison 探针通过。默认 64×64 cap 的完整 Clight 函数从 20,710／20,711 个 if 降为 111／112，打印体约 13 MB→25 KB；linked 函数 72,083／105,857→879／916 字节。计时和性能收益仍未测量。
 

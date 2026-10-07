@@ -2,11 +2,13 @@
 
 2026-10-06 更新。主目标仍是顺序 CompCert 中可运行的 verified guarded polyhedral transformation，PolCert 是功能与证明能力参照；片段选择和候选由用户提供，框架核心组合条件证据和局部 reasoning，语言 host 负责完整程序安装。完整目标没有因阶段结果而完成。
 
-最新证明接入是 [deep＋loaded multi compiler](research-checkpoint-2026-10-06-loaded-affine-multi.md)：
-cache entry transport、依赖稳定性之后的 alias 安全、旧 candidate validator／backend、原 loaded fallback、
-语言 region／progress host 和新 Csem→Asm 已连接。32 端点／692 依赖／1,021 源摘要审计通过，
-compiler 保持旧 42 项假设，旧 source/object bindings 未变。尚无本入口的提取／新 native；
-下一验收是实际 frontend adapter、完整 C 的非空递归变换／回退和上下文，随后推进紧凑条件与成本。
+最新可运行接入是 [deep＋loaded multi native](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)：
+cache entry transport、稳定性之后的 alias 安全、旧 candidate validator／backend、原 loaded fallback、
+语言 host、新 Csem→Asm、真实 frontend 和提取已连接。六配置 624 次 assembly 调用、208 次 Clight
+路径调用和 21 个未修改汇编的路径探针通过，包含非空三层、多数组和同函数两次改写。
+真实 C 暴露的 cache／counter 资源冲突已修复；独立 32 端点／692 依赖／1,021 源摘要审计通过，
+compiler 保持旧 42 项假设，scan／旧 deep／当前 cursor 绑定保持。前一 factory 报告保留为历史，
+不声称它仍绑定当前 factory。下一验收转为已声明范围的紧凑条件、成本及 CGO 2017 同例对照。
 
 前一可运行交付是 [循环化 dependent guard compiler](research-checkpoint-2026-10-06-cursor-dependent-compiler.md)：真实 `**root` 源的两个 private captures、双观察稳定性、mapped／tiling／schedule 候选和 original fallback 已完整安装；实际 guard 改为两个短路私有 cursor 循环。43 个新证明端点、提取、两类 affine 域共 444 调用，以及 store-order／guard comparison-order 探针均通过。默认 cap 的完整函数从约 13 MB 的 Clight 打印体降到约 25 KB，机器函数大小也已单独核对；没有性能收益结论。以下阶段保留各自历史范围，当前未完成项以文末最新接入阶段的验收为准。
 
@@ -257,3 +259,19 @@ guard 成本和 per-instance 人工负担是最终验收内容。无需先完成
    条件算法、未完证明或具体语义差异；验证本身不构成功能差距的解释。
 
 上述顺序吸收的是当前 narrative 的新澄清，不改写旧阶段的固定能力或报告；最终完整目标保持 active。
+
+## 当前范围的运行链闭合后的下一项
+
+[本轮运行阶段](research-checkpoint-2026-10-06-loaded-affine-multi-native.md)已完成上述第 1 项的
+实际 frontend／typed allocation／非空递归接受和回退验收。再次 fetch narrative 仍为 `226ba94`，
+main 正文一致。不等待任意多观察 header 或 pointer-store 等全部扩展，再开始第 2–4 项。
+
+下一切口是单 loaded root＋canonical affine children 的稳定性条件：复用现有 actual source receipt、
+write footprint coverage、numeric envelope 和 byte separation 服务，提出紧凑的充分条件，实际安全
+接受后才跳过逐点稳定性扫描；未成功时保留原 scan／回退。不能把原 base 的有效性从 shifted
+source access 推出，也不能用待证稳定性许可预读。候选 validator、候选执行和语言 host 在契约
+保持时继续复用；若新 P 与原 scan reference 有差异，显式提供连接证书，不直接套旧 guard flag。
+
+同步选定 CGO 2017 Figure 2 的源例，记录 frontend 适配与人工元数据；对每项无支持结果归因。
+成本先分别记录 guard code bytes、实际点／地址比较工作和接受范围，再做同版 CompCert 独立计时。
+本次 41 个 fast 分派是固定测试集的路径证据，不计作 benchmark 接受率或性能收益。
