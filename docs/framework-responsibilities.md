@@ -40,6 +40,24 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [Source-licensed scan services](source-licensed-scan-services.md)把
+实际 Clight 执行、source/read/caller frame 和 accepted entry fact 固定为
+语言接口，不把旧 Boolean equality 强加给未来充分条件。Domain 在此实例
+给 layout／restricted nonalias fact 和原 C_opt checker；两个 service
+authors 的 source/setup→许可／执行／充分性证明由 checked builders 构造。
+Common factory 不展开 scanner semantics，就完成 candidate/fallback/public
+exit；同一 loaded contract／selected compiler 在两实例上复用。
+
+完整 factory computation 等式核对冻结 pair／canonical 前驱；19 端点、
+1,414 绑定、旧 42-global baseline、零新增公理。提取 compiler 两策略各
+通过 1,000 Asm／1,000 Clight 全输出矩阵。已证明 builder 与普通不受信任
+source/candidate data 区分；driver 只能选已注册的两实现，未开放任意 OCaml
+semantic callback。Source progress／context installation 留在原 host。
+这是同 host 两算法的复用；不同 host 的 clauses／entailment 未实现。
+下一项用第三个廉价条件服务检验实际作者负担和完整成本。完整 goal 保持。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [Canonical 完整 compiler](canonical-alias-compiler.md)落实了上一
 encoder 的内部义务：checked allocator 自动给四向量 typed/fresh resources，
 原 setup/source 自动给 ranges/receipts；eligible／old 两实际扫描都返回原

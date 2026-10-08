@@ -2471,6 +2471,52 @@
         "docs/canonical-alias-complete-cost.md"
       ],
       "evidence_stage": "canonical_alias_compiler_stage"
+    },
+    {
+      "id": "common-source-licensed-scan-service-factory-and-compiler",
+      "claim": "A Clight source-licensed scan boundary carries actual safe execution, memory/source/public/port frames and accepted entry facts without forcing old Boolean equality. Pair and canonical builders instantiate one factory, loaded contract and selected Csem-to-Asm compiler. Complete factory computations equal their frozen predecessors. Each registered strategy passes 1000 Asm and 1000 Clight full-output calls. New service-author proofs remain distinct from untrusted source/candidate proposals. No kernel or host contract change, new axioms, guard-cost reduction, general affine source coverage, cross-host clause algebra, author-time measurement or full-goal completion is claimed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightSourceLicensedScan.v",
+          "name": "licensed_scan_choice_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorScanService.v",
+          "name": "pair_scan_builder"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorScanService.v",
+          "name": "canonical_scan_builder"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorServiceFactory.v",
+          "name": "scan_service_alias_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorServiceFactory.v",
+          "name": "check_scan_service_full_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorServiceFactory.v",
+          "name": "check_scan_service_pair_exact"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorServiceFactory.v",
+          "name": "check_scan_service_canonical_exact"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreScanService.v",
+          "name": "nwspp_scan_service_contract"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreServiceCompiler.v",
+          "name": "compile_selected_word_nested_store_service_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/source-licensed-scan-services.md"
+      ],
+      "evidence_stage": "source_licensed_scan_service_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7967,5 +8013,47 @@
     "condition_service_factory_refactoring_complete": false,
     "historical_proof_or_native_experiments_rerun": false,
     "full_goal_complete": false
+  },
+  "source_licensed_scan_service_stage": {
+    "proof_report": "build/scan-services/proof-v1/report.json",
+    "proof_report_sha256": "2bb64dae927665370a52d5a27e81f4f9f5cbcb6fdfec9732ecb366080448e498",
+    "compiler": "build/scan-services/compiler-v1/ccomp",
+    "compiler_sha256": "6ad8ce726fbe4ece057312078959644b7096de9c65ead7884dcf1fab172e048c",
+    "audited_endpoints": 19,
+    "closed_endpoints": 0,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1414,
+    "parent_bound_files": 1410,
+    "additional_global_axioms": [],
+    "generic_Clight_source_licensed_scan_boundary": true,
+    "accepted_entry_fact_not_fixed_to_old_Boolean": true,
+    "memory_unchanged_and_source_ports_public_frame": true,
+    "pair_and_canonical_common_factory_and_loaded_compiler": true,
+    "both_complete_factory_computations_equal_frozen_predecessors": true,
+    "trusted_proof_authored_service_builders_distinct_from_untrusted_proposals": true,
+    "ordinary_source_user_semantic_callback_added": false,
+    "normal_completed_source_execution_premise": true,
+    "source_progress_and_context_installation_remain_host_responsibilities": true,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "third_condition_service_implemented": false,
+    "cross_host_clause_algebra_implemented": false,
+    "new_guard_cost_reduction": false,
+    "new_CPU_experiment": false,
+    "general_affine_source_frontend_added": false,
+    "author_time_measured": false,
+    "historical_proof_or_native_experiments_rerun": false,
+    "full_goal_complete": false,
+    "canonical_native_report": "build/scan-services/native-canonical-v1/report.json",
+    "canonical_native_report_sha256": "0d2aaeba8e9cb48e372b70c5e941313a561785597fe37ef05791be3b2f7bed04",
+    "canonical_assembly_calls": 1000,
+    "canonical_independent_Clight_calls": 1000,
+    "canonical_full_memory_public_exits_and_paths_checked": true,
+    "pair_native_report": "build/scan-services/native-pair-v1/report.json",
+    "pair_native_report_sha256": "24305a9001d6114fd112ce7c642d26fbd38e3f607149a1ed8783df1ac02543d9",
+    "pair_assembly_calls": 1000,
+    "pair_independent_Clight_calls": 1000,
+    "pair_full_memory_public_exits_and_paths_checked": true
   }
 }

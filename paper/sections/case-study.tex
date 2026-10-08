@@ -986,6 +986,35 @@ links from its authors, while users of this checked family provide marked C
 and strategy options. Native and complete-call evidence is reported in
 Section~\ref{sec:evaluation}.
 
+\paragraph{A common scan-service boundary.}
+The two algorithms now instantiate one Clight service interface above the
+kernel. A source-licensed scan carries actual code and a result identifier,
+with an execution law indexed by a readiness predicate and an accepted entry
+fact. Given completed source execution, readiness and agreement on read ports,
+the law provides finite silent normal check execution, unchanged memory,
+source/caller/port frames, a machine Boolean result, and acceptance implying
+the entry fact. Private temporaries may change. Equality with the preceding
+Boolean is an instance property, not a requirement on future sufficient guards.
+The interface does not compile arbitrary predicates or derive optimizer
+assumptions. Its execution law is a service-author proof, distinct from the
+ordinary untrusted source metadata and candidate proposals.
+
+For this polyhedral family, readiness is the original setup and the entry fact
+is observed layout plus restricted nonalias. Pair and canonical builders
+construct the interface from their checked allocations and preceding proofs.
+A single factory consumes the boundary and calls the existing candidate-at-exit
+or source-at-exit theorem; it does not inspect scanner loops or address tests.
+Two computation theorems equate the instantiated complete factories to their
+frozen predecessors, including allocation, candidate checking and emitted
+fallback code. One parameterized loaded-source contract and selected compiler
+then reuse the original host. A new scan service can therefore supply its own
+local execution and sufficiency proof without copying those installation
+modules. The current source-execution premise is finite normal completion;
+progress and context installation remain separate host duties. This is reuse
+by two algorithms within one Clight host, not evidence of a cross-host clause
+algebra or reduced author time. The next instance will test whether the boundary
+also supports a cheaper condition implementation.
+
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,
 extend compact conditions to other stability and array

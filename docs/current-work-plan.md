@@ -33,6 +33,25 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
+2026-10-08：[Source-licensed scan services](source-licensed-scan-services.md)
+已落实上述复用问题：Clight record 只要求真实安全执行、memory／public／
+ports frame 和 accepted→entry fact，不强制新旧 Boolean equality。原 pair
+与 canonical builders 自动构造这个已证明的边界；同一 factory、loaded
+region 和 selected compiler 消费它们，分别证明完整 factory computations
+等于冻结前驱。19 端点／1,414 绑定／旧 42-global baseline／零新增公理。
+新 compiler 在两策略下各通过 1,000 Asm／1,000 Clight full-output/context
+checks。普通 source/candidate proposals 与已证明 service implementations
+明确区分；源码用户仍只给 C 和选项。
+
+这一阶段证明同 host 上的两算法复用，不声称另一个 host 或 clause algebra
+已经复用，也不减少 guard 工作／增加一般域。下一项直接在此接口注册第三
+条件服务，消除重复／常量 access tests，再接同一 compiler 做真实接受／
+回退／成本验收。之后以同样链检验 early refusal／header 条件；不能为继续
+复制接线模块而延后条件成本。General affine／scalar／完整 OLO 联合能力
+仍在 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[Canonical alias 完整 compiler](canonical-alias-compiler.md)接通
 checked 四向量 allocator、原 setup/source 到 ranges/receipts 的自动生产、
 新实际 scan exit 到原 candidate/fallback/public restore 和 selected host。

@@ -1208,3 +1208,21 @@ header-stability services must therefore be tested through actual compilation
 and full-call measurement. General affine domains, broader scalars and the
 combined OLO functionality remain active requirements, as does reducing and
 measuring the condition-service author's proof burden.
+
+The common source-licensed scan service has a separate five-module audit:
+nineteen endpoints, at most forty-two inherited globals, and 1,414 reachable
+bindings, with the frozen 1,410 parent bindings checked by hash. No endpoint
+is closed: their service records and semantic types depend on existing Clight
+and compiler globals. All queried globals belong to the preceding baseline;
+there is no new axiom. The audit includes the shared choice boundary, both
+prepared builders, common factory execution, the two complete computation
+equalities, the loaded projected contract and Csem-to-Asm compilation.
+
+The new extracted common compiler registers the two proved builders. Each
+strategy independently passes the same ten configurations, with 1,000
+uninstrumented assembly calls and 1,000 separate Clight calls checking complete
+memory, public exits and paths. Ordinary C users select a registered strategy;
+they do not supply a semantic callback. This checkpoint changes proof reuse,
+not the two guard algorithms or general source coverage, and adds no timing
+or performance claim. A third service must test the claimed reduction in
+installation work through actual compilation and complete-call measurement.
