@@ -604,9 +604,65 @@ Scan elimination does not establish a complete-call speedup
 than the old fallback, and dense row cost regresses despite scan elimination.
 Candidate execution, public restoration and backend layout remain in the
 measured call; the experiment does not isolate those costs quantitatively.
-Profiling candidate lowering and a profitability policy are now immediate
-follow-up work. These warm, capped measurements still provide no representative
+These results motivated investigation of candidate lowering and profitability.
+These warm, capped measurements still provide no representative
 benchmark result, confidence interval or break-even inference.
+
+\paragraph{Tight candidates.}
+The new candidate producer reuses the proof audit and selected compiler theorem
+for zero RMW preparation; it adds no proof module or global assumption.
+Seven configurations execute 112 cases each: 784 unmodified Asm calls and 336
+independent Clight dispatch checks. Row/column tiles $[2,3,2]$ and column tiles
+$[4,5,3]$ install. Unit tiles $[1,1,1]$ complete the raw pipeline, but codegen
+eliminates their tile dimensions while the witness retains those links. The
+actual tiling bridge refuses installation; the source remains in place and
+its full results agree. The rejected first audit and its outputs are retained.
+The successor reuses three completed compilations read-only, repeats their
+executions, and compiles the remaining configurations. Successful intermediate
+phases are thus distinct from final candidate acceptance.
+
+A fresh twelve-round, 1,152-batch comparison measures frozen zero-capable and
+tight candidates with the same checks and tile sizes (Table~\ref{tab:tight-cost}).
+All complete Clight guard diagnostics agree between generations: dense zero
+still evaluates 47 guard \code{if}s without a point scan, while nonzero scans
+4,805 points and evaluates 22,244 \code{if}s. Row/column selected functions
+shrink from 1,483/1,474 to 1,226/1,230 bytes; source sizes remain 267/268 bytes.
+
+\begin{table}[t]
+\centering
+\caption{Fresh complete-call cost with unchanged zero-capable preparation.
+Entries are median paired cost/source ratios; old denotes the wide candidate,
+and tight denotes the new affine bound proposals. Both zero aliases accept.}
+\label{tab:tight-cost}
+\begin{tabular}{lrrrr}
+\toprule
+Input & Old row & Tight row & Old col. & Tight col. \\
+\midrule
+Zero, $3\times2\times5$ & 4.74 & 3.24 & 4.88 & 3.27 \\
+Zero, $31\times31\times5$ & 21.00 & 2.97 & 19.36 & 2.97 \\
+Zero, alias 2/3 & 4.23 & 2.45 & 4.37 & 2.45 \\
+Nonzero, dense & 22.34 & 4.09 & 20.78 & 4.19 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Dense zero row medians fall from 58,495.5ns to 8,029.1ns and column medians
+from 54,324.0ns to 8,175.1ns. This improves the old candidate, but every
+accepted entry in the table remains slower than its matched source baseline.
+Candidate code and backend layout/allocation change together; the difference
+does not isolate CPU time spent in a particular guard or loop. Raw batches,
+calibration and IQRs are retained with complete actual-call-count result checks.
+The earlier measurement limitations still apply.
+
+Forty-eight separate Callgrind profiles collect instructions only inside the
+unmarked or selected function, with two calls and complete-result checks per
+profile. Dense zero row instruction counts fall from 939,471 to 167,282 per
+call; the matched source executes 63,749. Column counts fall from 939,468 to
+167,282. Both candidates still execute exactly 4,805 array RMW stores per
+call. Dense nonzero counts fall from 1,023,363/1,023,360 to 251,174 in either
+order. The profiles exclude inclusive call costs and retain per-PC counts and
+disassembly. These are instruction executions under Valgrind 3.18.1, not
+native CPU-cycle attribution or a verified backend classification theorem.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

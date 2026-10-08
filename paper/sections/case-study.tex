@@ -460,6 +460,23 @@ skipped and the latter lowers to \code{skip}, leaving a guard whose work is
 independent of iteration-domain size. This does not establish a faster complete
 transformation: candidate traversal and public-exit restoration also cost work.
 
+\paragraph{Candidate bounds.}
+Prepared codegen may emit, for tile coordinate $t$, the point range
+\[
+ [\max(0,2t,-1),\min(n,2t+2,n+1)).
+\]
+The earlier affine adapter encloses this range with $[0,n)$ and retains point
+membership guards, but enumerates the source extent for every tile.
+A new producer proposes $[2t,2t+2)$ and retains
+the source-bound guards. It also proposes removal of affine inequalities
+implied by loop bounds, nonnegative coordinates or stronger parallel tests.
+These proposal algorithms are untrusted: the final checker revalidates the
+actual adapted Loop against the conditionally valid source. Raw and adapted
+outputs remain distinct evidence; there is no separate equivalence theorem
+between them. The compiler theorem for zero RMW preparation quantifies over the
+proposer, so this change reuses its source factory, local contract and selected
+host without a new proof module or semantic kernel change.
+
 \paragraph{Public-exit restoration.}
 The shadow-based candidate restores public counters by replaying the source's
 pure control nest after its memory computation. A successor compiler replaces

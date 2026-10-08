@@ -24,6 +24,17 @@ speedup; candidate lowering and profitability take priority in cost work.
 The active plan also retains compact nonzero-RMW footprint conditions,
 candidate-lowering costs and conservative profitability policies.
 
+The [tight-bound successor](tight-loaded-word-candidates.md) addresses one
+concrete candidate cost: the old affine adapter enumerated the full source
+extent inside each tile. Its untrusted replacement proposes tile-local point
+ranges and simpler guards; the same final checker and compiler theorem supply
+the certificate. Seven native configurations and a fresh cost/instruction
+comparison pass. Unit tiles are a recorded negative case: raw codegen removes
+tile dimensions and final installation refuses their unchanged witness. Dense
+zero complete cost falls to about 2.97 times source, still a slowdown. This
+reuses the existing responsibility boundary; it neither changes the kernel nor
+closes general-domain, nonzero-condition, full OLO/BT or profitability work.
+
 ## Responsibility Boundaries
 
 | Owner | Evidence supplied or service proved | Current realization |

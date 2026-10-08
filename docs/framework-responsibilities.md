@@ -1,5 +1,7 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [tight-candidate 后继](tight-loaded-word-candidates.md)展示了责任分层的实际复用：优化实现只改 untrusted bound／guard proposal，既有 domain factory 重检 actual Loop，语言 host 仍提供 placement／progress／frames／Csem→Asm。同一 compiler theorem 已量化 proposer；没有新 kernel／Rocq 模块或语义 callback。784 Asm／336 Clight 检查通过，unit tiles 的中间成功没有绕过最终 shape gate。配对成本和实际 Ir 分别验证候选枚举问题及改进，但不宣称 source 收益，也不将机器指令数当 CPU cycles。
+
 2026-10-07 [zero条件的完整安装](zero-loaded-word-installation.md)已接原源首点许可→actual receipt值保持→cached／helper／canonical及完整check出口→actual candidate→local contract→selected Csem→Asm。`tensor_preparation_certificate`是语言层内部服务，data factory生产其字段，优化使用者仍只提供描述／scalar／模型与候选数据。Kernel不负责词或指针安全，也不因此获得任意contextual closure；host继续独立检查progress、placement与fresh allocation。21端点保持42-global基线；560 Asm与224独立Clight分派通过，零值alias接受域扩大。下一难点是nonzero条件的安全观察许可、候选完整成本和收益策略；word观测保持不冒充byte／other-chunk／whole-memory equality。
 
 2026-10-07 [新的值保持condition与成本](loaded-word-condition-cost.md)将三方责任具体化：框架继续消费readonly_condition；Clight语言提供成功原RMW的scalar许可、checked控制／word观测保持及纯条件编码；domain仍需生产其accepted-state到cached／canonical执行的推导，host在收到local contract后才负责安装。局部C_encode不升级为compiler证书。已安装旧路径的720配对成本暴露明显退化；不得从guard work计数归因全部退化，仍须改进候选lowering和profitability策略。

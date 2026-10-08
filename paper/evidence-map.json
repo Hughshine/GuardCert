@@ -1559,6 +1559,34 @@
         "docs/framework-responsibilities.md",
         "docs/narrative-to-tiling-integration.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Tight affine bound and guard proposals remain untrusted and reuse the existing zero-preparation compiler theorem and final actual-candidate checker. Native successor passes 784 Asm calls and 336 separate Clight dispatch checks; unit-tile codegen loses tile coordinates and its final installation is refused. Fresh 1152-batch complete-call costs and 48 instruction profiles improve the prior wide candidate while accepted examples remain slower than source. No new Rocq proof module, kernel obligation or global assumption is claimed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorGeneratedCandidates.v",
+          "name": "check_tensor_generated_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryExtractedTiling.v",
+          "name": "memory_tiling_current_shape"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedZeroLoadedWordFrontendCompiler.v",
+          "name": "compile_selected_zero_loaded_word_frontend_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/tight-loaded-word-candidates.md",
+        "prototype/annotated-polyhedral/native/GuardTightPreparedTensorCandidate.ml",
+        "scripts/build_tight_loaded_word_compiler.py",
+        "scripts/native_tight_loaded_word_pipeline.py",
+        "scripts/native_tight_loaded_word_pipeline_v2.py",
+        "scripts/record_tight_loaded_word_refusal.py",
+        "scripts/native_tight_loaded_word_cost.py",
+        "scripts/native_tight_loaded_word_instructions.py"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -5397,5 +5425,528 @@
       "profitability policy and common workload evidence",
       "general loaded domains and full OLO BT layout/delinearization"
     ]
+  },
+  "tight_loaded_word_candidate_stage": {
+    "native_report": "build/loaded-word-tight/native-v2/report.json",
+    "native_report_sha256": "89c7ed1b8802a7fe26a399542ba59416e02dc1b015be25b068167f6594023735",
+    "compiler_sha256": "512b361150dae742a6901672535d241e40e30155bc69e0ff450f87522534633a",
+    "compiler_stamp_sha256": "da3e66ae32ee1dc76060375a5c16c8b88cbdb8bb44bb8cb31184b107a3fa5496",
+    "existing_proof_report": "build/loaded-word-zero/proof-v2/report.json",
+    "existing_proof_report_sha256": "c459fc936f65c8765bcf0a0494b1a7c7b0d769beb0a73bdbfc6a7d264231f483",
+    "compiler_endpoint": "ClightSelectedZeroLoadedWordFrontendCompiler.compile_selected_zero_loaded_word_frontend_regions_correct",
+    "new_rocq_modules": [],
+    "additional_global_axioms": [],
+    "minimal_semantic_kernel_changed": false,
+    "compiler_globals": 42,
+    "assembly_calls": 784,
+    "clight_dispatch_calls": 336,
+    "tile_sizes_tested": [
+      [
+        2,
+        3,
+        2
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        4,
+        5,
+        3
+      ]
+    ],
+    "installed_configurations": [
+      "row-tile",
+      "column-tile",
+      "column-mixed-tile"
+    ],
+    "compilations_reused_readonly": [
+      "row-tile",
+      "column-tile",
+      "row-unit-tile"
+    ],
+    "unit_tile_candidate_refused": true,
+    "unit_refusal_manifest": "build/loaded-word-tight/native/failure.json",
+    "unit_refusal_manifest_sha256": "eaade38fefda066e68cfbdc15a76aa808351ee577ba1996b65b637af61340aab",
+    "untrusted_bound_adaptation_rechecked": true,
+    "raw_codegen_to_adapted_equivalence_proved": false,
+    "parser_metadata_proved": false,
+    "remaining_obligations": [
+      "handle codegen-eliminated degenerate tile coordinates through checked proposals/bridge",
+      "compact source-licensed nonzero conditions",
+      "representative workloads and profitability policy",
+      "general loaded affine domains and full original OLO/BT dynamic layout",
+      "comparative author effort"
+    ]
+  },
+  "tight_loaded_word_cost_stage": {
+    "report": "build/loaded-word-tight-cost/report.json",
+    "report_sha256": "284bb3ad2f1b5ec6bfc8ba1301c968d567f58e2ecded434d18b5676aef976d75",
+    "generation_labels": {
+      "old": "frozen zero-RMW compiler 3a44415",
+      "new": "same proved compiler entry with tight untrusted affine candidate"
+    },
+    "samples": 1152,
+    "protocol": {
+      "rounds": 12,
+      "seed": 20261007,
+      "target_batch_cpu_seconds": 0.04,
+      "minimum_batch_cpu_seconds": 0.02,
+      "pinned_cpu": 0,
+      "clock": "C clock() process CPU time",
+      "fresh_process_per_batch": true,
+      "warmup_calls": 1,
+      "array_reset_per_call": false,
+      "array_initialization_and_validation_timed": false,
+      "actual_call_count_results_validated": true,
+      "assembly_instrumented": false,
+      "baseline": "unmarked function in the same frozen source/compiler/assembly configuration"
+    },
+    "all_cost_summaries": {
+      "old-row-tile": {
+        "0": {
+          "source_median_ns": 23.27025,
+          "guarded_median_ns": 130.2799339748487,
+          "median_paired_cost_over_source": 5.602430033439777,
+          "paired_ratio_iqr": 0.20706408592785408
+        },
+        "1": {
+          "source_median_ns": 2753.057574708665,
+          "guarded_median_ns": 61618.0,
+          "median_paired_cost_over_source": 22.343217091671896,
+          "paired_ratio_iqr": 0.8887381328133621
+        },
+        "2": {
+          "source_median_ns": 187.23765226176636,
+          "guarded_median_ns": 410.82741964832184,
+          "median_paired_cost_over_source": 2.1609959123949114,
+          "paired_ratio_iqr": 0.08840024251390366
+        },
+        "3": {
+          "source_median_ns": 17.60509631740988,
+          "guarded_median_ns": 17.910407742533977,
+          "median_paired_cost_over_source": 1.0064260079117964,
+          "paired_ratio_iqr": 0.044712692574625734
+        },
+        "4": {
+          "source_median_ns": 3.46875,
+          "guarded_median_ns": 4.1967187500000005,
+          "median_paired_cost_over_source": 1.2120442369177649,
+          "paired_ratio_iqr": 0.022780435079930772
+        },
+        "5": {
+          "source_median_ns": 4.456448473722726,
+          "guarded_median_ns": 5.301541666666667,
+          "median_paired_cost_over_source": 1.1839561103867835,
+          "paired_ratio_iqr": 0.060502773968944545
+        },
+        "6": {
+          "source_median_ns": 11.807125,
+          "guarded_median_ns": 20.024166666666666,
+          "median_paired_cost_over_source": 1.7109683479289544,
+          "paired_ratio_iqr": 0.08583423736779627
+        },
+        "7": {
+          "source_median_ns": 8.8069375,
+          "guarded_median_ns": 9.751085161661802,
+          "median_paired_cost_over_source": 1.1148133594040368,
+          "paired_ratio_iqr": 0.02523326266466608
+        },
+        "8": {
+          "source_median_ns": 17.821316955329237,
+          "guarded_median_ns": 71.7998217998218,
+          "median_paired_cost_over_source": 4.014511636167654,
+          "paired_ratio_iqr": 0.18766659516910433
+        },
+        "9": {
+          "source_median_ns": 23.190234964225407,
+          "guarded_median_ns": 109.61785961785961,
+          "median_paired_cost_over_source": 4.742539574595567,
+          "paired_ratio_iqr": 0.12729048788683084
+        },
+        "10": {
+          "source_median_ns": 2773.5400012204796,
+          "guarded_median_ns": 58495.5,
+          "median_paired_cost_over_source": 21.004453610213954,
+          "paired_ratio_iqr": 1.1523035822119212
+        },
+        "11": {
+          "source_median_ns": 23.159526623214987,
+          "guarded_median_ns": 96.97999999999999,
+          "median_paired_cost_over_source": 4.23275343901037,
+          "paired_ratio_iqr": 0.08736647586916924
+        }
+      },
+      "old-column-tile": {
+        "0": {
+          "source_median_ns": 22.388353544904675,
+          "guarded_median_ns": 131.02124632584858,
+          "median_paired_cost_over_source": 5.832399088223945,
+          "paired_ratio_iqr": 0.2433180290310526
+        },
+        "1": {
+          "source_median_ns": 2777.2410244683283,
+          "guarded_median_ns": 57950.0,
+          "median_paired_cost_over_source": 20.78273740991707,
+          "paired_ratio_iqr": 0.2817305076978549
+        },
+        "2": {
+          "source_median_ns": 189.78786026762737,
+          "guarded_median_ns": 2536.2732714591684,
+          "median_paired_cost_over_source": 13.377141079442847,
+          "paired_ratio_iqr": 0.5130495422931798
+        },
+        "3": {
+          "source_median_ns": 16.622166666666665,
+          "guarded_median_ns": 17.303254325813583,
+          "median_paired_cost_over_source": 1.0432798809209902,
+          "paired_ratio_iqr": 0.035861099616866676
+        },
+        "4": {
+          "source_median_ns": 3.4403125,
+          "guarded_median_ns": 4.11125,
+          "median_paired_cost_over_source": 1.1980713016810105,
+          "paired_ratio_iqr": 0.03534710636752059
+        },
+        "5": {
+          "source_median_ns": 4.51125,
+          "guarded_median_ns": 5.764683012252043,
+          "median_paired_cost_over_source": 1.2806407035299623,
+          "paired_ratio_iqr": 0.04333584432768789
+        },
+        "6": {
+          "source_median_ns": 10.895793028640796,
+          "guarded_median_ns": 20.19291666666667,
+          "median_paired_cost_over_source": 1.8555698769788473,
+          "paired_ratio_iqr": 0.06629745938026055
+        },
+        "7": {
+          "source_median_ns": 8.317406769837923,
+          "guarded_median_ns": 9.7756632912702,
+          "median_paired_cost_over_source": 1.1805026590989574,
+          "paired_ratio_iqr": 0.03723571300038242
+        },
+        "8": {
+          "source_median_ns": 17.252169182608007,
+          "guarded_median_ns": 72.06971677559913,
+          "median_paired_cost_over_source": 4.139852351103486,
+          "paired_ratio_iqr": 0.0989634465766267
+        },
+        "9": {
+          "source_median_ns": 22.512592713580297,
+          "guarded_median_ns": 109.88578616909854,
+          "median_paired_cost_over_source": 4.88038093235777,
+          "paired_ratio_iqr": 0.14151278788542765
+        },
+        "10": {
+          "source_median_ns": 2803.263637979032,
+          "guarded_median_ns": 54324.0,
+          "median_paired_cost_over_source": 19.357204415294795,
+          "paired_ratio_iqr": 0.6514638633722107
+        },
+        "11": {
+          "source_median_ns": 22.1289893091201,
+          "guarded_median_ns": 96.61076804538145,
+          "median_paired_cost_over_source": 4.372463674087371,
+          "paired_ratio_iqr": 0.14812090654077625
+        }
+      },
+      "new-row-tile": {
+        "0": {
+          "source_median_ns": 23.698391341264504,
+          "guarded_median_ns": 96.07050232050233,
+          "median_paired_cost_over_source": 4.022127446657859,
+          "paired_ratio_iqr": 0.0914992291660317
+        },
+        "1": {
+          "source_median_ns": 2748.817011081162,
+          "guarded_median_ns": 11359.448082319926,
+          "median_paired_cost_over_source": 4.090652581700256,
+          "paired_ratio_iqr": 0.12105373434270028
+        },
+        "2": {
+          "source_median_ns": 186.4587404954533,
+          "guarded_median_ns": 432.15656343054945,
+          "median_paired_cost_over_source": 2.3144777815732906,
+          "paired_ratio_iqr": 0.13335355158108708
+        },
+        "3": {
+          "source_median_ns": 17.488788914259175,
+          "guarded_median_ns": 17.4414712935479,
+          "median_paired_cost_over_source": 0.9974032597090448,
+          "paired_ratio_iqr": 0.0331624029798242
+        },
+        "4": {
+          "source_median_ns": 3.439114583333333,
+          "guarded_median_ns": 4.212682291666667,
+          "median_paired_cost_over_source": 1.2184110622026774,
+          "paired_ratio_iqr": 0.04027515697843409
+        },
+        "5": {
+          "source_median_ns": 4.550620360494212,
+          "guarded_median_ns": 5.3020625,
+          "median_paired_cost_over_source": 1.154658438984507,
+          "paired_ratio_iqr": 0.09034503840481922
+        },
+        "6": {
+          "source_median_ns": 11.765833333333333,
+          "guarded_median_ns": 20.093333333333334,
+          "median_paired_cost_over_source": 1.6916478520894285,
+          "paired_ratio_iqr": 0.060901617717043166
+        },
+        "7": {
+          "source_median_ns": 8.712000544500032,
+          "guarded_median_ns": 9.765980997788104,
+          "median_paired_cost_over_source": 1.1167868342966085,
+          "paired_ratio_iqr": 0.02868226508741145
+        },
+        "8": {
+          "source_median_ns": 17.76594714982012,
+          "guarded_median_ns": 49.39459427454928,
+          "median_paired_cost_over_source": 2.7989920685860143,
+          "paired_ratio_iqr": 0.11042838654511522
+        },
+        "9": {
+          "source_median_ns": 23.547854845297046,
+          "guarded_median_ns": 76.509375,
+          "median_paired_cost_over_source": 3.2352427858611614,
+          "paired_ratio_iqr": 0.06456422157673325
+        },
+        "10": {
+          "source_median_ns": 2712.702400893356,
+          "guarded_median_ns": 8029.065860215054,
+          "median_paired_cost_over_source": 2.9652697768495546,
+          "paired_ratio_iqr": 0.1376932161751605
+        },
+        "11": {
+          "source_median_ns": 22.720960226746687,
+          "guarded_median_ns": 55.1673089064507,
+          "median_paired_cost_over_source": 2.4509098317353026,
+          "paired_ratio_iqr": 0.13025109902906706
+        }
+      },
+      "new-column-tile": {
+        "0": {
+          "source_median_ns": 22.496880624220154,
+          "guarded_median_ns": 93.70041210627576,
+          "median_paired_cost_over_source": 4.149139922694706,
+          "paired_ratio_iqr": 0.1876696945278118
+        },
+        "1": {
+          "source_median_ns": 2776.193335334734,
+          "guarded_median_ns": 11780.023640661939,
+          "median_paired_cost_over_source": 4.18729087491459,
+          "paired_ratio_iqr": 0.13506915514038909
+        },
+        "2": {
+          "source_median_ns": 188.451429713454,
+          "guarded_median_ns": 774.6123797559842,
+          "median_paired_cost_over_source": 4.1242046685208,
+          "paired_ratio_iqr": 0.11663252152029724
+        },
+        "3": {
+          "source_median_ns": 16.700142712517838,
+          "guarded_median_ns": 17.66606691651673,
+          "median_paired_cost_over_source": 1.0435595456614335,
+          "paired_ratio_iqr": 0.03543915016966115
+        },
+        "4": {
+          "source_median_ns": 3.4791193350821232,
+          "guarded_median_ns": 4.237875,
+          "median_paired_cost_over_source": 1.221377859057619,
+          "paired_ratio_iqr": 0.028305793148125202
+        },
+        "5": {
+          "source_median_ns": 4.408333333333333,
+          "guarded_median_ns": 5.1596875,
+          "median_paired_cost_over_source": 1.1667982930413627,
+          "paired_ratio_iqr": 0.030846876063937545
+        },
+        "6": {
+          "source_median_ns": 11.02075,
+          "guarded_median_ns": 19.99986979166667,
+          "median_paired_cost_over_source": 1.811482610753842,
+          "paired_ratio_iqr": 0.03749100388973048
+        },
+        "7": {
+          "source_median_ns": 8.384813024050814,
+          "guarded_median_ns": 9.591767423456393,
+          "median_paired_cost_over_source": 1.1455299521524314,
+          "paired_ratio_iqr": 0.038097062993938335
+        },
+        "8": {
+          "source_median_ns": 17.132845177737096,
+          "guarded_median_ns": 47.61909300596656,
+          "median_paired_cost_over_source": 2.82050553451285,
+          "paired_ratio_iqr": 0.0928731685891746
+        },
+        "9": {
+          "source_median_ns": 22.432228564099997,
+          "guarded_median_ns": 74.09593288129977,
+          "median_paired_cost_over_source": 3.2726342299518776,
+          "paired_ratio_iqr": 0.12349937626397267
+        },
+        "10": {
+          "source_median_ns": 2749.275268955743,
+          "guarded_median_ns": 8175.095585679527,
+          "median_paired_cost_over_source": 2.973050119134408,
+          "paired_ratio_iqr": 0.10751473062134842
+        },
+        "11": {
+          "source_median_ns": 22.37277642652744,
+          "guarded_median_ns": 54.705673186169925,
+          "median_paired_cost_over_source": 2.450427406631211,
+          "paired_ratio_iqr": 0.06965748974695707
+        }
+      }
+    },
+    "kernel_bytes": {
+      "old-row-tile": {
+        "source": 267,
+        "guarded": 1483
+      },
+      "old-column-tile": {
+        "source": 268,
+        "guarded": 1474
+      },
+      "new-row-tile": {
+        "source": 267,
+        "guarded": 1226
+      },
+      "new-column-tile": {
+        "source": 268,
+        "guarded": 1230
+      }
+    },
+    "old_new_complete_clight_guard_diagnostics_equal": true,
+    "source_speedup_claimed": false,
+    "guard_only_cpu_cost_attributed": false,
+    "representative_benchmark_claimed": false
+  },
+  "tight_loaded_word_instruction_stage": {
+    "report": "build/loaded-word-machine-profile/tight-v1/report.json",
+    "report_sha256": "d4b271a1e9483dd4a5e45b54bbddb075f50a637d8c1a4d853e3031ec404d5d0c",
+    "profiles": 48,
+    "valgrind": "valgrind-3.18.1",
+    "protocol": {
+      "event": "Ir",
+      "function_toggle": true,
+      "calls_per_profile": 2,
+      "assembly_modified": false,
+      "complete_results_checked": true,
+      "inclusive_call_costs_excluded": true,
+      "cpu_cycle_measurement": false
+    },
+    "instructions_per_call": {
+      "old-row-tile": {
+        "0": {
+          "source": 467,
+          "guarded": 3461
+        },
+        "1": {
+          "source": 63749,
+          "guarded": 1023363
+        },
+        "7": {
+          "source": 122,
+          "guarded": 168
+        },
+        "9": {
+          "source": 467,
+          "guarded": 2906
+        },
+        "10": {
+          "source": 63749,
+          "guarded": 939471
+        },
+        "11": {
+          "source": 461,
+          "guarded": 2576
+        }
+      },
+      "old-column-tile": {
+        "0": {
+          "source": 467,
+          "guarded": 3458
+        },
+        "1": {
+          "source": 63749,
+          "guarded": 1023360
+        },
+        "7": {
+          "source": 122,
+          "guarded": 165
+        },
+        "9": {
+          "source": 467,
+          "guarded": 2903
+        },
+        "10": {
+          "source": 63749,
+          "guarded": 939468
+        },
+        "11": {
+          "source": 461,
+          "guarded": 2573
+        }
+      },
+      "new-row-tile": {
+        "0": {
+          "source": 467,
+          "guarded": 2061
+        },
+        "1": {
+          "source": 63749,
+          "guarded": 251174
+        },
+        "7": {
+          "source": 122,
+          "guarded": 168
+        },
+        "9": {
+          "source": 467,
+          "guarded": 1506
+        },
+        "10": {
+          "source": 63749,
+          "guarded": 167282
+        },
+        "11": {
+          "source": 461,
+          "guarded": 1245
+        }
+      },
+      "new-column-tile": {
+        "0": {
+          "source": 467,
+          "guarded": 2061
+        },
+        "1": {
+          "source": 63749,
+          "guarded": 251174
+        },
+        "7": {
+          "source": 122,
+          "guarded": 168
+        },
+        "9": {
+          "source": 467,
+          "guarded": 1506
+        },
+        "10": {
+          "source": 63749,
+          "guarded": 167282
+        },
+        "11": {
+          "source": 461,
+          "guarded": 1245
+        }
+      }
+    },
+    "dense_array_rmw_stores_per_call": 4805,
+    "cpu_cycles_measured": false,
+    "store_pc_classification_verified": false
   }
 }
