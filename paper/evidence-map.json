@@ -1484,6 +1484,33 @@
       "documents": [
         "docs/loaded-word-family-factory.md"
       ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Checked zero-RMW condition encodes preservation of defined Mint32 words; actual alias fixture; not installed. Frozen loaded-word assembly has paired complete-call regressions and separate Clight guard-work counts.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightZeroRmwCondition.v",
+          "name": "zero_rmw_original_assignment_licenses_scalar"
+        },
+        {
+          "source": "prototype/interface/ClightZeroRmwCondition.v",
+          "name": "zero_rmw_condition_encoding"
+        },
+        {
+          "source": "prototype/interface/ClightZeroRmwCondition.v",
+          "name": "checked_zero_rmw_condition_preserves_nested_headers"
+        },
+        {
+          "source": "prototype/interface/ClightZeroRmwExample.v",
+          "name": "zr_distinct_headers_preserved"
+        }
+      ],
+      "documents": [
+        "docs/loaded-word-condition-cost.md",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -4064,10 +4091,403 @@
       "parser_metadata_proved": false,
       "raw_to_adapted_equivalence_proved": false
     },
-    "native_cost_measured": false,
+    "native_cost_measured": true,
     "minimal_semantic_kernel_changed": false,
     "new_materialized_kernel_rule_package": false,
     "first_native_installation_check": "failed; original output matched but proposer did not recognize prefixed leaf",
-    "next_obligation": "improve conditions and measure acceptance, guard work, paired whole-execution costs and author obligations; extend source/domain capabilities toward the full goal"
+    "next_obligation": "install source-licensed compact condition with actual check-exit/canonical transport; improve nonzero RMW footprint guards, candidate lowering and profitability; extend source/domain coverage"
+  },
+  "loaded_word_cost_stage": {
+    "report": "build/loaded-word-cost/report.json",
+    "report_sha256": "f406cb2093aa3b50ecdc264bce6e47ed088c94ea5cf0a4fd75d64d71e8dc89c6",
+    "samples": 720,
+    "protocol": {
+      "rounds": 20,
+      "seed": 20261007,
+      "target_batch_cpu_seconds": 0.04,
+      "minimum_batch_cpu_seconds": 0.02,
+      "pinned_cpu": 0,
+      "clock": "C clock() process CPU time",
+      "fresh_process_per_batch": true,
+      "warmup_calls": 1,
+      "array_reset_per_call": false,
+      "array_initialization_and_validation_timed": false,
+      "actual_call_count_results_validated": true,
+      "assembly_instrumented": false,
+      "baseline": "unmarked function in the same frozen source/compiler/assembly configuration"
+    },
+    "cases": [
+      [
+        0,
+        3,
+        31,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        5,
+        7
+      ],
+      [
+        0,
+        2,
+        31,
+        32,
+        5,
+        -2
+      ],
+      [
+        1,
+        3,
+        31,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        0,
+        1001,
+        99,
+        -8,
+        7
+      ],
+      [
+        0,
+        3,
+        31,
+        0,
+        5,
+        7
+      ],
+      [
+        0,
+        1,
+        1001,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        2,
+        3,
+        2,
+        -7,
+        -1
+      ],
+      [
+        0,
+        2,
+        3,
+        2,
+        -7,
+        0
+      ]
+    ],
+    "case_names": [
+      "small-accepted",
+      "dense-accepted",
+      "row-layout-refusal-column-acceptance",
+      "nonzero-start-refusal",
+      "empty-root-null-unavailable-child",
+      "empty-child",
+      "stride-profile-refusal-after-scan",
+      "changing-header-alias-refusal",
+      "zero-increment-alias-refusal"
+    ],
+    "summaries": {
+      "row-tile": {
+        "0": {
+          "source_median_ns": 23.12312557244806,
+          "guarded_median_ns": 126.14829396325459,
+          "median_paired_cost_over_source": 5.470480833795665,
+          "paired_ratio_iqr": 0.13052596273838368
+        },
+        "1": {
+          "source_median_ns": 2651.2173657964213,
+          "guarded_median_ns": 46990.5,
+          "median_paired_cost_over_source": 17.690986654176506,
+          "paired_ratio_iqr": 0.5122004637901512
+        },
+        "2": {
+          "source_median_ns": 182.48911133012086,
+          "guarded_median_ns": 415.51310803495477,
+          "median_paired_cost_over_source": 2.2702696240958216,
+          "paired_ratio_iqr": 0.06610908549020156
+        },
+        "3": {
+          "source_median_ns": 17.09598165983066,
+          "guarded_median_ns": 17.069950406034433,
+          "median_paired_cost_over_source": 0.9985344182975513,
+          "paired_ratio_iqr": 0.02989867017681902
+        },
+        "4": {
+          "source_median_ns": 3.5619010416666668,
+          "guarded_median_ns": 4.1299062499999994,
+          "median_paired_cost_over_source": 1.1588502390642583,
+          "paired_ratio_iqr": 0.035670863660179686
+        },
+        "5": {
+          "source_median_ns": 4.824427083333333,
+          "guarded_median_ns": 5.019375,
+          "median_paired_cost_over_source": 1.0355979459573295,
+          "paired_ratio_iqr": 0.02804279360704487
+        },
+        "6": {
+          "source_median_ns": 11.482875,
+          "guarded_median_ns": 19.495416666666667,
+          "median_paired_cost_over_source": 1.703220271045517,
+          "paired_ratio_iqr": 0.055623920259823434
+        },
+        "7": {
+          "source_median_ns": 8.489344280584017,
+          "guarded_median_ns": 9.496908030670255,
+          "median_paired_cost_over_source": 1.1110482571763285,
+          "paired_ratio_iqr": 0.025649307221280004
+        },
+        "8": {
+          "source_median_ns": 17.29912932478233,
+          "guarded_median_ns": 17.56331689082922,
+          "median_paired_cost_over_source": 1.013880848591541,
+          "paired_ratio_iqr": 0.026878923725489612
+        }
+      },
+      "column-tile": {
+        "0": {
+          "source_median_ns": 22.367356030613003,
+          "guarded_median_ns": 125.24283381900096,
+          "median_paired_cost_over_source": 5.639433795269869,
+          "paired_ratio_iqr": 0.14413645899603722
+        },
+        "1": {
+          "source_median_ns": 2763.1385520029403,
+          "guarded_median_ns": 56551.5,
+          "median_paired_cost_over_source": 20.43239543186547,
+          "paired_ratio_iqr": 0.8732673972652343
+        },
+        "2": {
+          "source_median_ns": 188.45737595737597,
+          "guarded_median_ns": 2721.37938756088,
+          "median_paired_cost_over_source": 14.456349198396142,
+          "paired_ratio_iqr": 0.4769441272296078
+        },
+        "3": {
+          "source_median_ns": 16.134,
+          "guarded_median_ns": 16.635387842660727,
+          "median_paired_cost_over_source": 1.0227026199396685,
+          "paired_ratio_iqr": 0.020278338558881615
+        },
+        "4": {
+          "source_median_ns": 3.478625,
+          "guarded_median_ns": 4.158333333333333,
+          "median_paired_cost_over_source": 1.2014768359853811,
+          "paired_ratio_iqr": 0.033577924029288164
+        },
+        "5": {
+          "source_median_ns": 4.52653125,
+          "guarded_median_ns": 5.1275625,
+          "median_paired_cost_over_source": 1.135776865998706,
+          "paired_ratio_iqr": 0.043023325207032226
+        },
+        "6": {
+          "source_median_ns": 10.599,
+          "guarded_median_ns": 19.397708333333334,
+          "median_paired_cost_over_source": 1.8333721878711788,
+          "paired_ratio_iqr": 0.047973948285100265
+        },
+        "7": {
+          "source_median_ns": 8.067526713960559,
+          "guarded_median_ns": 9.033750000000001,
+          "median_paired_cost_over_source": 1.1130743598358357,
+          "paired_ratio_iqr": 0.02624860395168871
+        },
+        "8": {
+          "source_median_ns": 16.767669111951747,
+          "guarded_median_ns": 17.497429635041822,
+          "median_paired_cost_over_source": 1.0470648178118647,
+          "paired_ratio_iqr": 0.036611624731091696
+        }
+      }
+    },
+    "kernel_bytes": {
+      "row-tile": {
+        "source": 267,
+        "guarded": 1500
+      },
+      "column-tile": {
+        "source": 268,
+        "guarded": 1484
+      }
+    },
+    "guard_work": {
+      "row-tile": {
+        "static_guard_if_sites": 54,
+        "cases": [
+          {
+            "case": 0,
+            "scan_points": 30,
+            "guard_if_evaluations": 194,
+            "accepted": true,
+            "original_body_points": 30
+          },
+          {
+            "case": 1,
+            "scan_points": 4805,
+            "guard_if_evaluations": 22243,
+            "accepted": true,
+            "original_body_points": 4805
+          },
+          {
+            "case": 2,
+            "scan_points": 320,
+            "guard_if_evaluations": 1517,
+            "accepted": false,
+            "original_body_points": 320
+          },
+          {
+            "case": 3,
+            "scan_points": 0,
+            "guard_if_evaluations": 2,
+            "accepted": false,
+            "original_body_points": 20
+          },
+          {
+            "case": 4,
+            "scan_points": 0,
+            "guard_if_evaluations": 4,
+            "accepted": false,
+            "original_body_points": 0
+          },
+          {
+            "case": 5,
+            "scan_points": 0,
+            "guard_if_evaluations": 6,
+            "accepted": false,
+            "original_body_points": 0
+          },
+          {
+            "case": 6,
+            "scan_points": 10,
+            "guard_if_evaluations": 78,
+            "accepted": false,
+            "original_body_points": 10
+          },
+          {
+            "case": 7,
+            "scan_points": 1,
+            "guard_if_evaluations": 14,
+            "accepted": false,
+            "original_body_points": 5
+          },
+          {
+            "case": 8,
+            "scan_points": 1,
+            "guard_if_evaluations": 14,
+            "accepted": false,
+            "original_body_points": 20
+          }
+        ],
+        "production_assembly": false,
+        "scope": "Clight if evaluations from root-start test to final dispatch; scan points exclude failed loop-exit tests"
+      },
+      "column-tile": {
+        "static_guard_if_sites": 54,
+        "cases": [
+          {
+            "case": 0,
+            "scan_points": 30,
+            "guard_if_evaluations": 194,
+            "accepted": true,
+            "original_body_points": 30
+          },
+          {
+            "case": 1,
+            "scan_points": 4805,
+            "guard_if_evaluations": 22243,
+            "accepted": true,
+            "original_body_points": 4805
+          },
+          {
+            "case": 2,
+            "scan_points": 320,
+            "guard_if_evaluations": 1525,
+            "accepted": true,
+            "original_body_points": 320
+          },
+          {
+            "case": 3,
+            "scan_points": 0,
+            "guard_if_evaluations": 2,
+            "accepted": false,
+            "original_body_points": 20
+          },
+          {
+            "case": 4,
+            "scan_points": 0,
+            "guard_if_evaluations": 4,
+            "accepted": false,
+            "original_body_points": 0
+          },
+          {
+            "case": 5,
+            "scan_points": 0,
+            "guard_if_evaluations": 6,
+            "accepted": false,
+            "original_body_points": 0
+          },
+          {
+            "case": 6,
+            "scan_points": 10,
+            "guard_if_evaluations": 78,
+            "accepted": false,
+            "original_body_points": 10
+          },
+          {
+            "case": 7,
+            "scan_points": 1,
+            "guard_if_evaluations": 14,
+            "accepted": false,
+            "original_body_points": 5
+          },
+          {
+            "case": 8,
+            "scan_points": 1,
+            "guard_if_evaluations": 14,
+            "accepted": false,
+            "original_body_points": 20
+          }
+        ],
+        "production_assembly": false,
+        "scope": "Clight if evaluations from root-start test to final dispatch; scan points exclude failed loop-exit tests"
+      }
+    },
+    "representative_benchmark_speedup_claimed": false,
+    "guard_only_assembly_cost_attributed": false,
+    "new_guard_installed": false
+  },
+  "zero_rmw_condition_stage": {
+    "report": "build/zero-rmw/proof/report.json",
+    "report_sha256": "914e950d18146c7492b0f16f414b57116d62f9706e714db115c9383ae2e1f8e3",
+    "endpoints": 23,
+    "required_closure": 554,
+    "closed_endpoints": 4,
+    "maximum_endpoint_globals": 6,
+    "condition_encoding_endpoint": "ClightZeroRmwCondition.zero_rmw_condition_encoding",
+    "additional_global_axioms": [],
+    "minimal_semantic_kernel_changed": false,
+    "new_compiler_installed": false,
+    "new_guard_profitability_measured": false,
+    "remaining_obligations": [
+      "source-positive-domain first-point extraction and scalar license in the loaded factory",
+      "capture/check-exit/canonical-source transport under the new effect premise",
+      "install compact branch through the selected compiler and repeat same-C/cost evidence",
+      "compact footprint conditions for nonzero RMW and candidate execution-cost improvements"
+    ]
   }
 }

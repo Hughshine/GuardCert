@@ -1,5 +1,7 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-07: [Loaded-word condition and cost](docs/loaded-word-condition-cost.md) adds 720 paired timing batches using frozen, uninstrumented assembly. This RMW tiling example slows down: dense row/column calls cost 17.69/20.43 times the unmarked baseline, with 4,805 scan points. A new source checker and `alpha == 0` condition prove preservation of defined `Mint32` observations, permitting header aliases; 23 endpoints compile with no new axioms. This condition certificate uses the existing framework API. Its new accepted path still needs source-to-canonical derivation and whole-program installation; the complete goal remains active.
+
 2026-10-07: The [loaded-word data factory](docs/loaded-word-family-factory.md) now checks actual source syntax, word grammar, typed private resources and canonical tensor data, then validates the actual generated candidate. Base, frontend and padded-leaf selected Csem-to-Asm endpoints compile with the existing 42-global baseline and no new axioms. The same loaded-header/runtime-Horner C now passes real scheduling/tiling/codegen, 420 unmodified assembly calls and 168 separate Clight dispatch checks, including changing-header aliases and skipped unavailable reads. Compact conditions and cost evidence remain required.
 
 [Loaded word driver](docs/tensor-loaded-word-driver.md)已将条件式capture、计数

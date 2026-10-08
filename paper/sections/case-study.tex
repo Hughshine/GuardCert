@@ -331,6 +331,23 @@ codegen output, then restores the public counters.
 
 \subsection{Condition Expressiveness and Reuse}
 
+A new source-checked condition handles redundant signed32 RMWs. For
+$a[q] \mathrel{:=} a[q]+\alpha$, a successful original addition establishes
+that \code{alpha} contains a word. This licenses a pure equality test against
+zero without a memory probe or a no-overflow assumption. The syntax checker
+protects \code{alpha} and recognizes the exact redundant RMW through finite
+sequences, branches and loops. On acceptance, its execution theorem preserves
+every previously defined \code{Mint32} observation, including aliased headers
+with different raw values. It does not assert equality of arbitrary bytes,
+other chunks or the entire memory. The resulting encoding certificate has
+the existing \code{readonly\_condition} type; the minimal kernel is unchanged.
+The loaded-Horner source passes this checker, and an actual aliasing execution
+preserves headers 2 and 3 while the old separation tree refuses. This is a
+condition-library result. Installation still requires a reached-source-point
+license, capture/check-exit transport and the new accepted-state derivation
+to canonical execution. Empty regions must bypass an unlicensed scalar check.
+No successor compiler or improved runtime cost is attributed to this condition.
+
 A separate Clight library supplies a memory guarantee that permits aliasing.
 If a \code{Mint32} observation holds word $w$, successful \code{Mint32} stores
 of that same word preserve the observation, including stores to the observed

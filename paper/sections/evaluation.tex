@@ -516,6 +516,53 @@ and continuation exits pass. Five checked scheduler/tiling/codegen receipts per
 installed configuration bind the actual candidate. These are integration
 cases, not profitability measurements.
 
+An additional experiment reuses that frozen assembly, comparing the
+selected function against the unmarked function in the same C/assembly
+configuration. Twenty randomized paired rounds over two coordinate orders,
+nine inputs and two modes give 720 timing batches. Each batch uses a pinned
+CPU, process CPU time, one warmup call and a 0.04-second calibration target.
+Array initialization and result checking occur outside timing; the actual
+function resets headers on every call. Every batch checks all 6,144 words,
+public exits and context markers at its actual repetition count against an
+independent wrapping-word model. Neither measured function is instrumented.
+
+\begin{table}[t]
+\centering
+\caption{Loaded-word complete-call cost on a Ryzen 7 7800X3D. Ratios are
+medians of paired cost/source measurements. Clight scan counts are separate
+diagnostics, not assembly instruction counts.}
+\label{tab:loaded-word-cost}
+\begin{tabular}{lrrr}
+\toprule
+Input & Scan points & Row ratio & Column ratio \\
+\midrule
+Accepted $3\times2\times5$ & 30 & 5.47 & 5.64 \\
+Accepted $31\times31\times5$ & 4,805 & 17.69 & 20.43 \\
+Stride-profile refusal & 10 & 1.70 & 1.83 \\
+Zero-increment header alias & 1 & 1.01 & 1.05 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The simple RMW candidates obtain no speedup in this experiment
+(Table~\ref{tab:loaded-word-cost}). Row/column functions grow from 267/268
+to 1,500/1,484 bytes. Separate Clight derivatives execute the whole function
+with matching results and count guard work: the dense accepted case makes
+4,805 point checks and 22,243 \code{if} evaluations in either layout.
+Timing includes guard, candidate/fallback, public exits and backend layout;
+it does not assign all overhead to the scan. These warm, capped inputs are
+not a benchmark suite or workload acceptance distribution. Candidate lowering,
+compact conditions and profitability policies require further work.
+
+The separate zero-RMW condition audit queries 23 endpoints over 554
+dependencies. Four endpoints are closed; the rest use at most six existing
+CompCert globals, with no additions. It proves source-scalar licensing,
+syntax-checked effect preservation and the existing read-only encoding
+interface. Actual memory fixtures prove zero-condition acceptance, nonzero
+refusal, old separation refusal and preservation of two distinct aliased
+header words. The kernel and installed compiler are unchanged; this audit
+adds no new installed compact path or timing result for that path.
+
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment
 has no confidence intervals or break-even inference. Extend the supported source class

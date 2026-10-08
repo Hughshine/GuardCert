@@ -9,6 +9,17 @@ On 2026-10-07, the remote narrative reference was
 main. The implementation target remains the complete sequential guarded
 polyhedral compiler, with OLO as a functional and usability reference.
 
+The [loaded-word cost and condition checkpoint](loaded-word-condition-cost.md)
+now separates usability from correctness on that same installed family. The
+720 paired batches expose a dense complete-call regression of 17.69/20.43 times
+source; the independent Clight work count does not identify all of its causes.
+A new checked zero-RMW effect law and its existing `readonly_condition`
+encoding permit header aliases without changing the kernel. That certificate
+is not installation evidence: source-point licensing, capture/check-exit and
+canonical execution for its new accepted states remain the immediate connection.
+The active plan also retains compact nonzero-RMW footprint conditions,
+candidate-lowering costs and conservative profitability policies.
+
 ## Responsibility Boundaries
 
 | Owner | Evidence supplied or service proved | Current realization |

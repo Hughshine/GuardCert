@@ -1,5 +1,7 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [新的值保持condition与成本](loaded-word-condition-cost.md)将三方责任具体化：框架继续消费readonly_condition；Clight语言提供成功原RMW的scalar许可、checked控制／word观测保持及纯条件编码；domain仍需生产其accepted-state到cached／canonical执行的推导，host在收到local contract后才负责安装。局部C_encode不升级为compiler证书。已安装旧路径的720配对成本暴露明显退化；不得从guard work计数归因全部退化，仍须改进候选lowering和profitability策略。
+
 2026-10-07 [loaded-word factory](loaded-word-family-factory.md)已把原先语言／domain定理的静态字段变成AST、WORD、scope、freshness、typed-pool和canonical model的数据检查输出，actual candidate checker后生产局部保证，并消费现有selected host接Csem→Asm。前端行政skip和零index由语言服务证明；框架kernel保持。使用者提供标注和策略，不手填semantic callbacks。通用编译器定理与具体native producer成功由不同证据绑定：v3已验收真实调度／分块、动态接受／回退与完整上下文，420未插桩Asm及168独立Clight分派通过。下一难点是同族compact condition的安全与编码证明、接受域和实际guard／整程序成本；非端点数。
 
 2026-10-07 [loaded word driver](tensor-loaded-word-driver.md)已将语言capture、

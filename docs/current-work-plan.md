@@ -1,5 +1,7 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[同一loaded族的condition与成本](loaded-word-condition-cost.md)复用冻结v3未插桩Asm完成20轮／720配对计时批次，全部按实际重复次数核对完整数组与公开出口。Clight诊断独立计guard工作：31×31×5接受域扫描4,805点、22,243次if；完整调用row／column成本为source的17.69／20.43倍，当前简单RMW没有收益，不能把全部开销归给scan。新的源码checker、成功原RMW许可scalar、`alpha==0`到所有已定义Mint32观测保持及现有readonly_condition编码已证明；23端点／554依赖、四闭合、最多六项既有globals、零新增公理。两个不同raw header可与output别名；尚未安装新条件。**下一项直接证明positive source-prefix许可、capture／helper／check-exit到canonical源的值保持路径，接新的data factory／selected compiler并重做同C与成本；同时推进nonzero RMW紧凑footprint条件、候选lowering成本和profitability拒绝策略。**成本、接受域和完整安装分别验收，不用局部条件证书替代已安装优化，也不把当前微型输入当作benchmark收益。Kernel及历史证据保持；完整goal active。
+
 2026-10-07 最新：[loaded-word factory及前端安装](loaded-word-family-factory.md)已从AST／WORD／scope／typed private pool产生静态证据与canonical tensor package，消费actual generated candidate checker，导出局部contract并接三个selected Csem→Asm入口。26／8／7端点独立审计均保持42-global编译器基线，零新增公理。真实前端reset和leaf的skip以及header[0]由语言等价性定理覆盖，回退使用等价基础源AST。v3提取和同一loaded＋runtime-Horner C的真实调度／分块／codegen安装通过420未插桩Asm及168独立Clight分派调用；changing-header alias／profile／layout回退、条件式空域、marked／unmarked、多site和continuation均验收。先前源码匹配失败和输出完整保留。**下一项在同一已安装族上改进condition并量化接受域、guard工作、代码尺寸、配对完整成本及作者责任，同时按完整目标扩source／domain能力。**下文历史下一项保留，以本段为准；完整goal保持active。
 
 2026-10-07 最新：[loaded word完整driver](tensor-loaded-word-driver.md)已组合
