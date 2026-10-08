@@ -1,5 +1,45 @@
 # 验证责任、证书边界与最难的验收
 
+## 持续适用的责任表
+
+2026-10-08 对照 narrative 当前可见版本 `12419c1`；远端正文与 main
+一致。本表约束后续阶段，下面的日期记录保留各阶段当时的交付范围。
+
+| 证明或证据 | 提供者 | 当前接口与验收含义 |
+| --- | --- | --- |
+| 局部 guarded 正确性 | Kernel | `guardify_refinement` / `guardify_preservation` 消费证书；refinement、preservation、equivalence 保留各自方向 |
+| `C_opt`：假定成立时实际候选正确 | 优化器／domain 库 | Source/model/candidate 执行桥和已验证 candidate checker；不仅是数学模型的调度结论 |
+| `C_derive`：入口事实推出模型／局部义务 | Domain 库 | 范围、稳定性、footprint、alias 等充分性；不是任意 source/candidate 的通用 assumption extractor |
+| `C_guard`：实际检查安全且接受推出入口事实 | Language 服务与 domain producer | 原源许可实际读取，machine arithmetic、短路、private-state 运输；domain 选择可编码的充分条件 |
+| `C_host`：实际分派满足局部 choice law | Language／IR adapter | `guard_host.select_exact`；private Boolean 或嵌套控制也可实现，不要求固定 `if` AST |
+| Region guarantee | Domain factory，使用 language 定律 | 实际 source/guard/candidate 的执行、公开 temp/memory/trace/control 边界，以及所需 progress |
+| Context requirement 与安装 | Language host；site checker 生产具体证据 | Scope、合法入口、资源、continuation、progress 和 backend；不是 kernel 自动获得 contextual closure |
+| 有限次 rewrite 组合 | Kernel／composition 库，消费每步已安装证明 | 每步针对实际中间程序重新满足 domain、placement 和 freshness；不保证搜索算法终止或收益 |
+
+`context_certificate.lift_refinement` / `rewrite_context.rewrite_lift` 是
+host 提供的定理字段。具体 selected Clight host 以 `program_temps` 为保守
+公开集合，消费 `projected_region_contract` 和实际 source progress；目前
+没有自动最小 liveness 或通用 boundary clause algebra。
+
+源码用户和新实例作者的工作量不同：支持族的源码用户给标注 C 和策略；
+新语言作者证明 host/installation；新 transformation 作者提供前提、局部
+对应及适合该 host 的 guarantee，或实现能生产它们的 checked factory。
+框架消费一个定理前提不等于已经自动生产该前提。
+
+目前最难的链是**原源许可的部分状态 → 安全可执行条件 → 实际候选入口
+→ 公开出口／continuation**。Canonical domain coverage 已证明，实际
+scanner 尚在完成；allocator、factory/compiler、native 和新成本须另行
+验收。Scanner 中私有 cursor/flag 可改变，memory 保持并 frame 公开状态；
+它不因此成为要求完整 entry state 相等的 `readonly_condition`。
+
+Clause factoring 的具体约束继续采用
+[先前代码对照](narrative-kernel-host-review-2026-10-08.md)：finite contract
+消费完成执行，open protocol 匹配可能无限的 source steps；可以复用 exit
+relation，不能仅凭 exit weakening 推出含入口/scope/progress 的完整 contract
+entailment。先证明实际复用再更改 API。
+
+## 阶段记录
+
 2026-10-08 [Canonical alias 域服务](canonical-alias-condition.md)已生产严格
 uniform-template eligibility、差值域 coverage、实际 CompCert modular pointer
 alias 判断的精确对应和 accepted→原 restricted nonalias。20 端点无新增公理，

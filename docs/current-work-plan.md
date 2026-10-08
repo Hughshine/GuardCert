@@ -2,6 +2,37 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Narrative 的持续设计约束
+
+2026-10-08 再次 fetch 并核对远端 heads：当前可见的 narrative 仍是
+`topdown/research-positioning@12419c1`，两份正文与 main 一致。以下根据
+[paper narrative](topdown/paper-narrative.md) 和
+[context lifting](topdown/context-lifting.md) 固定验收责任，不声称读到了
+更晚的提交。
+
+Kernel 的验收止于局部证书组合；`C_host` 是实际 guarded choice 的语言
+执行规律，整程序 installation 是另一项语言证明。新条件服务应分别交付
+domain 的 `C_derive`、language 的安全求值/入口出口运输、factory 的 region
+guarantee 与 site evidence，再消费既有 installation/backend。不能仅因
+已有泛型 program theorem 就把 contextual closure 算作框架自动完成。
+
+当前工作检验这条分工：canonical alias 域定理已完成，正在证明实际 Clight
+scanner；其后才是 typed/fresh allocation、原 source 许可到 scanner 输入的
+自动生产、factory/compiler/native 接入及完整成本。最难位置是部分定义
+的入口：child/header/RHS 只有原源执行许可时才可观察，新的私有坐标与 flag
+必须运输到候选入口，同时完整公开出口满足 continuation 的要求。
+
+验收条件服务的复用时，记录哪些原 candidate/host 定理沿用、哪些新增证明
+由 domain、language 或 site producer 负责，以及源码用户是否只需标注 C
+和策略选项。安全、充分性、接受域、代码尺寸、动态工作及完整调用成本分别
+给证据；局部 helper 编译不代替 compiler 接入。General affine/OLO 功能
+仍属于完整目标。
+
+Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两个
+实际 host 上证明 transport/entailment 的复用，再决定接口；finite completion
+与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
+针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
+
 2026-10-08：[Canonical alias 域服务](canonical-alias-condition.md)已证明
 任意维矩形坐标差覆盖、canonical points 在原域、严格相同 affine templates
 的实际 CompCert modular pointer/alias Boolean 对应，以及接受推出原 source
