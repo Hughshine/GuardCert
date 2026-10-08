@@ -2,6 +2,32 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[泛化 actual exit 与 selected compiler](multi-array-affine-versioned-compiler.md)
+将同一 source package／typed allocation 的完整 setup、affine scan、checked
+candidate、public restore 和原 AST fallback 接成实际执行，并由 data factory
+生产既有 projected region guarantee。Selected language host 复用 occurrence
+选择与同一 source progress classifier，新的 Csem→Asm 定理已编译／独立审计；
+kernel 与 host contract 保持。**下一项直接接此同族的 marked C frontend、
+自动 metadata、真实 scheduler/codegen 与提取编译器，验收完整 C／Asm 的
+接受、两层 fallback、未标注 exclusion、多 site 和公开 continuation。**
+整程序正确性定理与具体安装／运行成功分别记录；不等待所有 loaded-source／
+一般域扩展才执行这项接入。
+
+提取后 full factory 的九项检查通过：identity／三种真实 codegen masks 接受，
+四种 source/candidate/resource 错误拒绝；selected statement host 实际安装
+两个标注 site 并保留相同的未标注 site。该测试运行 checker／语句生成及
+statement traversal，没有执行 emitted Clight 或新 C／Asm，不能抵扣上一项。
+
+本次按用户提醒再次 fetch／读取 narrative 和 context-lifting：远端最新仍为
+`12419c1`，与 main 两正文一致，无新差异。Framework 只负责局部证书组合，
+language 提供 check/frame/progress/placement/install，domain 提供充分前提、
+来源许可／coverage 与模型／候选对应；新数据接口不要求源码使用者补语义
+callback。当前最难的剩余语义位置仍是两次 store 的 loaded 原源逐步保持与
+未来读取许可；scan 平方成本、紧凑条件和 OLO 功能／可用性验收继续属于 goal。
+
+以下为上一泛化 scan 阶段记录，其 actual-exit／candidate／projected／compiler
+证明缺口已由上述后继关闭；同族实际 C 驱动和 native/cost 尚待验收。
+
 2026-10-08：[实际 affine access scan](multi-array-affine-access-scan.md)将同一
 source package／typed allocator 接到任意访问数和 identifiers 的静态 Clight
 双矩形。原源 trace 许可实际 affine write/read 地址，接受生产 actual

@@ -1892,6 +1892,43 @@
       "documents": [
         "docs/multi-array-affine-access-scan.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Generic actual affine scan-exit transport, complete versioned execution, data-factory projected guarantee and selected Csem-to-Asm theorem; no new native C execution evidence.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightMultiTensorAffineScanExit.v",
+          "name": "multi_tensor_package_source_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffineScanExit.v",
+          "name": "multi_tensor_affine_separation_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffinePackageCandidates.v",
+          "name": "multi_tensor_affine_package_candidate_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffineVersioned.v",
+          "name": "multi_tensor_affine_package_full_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffineFactory.v",
+          "name": "check_multi_tensor_affine_package_full_contract"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffineFactory.v",
+          "name": "checked_multi_tensor_affine_regions_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedMultiTensorAffineCompiler.v",
+          "name": "compile_selected_multi_tensor_affine_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-affine-versioned-compiler.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6680,6 +6717,68 @@
     "loaded_header_prefix_licensing_added": false,
     "new_compiler_theorem": false,
     "C_or_assembly_evidence_added": false,
+    "measured_cost_added": false
+  },
+  "multi_array_affine_versioned_compiler_stage": {
+    "report": "build/multi-tensor-affine-versioned/proof/report.json",
+    "report_sha256": "5e599ede01148f0c6718aa4dd5b50d198b05f2b7a52624cfa06ef7d2a001ce79",
+    "endpoints": 20,
+    "closed_endpoints": 8,
+    "maximum_endpoint_globals": 42,
+    "compiler_globals": 42,
+    "bound_files": 183,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_at_generic_scan_exit_added": true,
+    "complete_original_AST_fallback_added": true,
+    "source_user_supplies_semantic_callbacks": false,
+    "typed_scan_and_candidate_resources_separated": true,
+    "projected_region_contract_added": true,
+    "selected_language_host_connected": true,
+    "source_progress_checked_by_factory_and_host": true,
+    "new_compiler_theorem": true,
+    "native_C_driver_connected": false,
+    "new_C_or_assembly_execution_evidence": false,
+    "loaded_header_prefix_licensing_added": false,
+    "compact_guard_or_cost_evidence_added": false,
+    "extracted_factory_stage": "multi_array_affine_full_factory_execution_stage"
+  },
+  "multi_array_affine_full_factory_execution_stage": {
+    "report": "build/multi-tensor-affine-versioned/extracted-factory-v2/report.json",
+    "report_sha256": "2a5e8d1220495ad2daf50f829874a5ccec379705a914a9a4ddf846e2544971a3",
+    "cases": 9,
+    "accepted_cases": 5,
+    "refused_cases": 4,
+    "bound_files": 1200,
+    "real_scheduler_executed": true,
+    "prepared_codegen_executed": true,
+    "tile_masks": [
+      [
+        2,
+        3,
+        2
+      ],
+      [
+        1,
+        3,
+        2
+      ],
+      [
+        1,
+        1,
+        1
+      ]
+    ],
+    "target_loop_handwritten_for_pipeline_cases": false,
+    "full_factory_executed": true,
+    "selected_statement_host_executed": true,
+    "marked_sites_checked": 2,
+    "identical_unmarked_sites_preserved": 1,
+    "source_description_explicit_fixture_data": true,
+    "generated_statements_executed": false,
+    "native_C_driver_connected": false,
+    "new_C_or_assembly_execution_evidence": false,
     "measured_cost_added": false
   }
 }

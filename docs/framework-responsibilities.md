@@ -1,5 +1,17 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [泛化 versioned compiler](multi-array-affine-versioned-compiler.md)关闭
+actual scan exit 到 source/setup/restricted locator、candidate／restore／原 AST
+fallback 的连接。Domain data factory 消费既有候选 checker 并生产 projected
+guarantee；Clight language host 负责 source progress、private declarations、
+occurrence-sensitive placement、context simulation 与 Csem→Asm。Kernel 和
+既有 host contract 未改。**新的整程序定理不能代替此族的实际 C 驱动安装与
+运行验收；下一项直接接 marked C／自动 metadata／真实 polyhedral codegen。**
+两-store loaded 原源的逐步观察保持与下一读取许可仍是最困难的语义连接，
+不能以 cached-source 完成执行许可该缓存的生产。Scalar gate、general domains、
+紧凑条件／cost 和 OLO 可用性保持 active。本次 narrative 仍为 `12419c1`，
+两正文无新差异；没有按文档边界新增 kernel API 或通用 context lifting。
+
 2026-10-08 [实际 affine access scan](multi-array-affine-access-scan.md)区分语言
 的地址编码／原源 permission transport／循环执行／public frame，与 domain
 的实际模板／coverage／接受充分性。同一 package／typed allocation 生产

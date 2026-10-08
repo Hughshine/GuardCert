@@ -669,9 +669,40 @@ Clight scan, preserving memory and all source/caller temporaries. The test
 source uses three arrays and two assignments; its parameter $q$ also occurs
 in the RHS. The existing source-capability gate conservatively refuses a
 matched source where $q$ occurs only in a coordinate. The guard still performs
-quadratic point-pair work and continues after refusal. Transport to its actual
-exit, checked-candidate execution and this family's selected installation remain
-open; this local service adds no native execution or cost result.
+quadratic point-pair work and continues after refusal. At that checkpoint,
+transport to its actual exit, checked-candidate execution and this family's
+selected installation remained open; the local service added no native
+execution or cost result.
+
+A successor transports source execution, setup observations and restricted
+footprint separation to the actual scan exit. Acceptance executes the checked
+candidate and restores public iterators; either setup or alias refusal executes
+the original AST. Both branches reach the original final memory and preserve
+arbitrary requested caller temporaries. The data producer allocates scan
+registers first, excludes them from candidate resources, and wraps accepted
+generated code with the complete guard. It produces the existing Clight
+projected region guarantee without source/model, setup or separation callbacks
+from the source user.
+
+The selected language host consumes this guarantee using the same source
+progress classifier checked by the factory. Existing occurrence-sensitive
+selection, private-declaration checks and context simulation connect the family
+to a new Csem-to-Asm backward-simulation theorem. The generic kernel and host
+contract remain unchanged. This theorem quantifies over data proposers and also
+covers static refusal; successful integration therefore requires separate
+evidence that a concrete frontend and optimizer actually produce and install
+the rewrite. The new family's native C driver and execution matrix remain
+the next integration obligation. Loaded two-store source-prefix preservation,
+coordinate-only scalar receipts and compact guard-cost improvements remain
+separate tasks.
+
+The extracted full producer accepts three real scheduler/codegen outputs,
+including nonunit, partial-unit and all-unit tiling masks. A separate statement
+host check installs the full returned target at two selected sites while
+preserving an identical unselected occurrence. These execute the extracted
+checker, statement producer and traversal, rather than the emitted Clight or
+assembly. The independent source fixture uses ordinary explicit metadata;
+the new family's automatic C frontend remains to be connected.
 
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array
