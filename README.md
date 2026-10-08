@@ -1,5 +1,13 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Original loaded-setup snapshots](docs/affine-header-snapshots.md)
+now license conditional `*M` capture in `i<*N; K=i+*M`, produce the existing
+arithmetic guard's inputs from actual reached source execution, and decode rows
+using current observations. Seven modules audit 29 endpoints with no new axioms.
+This is library proof progress: the new source family still needs stability
+checks, whole-loop transport and factory/compiler installation. No new native
+or cost result is claimed.
+
 2026-10-08: [Actual private-loaded affine compilation](docs/selected-private-loaded-affine-pipeline.md)
 now connects the existing two-dimensional snapshot/stability proof to real
 Pluto/codegen under the common selected host. Two new connection modules audit

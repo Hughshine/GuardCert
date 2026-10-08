@@ -61,6 +61,20 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [原 loaded setup 的 snapshot 阶段](affine-header-snapshots.md)
+进一步填入 `C_guard` 的 producer 责任：从 actual unchanged source 生产
+conditional raw-load receipts 与 numeric preparation word domains，再复用
+既有 readonly arithmetic guard。Concrete loaded-row decoder 消费 current
+observations，原 source prefix 生产 physical write permissions。七模块／
+29 端点／1,332 绑定／至多旧六项 globals／无新增公理；没有新 factory、
+Csem→Asm、native 或成本结论。Kernel/host/candidate checker 没有变化。
+
+库作者仍须完成 actual point checks、observation preservation、whole-loop
+transport 和 checked source factory。静态 header grammar、cached-body 形状、
+cache membership 与 typed/fresh resources 应由 factory 生产；原 source
+完成执行由 finite host/site 的 contract 使用，不能改写成框架终止保证。
+源码用户仍不承担 semantic callback。First-positive-child 的接受域限制保留。
+
 2026-10-08 [Private-loaded affine actual pipeline](selected-private-loaded-affine-pipeline.md)
 进一步验证 guarantee／installation 的复用。旧二维库已负责 original-root
 snapshot、bound 与 writes 的分离／稳定性、temp-affine-child source/model、

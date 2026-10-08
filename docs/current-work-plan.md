@@ -46,7 +46,9 @@ conditional observation 五类整理现有实现。类别按建立的事实划�
 actual execution、accepted/refused facts、reads/private writes/public/memory/
 events frame，以及从原 source/site 生产调用前提的责任。特别区分 temp
 ports 与 memory-read receipts、原源许可与未来稳定、机器字替换与 mathematical
-no-wrap。未编译通过的 header snapshot 草稿尚不是新阶段证据。
+no-wrap。后继 [原 loaded setup 证明](affine-header-snapshots.md)已编译并独立
+审计七模块／29 端点；原条件捕获、preparation 输入、current-observation row
+decoder 与 reached-write permissions 已有。它还没有新 factory/native 接入。
 
 Ordered dependent checks、短路、conditional capture 与 alternative sufficient
 conditions 分别核对 actual exit 的事实运输。Separation 和 value-preserving
@@ -91,8 +93,13 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：对实际 `i<*N; K=i+*M` 建立条件 child-header 原源许可与
-稳定 snapshot 桥。Root 空时不能观察 `*M`；header 已执行但 child／leaf 为空
+**当前下一任务**：对实际 `i<*N; K=i+*M` 完成 observations 的 actual
+stability checks、whole-loop cached transport 与 checked factory/compiler 接入。
+原条件 capture、原源到 arithmetic guard 输入、concrete row decoder 和
+prefix write receipts 已由 [新阶段](affine-header-snapshots.md)生产，29 端点／
+1,332 绑定／至多旧六项 globals／无新增公理。该阶段不新增 Csem→Asm 或
+native 结果，不把 cached completion 留作未经生产的调用前提。
+Root 空时不能观察 `*M`；header 已执行但 child／leaf 为空
 时，header load 与后续 RHS 的许可须分开。Domain 给 no-wrap／reached-point／
 footprint／source-model 充分性，language 给 actual guard 安全与 public/memory
 frame 和 exit transport；factory 给 guarantee，site／selected host 给 placement／
