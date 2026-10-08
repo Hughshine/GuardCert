@@ -898,3 +898,30 @@ occurrences while preserving an identical unmarked occurrence. Its report binds
 statement-construction results: generated Clight and assembly are not executed,
 and the input description is explicit fixture data. They do not establish
 runtime guard acceptance, fallback, cost or successful automatic C integration.
+
+The actual-C successor passes eight configurations: row tiling with masks
+$(2,3,2)$, $(1,3,2)$ and $(1,1,1)$; column tiling; automatic scheduling;
+unannotated input; disabled optimization; and scheduler failure. Each makes
+96 calls across six functions and sixteen input tuples. All 768 unmodified
+assembly outputs match the independent word model and GCC \code{-O0 -fwrapv}
+source reference, including every one of 1,024 array words and public iterator
+exits. Inputs exercise shared allocation views, aliases, affine and parameter
+shifts, wrapping RHS arithmetic, empty/null paths, profile refusal, repeated
+regions and continuation effects.
+
+A separate derivative of the printed Clight records branch execution on
+another 768 calls and checks the same complete outputs. Each normal
+configuration records 27 candidate region executions and 84 original region
+executions, including eleven alias refusals. These count region executions,
+including repeated sites, rather than input calls. The three static-refusal
+configurations execute the original regions. Instrumented Clight paths are
+not claimed as an assembly path proof.
+
+The report binds 891 files and the successful compiler to the preceding
+proof audit. The first configuration reuses its successful compilation and
+native outputs from a checkpoint whose whitespace-sensitive installation
+detector failed; the origin and hashes are recorded. These results establish
+actual automatic C integration for the declared grammar, not broader source
+generality. Default count cap 8, stride profile $[1,1000)$ and the example's
+five-component box remain conservative choices. The pair scan is still
+quadratic; this stage adds no compact-condition, timing or speedup result.

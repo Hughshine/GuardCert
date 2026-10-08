@@ -691,8 +691,8 @@ to a new Csem-to-Asm backward-simulation theorem. The generic kernel and host
 contract remain unchanged. This theorem quantifies over data proposers and also
 covers static refusal; successful integration therefore requires separate
 evidence that a concrete frontend and optimizer actually produce and install
-the rewrite. The new family's native C driver and execution matrix remain
-the next integration obligation. Loaded two-store source-prefix preservation,
+the rewrite. At that checkpoint, the new family's native C driver and execution
+matrix remained the next integration obligation. Loaded two-store source-prefix preservation,
 coordinate-only scalar receipts and compact guard-cost improvements remain
 separate tasks.
 
@@ -702,7 +702,39 @@ host check installs the full returned target at two selected sites while
 preserving an identical unselected occurrence. These execute the extracted
 checker, statement producer and traversal, rather than the emitted Clight or
 assembly. The independent source fixture uses ordinary explicit metadata;
-the new family's automatic C frontend remains to be connected.
+the new family's automatic C frontend remained to be connected at that stage.
+
+\paragraph{Actual multi-array C integration.}
+A native successor now derives ordinary descriptions from the selected
+normalized Clight source. Its grammar covers three temporary-bound axes,
+shared Horner layouts, assignment lists, affine shifts and parameter
+coordinates. The source factory rechecks the proposed metadata against the
+actual AST. One evaluated body copies from $B$ to $A$ and then reads the new
+$A$ value into $B$; another uses three arrays and coordinates $j+1$ and $j+q$.
+The address-only guard does not move these data reads before their stores.
+The source user supplies marked C and phase options, rather than semantic
+callbacks or a handwritten target Loop.
+
+The connected producer extracts the actual source model, runs Pluto and
+validates the affine and tiling transitions. Prepared codegen runs separately
+for each statement. Composition, unit-coordinate completion and bound
+adaptation propose an actual complete target; the final existing checker
+validates it before installation. This does not assume that arbitrary
+statement distribution preserves dependencies. Automatic scheduling invokes
+Pluto without \code{--identity}; the tiling configurations retain the prior
+identity pretransform and perform actual tiling. Every phase and generated
+target is retained.
+
+The successful native compiler uses the existing
+\code{compile_selected_multi_tensor_affine_regions_correct} endpoint, whose
+proof already quantifies over these data proposers. Five supported selected
+sites install per normal configuration, while an unmarked same-family region
+and an unsupported XOR body remain unchanged. Setup and alias refusal execute
+the original AST; acceptance executes the checked candidate and restores
+public iterators. This closes native integration for this temporary-bound
+family without changing the semantic kernel, host contract or proof baseline.
+Loaded two-store headers, general affine domains, coordinate-only scalar
+receipts and compact condition/cost improvements remain open.
 
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array

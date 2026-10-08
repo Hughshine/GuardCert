@@ -1,5 +1,23 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [多数组实际 C 流水线](multi-array-affine-native-pipeline.md)复用已证明
+data factory 和 selected compiler，接自动 source metadata／真实 Pluto／
+prepared codegen。优化 policy 只提出数据，完整 checker 提供条件下的实际
+source/candidate 对应；语言 host 负责 frame、progress、scope、fresh declarations、
+occurrence installation 和完整 simulation，kernel 仍止于局部证书组合。源码
+用户只给标注 C／选项。768 Asm／768 独立 Clight 调用、五实际安装 sites／配置、
+两层回退／重复 region／continuation 已验收。这里的正确性由前一量化定理覆盖，
+并非 native producer 自带语义 callback 或新的通用 context lifting。
+
+Narrative 复核仍为 `12419c1`，正文无新差异。接下来最困难的是 loaded 两-store
+原源每条 store 的 header 值保持与后继读取许可；source permissions 不能替代
+值保持，也不能用未建立的 cached 完整执行许可其生产。紧凑条件替换需要语言
+安全／实际出口运输、domain 充分性，并复用适用 candidate／host 证明；code size、
+runtime work、接受域和完整成本分别验收。这个 temp-bound slice 已闭合，完整
+OLO 能力及一般 affine source 目标保持；本次没有成本或收益证据。
+
+下文保留各前置阶段当时的证明／实验边界。
+
 2026-10-08 [泛化 versioned compiler](multi-array-affine-versioned-compiler.md)关闭
 actual scan exit 到 source/setup/restricted locator、candidate／restore／原 AST
 fallback 的连接。Domain data factory 消费既有候选 checker 并生产 projected

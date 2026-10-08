@@ -2,6 +2,26 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[多数组 actual C 接入](multi-array-affine-native-pipeline.md)已完成
+本族 marked frontend、自动 source metadata、真实 Pluto／per-statement prepared
+codegen、完整候选检查和已证明的 selected compiler 接线。八配置 768 次未插桩
+Asm／768 次独立 Clight 验收通过，核对完整数组与公开出口；五支持 sites 实际
+安装，未标注／unsupported 保留，两层 runtime fallback、重复 region、周围
+memory effects 和 scheduler failure 均检查。自动调度未使用 `--identity`。
+复用前一 Csem→Asm 定理及 42-global 基线，kernel／host contract 未变；真实
+安装与通用整程序定理现在分别有证据，不再将此接入记为 pending。
+
+再次 fetch narrative／context：远端仍是 `12419c1`，与 main 一致。三方责任和
+内核止于局部正确性的边界保持。**下一项推进同族 loaded 两-store 原源的逐条
+header 保持、下一读取许可及实际 guard-exit 连接，随后接同一数据 factory／
+selected host。**本 temp-bound slice 已闭合，不为所有来源扩展延后条件改进：
+独立的研究任务是可证明的紧凑充分条件、code size／运行工作／接受域、完整
+成本及 OLO selected-source 比较；该语言下的安全观察与出口运输必须单独证明。
+Coordinate-only scalar receipt 和一般 affine domains 仍待实现。本次没有新增
+成本、收益或作者工作量结果，完整 active goal 保持。
+
+以下为前一 compiler／提取阶段的历史边界；其中同族实际 C 接入已由上述后继完成。
+
 2026-10-08：[泛化 actual exit 与 selected compiler](multi-array-affine-versioned-compiler.md)
 将同一 source package／typed allocation 的完整 setup、affine scan、checked
 candidate、public restore 和原 AST fallback 接成实际执行，并由 data factory
