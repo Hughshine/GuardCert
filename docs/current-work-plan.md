@@ -116,6 +116,18 @@ N/M observation relation，不能用 header stability 代替 candidate data-depe
 同binary的完整接受和拒绝调用成本。全空 body-input bypass和 negative-width
 clipped public exit仍需具体语言／domain证明。
 
+对照实际定义后，zero-RMW不能直接填入当前稳定性字段：
+`mint32_words_preserved`只保持已有defined Mint32 words；
+`affine_snapshot_point_preservation`却量化任意point memory，并要求原始
+`location_load` equality。下一适配应把transport实际使用的
+`header_observations_match`不变量和word-valued receipts显式纳入domain的
+observation保证，先证明separation路径到该保证，再证明checked RMW／zero
+条件到同一保证。两者都由factory自动生产前提，保持data-dependence checker
+与公开出口要求；不得把word观察保持扩写为完整memory equality。
+这是具体domain／language桥的证明责任，尚无新接口或接受证据，也不要求
+修改kernel。首个实际client须再核对body grammar、alpha的原源许可和compact
+plan／registry连接，不能以另一个孤立condition helper算作接入。
+
 [Zero-width installation](zero-width-installation.md)已连接 actual wider-domain
 mapped/tiling checker、checked factory、compact plan与 selected Csem→Asm。
 新 builder 先于既有 registry；两个原 loaded-affine C 函数的首行空／后续

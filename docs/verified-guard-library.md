@@ -75,6 +75,14 @@ producer: who establishes requires from the actual source/site
 scope: completion, progress and observation coverage of this theorem
 ```
 
+实际zero-RMW复用还有一项domain适配责任：它的已有输出
+`mint32_words_preserved`只覆盖原本defined的Mint32 words；当前affine
+`affine_snapshot_point_preservation`对任意point before/after要求原始load
+equality。新client应显式利用transport中的header-match／word-valued
+不变量来运输观察，再连接source/model/candidate，而不能直接把两项契约
+视为相同。该适配尚未实现；separation与value-preservation仍须分别证明
+能生产实际caller所需的同一保证。
+
 `requires` 中的事实不能被包装成检查自身的成功结果。比如“load 返回
 Vint”是读取的前提或原源的 receipt；只把它写入 `ready` 并没有证明它会
 由调用者获得。Domain 建立的数学 range 也必须先经过 language 的 arithmetic
