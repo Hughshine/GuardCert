@@ -33,6 +33,34 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
+2026-10-08：[去重 alias scan 服务](deduplicated-alias-scan-service.md)已通过
+实际接口复用验收。严格 root／完整 affine map 去重，domain 证明成员保持
+和 point／canonical Boolean 规范精确；language adapter 从原 source／setup
+生产剩余读取许可，沿用原 allocator 和 scanner execution，返回公开 frame
+及 accepted entry fact。第三个 builder 直接接原 common factory、loaded
+contract 和 selected compiler；专门 Csem→Asm 端点是一行实例化，无新增
+installation proof body、kernel／host 改动或源码 semantic callback。
+
+三模块共 308 行；11 端点／7 closed／1,414 可达绑定／旧 42-global baseline／
+零新增公理。提取的三个注册策略 compiler 默认 `dedup`；正常矩阵通过
+1,000 Asm／1,000 Clight，非 uniform 旧 scan 回退通过 180／180，完整输出／
+公开出口／实际路径保持。新成本准备通过 243 重复 Asm／81 Clight 检查；
+row 总 guard tests 361→181、4,741→2,041，kernel bytes 1,349→1,325。
+这些是工作／尺寸证据。新完整成本 2,430 batches 全输出匹配，2×3／8×8
+接受为 source 的 5.37–5.62／11.96–14.54 倍；相对本次 canonical 配对减少
+12.64%–24.15%／15.37%–27.81%，接受路径仍没有盈利。26/27 medians 高于
+source；仅 column start refusal 约低 0.12%，不执行候选。回退的小幅回归
+保持，不能用诊断计数下降声称整体盈利或归因到单一组件。
+
+下一项以完整成本和分项诊断确定 remaining header／alias／candidate 工作，再实现
+常量 tests 消除、首次拒绝停止或 source-licensed header 充分条件。保持
+安全、充分性、运输、实际 compiler、接受域与完整成本的分开验收，不复制
+higher-level factory／host。严格模板去重不扩大一般 affine source 能力，
+cap 8、非矩形 domains、scalar／chunk 扩展和完整 OLO 联合验收继续在 goal。
+三模块的行数不是作者时间；第二 IR／clause algebra 仍不是主实例前置任务。
+
+以下 service 阶段及其 narrative 规划保留当时交付范围。
+
 2026-10-08：[Source-licensed scan services](source-licensed-scan-services.md)
 已落实上述复用问题：Clight record 只要求真实安全执行、memory／public／
 ports frame 和 accepted→entry fact，不强制新旧 Boolean equality。原 pair

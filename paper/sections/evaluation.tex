@@ -1224,5 +1224,50 @@ uninstrumented assembly calls and 1,000 separate Clight calls checking complete
 memory, public exits and paths. Ordinary C users select a registered strategy;
 they do not supply a semantic callback. This checkpoint changes proof reuse,
 not the two guard algorithms or general source coverage, and adds no timing
-or performance claim. A third service must test the claimed reduction in
-installation work through actual compilation and complete-call measurement.
+or performance claim. The succeeding deduplicated service tests installation
+reuse through actual compilation and complete-call measurement.
+
+The deduplication successor audits eleven endpoints, seven closed, with at
+most forty-two inherited globals and 1,414 reachable bindings. No new axiom
+is introduced; the frozen service checkpoint is checked separately by hash.
+The new local service consumes the existing allocator and scanner proofs;
+the factory, loaded installation and backend proofs are reused. Its extracted
+compiler passes 1,000 uninstrumented assembly and 1,000 independent Clight
+calls, plus 180/180 nonuniform-map fallback calls. Complete arena contents,
+public exits, initial iterators and paths match the source model. The compiler
+registers the proved deduplicated, canonical and pair builders, with no
+ordinary-user semantic callback.
+
+Fresh cost preparation checks 243 repeated assembly outputs and 81 separate
+Clight diagnostics using source, canonical and deduplicated modes of this
+same compiler. Row total guard tests fall from 361 to 181 at 2-by-3 and from
+4,741 to 2,041 at 8-by-8; setup counts and dispatch paths remain equal.
+Linked kernel bytes fall from 1,349 to 1,325 in row, 1,353 to 1,323 in column,
+and 1,543 to 1,473 with parameter stride. These diagnostics are separate
+from uninstrumented assembly timing and do not establish profitability.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/deduplicated-alias-cost.pdf}
+\caption{Complete-call cost with canonical and deduplicated alias scans in
+one registered-service compiler. Median paired cost/source ratios over thirty
+rounds, with descriptive IQRs. Accepted paths remain slower than source;
+refusal and empty paths are retained.}
+\label{fig:deduplicated-alias-cost}
+\end{figure}
+
+The fresh complete-call measurement in Figure~\ref{fig:deduplicated-alias-cost}
+contains 2,430 batches, all with complete warmup/final outputs checked.
+It uses the same randomized paired protocol and Ryzen/WSL2 setup; the shortest
+observed batch is 0.095863 seconds, with no discarded observations.
+Deduplicated accepted costs are 5.37--5.62 times source at 2-by-3 and
+11.96--14.54 times source at 8-by-8. Relative to canonical mode within this
+new experiment, they fall by 12.64--24.15\% and 15.37--27.81\%, respectively.
+Twenty-six of twenty-seven profile/input medians exceed source; column start
+refusal is 0.12\% below source but executes no candidate. We make no inference
+of a substantive gain from that bypass observation. Regressions remain:
+row/column child-empty costs rise 2.10/2.09\% relative to canonical, and row
+header-alias refusal rises 1.34\%. These medians have no confidence interval
+or core isolation. Total-call timing and Clight test counts do not identify
+component CPU costs; neither the proof reuse nor the smaller guard has met
+the principal accepted-path profitability objective on these selected inputs.

@@ -40,6 +40,24 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [去重 scan 服务](deduplicated-alias-scan-service.md)落实第三算法
+的责任分工：domain 生产严格模板成员保持／Boolean 规范精确；language
+adapter 证明剩余 source-licensed 读取、actual execution、memory／public／
+ports frame；原 typed allocator 和 builder 自动构造证书。Common factory、
+loaded guarantee／requirement 和 compiler 定理继续消费同一接口，Csem→Asm
+专门端点一行实例化，没有复制安装证明或更改 kernel／host。
+
+三模块 308 行，11 端点／7 closed，保持旧 42 globals、零新增公理。
+正常 1,000／1,000 和非 uniform 180／180 native／Clight 全输出通过。
+工作诊断与 linked bytes 独立验收，完整 CPU 2,430 batches 的接受成本仍
+为 source 的 5.37–5.62／11.96–14.54 倍；相对原 canonical 有降低，同时
+保留回退的回归。不能将类型化接口或 test-count 降低当作已证明的作者
+时间／收益结论。完成执行仍是
+scan 的前提，progress／placement／context installation 留在语言 host。
+完整 OLO／一般 affine 功能继续在 goal；此为同 host 的第三服务实例。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [Source-licensed scan services](source-licensed-scan-services.md)把
 实际 Clight 执行、source/read/caller frame 和 accepted entry fact 固定为
 语言接口，不把旧 Boolean equality 强加给未来充分条件。Domain 在此实例

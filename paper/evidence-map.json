@@ -2517,6 +2517,61 @@
         "docs/source-licensed-scan-services.md"
       ],
       "evidence_stage": "source_licensed_scan_service_stage"
+    },
+    {
+      "id": "deduplicated-template-service-with-common-compiler-and-complete-cost",
+      "section": "case-study and evaluation",
+      "claim": "Strict access-template deduplication uses one membership-preserving Clight adapter, reuses the checked factory and selected host/backend proof, and passes actual normal/nonuniform C-to-assembly runs. Paired complete-call measurements reduce accepted cost relative to canonical scanning but remain substantially above source; regressions and one marginal subsource bypass observation are retained.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAccessTemplateDedup.v",
+          "name": "deduplicate_access_templates_membership"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAccessTemplateDedup.v",
+          "name": "deduplicate_access_templates_unique"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAccessTemplateDedup.v",
+          "name": "deduplicate_access_templates_length"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAccessTemplateDedup.v",
+          "name": "access_template_point_check_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAccessTemplateDedup.v",
+          "name": "access_template_canonical_check_exact"
+        },
+        {
+          "source": "prototype/interface/ClightDeduplicatedScanService.v",
+          "name": "processed_template_service_execution"
+        },
+        {
+          "source": "prototype/interface/ClightDeduplicatedScanService.v",
+          "name": "processed_template_prepared_scan"
+        },
+        {
+          "source": "prototype/interface/ClightDeduplicatedScanService.v",
+          "name": "deduplicated_scan_builder"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedDeduplicatedScanCompiler.v",
+          "name": "compile_selected_word_nested_store_deduplicated_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorServiceFactory.v",
+          "name": "check_scan_service_full_execution"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreServiceCompiler.v",
+          "name": "compile_selected_word_nested_store_service_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/deduplicated-alias-scan-service.md"
+      ],
+      "evidence_stage": "deduplicated_alias_scan_service_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8055,5 +8110,90 @@
     "pair_assembly_calls": 1000,
     "pair_independent_Clight_calls": 1000,
     "pair_full_memory_public_exits_and_paths_checked": true
+  },
+  "deduplicated_alias_scan_service_stage": {
+    "proof_report": "build/deduplicated-scan/proof-v1/report.json",
+    "proof_report_sha256": "d2180f7e3102ee9ce6b4a465587cdff79193dabe0a38540838e4b4dbd233c532",
+    "native_report": "build/deduplicated-scan/native-v1/report.json",
+    "native_report_sha256": "487dd04f622876bcf053620d80320cac28ac1a996c38a2970b58b03cd2b1b26d",
+    "nonuniform_report": "build/deduplicated-scan/nonuniform-native-v1/report.json",
+    "nonuniform_report_sha256": "02332af0b11bb2bb98e5ebfbd17c9899ea471a29a78f4351e58545e653cf09fd",
+    "prepared_report": "build/deduplicated-scan/cost-prepared-v1/report.json",
+    "prepared_report_sha256": "043d650276454300404ebebb9f2a9851f4ded0be7034d87f6740d972a37842d1",
+    "timing_report": "build/deduplicated-scan/cost-v1/report.json",
+    "timing_report_sha256": "fa9ebe4feb82f2f23dbc4dc5cf4f02a28aea519cf38e076e03e8807175e2a9de",
+    "plot_report": "build/deduplicated-scan/cost-plot-v1/report.json",
+    "plot_report_sha256": "f8d589c1807cecf1b480dbeed0d57b87d4a7a34506e37a52a83f84de690541bd",
+    "compiler": "build/deduplicated-scan/compiler-v1/ccomp",
+    "compiler_sha256": "abac2e3b34d92c76888bcc49938d63768adff093e96e353b871cb70b00283262",
+    "audited_endpoints": 11,
+    "closed_endpoints": 7,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1414,
+    "parent_bound_files": 1414,
+    "additional_global_axioms": [],
+    "new_module_lines": 308,
+    "third_registered_service_implemented": true,
+    "strict_root_and_complete_map_deduplication": true,
+    "point_and_canonical_Boolean_specifications_exact": true,
+    "membership_preserving_Clight_adapter": true,
+    "common_factory_loaded_host_and_compiler_proof_reused": true,
+    "new_installation_proof_body": false,
+    "normal_assembly_calls": 1000,
+    "normal_independent_Clight_calls": 1000,
+    "nonuniform_assembly_calls": 180,
+    "nonuniform_independent_Clight_calls": 180,
+    "full_memory_public_exits_and_paths_checked": true,
+    "prepared_assembly_checks": 243,
+    "prepared_independent_Clight_calls": 81,
+    "timing_samples": 2430,
+    "shortest_batch_cpu_seconds": 0.095863,
+    "row_small_guard_tests": [
+      361,
+      181
+    ],
+    "row_cap_guard_tests": [
+      4741,
+      2041
+    ],
+    "row_kernel_bytes": [
+      1349,
+      1325
+    ],
+    "small_accepted_dedup_over_source": [
+      5.369693,
+      5.62349,
+      5.537515
+    ],
+    "cap_accepted_dedup_over_source": [
+      12.480688,
+      11.964781,
+      14.54385
+    ],
+    "small_accepted_dedup_over_canonical": [
+      0.854905,
+      0.873588,
+      0.758504
+    ],
+    "cap_accepted_dedup_over_canonical": [
+      0.846334,
+      0.838276,
+      0.721883
+    ],
+    "profile_input_medians_above_source": 26,
+    "total_profile_inputs": 27,
+    "accepted_path_profitability_achieved": false,
+    "column_start_refusal_bypass_ratio": 0.998765,
+    "observed_regressions_and_all_samples_retained": true,
+    "representative_workload_profitability_claim": false,
+    "author_time_measured": false,
+    "static_full_factory_acceptance_domain_equal_proved": false,
+    "cross_host_clause_algebra_implemented": false,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "source_user_semantic_callback_added": false,
+    "general_affine_source_frontend_added": false,
+    "full_goal_complete": false
   }
 }
