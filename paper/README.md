@@ -1,5 +1,14 @@
 # GuardCert Working Manuscript
 
+The [zero-width successor](../docs/zero-width-installation.md) connects the
+actual wider-domain candidate checker, original-source condition, compact plan
+and selected Csem-to-Asm compiler. First-empty/nonempty-later inputs now accept.
+Its audit covers 33 endpoints without new axioms; six configurations pass
+2,016 Asm/2,016 Clight calls and the same binary passes word 400/400,
+recursive-affine 480/480 and private-loaded 270/270 regressions. The case-study
+and evaluation sections distinguish the source/model proof directions and
+premise producers. Broader domains and complete-call cost remain open.
+
 The [private-loaded affine successor](../docs/selected-private-loaded-affine-pipeline.md)
 connects the existing two-dimensional snapshot/stability source proof to actual
 Pluto/prepared-codegen proposals under the shared selected host. Four endpoints
@@ -287,6 +296,12 @@ implementation and narrative reference commits, primary literature URLs and
 checked scope, and the pending results. It is an author-facing map, not a
 new proof audit. A source anchor's presence does not establish a build result;
 the corresponding stage report supplies that evidence.
+
+Required source anchors and documents belong to the repository. Ignored
+`build/` reports are artifact references, whose locations and recorded digests
+remain in the map. The builder records digests for locally available artifacts
+and lists unavailable ones; it does not validate their research results.
+A clean PDF build therefore does not require a local copy of every experiment.
 
 For each implementation milestone, update the relevant section and its map
 entry. Keep the source/matcher class, runtime check, candidate model, and

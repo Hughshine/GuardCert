@@ -2644,7 +2644,10 @@
         }
       ],
       "documents": [
-        "docs/linear-canonical-alias-service.md",
+        "docs/linear-canonical-alias-service.md"
+      ],
+      "evidence_stage": "linear_canonical_alias_service_stage",
+      "artifacts": [
         "build/linear-canonical-scan/proof-v1/report.json",
         "build/linear-canonical-scan/native-v1/report.json",
         "build/linear-canonical-scan/shifted-native-v1/report.json",
@@ -2652,8 +2655,7 @@
         "build/linear-canonical-scan/cost-prepared-v1/report.json",
         "build/linear-canonical-scan/cost-v1/report.json",
         "build/linear-canonical-scan/cost-plot-v1/report.json"
-      ],
-      "evidence_stage": "linear_canonical_alias_service_stage"
+      ]
     },
     {
       "id": "shared-selected-word-and-actual-affine-pipeline",
@@ -2698,13 +2700,15 @@
         }
       ],
       "documents": [
-        "docs/selected-affine-pipeline.md",
+        "docs/selected-affine-pipeline.md"
+      ],
+      "evidence_stage": "shared_selected_affine_pipeline_stage",
+      "artifacts": [
         "build/selected-affine-pipeline/proof-v1/report.json",
         "build/selected-affine-pipeline/affine-2d-native-v2/report.json",
         "build/selected-affine-pipeline/word-regression-v1/report.json",
         "build/selected-affine-pipeline/attempts-v1/report.json"
-      ],
-      "evidence_stage": "shared_selected_affine_pipeline_stage"
+      ]
     },
     {
       "id": "signed-affine-generated-bound-proposals",
@@ -2717,13 +2721,15 @@
         }
       ],
       "documents": [
-        "docs/signed-affine-bound-proposals.md",
+        "docs/signed-affine-bound-proposals.md"
+      ],
+      "evidence_stage": "signed_affine_bound_proposal_stage",
+      "artifacts": [
         "build/selected-affine-pipeline/proof-v1/report.json",
         "build/selected-affine-pipeline/signed-affine-2d-native-v1/report.json",
         "build/selected-affine-pipeline/signed-word-regression-v1/report.json",
         "build/selected-affine-pipeline/attempts-v1/report.json"
-      ],
-      "evidence_stage": "signed_affine_bound_proposal_stage"
+      ]
     },
     {
       "id": "actual-rank-three-codegen-with-checked-compaction",
@@ -2750,14 +2756,16 @@
         }
       ],
       "documents": [
-        "docs/compact-affine-codegen.md",
+        "docs/compact-affine-codegen.md"
+      ],
+      "evidence_stage": "compact_affine_codegen_stage",
+      "artifacts": [
         "build/selected-affine-pipeline/proof-v1/report.json",
         "build/selected-affine-pipeline/compact-affine-native-v1/report.json",
         "build/selected-affine-pipeline/compact-word-regression-v1/report.json",
         "build/selected-affine-pipeline/compact-codegen-profile-v1/report.json",
         "build/selected-affine-pipeline/compact-harness-attempts-v1/report.json"
-      ],
-      "evidence_stage": "compact_affine_codegen_stage"
+      ]
     },
     {
       "section": "case-study",
@@ -2777,6 +2785,61 @@
         "docs/framework-responsibilities.md"
       ],
       "evidence_stage": "selected_private_loaded_affine_pipeline_stage"
+    },
+    {
+      "id": "zero-width-original-source-to-selected-compilation",
+      "section": "case-study-and-evaluation",
+      "status": "audited-actual-factory-and-compiler-native-wider-acceptance",
+      "claim": "The supported rank-two loaded-affine sources license later body inputs after an empty first child, produce nonnegative-width model and header/data premises, recheck actual generated candidates, and install original-source fallback through selected Csem-to-Asm. Proof bridges distinguish given original execution, cached execution, one-way source Loop recovery and candidate lowering/public restoration. Six configurations pass 2016 Asm/2016 Clight calls; the same binary passes word 400/400, recursive-affine 480/480 and private-loaded 270/270 regressions. The same 264 historical inputs grow from 30 to 40 candidate selections without losses. Broader conditions, recursive loaded domains, all-empty body-input bypass, negative-width exits and complete cost remain incomplete.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightAffineZeroSnapshotPreparation.v",
+          "name": "affine_zero_snapshot_preparation_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineZeroSnapshotCandidateCondition.v",
+          "name": "affine_zero_snapshot_candidate_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineZeroSnapshotCandidateExecution.v",
+          "name": "affine_zero_snapshot_checked_cached_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryZeroWidthPointerSource.v",
+          "name": "memory_zero_width_pointer_region_source_under_ranges"
+        },
+        {
+          "source": "prototype/interface/ClightAffineZeroPointerCandidate.v",
+          "name": "check_affine_zero_pointer_model_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineZeroPointerCandidate.v",
+          "name": "check_affine_zero_pointer_tiling_model_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineZeroPointerCandidate.v",
+          "name": "affine_zero_pointer_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineZeroSnapshotPlannedCandidates.v",
+          "name": "check_affine_zero_snapshot_planned_source_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedZeroSnapshotPlannedCompiler.v",
+          "name": "compile_selected_zero_snapshot_planned_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/zero-width-installation.md",
+        "docs/framework-responsibilities.md",
+        "docs/current-work-plan.md"
+      ],
+      "artifacts": [
+        "build/zero-width-installation/proof-v1/report.json",
+        "build/zero-width-installation/native-v1/report.json",
+        "build/zero-width-installation/regression-v1/report.json"
+      ],
+      "evidence_stage": "zero_width_installation_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8591,6 +8654,63 @@
     "new_axioms": false,
     "kernel_changed": false,
     "language_installation_theorem_reused": true,
+    "new_runtime_cost_or_profitability_evidence": false,
+    "full_goal_complete": false
+  },
+  "zero_width_installation_stage": {
+    "proof_report": "build/zero-width-installation/proof-v1/report.json",
+    "proof_report_sha256": "9a45eecb279d0e965604602de3ca0a25fd2db6ede8414f0a8ae72c427caab192",
+    "native_report": "build/zero-width-installation/native-v1/report.json",
+    "native_report_sha256": "3a820869cb0df632e77304de5ee02fd950c119b3ea53028be257dd759ab13a19",
+    "regression_report": "build/zero-width-installation/regression-v1/report.json",
+    "regression_report_sha256": "edb9350565b6595def6217dfa534be0b780fd480e2f54c0a107a56aae6b3c960",
+    "compiler": "build/zero-width-installation/compiler-v1/ccomp",
+    "compiler_sha256": "f20b27581361e16e3978c85b35972080e3653908a9c4ed2003f36e9acf8f796e",
+    "narrative_reference_commit": "c4b1395668786f20cdb75fb2db020dd651bb4684",
+    "compiler_endpoint": "ClightSelectedZeroSnapshotPlannedCompiler.compile_selected_zero_snapshot_planned_regions_correct",
+    "new_modules": 11,
+    "new_source_lines_including_imports_and_queries": 1272,
+    "audited_endpoints": 33,
+    "closed_endpoints": 1,
+    "maximum_inherited_globals": 42,
+    "proof_bindings": 1934,
+    "preserved_compile_attempts": 23,
+    "successful_compile_attempts": 11,
+    "rejected_compile_attempts": 12,
+    "source_rank": 2,
+    "first_reached_row_alternatives": [
+      0,
+      1
+    ],
+    "assembly_calls": 2016,
+    "Clight_calls": 2016,
+    "normal_mode_candidate_selections": 60,
+    "normal_mode_runtime_fallbacks": 164,
+    "normal_mode_unmarked_calls": 112,
+    "paired_historical_inputs": 264,
+    "paired_old_candidate_selections": 30,
+    "paired_new_candidate_selections": 40,
+    "paired_lost_acceptance": 0,
+    "actual_first_empty_later_nonempty_calls_per_normal_mode": 42,
+    "actual_first_empty_later_nonempty_accepted": 30,
+    "actual_first_empty_later_nonempty_refused": 12,
+    "same_binary_word_regression_calls_per_semantics": 400,
+    "same_binary_recursive_affine_regression_calls_per_semantics": 480,
+    "same_binary_private_loaded_regression_calls_per_semantics": 270,
+    "source_user_semantic_callbacks_required": false,
+    "original_execution_is_runtime_preexecution": false,
+    "actual_candidate_rechecked_in_wider_assumed_model": true,
+    "ordinary_plain_source_request_and_proposer_reused": true,
+    "compact_N_M_scan_and_private_boolean_lowering_reused": true,
+    "new_builder_precedes_older_registry": true,
+    "kernel_changed": false,
+    "underlying_candidate_validators_changed": false,
+    "new_axioms": false,
+    "language_installation_theorem_reused": true,
+    "all_empty_body_input_bypass_supported": false,
+    "negative_child_width_public_exits_supported": false,
+    "general_recursive_loaded_affine_domain_complete": false,
+    "broader_value_preserving_header_condition_installed": false,
     "new_runtime_cost_or_profitability_evidence": false,
     "full_goal_complete": false
   }

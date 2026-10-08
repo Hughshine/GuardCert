@@ -1128,13 +1128,41 @@ objects are rebuilt in an isolated namespace with import changes only.
 This connection reuses the existing source proof; it does not supply a new
 conditional-child-load proof or identify the three registered source models.
 
-The affine guard still requires a nonempty initial source path. An ascending
-source starting at $-2$ with child bound $i+2$ falls back despite later nonempty
-children. Earlier two-dimensional loaded-root affine libraries provide a
-narrower source/snapshot proof. General recursive affine domains combined with
-loaded-word observations still require a joint source/model and source-licensed
-snapshot proof; dispatching between the two current factories does not provide
-it.
+That affine guard requires a nonempty initial source path. An ascending source
+starting at $-2$ with child bound $i+2$ falls back despite later nonempty children.
+General recursive affine domains combined with loaded-word observations still
+require a joint source/model and source-licensed snapshot proof; dispatching
+between the registered factories does not provide it.
+
+\paragraph{Conditional observation after an empty first child.}
+A new two-dimensional loaded-bound factory accepts supported
+$i<*N$ sources with child bounds $K=i+*M$ or $K=2i+*M$, including an empty
+first child followed by a nonempty one. For $N=3$, $M=0$, and $i=0$, the
+child widths are $0,1,2$ or $0,2,4$. Original execution licenses capture of M
+in the reached setup, but does not license body-only inputs in row zero.
+After header and arithmetic checks, the preparation tries sufficient conditions
+for the first reached row being zero or one. Both alternatives are safe in
+the same read-only header domain. The row-one proof uses original execution
+to establish the later body inputs without executing source stores in the guard.
+All-empty bodies conservatively refuse before those reads.
+
+Ordered range, N/M stability, data-separation and candidate-range checks then
+produce the wider model premises. Accepted stability transports the given
+original execution to cached-source execution with its exact final memory and
+temporary exits. A separate one-way decoder recovers source Loop execution;
+the actual mapped or tiled candidate is rechecked under the nonnegative-width
+assumed model. Candidate lowering restores public exits. The original plain
+source request and native proposer are reused, while the final certificate
+is newly checked. Original execution is a proof premise, never a runtime
+pre-execution of the source.
+
+The factory reuses the compact N/M scan plan and private-Boolean lowering,
+and precedes older recognizers in the selected registry. Its compiler endpoint
+composes the region guarantee with the existing selected host and backend to
+Csem-to-Asm backward simulation. The kernel and underlying validators are
+unchanged. This closes that two-dimensional installation path; broader
+value-preserving header conditions, negative-width exits and recursive loaded
+affine domains remain open.
 
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,

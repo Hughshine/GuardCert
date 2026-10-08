@@ -43,6 +43,12 @@ def main():
     for path, expected in evidence["official_template_sha256"].items():
         if sha(PAPER / path) != expected:
             raise SystemExit("Official LNCS template changed: " + path)
+    artifact_paths = sorted({path for entry in evidence["claims"]
+                             for path in entry.get("artifacts", [])})
+    available_artifacts = {path: sha(ROOT / path) for path in artifact_paths
+                           if (ROOT / path).is_file()}
+    unavailable_artifacts = [path for path in artifact_paths
+                             if path not in available_artifacts]
     WORK.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ, XDG_CACHE_HOME=str(WORK / "cache"))
     command = [engine, "--untrusted", "--keep-logs", "--keep-intermediates", "--reruns", "2",
@@ -70,6 +76,9 @@ def main():
               "evidence_sources": {path: sha(ROOT / path) for entry in evidence["claims"]
                                    for path in [*[a["source"] for a in entry.get("theorems", [])],
                                                 *entry.get("documents", [])]},
+              "available_artifact_sha256": available_artifacts,
+              "unavailable_artifact_references": unavailable_artifacts,
+              "research_artifact_contents_validated": False,
               "helper_sha256": sha(Path(__file__)), "undefined_citations_or_refs": False,
               "overfull_boxes": False, "build_reruns_research_experiments": False,
               "full_original_olo_capabilities_claimed": False,
