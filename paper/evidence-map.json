@@ -2739,20 +2739,6 @@
         {
           "source": "prototype/interface/ClightSelectedPolyhedralCompiler.v",
           "name": "compile_selected_polyhedral_regions_correct"
-        },
-        {
-          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
-          "name": "fromCs_correct",
-          "source_module": "ExactCs"
-        },
-        {
-          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
-          "name": "canonize_Cs_correct"
-        },
-        {
-          "source": "vendor/PolCert-optimizer/polygen/Canonizer.v",
-          "name": "canonize_correct",
-          "source_module": "VplCanonizer"
         }
       ],
       "documents": [
@@ -2765,6 +2751,25 @@
         "build/selected-affine-pipeline/compact-word-regression-v1/report.json",
         "build/selected-affine-pipeline/compact-codegen-profile-v1/report.json",
         "build/selected-affine-pipeline/compact-harness-attempts-v1/report.json"
+      ],
+      "external_theorems": [
+        {
+          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
+          "name": "fromCs_correct",
+          "source_module": "ExactCs",
+          "source_sha256": "bcc00dd49831c516d84fa58fb2a714c7aa9d566c6462f7a55a69ff3a51454374"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
+          "name": "canonize_Cs_correct",
+          "source_sha256": "bcc00dd49831c516d84fa58fb2a714c7aa9d566c6462f7a55a69ff3a51454374"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/polygen/Canonizer.v",
+          "name": "canonize_correct",
+          "source_module": "VplCanonizer",
+          "source_sha256": "27e70ad0baf08e2499563f8423cdbb3cd24939da6215ccffdca7c6c6b9ce7deb"
+        }
       ]
     },
     {

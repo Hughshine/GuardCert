@@ -302,6 +302,10 @@ Required source anchors and documents belong to the repository. Ignored
 remain in the map. The builder records digests for locally available artifacts
 and lists unavailable ones; it does not validate their research results.
 A clean PDF build therefore does not require a local copy of every experiment.
+Dependency theorem references are separate from repository source anchors.
+For locally restored dependencies, the builder checks the recorded source digest
+and theorem name. It lists unavailable dependency sources in a clean build;
+compiling the PDF does not establish those theorem checks or their proofs.
 
 For each implementation milestone, update the relevant section and its map
 entry. Keep the source/matcher class, runtime check, candidate model, and

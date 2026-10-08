@@ -49,6 +49,21 @@ def main():
                            if (ROOT / path).is_file()}
     unavailable_artifacts = [path for path in artifact_paths
                              if path not in available_artifacts]
+    external_sources = {}
+    unavailable_external_sources = set()
+    for entry in evidence["claims"]:
+        for anchor in entry.get("external_theorems", []):
+            path, name = anchor["source"], anchor["name"]
+            source = ROOT / path
+            if not source.is_file():
+                unavailable_external_sources.add(path)
+                continue
+            if sha(source) != anchor["source_sha256"]:
+                raise SystemExit("External theorem source digest changed: " + path)
+            if not re.search(r"\b(?:Theorem|Lemma|Example|Corollary|Definition|Record)\s+" + re.escape(name) + r"\b",
+                             source.read_text()):
+                raise SystemExit("Missing external source anchor: " + path + ":" + name)
+            external_sources[path] = sha(source)
     WORK.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ, XDG_CACHE_HOME=str(WORK / "cache"))
     command = [engine, "--untrusted", "--keep-logs", "--keep-intermediates", "--reruns", "2",
@@ -78,6 +93,9 @@ def main():
                                                 *entry.get("documents", [])]},
               "available_artifact_sha256": available_artifacts,
               "unavailable_artifact_references": unavailable_artifacts,
+              "available_external_theorem_source_sha256": external_sources,
+              "unavailable_external_theorem_sources": sorted(unavailable_external_sources),
+              "external_theorem_anchor_checks_complete": not unavailable_external_sources,
               "research_artifact_contents_validated": False,
               "helper_sha256": sha(Path(__file__)), "undefined_citations_or_refs": False,
               "overfull_boxes": False, "build_reruns_research_experiments": False,
