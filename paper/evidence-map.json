@@ -1773,6 +1773,43 @@
       "documents": [
         "docs/multi-array-complete-guard.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The canonical complete two-array statement now preserves arbitrary requested caller temporaries, with a static disjointness gate for the actual guard write set. Source execution transport, checked candidate execution with iterator restoration, and original-AST fallback yield the existing Clight projected region contract without changing the kernel. Typed allocation, source progress, legal placement, identifier generalization, loaded-header preservation, selected whole-program installation and cost remain open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryPairScanWrites.v",
+          "name": "multi_tensor_pair_scan_writes"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPublicScan.v",
+          "name": "multi_tensor_demo_pair_guard_public_frame"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPublicScan.v",
+          "name": "multi_tensor_demo_pair_source_at_public_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPublicCandidates.v",
+          "name": "multi_tensor_demo_pair_public_versioned_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPublicComplete.v",
+          "name": "multi_tensor_demo_public_full_versioned_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPublicComplete.v",
+          "name": "check_multi_tensor_demo_public_full_versioned_contract"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPublicComplete.v",
+          "name": "check_multi_tensor_demo_public_full_versioned_refuses_private_collision"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-public-boundary.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6472,6 +6509,32 @@
     "loaded_header_prefix_licensing_added": false,
     "runtime_pair_scan_short_circuits_after_refusal": false,
     "numeric_setup_refusal_skips_pair_scan": true,
+    "new_compiler_theorem": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false,
+    "measured_cost_added": false,
+    "successor_boundary_stage": "multi_array_public_boundary_stage"
+  },
+  "multi_array_public_boundary_stage": {
+    "report": "build/multi-tensor-public-guard/proof/report.json",
+    "report_sha256": "2032825e50ad484019abc28b93d4f8b943c8f75a9a8ab6845f9e8df989d58a26",
+    "endpoints": 16,
+    "closed_endpoints": 8,
+    "maximum_endpoint_globals": 14,
+    "compiler_baseline_globals": 42,
+    "bound_files": 123,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "caller_live_subset_of_fixed_source_ports_required": false,
+    "arbitrary_program_live_frame_proved": true,
+    "static_private_collision_gate_added": true,
+    "projected_region_contract_added": true,
+    "kernel_rule_or_host_contract_added": false,
+    "numeric_layout_box_profile_entry_premises_removed": true,
+    "source_or_private_identifiers_generalized": false,
+    "typed_guard_resource_allocation_added": false,
+    "source_progress_or_placement_added": false,
+    "loaded_header_prefix_licensing_added": false,
     "new_compiler_theorem": false,
     "multi_array_guarded_compiler_installed": false,
     "C_or_assembly_evidence_added": false,

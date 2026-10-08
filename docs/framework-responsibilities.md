@@ -1,5 +1,17 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [任意 caller 边界](multi-array-public-boundary.md)落实 narrative 的
+region guarantee／context requirement 区分：语言提供实际写集、frame、执行
+运输与现有 small-step bridge；domain 接完整条件／checked candidate／restore；
+新 producer 静态检查 private/live 冲突并导出既有 projected region contract。
+Kernel 没有变化，也没有另建 contract algebra。**下一困难位置是 factory 从
+源数据和 typed pool 生产 allocation／progress／placement，然后完成该族的
+selected 安装；loaded 两次 store 的 header 保持仍需原源 prefix 证据。**
+任意 caller-live 证明已闭合，source／private names 仍固定；不把局部保证称作
+整程序优化，也不让源码使用者补缺失的 semantic callback。
+
+以下记录保留各阶段当时范围；当前最先验收的安装责任见上段。
+
 2026-10-08 [两数组完整 condition](multi-array-complete-guard.md)将语言 source
 definedness／short-circuit／checked arithmetic 与 domain 的多访问 coverage／
 profile 推导接上，复用 framework 的 `readonly_condition_entails` 暴露数学 setup

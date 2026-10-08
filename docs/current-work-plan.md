@@ -2,6 +2,22 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[任意 caller 边界](multi-array-public-boundary.md)已从实际 pair-scan
+写集和静态 disjoint 检查导出任意 live frame，移除固定 source ports 子集要求；
+完整 setup／alias 两分支接同一 checked candidate／原 AST，并生产现有
+`PrivateRegion.projected_region_contract`。Kernel 保持。重新 fetch narrative
+仍为 `12419c1`，两份正文与 main 一致；三方责任、真实 polyhedral pipeline 和
+OLO 功能／可用性验收继续约束 active goal。
+**下一项为该族的 data factory 生产 source recognition、可实例化的名称和
+fresh typed guard slots、scope／progress／selected placement，再消费已有 host
+安装 canonical 同族并接 Csem→Asm。**任意 live frame 与 local small-step
+contract 不替代资源分配或 source progress；不向源码使用者索要 semantic
+callback。两 store 的 loaded 原源 prefix／header 保持随后接相同路径；新族
+compiler／native／cost 及完整 OLO 尚未完成。
+
+以下为完整条件阶段记录；其中任意 live frame 与 projected guarantee 缺口已由
+上述后继闭合，typed allocation／progress／placement／安装仍待完成。
+
 2026-10-08：[canonical 两数组完整条件](multi-array-complete-guard.md)已复用
 range／volume／box 编码器，从实际多 assignment 源许可观察，接受时生产全部
 numeric／layout／box／profile 前提。新 full versioned statement 对 setup 与
