@@ -528,6 +528,42 @@ is supplied by the new producer. The resulting compiler has a Csem-to-Asm
 backward simulation. This is a certified candidate implementation change, not
 a general loop-exit synthesizer or a simplification of the guard condition.
 
+\paragraph{Multi-array body library.}
+A checked source-body extension supports assignment lists through several
+actual pointer temporaries with a shared runtime tensor layout. Its prototype
+uses \code{a[q]=b[q]+alpha; b[q]=a[q]+alpha}, where $q$ is the source
+Horner expression. The decoder connects the second read to the first store's
+output memory; it does not impose separation when interpreting the source.
+The forward lowerer also retains actual pointer aliasing. The domain bridge
+restricts the location view to the source event footprint before invoking the
+existing candidate certificate, then unrestricts the resulting target execution.
+Requiring nonaliasing of the whole pointer environment would overconstrain
+unrelated bindings, including loaded-header pointers.
+
+A source/candidate prototype validates actual affine and tiling phases on
+the two-statement model, then calls prepared codegen for each transformed
+statement. It proposes composition and checks the complete candidate against
+the source before multi-pointer lowering. Statement distribution and coordinate
+adaptation remain untrusted proposals; per-statement codegen does not establish
+their composition's equivalence. The final checker supplies that certificate.
+
+This library still consumes point availability, numeric views and separated
+source-footprint premises. Its data checker supplies exact assignment and
+value-expression evidence, but not a complete loaded-nest guard or installed
+region contract. The next domain factory must establish those premises with
+source-licensed checks, preserve each captured header across both operations,
+transport the facts to the actual guard exit, and restore public counters.
+Only then can the language host install this extended family. The existing
+single-RMW selected compiler and its Csem-to-Asm theorem are unchanged.
+The old \code{alpha==0} preparation is insufficient for this body: the first
+assignment can still change \code{a[q]} to the old value of \code{b[q]}.
+Observation-preserving conditions must follow the new body's dataflow.
+There is also a definedness distinction: the first store can initialize
+\code{a[q]} before the second source read. Copying that second RHS into an
+entry check can introduce an undefined word computation. Permission transport
+licenses an address probe, not an earlier load value. A value-dependent guard
+needs justified forwarding or another source-licensed expression.
+
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array
 footprints, connect certified residualization to actual execution, and compare

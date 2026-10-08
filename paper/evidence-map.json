@@ -1616,6 +1616,31 @@
         "scripts/native_positive_offset_pipeline.py",
         "scripts/audit_positive_offset_headers.py"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Checked multi-array Horner assignment lists decode with actual intermediate memories; generated candidate certificates transfer through the restricted source footprint to actual multi-pointer Clight lowering. Runtime source licensing and separation encoding for complete installation remain open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorSequence.v",
+          "name": "multi_tensor_body_source_decode"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorBackend.v",
+          "name": "compile_multi_tensor_buffer_loop_correct"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCandidates.v",
+          "name": "check_multi_tensor_generated_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorExample.v",
+          "name": "multi_tensor_demo_describe_sound"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-tensor-body.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6164,6 +6189,42 @@
         "accepted": 55,
         "refused": 39
       }
+    }
+  },
+  "multi_array_tensor_library_stage": {
+    "report": "build/multi-tensor/proof/report.json",
+    "report_sha256": "b69256117f29d5f1cff0c604079519a0e263d29b0563482321891677146ceac3",
+    "endpoints": 30,
+    "closed_endpoints": 17,
+    "maximum_endpoint_globals": 14,
+    "compiler_baseline_globals": 42,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "new_compiler_theorem": false,
+    "runtime_cross_array_alias_encoder_added": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false,
+    "prototype": {
+      "report": "build/multi-tensor/extracted-partitioned/report.json",
+      "report_sha256": "52f8db57c062393bfbee3ef33f88f77a436bd516a16d58966ffe6ee745b64f0e",
+      "cases": 11,
+      "accepted": 5,
+      "refused": 6,
+      "real_scheduler_executed": true,
+      "prepared_codegen_scope": "each statement of checked whole transformed model",
+      "complete_source_candidate_checked": true,
+      "statement_distribution_proposed": true,
+      "raw_to_composed_equivalence_proved": false,
+      "generated_statements_executed": false,
+      "whole_program_compiler_installed": false,
+      "statement_nodes": {
+        "nonunit": 137,
+        "partial-unit": 129,
+        "all-unit": 65
+      },
+      "diagnostics_report": "build/multi-tensor/diagnostics-v1/report.json",
+      "diagnostics_report_sha256": "d6af5650a1bbcce0fd818ac0f15eb5a4894c99f3cadc611ba251799af470dff2",
+      "joint_codegen_success_or_failure_established": false
     }
   }
 }
