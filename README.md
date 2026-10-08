@@ -1,5 +1,16 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Actual private-loaded affine compilation](docs/selected-private-loaded-affine-pipeline.md)
+now connects the existing two-dimensional snapshot/stability proof to real
+Pluto/codegen under the common selected host. Two new connection modules audit
+four endpoints with no new axioms. Six configurations pass 810 Asm/810 Clight
+full-output and continuation checks; the same binary passes 400/400 word and
+480/480 recursive-affine regressions. The inherited envelope guard accepts
+separated offsets under equal pointer roots and conservatively refuses distinct
+allocations. Conditional child loads, first-empty-child acceptance, general
+combined domains and complete cost remain active. Narrative `12419c1` still
+matches main; the responsibilities stay separate.
+
 2026-10-08: [Checked constraint compaction](docs/compact-affine-codegen.md)
 now makes actual rank-three prepared codegen usable for triangular and descending
 domains. The same selected compiler reuses the original proof chain and passes

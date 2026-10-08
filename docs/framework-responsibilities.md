@@ -40,6 +40,22 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [Private-loaded affine actual pipeline](selected-private-loaded-affine-pipeline.md)
+进一步验证 guarantee／installation 的复用。旧二维库已负责 original-root
+snapshot、bound 与 writes 的分离／稳定性、temp-affine-child source/model、
+实际 mapped／tiling candidate、检查和公开运输；新普通 adapter 只把 checked
+request 送入已有真实 Pluto／codegen，再把普通 evidence data 转回旧 proposal。
+它不生产新的 semantic certificate。新 builder 以 normalization 运输旧 region
+contract，新 Csem→Asm 端点直接应用共用语言 theorem，无 kernel／host 变化。
+
+两模块 63 行、4 端点、1,810 绑定、至多旧 42 globals、无新增公理；三个
+legacy modules 的 imports-only namespace port 独立重建。源码用户仍只给
+marked C 和策略。810／810 新 family 执行、同 binary word 400／400 和
+recursive-affine 480／480 回归通过，不是新成本或作者时间测量。旧 envelope
+条件的 same-root 限制与 first-empty-child 回退须作为接受域缺口报告。
+下一义务是条件 child `*M` 的原源许可／stability 与一般域桥；不能把三
+builder 静态分派当作 recursive affine／loaded-word 联合对应已经完成。
+
 2026-10-08 [Actual rank-three codegen](compact-affine-codegen.md)进一步检验
 checked algorithm 的复用边界。普通约束压缩返回原 certificates／既有 LCF
 运算；`ExactCs.fromCs` 检查全部原约束，消费 forward guarantee 后产生 exact

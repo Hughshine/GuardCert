@@ -1,5 +1,14 @@
 # GuardCert Working Manuscript
 
+The [private-loaded affine successor](../docs/selected-private-loaded-affine-pipeline.md)
+connects the existing two-dimensional snapshot/stability source proof to actual
+Pluto/prepared-codegen proposals under the shared selected host. Four endpoints
+audit without new axioms; 810 Asm/810 independent Clight full-output checks pass.
+The same binary passes 400/400 word and 480/480 recursive-affine regressions.
+The inherited same-root envelope condition and first-empty-child refusal remain
+acceptance limitations. Conditional child loads and general combined domains
+still require new proofs; no new cost or profitability result is claimed.
+
 The [readonly-probe successor](../docs/word-nested-store-probe-memo.md) proves exact setup results and nonincreasing expression-test counts, connects the service to the actual loaded-loop compiler, and passes the same 1,000 Asm/1,000 independent Clight calls. An additional 2,000 paired Clight diagnostics measure setup tests 6,564 to 3,228 and row 2-by-3 linked function size 1,442 to 1,344 bytes. Candidate and host proofs are reused; header/alias scan complexity and complete-call timing remain open. The [narrative review](../docs/narrative-kernel-host-review-2026-10-08.md) answers the host-boundary questions from current code and retains finite/open progress distinctions. This is a working manuscript checkpoint, not evidence of full OLO coverage or a submission-ready paper.
 
 The [store-sequence scan successor](../docs/word-store-sequence-scan.md) proves original-source-licensed capture, refusal gates, a static short-circuit cursor loop, all-accepted cached-source execution at the actual guard exit, and complete cached/original dispatch. Four modules audit 35 endpoints: seven closed, at most six existing globals, 1,114 reachable bindings and no new axiom. Constructive Clight fixtures cover later RHS initialization, second-store/header alias fallback and empty loops with undefined array temps. This closes the single-axis connection above the [prefix service](../docs/word-store-sequence-prefix.md); nested multi-header loaded scans, cached/model/candidate correspondence, data factory/selected installation and new native or cost evidence remain open. The narrative fetch still exposes `12419c1`, equal to main; the kernel and host contract are unchanged.

@@ -1,0 +1,62 @@
+"""Exercise the existing word and recursive-affine families in the same successor binary."""
+import json
+
+import native_linear_canonical_scan as word
+import native_compact_affine_validation as affine
+import native_selected_loaded_affine as current
+from audit_interface_clight import ROOT, sha
+
+WORK = ROOT / "build/selected-loaded-affine/regression-v1"
+
+
+def main():
+    bindings = current.check_build()
+    if (WORK / "report.json").exists():
+        report = json.loads((WORK / "report.json").read_text())
+        assert report["status"] == "passed" and report["proved_entrypoint"] == current.builder.ENTRY
+        for path, digest in report["bindings"].items():
+            assert sha(ROOT / path) == digest, path
+        print(json.dumps({"status": "validated", "report_sha256": sha(WORK / "report.json")}))
+        return
+    WORK.mkdir(parents=True, exist_ok=False)
+    prior = word.prior
+    prior.builder, prior.WORK, prior.COMPILER = current.builder, WORK / "word", current.COMPILER
+    prior.WORK.mkdir()
+    prior.dispatch_sites, prior.check_build = word.dispatch_sites, current.check_build
+    prior.os.environ["GUARDCERT_ALIAS_SCAN"] = "linear"
+    pluto = prior.scheduler.validate()
+    binary = ROOT / pluto["binary"]
+    configurations, paths = {}, {}
+    for name in ["row-nonunit", "row-schedule", "unannotated", "disabled"]:
+        configuration = prior.CONFIGURATIONS[name]
+        configurations[name] = prior.compile_run(name, configuration, binary)
+        paths[name] = prior.branch_probe(name, configuration)
+        print("Word regression:", name, configurations[name]["calls"], flush=True)
+    affine.builder, affine.COMPILER, affine.check_build = current.builder, current.COMPILER, current.check_build
+    affine_work = WORK / "affine"
+    affine_work.mkdir()
+    affine_results = {}
+    for name in ["tile", "schedule"]:
+        affine_results[name] = affine.compile_run(name, affine.CONFIGURATIONS[name], binary, affine_work)
+        print("Recursive affine regression:", name, affine_results[name]["assembly_calls"], flush=True)
+    helpers = prior.HELPERS + ["scripts/native_linear_canonical_scan.py", "scripts/native_compact_affine_validation.py",
+        "scripts/selected_compact_affine_fixtures.py", "scripts/native_selected_loaded_affine.py",
+        "scripts/native_selected_loaded_affine_regression.py"]
+    bindings |= {ROOT / path: sha(ROOT / path) for path in helpers}
+    bindings |= {prior.scheduler.REPORT: sha(prior.scheduler.REPORT), binary: sha(binary)}
+    bindings |= {path: sha(path) for path in WORK.rglob("*") if path.is_file()}
+    report = {"status": "passed", "proved_entrypoint": current.builder.ENTRY,
+        "word_configurations": configurations, "word_Clight_paths": paths,
+        "recursive_affine_configurations": affine_results,
+        "word_assembly_calls": sum(row["calls"] for row in configurations.values()),
+        "word_Clight_calls": sum(row["calls"] for row in paths.values()),
+        "recursive_affine_assembly_calls": sum(row["assembly_calls"] for row in affine_results.values()),
+        "recursive_affine_Clight_calls": sum(row["Clight_calls"] for row in affine_results.values()),
+        "same_binary": True, "source_models_identified": False, "profitability_measured": False,
+        "bindings": {str(path.relative_to(ROOT)): digest for path, digest in bindings.items()}}
+    (WORK / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    print(json.dumps({key: value for key, value in report.items() if key.endswith("_calls")}), flush=True)
+
+
+if __name__ == "__main__":
+    main()

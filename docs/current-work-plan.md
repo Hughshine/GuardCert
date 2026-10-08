@@ -48,6 +48,33 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 
 后续优先级：
 
+2026-10-08：[private-loaded affine actual pipeline](selected-private-loaded-affine-pipeline.md)
+已把旧二维 root snapshot／temp-affine-child 库接到真实 Pluto／prepared codegen。
+普通 request adapter 复用 signed proposer，原 private-loaded factory 核对实际
+模型、candidate、validator／encoder ranges 和 width 前提。两新增接线模块
+63 行、4 端点、1,810 绑定、至多旧 42 globals、无新增公理；全局端点直接
+实例化共用 selected compiler。三个 stale legacy objects 在独立 namespace
+重建，未覆盖原成功对象。Kernel／host／candidate checker 均不变。
+
+六配置 810 Asm／810 Clight 全输出与公开 continuation 通过，两正常模式各
+安装两处、16 accepted／74 runtime refused；同 binary 原 word 400／400、
+recursive affine 480／480（含真实三层和同函数两 marked regions）通过。
+旧 envelope guard 要求相同 pointer root；different-allocation 输入保守回退，
+first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
+输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
+
+**当前下一任务**：对实际 `i<*N; K=i+*M` 建立条件 child-header 原源许可与
+稳定 snapshot 桥。Root 空时不能观察 `*M`；header 已执行但 child／leaf 为空
+时，header load 与后续 RHS 的许可须分开。Domain 给 no-wrap／reached-point／
+footprint／source-model 充分性，language 给 actual guard 安全与 public/memory
+frame 和 exit transport；factory 给 guarantee，site／selected host 给 placement／
+progress 和全局安装。已有二维联合源链不能推广成 recursive loaded-word 域
+已经合并。随后推进 first-empty-child、broader alias sufficient conditions、
+scalar／chunk 和 OLO 具体源与完整成本。Finite/open clauses 及第二 IR 仍以
+实际复用需求为依据。完整 goal 保持 active。
+
+以下记录保留各阶段当时的后续任务；本段决定当前执行顺序。
+
 2026-10-08：[actual rank-three codegen](compact-affine-codegen.md)已完成当前
 affine 源族的实际三层生成／安装。普通 oracle 压缩 parallel rows，既有 LCF
 forward contract 与 `ExactCs.fromCs` 对全部原约束的 reverse check 共同许可

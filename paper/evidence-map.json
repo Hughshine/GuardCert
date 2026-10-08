@@ -2758,6 +2758,25 @@
         "build/selected-affine-pipeline/compact-harness-attempts-v1/report.json"
       ],
       "evidence_stage": "compact_affine_codegen_stage"
+    },
+    {
+      "section": "case-study",
+      "claim": "Existing two-dimensional private-loaded affine source proof consumes actual Pluto/codegen proposals and the shared selected Clight installation theorem; conditional child loads remain unsupported.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightLoadedAffineRegionBuilders.v",
+          "name": "build_private_loaded_affine_frontend_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedLoadedPolyhedralCompiler.v",
+          "name": "compile_selected_loaded_polyhedral_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/selected-private-loaded-affine-pipeline.md",
+        "docs/framework-responsibilities.md"
+      ],
+      "evidence_stage": "selected_private_loaded_affine_pipeline_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8543,6 +8562,36 @@
     "new_runtime_profitability_evidence": false,
     "statistical_compile_time_benchmark": false,
     "first_empty_child_useful_acceptance_complete": false,
+    "full_goal_complete": false
+  },
+  "selected_private_loaded_affine_pipeline_stage": {
+    "proof_report": "build/selected-loaded-affine/proof-v1/report.json",
+    "compatibility_report": "build/selected-loaded-affine/compat-v2/report.json",
+    "native_report": "build/selected-loaded-affine/native-v3/report.json",
+    "regression_report": "build/selected-loaded-affine/regression-v1/report.json",
+    "attempts_report": "build/selected-loaded-affine/attempts-v1/report.json",
+    "compiler": "build/selected-loaded-affine/compiler-v1/ccomp",
+    "proof_report_sha256": "6dbdcc12718617be174afae15e86312587b0de3f1d88b313573b5b7e5b0623b7",
+    "compatibility_report_sha256": "a1990b22cb1ce99911c209a03ceed44a437f1718101d4334651053f096977428",
+    "native_report_sha256": "39e050c5cf2913560170afea2d8280206ef74d653f505163e0127919f809fb04",
+    "regression_report_sha256": "53013ad2eb7a47308e994f822df0263dcef5c95cc3dfd07368ce107d14934cfe",
+    "attempts_report_sha256": "a4eb56fed8b8e32a0b019182d59bcd73106c9f8f164c9a3b9a60ad6eb45b39d1",
+    "compiler_sha256": "eb52c0821f125e0f5a6cd82b3d39c389e1ac0fdde7d0b8c8aeb6d03293255786",
+    "new_connection_modules": 2,
+    "new_connection_lines_including_imports_and_queries": 63,
+    "audited_endpoints": 4,
+    "maximum_inherited_globals": 42,
+    "proof_bindings": 1810,
+    "source_rank": 2,
+    "new_conditional_child_load_proof": false,
+    "existing_snapshot_stability_and_source_candidate_proof_reused": true,
+    "source_models_identified": false,
+    "same_root_envelope_acceptance_limit_retained": true,
+    "first_empty_child_acceptance_complete": false,
+    "new_axioms": false,
+    "kernel_changed": false,
+    "language_installation_theorem_reused": true,
+    "new_runtime_cost_or_profitability_evidence": false,
     "full_goal_complete": false
   }
 }
