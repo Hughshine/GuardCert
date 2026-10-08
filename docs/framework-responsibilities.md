@@ -1,5 +1,16 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [Canonical alias 域服务](canonical-alias-condition.md)已生产严格
+uniform-template eligibility、差值域 coverage、实际 CompCert modular pointer
+alias 判断的精确对应和 accepted→原 restricted nonalias。20 端点无新增公理，
+source-model 许可由原 source execution 推出，不要求 caller resolve callback。
+这是 domain guarantee；Clight scanner 的 safe actual execution、private/public
+transport 和 factory 安装仍未交付。下一步必须接这条真实执行链，沿用原
+header/setup/candidate/host，不能用 Boolean spec 替代 encoder 或 native/cost。
+kernel API 保持；支持族源码用户仍给 marked C/策略。完整 goal 保持。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [完整调用成本](word-nested-store-complete-cost.md)记录 2,430 个
 未插桩 assembly batches 的配对结果和全部完整输出验证。Readonly probe
 服务减少 setup，但新版本在普通接受输入上仍为 source 的 11.45–11.61 倍，

@@ -920,6 +920,30 @@ premise, license each comparison from actual source execution, and transport
 that result to the new guard's actual exit. This is a domain and Clight library
 obligation; the kernel and existing language installation theorem remain reusable.
 
+\paragraph{Canonical alias condition specification.}
+A domain successor now proves such a reduction for a checked subset. A static
+checker requires every access template to have exactly the same affine
+coordinate map; pointer roots may differ or name slices of the same block.
+For each axis with count $n$, positions range from zero to
+$\max(0,2n-1)-1$ and denote differences from $-(n-1)$ to $n-1$.
+Positive coordinates form the canonical left point, and absolute negative
+coordinates form the right point. Both remain inside the original box, and
+every original pair has a representative with the same coordinate difference.
+The proof covers arbitrary rank and stable scalar parameters.
+
+The address bridge proves the same difference for the actual Horner tensor
+indices and equality equivalence for CompCert block/modular-offset addresses.
+No runtime pointer subtraction or ordering is introduced. Original source-model
+execution licenses the canonical accesses. For eligible templates, the new
+Boolean specification is exactly equal to the original point-pair specification;
+acceptance therefore supplies the same restricted nonalias premise to the
+existing candidate proof. The 2-by-3 and 8-by-8 difference spaces have fifteen
+and 225 positions, compared with thirty-six and 4,096 original point pairs.
+These are mathematical enumeration sizes. Actual Clight scanner execution,
+machine integer bounds, private exit transport, compiler installation and new
+cost measurements remain to be supplied; the running compiler still uses the
+preceding scanner. This service changes neither the kernel nor the host contract.
+
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,
 extend compact conditions to other stability and array

@@ -2,6 +2,24 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[Canonical alias 域服务](canonical-alias-condition.md)已证明
+任意维矩形坐标差覆盖、canonical points 在原域、严格相同 affine templates
+的实际 CompCert modular pointer/alias Boolean 对应，以及接受推出原 source
+footprint restricted nonalias。20 端点、17 闭合、最多四项旧 globals、670
+可达绑定，无新增公理。Source-model execution 自动许可 canonical accesses；
+kernel/candidate/host 保持。2×3/8×8 的数学位置空间为 15/225，相对原 pair
+空间 36/4,096；不是新的 runtime 工作或成本结果。
+
+**下一项直接实现 actual Clight scanner 和 factory/compiler 接入。**
+从现有 header 接受/numeric setup 取得 source-model 许可，证明差值 bounds、
+canonical coordinate machine arithmetic、pointer equality 和 flag 的完整执行；
+自动 fresh typed cursors，运输 actual exit/public state，复用原 candidate 和
+selected host。Eligibility 不匹配保留原 scan，runtime refusal 保留 source。
+随后相同 native/context/full-output 矩阵与新完整配对成本。当前 compiler
+仍使用原 quadratic pair scan，数学 spec 没有替代端到端验收。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[双 loaded 完整调用成本](word-nested-store-complete-cost.md)已完成。
 同一源码 source/shared/memo 三 modes、三 profiles、九 cases、三十随机配对轮，
 共 2,430 batches；全部 warmup/final memory/public outputs 匹配。未插桩

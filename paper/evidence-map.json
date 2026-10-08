@@ -2348,6 +2348,52 @@
       "evidence_stage": "word_nested_store_cost_stage",
       "new_semantic_theorem": false,
       "source_and_candidate_proofs_inherited_from": "word_nested_store_memo_stage"
+    },
+    {
+      "id": "canonical-point-difference-alias-domain-specification",
+      "status": "coordinate-coverage-and-actual-modular-alias-spec-proved; source-licensed-nonalias-premise-reused; no-actual-Clight-scanner-or-installed-compiler",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalDifference.v",
+          "name": "canonical_difference_points"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalDifference.v",
+          "name": "canonical_difference_coverage"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalDifference.v",
+          "name": "canonical_affine_difference"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalAlias.v",
+          "name": "canonical_alias_templates_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalAlias.v",
+          "name": "canonical_alias_difference_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalAlias.v",
+          "name": "canonical_alias_check_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalAlias.v",
+          "name": "canonical_alias_source_receipts"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalAlias.v",
+          "name": "canonical_alias_source_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalAlias.v",
+          "name": "canonical_alias_source_nonalias"
+        }
+      ],
+      "documents": [
+        "docs/canonical-alias-condition.md"
+      ],
+      "evidence_stage": "canonical_alias_specification_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7678,6 +7724,44 @@
     "new_cheap_alias_condition_implemented": false,
     "source_and_candidate_proofs_reused": true,
     "historical_proof_or_native_experiments_rerun": false,
+    "full_goal_complete": false
+  },
+  "canonical_alias_specification_stage": {
+    "report": "build/canonical-difference/proof-v1/report.json",
+    "report_sha256": "7e43accd7f19017582233d03d5173ee7d1eeccffabb3123d2537297c732f9416",
+    "audited_endpoints": 20,
+    "closed_endpoints": 17,
+    "maximum_endpoint_globals": 4,
+    "bound_files": 670,
+    "parent_bound_files": 1380,
+    "additional_global_axioms": [],
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "arbitrary_rank_mathematical_rectangle_coverage": true,
+    "arbitrary_affine_source_frontend_added": false,
+    "strict_uniform_affine_template_eligibility_checker": true,
+    "actual_CompCert_pointer_blocks_and_modular_offsets": true,
+    "source_model_execution_produces_canonical_permission_receipts": true,
+    "Boolean_spec_exact_in_eligible_subset_under_source_execution": true,
+    "accepted_implies_original_restricted_nonalias": true,
+    "runtime_cross_pointer_subtraction_or_ordering_introduced": false,
+    "source_user_semantic_callbacks_added": false,
+    "new_Clight_scanner_execution_or_machine_integer_lowering": false,
+    "new_compiler_or_Csem_to_Asm_endpoint": false,
+    "new_native_or_complete_call_cost_measurement": false,
+    "running_compiler_alias_scan_changed": false,
+    "mathematical_original_pair_space_2x3_and_8x8": [
+      36,
+      4096
+    ],
+    "mathematical_difference_space_2x3_and_8x8": [
+      15,
+      225
+    ],
+    "mathematical_space_sizes_are_measured_guard_work": false,
+    "historical_proof_audits_rerun": false,
+    "author_time_measured": false,
     "full_goal_complete": false
   }
 }
