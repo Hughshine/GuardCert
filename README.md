@@ -341,6 +341,7 @@ canonical affine decode 和 guard-entry point capabilities；private helpers 有
 [实际分派与安装复用](docs/clight-guard-realization.md)已通过本轮验收：direct/shared 使用同一 readonly 规则证书和公共安装定理，完整 unsigned 循环消费同一有限 dispatch prefix。相对 `26956a4`，25 配置全部重建／回归、40 份 C／Clight 摘要不变；finite host 的 source progress 与 shared whole-loop 的未实现边界分别保留。
 
 - [三方验证责任与最难验收](docs/framework-responsibilities.md)：框架、语言实例和优化／domain 方的责任；持续沿 topdown paper narrative 推进。
+- [Verified guard library 的分类与契约](docs/verified-guard-library.md)：现有 arithmetic、footprint、alias、值保持与条件观察服务的调用前提、实际出口和组合缺口。
 - [公共实际 guard 分派](docs/clight-guard-realization.md)：direct/shared 的私有资源、有限小步前缀和宿主安装复用。
 - [当前交付与研究边界（2026-10-06）](docs/research-checkpoint-2026-10-06.md)：真实 affine／tiling 的主接口迁移、三方证明责任和后续难点。
 - [10 月 5 日阶段记录](docs/research-checkpoint-2026-10-05.md)：只读框架、内存上界与调度、通用前缀扫描及 P0／P1 历史验证。

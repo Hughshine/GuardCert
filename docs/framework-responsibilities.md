@@ -2,8 +2,9 @@
 
 ## 持续适用的责任表
 
-2026-10-08 对照 narrative 当前可见版本 `12419c1`；远端正文与 main
-一致。本表约束后续阶段，下面的日期记录保留各阶段当时的交付范围。
+2026-10-08 对照 narrative 新版本 `5ba223d`，已同步 guard library 的
+分类／依赖契约澄清。本表约束后续阶段，下面的日期记录保留各阶段当时的
+交付范围。
 
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
 | --- | --- | --- |
@@ -37,6 +38,26 @@ Clause factoring 的具体约束继续采用
 消费完成执行，open protocol 匹配可能无限的 source steps；可以复用 exit
 relation，不能仅凭 exit weakening 推出含入口/scope/progress 的完整 contract
 entailment。先证明实际复用再更改 API。
+
+### Guard library 的契约责任
+
+[分类与源码对照](verified-guard-library.md)覆盖 arithmetic、ranges/footprints、
+separation、observation preservation 和 conditional control。它是 kernel
+之上的服务目录；各项先分开记录 safe invocation requires 与 accepted ensures，
+并列出 reads、private writes、public/memory/event/control frames 及 refused exit。
+框架不会自动生产 source 的 load receipts 或把范围事实变成 allocation。
+
+Domain 选择并证明充分条件，如 separation 或 value-preserving writes 到
+同一 header observation relation；language 证明每条实际路径的读取许可、
+机器执行、短路与 state transport。两种稳定性条件都不能单独许可提前 load。
+纯条件的 alternative 可复用 branching；带私有写入的 alternative 还需要
+第一项拒绝后的入口关系与第二项 safe domain 对接。Factory 继续把这些事实
+接到原 C_opt、fallback 与公开出口，host/site 负责安装与 progress。
+
+当前生成式 Clight scans 并不是已经验证的 callable runtime C library；
+函数形式还须证明 call/state/link/backend 连接。Shared contract 抽取用实际
+client 复用来验收，不能把新 record 或代码行数当作减少作者负担的证据。
+本次组织工作不新增 theorem/native/cost 结果，不改变完整 goal 的验收范围。
 
 ## 阶段记录
 

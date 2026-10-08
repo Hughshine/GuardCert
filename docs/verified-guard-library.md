@@ -1,0 +1,149 @@
+# Verified guard library：服务分类与依赖契约
+
+2026-10-08，对照 `topdown/research-positioning@5ba223d` 的澄清。
+读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
+定义整理调用前提、成功事实和组合边界；没有新增证明、编译器或成本证据。
+
+## 服务按建立的事实分类
+
+分类不是互斥的：一个实际扫描可能同时需要 arithmetic、footprint 和
+control 定律。也不要把这些类别规定成所有优化必须经过的固定阶段。
+
+| 类别 | 成功所建立的事实 | 当前实现与明确边界 |
+| --- | --- | --- |
+| Arithmetic / representation | 被检查的机器计算符合所需数学值，或满足所需机器字关系 | [ClightNoWrap.v](../theories/ClightNoWrap.v) 的 `no_wrap_lowering_correct`、`no_wrap_flag_encodes_obligation` 是 unsigned increment 的具体 encoding/lowering；[ClightAffinePreparationEvidence.v](../prototype/interface/ClightAffinePreparationEvidence.v) 的 `affine_evidence_preparation_condition` 组合 header/range/width/body-range 检查。不能泛化成任意算术的 no-wrap compiler，也不要求所有 rewrite 都排除 wrapping。 |
+| Ranges / footprints | 所需 reached-point 参数、索引或访问由 checked range / footprint 覆盖 | [ClightAffinePreparedFootprints.v](../prototype/interface/ClightAffinePreparedFootprints.v) 的 `affine_prepared_write_probes_ready` 同时消费范围、实际写 receipts 和 source package；[ClightTensorBackendGuard.v](../prototype/interface/ClightTensorBackendGuard.v) 的 `tensor_backend_guard_condition` 给 layout 事实。范围或 layout 不单独证明 allocation / load definedness。 |
+| Memory separation | 指定访问、写入或观察之间的物理位置分离 | [ClightObservedWordProbe.v](../prototype/interface/ClightObservedWordProbe.v) 的 `observed_word_cell_check_sound` 需要 Mint32 chunk、alignment 和 capability；[ClightMultiTensorScanService.v](../prototype/interface/ClightMultiTensorScanService.v) 的 pair/canonical 服务建立 footprint-restricted `locations_nonalias`。不声称整个 memory 全局 nonalias。 |
+| Value / observation preservation | 后续执行保持特定观察，即使允许重叠 | [ClightZeroRmwObservation.v](../prototype/interface/ClightZeroRmwObservation.v) 的 `checked_zero_rmw_control_execution` 在 checked control 与 `alpha=0` 下保持已有 defined Mint32 words；[ClightZeroRmwCondition.v](../prototype/interface/ClightZeroRmwCondition.v) 的 `checked_zero_rmw_condition_preserves_observers` 运输 word observers。它没有证明完整 memory、其他 chunks、pointer fragments 或 traces 相等。 |
+| Control / conditional observation | 某一路径许可后续读取，或不活动路径跳过读取 | [ClightNestedExpressionCapture.v](../prototype/interface/ClightNestedExpressionCapture.v) 的 `nested_expression_capture_execution` 先捕获 root，再按真实首个比较有条件地捕获 child；[ClightObservedHeaderPrefix.v](../prototype/interface/ClightObservedHeaderPrefix.v) 的 receipt/advance 定律逐步许可后续原 source body。现有 capture 的 child 是比较表达式，不能直接算作 `K=i+*M` setup 已接通。 |
+
+例如 zero-RMW 服务先调用 control 服务取得原 source 的 scalar 许可，再运行
+arithmetic equality 条件，最后由 domain 的 effect 定律得到 observation
+preservation。它不是另一种 nonalias 算法。另一方面，同一数组的 layout
+injectivity 与两个数组之间的 separation 也不能互相替代。
+
+## 每项服务必须说明的契约
+
+采用同一份审阅格式，先不增加一个覆盖所有服务的 Rocq record：
+
+```text
+inputs: ordinary checked descriptors / actual code / resources
+requires(original, current): safe invocation prerequisites
+run(current) -> (answer, checked): actual language execution
+ensures(original, checked, answer): entry facts and state relations
+accepted: sufficient fact for the caller's obligation
+refused: safe branch continuation, with no inferred negation
+effects: reads, private writes, public/memory/event/control frame
+producer: who establishes requires from the actual source/site
+scope: completion, progress and observation coverage of this theorem
+```
+
+`requires` 中的事实不能被包装成检查自身的成功结果。比如“load 返回
+Vint”是读取的前提或原源的 receipt；只把它写入 `ready` 并没有证明它会
+由调用者获得。Domain 建立的数学 range 也必须先经过 language 的 arithmetic
+correspondence，才能许可实际 guard 中的机器计算。
+
+结果可能锚定在 original entry，运行却从已有 private capture 的 current
+state 开始。每项契约须明确这个区别，并记录读 ports 的一致性和 accepted /
+refused 两种实际出口。不能默认前一个检查完成后完整 state 仍相等。
+
+读取清单应区分三种信息：temp read ports、memory observations，以及带路径
+前提的实际 load receipts。`check_plan_reads` / `statement_temps` 是 temp
+集合，不是 memory read footprint。上述共用 records 尚未携带统一的精确、
+带路径 memory-read 元数据；各服务的 receipt / safety 定理承担这部分义务。
+
+### 现有契约能复用到哪里
+
+| 契约 | Safe invocation 的来源 | 实际出口与成功事实 |
+| --- | --- | --- |
+| `readonly_condition H D P G` | 作者证明 `D` 下安全和 available；调用者生产 `D` | 每次检查都保持声明的完整 entry state，接受推出 `P`；拒绝不推出 `not P`。Host 另证 choice 的事件/控制语义。 |
+| `guard_certificate H D P Ryes Rno G` | Language 解释 safety，作者给安全、available 和 soundness | 分别给 accepted/refused entry relations；允许私有 state 改变。Availability 是存在一次 check execution，不是通用终止定理。 |
+| `source_licensed_scan source ports public ready fact` | 原 source 的 `E0 / Out_normal` 完成执行、`ready(original)`、original/current 的 ports 一致 | 实际 statement 有限完成、memory 不变、source temps/public/ports 保持，私有 flag 返回 Boolean，接受推出 `fact(original)`；拒绝也有这些 frames。 |
+| `nested_expression_capture_execution` | 原 source 完成、类型/quiet/frameable/freshness 条件，以及 child 不依赖 reset 的 column | 实际 root capture，active 时 child capture；memory 不变和公开运输。返回原 expression receipts，不含未来 stability 或 no-wrap。 |
+| `zero_rmw_condition_encoding` | `register_domain alpha` 和 checked source control | 实际 readonly `alpha==0` 接受后，每次已给出的 source execution 保持 defined Mint32 words；source 是否完成以及 scalar 为什么可读是另外的前提。 |
+
+前两项定义分别见 [GuardedRewrite.v](../prototype/interface/GuardedRewrite.v)
+与 [GuardInterface.v](../prototype/interface/GuardInterface.v)；scan 的实际边界
+见 [ClightSourceLicensedScan.v](../prototype/interface/ClightSourceLicensedScan.v)。
+这些契约已经服务不同层次，不能为了统一外观强制 scanner 满足完整 state
+equality。也不宜直接把 finite source completion 契约当作 open/diverging
+context 的服务。Progress、合法入口/出口、scope 与 installation 仍属于
+语言 host 和具体 site。
+
+## 组合复用与待补义务
+
+| 模式 | 已有定律 | 新服务仍须交付的内容 |
+| --- | --- | --- |
+| Ordered dependent checks | [ReadonlyConditionComposition.v](../prototype/interface/ReadonlyConditionComposition.v) 的 `sequence_readonly_conditions`；第二项在 `D /\ Pfirst` 下证明 | 第一项的成功事实确实建立第二项安全前提；纯条件保持同一 entry。私有 state 改变时，另证事实和读 ports 到 actual exit 的运输。 |
+| Short-circuit / conditional branches | [ReadonlyBranching.v](../prototype/interface/ReadonlyBranching.v) 的 `branch_readonly_conditions` 和两侧 classifier facts；[ClightStagedCheck.v](../prototype/interface/ClightStagedCheck.v) 的 `staged_check_code_execution` | 每条实际路径的安全性。普通充分条件的 false 只有拒绝含义；activity 的 false 若用于跳过 source read，必须有 inactive fact 的证明。 |
+| Conditional capture | `nested_expression_capture_execution` 和 capture frames | 把具体原 source 的到达事实变成 load receipt；fresh typed caches；各路径捕获后的入口运输。当前 affine setup child 需要新的 producer，不能仅复用 direct child 的结论。 |
+| Prefix checks | `observed_header_prefix_receipt` / `observed_header_prefix_advance` | 检查第 i 段成功后的 observation preservation 足以许可第 i+1 段；source body decoder 和 access-permission transport 由实例提供。失败后不能仅因 box 包含后续点就继续读取它。 |
+| Alternative sufficient conditions | `readonly_condition_entails` + readonly branching 可构造接受同一事实的两个纯条件分支；既有 zero-RMW driver 有具体实例 | 对“第一项拒绝后试第二项”的私有状态版本，须证明第二项在第一项实际 refused exit 安全，且结果运输到同一 original-entry obligation。当前没有一个统一的 private-service alternative combinator。 |
+
+纯条件的 alternative 可以让第一项接受时返回 true，拒绝时尝试第二项；
+`condition_classifier` 的 refused fact 是 `True`，不是第一前提的否定。
+因此第二项必须在原 domain 下安全，或者另有独立证书提供更强调用事实。
+对于有私有 effects 的服务，类似组合还需 explicit refused-entry transport，
+不得仅对两个 mathematical predicates 做 `or`。
+
+Header stability 是检验这种复用的具体义务：
+
+```text
+licensed original observation
+  + checked separation from relevant writes  -> observation preserved
+  + checked value-preserving writes         -> observation preserved
+```
+
+两条路径应各自建立同一 observation relation 后，复用后续 source/cache
+transport、候选和安装证明。`checked_zero_rmw_condition_preserves_observers`
+已有 value-preserving 路径，但它的适用 source/control、chunk 和入口域不能
+省去；也不能从 header stability 自动推出 candidate 所需全部 data-dependence
+条件。[ClightTensorZeroRmwDriver.v](../prototype/interface/ClightTensorZeroRmwDriver.v)
+的 `lwd_zero_captured_execution` 已在正域 scalar 许可后，选择 zero shortcut
+或历史 scan。这是具体 reuse 证据，尚未证明它可直接适配当前 affine child。
+
+## 当前 loaded-affine 任务的依赖顺序
+
+具体原 source 是 `i<*N; K=i+*M` 的 loop setup，而不是预先无条件读取 `*M`
+的另一个程序。用以下顺序审阅正在推进的原源桥：
+
+1. Language 从原首个 root comparison 得到 `*N` receipt，运行 fresh private
+   root capture。Root inactive 时跳过 `*M`，沿用该路径的原源行为。
+2. Root active 时，原 reached setup 与 child comparison 许可 header 中的
+   `*M` word。即使 child 为空，也要分开证明 header load 与尚未到达的
+   leaf/RHS 的许可。缓存的是 raw loaded word；替换表达式先保持实际机器字
+   语义，另由 domain 检查所需 mathematical/no-wrap 对应。
+3. Numeric/range/domain preparation 消费这些实际 receipts。Footprint probes
+   还需原 reached accesses 的 capability / alignment；不能从循环包络推断
+   allocation，不能用 cached source completion 作为未经生产的调用前提。
+4. Header/body decoder 消费 current observations；成功的 stability 条件运输
+   `*N`、`*M` 到原 source 的下一段，再许可其检查。现有 header-prefix 的
+   `DECODE` 不消费 observations，针对旧 temp-only setup 足够；新 loaded
+   setup 需要补这项边界，不能直接套用旧假设。
+5. Domain 把接受事实接到真实 source/model/candidate 的 `C_opt` / `C_derive`；
+   factory 接 actual guard exit、fallback 和公开恢复，复用现有 selected
+   host / Csem→Asm。每个 site 继续生产 placement、resources 和 progress。
+
+以此记录每个新增证明的 requires / ensures / frame / refusal，优先复用已有
+arithmetic、capture、observer 和 candidate 定律。当前未编译通过的 header
+snapshot 草稿不作为本次完成证据。First-empty-child、broader alias、一般
+recursive loaded domain 和 OLO 原例仍需完整 factory/compiler/native 验收。
+
+## 接口抽取与交付标准
+
+先为当前 actual-header 桥与既有 zero/separation 两路径建立契约对照；当两
+个实际 client 消费同一事实与入口运输时，才抽取 shared language adapter
+或组合定律。服务实现放在 minimal kernel 之上：domain 负责充分条件和
+源/模型对应，language 负责安全执行与 frames，factory/site 负责接入既有
+guarantee/installation。源码用户继续只提供支持族的 marked C 与策略。
+
+当前复用载体是实际 Clight statement templates 和已验证的生成器/扫描器。
+若后续选择 callable C/Clight routines，需补 actual call semantics、参数/
+返回值、memory/public/event frames、符号/程序链接，以及 compiler simulation
+的连接；现有 inline scanner proof 不自动证明一次函数调用。是否 inline 或
+call 用实际复用和完整成本决定，本阶段不先建一个 runtime C library。
+
+每个后继服务分别验收安全、成功充分性、refused exit、真实 builder/安装、
+接受域、guard 工作、code size 和完整调用成本。精确 Boolean correspondence
+是某些实例的额外性质，共用接口只需接受充分性。库组织本身不替代紧凑
+条件的推导或成本评估，也不延后当前 loaded-affine pipeline 的主任务。

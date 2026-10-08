@@ -4,8 +4,9 @@
 
 ### Narrative 的持续设计约束
 
-2026-10-08 再次 fetch 并核对远端 heads：当前可见的 narrative 仍是
-`topdown/research-positioning@12419c1`，两份正文与 main 一致。以下根据
+2026-10-08 fetch 并核对 narrative 新提交
+`topdown/research-positioning@5ba223d`，同步了 verified guard library 的
+分类与契约澄清。以下根据
 [paper narrative](topdown/paper-narrative.md) 和
 [context lifting](topdown/context-lifting.md) 固定验收责任，不声称读到了
 更晚的提交。
@@ -32,6 +33,33 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 实际 host 上证明 transport/entailment 的复用，再决定接口；finite completion
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
+
+### Verified guard library 的组织约束
+
+[服务目录与契约对照](verified-guard-library.md)按 arithmetic/representation、
+range/footprint、memory separation、value/observation preservation、control/
+conditional observation 五类整理现有实现。类别按建立的事实划分，可以重叠；
+它们不构成所有 rewrite 的固定阶段。目录列出已有接口、定理、调用前提与
+未实现边界，不新增 kernel 或通用 predicate compiler。
+
+当前 header-snapshot 工作沿同一契约格式推进：每项明确 inputs、requires、
+actual execution、accepted/refused facts、reads/private writes/public/memory/
+events frame，以及从原 source/site 生产调用前提的责任。特别区分 temp
+ports 与 memory-read receipts、原源许可与未来稳定、机器字替换与 mathematical
+no-wrap。未编译通过的 header snapshot 草稿尚不是新阶段证据。
+
+Ordered dependent checks、短路、conditional capture 与 alternative sufficient
+conditions 分别核对 actual exit 的事实运输。Separation 和 value-preserving
+writes 可以建立同一 header observation relation，但两者都不许可 speculative
+read，header stability 也不代替 candidate 的全部依赖条件。Pure alternatives
+可复用 readonly branching；private-service alternative 的 refused-exit
+transport 尚未有统一 combinator。
+
+先用当前 actual `i<*N; K=i+*M` 桥和既有 zero/separation 路径检验共用契约，
+有实际 client 复用再抽取 language adapter；继续复用 candidate/factory/
+installation。现有载体是 Clight templates/scans，callable C routine 需独立
+call/state/link/compiler 连接。库分类和未来 call/inlining 选择不延后当前主
+任务，也不替代 compact-condition derivation、接受域与完整成本验收。
 
 2026-10-08：已完成本阶段 [loop-linear canonical 服务](linear-canonical-alias-service.md)。
 它把 canonical scanner 的 source/setup→实际安全执行和精确 Boolean 单独放入
