@@ -1,5 +1,16 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Checked constraint compaction](docs/compact-affine-codegen.md)
+now makes actual rank-three prepared codegen usable for triangular and descending
+domains. The same selected compiler reuses the original proof chain and passes
+1,440 Asm/1,440 Clight calls with real Pluto tiling/scheduling, fallback and
+continuations, plus 400/400 loaded-word regressions. A one-run same-source/binary
+diagnostic completes with compaction in 9.588 seconds; disabling it reaches the
+90-second deadline before codegen completion. This is not a statistical benchmark
+or runtime profitability result. Joint loaded/nonrectangular source proofs,
+first-empty-child acceptance, scalar/chunk coverage and full OLO comparison
+remain active. Historical checkpoints below retain their original scope.
+
 2026-10-08: [Signed affine bound proposals](docs/signed-affine-bound-proposals.md)
 now preserve negative tile coordinates through the existing final checker and
 shared Clight installation proof. The real Pluto/prepared-codegen two-dimensional

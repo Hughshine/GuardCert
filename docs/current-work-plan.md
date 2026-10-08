@@ -48,6 +48,38 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 
 后续优先级：
 
+2026-10-08：[actual rank-three codegen](compact-affine-codegen.md)已完成当前
+affine 源族的实际三层生成／安装。普通 oracle 压缩 parallel rows，既有 LCF
+forward contract 与 `ExactCs.fromCs` 对全部原约束的 reverse check 共同许可
+exact canonicalization；其他 abstract-domain 调用保留各自方向。原 signed
+proposer、最终 source/candidate checker、guard、builder、语言 host 和
+Csem→Asm 端点沿用，没有新 Rocq 模块、公理或 kernel 接口。
+
+真实二／三层 triangular 和 descending C 在 tile／自动 schedule 两模式各
+安装五处；八次候选尝试含额外 nested fragments，不等于八处安装。六配置
+1,440 Asm／1,440 Clight 全数组／公开控制／continuation 通过，同 binary
+loaded-word 回归 400／400。三个源族分别有 -1／-2 起点的实际接受。单次
+同源同 binary codegen 对照：开启压缩 9.588 秒完成，关闭在 90 秒 deadline
+仍未完成首个三层 codegen；不是统计编译时间／CPU 收益测量。两次 harness
+assertion 历史保留，其 assembly 输出均匹配，并非观测到误编译。
+
+下一主任务是联合 loaded 参数与非矩形源许可。用 `i < *N`、`K=i+*M` 的
+实际 C 推动新桥：domain 证明 source-licensed snapshot 稳定、reached-point
+的 no-wrap／control／address 事实及源／模型对应；language 服务证明条件
+读取的安全、memory／public frame 与 actual guard-exit transport；factory
+交付原 region guarantee，selected host 继续检查 placement／progress。
+不能以两个已证 builder 的静态分派当作这个联合证明。当前 affine guard
+要求 `affine_first_path_flag`，first child 为空而后继非空仍保守回退；该
+接受域缺口与联合源桥一起处理。随后接 scalar／chunk、OLO 具体源与完整
+guard／candidate 成本。完整 goal 保持。
+
+现有 `ClightAffinePrivateLoadedCandidates.v`／planned-loaded 库已经证明较窄
+二维 loaded root 加 temp-affine child、private snapshot、footprint／stability
+和公开运输。下一轮先核对其实际 request／candidate 接口能否消费真实
+Pluto/codegen，复用这些定律；不把这部分写作尚未证明。未预加载源中的
+conditional `*M`、recursive rank 与 word/general-domain 结合仍是新义务，
+不能把显式 unconditional preload 的源适配当作原源的许可证明。
+
 2026-10-08：[signed affine bound proposals](signed-affine-bound-proposals.md)
 已修复旧 zero lower envelope 漏掉负 tile 坐标的具体提案缺口。普通 interval
 算法处理 signed floor／min／max 并保留原 membership guard；原 final checker

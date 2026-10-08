@@ -40,6 +40,28 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [Actual rank-three codegen](compact-affine-codegen.md)进一步检验
+checked algorithm 的复用边界。普通约束压缩返回原 certificates／既有 LCF
+运算；`ExactCs.fromCs` 检查全部原约束，消费 forward guarantee 后产生 exact
+canonicalization。此 equivalence 只属于该 checked 路径，不能转称其他
+abstract-domain `add` 调用都 exact。实际 codegen／完整候选验证与旧 guard／
+builder／语言 installation／Csem→Asm 全部接通；没有新 Rocq 模块或源码
+semantic callback。1,440／1,440 全输出与公开 continuation、同 binary
+loaded-word 400／400 回归通过。单次 9.588 秒／90 秒 deadline 对照是编译
+诊断，不是收益评测。
+
+下一难点仍是原源部分状态的许可：actual loaded `*N` 和 affine header
+`i+*M` 必须共同产生稳定 snapshot、no-wrap／reached-point 与 candidate
+入口事实。Kernel 不知道 load／pointer／affine 语义；domain 生产充分性与
+源／模型对应，language 生产安全执行与 frame／transport，factory 与 site
+分别交付 guarantee 和 placement／progress。现有静态 builder composition
+不生产这个联合源证明。First-path 空 child 的接受域缺口保留。
+
+较早的二维 private-loaded-root／temp-affine-child 路径已有自己的 snapshot、
+footprint／stability、候选和语言安装证明；其 request 接口应先评估复用。
+这不等于新 recursive affine／loaded-word 模型已经合并，也不许可在原源
+未到达时提前读取 child `*M`。按具体源／语义边界区分已有证明与新义务。
+
 2026-10-08 [Signed affine bound proposals](signed-affine-bound-proposals.md)
 检验 narrative 的另一种复用：普通候选算法改用有符号包络，原完整 checker
 重新验证 actual source／candidate；原条件编码、certified builder、语言

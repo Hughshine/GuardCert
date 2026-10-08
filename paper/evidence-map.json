@@ -2724,6 +2724,40 @@
         "build/selected-affine-pipeline/attempts-v1/report.json"
       ],
       "evidence_stage": "signed_affine_bound_proposal_stage"
+    },
+    {
+      "id": "actual-rank-three-codegen-with-checked-compaction",
+      "status": "existing-proof-chain-native-marked-rank-three-tier",
+      "claim": "Ordinary parallel-row compaction uses the existing LCF forward contract and ExactCs.fromCs original-constraint reverse checks. Real triangular and descending rank-three requests now complete Pluto/prepared codegen, final whole-candidate validation and selected Csem-to-Asm installation. Six configurations pass 1440 Asm/1440 Clight full-output/context calls and the same binary passes 400/400 loaded-word regressions. One same-source/binary compile completes in 9.588 seconds with compaction; disabled reaches a 90-second deadline before codegen completion. This is not a statistical speedup/profitability study, new theorem or merged loaded/affine domain. First-empty-child acceptance, joint loaded/nonrect source proof, scalar/chunk and full OLO comparison remain incomplete.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightSelectedPolyhedralCompiler.v",
+          "name": "compile_selected_polyhedral_regions_correct"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
+          "name": "fromCs_correct",
+          "source_module": "ExactCs"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
+          "name": "canonize_Cs_correct"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/polygen/Canonizer.v",
+          "name": "canonize_correct",
+          "source_module": "VplCanonizer"
+        }
+      ],
+      "documents": [
+        "docs/compact-affine-codegen.md",
+        "build/selected-affine-pipeline/proof-v1/report.json",
+        "build/selected-affine-pipeline/compact-affine-native-v1/report.json",
+        "build/selected-affine-pipeline/compact-word-regression-v1/report.json",
+        "build/selected-affine-pipeline/compact-codegen-profile-v1/report.json",
+        "build/selected-affine-pipeline/compact-harness-attempts-v1/report.json"
+      ],
+      "evidence_stage": "compact_affine_codegen_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8476,6 +8510,39 @@
     "new_axioms": false,
     "new_profitability_evidence": false,
     "three_dimensional_profiled_codegen_completed": false,
+    "full_goal_complete": false
+  },
+  "compact_affine_codegen_stage": {
+    "proof_report": "build/selected-affine-pipeline/proof-v1/report.json",
+    "native_report": "build/selected-affine-pipeline/compact-affine-native-v1/report.json",
+    "word_regression_report": "build/selected-affine-pipeline/compact-word-regression-v1/report.json",
+    "profile_report": "build/selected-affine-pipeline/compact-codegen-profile-v1/report.json",
+    "attempts_report": "build/selected-affine-pipeline/compact-harness-attempts-v1/report.json",
+    "compiler": "build/selected-affine-pipeline/compact-compiler-v1/ccomp",
+    "proof_report_sha256": "58c7f48419fd4abd23b4c2e5727cb6fd42a0df6cbe402cdb2b14b21d3f2e001b",
+    "native_report_sha256": "d1bbcd260df8b11a46025bca69684f585b9a855bdbce5d1403152d3bf9dca85e",
+    "word_regression_report_sha256": "0bef60aba97e2b5af86c9ede707dfb44979a03ac95aaabacdb1519569a0c847e",
+    "profile_report_sha256": "cbcbab15f7d63e9580e8549ae8a280e4bb2cbcb372e8381af82ed8edfb79b6cc",
+    "attempts_report_sha256": "4708f2cd6407dd9224054f605f6d62d3bade33aa9bd15b7d54ace47576ed56a1",
+    "compiler_sha256": "8c3671f41d1f5e55304dea1d5d8ab9cacd9360f11e48f8c6faf59724d2ffb74e",
+    "native_installed_affine_ranks": [
+      2,
+      3
+    ],
+    "actual_rank_three_source_marked": true,
+    "three_dimensional_profiled_codegen_completed_for_demonstrated_families": true,
+    "ordinary_parallel_constraint_compaction": true,
+    "original_exact_canonicalizer_proof_reused": true,
+    "ordinary_compaction_separately_verified": false,
+    "original_proof_closure_reused": true,
+    "new_rocq_modules": 0,
+    "new_semantic_endpoints": 0,
+    "kernel_changed": false,
+    "semantic_domains_combined": false,
+    "new_axioms": false,
+    "new_runtime_profitability_evidence": false,
+    "statistical_compile_time_benchmark": false,
+    "first_empty_child_useful_acceptance_complete": false,
     "full_goal_complete": false
   }
 }
