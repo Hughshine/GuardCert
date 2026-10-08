@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+当前责任边界以 [narrative 源码对齐复核](topdown/implementation-alignment-2026-10-07.md)
+为准：generic context record 消费 host 的 lifting 定律，实际 Clight 安装另证明
+progress／scope／freshness 与出口关系。下一多数组 guard 须静态生成 AST，从原源
+许可证明安全，以接受证明动态 coverage／充分性，并运输到实际检查出口；这些
+由语言库与 domain producer 分担，不交给源码使用者补语义 callback。Exact／
+projected／open host 已共享部分 state/memory 条款，但 progress 协议确实不同，
+尚无证据要求重构 kernel 或引入自由组合的 contract algebra。以下保持各阶段记录。
+
 2026-10-07 [多数组源许可](multi-array-source-permissions.md)将语言 observation／permission 定律与 domain source family 接上：实际 first leaf 许可 used pointers、几何 suffix 和 RHS 参数，trace 上的每次 load／store 提供读写访问并通过前序 stores 回运 entry；tensor address encoder 消费它们取得已有 Clight 比较 primitive 的地址证书。具体分配／初始化 witness 证明入口可有权限但值为 Vundef，不能用 permission transport 前移 RHS 计算。32 端点审计通过，10 闭合、最多 6 项旧 globals，无新增公理。Kernel、host 与 compiler theorem 均未改。**仍最难的是 source-prefix progression 和静态 guard 生成：reference footprint 是入口依赖的语义 witness，必须由 runtime scan／symbolic envelope 证明覆盖；loaded 源必须逐次建立两条 store 对 header 的保持，才能把原源转换成 cached rectangle，不能以该转换尚未证明的执行许可自身。**该 domain 证据随后组成 region guarantee 交给语言 host。
 
 2026-10-07 [完整多数组 tensor 源循环后继](multi-array-tensor-source.md)落实了逐点 temps 与固定 entry location view 的局部连接，并从真实 counted Clight nest 推导原 Loop、实际候选执行和公开 iterator exit 恢复。语言 memory 库的 location/action/sequence frame 只要求实际 write/read cells 一致；domain 的 pointer-set checker 和 coordinate box 提供相应具体条件。Counter reset 可以改变无关 raw entries，不需要整份 view 相等。前一 [body/candidate 桥](multi-array-tensor-body.md)仍保留实际 alias 和逐条中间内存，domain 只在 actual source footprint 上消费 NonAlias。Kernel 与 selected host 未变。**最难的后继仍是 factory 从原源许可生成 availability 和安全 cross-array alias condition，逐次保持所有 captured header，运输到 actual guard exit，再将 region guarantee 交给 host 安装。**写入后才定义的读取不能直接前移到 entry guard；权限许可与值定义性／forwarding 是不同语言定律。新局部定理的显式 semantic 前提尚未由完整 guard 生产，不能称为已安装的 multi-array guarded compiler，也不能交给源码用户填写。Host contract clauses 仍是开放设计问题。

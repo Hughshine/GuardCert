@@ -1,5 +1,36 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+## 当前执行顺序与责任（以本节为准）
+
+2026-10-07 再次 fetch narrative：远端仍为 `12419c1`，两份正文与 main 一致。
+[源码对齐复核](topdown/implementation-alignment-2026-10-07.md)明确：kernel 止于
+local guarded correctness；语言证明 check／frame／progress／安装；domain 证明
+足够前提、推导、coverage 与 actual source/candidate 对应。源码使用者给标注 C
+与 phase/tile 选项，不为缺失证明填写 semantic callback。Host 条款拆分仍是开放
+设计问题，不先重构 kernel。该方向与完整 OLO 验收继续属于 active goal。
+
+1. **静态生成多数组 runtime guard。** 生成的 AST 只依赖静态 source metadata
+   和资源选项，未知 counts／parameters／locations 在运行时观察。已有
+   entry-indexed reference footprint 不当作该实现。验收检查安全、动态 coverage／
+   接受充分性、private frame、actual guard-exit 运输和 data factory 证据生产；
+   不能以前置 `NonAlias` 许可检查自身。Canonical temp-bound scanner 是中间项。
+2. **同族 loaded 原源推进。** 每个实际 point 获得 read/write 许可，逐条证明
+   两次 store 保持 captured headers 后，才推进下一 original source test。
+   完整接受导出 cached 源；拒绝不观察未来地址。不能用尚未建立的完整 cached
+   rectangle 执行许可该 scan，也不能从 permission transport 推出 entry 值定义。
+3. **同一程序完整安装。** 将相同多数组证书接到真实 polyhedral phase／codegen
+   candidate、公开 iterator 恢复、原源 fallback、family factory、selected host 与
+   Csem→Asm。验收 annotated／unannotated、多 site、空域、alias/profile 拒绝及
+   continuation；已有单 body 的整程序端点不算新族已安装。
+4. **该 slice 闭合后改善条件与可用性。** 用有证书的紧凑充分条件替代适用 scan，
+   分别衡量 code size、check work、接受域、完整成本和实例作者责任。条件替换
+   复用适用的 candidate／host 证明；cursor 不当作消除逐点运行成本。
+
+下文保留历史阶段记录和当时的下一项。本次复核只更新责任与验收，没有新增
+proof／compiler／native／cost 结论，也没有缩小完整目标。
+
+## 历史阶段记录
+
 2026-10-07 当前：[多数组源许可后继](multi-array-source-permissions.md)已取得 actual first leaf 的两数组 pointer／ld／alpha 观察证据（在 layout／box／alias 前提之前），并沿真实 source trace 将每次 write 的 Writable、read 的 Readable 许可运输回 entry，再接到 actual Clight pointer comparison 的有效、对齐地址证书。四模块／32 端点审计通过（10 闭合、最多 6 项既有 globals），123 项绑定加 parent closure 保持旧 42-global 基线，无新增公理；实际 alloc→Vundef→store→integer witness 明确证明许可不能前移数据值。**下一重点是把 entry-indexed reference footprint 实现为静态生成的 runtime scan，并适配原 loaded-header driver：每个实际 point 获得许可且证明两条 store 的 header 保持后，才可推进到下一源码 test。不能从尚未证明保持的 loaded 原源直接声称整个 cached rectangle 已执行／获得许可。**随后将相同证书运输到 actual guard exit，组装 data factory／region guarantee，接 selected host 与 Csem→Asm，再验证多数组 C／Asm／上下文和成本。该方向继续在 active goal 中；kernel 只负责局部证书组合，语言负责 observation／store permission／pointer primitive／安装，domain 负责来源许可、条件充分性和动态 coverage。当前 reference alias tree 不是可在编译时按未知入口值展开的 runtime encoder；完整安装、loaded-header stability、recurrence／general affine domains、紧凑条件和 OLO 验收仍未完成。
 
 2026-10-07 当前：[多数组完整源循环后继](multi-array-tensor-source.md)已接上真实 active temp-bound Clight nest→固定 entry Loop model→checked generated candidate 的实际 Clight 执行→公开 iterator exit 恢复，四模块／28 端点独立审计通过，19 闭合、最多 14 项既有 globals，无新增公理；123 项绑定加已验证的 parent closure 保持旧 42-global 基线。Registry transport 只约束 checked source array IDs，允许 counter reset 改变无关 raw entries；没有要求整个临时变量环境不变。前一 [body/codegen 阶段](multi-array-tensor-body.md)的五模块／30 端点／11 extracted cases 保持原有范围。重新 fetch 的 narrative／context-lifting 仍为 `12419c1`，正文与 main 一致。**下一优先级是为这份完整源／候选局部定理生产条件：逐个读写的原源 prefix 许可、安全充分的跨 array alias condition、两条 store 对所有 captured header 的保持，以及许可到 actual guard exit 的运输；再构造 data factory 和 region guarantee，消费 selected host 接 Csem→Asm。不能把尚未生成的 availability／NonAlias 前提留给源码用户做 semantic callback。**Kernel 仍止于 local guarded correctness；语言提供 memory/frame/control/install 定律，domain 负责模型／充分前提／condition derivation。`alpha==0` 不使 copy body 保持原内存，第二次读取可能依赖第一次写入的初始化，entry guard 必须证明 forwarding 或使用其他 source-licensed 表达式。当前未新增 multi-array runtime guard、C／Asm 安装或成本结果；已有 flat multi-pointer 整程序入口不算同一 loaded/Horner 路径完成。Recurrence／general affine domains、紧凑条件和 OLO 可用性继续属于 active goal。
