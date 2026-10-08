@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Zero-width stability](docs/zero-width-stability.md) now connects
+ordered input/range checks and actual N/M probes to cached-source execution
+with the given original memory and exits. The scan AST equals its predecessor;
+ten modules audit 35 endpoints with no additional axioms. Factory/compiler
+integration and native acceptance remain required; installed first-empty-child
+inputs still fall back.
+
 2026-10-08: [Zero-width model bridges](docs/zero-width-model-bridges.md)
 now prove source/model/candidate correspondence under a nonnegative child-width
 assumption. New mapped/tiling wrappers require candidate validation in that wider

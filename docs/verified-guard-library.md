@@ -24,6 +24,13 @@ first-positive 限制、candidate 模型域与 native 接受域保持。
 candidate lowering/public restore；kernel 不变。候选必须在新域重新检查，
 全空模型不许可 body-only reads。Factory、stability 和安装态接受域仍待连接。
 
+后继 [zero-width stability](zero-width-stability.md)已完成 ordered client：
+first-reached input 许可 → geometry ranges/弱 ready → actual N/M probes →
+观察保持 → cached-source transport，合并检查保留给定原执行的精确出口和
+memory。它复用 prefix/composition/language primitives，证明 scan AST 与旧版
+相同；十模块／35端点，无新增公理。仍需 wider-domain actual checker、
+factory/compiler/native；全 guard 成本不由 scan AST equality 推出。
+
 ## 服务按建立的事实分类
 
 分类不是互斥的：一个实际扫描可能同时需要 arithmetic、footprint 和

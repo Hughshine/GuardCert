@@ -107,8 +107,17 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：连接 zero-width facts 到实际 permissions/stability 与
-checked factory，再完成 first-empty-child 的 compiler/native 验收。
+**当前下一任务**：交付 wider-domain actual candidate/checker 与 checked
+factory／compact plan／selected compiler／native，让 first-empty-child 实际接受。
+[Zero-width stability](zero-width-stability.md)已从 ordered first-reached／range
+checks 生产弱 ready，连接 source row decoder、实际 reached-point permissions、
+N/M 短路扫描和 accepted cached completion，并对给定原执行保持精确 memory／
+temporary exits。十模块／35端点／7closed／1,486bindings／至多旧六项 globals，
+无新增公理；实际 scan AST 与旧版相同。Factory 仍须生产原 capture/header
+调用前提，在新 assumed model 下检查实际 source/candidate/code，再消费这些
+producer 与 model/restore 桥。Registry 必须选到新路径并保持旧 positive
+输入的接受；新的 compiler/native 与完整成本尚未交付。
+
 [Zero-width 模型桥](zero-width-model-bridges.md)已证明 nonnegative width
 域的 source decode、mapped/tiling candidate checker soundness、实际候选
 lowering/public restore，以及 actual first-reached guard 到完整 typed view
@@ -124,10 +133,10 @@ empty-prefix／later-leaf、入口 body words，以及常数个 affine endpoint
 绑定／至多旧六项 globals，无新增公理。旧 native bindings 重新核对。
 新服务未接 factory/compiler，native first-empty-child 仍回退。
 后继已新增 zero-width assumed model/checker 及 source/model/candidate 桥，
-保留冻结的旧模型和报告。下一步以 full view/header/nonnegative width/ranges
-取代新路径中的旧 first-positive ready 前提，生产 current-observation row
-decoder、actual reached-point permissions、N/M stability和cached completion；
-factory 调用新 checker，绑定实际 candidate/code并接compact plan／selected
+保留冻结的旧模型和报告。后继已用 full view/header/nonnegative width/ranges
+取代新证明路径中的旧 first-positive ready 前提，生产 current-observation row
+decoder、actual reached-point permissions、N/M stability和cached completion。
+下一步 factory 调用新 checker，绑定实际 candidate/code并接compact plan／selected
 compiler/native。新 source decoder 仍消费实际 cached source completion，
 其 loaded-source producer不能留给源码用户。负 width 的旧 j-exit 公式也需
 另证，receipt 不代替该证明；全空模型不许可 body-only reads。

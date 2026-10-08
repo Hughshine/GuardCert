@@ -68,6 +68,14 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Zero-width stability](zero-width-stability.md)把 domain 的弱 ready
+与 source row／物理 permissions 接到 language 的实际 N/M 短路检查、观察
+保持和 original-to-cached transport。Readonly ordered preparation 自动生产
+完整 input view/ranges；合并检查接受后保留给定原执行的精确 memory 与出口。
+十模块／35端点，无新增公理。Kernel、host、底层 candidate checker 不变；
+factory 仍须生产 capture/header 调用域、对实际更宽域候选重新检查，并接
+compact plan／selected compiler。没有新 native 接受或成本结论，整目标继续。
+
 2026-10-08 [Zero-width model bridges](zero-width-model-bridges.md)落实 narrative
 的 proof direction/provenance 要求：actual guard 接受生产完整 typed view
 和更宽 width 假设；domain source decoder 只从给定 actual source execution
