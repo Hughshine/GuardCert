@@ -27,9 +27,9 @@ host 提供的定理字段。具体 selected Clight host 以 `program_temps` 为
 框架消费一个定理前提不等于已经自动生产该前提。
 
 目前最难的链是**原源许可的部分状态 → 安全可执行条件 → 实际候选入口
-→ 公开出口／continuation**。Canonical domain coverage 与实际
-scanner execution 已编译审计；allocator、factory/compiler、native 和新成本须另行
-验收。Scanner 中私有 cursor/flag 可改变，memory 保持并 frame 公开状态；
+→ 公开出口／continuation**。Canonical domain coverage、实际 scanner、
+allocator、ranges/receipts producer、factory/compiler 与 native 已分别验收；
+完整成本独立记录。Scanner 中私有 cursor/flag 可改变，memory 保持并 frame 公开状态；
 它不因此成为要求完整 entry state 相等的 `readonly_condition`。
 
 Clause factoring 的具体约束继续采用
@@ -39,6 +39,27 @@ relation，不能仅凭 exit weakening 推出含入口/scope/progress 的完整 
 entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
+
+2026-10-08 [Canonical 完整 compiler](canonical-alias-compiler.md)落实了上一
+encoder 的内部义务：checked allocator 自动给四向量 typed/fresh resources，
+原 setup/source 自动给 ranges/receipts；eligible／old 两实际扫描都返回原
+alias Boolean。新 actual exit 复用原 candidate-at-exit／source-at-exit／
+公开恢复，生产原 projected guarantee，再由原 selected host 安装。
+七模块 23 端点、10 closed、1,410 绑定、旧 42-global baseline、无新增公理。
+相同 1,000／1,000 native/Clight 全输出矩阵，以及不同 maps 的 180／180
+旧 scan 实际安装通过。新 Csem→Asm 入口已提取；源码 callback 未新增。
+
+这次复用没有改变 kernel、candidate checker 或 host contract。额外 scan
+资源仍是语言／factory 的责任：二维九 slots 相对旧五 slots，可能改变
+有限 pool 的安装接受域。安全与 Boolean exactness 的证明不能代替
+[完整调用成本](canonical-alias-complete-cost.md)：新 2,430 batches 全输出
+保持，2×3／8×8 接受为 source 的 6.34–7.24／14.29–20.17 倍；相对 memo
+明显降低但全部输入仍慢于 source，观测 regression 保留。成本也不能代替
+一般 affine 功能和完整 OLO 接受域。继续实现可复用的条件服务并测作者负担；不把复制
+七个接线模块本身当作抽象接口已经足够轻的证据。Clause factoring 保持
+实际 host 复用驱动的设计问题。完整 goal 保持。
+
+以下保留前阶段当时范围。
 
 2026-10-08 [实际 canonical scanner](canonical-alias-scanner.md)关闭 language
 encoder 的 bounds/coordinates/pointer tests/flag 执行义务，保留 memory 和

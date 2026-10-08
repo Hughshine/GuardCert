@@ -16,9 +16,9 @@ domain 的 `C_derive`、language 的安全求值/入口出口运输、factory �
 guarantee 与 site evidence，再消费既有 installation/backend。不能仅因
 已有泛型 program theorem 就把 contextual closure 算作框架自动完成。
 
-当前工作检验这条分工：canonical alias 域定理与实际 Clight scanner 定理
-已编译审计；其后才是 typed/fresh allocation、原 source 许可到 scanner 输入的
-自动生产、factory/compiler/native 接入及完整成本。最难位置是部分定义
+当前工作检验这条分工：canonical alias 域定理、实际 Clight scanner、
+typed/fresh allocation、原 source 许可到 scanner 输入的自动生产及
+factory/compiler/native 接入已完成；完整成本独立测量。最难位置是部分定义
 的入口：child/header/RHS 只有原源执行许可时才可观察，新的私有坐标与 flag
 必须运输到候选入口，同时完整公开出口满足 continuation 的要求。
 
@@ -32,6 +32,40 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 实际 host 上证明 transport/entailment 的复用，再决定接口；finite completion
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
+
+2026-10-08：[Canonical alias 完整 compiler](canonical-alias-compiler.md)接通
+checked 四向量 allocator、原 setup/source 到 ranges/receipts 的自动生产、
+新实际 scan exit 到原 candidate/fallback/public restore 和 selected host。
+严格 uniform maps／cap 静态匹配用新 scan，否则安装旧 scan；两分支 flag
+精确等于原 Boolean。Outer empty/header source refusal 保持。七新模块／
+23 端点／10 closed／最多 42 旧 globals／1,410 绑定，零新增公理，新提取
+Csem→Asm compiler 已运行。
+
+相同矩阵通过 1,000 Asm／1,000 Clight calls；不同 affine maps 补充通过
+180／180，真实候选安装而生成旧 scan。完整 memory/public outputs/paths
+保持，不扩大一般 affine frontend。二维占用九 scan slots，原为五；有限
+pool 的静态 installation 接受域不声称保持。原 candidate checker、host
+和 kernel 不变；源码用户仍只给 marked C／策略。
+
+完整 source／memo／canonical 配对成本与实际 Clight 工作诊断记录于
+[canonical 完整调用测量](canonical-alias-complete-cost.md)：2,430 batches
+全部完整输出匹配；2×3 接受成本为 source 的 6.34–7.24 倍，8×8 为
+14.29–20.17 倍。相对旧 memo 分别降低 38.01%–45.37% 与 91.15%–93.01%，
+但没有输入的 median 优于 source，部分 bypass 观测 regression 保留。
+Row guard tests 720→361、71,234→4,741；function bytes 1,344→1,349。
+不能据此声称一般 OLO 盈利性。
+
+后续优先从该结果确定紧凑服务：重复／常量 access tests 的安全消除、首次拒绝停止，以及
+header stability 的充分 entry condition；分别证明 exactness／sufficiency、
+原源读取许可和 actual-exit/public transport，再接实际 compiler 验收。
+同时把 scan resources、实际执行／结果／公开 frame 的语言接口抽成可复用
+服务，用原 pair scan 和 canonical scan 两实例检验 factory/candidate 接线
+能否保持同一份证明；不以复制后继模块当作作者负担已降低的证据。
+一般参数化／非矩形 affine domains、更多 scalar/chunk、完整 OLO 联合功能
+与作者负担仍在 active goal。新服务不能通过 hidden same-block、语义
+callback 或额外私有 pool 假定转嫁责任；kernel API 仅按真实复用证据更改。
+
+以下保留前阶段当时范围。
 
 2026-10-08：[Canonical alias Clight scanner](canonical-alias-scanner.md)完成四个
 语言模块，实际运行 difference bounds、canonical coordinates、pointer tests

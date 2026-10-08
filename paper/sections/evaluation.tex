@@ -1126,7 +1126,7 @@ acceptance evaluates 738 tests before simplification and 720 after, including
 setup counts. Array alias refusal also retains all 720 tests in the successor:
 the existing pair scan continues after its flag becomes false. After subtracting
 setup, each paired diagnostic has identical counts, full outputs and paths.
-The next acceptance criterion is therefore a cheaper sufficient alias condition
+These results motivated a cheaper sufficient alias condition
 with safe actual Clight execution and the original candidate/host reused,
 followed by fresh complete-call measurement. General affine-source and scalar
 coverage and full OLO functionality remain separate requirements.
@@ -1147,3 +1147,64 @@ scanner execution, exact Boolean accumulation and public-state framing. No new
 axiom is introduced. Typed resource and receipt production in the factory,
 compiler installation, native output validation and new complete-call costs
 remain outside this encoder checkpoint.
+
+The succeeding canonical factory and compiler have seven new modules, with
+twenty-three audited endpoints, ten closed, at most forty-two inherited globals
+and 1,410 reachable bindings. The 692 parent bindings are checked by hash;
+no new axiom is introduced. The audit covers typed allocation, cap-to-range
+derivation, source-licensed receipts, both static scan branches, actual-exit
+candidate/fallback transport, the projected contract and Csem-to-Asm compilation.
+It reuses the candidate checker and selected host.
+
+The extracted compiler passes the same ten configurations: 1,000 uninstrumented
+assembly calls and 1,000 independent printed-Clight calls, with full arena,
+public outputs, initial iterators and dispatch paths checked. Emitted Clight
+contains the new difference-bound assignments. Four further configurations
+use a nonuniform-map source with a shifted read: 180 assembly and 180 Clight
+calls pass, and successful configurations install actual candidates with the
+old scan. Static ineligibility therefore need not refuse the entire region.
+Cap ineligibility is proved but has no separate native case; runtime numeric
+cap refusal is a different branch. These experiments add no general affine
+domain coverage or representative workload result.
+
+A fresh complete-call experiment compares disabled source, the preceding
+probe-elimination compiler and the new canonical compiler on the same three
+profiles and nine inputs. Preparation checks 243 repeated assembly outputs and
+81 separate Clight diagnostics. Thirty randomized paired rounds on the same
+Ryzen/WSL2 setup produce 2,430 uninstrumented assembly batches; every complete
+warmup/final output matches. Header reset, all guards, candidate or fallback
+and public restoration are timed. Each batch runs in a fresh process pinned
+to CPU zero, with independent repetition calibration; the shortest observed
+CPU batch is 0.098923 seconds and no observation is discarded.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/canonical-alias-cost.pdf}
+\caption{Fresh complete-call cost with original and canonical alias scans.
+Median paired cost/source ratios over thirty rounds; intervals are descriptive
+IQRs. Selected warm two-store inputs with cap eight, including refusal and
+empty paths; neither version is faster than source on these inputs.}
+\label{fig:canonical-alias-cost}
+\end{figure}
+
+Figure~\ref{fig:canonical-alias-cost} retains the profitability limit.
+The canonical version's 2-by-3 accepted cost is 6.34--7.24 times source,
+and 8-by-8 is 14.29--20.17 times source. Relative to the old compiler within
+this new paired experiment, these costs fall by 38.01--45.37\% and
+91.15--93.01\%, respectively. None of the twenty-seven profile/input medians
+is below source. Observed bypass regressions are retained: parameter-stride
+child-empty is 2.84\% above the old compiler, and row header-alias refusal is
+1.04\% above. These are descriptive medians, with no confidence interval,
+core isolation or representative workload claim.
+
+Independent Clight diagnostics preserve outputs, setup counts and dispatch
+paths while row total guard tests fall from 720 to 361 at 2-by-3 and
+71,234 to 4,741 at 8-by-8. Array alias refusal also falls from 720 to 361;
+the new scan still continues after false. These are evaluated Clight tests,
+not assembly operations or cycle attribution. Linked kernel bytes increase
+from 1,344 to 1,349 in row, 1,329 to 1,353 in column, and 1,471 to 1,543 with
+parameter stride. Further condition residualization, safe early refusal and
+header-stability services must therefore be tested through actual compilation
+and full-call measurement. General affine domains, broader scalars and the
+combined OLO functionality remain active requirements, as does reducing and
+measuring the condition-service author's proof burden.

@@ -2428,6 +2428,49 @@
         "docs/canonical-alias-scanner.md"
       ],
       "evidence_stage": "canonical_alias_encoder_stage"
+    },
+    {
+      "id": "canonical-alias-checked-factory-compiler-and-complete-cost",
+      "claim": "A checked typed four-vector allocator and the original source/setup automatically produce canonical scanner resources, count ranges and permission receipts. Both static scan branches expose the original alias Boolean at the actual exit, reusing candidate/region/host proofs in a new extracted Csem-to-Asm compiler. The same 1000 Asm/1000 Clight matrix and 180/180 nonuniform-map old-scan matrix pass full-output checks. Fresh 2430-batch complete-call costs fall substantially against memo but remain above source on all selected inputs; observed regressions are retained. No new axiom, kernel or host contract, source-user semantic callback, general affine frontend or full-goal completion is claimed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightCanonicalScanAllocation.v",
+          "name": "canonical_scan_candidate_pool_private"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalRange.v",
+          "name": "canonical_static_bounds_ranges"
+        },
+        {
+          "source": "prototype/interface/ClightCanonicalPackageScan.v",
+          "name": "canonical_package_source_scan"
+        },
+        {
+          "source": "prototype/interface/ClightCanonicalVersioned.v",
+          "name": "canonical_package_alias_execution"
+        },
+        {
+          "source": "prototype/interface/ClightCanonicalMemoSetup.v",
+          "name": "check_canonical_memo_setup_full_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreCanonical.v",
+          "name": "nwspp_canonical_contract"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreCanonical.v",
+          "name": "checked_word_nested_store_canonical_frontend_regions_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreCanonicalCompiler.v",
+          "name": "compile_selected_word_nested_store_canonical_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/canonical-alias-compiler.md",
+        "docs/canonical-alias-complete-cost.md"
+      ],
+      "evidence_stage": "canonical_alias_compiler_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7824,6 +7867,105 @@
     "running_compiler_alias_scan_changed": false,
     "general_affine_source_frontend_added": false,
     "historical_proof_audits_rerun": false,
+    "full_goal_complete": false
+  },
+  "canonical_alias_compiler_stage": {
+    "proof_report": "build/multi-word-nested-canonical/proof-v1/report.json",
+    "proof_report_sha256": "f9b3950efd04c164fe778b08ca9cbb105c9732a7497bd8b357a53477827c9e36",
+    "native_report": "build/multi-word-nested-canonical/native-v1/report.json",
+    "native_report_sha256": "68d4aeb5e30d82a509059f503c03a5f08d6d31801e8b24312aee7ca2c73126fa",
+    "nonuniform_native_report": "build/multi-word-nested-canonical/nonuniform-native-v1/report.json",
+    "nonuniform_native_report_sha256": "27d18cd4df354cc919d53738bd5a6fd3151e2daf57f9f2ebccce4cb071eb639a",
+    "prepared_report": "build/multi-word-nested-canonical/cost-prepared-v1/report.json",
+    "prepared_report_sha256": "fbf55d17c604ec59b6e97c9487cd7a95ac91db990a879ba90b4fc9d7bb84335c",
+    "timing_report": "build/multi-word-nested-canonical/cost-v1/report.json",
+    "timing_report_sha256": "3ef038e3df1a3e05fbd558c69a62e042bb6dc13a2ab1234f6fcdf52b34c2b01a",
+    "plot_report": "build/multi-word-nested-canonical/cost-plot-v1/report.json",
+    "plot_report_sha256": "da553a1c45b13091c31d5baad57456f9c6b01943fcbaeb9827fad7b580bcd36d",
+    "audited_endpoints": 23,
+    "closed_endpoints": 10,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1410,
+    "parent_bound_files": 692,
+    "additional_global_axioms": [],
+    "compiler": "build/multi-word-nested-canonical/compiler-v1/ccomp",
+    "compiler_sha256": "307db26683b0d7bff1b2db48e58f39581bf68803b209fe74d0c677b975c3b5fa",
+    "automatic_four_vector_typed_fresh_allocation": true,
+    "candidate_scratch_excludes_all_scan_resources": true,
+    "source_setup_automatically_produces_count_ranges_and_receipts": true,
+    "static_uniform_map_and_cap_eligibility": true,
+    "ineligible_uses_old_scan_and_can_install_candidates": true,
+    "original_alias_Boolean_exact_in_both_static_cases": true,
+    "actual_exit_candidate_fallback_and_public_transport": true,
+    "original_loaded_header_and_outer_empty_bypass_reused": true,
+    "new_Csem_to_Asm_compiler_entry": true,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "source_user_semantic_callback_API_added": false,
+    "cross_block_pointer_ordering_used": false,
+    "rank_two_reserved_scan_slots_old_and_new": [
+      5,
+      9
+    ],
+    "static_installation_acceptance_under_finite_pool_identical_claim": false,
+    "assembly_calls": 1000,
+    "independent_Clight_calls": 1000,
+    "nonuniform_map_assembly_calls": 180,
+    "nonuniform_map_independent_Clight_calls": 180,
+    "nonuniform_map_old_scan_installed_in_native_matrix": true,
+    "static_cap_ineligible_separate_native_case": false,
+    "prepared_assembly_full_output_checks": 243,
+    "prepared_independent_Clight_calls": 81,
+    "complete_call_batches": 2430,
+    "rounds": 30,
+    "seed": 20261008,
+    "minimum_observed_batch_seconds": 0.098923,
+    "discarded_samples": 0,
+    "all_warmup_and_repeated_final_full_outputs_checked": true,
+    "complete_guards_candidate_fallback_public_exit_and_header_reset_timed": true,
+    "canonical_over_source_accepted_small": [
+      6.340388414303402,
+      6.389766898401675,
+      7.244522882791276
+    ],
+    "canonical_over_source_accepted_cap": [
+      14.705861527082686,
+      14.292659230369262,
+      20.168215626842056
+    ],
+    "canonical_over_memo_accepted_small": [
+      0.546298470171795,
+      0.5633896769077409,
+      0.6198890089032646
+    ],
+    "canonical_over_memo_accepted_cap": [
+      0.06993760664225561,
+      0.07638427191646464,
+      0.08845609882392665
+    ],
+    "row_guard_tests_small_old_and_new": [
+      720,
+      361
+    ],
+    "row_guard_tests_cap_old_and_new": [
+      71234,
+      4741
+    ],
+    "row_kernel_function_bytes_old_and_new": [
+      1344,
+      1349
+    ],
+    "diagnostic_counts_are_separate_from_timed_assembly": true,
+    "no_case_median_paired_canonical_cost_below_source": true,
+    "observed_regressions_and_all_samples_retained": true,
+    "representative_workload_profitability_claim": false,
+    "confidence_interval_claim": false,
+    "core_isolated": false,
+    "general_affine_source_frontend_added": false,
+    "author_time_measured": false,
+    "condition_service_factory_refactoring_complete": false,
+    "historical_proof_or_native_experiments_rerun": false,
     "full_goal_complete": false
   }
 }
