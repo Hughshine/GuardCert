@@ -2,6 +2,27 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[Narrative/kernel/host 对照](narrative-kernel-host-review-2026-10-08.md)
+已按代码回答 context-lifting 的八个问题；fetch 后可见仍为 `12419c1`，
+两正文与 main 相同。Kernel 止于局部 guarded 证书组合，whole-program
+installation 是语言 host 的实际证明。Finite/open 可以共享边界 relation，
+不能合并 progress；guarantee/requirement clause 化继续作为待验证设计。
+
+[Readonly probe 后继](word-nested-store-probe-memo.md)已接真实 compiler：
+精确 Boolean 结果、test 次数不增加、原 candidate/host 证明复用；五模块
+18 端点、1 闭合、1,380 绑定，无新增公理。相同 1,000 Asm/1,000 Clight
+完整输出与观察路径保持。额外 2,000 次配对 Clight 诊断的 setup 计数
+合计 6,564→3,228，普通配置 972→468；普通 2×3 function 1,442→1,344 bytes。
+未前移读取或添加 mutable cache；header/alias scan 复杂度和 cap 8 保持。
+
+**下一项直接测完整调用的配对成本，并继续证明紧凑充分 entry conditions。**
+计入 capture、header/alias scan、candidate/fallback 和公开出口；setup 节省
+不能代替全调用 CPU 收益。以 OLO 功能/接受域/源码用户与实例作者负担验收，
+不以更多 source grammar 延后已闭合族的成本。一般 affine domain/source/scalar
+仍在 active goal；kernel API 或 contract algebra 仅在实际复用证据支持时更改。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[双 loaded shared setup/尺寸](word-nested-store-shared-setup.md)复用
 既有 Clight check-plan 服务，把 numeric/layout/box/profile 的拒绝叶子合并
 到一次分派；自动在候选检查后选择 checked fresh typed flag。原条件、header/

@@ -1,5 +1,26 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [Narrative 对照](narrative-kernel-host-review-2026-10-08.md)按当前代码
+区分 kernel 的局部组合、语言的安装定理和 domain/site 的 guarantee/placement。
+Finite projected contract 与 open protocol 共享 temp/memory 关系，但 progress
+分别是有限完成和逐步模拟。出口 TempAgree weakening 本身不证明含入口/scope
+的完整 contract entailment；clauses 的依赖与方向需另证。Clause algebra 未实现。
+
+[Readonly probe 后继](word-nested-store-probe-memo.md)检验可复用服务：Clight
+expression equality/readonly determinacy 许可路径事实，服务证明精确结果和
+test 工作不增加；domain 沿用原 setup 充分性/candidate 对应，factory 运输
+新的 actual execution 到原类 projected guarantee，language host 沿用原
+scope/progress/placement/private/backend 定理。没有语义 callback 或新 kernel。
+18 端点无新增公理，1,000 Asm/1,000 Clight outputs/paths 保持；额外配对
+Clight setup 6,564→3,228，普通函数 1,442→1,344 bytes。计数不是 CPU 收益。
+
+下一最难位置仍是可用的紧凑 entry condition 与完整成本：当前 header/alias
+扫描和 cap 8 未改，不能用 setup 的节省掩盖这些成本。安全、充分性、actual
+exit/public transport 分别由语言/domain 服务生产；候选/host 继续复用。
+General affine source/scalar、OLO 功能/接受域/作者负担继续在完整 goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [双 loaded shared setup](word-nested-store-shared-setup.md)展示实际
 证明复用：domain factory 保持原 condition/C_opt，仅选择 checked typed flag
 并组合既有 check-plan/private/public transport；语言 host 继续处理原源

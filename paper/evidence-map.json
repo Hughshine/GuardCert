@@ -2302,6 +2302,41 @@
         "docs/word-nested-store-shared-setup.md"
       ],
       "evidence_stage": "word_nested_store_shared_stage"
+    },
+    {
+      "id": "readonly-probe-elimination-with-loaded-compiler-and-paired-work",
+      "status": "exact-results-and-nonincreasing-tests-proved; selected-compiler-native-matrix-passed; paired-diagnostic-work-and-size-measured",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightReadonlyProbeMemo.v",
+          "name": "memo_readonly_tree_exact"
+        },
+        {
+          "source": "prototype/interface/ClightReadonlyProbeMemoCost.v",
+          "name": "memo_readonly_tree_work_bound"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorMemoSetup.v",
+          "name": "multi_tensor_memo_setup_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorMemoSetup.v",
+          "name": "check_multi_tensor_memo_setup_full_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreMemo.v",
+          "name": "check_word_nested_store_memo_frontend_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreMemoCompiler.v",
+          "name": "compile_selected_word_nested_store_memo_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/word-nested-store-probe-memo.md",
+        "docs/narrative-kernel-host-review-2026-10-08.md"
+      ],
+      "evidence_stage": "word_nested_store_memo_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7491,6 +7526,71 @@
     "historical_transitive_audits_rerun": false,
     "new_modules_reachable_dependency_closure_bound": true,
     "additional_global_axioms": [],
+    "full_goal_complete": false
+  },
+  "word_nested_store_memo_stage": {
+    "report": "build/multi-word-nested-memo/proof-v1/report.json",
+    "report_sha256": "86751923c5d1873d2bd93504cad6c1fd87778bdd0a5463e3353a2ffcf729a2b1",
+    "native_report": "build/multi-word-nested-memo/native-v1/report.json",
+    "native_report_sha256": "06171874a71853c25c999b4db0f5b5c7ed89ce21e117822a787e492a432cf335",
+    "work_report": "build/multi-word-nested-memo/work-v1/report.json",
+    "work_report_sha256": "f40a6b16e5d6e933091e04cb7856b6d810de7405a9e1c64794d2336928bde3c0",
+    "audited_endpoints": 18,
+    "closed_endpoints": 1,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1380,
+    "parent_bound_files": 1376,
+    "assembly_calls": 1000,
+    "independent_Clight_calls": 1000,
+    "paired_setup_diagnostic_calls": 2000,
+    "setup_tests_total": [
+      6564,
+      3228
+    ],
+    "ordinary_configuration_setup_tests": [
+      972,
+      468
+    ],
+    "parameter_stride_setup_tests": [
+      852,
+      444
+    ],
+    "ordinary_static_setup_nodes": [
+      33,
+      15
+    ],
+    "parameter_stride_static_setup_nodes": [
+      37,
+      17
+    ],
+    "row_2x3_linked_function_bytes": [
+      1442,
+      1344
+    ],
+    "row_2x3_root_source_loop_copies": [
+      4,
+      4
+    ],
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "source_user_semantic_callback_API_added": false,
+    "new_Csem_to_Asm_endpoint": true,
+    "setup_Boolean_results_exactly_preserved": true,
+    "readonly_test_count_never_increases": true,
+    "reads_hoisted": false,
+    "mutable_state_fact_cache_added": false,
+    "same_sources_full_outputs_and_observed_paths": true,
+    "outside_functions_driver_and_main_sizes_unchanged": true,
+    "header_and_alias_scan_asymptotics_changed": false,
+    "complete_runtime_cost_or_source_speedup_measured": false,
+    "general_affine_domains_supported": false,
+    "author_time_measured": false,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "new_modules_reachable_dependency_closure_bound": true,
+    "additional_global_axioms": [],
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
     "full_goal_complete": false
   }
 }

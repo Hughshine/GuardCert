@@ -131,6 +131,15 @@ region guarantee and evidence about its actual site. The current selected
 Clight compiler conservatively protects \code{program_temps}; it does not infer
 a minimal live set or implement an arbitrary boundary-contract algebra.
 
+The current finite projected and open Clight hosts share agreement on public
+temporaries and a memory relation at normal exits. Their progress obligations
+remain distinct: a finite contract consumes a completed source execution,
+whereas an open protocol matches source steps, including an execution that
+never reaches an exit. Weakening an exit observation set alone also does not
+justify weakening a complete contract that constrains entry agreement and
+source scope. Any future guarantee/requirement factoring must retain these
+dependencies; it is not a free product of interchangeable clauses.
+
 These responsibilities distinguish three uses of the interface. A language
 author proves host laws and installation once. A domain implementer supplies
 source/model and assumption services for a supported transformation family.
