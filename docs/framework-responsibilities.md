@@ -40,6 +40,23 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [loop-linear canonical 服务](linear-canonical-alias-service.md)进一步
+分离 `C_derive` 与 `C_guard`。域证明只检查循环系数，允许不同常数和稳定
+参数系数；实际执行仍用完整地址模板。公共 Clight 适配器从 source/setup
+生产 ranges、读取许可、observations 和 actual check execution/frames，导出
+精确 canonical Boolean；它不决定该 Boolean 是否足以证明 nonalias。新
+服务消费域充分性，再交付现有 accepted entry fact，复用 factory、loaded
+contract 和 selected compiler。该适配器仍消费完成 source execution，
+不生产 progress／placement／installation，也不是 kernel 的 predicate compiler。
+
+16 端点、9 closed、零新增公理；常规 1,000／1,000、移位 180／180 和不同
+循环系数旧扫描 180／180 C/Asm/Clight 验收通过。稳定参数系数的覆盖目前有
+域定理与 closed computation，尚无相应新 native 案例。四模块 521 行不是
+作者时间；新服务客户端 114 行与共享适配器 166 行分别记录。新的独立完整成本 810 batches 通过全输出检查；接受路径仍为 source 的
+7.52／17.01 倍，cap／child-empty 的回归保留。不能据检查数下降或相对
+旧服务的节省推断盈利。现有 cap 可配置；大 profile／一般 affine
+源与完整 OLO 能力继续属于 goal。
+
 2026-10-08 [去重 scan 服务](deduplicated-alias-scan-service.md)落实第三算法
 的责任分工：domain 生产严格模板成员保持／Boolean 规范精确；language
 adapter 证明剩余 source-licensed 读取、actual execution、memory／public／

@@ -33,6 +33,34 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
+2026-10-08：已完成本阶段 [loop-linear canonical 服务](linear-canonical-alias-service.md)。
+它把 canonical scanner 的 source/setup→实际安全执行和精确 Boolean 单独放入
+`ClightCanonicalSourceInputs.v`，不要求 alias 模板 eligibility；domain client
+证明同一循环系数、不同常数／稳定参数系数仍保留访问差值。Normalization
+只判断算法适用性，实际地址继续使用原完整模板。新服务复用该 language
+适配器及 common factory／loaded contract／selected compiler；kernel、host
+和候选 checker 保持。Rocq 16 端点／9 closed／1,420 绑定／旧 42 globals，
+无新增公理；新 compiler 的正常 1,000／1,000、移位 180／180、不同循环系数
+旧扫描 180／180 full-output/context 检查通过。移位完整成本 810 batches 全输出通过，2×3／8×8 accepted 相对原服务
+减少 38.43%／91.49%，仍为 source 的 7.52／17.01 倍。所有九个 median
+高于 source，cap／child-empty 回归 5.88%／8.51%；不把 test 数的下降或
+相对节省写作盈利。论文同步记录 proof、reuse、native 和独立成本。
+
+后续优先级：
+
+1. 以本阶段的完整成本／诊断作为后续条件工作的基线。原严格-map服务退到
+   四模板 pair scan，新服务用三模板 canonical scan；比较不能单独归因到
+   normalization，也不重跑已冻结的历史实验。
+2. 恢复主源覆盖工作：更一般参数化／非矩形 affine source、scalar／chunk、
+   自动 source/model 与实际候选对应；用 OLO 的具体源和前提逐项验收。现有
+   `GUARDCERT_TENSOR_CAP` 可配置，8 是已测默认 profile，不是数学定理或
+   framework 的固定上限。更大 profile 和实际 locality 工作负载需要新证据。
+3. 在已闭合的源族继续改进紧凑充分条件／首次拒绝停止／header 条件，分别
+   证明安全、充分性和 actual-exit transport，沿用候选与语言安装。保证／
+   需求及 clause factoring 仍由实际 host 复用驱动，第二 IR 不作前置任务。
+
+以下去重及 service 阶段保留当时的交付和计划范围。
+
 2026-10-08：[去重 alias scan 服务](deduplicated-alias-scan-service.md)已通过
 实际接口复用验收。严格 root／完整 affine map 去重，domain 证明成员保持
 和 point／canonical Boolean 规范精确；language adapter 从原 source／setup

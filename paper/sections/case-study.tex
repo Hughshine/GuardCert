@@ -1038,6 +1038,31 @@ exports acceptance sufficiency, rather than requiring Boolean equality from
 every future service. Same-root constant tests and continued scanning after
 refusal remain in this implementation.
 
+\paragraph{Loop coefficients and a separate execution service.}
+The next service admits shifted templates without requiring equal complete
+affine maps. Write two coordinate maps as $Mp+u_a(v)$ and $Mq+u_b(v)$,
+where $v$ contains stable parameters. Their difference is
+$M(p-q)+u_a(v)-u_b(v)$. Canonical point pairs preserve $p-q$; the offset
+difference remains fixed. The eligibility checker therefore compares only
+loop coefficients, allowing different constants and parameter coefficients.
+This normalization selects the algorithm; emitted address tests use the
+original complete maps. Tensor-index and CompCert modular-pointer lemmas
+establish exact correspondence to the original pair Boolean. Different loop
+coefficients retain the preceding scanner.
+
+A separate Clight adapter now supplies canonical execution without imposing
+this domain eligibility. Completed source execution and setup license the
+reads, numeric ranges and observations; checked allocation supplies private
+resources. The adapter exports actual silent normal execution, unchanged
+memory, public/port frames, the source model and the exact canonical Boolean.
+The new domain client proves that this Boolean suffices for restricted
+nonalias, then instantiates the existing prepared-service boundary. The common
+factory, loaded contract and selected compiler remain unchanged. The new
+client has 114 lines and the shared execution adapter 166, including imports
+and audit queries; these are source counts, not author-time measurements.
+The adapter still consumes finite source completion and supplies no generic
+progress or whole-program installation theorem.
+
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,
 extend compact conditions to other stability and array

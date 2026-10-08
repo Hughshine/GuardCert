@@ -2572,6 +2572,88 @@
         "docs/deduplicated-alias-scan-service.md"
       ],
       "evidence_stage": "deduplicated_alias_scan_service_stage"
+    },
+    {
+      "id": "loop-coefficient-canonical-service-with-separated-Clight-execution",
+      "status": "proved-installed-native-and-complete-cost-measured",
+      "claim": "Loop-coefficient eligibility admits shifted maps while preserving original complete address tests. A separate source-licensed Clight execution adapter supplies safety, observations and frames; the domain supplies exact alias correspondence and sufficiency. The common factory, loaded host and compiler proof are reused. Native normal/shifted/differing-coefficient matrices pass. Fresh paired complete-call costs fall relative to the preceding service but remain above source, with refusal regressions retained. No broader source grammar, cross-host clause algebra, native stable-parameter-coefficient example, author-time result or full-goal completion is claimed.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_alias_templates_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_alias_templates_include_strict"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_dot_append"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_affine_difference"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_alias_difference_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_alias_check_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_alias_source_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "linear_alias_source_nonalias"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "shifted_and_parameterized_templates_checked"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLinearCanonicalAlias.v",
+          "name": "changed_loop_coefficient_refused"
+        },
+        {
+          "source": "prototype/interface/ClightCanonicalSourceInputs.v",
+          "name": "canonical_source_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightLinearCanonicalScanService.v",
+          "name": "linear_canonical_package_includes_strict"
+        },
+        {
+          "source": "prototype/interface/ClightLinearCanonicalScanService.v",
+          "name": "linear_canonical_scan_service_execution"
+        },
+        {
+          "source": "prototype/interface/ClightLinearCanonicalScanService.v",
+          "name": "linear_canonical_prepared_scan"
+        },
+        {
+          "source": "prototype/interface/ClightLinearCanonicalScanService.v",
+          "name": "linear_canonical_scan_builder"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedLinearScanCompiler.v",
+          "name": "compile_selected_word_nested_store_linear_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/linear-canonical-alias-service.md",
+        "build/linear-canonical-scan/proof-v1/report.json",
+        "build/linear-canonical-scan/native-v1/report.json",
+        "build/linear-canonical-scan/shifted-native-v1/report.json",
+        "build/linear-canonical-scan/fallback-native-v1/report.json",
+        "build/linear-canonical-scan/cost-prepared-v1/report.json",
+        "build/linear-canonical-scan/cost-v1/report.json",
+        "build/linear-canonical-scan/cost-plot-v1/report.json"
+      ],
+      "evidence_stage": "linear_canonical_alias_service_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8194,6 +8276,92 @@
     "candidate_checker_changed": false,
     "source_user_semantic_callback_added": false,
     "general_affine_source_frontend_added": false,
+    "full_goal_complete": false
+  },
+  "linear_canonical_alias_service_stage": {
+    "proof_report": "build/linear-canonical-scan/proof-v1/report.json",
+    "proof_report_sha256": "8d4a309bf326bd715ce0e9bcec7e69d8118d26bf35866d3c2038322070d3754d",
+    "native_report": "build/linear-canonical-scan/native-v1/report.json",
+    "native_report_sha256": "705bcd79f4dcfe7e09b75f6d66864c404f3544167f61c60b2b6498d1919f307f",
+    "shifted_report": "build/linear-canonical-scan/shifted-native-v1/report.json",
+    "shifted_report_sha256": "2f81e90a409d4e7fecebc36f154f231733c9ef73c6757539dc015b210362cbd5",
+    "fallback_report": "build/linear-canonical-scan/fallback-native-v1/report.json",
+    "fallback_report_sha256": "900bbe01c45745e447965a44ff8bba63358474a5ae09ac2c9776763e3c41b81d",
+    "prepared_report": "build/linear-canonical-scan/cost-prepared-v1/report.json",
+    "prepared_report_sha256": "4e3ec86c68513fb34093eb9d50133494d29a9391973f63c2eae832baab0054ad",
+    "timing_report": "build/linear-canonical-scan/cost-v1/report.json",
+    "timing_report_sha256": "ed4e12ab4c1b12e0b2b633a94e6802ef60ae485a2e5ce2b4ebd347602ccbd3e2",
+    "plot_report": "build/linear-canonical-scan/cost-plot-v1/report.json",
+    "plot_report_sha256": "5571e66c262637dc1ec2384897d59d173050a2cf562525acea19b5588c0a0a06",
+    "compiler": "build/linear-canonical-scan/compiler-v1/ccomp",
+    "compiler_sha256": "118fc7ce964350d63e7def83a0930a370ee7f6a58fff8d4b8b3d61adf743f490",
+    "audited_endpoints": 16,
+    "closed_endpoints": 9,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1420,
+    "parent_bound_files": 1414,
+    "additional_global_axioms": [],
+    "new_module_lines": 521,
+    "new_client_lines": 114,
+    "shared_execution_adapter_lines": 166,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "same_loop_coefficients_allow_different_constants_and_stable_parameters": true,
+    "actual_scan_uses_original_complete_access_templates": true,
+    "public_execution_adapter_exports_exact_canonical_Boolean": true,
+    "original_pair_Boolean_specification_exact": true,
+    "common_factory_loaded_host_and_compiler_proof_reused": true,
+    "new_installation_proof_body": false,
+    "registered_services": [
+      "linear",
+      "dedup",
+      "canonical",
+      "pair"
+    ],
+    "normal_assembly_calls": 1000,
+    "normal_independent_Clight_calls": 1000,
+    "shifted_assembly_calls": 180,
+    "shifted_independent_Clight_calls": 180,
+    "coefficient_fallback_assembly_calls": 180,
+    "coefficient_fallback_independent_Clight_calls": 180,
+    "stable_parameter_coefficient_native_case_added": false,
+    "prepared_assembly_checks": 81,
+    "prepared_independent_Clight_calls": 27,
+    "timing_samples": 810,
+    "shortest_batch_cpu_seconds": 0.093898,
+    "shifted_small_guard_tests": [
+      722,
+      258
+    ],
+    "shifted_cap_guard_tests": [
+      71236,
+      3168
+    ],
+    "shifted_kernel_bytes": [
+      1451,
+      1527
+    ],
+    "accepted_new_over_source": [
+      7.518873,
+      17.008665
+    ],
+    "accepted_new_over_old": [
+      0.615694,
+      0.08507
+    ],
+    "all_nine_input_medians_above_source": true,
+    "accepted_path_profitability_achieved": false,
+    "cap_refusal_new_over_old": 1.058807,
+    "child_empty_new_over_old": 1.085107,
+    "observed_regressions_and_all_samples_retained": true,
+    "representative_workload_profitability_claim": false,
+    "author_time_measured": false,
+    "general_affine_source_frontend_added": false,
+    "configured_cap_is_not_a_framework_bound": true,
+    "static_full_factory_acceptance_domain_equal_proved": false,
+    "cross_host_clause_algebra_implemented": false,
+    "ordinary_source_user_semantic_callback_added": false,
     "full_goal_complete": false
   }
 }
