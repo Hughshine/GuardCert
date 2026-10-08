@@ -2337,6 +2337,17 @@
         "docs/narrative-kernel-host-review-2026-10-08.md"
       ],
       "evidence_stage": "word_nested_store_memo_stage"
+    },
+    {
+      "id": "two-loaded-store-complete-paired-call-cost",
+      "status": "measured-2430-full-output-checked-batches; no-net-source-profit-on-selected-inputs",
+      "theorems": [],
+      "documents": [
+        "docs/word-nested-store-complete-cost.md"
+      ],
+      "evidence_stage": "word_nested_store_cost_stage",
+      "new_semantic_theorem": false,
+      "source_and_candidate_proofs_inherited_from": "word_nested_store_memo_stage"
     }
   ],
   "bibliography_evidence": [
@@ -2391,7 +2402,7 @@
     "broader affine/polyhedral source classes and full original BT dynamic layout/delinearization beyond the fixed-layout adaptation",
     "compact sufficient conditions and guard cost/useful acceptance",
     "same-source near-neighbor obligations comparison",
-    "runtime/compilation cost",
+    "broader complete runtime/compilation cost beyond scoped experiments",
     "comparative author proof effort"
   ],
   "base_implementation_reference": "6bcd880748b74ea0d73e19d9427604931bbb9fba",
@@ -7591,6 +7602,82 @@
     "new_modules_reachable_dependency_closure_bound": true,
     "additional_global_axioms": [],
     "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
+  },
+  "word_nested_store_cost_stage": {
+    "prepared_report": "build/multi-word-nested-memo/cost-prepared-v1/report.json",
+    "timing_report": "build/multi-word-nested-memo/cost-v1/report.json",
+    "plot_report": "build/multi-word-nested-memo/cost-plot-v1/report.json",
+    "prepared_report_sha256": "b75167b9271a55da3df0ff809ab38415cbb6a57cdace79c79518e529489f1533",
+    "timing_report_sha256": "7d7067e047ad7af9b58451047ae5df6d275554ae5e2b44989c19752e68828124",
+    "plot_report_sha256": "2a57836ea2ead8e9b4fbb35fb99300486feab1b8f28864cc121c69032b262795",
+    "assembly_preparation_full_output_checks": 243,
+    "independent_Clight_calls": 81,
+    "timed_batches": 2430,
+    "profiles": [
+      "row",
+      "column",
+      "row-variable"
+    ],
+    "selected_cases": [
+      "small-accepted",
+      "cap-accepted",
+      "word-wrap",
+      "alias-refusal",
+      "header-refusal",
+      "header-alias-refusal",
+      "setup-refusal",
+      "outer-empty",
+      "child-empty"
+    ],
+    "rounds": 30,
+    "seed": 20261008,
+    "cpu": "AMD Ryzen 7 7800X3D, WSL2, affinity CPU 0",
+    "clock": "C clock() process CPU time",
+    "minimum_observed_batch_seconds": 0.095454,
+    "discarded_samples": 0,
+    "complete_guard_candidate_fallback_and_public_exit_included": true,
+    "per_call_header_reset_included": true,
+    "all_warmup_and_repeated_final_outputs_checked": true,
+    "source_model_modular_values_and_actual_header_reads": true,
+    "memo_over_source_paired_accepted_small": [
+      11.612239343677107,
+      11.446247256479758,
+      11.589333705809507
+    ],
+    "memo_over_source_paired_accepted_cap": [
+      208.12844813146023,
+      186.57657269047652,
+      226.66181449324458
+    ],
+    "row_accepted_small_guard_tests": [
+      738,
+      720
+    ],
+    "row_accepted_cap_guard_tests": [
+      71252,
+      71234
+    ],
+    "row_setup_tests": [
+      33,
+      15
+    ],
+    "Clight_guard_counts_are_separate_from_timed_assembly": true,
+    "no_case_median_paired_memo_cost_below_source": true,
+    "representative_workload_profitability_claim": false,
+    "confidence_interval_claim": false,
+    "core_isolated": false,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "new_compiler_or_semantic_theorem": false,
+    "general_affine_source_coverage_added": false,
+    "header_and_alias_scan_asymptotics_changed": false,
+    "compiler_proof_and_extraction_setup_cost_measured": false,
+    "author_time_measured": false,
+    "new_cheap_alias_condition_implemented": false,
+    "source_and_candidate_proofs_reused": true,
+    "historical_proof_or_native_experiments_rerun": false,
     "full_goal_complete": false
   }
 }

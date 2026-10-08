@@ -1,5 +1,22 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [完整调用成本](word-nested-store-complete-cost.md)记录 2,430 个
+未插桩 assembly batches 的配对结果和全部完整输出验证。Readonly probe
+服务减少 setup，但新版本在普通接受输入上仍为 source 的 11.45–11.61 倍，
+cap 输入为 186.58–226.66 倍；部分 fallback 也有 regression。不能把局部
+test-count 定理或 code size 当作完整成本收益。
+
+下一最难位置是便宜而安全的 alias 前提编码：domain 库须证明 checked
+canonical point pairs 覆盖当前所有访问对、actual address correspondence 和
+accepted→restricted nonalias；Clight 服务须从原源许可 canonical 比较，
+证明机器循环/算术、flag/fresh cursor、actual-exit/public transport。Factory
+自动产生资源、scope 和新 region guarantee，复用 candidate/host。Kernel
+不知 pointer/affine 语义，源码用户不补 hidden same-block 或 execution callback。
+差值扫描只是待证明设计；没有当前实现或复杂度结论。语言 pointer ordering
+的定义性边界保持。完整 OLO/一般 affine 功能与作者负担仍在 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [Narrative 对照](narrative-kernel-host-review-2026-10-08.md)按当前代码
 区分 kernel 的局部组合、语言的安装定理和 domain/site 的 guarantee/placement。
 Finite projected contract 与 open protocol 共享 temp/memory 关系，但 progress

@@ -911,7 +911,17 @@ selected Clight host then connect it to a new extracted Csem-to-Asm compiler.
 This is an optimizer-independent Clight service above the kernel, rather than
 an arbitrary-language memoization feature or generic assumption extractor.
 
-\pending{Measure the entry-parameter guard's complete cost and acceptance,
+The complete-call experiment in Section~\ref{sec:evaluation} measures this
+successor against the preceding guard and the original program. Reduced setup
+tests do not produce a net gain on the selected warm inputs: the remaining
+point-pair checks dominate the diagnostic work at the cap. A compact replacement
+must prove that its checked comparisons imply the original restricted nonalias
+premise, license each comparison from actual source execution, and transport
+that result to the new guard's actual exit. This is a domain and Clight library
+obligation; the kernel and existing language installation theorem remain reusable.
+
+\pending{Lower the complete entry-parameter guard cost with safe sufficient
+conditions, extend useful acceptance,
 extend compact conditions to other stability and array
 footprints, connect certified static-fact residualization to actual execution, and compare
 manual proof work. General projection and arbitrary dependent preload expressions

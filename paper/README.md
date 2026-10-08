@@ -300,7 +300,12 @@ digests are recorded in `evidence-map.json`; the ZIP SHA-256 is
 `42afb32ed4fadc9e209134ec65dab1bd2a7ead42f9a3f8abb184f250c4a197b9`.
 
 The PDF/log/cache outputs are generated under the ignored `build/` directory.
-The tracked source contains no timing data or full original OLO/BT capability
-claim. The adapted-source functionality is established by the separately bound
+The tracked source includes scoped timing summaries and an exported cost figure;
+raw batches remain bound under `build/`. The latest two-loaded-store complete
+cost checkpoint is `build/paper/word-nested-cost-v4/`: its selected warm inputs
+show reductions on accepted paths and some fallback regressions relative to
+the preceding guard, with no net gain over source.
+It adds no compiler theorem or full original OLO/BT capability claim.
+The adapted-source functionality is established by the separately bound
 proof, extraction, native matrix, and assembly-path reports. The paper builder
 checks source anchors and builds the manuscript; it does not rerun those results.

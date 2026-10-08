@@ -55,9 +55,17 @@ three-level OLO source, with array outputs, public exits, and executed store
 order checked separately. Additional array bodies and control contexts use the
 same compiler, including actual dependence refusal and repeated sites.
 
+Condition reuse has an explicit practical limit. For a two-loaded-bound,
+two-store successor, verified repeated-probe elimination preserves the original
+condition's answer and reduces setup tests. Complete-call measurements on
+selected warm inputs nevertheless remain slower than source while the
+existing scans retain their work. The evaluation reports these negative results;
+the next requirement is a cheaper safe sufficient condition, not further code
+size reduction alone.
+
 \pending{Establish a fresh-build path, extend and state the final supported
 source class, condition algorithms, and evidence for proof reuse. Measure
-condition cost and useful acceptance separately from code size before claiming
+broader condition cost and useful acceptance separately from code size before claiming
 practical benefit.}
 
 \paragraph{Scope.}

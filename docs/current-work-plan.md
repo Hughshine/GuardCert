@@ -2,6 +2,30 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[双 loaded 完整调用成本](word-nested-store-complete-cost.md)已完成。
+同一源码 source/shared/memo 三 modes、三 profiles、九 cases、三十随机配对轮，
+共 2,430 batches；全部 warmup/final memory/public outputs 匹配。未插桩
+CompCert assembly 的完整调用含 header reset、全部 guard、候选/回退和出口。
+普通 2×3 新版本约为 source 的 11.45–11.61 倍，8×8 为 186.58–226.66 倍；
+旧/新有改善也有回退。静态尺寸和 setup 次数降低没有满足可用性验收。
+8×8 row guard tests 71,252→71,234，其中 setup 33→15；主要 scan 保持。
+这是已闭合源族的测量，不新增 compiler/语义证明或一般 affine 覆盖。
+
+**下一项优先实现紧凑 alias 充分条件及安全 actual Clight encoder。**
+先以 checked 相同 affine access maps 的 canonical point-difference coverage
+减少接受路径比较；不匹配时沿用原 scan，同时考察首次拒绝停止。Domain
+证明 coverage/地址对应/accepted→restricted nonalias；语言服务从原 source
+许可读取，证明算术、循环和 flag 的实际执行及 public transport；factory
+接原 candidate/region guarantee 和语言 host。当前只是设计，须完整证明、
+提取和 native/full-call 验收后才宣称实现。不能依赖跨 CompCert block 的
+undefined pointer ordering，不能隐藏 source-user same-block 假设。
+
+Kernel/host API 继续按 narrative 的责任边界复用；general affine domains、
+source/scalars、完整 OLO 联合功能及作者负担仍在 active goal。成本优先
+不取消功能目标，也不以更多小 fixture 延后已有族的实际成本验收。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[Narrative/kernel/host 对照](narrative-kernel-host-review-2026-10-08.md)
 已按代码回答 context-lifting 的八个问题；fetch 后可见仍为 `12419c1`，
 两正文与 main 相同。Kernel 止于局部 guarded 证书组合，whole-program

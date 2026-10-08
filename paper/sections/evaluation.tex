@@ -1075,3 +1075,58 @@ sizes. These results establish less setup work and code, not a timing or source
 speedup result. Header and alias scan complexity, the cap of eight, general
 affine-source coverage, complete-call cost and measured author effort remain
 outside this checkpoint.
+
+\paragraph{Complete cost of the two-loaded-store successor.}
+A new paired experiment reuses these compilers and proofs. It takes the same
+marked C per profile through disabled source, shared setup and probe elimination,
+using actual two-axis Pluto and prepared tiling code generation. Profiles use
+fixed strides in row and column layouts, or a parameter stride in row layout.
+Nine selected inputs cover
+2-by-3 and 8-by-8 acceptance, modular RHS wrap, array alias refusal, start refusal,
+header alias refusal, cap refusal, outer empty and child empty. Preparation
+checks 243 uninstrumented assembly outputs at three repetition counts and
+81 independent printed-Clight calls. Every result checks all 1,024 arena words,
+public exits and recorded initial iterators against an independent source model.
+For repeated calls, the model resets only headers and accounts for modular
+changes to array values; its closed form is cross-checked with sequential runs.
+
+On a Ryzen 7 7800X3D under WSL2, thirty randomized rounds contain all eighty-one
+profile/input/mode batches, each in a fresh process pinned to CPU zero. Separate
+calibration chooses repetition counts per mode. C process CPU time includes
+per-call header reset, capture, every guard, candidate or fallback execution,
+and public restoration; initialization, output and verification are outside
+the timer. All timed code is uninstrumented CompCert assembly. All 2,430 batches
+retain and validate complete warmup and final outputs. The shortest batch is
+0.095454 seconds; no observations are discarded. Figure~\ref{fig:loaded-memo-cost}
+shows median paired ratios and descriptive IQRs, rather than confidence intervals.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/word-nested-memo-cost.pdf}
+\caption{Complete-call CPU cost divided by source, for shared setup and
+readonly probe elimination. Thirty paired rounds per input and mode; horizontal
+intervals are IQRs. These are selected warm two-store inputs with cap eight.}
+\label{fig:loaded-memo-cost}
+\end{figure}
+
+Probe elimination's 2-by-3 accepted cost is 11.45--11.61 times source across
+profiles; 8-by-8 cost is 186.58--226.66 times source. Compared with shared setup,
+its median paired cost is about 4.5--23.1\% lower on these two accepted inputs.
+That improvement does not establish profitability. Refusal regressions are
+also retained: column child-empty is 8.44\% slower than shared setup, and row
+cap refusal is 4.00\% slower. None of the nine inputs in any profile has a new
+median paired cost below source. There is no representative workload or
+frequency-weighted result, core isolation, author-time measurement, or new
+compiler theorem in this experiment.
+
+Separate full-guard Clight diagnostics explain the scale of remaining work
+without attributing CPU cycles to individual checks. In row layout, 2-by-3
+acceptance evaluates 738 tests before simplification and 720 after, including
+33 and 15 setup tests. At 8-by-8, totals are 71,252 and 71,234, with the same
+setup counts. Array alias refusal also retains all 720 tests in the successor:
+the existing pair scan continues after its flag becomes false. After subtracting
+setup, each paired diagnostic has identical counts, full outputs and paths.
+The next acceptance criterion is therefore a cheaper sufficient alias condition
+with safe actual Clight execution and the original candidate/host reused,
+followed by fresh complete-call measurement. General affine-source and scalar
+coverage and full OLO functionality remain separate requirements.
