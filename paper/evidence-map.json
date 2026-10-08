@@ -1,6 +1,6 @@
 {
   "date": "2026-10-08",
-  "narrative_reference": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+  "narrative_reference": "c4b1395668786f20cdb75fb2db020dd651bb4684",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
   "claims": [
@@ -2845,6 +2845,63 @@
         "build/zero-width-installation/regression-v1/report.json"
       ],
       "evidence_stage": "zero_width_installation_stage"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Actual loaded-affine row transport consumes one header-observation guarantee produced either by separation or checked zero-RMW. The source factory automatically selects/checks the scalar and licenses its read after preparation; data alias and actual candidate validation remain distinct. The new builder reuses selected Csem-to-Asm. Six configurations pass 2448 Asm/2448 Clight calls; identical RMW sources and 408 inputs grow from 122 to 126 selections with no losses. Same-binary regressions and complete cost are bound separately; all sixteen measured successor medians remain above the disabled-source baseline. This is rank-two Mint32 observation support, not whole-memory equality, arbitrary guard synthesis or the complete OLO/general loaded-affine goal.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightAffineSnapshotRowObservation.v",
+          "name": "affine_snapshot_row_observation_preservation"
+        },
+        {
+          "source": "prototype/interface/ClightAffineSnapshotRowObservation.v",
+          "name": "affine_snapshot_separated_row_preservation"
+        },
+        {
+          "source": "prototype/interface/ClightAffineSnapshotRowObservation.v",
+          "name": "affine_snapshot_zero_rmw_row_preservation"
+        },
+        {
+          "source": "prototype/interface/ClightAffineRowObservationTransport.v",
+          "name": "affine_row_snapshot_checked_cached_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineRmwSnapshotSyntax.v",
+          "name": "check_affine_snapshot_rmw_site"
+        },
+        {
+          "source": "prototype/interface/ClightAffineRmwSnapshotCondition.v",
+          "name": "affine_rmw_snapshot_candidate_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineRmwSnapshotCheckPlan.v",
+          "name": "affine_rmw_snapshot_complete_check_plan_tree"
+        },
+        {
+          "source": "prototype/interface/ClightAffineRmwSnapshotPlannedCandidates.v",
+          "name": "check_affine_rmw_snapshot_planned_source_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedRmwSnapshotPlannedCompiler.v",
+          "name": "compile_selected_rmw_snapshot_planned_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/affine-observation-installation.md",
+        "docs/framework-responsibilities.md",
+        "docs/verified-guard-library.md",
+        "docs/current-work-plan.md",
+        "scripts/native_affine_observation_cost.py"
+      ],
+      "artifacts": [
+        "build/affine-observation/proof-v1/report.json",
+        "build/affine-observation/native-v1/report.json",
+        "build/affine-observation/regression-v1/report.json",
+        "build/affine-observation/comparison-v1/report.json",
+        "build/affine-observation/cost-v2/report.json"
+      ],
+      "evidence_stage": "affine_observation_installation_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8718,5 +8775,114 @@
     "broader_value_preserving_header_condition_installed": false,
     "new_runtime_cost_or_profitability_evidence": false,
     "full_goal_complete": false
+  },
+  "affine_observation_installation_stage": {
+    "narrative_reference_commit": "c4b1395668786f20cdb75fb2db020dd651bb4684",
+    "compiler_endpoint": "ClightSelectedRmwSnapshotPlannedCompiler.compile_selected_rmw_snapshot_planned_regions_correct",
+    "compiler": "build/affine-observation/compiler-v1/ccomp",
+    "compiler_sha256": "aa02cd8ffbc4d28e1285742e3863f44b56746f386fc7280c979b4d4366a5714b",
+    "new_modules": 11,
+    "new_source_lines_including_imports_and_queries": 1115,
+    "audited_endpoints": 29,
+    "closed_endpoints": 2,
+    "maximum_inherited_globals": 42,
+    "proof_bindings": 1992,
+    "preserved_compile_attempts": 23,
+    "successful_compile_attempts": 11,
+    "source_rank": 2,
+    "chunk": "defined Mint32/Vint header observations",
+    "whole_memory_equality_claimed": false,
+    "both_separation_and_value_preserving_row_producers": true,
+    "checked_RMW_scalar_selected_from_context": true,
+    "alpha_read_licensed_after_numeric_preparation": true,
+    "data_dependency_checker_reused_without_weakened_premises": true,
+    "actual_candidate_model_rechecked": true,
+    "kernel_changed": false,
+    "language_host_changed": false,
+    "new_axioms": false,
+    "source_user_semantic_callbacks_required": false,
+    "original_execution_is_runtime_preexecution": false,
+    "assembly_calls": 2448,
+    "Clight_calls": 2448,
+    "normal_mode_candidate_selections": 126,
+    "normal_mode_runtime_fallbacks": 146,
+    "normal_mode_unmarked_calls": 136,
+    "paired_same_RMW_source_inputs": 408,
+    "paired_old_candidate_selections": 122,
+    "paired_new_candidate_selections": 126,
+    "paired_gains": [
+      [
+        0,
+        2,
+        0,
+        3,
+        1,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        3,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        0,
+        3,
+        1,
+        0
+      ],
+      [
+        1,
+        3,
+        0,
+        3,
+        1,
+        0
+      ]
+    ],
+    "paired_losses": [],
+    "same_binary_word_calls_per_semantics": 400,
+    "same_binary_recursive_affine_calls_per_semantics": 480,
+    "same_binary_private_loaded_calls_per_semantics": 270,
+    "same_binary_zero_width_calls_per_semantics": 672,
+    "complete_cost_batches": 336,
+    "complete_cost_repetitions_per_batch": 65536,
+    "complete_cost_all_final_outputs_checked": true,
+    "complete_cost_all_successor_medians_above_source": true,
+    "complete_cost_new_vs_source_ratio_range": [
+      1.004264392324094,
+      3.7605465004793865
+    ],
+    "complete_cost_selected_profile": {
+      "row_cap": 4,
+      "column_cap": 8,
+      "geometry_cap": 4,
+      "extent": 8192
+    },
+    "complete_cost_separated_zero_reduction_percent": {
+      "tile": 15.48162230671737,
+      "schedule": 8.257940327237733
+    },
+    "complete_cost_newly_accepted_overlap_faster_than_old_fallback": false,
+    "preserved_failed_cost_run": "build/affine-observation/cost-v1/failure.json",
+    "all_empty_body_input_bypass_supported": false,
+    "negative_child_width_public_exits_supported": false,
+    "general_recursive_loaded_affine_domain_complete": false,
+    "representative_workload_profitability_claimed": false,
+    "full_goal_complete": false,
+    "proof_report": "build/affine-observation/proof-v1/report.json",
+    "proof_report_sha256": "299c4146d50b7e44ac2b648376e425b33b90dc093e02814ca10ad76d58c1b3d0",
+    "native_report": "build/affine-observation/native-v1/report.json",
+    "native_report_sha256": "50a79fd6913dee283b82ab1b345b60f15e0ebd35e94490de03af3772abb9bb0e",
+    "regression_report": "build/affine-observation/regression-v1/report.json",
+    "regression_report_sha256": "d1069f12134c29ae5e4499b81b9fcd1ce118e5902eef0ea162b8c802e7cfb648",
+    "comparison_report": "build/affine-observation/comparison-v1/report.json",
+    "comparison_report_sha256": "381331cdd0acac74140f06b68a5ab74346a93ee8f56bee65a8a1aa9ec194ba8b",
+    "complete_cost_report": "build/affine-observation/cost-v2/report.json",
+    "complete_cost_report_sha256": "723815112d0efdd6d6f5493b02cf5425b98f0c556b4b59515285c6d8fa22d77f"
   }
 }

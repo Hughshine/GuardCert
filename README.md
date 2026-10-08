@@ -1,5 +1,16 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Actual-row observation installation](docs/affine-observation-installation.md)
+connects alternative separation/zero-RMW conditions to the same header-stability
+obligation. The checked source selects its scalar; preparation licenses the
+scalar read, and the original candidate/host proofs are reused. Six configurations
+pass 2,448 Asm/2,448 Clight full-output calls; the same binary passes four earlier
+source families. On identical RMW sources and 408 inputs, acceptance rises from
+122 to 126 without losses. Those gains are zero-RMW writes overlapping N/M.
+Complete-call cost passes 336 full-output batches; all sixteen successor medians
+remain above the source baseline. This is not the complete general
+loaded-affine/OLO goal. Historical records below retain their stage scope.
+
 2026-10-08: [Zero-width installation](docs/zero-width-installation.md) connects
 the wider candidate checker, original-source guard, compact plan and selected
 Csem-to-Asm compiler. First-empty/nonempty-later inputs now enter the fast path.

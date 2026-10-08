@@ -68,6 +68,23 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Actual-row observation installation](affine-observation-installation.md)
+验证 guard-library alternative 的具体责任。Domain 从 separation 与 zero-RMW
+各自能力证明同一 reached-row header observation 保证；language whole-loop
+transport 消费当前 header-match／word receipts，保持给定原执行的精确出口。
+Factory 自动选择 scalar、检查 actual row 与 private resources；numeric
+preparation 许可 alpha 测试，再复用 readonly branching 和 compact scan。
+Data alias／actual candidate certificate／public restore 仍是独立义务。
+新 builder／Csem→Asm 沿用既有 host/backend，kernel不改。
+
+十一模块／29端点／2closed，无新增公理；六配置2,448／2,448输出/context
+通过。同源408输入的两compiler接受122→126、无丢失；gain限于alpha0
+的N/M重叠。新binary旧四族word400、recursive-affine480、private-loaded270、
+zero-width672各自Asm/Clight通过。独立完整成本336 batches全输出通过；
+separated-alpha0比旧guard快15.48%／8.26%，新增overlap接受比旧fallback慢，
+全部16median高于source。不泛化到完整memory
+equality、其他chunks或cross-host共享，也不以该实例替代完整OLO/general目标。
+
 2026-10-08 [Zero-width installation](zero-width-installation.md)已把这些 producer
 接到 actual wider-domain C_opt checker、candidate/backend/public restore、
 fresh typed capture/result、original fallback和具体 region guarantee。新 builder

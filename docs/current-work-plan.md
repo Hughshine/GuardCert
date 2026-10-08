@@ -107,7 +107,7 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：接入 broader alias／value-preserving header 条件，复用同一
+**此前任务，现由后继接入**：接入 broader alias／value-preserving header 条件，复用同一
 snapshot transport、candidate 和安装链，并继续 general recursive loaded
 affine、scalar/chunk、完整 OLO 与成本验收。先核对既有 zero-RMW observation
 服务能否由当前 actual body checker 自动生产调用前提；新充分条件须建立同一
@@ -124,9 +124,36 @@ clipped public exit仍需具体语言／domain证明。
 observation保证，先证明separation路径到该保证，再证明checked RMW／zero
 条件到同一保证。两者都由factory自动生产前提，保持data-dependence checker
 与公开出口要求；不得把word观察保持扩写为完整memory equality。
-这是具体domain／language桥的证明责任，尚无新接口或接受证据，也不要求
+这是具体domain／language桥的证明责任，在此诊断阶段尚无新接口或接受证据，也不要求
 修改kernel。首个实际client须再核对body grammar、alpha的原源许可和compact
 plan／registry连接，不能以另一个孤立condition helper算作接入。
+
+2026-10-08：[actual-row observation 接入](affine-observation-installation.md)
+已完成上述实际 client。Separation 与 checked zero-RMW 分别推出同一
+`header_observations_match` row 保证；whole-loop transport 消费当前观察
+不变量，而不把 Mint32 word preservation 当作完整 memory equality。
+Factory 自动选择 context scalar、检查实际 row body；numeric/first-reached
+preparation 接受后才读取 alpha。`alpha=0` 走值保持证明，其余走原 compact
+N/M scan；data alias、actual candidate recheck、公开出口和原 source fallback
+仍沿用。新 builder 先于 zero-width registry，Csem→Asm 直接复用 selected host。
+
+十一模块／1,115行／29端点／2closed／1,992bindings／旧42globals，无新增
+公理；23次编译尝试全保留，11成功／12拒绝。六配置2,448／2,448 Asm/Clight
+全输出及continuation通过；正常各126 fast／146 fallback／136 unmarked。
+两个frozen compiler在同一408输入、同一RMW源上的接受122→126，无丢失，
+四项gain都是alpha0的N/M写入重叠。新binary word400／400、recursive affine
+480／480、private-loaded270／270、zero-width672／672全部通过。
+
+该actual服务的完整成本已独立验收：336 batches×65,536调用每批完整输出
+匹配；旧、新、disabled-source均用同一RMW源。Separated-alpha0的tile／schedule
+median比旧guard减少15.48%／8.26%，新增overlap接受比旧fallback更慢。
+全部16个新median仍高于source（1.004–3.761倍），没有收益结论。首轮336
+输出通过后汇总path lookup失败，source／outputs保留并绑定于修正报告。
+
+**当前下一验收**：推进全空 body-input bypass、
+negative-width clipped出口及general recursive loaded联合source/model；
+broader scalar/chunk条件与完整OLO逐例对照继续在完整goal中。条件算法和
+成本不因服务分类完成而降为可选，源码用户仍不承担语义callback。
 
 [Zero-width installation](zero-width-installation.md)已连接 actual wider-domain
 mapped/tiling checker、checked factory、compact plan与 selected Csem→Asm。

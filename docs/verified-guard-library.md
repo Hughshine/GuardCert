@@ -1,10 +1,20 @@
 # Verified guard library：服务分类与依赖契约
 
-2026-10-08，对照 `topdown/research-positioning@5ba223d` 的澄清。
+2026-10-08，对照 `topdown/research-positioning@c4b1395` 的澄清。
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。
 
-最新安装态见 [zero-width installation](zero-width-installation.md)：ordered
+最新安装态见 [actual-row observation](affine-observation-installation.md)：
+separation 和 zero-RMW 已分别建立 caller 所需的同一 header-match row 保证。
+Factory 自动选取 alpha、检查 original row；它的类型/读取许可来自先成功的
+numeric preparation。Readonly alternative、compact plan、actual candidate
+和 selected Csem→Asm 全部接通。六配置2,448／2,448与同binary旧四族通过；
+同源408输入的接受122→126、无丢失。能力限定为定义好的Mint32字观察保持，
+该服务的完整成本336 batches全输出通过，全部16median仍高于source；
+减少scan与增加接受不等于盈利。其他chunk／scalar、compact条件及general
+loaded affine仍需各自验收。
+
+此前 [zero-width installation](zero-width-installation.md)：ordered
 first-or-second-reached许可、范围、N/M scan、data alias和candidate ranges
 已接 actual checker／factory／compact plan／selected Csem→Asm。First-empty
 现有实际接受；六配置2,016／2,016和同binary旧族回归通过。该 alias服务只需
@@ -80,8 +90,10 @@ scope: completion, progress and observation coverage of this theorem
 `affine_snapshot_point_preservation`对任意point before/after要求原始load
 equality。新client应显式利用transport中的header-match／word-valued
 不变量来运输观察，再连接source/model/candidate，而不能直接把两项契约
-视为相同。该适配尚未实现；separation与value-preservation仍须分别证明
-能生产实际caller所需的同一保证。
+视为相同。[Actual-row observation](affine-observation-installation.md)已实现
+这一适配：两个 producer 分别证明 caller 的 reached-row 保证，source→cached
+桥消费该保证，再复用 source/model/candidate 与整程序安装。它没有新通用
+kernel record，也没有把旧point契约强行扩写为word服务的结论。
 
 `requires` 中的事实不能被包装成检查自身的成功结果。比如“load 返回
 Vint”是读取的前提或原源的 receipt；只把它写入 `ready` 并没有证明它会

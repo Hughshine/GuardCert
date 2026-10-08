@@ -5,6 +5,14 @@
 并讨论机器溢出检查和按实际访问域安排预加载。这些要求仍是本项目的功能与
 可用性验收依据；当前已证明的 tensor 子集不能替代完整论文场景。
 
+2026-10-08：[actual-row observation 接入](affine-observation-installation.md)
+在具体二维loaded-affine族验收了separation或zero-RMW到同一header保证，
+numeric许可后测试alpha，再接actual Pluto/codegen、data依赖与Csem→Asm。
+六配置2,448／2,448完整输出通过；同源408输入接受122→126，无丢失。
+这对应OLO的模型假设／条件版本化问题，但不是完整BT／OLO或一般投影。
+完整成本336 batches通过，所有16新median仍高于source，新增overlap接受
+比旧fallback慢；正确性、功能覆盖和可用性继续分别验收。
+
 后继[loaded tensor 首点服务](tensor-header-point.md)已连接条件式capture与实际
 动态`i*ld`首点，并证明原store许可的检查、接受后的两header保持及alias拒绝路径。
 40端点独立审计通过；它尚未关闭完整source-prefix／cached模型／candidate／安装
