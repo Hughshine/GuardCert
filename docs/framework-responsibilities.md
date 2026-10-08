@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [两数组完整 condition](multi-array-complete-guard.md)将语言 source
+definedness／short-circuit／checked arithmetic 与 domain 的多访问 coverage／
+profile 推导接上，复用 framework 的 `readonly_condition_entails` 暴露数学 setup
+前提；kernel 不变。完整局部 statement 不再要求入口 caller 假定 numeric／
+layout／box／profile 或 NonAlias。**下一最难连接是固定 ports 到任意 program-live
+temps 的 frame、fresh typed factory／progress／placement，以及 loaded 原源中两
+store 的 header 保持；由 factory 生产 region guarantee 后才消费 selected host。**
+当前构造器只返回 local statement，不提供新 whole-program 或成本结论。
+
 2026-10-08 [actual scan-exit 连接](multi-array-scan-exit.md)将语言 dimension／
 restricted locator／source execution frame 与 domain 的 checked candidate／
 restore 接在同一实际检查出口。Alias 接受从扫描生产 separation，拒绝执行

@@ -1728,6 +1728,51 @@
       "documents": [
         "docs/multi-array-scan-exit.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Source-licensed assignment-list observations connect the existing checked numeric/layout/profile/box trees to actual two-array setup. Full local guarded execution derives dynamic setup and separation rather than assuming them at entry, executes the original AST on setup/alias refusal, and runs the checked candidate with iterator restoration on acceptance. A checked wrapper emits this local statement. Existing readonly condition entailment exposes its mathematical setup premise; arbitrary program-live frames, typed resources, loaded-header preservation and whole-program installation remain open.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightMultiTensorSourceGuard.v",
+          "name": "multi_tensor_source_layout_guard_exact"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorSourceGuard.v",
+          "name": "multi_tensor_source_layout_condition"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteGuard.v",
+          "name": "multi_tensor_complete_guard_sound"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteGuard.v",
+          "name": "multi_tensor_complete_source_setup"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteCandidates.v",
+          "name": "multi_tensor_demo_full_versioned_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteExample.v",
+          "name": "multi_tensor_demo_setup_compiled"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteExample.v",
+          "name": "multi_tensor_demo_empty_setup_refused"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteExample.v",
+          "name": "multi_tensor_demo_setup_condition"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorCompleteExample.v",
+          "name": "check_multi_tensor_demo_full_versioned_execution"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-complete-guard.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6397,6 +6442,36 @@
     "setup_conditions": "positive canonical temp-bound counts; numeric/layout/box/profile setup remains explicit",
     "numeric_box_profile_emitted_by_successor": false,
     "loaded_header_prefix_licensing_added": false,
+    "new_compiler_theorem": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false,
+    "measured_cost_added": false
+  },
+  "multi_array_complete_guard_stage": {
+    "report": "build/multi-tensor-complete-guard/proof/report.json",
+    "report_sha256": "00543a521a20ab40eea285e7a59844c33ed94fce92dfceb6bcc0198e122fd9e5",
+    "endpoints": 26,
+    "closed_endpoints": 8,
+    "maximum_endpoint_globals": 14,
+    "compiler_baseline_globals": 42,
+    "bound_files": 129,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "complete_setup_condition_emitted": true,
+    "readonly_condition_certificates_added": true,
+    "framework_entailment_combinator_reused": "readonly_condition_entails",
+    "semantic_setup_condition": "multi_tensor_demo_setup_property",
+    "numeric_layout_box_profile_entry_premises_removed": true,
+    "checked_complete_statement_producer_added": true,
+    "original_AST_on_setup_or_alias_refusal": true,
+    "guard_ast_depends_on_runtime_values": false,
+    "source_family": "canonical three-axis temporary-bound two-array assignment sequence",
+    "public_exit_scope": "requested live subset of fixed source public ports",
+    "arbitrary_program_live_frame_proved": false,
+    "typed_whole_program_factory_added": false,
+    "loaded_header_prefix_licensing_added": false,
+    "runtime_pair_scan_short_circuits_after_refusal": false,
+    "numeric_setup_refusal_skips_pair_scan": true,
     "new_compiler_theorem": false,
     "multi_array_guarded_compiler_installed": false,
     "C_or_assembly_evidence_added": false,
