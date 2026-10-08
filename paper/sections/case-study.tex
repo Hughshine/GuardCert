@@ -1084,9 +1084,22 @@ the generated-bound adaptation enters the trusted base. The demonstrated tier
 uses nonnegative initial coordinates and two-dimensional nonrectangular sources.
 The old affine source-point licensing and materialized guard proofs are reused;
 the rectangle scanner's receipts do not justify reads outside that source domain.
-Negative-coordinate enclosure and slow three-dimensional profiled codegen remain
-implementation gaps. Sharing installation does not yet combine general affine
-domains with the loaded-word semantic model.
+Sharing installation does not yet combine general affine domains with the
+loaded-word semantic model.
+
+\paragraph{Signed generated-bound proposals.}
+A successor proposal handles negative tile coordinates. The previous adapter
+used zero for a nonaffine lower bound, omitting points such as a tile coordinate
+$\lfloor -1/2\rfloor=-1$; membership tests cannot restore omitted iterations.
+The new algorithm propagates mathematical integer intervals through signed
+scaling, sums, positive-divisor floor division, minimum and maximum. It proposes
+affine leaves or signed constant envelopes and keeps original-bound membership
+tests. The final checker validates the whole candidate against the original
+request. This interval algorithm is ordinary untrusted code, not a separately
+proved condition service. The original source-point permission, guard,
+region-builder and selected Csem-to-Asm proofs are reused without new Rocq
+modules or kernel changes. Actual three-dimensional profiled codegen remains
+incomplete.
 
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,

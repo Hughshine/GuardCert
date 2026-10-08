@@ -48,6 +48,23 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 
 后续优先级：
 
+2026-10-08：[signed affine bound proposals](signed-affine-bound-proposals.md)
+已修复旧 zero lower envelope 漏掉负 tile 坐标的具体提案缺口。普通 interval
+算法处理 signed floor／min／max 并保留原 membership guard；原 final checker
+仍针对 actual source／完整 request 验证。没有新 `C_derive`／`C_guard`
+定理、Rocq 模块或 kernel／host 变化。Floor -2 的真实二层 Pluto／prepared
+codegen 在 start -1／-2 下实际进入候选；六配置通过 1,152 Asm／1,152
+Clight 全输出／公开出口／continuation，同 binary 的 loaded-word 回归
+400／400。新矩阵增加一个输入，不作为旧矩阵的配对性能比较。
+
+下一优先项转为三层 actual prepared codegen 的独立定位。源码可见
+Fourier-Motzkin projection 后的 canonicalization，而当前 ordinary oracle
+`add` 保留全部约束；尚不能把 timeout 归因结论写作已测事实。若提出
+constraint compaction，复用 `ExactCs.fromCs` 的原约束反向检查与 LCF
+forward guarantee，不能只证 forward consequences 就删除原约束。
+之后继续一般 nonrect reached-point 许可与 loaded-word 模型结合、scalar／
+chunk 和 OLO 源；当前 passing tier 仍明确不标注三层函数。完整 goal 保持。
+
 2026-10-08：[同一 selected 入口的 affine 接入](selected-affine-pipeline.md)
 已落实 narrative 的真实 pipeline 要求到旧 recursive affine source。
 Clight library 用已证明的 builder record 组合原 word 与 affine factories；

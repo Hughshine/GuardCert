@@ -2705,6 +2705,25 @@
         "build/selected-affine-pipeline/attempts-v1/report.json"
       ],
       "evidence_stage": "shared_selected_affine_pipeline_stage"
+    },
+    {
+      "id": "signed-affine-generated-bound-proposals",
+      "status": "existing-proof-chain-native-signed-two-dimensional-tier",
+      "claim": "An ordinary signed interval envelope proposer preserves negative generated tile coordinates and submits the complete actual candidate to the original checker. Existing guard, certified region builder, installation and Csem-to-Asm theorem are reused, with no new Rocq module. Real Pluto/prepared-codegen rank-two candidates at starts -1 and -2 are selected in full-output/context checks (1152 Asm/1152 Clight); the same binary passes 400/400 loaded-word regressions. Rank-three functions remain unmarked and codegen incomplete; no combined domain, separately verified interval service, cost/profitability or full-goal claim.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightSelectedPolyhedralCompiler.v",
+          "name": "compile_selected_polyhedral_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/signed-affine-bound-proposals.md",
+        "build/selected-affine-pipeline/proof-v1/report.json",
+        "build/selected-affine-pipeline/signed-affine-2d-native-v1/report.json",
+        "build/selected-affine-pipeline/signed-word-regression-v1/report.json",
+        "build/selected-affine-pipeline/attempts-v1/report.json"
+      ],
+      "evidence_stage": "signed_affine_bound_proposal_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8432,6 +8451,31 @@
     "semantic_domains_combined": false,
     "new_axioms": false,
     "new_profitability_evidence": false,
+    "full_goal_complete": false
+  },
+  "signed_affine_bound_proposal_stage": {
+    "proof_report": "build/selected-affine-pipeline/proof-v1/report.json",
+    "native_report": "build/selected-affine-pipeline/signed-affine-2d-native-v1/report.json",
+    "word_regression_report": "build/selected-affine-pipeline/signed-word-regression-v1/report.json",
+    "attempts_report": "build/selected-affine-pipeline/attempts-v1/report.json",
+    "compiler": "build/selected-affine-pipeline/signed-compiler-v1/ccomp",
+    "proof_report_sha256": "58c7f48419fd4abd23b4c2e5727cb6fd42a0df6cbe402cdb2b14b21d3f2e001b",
+    "native_report_sha256": "3f5ebe071b6a3c50d65897af8fbbe8688ca9619bee4f2db89ef221ad7a626851",
+    "word_regression_report_sha256": "07b51bc6c85af8142b58b9804b412b0750a05f526a87f667baf77646cacda268",
+    "attempts_report_sha256": "9951de0f1eb3ce8af7e81f272474fd84990f7d92be2c84fd72edcd518f916270",
+    "compiler_sha256": "c757a953c757cdccf756b5ca616eb38700f5b815960cbf0499d6b8107eca9125",
+    "native_installed_affine_rank": 2,
+    "source_profile_floor": -2,
+    "negative_coordinate_fast_paths_checked": true,
+    "original_checked_source_preserved": true,
+    "signed_interval_algorithm_untrusted": true,
+    "original_proof_closure_reused": true,
+    "new_rocq_modules": 0,
+    "kernel_changed": false,
+    "semantic_domains_combined": false,
+    "new_axioms": false,
+    "new_profitability_evidence": false,
+    "three_dimensional_profiled_codegen_completed": false,
     "full_goal_complete": false
   }
 }

@@ -40,6 +40,15 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [Signed affine bound proposals](signed-affine-bound-proposals.md)
+检验 narrative 的另一种复用：普通候选算法改用有符号包络，原完整 checker
+重新验证 actual source／candidate；原条件编码、certified builder、语言
+installation 与 Csem→Asm 端点复用。新 interval 算法不是单独已证的条件
+服务或 `C_derive`，不增加源码 callback、Rocq 模块或 kernel 义务。真实
+二层流水线对 -1／-2 起点实际接受，1,152／1,152 全输出与公开 continuation
+通过，同 compiler 的 loaded-word 400／400 回归通过。三层 codegen 和
+联合 loaded／nonrect 模型仍未完成；没有新收益或作者时间测量。
+
 2026-10-08 [共享 selected affine compiler](selected-affine-pipeline.md)进一步
 落实 domain guarantee 与语言 installation 的分界。`certified_region_builder`
 由已证明的 domain factory 注册：实际 source/pool 的普通检查返回 target 时，

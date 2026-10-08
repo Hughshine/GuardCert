@@ -1,5 +1,15 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Signed affine bound proposals](docs/signed-affine-bound-proposals.md)
+now preserve negative tile coordinates through the existing final checker and
+shared Clight installation proof. The real Pluto/prepared-codegen two-dimensional
+tier accepts starts `-1` and `-2`, passing 1,152 Asm/1,152 Clight full-output and
+continuation checks; the same binary passes 400/400 loaded-word regressions.
+The envelope algorithm remains untrusted; no new Rocq theorem, kernel or host
+change is required. Actual three-dimensional codegen, combined loaded affine
+domains and guard profitability remain open. Historical checkpoints below keep
+their original scope.
+
 2026-10-08: A [shared selected compiler](docs/selected-affine-pipeline.md) now
 registers the existing loaded-word and recursive affine factories under one
 Clight installation/backend proof. The affine proposer sends the actual checked
