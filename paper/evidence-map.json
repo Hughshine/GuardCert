@@ -1810,6 +1810,55 @@
       "documents": [
         "docs/multi-array-public-boundary.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "A data-only multi-assignment source factory checks actual temporary-bound nests with arbitrary identifiers and assignment-list lengths, producing static shape/freshness/coverage/lowering and original-source progress evidence. Accepted generated complete setup connects the actual source to its Loop model without entry numeric/layout/box or separation callbacks. A typed cursor/flag allocator and emitted-scan frame are proved. The old two-statement nest proposal safely refused assignment pairs; a checked reset/child successor accepts them. Generic scan safety and acceptance coverage, candidate/guard-exit connection, selected installation and native/cost evidence remain open.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightMultiTensorDataSource.v",
+          "name": "describe_multi_tensor_body_exact"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorDataPackage.v",
+          "name": "multi_tensor_region_source_progress"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorRegionFactory.v",
+          "name": "check_multi_tensor_region_source"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPackageExecution.v",
+          "name": "multi_tensor_package_setup_run"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPackageExecution.v",
+          "name": "multi_tensor_package_source_model"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorScanAllocation.v",
+          "name": "multi_tensor_scan_allocated_int32"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorScanAllocation.v",
+          "name": "multi_tensor_scan_candidate_pool_private"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAllocatedScan.v",
+          "name": "multi_tensor_allocated_pair_guard_frame"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorDataExample.v",
+          "name": "multi_tensor_data_renamed_source_accepted"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorDataExample.v",
+          "name": "multi_tensor_data_outer_wrapper_progress_refused"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-data-factory.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6538,6 +6587,37 @@
     "new_compiler_theorem": false,
     "multi_array_guarded_compiler_installed": false,
     "C_or_assembly_evidence_added": false,
-    "measured_cost_added": false
+    "measured_cost_added": false,
+    "successor_source_allocation_stage": "multi_array_data_factory_stage"
+  },
+  "multi_array_data_factory_stage": {
+    "report": "build/multi-tensor-data-factory/proof/report.json",
+    "report_sha256": "3dd7dbf82727c8f1f6aa6ececb4a01a59dd8734ce97d94b7682ba36734346576",
+    "endpoints": 32,
+    "closed_endpoints": 26,
+    "maximum_endpoint_globals": 6,
+    "compiler_baseline_globals": 42,
+    "bound_files": 121,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "source_identifiers_are_parameters": true,
+    "assignment_list_length_is_not_fixed": true,
+    "production_source_factory": "check_multi_tensor_region_source",
+    "legacy_single_body_proposal_rejects_two_assignment_leaf": true,
+    "checked_source_progress_added": true,
+    "generic_actual_source_setup_model_connection_added": true,
+    "source_model_requires_entry_nonalias": false,
+    "source_model_requires_entry_numeric_layout_box_callbacks": false,
+    "typed_private_scan_allocation_added": true,
+    "allocated_actual_scan_AST_frame_added": true,
+    "private_candidate_pool_excludes_scan_resources": true,
+    "closed_checker_allocator_computations": 9,
+    "generic_scan_safety_from_source_receipts_added": false,
+    "generic_scan_acceptance_to_footprint_separation_added": false,
+    "whole_family_candidate_installation_added": false,
+    "new_compiler_theorem": false,
+    "C_or_assembly_evidence_added": false,
+    "measured_cost_added": false,
+    "loaded_header_prefix_licensing_added": false
   }
 }

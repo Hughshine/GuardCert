@@ -2,6 +2,24 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[数据 source factory 与 typed scan 资源](multi-array-data-factory.md)
+已从任意 identifiers／assignment list 的实际 temp-bound AST 生产 source
+package、静态 freshness／shape、checked box 与原源 progress。完整 setup 接受
+导出实际源 Loop 模型，无入口 numeric／layout／box 或 NonAlias callback。
+Allocator 为两个 rank 维 cursor＋flag 选择 fresh int32 slots，生成 scan AST
+并证明源＋caller frame；九个闭合计算 witness 覆盖换名接受、metadata／pool
+拒绝和显式 progress 限制。初版 single-body proposer 的两-statement 误识别
+已由独立核对 reset／child 的后继 factory 修复，原拒绝与日志保留。
+**下一项将该相同 package／allocation 接泛化 runtime alias scan 的源许可、
+动态 coverage 与接受充分性，运输到 actual exit，接既有 candidate／restore，
+生产 projected guarantee 并消费 selected host 安装。**当前 typed allocation 和
+source progress 服务已生产；前一 full guarded statement 的固定名实例尚未
+泛化，不能把这些服务合称新族 compiler／native 完成。Loaded 两 store 的
+header／prefix、一般 affine domains 和 OLO 可用性继续在 active goal。
+
+以下为上一任意 caller 边界阶段记录；typed resources／source progress 的生产
+已由上述后继推进，泛化 guard／candidate／placement／整程序接线仍待完成。
+
 2026-10-08：[任意 caller 边界](multi-array-public-boundary.md)已从实际 pair-scan
 写集和静态 disjoint 检查导出任意 live frame，移除固定 source ports 子集要求；
 完整 setup／alias 两分支接同一 checked candidate／原 AST，并生产现有

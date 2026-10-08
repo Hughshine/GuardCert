@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [数据 source factory](multi-array-data-factory.md)从实际 AST 和普通
+assignment metadata 生产 static source／shape／freshness／progress 与 checked
+box，接完整 setup 和实际源模型；typed allocator 生产 private declarations
+成员／freshness 及实际 scan AST 的 frame。Kernel、host 定义保持。最难的下一
+连接是用同一 package 的原源执行许可泛化 scan，证明 coverage／接受充分性，
+运输到真实出口并接 candidate／restore 与 selected installation。**Source
+progress 或 typed slots 各自已生产，不代表原固定名 guarded statement 已泛化
+安装；不向源码用户索要 model 或 simulation callback。**旧两-statement
+proposer 的错误分类只导致安全 refusal，新 factory 独立检查 reset／child。
+
 2026-10-08 [任意 caller 边界](multi-array-public-boundary.md)落实 narrative 的
 region guarantee／context requirement 区分：语言提供实际写集、frame、执行
 运输与现有 small-step bridge；domain 接完整条件／checked candidate／restore；
