@@ -2394,6 +2394,40 @@
         "docs/canonical-alias-condition.md"
       ],
       "evidence_stage": "canonical_alias_specification_stage"
+    },
+    {
+      "id": "actual-Clight-canonical-alias-encoder",
+      "status": "static-scanner-execution-and-exact-flag-and-public-frame-proved; automatic-factory-and-installed-compiler-and-native-cost-pending",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalWord.v",
+          "name": "canonical_word_bound_value"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalWord.v",
+          "name": "canonical_axis_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalPrepare.v",
+          "name": "canonical_bounds_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalPrepare.v",
+          "name": "canonical_coordinates_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalTests.v",
+          "name": "canonical_affine_tests_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryCanonicalScan.v",
+          "name": "canonical_affine_scan_execution"
+        }
+      ],
+      "documents": [
+        "docs/canonical-alias-scanner.md"
+      ],
+      "evidence_stage": "canonical_alias_encoder_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7762,6 +7796,34 @@
     "mathematical_space_sizes_are_measured_guard_work": false,
     "historical_proof_audits_rerun": false,
     "author_time_measured": false,
+    "full_goal_complete": false
+  },
+  "canonical_alias_encoder_stage": {
+    "report": "build/canonical-encoder/proof-v1/report.json",
+    "report_sha256": "cff492b3ac5bce0e8eab904b803b22dd077daf84256505770d1dd9c969166a37",
+    "audited_endpoints": 14,
+    "closed_endpoints": 4,
+    "maximum_endpoint_globals": 6,
+    "bound_files": 692,
+    "parent_bound_files": 670,
+    "additional_global_axioms": [],
+    "actual_Clight_static_scanner_execution": true,
+    "machine_bound_and_coordinate_execution": true,
+    "canonical_Boolean_result_exact": true,
+    "memory_unchanged_and_public_state_framed": true,
+    "private_control_state_framed_at_current_values": true,
+    "original_box_receipts_required_by_low_level_endpoint": true,
+    "automatic_receipt_and_typed_allocation_producer_connected": false,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "candidate_checker_changed": false,
+    "source_user_semantic_callback_API_added": false,
+    "cross_block_pointer_ordering_used": false,
+    "new_installed_compiler_or_Csem_to_Asm_endpoint": false,
+    "new_native_or_complete_call_cost_measurement": false,
+    "running_compiler_alias_scan_changed": false,
+    "general_affine_source_frontend_added": false,
+    "historical_proof_audits_rerun": false,
     "full_goal_complete": false
   }
 }

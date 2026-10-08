@@ -27,8 +27,8 @@ host 提供的定理字段。具体 selected Clight host 以 `program_temps` 为
 框架消费一个定理前提不等于已经自动生产该前提。
 
 目前最难的链是**原源许可的部分状态 → 安全可执行条件 → 实际候选入口
-→ 公开出口／continuation**。Canonical domain coverage 已证明，实际
-scanner 尚在完成；allocator、factory/compiler、native 和新成本须另行
+→ 公开出口／continuation**。Canonical domain coverage 与实际
+scanner execution 已编译审计；allocator、factory/compiler、native 和新成本须另行
 验收。Scanner 中私有 cursor/flag 可改变，memory 保持并 frame 公开状态；
 它不因此成为要求完整 entry state 相等的 `readonly_condition`。
 
@@ -39,6 +39,16 @@ relation，不能仅凭 exit weakening 推出含入口/scope/progress 的完整 
 entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
+
+2026-10-08 [实际 canonical scanner](canonical-alias-scanner.md)关闭 language
+encoder 的 bounds/coordinates/pointer tests/flag 执行义务，保留 memory 和
+公开 frame；14 端点、4 closed、最多 6 旧 globals、692 绑定、零新增公理。
+Domain specification 与 kernel/candidate/host 不变；新 factory 必须自动从
+原 setup 生产 ranges/receipts、fresh typed resources，运输 actual exit 并
+接原 guarantee/installation。当前没有新 compiler/native/cost，低层执行
+定理的前提不替代 producer 接线。完整 goal 保持。
+
+以下保留前阶段当时范围。
 
 2026-10-08 [Canonical alias 域服务](canonical-alias-condition.md)已生产严格
 uniform-template eligibility、差值域 coverage、实际 CompCert modular pointer

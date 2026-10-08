@@ -16,8 +16,8 @@ domain 的 `C_derive`、language 的安全求值/入口出口运输、factory �
 guarantee 与 site evidence，再消费既有 installation/backend。不能仅因
 已有泛型 program theorem 就把 contextual closure 算作框架自动完成。
 
-当前工作检验这条分工：canonical alias 域定理已完成，正在证明实际 Clight
-scanner；其后才是 typed/fresh allocation、原 source 许可到 scanner 输入的
+当前工作检验这条分工：canonical alias 域定理与实际 Clight scanner 定理
+已编译审计；其后才是 typed/fresh allocation、原 source 许可到 scanner 输入的
 自动生产、factory/compiler/native 接入及完整成本。最难位置是部分定义
 的入口：child/header/RHS 只有原源执行许可时才可观察，新的私有坐标与 flag
 必须运输到候选入口，同时完整公开出口满足 continuation 的要求。
@@ -32,6 +32,21 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 实际 host 上证明 transport/entailment 的复用，再决定接口；finite completion
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
+
+2026-10-08：[Canonical alias Clight scanner](canonical-alias-scanner.md)完成四个
+语言模块，实际运行 difference bounds、canonical coordinates、pointer tests
+和 rectangle flag accumulation；memory 不变且 source/read ports/live frame。
+14 端点、4 closed、最多 6 项旧 globals、692 可达绑定，无新增公理。低层
+端点消费 source-box receipts 与 checked fresh resources；自动 factory 尚未
+接线，不能据此声称新的 native compiler 或性能结果。
+
+**下一项直接接 typed allocator、eligible factory 和实际 compiler。**
+从原 header/numeric setup 生产 count range/receipts，自动选择额外私有
+positions/limits，实际出口接原 candidate/region guarantee/selected host；
+不匹配沿用旧 scan。随后相同 native/context/full-output 矩阵与新完整成本。
+当前 compiler 仍使用 quadratic pair scan，完整 goal 未完成。
+
+以下保留前阶段当时范围。
 
 2026-10-08：[Canonical alias 域服务](canonical-alias-condition.md)已证明
 任意维矩形坐标差覆盖、canonical points 在原域、严格相同 affine templates
