@@ -1,5 +1,23 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [双 loaded data factory](word-nested-store-data-factory.md)落实三方
+责任的可计算入口：语言 typed allocator/scope/rename/progress 定律由数据
+checker 实例化，domain 提案经实际 source/body/model 检查生产内部 package，
+完整 header rewrite 定理自动消费其静态证据。34 端点／29 闭合／最多 6 项
+旧 globals／1,280 绑定，零新增公理。Kernel、host contract 未改；源码用户
+不提供 execution 或 simulation callback。
+
+下一最难连接仍是接受入口的部分状态到真实候选：空域缺失 child cache
+须跳过准备，活跃接受将实际 guard-exit cached execution 接完整候选服务，
+两层 fallback/public transport 后导出 region guarantee。语言 host 提供
+context requirement、placement、scope、declarations 和安装 simulation；
+factory 的原源 progress 不单独代表整程序正确性。该族自动 C metadata
+frontend、selected compiler/native 和成本仍待完成，不能以数据例冒充已接
+完整 optimizer。Narrative 可见 `12419c1` 内容与 main 相同，guarantee/requirement
+clause 化仍开放；compact/OLO 完整验收继续约束 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [完整 nested loaded guard/rewrite](word-store-nested-guard.md)从原 source
 执行生产 conditional captures/gates，关闭前一双方 ready 的入口假定。语言
 服务证明 outer 空域不读取 child/cache/数组、安全联合 scan、实际 cached

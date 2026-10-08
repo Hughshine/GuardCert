@@ -2,6 +2,32 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[双 loaded store-list 数据入口](word-nested-store-data-factory.md)
+已自动生产七个私有 int32 slots、source/body syntax、scope、rename 与原 loaded
+source progress，接完整 header rewrite 的实际执行定理和既有递归 cached
+multi-tensor model checker。三模块／34 端点独立审计：29 闭合、最多 6 项旧
+globals、1,280 可达绑定，零新增公理；自动 package 的真实接受、child alias
+fallback、空域执行与静态 refusal 均检查。Kernel/host contract 保持。
+
+**下一项接同族真实 candidate 分派和 region guarantee。**静态 model 构造不
+读取 runtime child cache；空域接受必须绕开无条件参数准备，活跃接受从
+actual guard exit 的 cached execution 接完整候选服务。内层拒绝执行 cached
+source，外层拒绝执行原 loaded AST，分别证明 final memory/public exit。
+之后消费已有 expression-progress selected host、marked C、真实 Pluto／
+prepared codegen，完成本族 C→Asm/native/context。原 source progress 已由
+factory 生产；placement、pool declarations 和 site/context requirement 仍由
+语言 host 的安装证据负责，局部 execution 定理不替代这些证据。
+
+当前 data description/model proposer 属于 domain 库接入方；本族自动 C
+metadata frontend 未接，不把普通数据 API 称为已经完成的源码使用体验。
+此次 fetched narrative/all heads 可见仍为 `12419c1`，两正文与 main 相同，
+未发现较新已推送澄清；三方责任和 guarantee/requirement 开放边界保持。
+已闭合 slice 的 compact conditions/OLO 代码尺寸、运行工作、接受域、完整
+成本及可用性验收继续独立推进，不等待所有 source grammar 扩展。
+一般 affine source/scalar 扩展仍在完整目标；本阶段没有新 native 或成本。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[完整双 loaded guard 与 cached/original 分派](word-store-nested-guard.md)
 已从原 source 执行生产 conditional capture、ready 和 gates；outer 空域跳过
 child capture/cache 与全部数组检查。活跃接受接联合 scan，再从 actual guard

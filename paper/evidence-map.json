@@ -2112,6 +2112,69 @@
         "docs/word-store-nested-guard.md"
       ],
       "evidence_stage": "word_store_nested_guard_stage"
+    },
+    {
+      "id": "word-nested-store-data-source-and-cached-model-factory",
+      "status": "mechanized data entry; full candidate dispatch and family installation pending",
+      "description": "Typed resource allocation, original loaded-source progress and static scopes produce complete header rewrite packages; ordinary cached metadata is independently checked.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactory.v",
+          "name": "allocate_word_nested_store"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactory.v",
+          "name": "nwa_allocated_int32"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactory.v",
+          "name": "nwa_private_fresh"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactory.v",
+          "name": "nwa_candidate_pool_private"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactory.v",
+          "name": "nwsp_original_progress"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactory.v",
+          "name": "nwsp_rewrite_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreDataEntry.v",
+          "name": "check_word_nested_store_data_source"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreDataEntry.v",
+          "name": "check_word_nested_store_data_polyhedral_source"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactoryExample.v",
+          "name": "nested_factory_accepting_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactoryExample.v",
+          "name": "nested_factory_child_fallback_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactoryExample.v",
+          "name": "nested_factory_empty_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactoryExample.v",
+          "name": "nested_factory_polyhedral_model_checked"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFactoryExample.v",
+          "name": "nested_factory_model_mismatch_refuses"
+        }
+      ],
+      "documents": [
+        "docs/word-nested-store-data-factory.md"
+      ],
+      "evidence_stage": "word_nested_store_factory_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7125,6 +7188,44 @@
     "parent_endpoints_inherited_from_frozen_report": true,
     "historical_transitive_audits_rerun": false,
     "additional_global_axioms": [],
+    "full_goal_complete": false
+  },
+  "word_nested_store_factory_stage": {
+    "report": "build/multi-word-nested-factory/proof-v1/report.json",
+    "report_sha256": "5f8e904381ae1c2b655bebedf8c53fe066f89adb101cad638680f046d9ea06e8",
+    "audited_endpoints": 34,
+    "closed_endpoints": 29,
+    "maximum_endpoint_globals": 6,
+    "bound_files": 1280,
+    "parent_bound_files": 1142,
+    "compiler_allowed_global_count": 42,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "runtime_scan_axes": 2,
+    "assignment_list_length_fixed": false,
+    "private_typed_slots_automatically_allocated": 7,
+    "private_cache_and_scan_roles_distinct": true,
+    "original_source_AST_independently_checked": true,
+    "original_loaded_source_progress_produced": true,
+    "cached_progress_used_as_original_progress": false,
+    "source_user_semantic_callback_API_added": false,
+    "static_scope_and_rename_obligations_produced": true,
+    "actual_complete_header_guard_rewrite_execution_from_package": true,
+    "runtime_READY_or_cached_execution_input_premises": false,
+    "candidate_pool_excludes_all_header_private_slots": true,
+    "cached_model_description_is_ordinary_untrusted_data": true,
+    "existing_recursive_multi_tensor_model_checker_consumed": true,
+    "checkers_and_static_refusals_evaluated_by_Rocq": true,
+    "actual_accept_alias_and_empty_execution_fixtures_proved": true,
+    "new_full_candidate_dispatch_or_projected_contract": false,
+    "new_selected_compiler_or_Csem_to_Asm_endpoint": false,
+    "new_native_or_cost_evidence": false,
+    "language_and_domain_instantiation_still_require_proofs": true,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "new_modules_reachable_dependency_closure_bound": true,
+    "additional_global_axioms": [],
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
     "full_goal_complete": false
   }
 }
