@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Zero-width model bridges](docs/zero-width-model-bridges.md)
+now prove source/model/candidate correspondence under a nonnegative child-width
+assumption. New mapped/tiling wrappers require candidate validation in that wider
+domain; actual first-reached guard acceptance produces the complete input view.
+Five modules audit 17 endpoints with no additional axioms. Factory/compiler
+integration remains active; installed first-empty-child inputs still fall back.
+
 2026-10-08: [Leading-empty body licensing](docs/leading-empty-body-licensing.md)
 now recovers a later reached body from the original loaded-affine source and
 produces its input typing through a certified affine endpoint condition.

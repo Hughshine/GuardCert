@@ -68,6 +68,17 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Zero-width model bridges](zero-width-model-bridges.md)落实 narrative
+的 proof direction/provenance 要求：actual guard 接受生产完整 typed view
+和更宽 width 假设；domain source decoder 只从给定 actual source execution
+恢复 Loop 和公开 exit；mapped/tiling wrappers 为新 assumed source/candidate
+给出 C_opt soundness；language backend/restore 生产实际候选和公开出口。
+五模块／17端点／7closed／1,400bindings／至多旧12globals，无新增公理。
+Kernel、host 和底层 validators 保持；不把旧 first-positive certificate
+推广使用。新的 loaded-source stability/cached-completion producer 和
+factory/compiler/native 尚未连接，源码用户没有新增 semantic callback。
+具体候选更宽域的 checker acceptance 尚未实跑，完整 goal 保持。
+
 2026-10-08 [Leading-empty body licensing](leading-empty-body-licensing.md)
 区分了三项责任：language 从原有限执行越过 empty child prefix，证明到
 later leaf 前 memory／protected ports 保持；domain 用常数个 affine

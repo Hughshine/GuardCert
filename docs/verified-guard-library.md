@@ -18,6 +18,12 @@ prefix 保持入口 memory、原 later leaf 生产 body words，以及 affine en
 observation 三类之间运输调用前提，尚未接 factory/compiler；安装态的
 first-positive 限制、candidate 模型域与 native 接受域保持。
 
+后继 [zero-width 模型桥](zero-width-model-bridges.md)已把该 condition 的接受
+接到完整 typed view、nonnegative width 和新 assumed-model certificate。
+它复用 condition 编码与 validators，新增的是 domain 充分性/对应和实际
+candidate lowering/public restore；kernel 不变。候选必须在新域重新检查，
+全空模型不许可 body-only reads。Factory、stability 和安装态接受域仍待连接。
+
 ## 服务按建立的事实分类
 
 分类不是互斥的：一个实际扫描可能同时需要 arithmetic、footprint 和
