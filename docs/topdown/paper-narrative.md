@@ -255,6 +255,44 @@ Language-specific services include:
 This separation should be explicit in the paper so that "framework" does not
 silently absorb work still performed by an optimizer author or language adapter.
 
+### Organizing the verified guard library
+
+Clarification from the 2026-10-08 discussion: organize recurring check families
+and their dependencies before adding more isolated helpers. Start with the
+existing implementations, using the following provisional classification:
+
+| Check family | Fact established on acceptance |
+| --- | --- |
+| Arithmetic and representation | Machine computations agree with the required mathematical values |
+| Ranges and footprints | Reached accesses are covered by a checked range or footprint |
+| Memory separation | Relevant writes and accesses/observations do not overlap |
+| Value and observation preservation | Required observations survive writes, including permitted overlap |
+| Control and conditional observation | A later read/check is licensed, or an empty path bypasses it |
+
+A service contract should distinguish prerequisites for safe invocation from
+facts obtained on success, and record reads, private writes, public-state
+preservation, and refusal behavior. Composition must support ordered dependent
+checks, short-circuiting, conditional capture, and alternative sufficient
+conditions for the same obligation. For example, separation and value-preserving
+writes can independently establish header stability; neither permits speculative
+reads without a language-level license.
+
+For CompCert, consider verified C/Clight routines or generated statement
+templates, with calls versus inlining chosen from actual reuse and cost.
+A callable routine requires its call/state contract to be connected to the
+existing compiler proof; current generated scan services are not already such
+a runtime C library. Keep domain-specific condition derivation separate from
+safe execution and composition. Instance-specific checks remain extensible by
+supplying the same obligations.
+
+As a small design task, map existing arithmetic, header, alias and zero-RMW
+services to these families and identify genuinely shared contracts before
+extracting interfaces. Reuse candidate and installation proofs where applicable.
+This is library organization above the minimal kernel, not a new universal
+check language or a prerequisite delaying current implementation milestones.
+Packaging scans does not replace compact-condition derivation or its cost
+evaluation.
+
 ## 7. Repeated application is an important framework payoff
 
 A user pass may choose locations and candidates using arbitrary heuristics.
