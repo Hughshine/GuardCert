@@ -2230,6 +2230,40 @@
         "docs/word-nested-store-affine-compiler.md"
       ],
       "evidence_stage": "word_nested_store_affine_stage"
+    },
+    {
+      "id": "word-nested-store-real-marked-C-ranked-polyhedral-native",
+      "status": "proved-frontend-and-selected-compiler; real-C-native-functional-matrix-passed",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFrontend.v",
+          "name": "trim_loop_skips_temps"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFrontend.v",
+          "name": "word_nested_store_frontend_contract"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFrontend.v",
+          "name": "check_word_nested_store_frontend_affine_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreFrontend.v",
+          "name": "checked_word_nested_store_frontend_affine_regions_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreFrontendCompiler.v",
+          "name": "compile_selected_word_nested_store_frontend_affine_regions"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreFrontendCompiler.v",
+          "name": "compile_selected_word_nested_store_frontend_affine_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/word-nested-store-native-pipeline.md"
+      ],
+      "evidence_stage": "word_nested_store_native_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7314,6 +7348,60 @@
     "new_native_C_driver_or_extracted_factory_execution": false,
     "new_native_or_cost_evidence": false,
     "language_and_domain_instantiation_still_require_proofs": true,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "new_modules_reachable_dependency_closure_bound": true,
+    "additional_global_axioms": [],
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
+  },
+  "word_nested_store_native_stage": {
+    "report": "build/multi-word-nested-frontend/proof-v1/report.json",
+    "report_sha256": "a75699c71cb295c28332c879926568929ce202874f229c75591106554f5a407a",
+    "native_report": "build/multi-word-nested-native/native-v1/report.json",
+    "native_report_sha256": "4677113b7e6451a2e7b13bbaaaee39dc3fc27e171fd4d2ae21d957269103a33e",
+    "compiler_stamp": "build/multi-word-nested-native/compiler-v3/.guard-build.json",
+    "compiler_stamp_sha256": "07b2ec3da2f8e926b7160d5513e4e149ba00a2bd92a41133100000706fd1bb86",
+    "audited_endpoints": 7,
+    "closed_endpoints": 2,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1374,
+    "parent_bound_files": 1380,
+    "assembly_calls": 1000,
+    "independent_Clight_calls": 1000,
+    "configurations": 10,
+    "installed_sites_per_successful_configuration": [
+      1,
+      0,
+      2,
+      1,
+      0
+    ],
+    "full_memory_and_public_outputs_checked": true,
+    "automatic_source_and_cached_model_metadata": true,
+    "source_user_semantic_callback_API_added": false,
+    "actual_source_rank": 2,
+    "synthetic_axis_added": false,
+    "real_Pluto_and_prepared_codegen_connected": true,
+    "per_statement_codegen_followed_by_full_candidate_check": true,
+    "administrative_frontend_normalization_and_scope_proved": true,
+    "original_frontend_progress_checked_by_existing_host": true,
+    "loaded_fallback_administratively_equivalent_not_byte_identical": true,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "new_Csem_to_Asm_endpoint": true,
+    "actual_fast_branch_execution_checked_separately_from_assembly": true,
+    "header_and_cached_runtime_refusal_checked": true,
+    "outer_empty_conditional_reads_checked": true,
+    "repeated_annotations_and_continuations_checked": true,
+    "independent_schedule_and_unit_tiles_checked": true,
+    "variable_stride_checked": true,
+    "scheduler_failure_static_refusal_checked": true,
+    "unmarked_and_disabled_source_preserved": true,
+    "loaded_rectangular_source_family_only": true,
+    "general_affine_domains_supported": false,
+    "cost_or_source_speedup_added": false,
+    "author_time_measured": false,
     "parent_endpoints_inherited_from_frozen_report": true,
     "historical_transitive_audits_rerun": false,
     "new_modules_reachable_dependency_closure_bound": true,

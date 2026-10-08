@@ -1,5 +1,26 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [双 loaded 实际 C 流水线](word-nested-store-native-pipeline.md)复用
+前一完整 domain guarantee、candidate checker 与语言 selected host，新增
+proved administrative normalization 以适配真实 frontend；语言 host 仍
+检查原 AST 的 progress/placement/freshness。普通数据 proposer 自动从
+marked C 生成 metadata；真实 rank-2 Pluto/codegen 只提出 Loop，完整 checker
+负责最终有效性。Kernel/host contract 无变化，没有源码 semantic callback。
+新 7 端点审计保持旧 globals；1,000 Asm/1,000 独立 Clight 调用覆盖真实候选、
+两层 fallback、条件读取、重复 region 和 continuation。此为两轴 loaded
+矩形源族的安装证据，不是一般域或高性能证据。
+
+下一最难位置转到紧凑充分条件：domain 从原源观察/足够条件构造 entry
+condition；language 证明其安全及 actual guard-exit/public 运输；kernel
+继续消费证书；既有 candidate/host 定理继续连接局部与全局。分别验收
+条件接受域、guard 工作、代码增长、完整成本/收益和作者负担，以 OLO 2017
+功能讨论能力为约束。不能为缩短检查而偷读 source 未许可的 child/RHS，
+也不能靠证明 guard 恒拒绝声称优化可用。当前 scan/cap/fallback 仍保守。
+Fetched narrative 仍为 `12419c1` 且正文一致；guarantee/requirement clause
+algebra 未擅自实现。一般参数化 affine source/scalar 保持在 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [双 loaded 候选与整程序证明](word-nested-store-affine-compiler.md)将
 domain 的原源→cached/model→实际候选对应接成 region guarantee，再由语言
 host 检查原源 progress、scope、typed declarations、placement 和 context

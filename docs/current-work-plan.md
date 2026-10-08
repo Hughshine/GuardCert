@@ -2,6 +2,36 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[双 loaded 实际 C/Pluto/codegen/native](word-nested-store-native-pipeline.md)
+已关闭前一阶段的实际驱动缺口：proved administrative-skip adapter 运输原
+frontend source guarantee；自动普通 metadata、真实两轴模型、Pluto 与
+per-statement prepared codegen 接入提取的 selected compiler。完整 checker
+重检 distributed/completed/rebound Loop，不添加虚拟 axis 或语义 callback。
+新 adapter/整程序审计 7 端点、2 闭合、1,374 可达绑定，核对冻结 parent 的
+1,380 绑定，保持旧 42-global baseline、无新增公理或 kernel/host contract。
+
+十组配置的 1,000 次未插桩 Asm 和独立 1,000 次 Clight 分支检查通过，完整
+memory/public exits 与逐次读取实际 header 的源模型一致。成功配置每组安装
+四 sites；普通/单位 tile、行/列、参数 stride、真实 schedule、重复标注、
+continuation、header/cached 两层回退、空域及失败 scheduler 均覆盖。
+报告 `build/multi-word-nested-native/native-v1/report.json`；本族支持的是
+两轴 loaded 矩形源族，不将调用数当作一般 affine domain 支持。
+
+**下一项直接验收已闭合源族的紧凑条件及 OLO 完整功能/可用性，不能以更多
+源 grammar 扩展无限延后。**当前 cap 8、header 逐点 scan、跨数组 point-pair
+scan 和多份 fallback 的成本/代码尺寸仍有明确风险。域库构造紧凑充分 entry
+condition；语言证明安全求值及 actual-exit/public transport；复用现有
+candidate/region guarantee/host，再分别测接受域、guard 工作、完整成本/
+收益和作者负担。一般参数化 affine source 与 scalar 扩展仍在 active goal。
+
+再次 fetch 所有远端 heads：narrative 可见仍为 `12419c1`，两正文与 main
+相同。其 kernel 局部截止、language 的 progress/boundary/installation、
+domain 的充分前提/模型对应，以及 guarantee/requirement clauses 开放讨论
+继续约束设计；不为文档叙述新增 kernel API。本阶段新增功能运行证据，
+没有新增成本或性能收益结论，完整 goal 未完成。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[双 loaded store-list 候选与整程序证明](word-nested-store-affine-compiler.md)
 已把实际 header-guard 出口的 cached execution 接完整多数组 affine/tiling
 candidate checker，证明两层 fallback/public transport，生产 projected region
