@@ -2,6 +2,31 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[双 loaded store-list 候选与整程序证明](word-nested-store-affine-compiler.md)
+已把实际 header-guard 出口的 cached execution 接完整多数组 affine/tiling
+candidate checker，证明两层 fallback/public transport，生产 projected region
+guarantee，再消费既有 expression-progress selected host 接 Csem→Asm。空域
+分支绕开整个内层候选准备；真实执行 fixture 证明任意候选不可达且 child／
+数组仍未定义。三模块／14 端点／6 闭合／1,380 绑定，保持旧 42-global baseline，
+无新增公理、kernel 或 host contract。二维两数组有意依赖的普通模型检查通过。
+
+**下一项直接接本族实际 C 驱动和真实 optimizer，不能再以接口样例替代。**
+从 marked C 的真实规范化 AST 自动生成普通 loaded/model metadata，接两轴
+Pluto／prepared codegen 和已证明 compiler 的提取，验收 native 接受、两层
+refusal、缺失 child 的空域、多个标注及 continuation。C wrapper/reset/header
+适配、真实调度维度与分配资源是当前具体连接风险；不引入虚拟第三轴来
+掩盖两轴缺口。既有 temp-bound native 的证据不自动覆盖新族。
+
+本次 fetch 后 narrative 仍为 `12419c1`，两正文与 main 相同。其三方责任继续
+约束工作：kernel 止于局部证书组合；language host 证明 boundary/progress/
+placement/installation；domain/factory 生产前提推导、局部对应和 guarantee，
+支持族源码用户只给 marked C／策略，不补 semantic callback。Guarantee／
+requirement clause 化保持开放。紧凑条件／OLO 完整功能、代码尺寸、检查工作、
+接受域、成本和作者负担仍需独立验收，不等待所有 source 扩展；一般参数化
+affine source／scalar 等仍在 active goal。本阶段没有新 native 或成本证据。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[双 loaded store-list 数据入口](word-nested-store-data-factory.md)
 已自动生产七个私有 int32 slots、source/body syntax、scope、rename 与原 loaded
 source progress，接完整 header rewrite 的实际执行定理和既有递归 cached

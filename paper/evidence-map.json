@@ -2175,6 +2175,61 @@
         "docs/word-nested-store-data-factory.md"
       ],
       "evidence_stage": "word_nested_store_factory_stage"
+    },
+    {
+      "id": "word-nested-store-affine-candidate-region-and-selected-compiler",
+      "status": "mechanized full candidate dispatch and Csem-to-Asm; family native integration pending",
+      "description": "Actual header-guard exit licenses checked affine/tiling candidate; empty acceptance bypasses inner preparation; projected region guarantee is installed by the existing expression host.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffine.v",
+          "name": "nwsp_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffine.v",
+          "name": "nwspp_affine_target"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffine.v",
+          "name": "nwspp_affine_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffine.v",
+          "name": "nwspp_affine_contract"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffine.v",
+          "name": "check_word_nested_store_affine_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffine.v",
+          "name": "checked_word_nested_store_affine_regions_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreAffineCompiler.v",
+          "name": "compile_selected_word_nested_store_affine_regions"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreAffineCompiler.v",
+          "name": "compile_selected_word_nested_store_affine_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffineExample.v",
+          "name": "nested_affine_empty_bypasses_candidate"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffineExample.v",
+          "name": "nested_affine_two_array_source_model_checked"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreAffineExample.v",
+          "name": "nested_affine_wrong_flow_description_refused"
+        }
+      ],
+      "documents": [
+        "docs/word-nested-store-affine-compiler.md"
+      ],
+      "evidence_stage": "word_nested_store_affine_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7219,6 +7274,44 @@
     "actual_accept_alias_and_empty_execution_fixtures_proved": true,
     "new_full_candidate_dispatch_or_projected_contract": false,
     "new_selected_compiler_or_Csem_to_Asm_endpoint": false,
+    "new_native_or_cost_evidence": false,
+    "language_and_domain_instantiation_still_require_proofs": true,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "new_modules_reachable_dependency_closure_bound": true,
+    "additional_global_axioms": [],
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
+  },
+  "word_nested_store_affine_stage": {
+    "report": "build/multi-word-nested-affine/proof-v1/report.json",
+    "report_sha256": "b2dcdb2e9a7dd849e2e3c96e86fb755e52f477152edf080a0acd79c162114fd9",
+    "audited_endpoints": 14,
+    "closed_endpoints": 6,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1380,
+    "parent_bound_files": 1280,
+    "compiler_allowed_global_count": 42,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "runtime_scan_axes": 2,
+    "assignment_list_length_fixed": false,
+    "data_only_source_and_model_proposers": true,
+    "source_user_semantic_callback_API_added": false,
+    "original_source_licenses_guard_and_cached_source": true,
+    "actual_guard_exit_cached_execution_licenses_inner_candidate": true,
+    "empty_outer_bypasses_all_inner_candidate_preparation": true,
+    "accepted_empty_with_undefined_child_and_arrays_execution_proved": true,
+    "header_refusal_runs_original_loaded_AST": true,
+    "inner_setup_and_alias_refusal_run_cached_source_AST": true,
+    "public_exit_and_original_final_memory_preserved": true,
+    "existing_multi_array_affine_and_tiling_candidate_checker_consumed": true,
+    "new_projected_region_guarantee_produced": true,
+    "existing_expression_progress_selected_host_consumed": true,
+    "new_Csem_to_Asm_endpoint": true,
+    "original_loaded_progress_not_cached_progress_for_host": true,
+    "static_two_axis_two_array_affine_model_fixture_checked": true,
+    "new_native_C_driver_or_extracted_factory_execution": false,
     "new_native_or_cost_evidence": false,
     "language_and_domain_instantiation_still_require_proofs": true,
     "parent_endpoints_inherited_from_frozen_report": true,

@@ -1,5 +1,24 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [双 loaded 候选与整程序证明](word-nested-store-affine-compiler.md)将
+domain 的原源→cached/model→实际候选对应接成 region guarantee，再由语言
+host 检查原源 progress、scope、typed declarations、placement 和 context
+requirement，导出 Csem→Asm。Kernel 不增加语言或 polyhedral 知识。实际
+header-guard 出口许可内层候选；空域直接绕开其参数准备，两层 refusal 分别
+运行原 loaded 或已证明对应的 cached source。14 端点／6 闭合／1,380 绑定，
+保持旧 42-global baseline，零新增公理。源码用户 semantic callback 未新增。
+
+下一最难位置是证明入口与真实 C 流水线的一致接线：自动 metadata、规范化
+wrapper/reset/loaded expression、两轴真实 Pluto/prepared codegen、提取后的
+compiler installation 与 native 空域/接受/回退/context。已量化 proposer 的
+整程序定理不代替这些运行证据，旧 temp-bound native 不自动覆盖新族。
+Narrative fetch 仍为 `12419c1`，kernel 的局部截止和 host 的 guarantee/
+requirement 边界保持；clause algebra 不冒充已实现接口。支持族作者不手填
+语义证明，新语言/domain 作者仍负责新增证明。Compact/OLO 的条件安全、
+充分性、运输、接受域及完整成本仍约束 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [双 loaded data factory](word-nested-store-data-factory.md)落实三方
 责任的可计算入口：语言 typed allocator/scope/rename/progress 定律由数据
 checker 实例化，domain 提案经实际 source/body/model 检查生产内部 package，
