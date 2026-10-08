@@ -56,6 +56,15 @@ semantic callback。Source progress／context installation 留在原 host。
 这是同 host 两算法的复用；不同 host 的 clauses／entailment 未实现。
 下一项用第三个廉价条件服务检验实际作者负担和完整成本。完整 goal 保持。
 
+本次重读 narrative 后，第三个服务的验收进一步固定在
+[当前计划](current-work-plan.md)：新增 domain／language 的检查证明和
+checked builder，复用 common factory、loaded contract 及 Csem→Asm
+端点。`source_licensed_scan.licensed_scan_execution` 消费 source 的完成
+执行、ready 和 ports agreement；它不生产 source progress、placement 或
+installation 证明。其 accepted fact 是充分条件，不要求所有服务保留旧
+Boolean 或接受域。实际源码用户与新服务作者的义务、复用端点、接受域和
+完整成本分别记录；本次没有新增证明／运行结果。
+
 以下保留前阶段当时范围。
 
 2026-10-08 [Canonical 完整 compiler](canonical-alias-compiler.md)落实了上一

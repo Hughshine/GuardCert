@@ -50,6 +50,42 @@ checks。普通 source/candidate proposals 与已证明 service implementations
 复制接线模块而延后条件成本。General affine／scalar／完整 OLO 联合能力
 仍在 active goal。
 
+### 本次 narrative 澄清对下一项验收的约束
+
+2026-10-08，main `f41344e`。重新读取远端 `12419c1` 的完整 narrative 和
+context-lifting，并对照 `ClightSourceLicensedScan.v`、
+`ClightMultiTensorScanService.v` 及共用 factory／compiler。两份 narrative
+文档与 main 相同；本次没有新的优化、证明或测量结果。
+
+第三个条件服务用来检验接口能否减少真实证明工作。服务作者提供检查 AST、
+结果 temp、checked allocation，以及从原 source 执行／setup／ports agreement
+到安全检查执行、frame 和 accepted entry fact 的证明。它满足
+`source_licensed_scan` 后，沿用 `check_scan_service_full_execution`、
+原 loaded-region contract 和 `compile_selected_word_nested_store_service_regions_correct`。
+新服务不应再复制这三层证明；记录新增的 domain／language 证明、代码生成
+与 driver 注册工作，和实际复用的端点。代码行数可记录，不能代替作者时间
+或已经减少验证负担的结论。
+
+这项服务的具体验收顺序是：
+
+1. Domain 证明 access-template 去重保持所需 alias 条件；language 证明
+   删除检查后每次剩余读取仍由原 source 许可，机器执行、memory／公开
+   frame 和私有结果满足接口。去重可以追求精确 Boolean，但通用接口只
+   要求接受充分性；将来更强的充分条件可以拒绝更多输入。
+2. 自动 builder 生产 typed/fresh resources 和证书，接同一 factory、
+   loaded host 与实际 C→Asm compiler。支持族的源码用户仍只给标注 C
+   和策略；候选 proposer 提交普通数据，不提交 semantic callback。
+3. 验收实际安装、接受／回退／空域／continuation，并保留 intermediate
+   model、scheduler／codegen 和 validator 记录。完成执行作为 scan 定理
+   的前提，不代表该接口自动证明 source progress 或任意 context 安装。
+4. 分别报告接受域、检查工作、代码尺寸和完整调用成本。既有 canonical
+   测量的所有输入仍慢于 source；新增服务的节省及收益必须重新取得证据。
+   新旧条件精确对应、检查数下降、编译器正确性均不能单独证明可用性。
+
+OLO 2017 仍约束自动条件处理与使用体验；一般 affine 功能及其差距继续
+记录。Context clause factoring 以现有 host 的实际复用为依据；第二种 IR
+是可选证据，不能成为主 CompCert 实例的隐含前置任务。
+
 以下保留前阶段当时范围。
 
 2026-10-08：[Canonical alias 完整 compiler](canonical-alias-compiler.md)接通
