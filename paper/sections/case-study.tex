@@ -650,9 +650,28 @@ The first reused nest proposer mistook a two-assignment leaf for reset plus
 child; the final shape gate safely refused it. Its successor checks that the
 second statement is a loop and the first its reset before proposing a child.
 This fixes source recognition while retaining independent certificate checks.
-Generic runtime scan safety, accepting coverage, actual-exit transport and the
-candidate connection remain required before this data path can install a
-whole-program transformation. Loaded source-prefix proofs remain separate.
+Generic runtime scan safety and accepting coverage were the next obligations
+at that checkpoint. The successor below discharges them; actual-exit transport
+and candidate connection still precede installation. Loaded source-prefix
+proofs remain separate.
+
+The generalized scan extracts every actual affine write/read template from the
+checked assignment list. Private cursors range over pairs of source points;
+stable scalar parameters determine access coordinates such as $A[i+1,j]$ and
+$B[i,j+q]$. Loop and tensor ranks are independent. Actual source trace receipts
+license each pure, valid, aligned address comparison without assuming
+separation. Within one logical array, layout injectivity handles different
+cells; same-cell dependences remain visible to the validator. Across arrays,
+the accepted comparisons establish separation on the complete source footprint.
+
+The same package and typed allocator now initialize and execute this static
+Clight scan, preserving memory and all source/caller temporaries. The test
+source uses three arrays and two assignments; its parameter $q$ also occurs
+in the RHS. The existing source-capability gate conservatively refuses a
+matched source where $q$ occurs only in a coordinate. The guard still performs
+quadratic point-pair work and continues after refusal. Transport to its actual
+exit, checked-candidate execution and this family's selected installation remain
+open; this local service adds no native execution or cost result.
 
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array

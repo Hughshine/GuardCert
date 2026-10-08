@@ -1859,6 +1859,39 @@
       "documents": [
         "docs/multi-array-data-factory.md"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Static actual-affine-access scans, source-licensed safety, footprint separation and typed package execution; no new installed compiler or native/cost evidence.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorAffineReceipts.v",
+          "name": "multi_tensor_affine_address_receipt"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorAffineFootprint.v",
+          "name": "multi_tensor_affine_source_footprint_member"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorAffineFootprint.v",
+          "name": "multi_tensor_affine_scan_footprint_separation"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorAffineScan.v",
+          "name": "multi_tensor_affine_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffinePackageScan.v",
+          "name": "multi_tensor_affine_package_source_scan"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorAffineScanExample.v",
+          "name": "affine_scan_coordinate_only_parameter_refused"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-affine-access-scan.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6619,5 +6652,34 @@
     "C_or_assembly_evidence_added": false,
     "measured_cost_added": false,
     "loaded_header_prefix_licensing_added": false
+  },
+  "multi_array_affine_scan_stage": {
+    "report": "build/multi-tensor-affine-scan/proof/report.json",
+    "report_sha256": "34c289cc930bfd31f00e1bb3dd7de15894ee24f0ce65197c22beb5994ed7460f",
+    "endpoints": 28,
+    "closed_endpoints": 18,
+    "maximum_endpoint_globals": 6,
+    "compiler_baseline_globals": 42,
+    "bound_files": 141,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "host_changed": false,
+    "actual_affine_access_templates_scanned": true,
+    "actual_source_permissions_license_scan": true,
+    "static_AST_depends_on_runtime_counts": false,
+    "source_loop_rank_and_tensor_rank_are_independent": true,
+    "typed_allocation_and_private_flag_initialization_added": true,
+    "source_and_caller_frame_added": true,
+    "scan_acceptance_implies_source_footprint_separation": true,
+    "source_user_supplies_semantic_callbacks": false,
+    "coordinate_only_scalar_capability_gate_added": false,
+    "closed_checker_allocator_computations": 9,
+    "scan_continues_after_alias_refusal": true,
+    "candidate_at_generic_scan_exit_added": false,
+    "whole_family_selected_installation_added": false,
+    "loaded_header_prefix_licensing_added": false,
+    "new_compiler_theorem": false,
+    "C_or_assembly_evidence_added": false,
+    "measured_cost_added": false
   }
 }

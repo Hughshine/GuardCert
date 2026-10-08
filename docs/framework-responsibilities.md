@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [实际 affine access scan](multi-array-affine-access-scan.md)区分语言
+的地址编码／原源 permission transport／循环执行／public frame，与 domain
+的实际模板／coverage／接受充分性。同一 package／typed allocation 生产
+检查许可，无源码用户 semantic callback 或入口 NonAlias。Kernel／host
+定义保持；最难的下一连接是 original locator／source/model 到 actual scan
+exit，接候选、公开恢复、projected guarantee 与 selected installation。
+**泛化扫描未新增 compiler／native／cost；coordinate-only scalar 仍是保守
+拒绝边界，loaded header 与原源 prefix 保持尚未闭合。**Narrative `12419c1`
+与 main 两正文一致，其三方责任继续作为工作计划约束。
+
 2026-10-08 [数据 source factory](multi-array-data-factory.md)从实际 AST 和普通
 assignment metadata 生产 static source／shape／freshness／progress 与 checked
 box，接完整 setup 和实际源模型；typed allocator 生产 private declarations

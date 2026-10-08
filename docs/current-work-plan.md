@@ -2,6 +2,23 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[实际 affine access scan](multi-array-affine-access-scan.md)将同一
+source package／typed allocator 接到任意访问数和 identifiers 的静态 Clight
+双矩形。原源 trace 许可实际 affine write/read 地址，接受生产 actual
+footprint separation；flag 自初始化，memory 与全部 source／caller temps
+保持。Kernel／host 定义保持，新族未安装。
+**下一项直接运输同一 source/model／受限 locator 到实际 scan exit，接
+checked candidate／restore／原 AST fallback，生产 projected guarantee 并
+消费 selected host／Csem→Asm。**Coordinate-only scalar 的 source 可观察性
+gate 仍保守拒绝，需要后继 receipt/checker；loaded 两 store 的 header/prefix、
+一般 affine domains、紧凑条件与 OLO 完整可用性继续属于 active goal。
+本轮 fetch 并读完 narrative／context-lifting：远端仍为 `12419c1`，两正文
+与 main 一致。真实 polyhedral 集成、三方责任及最难的状态连接继续约束
+实现顺序，局部服务不算新族整程序完成。
+
+以下为 data-factory 阶段记录；generic scan 的许可／coverage 已由上述
+后继推进，actual-exit／candidate／placement／完整安装仍待完成。
+
 2026-10-08：[数据 source factory 与 typed scan 资源](multi-array-data-factory.md)
 已从任意 identifiers／assignment list 的实际 temp-bound AST 生产 source
 package、静态 freshness／shape、checked box 与原源 progress。完整 setup 接受
