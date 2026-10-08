@@ -1641,6 +1641,31 @@
       "documents": [
         "docs/multi-array-tensor-body.md"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual active multi-array counted Clight nests decode to the fixed entry Loop model using registry agreement only on checked array IDs; checked generated candidates execute with the same final memory and restore the public source iterator exit. Safe entry-premise generation and installation remain open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorFrame.v",
+          "name": "multi_tensor_body_source_decode_at_entry"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorSourceRegion.v",
+          "name": "multi_tensor_source_region_decode"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorSourceCandidates.v",
+          "name": "multi_tensor_original_generated_restored"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorSourceExample.v",
+          "name": "multi_tensor_nest_demo_generated_restored"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-tensor-source.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6226,5 +6251,25 @@
       "diagnostics_report_sha256": "d6af5650a1bbcce0fd818ac0f15eb5a4894c99f3cadc611ba251799af470dff2",
       "joint_codegen_success_or_failure_established": false
     }
+  },
+  "multi_array_tensor_source_region_stage": {
+    "report": "build/multi-tensor-region/proof/report.json",
+    "report_sha256": "c5bf246ba1caaba717b4c9d7e39f43686b52567f6ce7e2c1a5933bb86a9474ee",
+    "endpoints": 28,
+    "closed_endpoints": 19,
+    "maximum_endpoint_globals": 14,
+    "compiler_baseline_globals": 42,
+    "bound_files": 123,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "original_source_execution": "actual active temp-bound Clight counted nest",
+    "raw_registry_agreement_scope": "checked source array IDs",
+    "public_iterator_exit_restored": true,
+    "entry_box_layout_and_separation_still_required": true,
+    "runtime_cross_array_alias_encoder_added": false,
+    "loaded_multi_store_prefix_licensing_added": false,
+    "new_compiler_theorem": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false
   }
 }
