@@ -1,5 +1,23 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [双 loaded axis 的联合 scan/cached 出口](word-store-nested-scan.md)
+把三方责任推进到实际 nested source：语言服务提供当前原 store 的许可、
+joint-header 地址检查、安全双短路 loop、memory/live frame 与实际出口运输；
+domain 通过当前点/行接受推进原 prefix，全部接受后导出 cached nest 执行。
+入口锚定 header-law 的 successor 复用原 receipt/advance，不增加 kernel
+语义知识。源码用户 callback API 未新增；新族自动 factory 尚待接线。
+
+下一最难位置是 conditional capture/gates：outer 不活跃时不能读取未定义
+child header。当前 theorem 要求两份已捕获 ready，不由这个前提代替 producer。
+随后生产 source/model/candidate 对应、region guarantee 和 placement/resource
+evidence；语言 host 的 progress/boundary/installation 负责整程序连接。公共
+边界随 site/context 而定；guarantee/requirement 分解与 clause algebra 仍开放。
+本次 narrative fetch 仍为 `12419c1`，正文与 main 一致；没有新增 native、
+完整 loaded compiler 或成本结论。实际 polyhedral pipeline、紧凑条件和 OLO
+完整成本/功能/可用性验收继续约束 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [完整原源许可 guard 与 cached 分派](word-store-sequence-scan.md)
 让三方责任落到真实执行：Clight 服务提供 capture 的第一次读取许可、地址
 temp 的运输、gate／短路 cursor 执行、memory/public frame 和实际出口运输；

@@ -2038,6 +2038,45 @@
         "scripts/audit_word_store_scan.py",
         "scripts/compile_word_store_scan_sources.py"
       ]
+    },
+    {
+      "id": "word-store-nested-source-joint-scan-actual-cached-exit",
+      "status": "mechanized library, conditional capture and complete compiler pending",
+      "description": "Original two-axis loaded source licenses joint-header readonly scan; acceptance produces cached nest at actual scan exit. Captured ready/gates remain premises; no new installed compiler or cost evidence.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightAnchoredExpressionPrefix.v",
+          "name": "expression_prefix_local_receipt"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedPrefix.v",
+          "name": "word_store_nested_outer_advance"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedRuntime.v",
+          "name": "word_store_nested_point_runtime"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedScan.v",
+          "name": "word_store_nested_scan_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedCached.v",
+          "name": "word_store_nested_scan_cached_exit"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedScanExample.v",
+          "name": "nested_scan_demo_actual_accepts"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedScanExample.v",
+          "name": "nested_scan_demo_actual_child_refuses"
+        }
+      ],
+      "documents": [
+        "docs/word-store-nested-scan.md"
+      ],
+      "evidence_stage": "word_store_nested_scan_stage"
     }
   ],
   "bibliography_evidence": [
@@ -6986,6 +7025,39 @@
     "kernel_changed": false,
     "host_contract_changed": false,
     "actual_Clight_execution_fixtures_proved": true,
+    "additional_global_axioms": [],
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
+  },
+  "word_store_nested_scan_stage": {
+    "report": "build/multi-word-nested/proof-v1/report.json",
+    "report_sha256": "27d4447c320d7b5caac717a11c24883944458940725ef433875ba1e48cd426ae",
+    "audited_endpoints": 50,
+    "closed_endpoints": 9,
+    "maximum_endpoint_globals": 6,
+    "bound_files": 1138,
+    "parent_bound_files": 1114,
+    "compiler_allowed_global_count": 42,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "header_laws_anchored_to_actual_entry": true,
+    "runtime_scan_axes": 2,
+    "captured_header_addresses_checked": 2,
+    "original_nested_source_licenses_each_point": true,
+    "cached_source_execution_is_input_premise": false,
+    "guard_AST_static_and_not_unrolled_to_runtime_counts": true,
+    "inner_refusal_stops_outer_scan_before_later_source_permissions": true,
+    "all_acceptance_produces_cached_nest_at_actual_scan_exit": true,
+    "actual_Clight_execution_fixtures_proved": true,
+    "child_only_header_alias_fixture_proved": true,
+    "capture_ready_is_produced_by_this_stage": false,
+    "capture_and_nonnegative_gates_are_still_input_conditions": true,
+    "complete_cached_or_original_dispatch_added": false,
+    "new_loaded_family_factory_or_selected_installation": false,
+    "new_polyhedral_candidate_or_compiler_endpoint": false,
+    "new_native_or_cost_evidence": false,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
     "additional_global_axioms": [],
     "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
     "full_goal_complete": false

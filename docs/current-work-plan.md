@@ -2,6 +2,33 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[双 loaded axis 的联合 scan 与实际 cached 出口](word-store-nested-scan.md)
+已将任意 checked store list 接到原 nested source 的逐点许可。当前点接受保持
+两份 header，当前行全接受才推进外层；实际双 cursor loop 在内层首次拒绝时
+停止外层。全接受从原源导出 cached nest，再运输到 actual scan exit。入口
+锚定 prefix 服务消除对无关 ready 状态的 header-law 要求，kernel 不改。
+真实 allocation 例证明两份 header 同 word 时接受，以及只修改 child header
+时拒绝；原源只执行一个点，不假设后续点有许可。
+六模块／50 端点审计通过，9 闭合、最多 6 项旧 globals、1,138 项可达绑定，
+无新增公理；前一 1,114 项绑定的成功 report 保持。
+
+**下一项先接原 nest 的 conditional capture/gates 与完整 cached/original
+dispatch：outer 空域必须跳过未定义 child header。**当前双-axis theorem
+要求两份 ready、非负 count 与 row-zero，不将它当作完整 guard producer。
+随后接同族 source/model/candidate、公开恢复和 data factory，自动生产资源、
+scope、progress、region guarantee 与 site placement，消费既有 marked C／
+真实 Pluto／prepared codegen／selected host，取得本族 C→Asm 与 native 验收。
+框架负责局部证书组合，语言负责安全／frame／progress／安装，domain 负责
+充分前提与模型／候选对应；guarantee/requirement clauses 仍为开放设计。
+
+本次 fetch narrative 可见仍为 `12419c1`；读完正文及 context-lifting，与 main
+无差异。其边界直接约束上述最难连接，不为叙述新增 kernel API。已闭合
+temp-bound slice 的紧凑充分条件／接受域／代码尺寸／运行工作／完整成本和
+OLO 功能及可用性比较保留为独立验收项，不要求先完成所有 source 扩展。
+该局部阶段未新增 loaded compiler、native 或成本证据，完整 active goal 不变。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[完整 store-sequence guard／cached 分派](word-store-sequence-scan.md)
 已从原 loaded loop 的正常执行生产捕获／ready，先检查 row-zero／非负 gate，
 再执行静态生成的短路 cursor loop；首个拒绝停止，不使用后续原源许可。
