@@ -140,11 +140,11 @@ mathematical no-wrap assumptions, and header stability are separate facts.
 
 | Certificate link | Current evidence for this source family | Obligation to close next |
 | --- | --- | --- |
-| `C_derive` | The [loaded driver](tensor-loaded-word-driver.md) composes actual conditional capture, count gates, helper initialization and scanning; acceptance derives actual canonical tensor execution. | Produce the static source/resource facts and canonical package from actual AST data in a loaded-family factory. |
-| `C_guard` | The driver safely composes full word scanning with the numeric/layout guard; accepted canonical execution and the accepting tree are transported to the actual complete-check exit. | Package the derived accepted-entry evidence for the checked family and validate its complete generated check on the intended C source. |
-| `C_opt` | The new driver theorem consumes the actual affine/tiled candidate checker at that same check exit and proves final-memory/public-exit correspondence. | Bind real scheduler/codegen output to the new factory and instantiate the complete path for runtime-Horner RMW C. |
-| `C_host` | Existing check/choice laws implement the new concrete full-check and original/candidate dispatch. | Produce supported control and typed private-state evidence from the actual emitted AST. |
-| Installation (language host and site) | The new driver supplies a local projected-region guarantee; selected Clight installation and whole-program compilation theorems are reusable language services. | Connect the data-only factory, source progress, legal placement and new selected Csem-to-Asm endpoint. |
+| `C_derive` | The driver composes actual conditional capture, count gates, helper initialization and scanning. The [checked family factory](loaded-word-family-factory.md) derives its static resources and canonical package from AST data. | Extend source/model capabilities and reduce condition work on the installed family. |
+| `C_guard` | Scan acceptance derives canonical execution; the full guard's accepting tree and execution reach the actual complete-check exit. The same loaded/runtime-Horner C validates actual accepting/refusing dispatch. | Prove compact condition replacements against this complete-check boundary. |
+| `C_opt` | The actual affine/tiled candidate checker proves final-memory/public-exit correspondence at that exit. Real scheduler/tiling/prepared-codegen output is bound to the factory and checked on the same C. | Broaden domains and candidate transformations toward the full objective. |
+| `C_host` | Check/choice laws implement full-check dispatch. The factory/host check actual private allocation, source control and frontend administrative equivalences. | Measure author obligations and keep these checks automatic. |
+| Installation (language host and site) | Selected base/frontend/padded-leaf Csem-to-Asm endpoints and same-C native installation pass, including unmarked/repeated sites and continuation effects. | Quantify complete-execution costs and apply the host boundary to future families. |
 
 The four certificate links describe local proof ownership and reuse; installation
 is a further language/IR step. They are not new records that an end user must
@@ -161,6 +161,15 @@ incoming caches/helper, and prove canonical/original execution from the scan
 exit. Their wrapping address ignores row and column; the generic full
 guard/generated-candidate theorem is not yet a native runtime-Horner case or a
 loaded-family compiler installation.
+
+The succeeding factory/padded-frontend pipeline adds 420 unmodified assembly
+calls and 168 separate instrumented Clight dispatch calls on the same loaded
+headers and runtime-Horner RMW source. Actual tiling candidates are installed;
+changing-header aliases, profile/layout refusal, empty-root unavailable reads,
+marked/unmarked regions, repeated sites and continuation exits pass. The
+[family report](loaded-word-family-factory.md) binds three independent proof
+checkpoints and the later native report. This closes that integration slice;
+compact conditions, acceptance and paired complete-execution costs remain work.
 
 The safe scan must obtain each address permission from a reached original
 source execution. Acceptance at a point proves preservation of both captured

@@ -1,5 +1,7 @@
 # GuardCert Working Manuscript
 
+The [loaded-word factory](../docs/loaded-word-family-factory.md) now produces the static resources and canonical tensor package from checked data and provides base/frontend/padded-leaf selected Csem-to-Asm endpoints. Separate 26-, 8- and 7-endpoint audits retain the existing 42-global compiler baseline. The succeeding v3 same-C pipeline installs actual tiling candidates and passes 420 unmodified assembly calls plus 168 separate Clight dispatch checks, including changing-header alias refusal and unavailable child/data reads on empty roots. The first failed installation run remains preserved. Cost evidence is still pending.
+
 This is the working manuscript from the CAV 2027 writing track in
 [the narrative](../docs/topdown/paper-narrative.md). It contains prose drafts of
 the introduction, framework, and related work, plus the established case-study

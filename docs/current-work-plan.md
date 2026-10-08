@@ -1,5 +1,7 @@
 # 当前工作计划：评审吸收后的验收顺序
 
+2026-10-07 最新：[loaded-word factory及前端安装](loaded-word-family-factory.md)已从AST／WORD／scope／typed private pool产生静态证据与canonical tensor package，消费actual generated candidate checker，导出局部contract并接三个selected Csem→Asm入口。26／8／7端点独立审计均保持42-global编译器基线，零新增公理。真实前端reset和leaf的skip以及header[0]由语言等价性定理覆盖，回退使用等价基础源AST。v3提取和同一loaded＋runtime-Horner C的真实调度／分块／codegen安装通过420未插桩Asm及168独立Clight分派调用；changing-header alias／profile／layout回退、条件式空域、marked／unmarked、多site和continuation均验收。先前源码匹配失败和输出完整保留。**下一项在同一已安装族上改进condition并量化接受域、guard工作、代码尺寸、配对完整成本及作者责任，同时按完整目标扩source／domain能力。**下文历史下一项保留，以本段为准；完整goal保持active。
+
 2026-10-07 最新：[loaded word完整driver](tensor-loaded-word-driver.md)已组合
 原源许可的conditional capture／profile／helper初始化／全scan，并导出实际scan
 出口的canonical tensor源执行；完整numeric／layout guard及实际生成candidate

@@ -1,5 +1,7 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-07: The [loaded-word data factory](docs/loaded-word-family-factory.md) now checks actual source syntax, word grammar, typed private resources and canonical tensor data, then validates the actual generated candidate. Base, frontend and padded-leaf selected Csem-to-Asm endpoints compile with the existing 42-global baseline and no new axioms. The same loaded-header/runtime-Horner C now passes real scheduling/tiling/codegen, 420 unmodified assembly calls and 168 separate Clight dispatch checks, including changing-header aliases and skipped unavailable reads. Compact conditions and cost evidence remain required.
+
 [Loaded word driver](docs/tensor-loaded-word-driver.md)已将条件式capture、计数
 profile gate、实际helper初始化和完整扫描接为同一次执行；接受后的canonical
 tensor源、完整numeric／layout guard和实际生成候选从真实检查出口执行，保持

@@ -1369,7 +1369,7 @@
     },
     {
       "section": "case-study/evaluation",
-      "claim": "Conditional capture, count-profile gates, emitted literal-helper initialization and the complete source-licensed word scan derive canonical tensor execution at the actual scan exit. The existing complete numeric/layout guard and actual generated-candidate checker compose at the actual complete-check exit, yielding a local projected Clight region guarantee and original-source fallback transport. Actual fixtures start without private caches/helper and cover scan acceptance, alias/profile refusal and skipped unavailable reads. The data-only loaded-family factory, accepted-entry packaging, selected installation, full runtime-Horner candidate path and same-C native/cost evidence remain pending.",
+      "claim": "Historical driver stage: Conditional capture, count-profile gates, emitted literal-helper initialization and the complete source-licensed word scan derive canonical tensor execution at the actual scan exit. The existing complete numeric/layout guard and actual generated-candidate checker compose at the actual complete-check exit, yielding a local projected Clight region guarantee and original-source fallback transport. Actual fixtures start without private caches/helper and cover scan acceptance, alias/profile refusal and skipped unavailable reads. The following checked factory and frontend endpoints close the static-data and formal selected-compilation links; concrete native and cost evidence remain separate.",
       "theorems": [
         {
           "source": "prototype/interface/ClightTensorLoadedWordDriver.v",
@@ -1422,6 +1422,67 @@
       ],
       "documents": [
         "docs/tensor-loaded-word-driver.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Checked source/model/candidate data produces the loaded-word local guarantee, including word grammar, static scopes, typed private resources and canonical tensor binding. Existing language frontend equivalences handle reset/leaf skip prefixes and a zero-indexed root header. Selected base/frontend compiler endpoints establish Csem-to-Asm under successful compilation. The static dynamic-Horner RMW site is recognized; a succeeding same-C loaded/runtime-Horner pipeline installs actual tiling candidates, matches 420 unmodified assembly calls to the source model and GCC, and separately checks 168 Clight dispatch calls including changing-header aliases and skipped unavailable reads. Cost remains pending.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactory.v",
+          "name": "check_loaded_word_static"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactory.v",
+          "name": "check_loaded_word_site"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactory.v",
+          "name": "loaded_word_site_private_allocated"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactory.v",
+          "name": "loaded_word_site_generated_contract"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactory.v",
+          "name": "check_loaded_word_generated_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedLoadedWordGeneratedCompiler.v",
+          "name": "compile_selected_loaded_word_generated_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactoryExample.v",
+          "name": "lwf_dynamic_horner_site"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactoryExample.v",
+          "name": "lwf_nonword_grammar_refused"
+        },
+        {
+          "source": "prototype/interface/ClightTensorLoadedWordFactoryExample.v",
+          "name": "lwf_wrong_private_type_refused"
+        },
+        {
+          "source": "prototype/interface/ClightLoadedWordFrontendFactory.v",
+          "name": "check_loaded_word_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightLoadedWordPaddedFrontendFactory.v",
+          "name": "lwd_padded_original_equivalent"
+        },
+        {
+          "source": "prototype/interface/ClightLoadedWordPaddedFrontendFactory.v",
+          "name": "check_loaded_word_padded_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedLoadedWordPaddedFrontendCompiler.v",
+          "name": "compile_selected_loaded_word_padded_frontend_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/loaded-word-family-factory.md"
       ]
     }
   ],
@@ -3949,5 +4010,64 @@
       "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_loaded_word_driver.py",
       "opam exec --root=/tmp/guard-opam --switch=guard -- python3 scripts/audit_tensor_loaded_word_driver.py --validate"
     ]
+  },
+  "loaded_word_factory_stage": {
+    "proof_stages": {
+      "base": {
+        "report": "build/tensor-loaded-word-factory/proof/report.json",
+        "report_sha256": "1b32eb3c0e782599233c177f5ed7dbe4d15f6789c89adccc7197aa1ce291b5ab",
+        "endpoints": 26,
+        "required_closure": 554,
+        "closed_endpoints": 21,
+        "maximum_endpoint_globals": 42,
+        "global_axioms_added": [],
+        "whole_program_entrypoint": "ClightSelectedLoadedWordGeneratedCompiler.compile_selected_loaded_word_generated_regions_correct"
+      },
+      "frontend": {
+        "report": "build/loaded-word-frontend/proof/report.json",
+        "report_sha256": "3af393c4803e58b262b49cecf7d0d3bccfe85e3e9e7ed90e8c072637e6f189f8",
+        "endpoints": 8,
+        "required_closure": 606,
+        "closed_endpoints": 2,
+        "maximum_endpoint_globals": 42,
+        "global_axioms_added": [],
+        "whole_program_entrypoint": "ClightSelectedLoadedWordFrontendCompiler.compile_selected_loaded_word_frontend_regions_correct"
+      },
+      "padded_frontend": {
+        "report": "build/loaded-word-padded-frontend/proof/report.json",
+        "report_sha256": "8414229ace7c0f96a30f69602b27fbbf61dc631aced1f63b0151efeaf7289e25",
+        "endpoints": 7,
+        "required_closure": 602,
+        "closed_endpoints": 1,
+        "maximum_endpoint_globals": 42,
+        "global_axioms_added": [],
+        "whole_program_entrypoint": "ClightSelectedLoadedWordPaddedFrontendCompiler.compile_selected_loaded_word_padded_frontend_regions_correct"
+      }
+    },
+    "native_acceptance": {
+      "report": "build/loaded-word-frontend-v3/native/report.json",
+      "report_sha256": "0044a0472ea97c5dcadc6551ab88f803ea650583c8f70b59c5d5b6d4b99b575e",
+      "assembly_calls": 420,
+      "separate_clight_dispatch_calls": 168,
+      "configurations": [
+        "row-tile",
+        "column-tile",
+        "unannotated",
+        "disabled",
+        "scheduler-failure"
+      ],
+      "actual_generated_candidate_installed": true,
+      "changing_headers_alias_refusal": true,
+      "empty_root_skips_unavailable_child_and_data": true,
+      "marked_unmarked_and_repeated_sites_checked": true,
+      "Csyntax_to_Asm_endpoint": "ClightSelectedLoadedWordPaddedFrontendCompiler.compile_selected_loaded_word_padded_frontend_regions_correct",
+      "parser_metadata_proved": false,
+      "raw_to_adapted_equivalence_proved": false
+    },
+    "native_cost_measured": false,
+    "minimal_semantic_kernel_changed": false,
+    "new_materialized_kernel_rule_package": false,
+    "first_native_installation_check": "failed; original output matched but proposer did not recognize prefixed leaf",
+    "next_obligation": "improve conditions and measure acceptance, guard work, paired whole-execution costs and author obligations; extend source/domain capabilities toward the full goal"
   }
 }

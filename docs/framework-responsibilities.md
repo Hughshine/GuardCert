@@ -1,5 +1,7 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [loaded-word factory](loaded-word-family-factory.md)已把原先语言／domain定理的静态字段变成AST、WORD、scope、freshness、typed-pool和canonical model的数据检查输出，actual candidate checker后生产局部保证，并消费现有selected host接Csem→Asm。前端行政skip和零index由语言服务证明；框架kernel保持。使用者提供标注和策略，不手填semantic callbacks。通用编译器定理与具体native producer成功由不同证据绑定：v3已验收真实调度／分块、动态接受／回退与完整上下文，420未插桩Asm及168独立Clight分派通过。下一难点是同族compact condition的安全与编码证明、接受域和实际guard／整程序成本；非端点数。
+
 2026-10-07 [loaded word driver](tensor-loaded-word-driver.md)已将语言capture、
 receipt／helper frame、完整scan和Boolean materialization，与domain canonical
 tensor／完整numeric-layout guard／实际候选checker连接起来；候选从真实完整
