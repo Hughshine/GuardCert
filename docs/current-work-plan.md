@@ -2,6 +2,18 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[静态多数组 runtime pair scan](multi-array-runtime-pair-scan.md)已完成
+canonical 两数组同坐标源的固定 Clight AST、运行时双矩形遍历、自己的 flag
+初始化、原源执行许可与 footprint separation 接线。四模块／15 端点独立审计
+通过（7 闭合、最多 6 项旧 globals），113 项绑定及 parent closure 保持旧
+42-global 基线，无新增公理。**下一项是将 entry locator／模型前提运输到实际
+scan exit，接真实 candidate 执行和公开 iterator 恢复；随后适配两 store 的
+loaded 原源 prefix／header 保持，组装 data factory 并接 selected Csem→Asm。**
+当前扫描运行成本为点数平方，flag 变 false 后仍检查所有已许可点；不是 loaded
+source 的拒绝短路／前缀推进，也未新增 compiler／C／Asm／cost。下列第一项的
+canonical code／coverage 已闭合，actual exit 与完整 factory 尚未闭合；完整
+OLO 目标及三方责任保持。
+
 2026-10-07 再次 fetch narrative：远端仍为 `12419c1`，两份正文与 main 一致。
 [源码对齐复核](topdown/implementation-alignment-2026-10-07.md)明确：kernel 止于
 local guarded correctness；语言证明 check／frame／progress／安装；domain 证明

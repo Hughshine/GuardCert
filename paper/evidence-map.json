@@ -6321,5 +6321,28 @@
     "new_compiler_theorem": false,
     "multi_array_guarded_compiler_installed": false,
     "C_or_assembly_evidence_added": false
+  },
+  "multi_array_static_runtime_pair_scan_stage": {
+    "report": "build/multi-tensor-runtime-scan/proof/report.json",
+    "report_sha256": "74d52f67c1d5a306e24617ea19d4ada5ad995f858c62729da95b8ab43fee6cbb",
+    "endpoints": 15,
+    "closed_endpoints": 7,
+    "maximum_endpoint_globals": 6,
+    "compiler_baseline_globals": 42,
+    "bound_files": 113,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "static_runtime_cross_array_scan_added": true,
+    "guard_ast_depends_on_runtime_values": false,
+    "source_licensed_check_safety": true,
+    "private_flag_initialized_by_guard": true,
+    "candidate_separation_scope": "actual source event footprint",
+    "runtime_work": "quadratic in source points for two same-coordinate arrays",
+    "runtime_pair_scan_short_circuits_after_refusal": false,
+    "whole_candidate_execution_at_scan_exit_added": false,
+    "loaded_header_prefix_licensing_added": false,
+    "new_compiler_theorem": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false
   }
 }

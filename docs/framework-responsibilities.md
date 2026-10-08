@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [静态 runtime pair scan](multi-array-runtime-pair-scan.md)将语言双矩形
+循环／public frame／实际 tensor 指针比较，与 domain 的 checked 两数组 footprint
+及原源访问许可接上。15 端点独立审计通过，无新增公理或 kernel 改动。同一逻辑
+数组内的不同坐标由 layout injectivity 分离，跨数组由接受比较分离，同一 cell 的
+有意依赖不被要求分离。**下一难点仍是 entry→actual scan exit 的模型／locator
+运输和候选执行，以及两条 store 的 loaded-header prefix 保持；随后由 factory
+提供语言 host 所消费的 region／site 证据。**该扫描只覆盖 canonical temp-bound
+源，不以它的完整 footprint 许可尚未证明 cached 对应的 loaded 原源；整程序新
+安装和成本仍未完成。
+
 当前责任边界以 [narrative 源码对齐复核](topdown/implementation-alignment-2026-10-07.md)
 为准：generic context record 消费 host 的 lifting 定律，实际 Clight 安装另证明
 progress／scope／freshness 与出口关系。下一多数组 guard 须静态生成 AST，从原源

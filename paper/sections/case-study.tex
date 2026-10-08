@@ -583,11 +583,22 @@ word witness has entry access permission and value \code{Vundef}; a store
 initializes it to an integer, while addition on the entry value cannot complete.
 
 The finite alias tree obtained from the actual entry footprint is a reference
-condition, not a static scanner for unknown runtime counts. The next producer
-must realize coverage with runtime scans or a proved symbolic envelope. It
-must also establish loaded-header preservation point by point before deriving
-the cached source rectangle: an earlier store can change the original reached
-domain. This source-permission connection changes neither the kernel nor the
+condition, not a static scanner for unknown runtime counts. A successor now
+emits a fixed Clight pair-scan AST for the canonical two-array source. It
+initializes a private flag and traverses two runtime rectangles, comparing
+actual tensor addresses. Original source execution supplies each comparison's
+access permission. Layout injectivity separates distinct coordinates within
+one logical array; accepted comparisons separate covered cells across arrays.
+Repeated accesses to the same logical cell retain their intentional dependence.
+Acceptance establishes separation on the actual source footprint, and the scan
+preserves memory and the public source ports.
+
+The scan has quadratic runtime work and continues after its flag becomes
+false. It is not a loaded-source prefix implementation. The domain must first
+establish loaded-header preservation point by point before deriving the cached
+source rectangle: an earlier store can change the original reached domain.
+Candidate execution at the actual scan exit and the extended family factory
+remain open. These library connections change neither the kernel nor the
 selected compiler endpoint.
 
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
