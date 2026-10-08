@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [N/M stability scans](docs/affine-snapshot-stability-scan.md)
+now use reached-source write permissions for actual row checks and stop later
+rows on refusal. Accepted scans produce complete cached-loop execution from
+the original `i<*N; K=i+*M` source, reusing the common prefix and loop transport
+laws. Three modules audit 11 endpoints with no new axioms. Checked
+factory/compiler installation and native validation remain open.
+
 2026-10-08: [Original loaded-setup snapshots](docs/affine-header-snapshots.md)
 now license conditional `*M` capture in `i<*N; K=i+*M`, produce the existing
 arithmetic guard's inputs from actual reached source execution, and decode rows

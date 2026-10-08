@@ -5,11 +5,19 @@
 ### Narrative 的持续设计约束
 
 2026-10-08 fetch 并核对 narrative 新提交
-`topdown/research-positioning@5ba223d`，同步了 verified guard library 的
-分类与契约澄清。以下根据
+`topdown/research-positioning@c4b1395`，在 guard library 澄清之上又同步
+source/model proof directions 与 premise provenance。以下根据
 [paper narrative](topdown/paper-narrative.md) 和
 [context lifting](topdown/context-lifting.md) 固定验收责任，不声称读到了
 更晚的提交。
+
+具体证明链按 original Clight → source Loop → transformed Loop → lowered
+Clight/public exits 逐段列出；loaded source 另列 capture/stable-source 桥。
+Decode 是从 concrete execution 恢复 model execution，不是 parser，也不
+自动是双向 equivalence。分开追踪静态 syntax/shape/resources、runtime
+guard/capture/transport facts，以及作为证明起点的 original source execution；
+不要求每个前提都有一个 emitted test，不在运行时先执行源程序来许可 guard。
+最终 installed theorem 必须生产适用前提，不能留给源码用户。
 
 Kernel 的验收止于局部证书组合；`C_host` 是实际 guarded choice 的语言
 执行规律，整程序 installation 是另一项语言证明。新条件服务应分别交付
@@ -93,12 +101,15 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：对实际 `i<*N; K=i+*M` 完成 observations 的 actual
-stability checks、whole-loop cached transport 与 checked factory/compiler 接入。
+**当前下一任务**：对实际 `i<*N; K=i+*M` 完成 checked source factory、
+actual guard exit/candidate connection 与 compiler/native 接入。
 原条件 capture、原源到 arithmetic guard 输入、concrete row decoder 和
 prefix write receipts 已由 [新阶段](affine-header-snapshots.md)生产，29 端点／
 1,332 绑定／至多旧六项 globals／无新增公理。该阶段不新增 Csem→Asm 或
-native 结果，不把 cached completion 留作未经生产的调用前提。
+native 结果，不把 cached completion 留作未经生产的调用前提。后继
+[N/M stability scan](affine-snapshot-stability-scan.md)已实现 concrete row
+conditions、接受才推进的 prefix scan 与 whole-loop cached transport；
+actual scan 接受自动生产 complete cached source，仍没有新 factory/native。
 Root 空时不能观察 `*M`；header 已执行但 child／leaf 为空
 时，header load 与后续 RHS 的许可须分开。Domain 给 no-wrap／reached-point／
 footprint／source-model 充分性，language 给 actual guard 安全与 public/memory

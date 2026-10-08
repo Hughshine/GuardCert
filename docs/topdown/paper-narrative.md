@@ -187,6 +187,31 @@ The boundaries matter because the producers can be different:
 The generic kernel consumes certificates; it need not trust the algorithms that
 propose candidates or conditions.
 
+### Reading the concrete source/model proof chain
+
+In the case study, make the bridges inside conditional correctness explicit:
+original Clight execution -> source Loop execution -> transformed Loop
+execution -> lowered Clight execution with the required public exits restored.
+Loaded-bound instances additionally connect the original repeated-load source
+to a safely captured, stable-bound source before applying the relevant Loop
+bridge. Polyhedral validation alone does not establish the first bridge.
+
+For example, `multi_tensor_source_region_decode` establishes the Clight-to-Loop
+direction for the supported active rectangular multi-array family, preserving
+final memory and characterizing the source iterator exit. Here `decode` means
+recovering model execution from concrete execution, not parsing text. State
+each theorem's actual direction and scope; do not label a one-way execution
+theorem as a standalone bidirectional equivalence.
+
+Distinguish three sources of its premises: static checkers establish syntax,
+shape and resource facts; runtime guards, captures and state-transport proofs
+establish dynamic model facts; the original source execution is the semantic
+starting point of the proof, not a check that executes the source first.
+There need not be one emitted test per premise. The installed compiler proof
+must discharge the applicable premises rather than leave model correspondence
+as a source-user assumption. This is a presentation clarification, not a new
+implementation milestone or a request to rename existing theorems.
+
 ## 5. Assumption extraction stays optimizer-specific
 
 An optimizer may generate many local assumptions:

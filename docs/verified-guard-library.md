@@ -4,7 +4,9 @@
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。后继
 [原 loaded setup 阶段](affine-header-snapshots.md)已补上下面标明的新证明；
-没有新 compiler/native 或成本证据。
+后继 [N/M stability scan](affine-snapshot-stability-scan.md)进一步生产实际
+row/prefix 条件，并连接接受到 complete cached source；没有新 compiler/native
+或成本证据。
 
 ## 服务按建立的事实分类
 
@@ -79,7 +81,7 @@ context 的服务。Progress、合法入口/出口、scope 与 installation 仍�
 | Ordered dependent checks | [ReadonlyConditionComposition.v](../prototype/interface/ReadonlyConditionComposition.v) 的 `sequence_readonly_conditions`；第二项在 `D /\ Pfirst` 下证明 | 第一项的成功事实确实建立第二项安全前提；纯条件保持同一 entry。私有 state 改变时，另证事实和读 ports 到 actual exit 的运输。 |
 | Short-circuit / conditional branches | [ReadonlyBranching.v](../prototype/interface/ReadonlyBranching.v) 的 `branch_readonly_conditions` 和两侧 classifier facts；[ClightStagedCheck.v](../prototype/interface/ClightStagedCheck.v) 的 `staged_check_code_execution` | 每条实际路径的安全性。普通充分条件的 false 只有拒绝含义；activity 的 false 若用于跳过 source read，必须有 inactive fact 的证明。 |
 | Conditional capture | `nested_expression_capture_execution` 和 capture frames；`affine_snapshot_capture_source_inputs` 已生产 actual setup 的 original domain | Checked factory 仍须自动生产静态形状、fresh typed caches 与 guard-exit 连接；初次捕获不含未来 stability。 |
-| Prefix checks | `observed_header_prefix_receipt` / `observed_header_prefix_advance`；新 `observed_body_prefix_receipt` / `observed_body_prefix_advance` 接收 current observations | 新 actual setup 的 concrete row decoder 与 physical write receipts 已编译；实际 point check、observation preservation 与 whole-loop/factory 连接仍须交付。失败后不能仅因 box 包含后续点就继续读取它。 |
+| Prefix checks | `observed_header_prefix_receipt` / `observed_header_prefix_advance`；新 `observed_body_prefix_receipt` / `observed_body_prefix_advance` 接收 current observations | Actual setup 的 concrete row decoder/write receipts、N/M row checks、short-circuit prefix scan 与 accepted cached completion 已编译。Checked factory/compiler 尚须交付。失败后不能仅因 box 包含后续点就继续读取它。 |
 | Alternative sufficient conditions | `readonly_condition_entails` + readonly branching 可构造接受同一事实的两个纯条件分支；既有 zero-RMW driver 有具体实例 | 对“第一项拒绝后试第二项”的私有状态版本，须证明第二项在第一项实际 refused exit 安全，且结果运输到同一 original-entry obligation。当前没有一个统一的 private-service alternative combinator。 |
 
 纯条件的 alternative 可以让第一项接受时返回 true，拒绝时尝试第二项；
@@ -122,7 +124,9 @@ transport、候选和安装证明。`checked_zero_rmw_condition_preserves_observ
    `*N`、`*M` 到原 source 的下一段，再许可其检查。现有 header-prefix 的
    `DECODE` 不消费 observations，针对旧 temp-only setup 足够；新 loaded
    setup 已由后继 `ClightObservedBodyPrefix` 和 concrete snapshot row decoder
-   补上这项边界；实际 stability scan 的推进连接仍未完成。
+   补上这项边界。`affine_snapshot_scan_condition` 已生产实际 N/M stability
+   条件，`affine_snapshot_scan_accepted_cached_source` 把接受接到 cached
+   completion；新族 factory/compiler 仍未接通。
 5. Domain 把接受事实接到真实 source/model/candidate 的 `C_opt` / `C_derive`；
    factory 接 actual guard exit、fallback 和公开恢复，复用现有 selected
    host / Csem→Asm。每个 site 继续生产 placement、resources 和 progress。

@@ -2,8 +2,8 @@
 
 ## 持续适用的责任表
 
-2026-10-08 对照 narrative 新版本 `5ba223d`，已同步 guard library 的
-分类／依赖契约澄清。本表约束后续阶段，下面的日期记录保留各阶段当时的
+2026-10-08 对照 narrative 新版本 `c4b1395`，已同步 guard library 的
+分类／依赖契约与 source/model 方向和前提来源澄清。本表约束后续阶段，下面的日期记录保留各阶段当时的
 交付范围。
 
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
@@ -26,6 +26,13 @@ host 提供的定理字段。具体 selected Clight host 以 `program_temps` 为
 新语言作者证明 host/installation；新 transformation 作者提供前提、局部
 对应及适合该 host 的 guarantee，或实现能生产它们的 checked factory。
 框架消费一个定理前提不等于已经自动生产该前提。
+
+Concrete-to-model decode、model transformation、model-to-Clight execution 和
+public-exit 恢复分别标注方向与范围；polyhedral validator 不自动生产
+Clight-to-Loop 桥。Static checker 给 syntax/shape/resources，runtime
+conditions/captures/transport 给 dynamic facts，original source execution 是
+语义证明起点而非 runtime pre-execution。最终 factory/installation 必须
+discharge 适用前提；单向 decode 不叫独立双向 equivalence。
 
 目前最难的链是**原源许可的部分状态 → 安全可执行条件 → 实际候选入口
 → 公开出口／continuation**。Canonical domain coverage、实际 scanner、
@@ -60,6 +67,17 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 本次组织工作不新增 theorem/native/cost 结果，不改变完整 goal 的验收范围。
 
 ## 阶段记录
+
+2026-10-08 [N/M stability scan](affine-snapshot-stability-scan.md)补上
+concrete condition 到 whole-loop transport：原 row receipts 生产 actual
+N/M separation probes 的 safe domain；row 接受后 memory store law 保持
+observations 并推进 prefix，拒绝跳过后续 rows。原 active-loop theorem
+运输同时变化的 test/body，scan 接受自动导出 complete cached source 与
+相同公开出口。三模块／11 端点／1,314 绑定／至多旧六项 globals，无新增
+公理。Candidate checker、kernel 和 host 不变；factory 作者仍须
+自动构造 checked source/static evidence，接 actual exit、alias/candidate
+checks 与安装。尚无新 Csem→Asm/native/cost，finite-completion 和
+first-positive-child 边界保持。
 
 2026-10-08 [原 loaded setup 的 snapshot 阶段](affine-header-snapshots.md)
 进一步填入 `C_guard` 的 producer 责任：从 actual unchanged source 生产
