@@ -1,5 +1,21 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [完整 nested loaded guard/rewrite](word-store-nested-guard.md)从原 source
+执行生产 conditional captures/gates，关闭前一双方 ready 的入口假定。语言
+服务证明 outer 空域不读取 child/cache/数组、安全联合 scan、实际 cached
+出口和原 AST fallback 的 frame；domain 用原 prefix 与接受生产缓存对应。
+两模块／20 端点独立审计保持旧 globals，无新增公理、kernel 或 host contract。
+
+下一困难连接是接受入口的部分状态：空域可以缺少 child cache，候选准备
+必须同样跳过缺失参数；活跃接受再运输缓存/dimension/scalar 到 source/model
+与真实 candidate。Factory/site 须生产原 loaded AST 的 progress、typed pool、
+scope、guarantee 与 placement，不能用 cached AST 的 progress 冒充原源证据。
+现有递归 source factory 和已连接 polyhedral pipeline 可复用，但本阶段没有
+新的 selected compiler/C→Asm/native/cost。源码用户不补 semantic callback，
+region guarantee/context requirement 和紧凑条件/OLO 完整验收仍约束 active goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [双 loaded axis 的联合 scan/cached 出口](word-store-nested-scan.md)
 把三方责任推进到实际 nested source：语言服务提供当前原 store 的许可、
 joint-header 地址检查、安全双短路 loop、memory/live frame 与实际出口运输；

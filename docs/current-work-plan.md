@@ -2,6 +2,27 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[完整双 loaded guard 与 cached/original 分派](word-store-nested-guard.md)
+已从原 source 执行生产 conditional capture、ready 和 gates；outer 空域跳过
+child capture/cache 与全部数组检查。活跃接受接联合 scan，再从 actual guard
+exit 执行 cached nest；拒绝运输原 AST，两条路径保持 final memory/public exit。
+真实内存接受、child-only alias 拒绝和 child/cache/数组 temps 未定义的空域都
+有完整 guard/rewrite 推导。两模块／20 端点审计通过，3 闭合、最多 6 项旧
+globals、1,142 项可达绑定，无新增公理；kernel/host contract 保持。
+
+**下一项接同族 source/model/candidate 与 data factory。**接受时须区分空域
+与活跃状态：空域可能没有 child cache，不能进入无条件读取它的 setup。
+活跃路径从实际 guard exit 运输 cache/dimension/scalar bindings，接现有
+递归 source factory、完整模型/候选 checker 和公开恢复；由 factory 生产
+original loaded-source progress、typed resources、scope、region guarantee 和
+placement，再消费 marked C／真实 Pluto／prepared codegen／selected host，
+取得本族 C→Asm/native/context 验收。Cached AST 的 progress 不替代原源证据。
+这仍是局部完整 rewrite，不是新 installed loaded polyhedral compiler。一般
+affine domains、scalar/source 扩展和已闭合 slice 的 compact condition/OLO
+完整成本、接受域与可用性继续在 active goal。本轮没有新增 native 或成本。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[双 loaded axis 的联合 scan 与实际 cached 出口](word-store-nested-scan.md)
 已将任意 checked store list 接到原 nested source 的逐点许可。当前点接受保持
 两份 header，当前行全接受才推进外层；实际双 cursor loop 在内层首次拒绝时

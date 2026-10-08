@@ -2077,6 +2077,41 @@
         "docs/word-store-nested-scan.md"
       ],
       "evidence_stage": "word_store_nested_scan_stage"
+    },
+    {
+      "id": "word-store-nested-full-conditional-capture-and-dispatch",
+      "status": "mechanized complete local rewrite; new family compiler pending",
+      "description": "Original-source-licensed conditional capture, gates, joint scan and cached/original dispatch; empty outer accepts without child/cache/array values.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordStoreNestedGuard.v",
+          "name": "word_store_nested_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedGuard.v",
+          "name": "word_store_nested_rewrite_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedGuardExample.v",
+          "name": "nested_guard_demo_actual_accepts"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedGuardExample.v",
+          "name": "nested_guard_demo_actual_child_refuses"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedGuardExample.v",
+          "name": "nested_guard_demo_empty_guard"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreNestedGuardExample.v",
+          "name": "nested_guard_demo_empty_rewrite"
+        }
+      ],
+      "documents": [
+        "docs/word-store-nested-guard.md"
+      ],
+      "evidence_stage": "word_store_nested_guard_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7060,6 +7095,36 @@
     "historical_transitive_audits_rerun": false,
     "additional_global_axioms": [],
     "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
+  },
+  "word_store_nested_guard_stage": {
+    "report": "build/multi-word-nested-guard/proof-v1/report.json",
+    "report_sha256": "0ddcd3c5ac86c0a5f29bbadb7539a49f2598a557cc34aacbd70251b08ebeb56e",
+    "audited_endpoints": 20,
+    "closed_endpoints": 3,
+    "maximum_endpoint_globals": 6,
+    "bound_files": 1142,
+    "parent_bound_files": 1138,
+    "compiler_allowed_global_count": 42,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "runtime_scan_axes": 2,
+    "captured_header_addresses_checked": 2,
+    "original_source_licenses_conditional_capture_and_scan": true,
+    "cached_source_execution_is_input_premise": false,
+    "ready_or_entry_gates_are_input_premises": false,
+    "child_capture_only_after_original_outer_test_succeeds": true,
+    "empty_outer_accepts_without_child_or_array_values": true,
+    "all_acceptance_produces_cached_nest_at_actual_guard_exit": true,
+    "complete_cached_or_original_dispatch_proved": true,
+    "actual_Clight_execution_fixtures_proved": true,
+    "child_only_header_alias_full_guard_refusal_proved": true,
+    "new_loaded_family_factory_or_selected_installation": false,
+    "new_polyhedral_candidate_or_compiler_endpoint": false,
+    "new_native_or_cost_evidence": false,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "additional_global_axioms": [],
     "full_goal_complete": false
   }
 }
