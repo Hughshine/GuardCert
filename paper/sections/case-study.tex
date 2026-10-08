@@ -736,6 +736,28 @@ family without changing the semantic kernel, host contract or proof baseline.
 Loaded two-store headers, general affine domains, coordinate-only scalar
 receipts and compact condition/cost improvements remain open.
 
+\paragraph{Loaded bounds across actual store sequences.}
+A language service now checks arbitrary lists of full-word stores against
+captured header addresses. A later store's receipt comes from the real memory
+after earlier stores; only access permission is transported back to the guard
+entry. Later RHS values remain at their original execution positions. The
+static short-circuit check accepts only when every write is apart from each
+captured word, which suffices for header preservation. A body checker produces
+the assignment-list correspondence, word-index grammar, normal completion,
+silence and temporary-write facts. Word address evaluation uses modular
+arithmetic; this safety argument does not presume the affine/no-wrap model
+that later optimization needs.
+
+For one loaded source axis, an original execution establishes an initial
+prefix and licenses the current assignment list. Only acceptance establishes
+preservation and advances that original prefix to the next header read.
+Cached-source execution is not an assumption used to license its own guard.
+This adds a reusable local dependency, not a complete nested loaded compiler:
+multi-header conditional reads, full-prefix coverage, accepted cached/model
+correspondence and transport to the actual scan exit still precede the new
+family's data factory and selected installation. The kernel and existing host
+contract are unchanged.
+
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array
 footprints, connect certified residualization to actual execution, and compare

@@ -925,3 +925,17 @@ actual automatic C integration for the declared grammar, not broader source
 generality. Default count cap 8, stride profile $[1,1000)$ and the example's
 five-component box remain conservative choices. The pair scan is still
 quadratic; this stage adds no compact-condition, timing or speedup result.
+
+The store-sequence successor audits forty-four endpoints across four modules:
+sixteen closed, at most six existing globals within the preceding forty-two
+global baseline, and 1,100 reachable bindings. It rechecks the preceding
+report's 183 bindings, without rerunning all historical parent audits, and adds
+no global axiom. A constructive Clight fixture starts with undefined $A$,
+$B=5$ and $\delta=3$. The real stores produce $A=8$ and $B=11$, preserving the
+loaded header; the readonly check accepts. In another fixture, $B$ aliases
+the header. With header 2 and $\delta=-2$, the second actual store changes it
+to $-2$, and the check refuses. Syntax fixtures cover reassociation, skip
+elimination and unsupported-body refusal. These are kernel-checked
+\code{exec_stmt} and checker results, not new interpreter, native C or
+assembly runs. The single-axis prefix service does not establish a complete
+nested loaded compiler or a cost result.

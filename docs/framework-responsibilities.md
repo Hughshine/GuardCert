@@ -1,5 +1,25 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [Store-sequence loaded prefix](word-store-sequence-prefix.md)保持
+kernel／语言／domain 的三方边界：框架消费 readonly certificate；语言服务
+组合实际逐条 store receipts、word 地址／permission 运输、安全 pointer
+comparison 与 flag 执行；domain 将原 loaded source prefix 接成逐点 domain，
+接受后保持 header 并推进后继读取。AST checker 生产语言静态 body 义务。
+后续 RHS 在真实中间内存求值，权限回运不能替代值保持；cached-source 执行
+不作为该检查的许可前提。单一 axis 的 prefix 不自动给出完整 nest 或全局
+等价，kernel 和已有 host contract 未改。
+
+下一最难连接是完整原 loaded nest 的多 header／条件读取、全接受的 cached
+对应及实际检查出口运输，再由同族 factory 生产 typed resources／scope／
+region guarantee，消费已有 candidate／selected host 和真实 polyhedral
+pipeline。支持族的源码用户仍应只提供 marked C／数据；当前库参数不冒充
+已经交付的自动 loaded factory。紧凑条件、安全／充分性／运输、接受域与
+完整成本继续单独验收。[本次 narrative 对照](narrative-store-sequence-review-2026-10-08.md)
+远端仍为 `12419c1`，正文无新差异；未读取未推送内容，也未把 context
+contract clauses 的开放讨论当成已实现 API。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [多数组实际 C 流水线](multi-array-affine-native-pipeline.md)复用已证明
 data factory 和 selected compiler，接自动 source metadata／真实 Pluto／
 prepared codegen。优化 policy 只提出数据，完整 checker 提供条件下的实际

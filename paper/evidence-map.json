@@ -1947,6 +1947,54 @@
         "prototype/interface/native/GuardMultiTensorAffineRegionCandidate.ml",
         "prototype/interface/native/GuardAffineMultiTensorPipelineCandidate.ml"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "An actual store-sequence service licenses later store addresses from original intermediate memories, checks static header separation, and advances one loaded source axis after acceptance. An AST checker produces body obligations. Forty-four endpoints, sixteen closed, with no new axiom; constructive Clight fixtures retain later RHS reads and refuse second-store/header aliases. Complete nested loaded scans, cached/model and actual-exit transport, factory/selected/native and compact-condition/cost evidence remain open.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordStoreSequence.v",
+          "name": "word_store_sequence_point_domains"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequence.v",
+          "name": "word_store_sequence_condition"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequence.v",
+          "name": "word_store_sequence_check_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceFactory.v",
+          "name": "check_word_store_body"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceLoaded.v",
+          "name": "word_store_loaded_probe_static"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceLoaded.v",
+          "name": "word_store_loaded_prefix_advance"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceExample.v",
+          "name": "sequence_demo_actual_source"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceExample.v",
+          "name": "sequence_demo_actual_check_refuses"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceExample.v",
+          "name": "sequence_demo_entry_A_is_undefined"
+        }
+      ],
+      "documents": [
+        "docs/word-store-sequence-prefix.md",
+        "docs/narrative-store-sequence-review-2026-10-08.md",
+        "scripts/audit_word_store_sequence.py",
+        "scripts/compile_word_store_sequence_sources.py"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6841,5 +6889,32 @@
     "measured_cost_added": false,
     "full_goal_complete": false,
     "reused_successful_native_compilation": "native-v1 row-nonunit; detector failure preserved"
+  },
+  "word_store_sequence_prefix_stage": {
+    "report": "build/multi-word-sequence/proof-v1/report.json",
+    "report_sha256": "5a744f66a88b8870eea213a191b99761ae63250813ba5b0b390a50b7bb7e1dad",
+    "audited_endpoints": 44,
+    "closed_endpoints": 16,
+    "maximum_endpoint_globals": 6,
+    "bound_files": 1100,
+    "compiler_baseline_binding_count": 183,
+    "compiler_allowed_global_count": 42,
+    "baseline_parent_audits_rerun": false,
+    "actual_store_receipts_in_real_intermediate_memory": true,
+    "entry_RHS_value_availability_required": false,
+    "static_readonly_guard": true,
+    "AST_checker_produces_body_obligations": true,
+    "loaded_single_axis_prefix_advance": true,
+    "source_cached_execution_used_to_license_its_guard": false,
+    "constructive_Clight_execution_fixtures_proved": true,
+    "new_Clight_interpreter_or_native_runs": false,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "additional_global_axioms": [],
+    "complete_nested_loaded_compiler_installed": false,
+    "full_goal_complete": false,
+    "compact_guards_or_cost_added": false,
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "new_narrative_commit_observed": false
   }
 }

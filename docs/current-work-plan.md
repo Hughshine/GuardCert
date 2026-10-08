@@ -2,6 +2,28 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[实际 store 序列／loaded prefix](word-store-sequence-prefix.md)
+从任意 assignment list 的真实中间内存取得每条 store 的检查许可；只回运
+权限，不前移后续 RHS 值。实际 AST checker 生产 word index、flatten、
+normal／quiet／temp 写集。静态 readonly 地址树接受时保持捕获 header，接
+单一 loaded axis 的原源 prefix advance；cached-source 执行不是许可前提。
+四模块／44 端点审计通过，16 闭合、最多 6 项旧 globals、1,100 项绑定，
+无新增公理；真实内存 fixture 构造 source/check 的局部执行，未新增 native。
+**下一项组合完整原 loaded nest 的多 header／条件读取与全接受 cached/model
+对应，运输到实际 scan exit，再接同族 data factory、checked candidate／
+公开恢复、真实 Pluto/codegen 和 selected Csem→Asm／native 验收。**局部
+服务不是新完整 loaded compiler；scope／rename／资源的自动生产仍须接同族
+factory，不向源码用户转嫁 semantic callback。
+
+[Narrative 对照](narrative-store-sequence-review-2026-10-08.md)再次 fetch 并核对
+远端全部 branch heads：可见 narrative 仍是 `12419c1`，两正文与 main 一致，
+未观察到较新澄清提交。Kernel 止于局部证书；language 提供安全、frame、
+progress、boundary／placement／安装；domain 提供充分前提、原源许可与
+模型／候选对应。Region guarantee 与 context requirement 保持区分，不因
+本次澄清新增 kernel API 或 contract algebra。已闭合 temp-bound slice 的
+compact condition／code size／runtime work／接受域／完整成本与 OLO 比较
+继续在 goal 中，不等待所有 source grammar 扩展。以下保留前阶段范围。
+
 2026-10-08：[多数组 actual C 接入](multi-array-affine-native-pipeline.md)已完成
 本族 marked frontend、自动 source metadata、真实 Pluto／per-statement prepared
 codegen、完整候选检查和已证明的 selected compiler 接线。八配置 768 次未插桩
