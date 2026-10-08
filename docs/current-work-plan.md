@@ -2,6 +2,21 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[实际 scan exit 的双分支执行](multi-array-scan-exit.md)已将
+dimension／bound／scalar／受限 locator 前提运输到检查出口，接实际 checked
+candidate、公开 iterator restore 和同出口的 original AST fallback。三模块／
+11 端点独立审计通过（6 闭合、最多 14 项旧 globals），97 项绑定及 parent
+closure 保持旧 42-global 基线，无新增公理或 kernel／host 改动。**第一项的
+canonical runtime scan、coverage、actual exit 与局部 versioned execution
+现已闭合；下一项生产仍显式的 numeric／layout／box／profile 前提，并由
+typed factory 生产静态／region 证据，同时推进两 store 的 loaded 原源 prefix／
+header 保持，随后接同族 selected Csem→Asm。**此 alias-choice 局部定理仍
+以 setup 成立为前提，不能称为已覆盖 setup 拒绝的完整 guard 或新整程序编译器。
+本轮再次 fetch narrative，远端仍为 `12419c1`，正文与 main 一致；按其三方
+责任和实际 polyhedral pipeline／OLO 可用性验收继续实现。
+
+以下为前一 canonical scan 阶段的记录，actual exit 缺口已由上段闭合。
+
 2026-10-08：[静态多数组 runtime pair scan](multi-array-runtime-pair-scan.md)已完成
 canonical 两数组同坐标源的固定 Clight AST、运行时双矩形遍历、自己的 flag
 初始化、原源执行许可与 footprint separation 接线。四模块／15 端点独立审计
@@ -25,7 +40,9 @@ local guarded correctness；语言证明 check／frame／progress／安装；dom
    和资源选项，未知 counts／parameters／locations 在运行时观察。已有
    entry-indexed reference footprint 不当作该实现。验收检查安全、动态 coverage／
    接受充分性、private frame、actual guard-exit 运输和 data factory 证据生产；
-   不能以前置 `NonAlias` 许可检查自身。Canonical temp-bound scanner 是中间项。
+   不能以前置 `NonAlias` 许可检查自身。Canonical temp-bound scanner 及双分支
+   出口执行已闭合；完整 setup guard／typed factory 仍是下一验收，不能把显式
+   前提交给源码使用者。
 2. **同族 loaded 原源推进。** 每个实际 point 获得 read/write 许可，逐条证明
    两次 store 保持 captured headers 后，才推进下一 original source test。
    完整接受导出 cached 源；拒绝不观察未来地址。不能用尚未建立的完整 cached
@@ -38,8 +55,8 @@ local guarded correctness；语言证明 check／frame／progress／安装；dom
    分别衡量 code size、check work、接受域、完整成本和实例作者责任。条件替换
    复用适用的 candidate／host 证明；cursor 不当作消除逐点运行成本。
 
-下文保留历史阶段记录和当时的下一项。本次复核只更新责任与验收，没有新增
-proof／compiler／native／cost 结论，也没有缩小完整目标。
+下文保留历史阶段记录和当时的下一项。本轮新增 canonical scan-exit 局部证明，
+没有新增 compiler／native／cost 结论，也没有缩小完整目标。
 
 ## 历史阶段记录
 

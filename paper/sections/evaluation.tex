@@ -811,6 +811,16 @@ premise without presuming it for check safety. Its independent audit queries
 15 endpoints: seven closed, at most six existing globals, no added axiom or
 kernel change, with 113 bound files and validated parent closure. Runtime work
 is quadratic in the source point count, and probes continue after refusal.
-Candidate execution at the actual scan exit, loaded-header prefix preservation
-and the extended whole-program factory remain open. This stage adds no new
-compiler theorem, C/assembly execution matrix or measured cost.
+At that checkpoint, candidate execution at the actual scan exit, loaded-header
+prefix preservation and the extended whole-program factory remained open.
+It added no compiler theorem, C/assembly execution matrix or measured cost.
+
+Three scan-exit successor modules now construct actual versioned execution,
+including the checked candidate and iterator restoration on acceptance and
+the original AST on alias refusal. An independent audit queries eleven
+endpoints: six closed, at most fourteen existing globals, no added axiom or
+kernel change, with 97 bound files and validated parent closure. Numeric,
+layout, coordinate-box and profile setup remains explicit. Producing those
+facts with a complete safe guard, loaded-header prefix preservation and the
+extended whole-program factory remain open. This stage adds no compiler
+theorem, C/assembly execution matrix or measured cost.

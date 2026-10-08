@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "narrative_reference": "12419c1e1e3da450bf378742a2fb4e204e51e060",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
@@ -1694,6 +1694,39 @@
       ],
       "documents": [
         "docs/multi-array-source-permissions.md"
+      ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Canonical two-array scan-exit frames transport dimension/setup and restricted footprint separation. Checked-candidate execution with public iterator restoration and original-AST alias fallback start from the same actual scan exit and preserve original final memory and requested public exits. Numeric/layout/box/profile setup remains explicit; the full guard, loaded-header preservation and whole-program factory remain open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorGuardExit.v",
+          "name": "tensor_backend_guard_at_framed_exit"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorGuardExit.v",
+          "name": "multi_tensor_restricted_separation_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPairScanExit.v",
+          "name": "multi_tensor_demo_pair_source_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPairScanExit.v",
+          "name": "multi_tensor_demo_pair_setup_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPairScanCandidates.v",
+          "name": "multi_tensor_demo_pair_candidate_at_exit"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPairScanCandidates.v",
+          "name": "multi_tensor_demo_pair_versioned_execution"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-scan-exit.md"
       ]
     }
   ],
@@ -6344,5 +6377,29 @@
     "new_compiler_theorem": false,
     "multi_array_guarded_compiler_installed": false,
     "C_or_assembly_evidence_added": false
+  },
+  "multi_array_scan_exit_execution_stage": {
+    "report": "build/multi-tensor-scan-exit/proof/report.json",
+    "report_sha256": "55b70d67d9e48bfd00722a6d7f99c1dd3fc14a69c89a672ff8552995c43962dc",
+    "endpoints": 11,
+    "closed_endpoints": 6,
+    "maximum_endpoint_globals": 14,
+    "compiler_baseline_globals": 42,
+    "bound_files": 97,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "whole_candidate_execution_at_scan_exit_added": true,
+    "actual_original_ast_fallback_added": true,
+    "local_versioned_execution_added": true,
+    "complete_raw_registry_equality_required": false,
+    "accepted_separation_callback_required": false,
+    "candidate_separation_scope": "actual source event footprint",
+    "setup_conditions": "positive canonical temp-bound counts; numeric/layout/box/profile setup remains explicit",
+    "numeric_box_profile_emitted_by_successor": false,
+    "loaded_header_prefix_licensing_added": false,
+    "new_compiler_theorem": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false,
+    "measured_cost_added": false
   }
 }

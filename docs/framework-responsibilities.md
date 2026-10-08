@@ -1,5 +1,16 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [actual scan-exit 连接](multi-array-scan-exit.md)将语言 dimension／
+restricted locator／source execution frame 与 domain 的 checked candidate／
+restore 接在同一实际检查出口。Alias 接受从扫描生产 separation，拒绝执行
+原 AST；两条分支保持原 final memory 和所请求的公开出口。11 端点独立审计
+通过，无新增公理、kernel 或 host contract。**下一难点移到完整 setup condition
+生产、typed data factory 及 loaded 原源中两条 store 对全部 header 的 prefix
+保持，最后将该同族 region guarantee 交给已有 selected host。**该局部 alias
+choice 定理仍显式要求 numeric／layout／box／profile，尚未证明这些拒绝路径的
+完整 guard；新多数组整程序能力和成本未完成。再次核对 narrative `12419c1`
+正文与 main 一致，kernel／语言／domain 的三方责任保持。
+
 2026-10-08 [静态 runtime pair scan](multi-array-runtime-pair-scan.md)将语言双矩形
 循环／public frame／实际 tensor 指针比较，与 domain 的 checked 两数组 footprint
 及原源访问许可接上。15 端点独立审计通过，无新增公理或 kernel 改动。同一逻辑
