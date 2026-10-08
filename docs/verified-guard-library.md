@@ -12,6 +12,12 @@ candidate/fallback、source factory与共用 Csem→Asm。后继
 compact plan完成实际原C／Pluto／CompCert与1,584／1,584输出/continuation验收；
 完整成本、first-empty-child接受及broader alias仍待工作。
 
+后继 [later-body 许可与紧凑条件](leading-empty-body-licensing.md)已证明 empty
+prefix 保持入口 memory、原 later leaf 生产 body words，以及 affine endpoint
+条件的编码／readonly 接受证书。它在 arithmetic、range 和 conditional
+observation 三类之间运输调用前提，尚未接 factory/compiler；安装态的
+first-positive 限制、candidate 模型域与 native 接受域保持。
+
 ## 服务按建立的事实分类
 
 分类不是互斥的：一个实际扫描可能同时需要 arithmetic、footprint 和

@@ -68,6 +68,17 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Leading-empty body licensing](leading-empty-body-licensing.md)
+区分了三项责任：language 从原有限执行越过 empty child prefix，证明到
+later leaf 前 memory／protected ports 保持；domain 用常数个 affine
+endpoint 条件建立 first-reached／range 事实；实际 Clight readonly condition
+接受后自动生产原入口 body-only 参数的 typing。没有先执行原 source 的
+runtime 阶段，也没有新源码用户 callback。五模块／24端点／9closed，
+至多旧六项 globals，无新增公理；kernel、host、candidate checker保持。
+Factory/compiler尚未消费新服务，native接受域未扩大。下一证明责任是放宽
+assumed model的first-positive域并重新取得C_opt，随后接actual source/model/
+permissions/stability和安装，不能只修改运行时Boolean而沿用更强域的旧证书。
+
 2026-10-08 [Conditional loaded-affine native pipeline](snapshot-polyhedral-native-pipeline.md)
 验收source用户只给原marked C的路径：旧registry固定于Rocq入口，普通proposer
 接真实nonrectangular model到Pluto/codegen，原checker和source/model/candidate

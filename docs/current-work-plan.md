@@ -107,10 +107,18 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：扩展 first-empty-child 后续非空的接受域，以 actual later
-reached body生产 scalar/geometry/permission前提；保持 conditional loads 的
-原源许可和实际出口证明。随后扩展 alias sufficient conditions、recursive
-loaded domains、scalar/chunk 和 OLO具体源及完整成本。
+**当前下一任务**：连接 first-empty-child 的模型域和 source/model 证明。
+[Later-body 许可与条件服务](leading-empty-body-licensing.md)已生产实际原源的
+empty-prefix／later-leaf、入口 body words，以及常数个 affine endpoint
+条件的安全编码与 readonly 接受证书；五模块／24 端点／9 closed／1,432
+绑定／至多旧六项 globals，无新增公理。旧 native bindings 重新核对。
+新服务未接 factory/compiler，native first-empty-child 仍回退。
+必须同步放宽 `memory_source_width_model`／assumed model 的 `1<=U(0)`
+条件并重新验证候选，不能扩大旧 certificate 的适用域。随后连接实际
+point permissions、stability、factory／compact plan／selected compiler 和
+native。负 width 的旧 j-exit 公式也需另证，receipt 不代替该证明。
+随后扩展 alias sufficient conditions、recursive loaded domains、scalar/chunk
+和 OLO具体源及完整成本。
 [Native pipeline](snapshot-polyhedral-native-pipeline.md)已提取固定旧 registry
 加新 snapshot factory 的 compiler；原 `i<*N; K=i+*M` 和 `K=2*i+*M` C
 完成实际 Pluto/codegen／完整 checker／selected安装／Csem→Asm链。直接

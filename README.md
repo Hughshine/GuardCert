@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Leading-empty body licensing](docs/leading-empty-body-licensing.md)
+now recovers a later reached body from the original loaded-affine source and
+produces its input typing through a certified affine endpoint condition.
+The new library passes 24 Rocq endpoint audits with no additional axioms.
+Connecting the wider model/candidate domain and installing the condition remain
+active; the existing compiler still falls back on first-empty-child inputs.
+
 2026-10-08: [Conditional loaded-affine native pipeline](docs/snapshot-polyhedral-native-pipeline.md)
 now compiles original `i<*N; K=i+*M` C through actual Pluto/codegen and the
 selected CompCert host. A proved compact check plan preserves the original
