@@ -1,5 +1,15 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Zero-width installation](docs/zero-width-installation.md) connects
+the wider candidate checker, original-source guard, compact plan and selected
+Csem-to-Asm compiler. First-empty/nonempty-later inputs now enter the fast path.
+Eleven modules audit 33 endpoints with no additional axioms; six configurations
+pass 2,016 Asm/2,016 Clight calls. The same binary passes word 400/400,
+recursive-affine 480/480 and private-loaded 270/270 regressions. On the same
+old inputs, acceptance grows from 30 to 40 without losses. Broader alias,
+recursive loaded domains, all-empty/negative-width support and full cost remain
+active. Historical checkpoints below retain their original scope.
+
 2026-10-08: [Zero-width stability](docs/zero-width-stability.md) now connects
 ordered input/range checks and actual N/M probes to cached-source execution
 with the given original memory and exits. The scan AST equals its predecessor;

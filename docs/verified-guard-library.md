@@ -2,7 +2,17 @@
 
 2026-10-08，对照 `topdown/research-positioning@5ba223d` 的澄清。
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
-定义整理调用前提、成功事实和组合边界。后继
+定义整理调用前提、成功事实和组合边界。
+
+最新安装态见 [zero-width installation](zero-width-installation.md)：ordered
+first-or-second-reached许可、范围、N/M scan、data alias和candidate ranges
+已接 actual checker／factory／compact plan／selected Csem→Asm。First-empty
+现有实际接受；六配置2,016／2,016和同binary旧族回归通过。该 alias服务只需
+typed ready与observed pointer receipts，不再额外要求cached completion；
+factory仍自动生产适用的原源／capture前提。Broader／value-preserving条件、
+recursive loaded和完整成本继续。以下记录保留各子阶段当时的范围。
+
+后继
 [原 loaded setup 阶段](affine-header-snapshots.md)已补上下面标明的新证明；
 后继 [N/M stability scan](affine-snapshot-stability-scan.md)进一步生产实际
 row/prefix 条件，并连接接受到 complete cached source；后继

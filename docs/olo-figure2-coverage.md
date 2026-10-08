@@ -1,5 +1,13 @@
 # CGO 2017 Figure 2：源问题与当前覆盖
 
+2026-10-08：[zero-width installation](zero-width-installation.md)已在实际
+`i<*N; K=i+*M`／`K=2*i+*M`二维源上接通 later-leaf输入许可、nonnegative
+模型域、header/data条件、actual candidate及selected Csem→Asm。首行空、
+后续非空输入实际接受；六配置2,016／2,016与同binary旧族回归通过。
+这提供 conditional observation／alias／机器算术条件组合的进一步实例，
+不把二维源与既有三层loaded族相加称为一般recursive loaded affine或完整
+BT/delinearization已覆盖。原Figure 2报告与完整成本边界保留，完整目标继续。
+
 2026-10-07 后继：[nested frontend BODY／contexts](nested-frontend-coverage.md)在
 既有三层 loaded-header／固定 flat-stride source profile 上验证七类函数，包含
 真实多数组读写、dependence、alias、同 allocation 分离 slices、BODY value wrap、

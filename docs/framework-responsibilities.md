@@ -68,6 +68,15 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Zero-width installation](zero-width-installation.md)已把这些 producer
+接到 actual wider-domain C_opt checker、candidate/backend/public restore、
+fresh typed capture/result、original fallback和具体 region guarantee。新 builder
+先于旧 registry，复用 selected host得到 Csem→Asm；kernel／host／底层
+validators不变。十一模块／33端点，无新增公理。六配置2,016／2,016与同
+binary word400／400、recursive affine480／480、private-loaded270／270通过。
+源用户仍给标注 C 和策略；first-empty-child现有实际接受证据。N/M稳定性
+不替代data依赖条件，broader／recursive loaded／完整成本／OLO仍属完整目标。
+
 2026-10-08 [Zero-width stability](zero-width-stability.md)把 domain 的弱 ready
 与 source row／物理 permissions 接到 language 的实际 N/M 短路检查、观察
 保持和 original-to-cached transport。Readonly ordered preparation 自动生产

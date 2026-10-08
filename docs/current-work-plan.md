@@ -107,8 +107,29 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：交付 wider-domain actual candidate/checker 与 checked
-factory／compact plan／selected compiler／native，让 first-empty-child 实际接受。
+**当前下一任务**：接入 broader alias／value-preserving header 条件，复用同一
+snapshot transport、candidate 和安装链，并继续 general recursive loaded
+affine、scalar/chunk、完整 OLO 与成本验收。先核对既有 zero-RMW observation
+服务能否由当前 actual body checker 自动生产调用前提；新充分条件须建立同一
+N/M observation relation，不能用 header stability 代替 candidate data-dependence
+条件，也不能把 source-user callbacks 当作 producer。服务接入后须测量同源／
+同binary的完整接受和拒绝调用成本。全空 body-input bypass和 negative-width
+clipped public exit仍需具体语言／domain证明。
+
+[Zero-width installation](zero-width-installation.md)已连接 actual wider-domain
+mapped/tiling checker、checked factory、compact plan与 selected Csem→Asm。
+新 builder 先于既有 registry；两个原 loaded-affine C 函数的首行空／后续
+非空路径实际接受。十一模块／33端点／1,934bindings／旧42globals，无新增
+公理。六配置2,016／2,016 Asm/Clight全输出和continuation通过；同binary
+word400／400、recursive affine480／480、private-loaded270／270通过。
+正常模式各60 accepted／164 runtime fallback／112 unmarked；actual first-empty／
+later-nonempty子集30 accepted／12 refused，另6个N/M同址的M0输入实际outer
+count为0并回退；N1/M0的16个body-empty输入也安全回退。在原264个相同输入上，
+接受从30增至40且无丢失。普通 pipeline request 本来就是真实未加 first-positive
+限制的 source Loop；保留 proposer，改用更宽 assumed model 重新验证返回的
+实际候选。完整成本与更一般 source 仍未交付，完整目标继续。
+
+以下为模型／稳定性子阶段的历史范围，其安装缺口已由该后继接上。
 [Zero-width stability](zero-width-stability.md)已从 ordered first-reached／range
 checks 生产弱 ready，连接 source row decoder、实际 reached-point permissions、
 N/M 短路扫描和 accepted cached completion，并对给定原执行保持精确 memory／
@@ -116,7 +137,7 @@ temporary exits。十模块／35端点／7closed／1,486bindings／至多旧六�
 无新增公理；实际 scan AST 与旧版相同。Factory 仍须生产原 capture/header
 调用前提，在新 assumed model 下检查实际 source/candidate/code，再消费这些
 producer 与 model/restore 桥。Registry 必须选到新路径并保持旧 positive
-输入的接受；新的 compiler/native 与完整成本尚未交付。
+输入的接受；该阶段没有 compiler/native 与完整成本结论。
 
 [Zero-width 模型桥](zero-width-model-bridges.md)已证明 nonnegative width
 域的 source decode、mapped/tiling candidate checker soundness、实际候选
