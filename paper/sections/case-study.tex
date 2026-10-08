@@ -359,6 +359,19 @@ compiler has a Csem-to-Asm backward-simulation theorem. This connection changes
 neither the minimal kernel nor the actual generated-candidate interface.
 Acceptance, scan work and complete runtime cost are evaluated separately below.
 
+A positive-offset service derives an arithmetic presumption from the actual
+captured word. For signed words $r,d$, if $\mathrm{signed}(d)\geq0$ and
+$\mathrm{signed}(\mathrm{add}(r,d))\geq0$, the result equals
+$\mathrm{signed}(r)+\mathrm{signed}(d)$ and that sum lies in the signed range.
+A nonnegative offset cannot underflow; overflow above the signed maximum would
+produce a negative word. A Boolean profile certificate adds positivity and a
+cap. Loaded/indexed receipt corollaries retain the actual memory-read witness
+while deriving this mathematical bound from the cached profile. These services
+license no new load and add no raw-header no-overflow assumption to the
+compiler. The existing source factory already handles literal word offsets;
+the new \code{+1} source matrix exercises that path. This logical service is
+distinct from a new Clight expression encoder or runtime-check installation.
+
 A separate Clight library supplies a memory guarantee that permits aliasing.
 If a \code{Mint32} observation holds word $w$, successful \code{Mint32} stores
 of that same word preserve the observation, including stores to the observed
@@ -476,6 +489,19 @@ outputs remain distinct evidence; there is no separate equivalence theorem
 between them. The compiler theorem for zero RMW preparation quantifies over the
 proposer, so this change reuses its source factory, local contract and selected
 host without a new proof module or semantic kernel change.
+
+Unit tiles expose another representation boundary: codegen identifies a unit
+axis's point coordinate with its tile coordinate and removes the separate
+point loop. The old six-coordinate tiling bridge then refuses installation.
+A successor producer proposes singleton point loops for partially unit tiles,
+lifts bound/test/operand references through each inserted binder, and proposes
+canonical point operands. The final checker validates this actual completed
+candidate against the source; the structural completion algorithm is
+untrusted. All-unit codegen retains three actual loops and uses the existing
+mapped-candidate checker with proposed affine reindex data. No-unit codegen
+retains the prior six-loop path. Raw, completed and adapted outputs remain
+separate artifacts, with no raw-to-completed equivalence claim. This extension
+uses the same compiler theorem and introduces no kernel or host change.
 
 \paragraph{Public-exit restoration.}
 The shadow-based candidate restores public counters by replaying the source's

@@ -1,5 +1,7 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [单位坐标／positive-offset 后继](unit-tile-and-positive-offset.md)继续复用 responsibility boundary：producer 提出 singleton／operand completion 或 mapped reindex，既有 domain factory 验证实际 candidate；language 提供实际 capture receipt 与 word-add presumption 定律、许可／状态运输及原有 host。完整单位矩阵 2,352 Asm／1,792 Clight、八种 probe 安装及 `+1` 的 1,215 Asm／540 Clight 检查已通过。五整数端点闭合，三 receipt 端点使用四项既有 globals；未新增 kernel、caller callback、runtime encoder 或 compiler theorem。下一最难连接是同一 loaded/Horner 路径的多 operation、多 array、真实跨迭代依赖，以及每次读取／写入的 source-prefix 许可与 guard-entry 模型连接；其他路径已有服务不能合称当前支持。
+
 2026-10-07 [tight-candidate 后继](tight-loaded-word-candidates.md)展示了责任分层的实际复用：优化实现只改 untrusted bound／guard proposal，既有 domain factory 重检 actual Loop，语言 host 仍提供 placement／progress／frames／Csem→Asm。同一 compiler theorem 已量化 proposer；没有新 kernel／Rocq 模块或语义 callback。784 Asm／336 Clight 检查通过，unit tiles 的中间成功没有绕过最终 shape gate。配对成本和实际 Ir 分别验证候选枚举问题及改进，但不宣称 source 收益，也不将机器指令数当 CPU cycles。
 
 2026-10-07 [zero条件的完整安装](zero-loaded-word-installation.md)已接原源首点许可→actual receipt值保持→cached／helper／canonical及完整check出口→actual candidate→local contract→selected Csem→Asm。`tensor_preparation_certificate`是语言层内部服务，data factory生产其字段，优化使用者仍只提供描述／scalar／模型与候选数据。Kernel不负责词或指针安全，也不因此获得任意contextual closure；host继续独立检查progress、placement与fresh allocation。21端点保持42-global基线；560 Asm与224独立Clight分派通过，零值alias接受域扩大。下一难点是nonzero条件的安全观察许可、候选完整成本和收益策略；word观测保持不冒充byte／other-chunk／whole-memory equality。

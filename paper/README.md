@@ -1,5 +1,7 @@
 # GuardCert Working Manuscript
 
+The [unit-coordinate/positive-offset checkpoint](../docs/unit-tile-and-positive-offset.md) adds untrusted coordinate completion and existing mapped-checker reuse, with all eight unit-axis domain-check/install probes passing and 2,352 unmodified Asm plus 1,792 separate Clight calls over both layouts and all masks. The same compiler executes real loaded bounds `*h+1` and `h[1]+1`: 1,215 unmodified Asm calls and 540 separate Clight dispatch checks pass, including wrapping, skipped unavailable reads, aliases, repeated regions and contexts. Two ancillary arithmetic/receipt modules audit eight endpoints with no added globals; they introduce no runtime encoder or compiler theorem. General multi-array/dependent source bodies, full OLO/BT and profitable representative workloads remain open. Prior records below retain their historical scope.
+
 The [loaded-word factory](../docs/loaded-word-family-factory.md) now produces the static resources and canonical tensor package from checked data and provides base/frontend/padded-leaf selected Csem-to-Asm endpoints. Separate 26-, 8- and 7-endpoint audits retain the existing 42-global compiler baseline. The succeeding v3 same-C pipeline installs actual tiling candidates and passes 420 unmodified assembly calls plus 168 separate Clight dispatch checks, including changing-header alias refusal and unavailable child/data reads on empty roots. The first failed installation run remains preserved. Cost evidence is still pending.
 
 This is the working manuscript from the CAV 2027 writing track in

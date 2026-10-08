@@ -1587,6 +1587,35 @@
         "scripts/native_tight_loaded_word_cost.py",
         "scripts/native_tight_loaded_word_instructions.py"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The completed untrusted producer handles eliminated unit coordinates through proposed singleton completion or existing mapped reindex checks. The reused selected compiler theorem and final checker support 2352 unmodified Asm calls and 1792 separate Clight dispatch checks over all eight unit masks and both layouts. The same compiler passes actual loaded +1 bounds with 1215 Asm and 540 separate Clight calls. Positive-offset arithmetic soundness and loaded/indexed receipt corollaries interpret cached profiles as mathematical no-overflow bounds with no new axiom; these ancillary services add no runtime encoder or compiler theorem. Eight installed-but-unexecuted diagnostic probes remain separate from native results. No new unit/offset profitability or raw-to-completed equivalence result is claimed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/CompCertPositiveOffsetFacts.v",
+          "name": "positive_offset_profile_sound"
+        },
+        {
+          "source": "prototype/interface/ClightPositiveOffsetHeaders.v",
+          "name": "nested_positive_offsets_presumption"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedZeroLoadedWordFrontendCompiler.v",
+          "name": "compile_selected_zero_loaded_word_frontend_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/unit-tile-and-positive-offset.md",
+        "prototype/annotated-polyhedral/native/GuardCompletedPreparedTensorCandidate.ml",
+        "scripts/build_completed_loaded_word_compiler.py",
+        "scripts/probe_unit_tile_codegen.py",
+        "scripts/probe_completed_unit_codegen.py",
+        "scripts/native_completed_loaded_word_pipeline.py",
+        "scripts/native_positive_offset_fixtures.py",
+        "scripts/native_positive_offset_pipeline.py",
+        "scripts/audit_positive_offset_headers.py"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -5948,5 +5977,193 @@
     "dense_array_rmw_stores_per_call": 4805,
     "cpu_cycles_measured": false,
     "store_pc_classification_verified": false
+  },
+  "positive_offset_condition_service_stage": {
+    "report": "build/positive-offset-headers/proof/report.json",
+    "report_sha256": "641c392554bd4d58d5ceddf1cb57a89f8bc7054e3b8d82d06517a6052adeb0c3",
+    "new_modules": 2,
+    "endpoints": 8,
+    "closed_endpoints": 5,
+    "maximum_endpoint_globals": 4,
+    "additional_global_axioms": [],
+    "new_runtime_encoder_proved": false,
+    "new_guard_installed": false,
+    "existing_capture_receipt_consumed": true,
+    "source_read_licensing_changed": false
+  },
+  "positive_offset_native_stage": {
+    "assembly_calls": 1215,
+    "clight_dispatch_calls": 540,
+    "tile_sizes": {
+      "row-000": [
+        2,
+        3,
+        2
+      ],
+      "row-100": [
+        1,
+        3,
+        2
+      ],
+      "column-010": [
+        2,
+        1,
+        2
+      ],
+      "column-111": [
+        1,
+        1,
+        1
+      ]
+    },
+    "loaded_offsets": [
+      1,
+      1
+    ],
+    "wrapped_bounds_checked": true,
+    "null_output_and_unavailable_child_on_inactive_root_checked": true,
+    "new_rocq_modules": [],
+    "additional_global_axioms": [],
+    "profitability_measured": false,
+    "report": "build/loaded-word-positive-offset/native/report.json",
+    "report_sha256": "8c9db39f451feb8e6d8e89f10b20c30022a62a32ec8484555ba2e2455bcfc8e6",
+    "compiler": "build/loaded-word-completed/compiler/ccomp",
+    "same_compiler_entrypoint": "ClightSelectedZeroLoadedWordFrontendCompiler.compile_selected_zero_loaded_word_frontend_regions",
+    "calls_per_configuration": 135,
+    "installed_configurations": [
+      "row-000",
+      "row-100",
+      "column-010",
+      "column-111"
+    ],
+    "accepted_marked_occurrences_per_installed_configuration": 50,
+    "refused_marked_occurrences_per_installed_configuration": 64,
+    "zero_preparation_entries_per_installed_configuration": 25,
+    "runtime_clight_encoder_added": false,
+    "new_compiler_theorem": false
+  },
+  "completed_unit_candidate_stage": {
+    "assembly_calls": 2352,
+    "clight_dispatch_calls": 1792,
+    "tile_sizes": {
+      "row-000": [
+        2,
+        3,
+        2
+      ],
+      "row-100": [
+        1,
+        3,
+        2
+      ],
+      "row-010": [
+        2,
+        1,
+        2
+      ],
+      "row-001": [
+        2,
+        3,
+        1
+      ],
+      "row-110": [
+        1,
+        1,
+        2
+      ],
+      "row-101": [
+        1,
+        3,
+        1
+      ],
+      "row-011": [
+        2,
+        1,
+        1
+      ],
+      "row-111": [
+        1,
+        1,
+        1
+      ],
+      "column-000": [
+        2,
+        3,
+        2
+      ],
+      "column-100": [
+        1,
+        3,
+        2
+      ],
+      "column-010": [
+        2,
+        1,
+        2
+      ],
+      "column-001": [
+        2,
+        3,
+        1
+      ],
+      "column-110": [
+        1,
+        1,
+        2
+      ],
+      "column-101": [
+        1,
+        3,
+        1
+      ],
+      "column-011": [
+        2,
+        1,
+        1
+      ],
+      "column-111": [
+        1,
+        1,
+        1
+      ]
+    },
+    "unit_masks": [
+      "000",
+      "100",
+      "010",
+      "001",
+      "110",
+      "101",
+      "011",
+      "111"
+    ],
+    "all_unit_mapped_path": true,
+    "partial_unit_singleton_completion_proposed": true,
+    "new_rocq_modules": [],
+    "additional_global_axioms": [],
+    "profitability_measured": false,
+    "raw_codegen_to_adapted_equivalence_proved": false,
+    "report": "build/loaded-word-completed/native/report.json",
+    "report_sha256": "2663b379eec470b7198b179859e29cf05ccefc84bed880819eada783218d6e35",
+    "compiler": "build/loaded-word-completed/compiler/ccomp",
+    "compiler_sha256": "7f618578ccc9774d34a35cfa8cfad755fac85e75b032f08775017d89b3d991a5",
+    "same_compiler_entrypoint": "ClightSelectedZeroLoadedWordFrontendCompiler.compile_selected_zero_loaded_word_frontend_regions",
+    "configurations": 21,
+    "installed_configurations": 16,
+    "calls_per_configuration": 112,
+    "zero_preparation_entries_per_installed_configuration": 25,
+    "domain_check_probe": "build/completed-unit-codegen-probe/report.json",
+    "domain_check_probe_sha256": "17d7132f06e5a815ba63db6408e9c6ef8fa2a5ad9d2de20a3c25f74face47a1f",
+    "probe_native_execution_claimed": false,
+    "marked_occurrences_per_installed_configuration": {
+      "row": {
+        "accepted": 45,
+        "refused": 49
+      },
+      "column": {
+        "accepted": 55,
+        "refused": 39
+      }
+    }
   }
 }

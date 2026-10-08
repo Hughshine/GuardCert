@@ -35,6 +35,20 @@ zero complete cost falls to about 2.97 times source, still a slowdown. This
 reuses the existing responsibility boundary; it neither changes the kernel nor
 closes general-domain, nonzero-condition, full OLO/BT or profitability work.
 
+The [unit-coordinate/positive-offset successor](unit-tile-and-positive-offset.md)
+now proposes singleton coordinates for partially unit tiles and mapped reindex
+for the all-unit raw result. All eight diagnostic probes pass final domain
+checking and show installed dispatches; those probes do not call the region.
+The fresh full matrix passes 2,352 Asm and 1,792 separate Clight calls over
+both layouts and all masks.
+Separately, the same compiler passes 1,215 Asm calls and 540 Clight dispatch
+checks on actual loaded `+1` bounds, wrapping, empty paths and alias contexts.
+New arithmetic/receipt services interpret the cached profile as a mathematical
+no-overflow bound without changing source read licensing or installing a new
+runtime encoder. The next domain gate connects real statement sequences,
+multiple arrays and true cross-iteration dependencies in this same pipeline.
+The latest fetch still resolves to `12419c1`; both narrative documents match main.
+
 ## Responsibility Boundaries
 
 | Owner | Evidence supplied or service proved | Current realization |
