@@ -573,6 +573,23 @@ entry check can introduce an undefined word computation. Permission transport
 licenses an address probe, not an earlier load value. A value-dependent guard
 needs justified forwarding or another source-licensed expression.
 
+A source-permission successor licenses used pointer and scalar words from an
+actually reached source body before mathematical layout checks. Its trace
+receipts retain separate read and write permissions and transport them through
+earlier stores to entry. For the canonical temporary-bound source, runtime
+tensor address encoding turns these receipts into the valid, aligned pointer
+bindings consumed by the existing Clight comparison library. An allocated
+word witness has entry access permission and value \code{Vundef}; a store
+initializes it to an integer, while addition on the entry value cannot complete.
+
+The finite alias tree obtained from the actual entry footprint is a reference
+condition, not a static scanner for unknown runtime counts. The next producer
+must realize coverage with runtime scans or a proved symbolic envelope. It
+must also establish loaded-header preservation point by point before deriving
+the cached source rectangle: an earlier store can change the original reached
+domain. This source-permission connection changes neither the kernel nor the
+selected compiler endpoint.
+
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array
 footprints, connect certified residualization to actual execution, and compare

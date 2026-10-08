@@ -1666,6 +1666,35 @@
       "documents": [
         "docs/multi-array-tensor-source.md"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual source bodies license used pointer/scalar observations before layout checks; actual store traces transport read/write permissions to entry and tensor address encoding connects them to existing Clight pointer comparisons. Permission does not imply an entry integer value. Runtime scanner generation and loaded-header preservation remain open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorSourceCapabilities.v",
+          "name": "multi_tensor_source_region_first_capabilities"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryRuntimeReceipts.v",
+          "name": "memory_trace_entry_access_receipts"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryMultiTensorAddressReceipts.v",
+          "name": "multi_tensor_source_entry_address_receipts"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPermissionExample.v",
+          "name": "multi_tensor_demo_reference_alias_condition"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorPermissionExample.v",
+          "name": "multi_tensor_demo_initialization_distinguishes_permission"
+        }
+      ],
+      "documents": [
+        "docs/multi-array-source-permissions.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6268,6 +6297,27 @@
     "entry_box_layout_and_separation_still_required": true,
     "runtime_cross_array_alias_encoder_added": false,
     "loaded_multi_store_prefix_licensing_added": false,
+    "new_compiler_theorem": false,
+    "multi_array_guarded_compiler_installed": false,
+    "C_or_assembly_evidence_added": false
+  },
+  "multi_array_source_permissions_stage": {
+    "report": "build/multi-tensor-permissions/proof/report.json",
+    "report_sha256": "f28924ec80bab2ee8021ae87e7b8a8f05b4d9a20a687f01cc9ef262e8567a324",
+    "endpoints": 32,
+    "closed_endpoints": 10,
+    "maximum_endpoint_globals": 6,
+    "compiler_baseline_globals": 42,
+    "bound_files": 123,
+    "new_global_axioms": [],
+    "kernel_changed": false,
+    "source_observations_before_layout_checks": true,
+    "entry_read_write_access_receipts": true,
+    "entry_integer_values_presumed": false,
+    "alias_condition_scope": "entry-indexed reference footprint; static runtime scanner pending",
+    "allocated_undef_initialization_witness": true,
+    "loaded_header_prefix_licensing_added": false,
+    "runtime_cross_array_alias_encoder_added": false,
     "new_compiler_theorem": false,
     "multi_array_guarded_compiler_installed": false,
     "C_or_assembly_evidence_added": false
