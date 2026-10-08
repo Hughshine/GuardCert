@@ -2,6 +2,24 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[完整 store-sequence guard／cached 分派](word-store-sequence-scan.md)
+已从原 loaded loop 的正常执行生产捕获／ready，先检查 row-zero／非负 gate，
+再执行静态生成的短路 cursor loop；首个拒绝停止，不使用后续原源许可。
+全接受产出 cached source，并运输到实际 guard exit；完整 cached/original
+分派证明保留 final memory 与公开 temps。真实内存 fixtures 覆盖后续 RHS
+使用前一 store 初始化、第二 store/header 别名回退、空域未定义数组指针。
+四模块／35 端点／7 闭合／最多 6 项既有 globals／1,114 绑定，无新增公理。
+**下一项组合完整 original loaded nest 的多 header／条件读取与 cached/model
+对应，再消费同族多数组 candidate、公开恢复、data factory／selected host、
+真实 polyhedral pipeline 和 C→Asm／native 验收。**一条 axis 的实际 guard
+不作为完整多维 loaded compiler 的完成；本次没有新增 native 或成本结果。
+Kernel／host contract 未改；静态 scope／rename／typed resources 尚须由同族
+factory 自动生产。再次 fetch narrative 仍为 `12419c1`，正文与 main 一致。
+已闭合 temp-bound slice 的 compact-condition／接受域／代码尺寸／运行工作／
+完整成本和 OLO 比较继续在 active goal，不因单轴服务完成而延后或删减。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[实际 store 序列／loaded prefix](word-store-sequence-prefix.md)
 从任意 assignment list 的真实中间内存取得每条 store 的检查许可；只回运
 权限，不前移后续 RHS 值。实际 AST checker 生产 word index、flatten、

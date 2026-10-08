@@ -1,5 +1,24 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [完整原源许可 guard 与 cached 分派](word-store-sequence-scan.md)
+让三方责任落到真实执行：Clight 服务提供 capture 的第一次读取许可、地址
+temp 的运输、gate／短路 cursor 执行、memory/public frame 和实际出口运输；
+domain 以原 loaded source prefix 生产逐点 domain，接受后保持 header、覆盖
+整个单轴 cached 域并产出 cached execution。完整 cached/original dispatch
+已有局部正常执行定理，源码用户不提供 SOURCE／simulation callback。Kernel
+及既有 host contract 不改；当前仍是语言/domain 库，scope／rename／私有 typed
+资源的自动生产和安装尚须接 data factory。35 端点的审计保持旧 42-global
+基线，无新增公理；真实空域与第二 store/header alias 证明不等于新增 native。
+
+下一最难位置由一条 axis 转为完整 loaded nest 的多 header／条件读取：先前
+接受的 writes 必须许可下一源码 test，并在全接受时建立原源→cached/model→
+actual candidate 的对应。随后分别生产 region guarantee 与 placement/resource
+evidence，由语言 host 提供 progress／boundary／whole-program installation。
+Guarantee/requirement clause 化仍是开放设计。Narrative fetch 仍为 `12419c1`；
+真实 polyhedral 集成、紧凑充分条件与 OLO 完整成本/可用性验收继续约束 goal。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [Store-sequence loaded prefix](word-store-sequence-prefix.md)保持
 kernel／语言／domain 的三方边界：框架消费 readonly certificate；语言服务
 组合实际逐条 store receipts、word 地址／permission 运输、安全 pointer

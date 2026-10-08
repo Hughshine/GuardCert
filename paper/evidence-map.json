@@ -1995,6 +1995,49 @@
         "scripts/audit_word_store_sequence.py",
         "scripts/compile_word_store_sequence_sources.py"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The single-axis store-sequence successor proves original-source-licensed capture, refusal gates, a static short-circuit cursor loop, all-accepted cached-source execution at the actual guard exit, and complete cached/original dispatch. Thirty-five endpoints, seven closed, use at most six existing globals and add no axiom. Real-memory Clight fixtures cover later RHS initialization, second-store/header alias fallback after one actual source iteration, and empty loops with undefined array temps. Complete nested multi-header loaded model/candidate correspondence, data factory/selected installation and new native or cost evidence remain open; the kernel and host contract are unchanged.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceRuntime.v",
+          "name": "word_store_sequence_runtime_check"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceScan.v",
+          "name": "word_store_loaded_scan_cached_exit"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceGuard.v",
+          "name": "word_store_loaded_guard_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceGuard.v",
+          "name": "word_store_loaded_rewrite_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceScanExample.v",
+          "name": "sequence_scan_original_alias_loop"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceScanExample.v",
+          "name": "sequence_scan_complete_guard_accepts"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceScanExample.v",
+          "name": "sequence_scan_alias_fallback_rewrite"
+        },
+        {
+          "source": "prototype/interface/ClightWordStoreSequenceScanExample.v",
+          "name": "sequence_scan_empty_guard_accepts"
+        }
+      ],
+      "documents": [
+        "docs/word-store-sequence-scan.md",
+        "scripts/audit_word_store_scan.py",
+        "scripts/compile_word_store_scan_sources.py"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -6916,5 +6959,35 @@
     "compact_guards_or_cost_added": false,
     "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
     "new_narrative_commit_observed": false
+  },
+  "word_store_sequence_scan_stage": {
+    "report": "build/multi-word-scan/proof-v1/report.json",
+    "report_sha256": "4f470b4c502a3a672fdefc89722eb8dfaaea0aacd8715f951caa6092397ecfb9",
+    "audited_endpoints": 35,
+    "closed_endpoints": 7,
+    "maximum_endpoint_globals": 6,
+    "bound_files": 1114,
+    "parent_bound_files": 1100,
+    "compiler_allowed_global_count": 42,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "original_loaded_source_licenses_capture_and_scan": true,
+    "cached_source_execution_is_input_premise": false,
+    "guard_AST_static_and_not_unrolled_to_runtime_count": true,
+    "first_refusal_stops_scan_and_skips_later_source_permissions": true,
+    "all_acceptance_produces_cached_source_at_actual_guard_exit": true,
+    "complete_guard_produces_ready_and_gates_from_original_source": true,
+    "complete_cached_or_original_dispatch_proved": true,
+    "runtime_scan_axes": 1,
+    "new_nested_multi_header_driver": false,
+    "new_polyhedral_candidate_or_compiler_endpoint": false,
+    "new_native_or_cost_evidence": false,
+    "automatic_loaded_family_factory_delivered": false,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "actual_Clight_execution_fixtures_proved": true,
+    "additional_global_axioms": [],
+    "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
   }
 }
