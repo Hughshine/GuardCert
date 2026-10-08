@@ -2264,6 +2264,44 @@
         "docs/word-nested-store-native-pipeline.md"
       ],
       "evidence_stage": "word_nested_store_native_stage"
+    },
+    {
+      "id": "word-nested-store-shared-setup-and-paired-function-size",
+      "status": "proved-selected-compiler; same-native-matrix-passed; paired-static-size-measured",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightMultiTensorSharedSetup.v",
+          "name": "multi_tensor_shared_setup_flag_sound"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorSharedSetup.v",
+          "name": "multi_tensor_shared_setup_execution"
+        },
+        {
+          "source": "prototype/interface/ClightMultiTensorSharedSetup.v",
+          "name": "check_multi_tensor_shared_setup_full_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreShared.v",
+          "name": "nwspp_shared_setup_execution"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreShared.v",
+          "name": "nwspp_shared_setup_contract"
+        },
+        {
+          "source": "prototype/interface/ClightWordNestedStoreShared.v",
+          "name": "check_word_nested_store_shared_frontend_region_contract"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedWordNestedStoreSharedCompiler.v",
+          "name": "compile_selected_word_nested_store_shared_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/word-nested-store-shared-setup.md"
+      ],
+      "evidence_stage": "word_nested_store_shared_stage"
     }
   ],
   "bibliography_evidence": [
@@ -7407,6 +7445,52 @@
     "new_modules_reachable_dependency_closure_bound": true,
     "additional_global_axioms": [],
     "narrative_ref_rechecked": "12419c1e1e3da450bf378742a2fb4e204e51e060",
+    "full_goal_complete": false
+  },
+  "word_nested_store_shared_stage": {
+    "report": "build/multi-word-nested-shared/proof-v1/report.json",
+    "report_sha256": "cd4677b6ea4729cbb855eab0689868fb7b23ed01bfaee2520a7f7f9e9293d98f",
+    "native_report": "build/multi-word-nested-shared/native-v1/report.json",
+    "native_report_sha256": "1b87c8f3b3f6af1c9fd6e32a45352d48225bcbb230b4e118b4f7271eed918431",
+    "size_report": "build/multi-word-nested-shared/size-v1/report.json",
+    "size_report_sha256": "1f7713031a3cdc0347f453a5b6aee506652a3be3aa39a97f66d062270d83fd93",
+    "audited_endpoints": 11,
+    "closed_endpoints": 1,
+    "maximum_endpoint_globals": 42,
+    "bound_files": 1376,
+    "parent_bound_files": 1374,
+    "assembly_calls": 1000,
+    "independent_Clight_calls": 1000,
+    "shared_setup_lowering_consumes_existing_check_plan_service": true,
+    "same_setup_condition_alias_scan_and_candidate_checker": true,
+    "fresh_typed_flag_after_candidate_checked": true,
+    "flag_need_not_be_defined_at_entry": true,
+    "source_user_semantic_callback_API_added": false,
+    "kernel_changed": false,
+    "host_contract_changed": false,
+    "new_Csem_to_Asm_endpoint": true,
+    "same_sources_full_outputs_and_observed_paths": true,
+    "row_2x3_linked_function_bytes": [
+      2750,
+      1442
+    ],
+    "row_2x3_root_source_loop_copies": [
+      36,
+      4
+    ],
+    "parameter_stride_root_source_loop_copies": [
+      40,
+      4
+    ],
+    "outside_functions_driver_and_main_sizes_unchanged": true,
+    "guard_scan_asymptotics_changed": false,
+    "complete_runtime_cost_or_source_speedup_measured": false,
+    "general_affine_domains_supported": false,
+    "same_block_pointer_ordering_not_assumed_of_source_users": true,
+    "parent_endpoints_inherited_from_frozen_report": true,
+    "historical_transitive_audits_rerun": false,
+    "new_modules_reachable_dependency_closure_bound": true,
+    "additional_global_axioms": [],
     "full_goal_complete": false
   }
 }

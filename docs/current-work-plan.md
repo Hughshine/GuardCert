@@ -2,6 +2,28 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-08：[双 loaded shared setup/尺寸](word-nested-store-shared-setup.md)复用
+既有 Clight check-plan 服务，把 numeric/layout/box/profile 的拒绝叶子合并
+到一次分派；自动在候选检查后选择 checked fresh typed flag。原条件、header/
+alias scan、candidate checker 和 host 均保持，新 Csem→Asm 入口及提取通过。
+11 端点／1 闭合／1,376 绑定，核对 parent 1,374，零新增公理。相同十组
+1,000 Asm／1,000 独立 Clight calls 的完整 outputs 和观察路径保持。
+
+配对 `nm -S`/Clight 计数：普通 2×3 单 region 从 2,750 降至 1,442 bytes，
+root-source copies 36→4；参数 stride 40→4。未标注/unsupported/driver/main
+尺寸保持。这是代码增长证据，不是 timing/guard 工作或源程序收益。
+
+**下一项复用/实现重复 probe 与静态事实 residualization，接实际 compiler，
+验收条件安全/接受域/guard 工作，再做完整配对成本。**不得以更多 source
+grammar 延后本源族的 OLO 可用性验收。Header/alias scan 的复杂度和 cap 8
+尚未改善。通用 pointer-order interval 替换有真实 Clight 定义性缺口：不同
+allocation 的 ordering 可为 `None`；现有 envelope 需要共同基址。新的
+紧凑服务须明确语言可编码的 evidence，不隐藏 caller same-block 假定。
+一般参数化 affine source/scalar、OLO 完整能力和作者负担仍在 active goal；
+kernel/host contract 与 guarantee/requirement clauses 的开放边界保持。
+
+以下保留前阶段当时范围。
+
 2026-10-08：[双 loaded 实际 C/Pluto/codegen/native](word-nested-store-native-pipeline.md)
 已关闭前一阶段的实际驱动缺口：proved administrative-skip adapter 运输原
 frontend source guarantee；自动普通 metadata、真实两轴模型、Pluto 与

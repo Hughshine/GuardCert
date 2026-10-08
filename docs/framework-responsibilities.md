@@ -1,5 +1,24 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-08 [双 loaded shared setup](word-nested-store-shared-setup.md)展示实际
+证明复用：domain factory 保持原 condition/C_opt，仅选择 checked typed flag
+并组合既有 check-plan/private/public transport；语言 host 继续处理原源
+progress、scope、placement 和 backend。没有源码 callback 或新 kernel/host。
+11 端点无新增公理，同一 1,000 Asm/1,000 Clight outputs/paths 保持；普通
+2×3 的 linked function bytes 2,750→1,442、root-source copies 36→4。
+尺寸变化不能替代动态 guard 工作和完整成本。
+
+下一最难位置是条件 residualization 与语言可表达性：前缀事实只能消除
+已被安全读取且仍有效的 probe，不能提前读取未定义 child/RHS。通用
+pointer-order interval 在不同 CompCert block 上可能无定义；共同基址的
+现有 envelope 可复用，其他条件必须补语言 primitive/共同对象等可证明
+evidence，不能把这项责任变成源码作者的静默假定。Kernel 消费证书，语言
+负责安全/运输，domain 负责充分性与 model/candidate 对应；guarantee/
+requirement clause algebra 保持开放。实际 compiler/接受域/guard 工作/
+完整配对成本、一般 affine source 和 OLO 可用性仍继续验收。
+
+以下保留前阶段当时范围。
+
 2026-10-08 [双 loaded 实际 C 流水线](word-nested-store-native-pipeline.md)复用
 前一完整 domain guarantee、candidate checker 与语言 selected host，新增
 proved administrative normalization 以适配真实 frontend；语言 host 仍

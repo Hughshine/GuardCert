@@ -1031,3 +1031,21 @@ measurements. The results establish the tested loaded rectangular family's
 connection to real scheduling and code generation. General affine domains,
 guard-cost improvement, source speedup and measured author effort remain
 outside this evidence.
+
+The shared-setup successor audits eleven endpoints in three modules: one
+closed, no additional axiom, the preceding forty-two-global baseline, and
+1,376 reachable bindings after checking the frozen parent's 1,374 bindings.
+The same ten-configuration matrix passes 1,000 assembly and 1,000 independent
+Clight calls. Identical source texts, complete outputs and observed branch
+paths allow a paired code-size comparison with the preceding compiler.
+
+For the row 2-by-3 configuration, \code{nm -S} reports that the linked
+\code{loaded_pair} function decreases from 2,750 to 1,442 bytes, or 47.56\%.
+Emitted Clight root-source loops decrease from thirty-six copies to four:
+header refusal, outer empty, setup refusal and alias refusal. Parameter-stride
+configurations decrease from forty copies to four; their row and column
+function sizes change from 3,195 to 1,594 bytes and from 3,200 to 1,596 bytes,
+respectively. Unmarked and unsupported functions, the case driver and main
+retain their sizes. These are static size measurements. Header scans and
+cross-array point-pair scans retain their complexity, and complete timing and
+profitability remain to be measured for this source family.

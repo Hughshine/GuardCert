@@ -867,6 +867,27 @@ assumption supplied by the pragma. The tested domains are loaded rectangles;
 this checkpoint does not establish arbitrary affine-domain coverage, compact
 condition cost or a performance benefit.
 
+\paragraph{Shared setup in the loaded data factory.}
+A successor reuses the existing Clight check-plan lowering to share the setup
+fallback. The setup condition, header and alias scans, and candidate checker
+are retained. After candidate checking, a static resource checker selects an
+int32 result that the condition, either branch and public live set do not use.
+The result need not be defined initially: every completed check path assigns
+it before dispatch. Existing execution and private-state transport theorems
+justify the new statement from the original source-licensed setup decision.
+The domain producer composes that local guarantee with the same outer loaded
+dispatch and language host, yielding a new extracted Csem-to-Asm compiler.
+Source users continue to provide marked C and policy data.
+
+This change addresses code duplication without changing the sufficient
+condition or requiring a new transformation proof. A separate semantic limit
+constrains compact alias checks: Clight pointer ordering across different
+CompCert blocks can be undefined. The existing observed affine-envelope
+service uses a common base. A general interval replacement therefore needs
+language evidence for its comparisons; source permission for endpoint
+equality does not establish cross-block ordering. The current arbitrary-base
+path keeps its safe point-pair scan.
+
 \pending{Measure the entry-parameter guard's complete cost and acceptance,
 extend compact conditions to other stability and array
 footprints, connect certified residualization to actual execution, and compare
