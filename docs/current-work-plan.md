@@ -19,6 +19,12 @@ guard/capture/transport facts，以及作为证明起点的 original source exec
 不要求每个前提都有一个 emitted test，不在运行时先执行源程序来许可 guard。
 最终 installed theorem 必须生产适用前提，不能留给源码用户。
 
+本次重新 fetch 后 remote 仍为 `c4b1395`，main 的 narrative 文本与该版本
+一致。[实际 loaded-affine 证明对照](snapshot-polyhedral-native-pipeline.md#sourcemodel-证明方向与前提来源)
+已把 capture、cached-source、Clight-to-Loop、candidate lowering、public
+restore 和全局安装分别关联到具体定理。后续 first-empty-child 等扩展沿用
+同一前提来源审查；这项说明不新增实现里程碑或要求重命名定理。
+
 Kernel 的验收止于局部证书组合；`C_host` 是实际 guarded choice 的语言
 执行规律，整程序 installation 是另一项语言证明。新条件服务应分别交付
 domain 的 `C_derive`、language 的安全求值/入口出口运输、factory 的 region
@@ -101,15 +107,29 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：为实际 `i<*N; K=i+*M` 提取新 compiler，验收 original
-marked C 的真实安装、runtime guard/candidate/fallback 与完整程序输出。
+**当前下一任务**：扩展 first-empty-child 后续非空的接受域，以 actual later
+reached body生产 scalar/geometry/permission前提；保持 conditional loads 的
+原源许可和实际出口证明。随后扩展 alias sufficient conditions、recursive
+loaded domains、scalar/chunk 和 OLO具体源及完整成本。
+[Native pipeline](snapshot-polyhedral-native-pipeline.md)已提取固定旧 registry
+加新 snapshot factory 的 compiler；原 `i<*N; K=i+*M` 和 `K=2*i+*M` C
+完成实际 Pluto/codegen／完整 checker／selected安装／Csem→Asm链。直接
+tree compiler在 candidate accepted后被 SIGKILL；后继复用现有私有Boolean
+lowering，15端点／1,850 bindings／旧42 globals／无新增公理，保留原condition
+和candidate证明，编译时不展开完整tree。六配置1,584／1,584 Asm/Clight全
+输出通过，正常两模式各两处、30 accepted／146 runtime refused；同 binary
+word400／400、recursive affine480／480、旧private-loaded270／270通过。
+空outer且M不可读的路径安全；first-empty-child仍保守回退。六次candidate
+attempts不等于两处installation；两次harness诊断错误与原compiler失败保留。
+本阶段没有完整调用成本或收益测量，joint recursive loaded语义未合并。
+
 [Checked installation 阶段](affine-snapshot-installation.md)已把静态 AST/
 grammar/shape/freshness 生产、typed conditional capture、具体原出口到 cached
 source、alias/range/candidate 连接与 mapped／tiling／schedule factory接通；
 新 builder 注册到共用 selected host，新 Csem→Asm specialization沿用原
 installation/backend theorem。九模块／37 端点／17 closed／1,644 绑定／
-至多旧 42 globals／无新增公理。这是已编译 proof connection；尚无新族
-提取 binary、actual C/native 或成本验收。
+至多旧 42 globals／无新增公理。该阶段的 proof connection已由后继native
+pipeline消费；完整成本尚待验收。
 原条件 capture、原源到 arithmetic guard 输入、concrete row decoder 和
 prefix write receipts 已由 [新阶段](affine-header-snapshots.md)生产，29 端点／
 1,332 绑定／至多旧六项 globals／无新增公理。该阶段不新增 Csem→Asm 或
@@ -117,13 +137,13 @@ native 结果，不把 cached completion 留作未经生产的调用前提。后
 [N/M stability scan](affine-snapshot-stability-scan.md)已实现 concrete row
 conditions、接受才推进的 prefix scan 与 whole-loop cached transport；
 actual scan 接受自动生产 complete cached source；后继 checked factory与
-compiler proof已连接，native 仍待验收。
+compiler proof已连接，native已由后继pipeline验收。
 Root 空时不能观察 `*M`；header 已执行但 child／leaf 为空
 时，header load 与后续 RHS 的许可须分开。Domain 给 no-wrap／reached-point／
 footprint／source-model 充分性，language 给 actual guard 安全与 public/memory
 frame 和 exit transport；factory 给 guarantee，site／selected host 给 placement／
-progress 和全局安装。下一步固定实际旧 registry／ordinary Pluto adapter 的
-compiler configuration，不能在提取端注入任意未证明的 builder。已有二维
+progress 和全局安装。后继已固定实际旧 registry／ordinary Pluto adapter 的
+compiler configuration；不能在提取端注入任意未证明的 builder。已有二维
 联合源链不能推广成 recursive loaded-word 域
 已经合并。随后推进 first-empty-child、broader alias sufficient conditions、
 scalar／chunk 和 OLO 具体源与完整成本。Finite/open clauses 及第二 IR 仍以

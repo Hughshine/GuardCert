@@ -68,6 +68,19 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Conditional loaded-affine native pipeline](snapshot-polyhedral-native-pipeline.md)
+验收source用户只给原marked C的路径：旧registry固定于Rocq入口，普通proposer
+接真实nonrectangular model到Pluto/codegen，原checker和source/model/candidate
+证明沿用。后继plan/tree correspondence与private-Boolean transport复用旧
+language lowering，静态检查生产typed/fresh flag；kernel／host／candidate
+checker不变。15端点／1,850bindings／旧42globals，无新增公理。六配置
+1,584／1,584全输出与公开continuation，实际accept/refuse与empty outer/M-null
+安全通过；同binary旧word400、recursive affine480、private-loaded270各自
+Asm/Clight回归通过。原tree compiler SIGKILL与两次harness错误均保留。
+这不是profitability结果，finite-completion、first-positive-child、旧alias
+envelope与二维源族边界保持。下一难点是later reached body的许可producer，
+不能把未到达RHS的可读性提前假定，也不能把library/cost边界交还源码用户。
+
 2026-10-08 [Checked loaded-affine installation](affine-snapshot-installation.md)
 填入 factory 与 guarantee 责任：原 AST 的普通 checker 自动生产 grammar/
 shape/protected ports/cache membership；private capture checker 与 typed pool

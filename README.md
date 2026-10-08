@@ -1,5 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Conditional loaded-affine native pipeline](docs/snapshot-polyhedral-native-pipeline.md)
+now compiles original `i<*N; K=i+*M` C through actual Pluto/codegen and the
+selected CompCert host. A proved compact check plan preserves the original
+condition and candidate certificates. Six configurations pass 1,584 Asm/1,584
+Clight full-output and continuation calls, with both actual acceptance and
+fallback. The same binary passes word 400/400, recursive affine 480/480 and
+private-loaded 270/270 regressions. First-empty-child acceptance, wider alias
+conditions, recursive loaded domains and complete cost remain active.
+
 2026-10-08: [Checked loaded-affine installation](docs/affine-snapshot-installation.md)
 now connects the original `i<*N; K=i+*M` AST, private captures, safe stability
 condition and actual candidate execution to the existing selected Csem-to-Asm

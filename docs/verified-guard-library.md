@@ -7,7 +7,10 @@
 后继 [N/M stability scan](affine-snapshot-stability-scan.md)进一步生产实际
 row/prefix 条件，并连接接受到 complete cached source；后继
 [checked installation](affine-snapshot-installation.md)已接静态 producer、实际
-candidate/fallback、source factory与共用 Csem→Asm。新族提取/native及成本仍待验收。
+candidate/fallback、source factory与共用 Csem→Asm。后继
+[native pipeline](snapshot-polyhedral-native-pipeline.md)以相同condition规格的
+compact plan完成实际原C／Pluto／CompCert与1,584／1,584输出/continuation验收；
+完整成本、first-empty-child接受及broader alias仍待工作。
 
 ## 服务按建立的事实分类
 
@@ -20,7 +23,7 @@ control 定律。也不要把这些类别规定成所有优化必须经过的固
 | Ranges / footprints | 所需 reached-point 参数、索引或访问由 checked range / footprint 覆盖 | [ClightAffinePreparedFootprints.v](../prototype/interface/ClightAffinePreparedFootprints.v) 的 `affine_prepared_write_probes_ready` 同时消费范围、实际写 receipts 和 source package；[ClightTensorBackendGuard.v](../prototype/interface/ClightTensorBackendGuard.v) 的 `tensor_backend_guard_condition` 给 layout 事实。范围或 layout 不单独证明 allocation / load definedness。 |
 | Memory separation | 指定访问、写入或观察之间的物理位置分离 | [ClightObservedWordProbe.v](../prototype/interface/ClightObservedWordProbe.v) 的 `observed_word_cell_check_sound` 需要 Mint32 chunk、alignment 和 capability；[ClightMultiTensorScanService.v](../prototype/interface/ClightMultiTensorScanService.v) 的 pair/canonical 服务建立 footprint-restricted `locations_nonalias`。不声称整个 memory 全局 nonalias。 |
 | Value / observation preservation | 后续执行保持特定观察，即使允许重叠 | [ClightZeroRmwObservation.v](../prototype/interface/ClightZeroRmwObservation.v) 的 `checked_zero_rmw_control_execution` 在 checked control 与 `alpha=0` 下保持已有 defined Mint32 words；[ClightZeroRmwCondition.v](../prototype/interface/ClightZeroRmwCondition.v) 的 `checked_zero_rmw_condition_preserves_observers` 运输 word observers。它没有证明完整 memory、其他 chunks、pointer fragments 或 traces 相等。 |
-| Control / conditional observation | 某一路径许可后续读取，或不活动路径跳过读取 | [ClightAffineHeaderSnapshots.v](../prototype/interface/ClightAffineHeaderSnapshots.v) 的 `affine_setup_capture_execution` 许可原 `K=i+*M` 的 raw-child capture；[ClightAffineSnapshotSourceInputs.v](../prototype/interface/ClightAffineSnapshotSourceInputs.v) 自动生产 original domain。Current observations用于 reached body decoder；[新 factory](affine-snapshot-installation.md)已生产静态/private前提并接 guard/candidate与 compiler proof，actual C/native仍待验收。 |
+| Control / conditional observation | 某一路径许可后续读取，或不活动路径跳过读取 | [ClightAffineHeaderSnapshots.v](../prototype/interface/ClightAffineHeaderSnapshots.v) 的 `affine_setup_capture_execution` 许可原 `K=i+*M` 的 raw-child capture；[ClightAffineSnapshotSourceInputs.v](../prototype/interface/ClightAffineSnapshotSourceInputs.v) 自动生产 original domain。Current observations用于 reached body decoder；[新 factory](affine-snapshot-installation.md)生产静态/private前提，[native pipeline](snapshot-polyhedral-native-pipeline.md)已验收原 C／实际 candidate／compiler，包含 empty outer 跳过不可读 M。 |
 
 例如 zero-RMW 服务先调用 control 服务取得原 source 的 scalar 许可，再运行
 arithmetic equality 条件，最后由 domain 的 effect 定律得到 observation
@@ -81,8 +84,8 @@ context 的服务。Progress、合法入口/出口、scope 与 installation 仍�
 | --- | --- | --- |
 | Ordered dependent checks | [ReadonlyConditionComposition.v](../prototype/interface/ReadonlyConditionComposition.v) 的 `sequence_readonly_conditions`；第二项在 `D /\ Pfirst` 下证明 | 第一项的成功事实确实建立第二项安全前提；纯条件保持同一 entry。私有 state 改变时，另证事实和读 ports 到 actual exit 的运输。 |
 | Short-circuit / conditional branches | [ReadonlyBranching.v](../prototype/interface/ReadonlyBranching.v) 的 `branch_readonly_conditions` 和两侧 classifier facts；[ClightStagedCheck.v](../prototype/interface/ClightStagedCheck.v) 的 `staged_check_code_execution` | 每条实际路径的安全性。普通充分条件的 false 只有拒绝含义；activity 的 false 若用于跳过 source read，必须有 inactive fact 的证明。 |
-| Conditional capture | `nested_expression_capture_execution` 和 capture frames；`affine_snapshot_capture_source_inputs` 生产 actual setup 的 original domain | 新 checked source/capture factory已自动生产静态形状、fresh typed caches与 guard-exit连接；初次捕获不含未来 stability。Actual C/native待验收。 |
-| Prefix checks | `observed_header_prefix_receipt` / `observed_header_prefix_advance`；`observed_body_prefix_receipt` / `observed_body_prefix_advance` 接收 current observations | Concrete row receipts、N/M短路 scan与 accepted cached completion已接 factory/compiler proof。失败后不能仅因 box 包含后续点就继续读取它。Native和紧凑成本仍待验收。 |
+| Conditional capture | `nested_expression_capture_execution` 和 capture frames；`affine_snapshot_capture_source_inputs` 生产 actual setup 的 original domain | Checked source/capture factory自动生产静态形状、fresh typed caches与 guard-exit连接，actual C/native已通过；初次捕获不含未来 stability。 |
+| Prefix checks | `observed_header_prefix_receipt` / `observed_header_prefix_advance`；`observed_body_prefix_receipt` / `observed_body_prefix_advance` 接收 current observations | Concrete row receipts、N/M短路 scan与 accepted cached completion已接 actual factory/compiler/native。Private-Boolean plan保留原condition；失败后不继续未许可probes。动态扫描仍逐点，完整成本和broader接受域待验收。 |
 | Alternative sufficient conditions | `readonly_condition_entails` + readonly branching 可构造接受同一事实的两个纯条件分支；既有 zero-RMW driver 有具体实例 | 对“第一项拒绝后试第二项”的私有状态版本，须证明第二项在第一项实际 refused exit 安全，且结果运输到同一 original-entry obligation。当前没有一个统一的 private-service alternative combinator。 |
 
 纯条件的 alternative 可以让第一项接受时返回 true，拒绝时尝试第二项；
@@ -128,7 +131,8 @@ transport、候选和安装证明。`checked_zero_rmw_condition_preserves_observ
    补上这项边界。`affine_snapshot_scan_condition` 已生产实际 N/M stability
    条件，`affine_snapshot_scan_accepted_cached_source` 把接受接到 cached
    completion；后继 factory已自动生产静态前提并对齐具体原执行出口，接到
-   actual candidate/fallback和共用 compiler proof。Actual C/native仍待验收。
+   actual candidate/fallback和共用 compiler proof。后继实际原C/native已通过，
+   private Boolean lowering保留原condition规格；接受域和完整成本另行验收。
 5. Domain 把接受事实接到真实 source/model/candidate 的 `C_opt` / `C_derive`；
    factory 接 actual guard exit、fallback 和公开恢复，复用现有 selected
    host / Csem→Asm。每个 site 继续生产 placement、resources 和 progress。
