@@ -101,20 +101,30 @@ recursive affine 480／480（含真实三层和同函数两 marked regions）通
 first-empty-child 仍回退。两次错误 harness expectation 保留，原 assembly
 输出均匹配，第二次还完成 135 Clight 全输出匹配。没有新成本或收益结果。
 
-**当前下一任务**：对实际 `i<*N; K=i+*M` 完成 checked source factory、
-actual guard exit/candidate connection 与 compiler/native 接入。
+**当前下一任务**：为实际 `i<*N; K=i+*M` 提取新 compiler，验收 original
+marked C 的真实安装、runtime guard/candidate/fallback 与完整程序输出。
+[Checked installation 阶段](affine-snapshot-installation.md)已把静态 AST/
+grammar/shape/freshness 生产、typed conditional capture、具体原出口到 cached
+source、alias/range/candidate 连接与 mapped／tiling／schedule factory接通；
+新 builder 注册到共用 selected host，新 Csem→Asm specialization沿用原
+installation/backend theorem。九模块／37 端点／17 closed／1,644 绑定／
+至多旧 42 globals／无新增公理。这是已编译 proof connection；尚无新族
+提取 binary、actual C/native 或成本验收。
 原条件 capture、原源到 arithmetic guard 输入、concrete row decoder 和
 prefix write receipts 已由 [新阶段](affine-header-snapshots.md)生产，29 端点／
 1,332 绑定／至多旧六项 globals／无新增公理。该阶段不新增 Csem→Asm 或
 native 结果，不把 cached completion 留作未经生产的调用前提。后继
 [N/M stability scan](affine-snapshot-stability-scan.md)已实现 concrete row
 conditions、接受才推进的 prefix scan 与 whole-loop cached transport；
-actual scan 接受自动生产 complete cached source，仍没有新 factory/native。
+actual scan 接受自动生产 complete cached source；后继 checked factory与
+compiler proof已连接，native 仍待验收。
 Root 空时不能观察 `*M`；header 已执行但 child／leaf 为空
 时，header load 与后续 RHS 的许可须分开。Domain 给 no-wrap／reached-point／
 footprint／source-model 充分性，language 给 actual guard 安全与 public/memory
 frame 和 exit transport；factory 给 guarantee，site／selected host 给 placement／
-progress 和全局安装。已有二维联合源链不能推广成 recursive loaded-word 域
+progress 和全局安装。下一步固定实际旧 registry／ordinary Pluto adapter 的
+compiler configuration，不能在提取端注入任意未证明的 builder。已有二维
+联合源链不能推广成 recursive loaded-word 域
 已经合并。随后推进 first-empty-child、broader alias sufficient conditions、
 scalar／chunk 和 OLO 具体源与完整成本。Finite/open clauses 及第二 IR 仍以
 实际复用需求为依据。完整 goal 保持 active。

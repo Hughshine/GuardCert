@@ -1,5 +1,13 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Checked loaded-affine installation](docs/affine-snapshot-installation.md)
+now connects the original `i<*N; K=i+*M` AST, private captures, safe stability
+condition and actual candidate execution to the existing selected Csem-to-Asm
+proof. Static source and resource checks produce the required evidence;
+source users supply ordinary metadata/proposals. Nine modules audit 37 endpoints
+with no new axioms. Extracted compiler, actual C/native acceptance and full cost
+for this new family remain required. The complete goal stays active.
+
 2026-10-08: [N/M stability scans](docs/affine-snapshot-stability-scan.md)
 now use reached-source write permissions for actual row checks and stop later
 rows on refusal. Accepted scans produce complete cached-loop execution from

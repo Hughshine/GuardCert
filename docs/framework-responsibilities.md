@@ -68,6 +68,18 @@ client 复用来验收，不能把新 record 或代码行数当作减少作者�
 
 ## 阶段记录
 
+2026-10-08 [Checked loaded-affine installation](affine-snapshot-installation.md)
+填入 factory 与 guarantee 责任：原 AST 的普通 checker 自动生产 grammar/
+shape/protected ports/cache membership；private capture checker 与 typed pool
+生产 freshness/declarations。原源许可的 preparation/stability 自动生产
+cached completion，并与给定原执行的实际出口对齐，再接原 alias/candidate
+checks、source/model/candidate execution 与 public restore。Retained prefix/
+suffix 的 finite-region contract注册到既有 selected host，Csem→Asm直接
+消费共用语言定理；kernel、host 与 candidate checker不改。九模块／37端点／
+17 closed／1,644 bindings／至多旧42 globals，无新增公理。源码用户不提供
+semantic callback。提取配置、actual C/native、接受域与成本仍待独立验收；
+finite-completion、first-positive-child、旧 envelope 边界保留。
+
 2026-10-08 [N/M stability scan](affine-snapshot-stability-scan.md)补上
 concrete condition 到 whole-loop transport：原 row receipts 生产 actual
 N/M separation probes 的 safe domain；row 接受后 memory store law 保持
