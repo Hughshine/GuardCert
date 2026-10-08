@@ -48,6 +48,24 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 
 后续优先级：
 
+2026-10-08：[同一 selected 入口的 affine 接入](selected-affine-pipeline.md)
+已落实 narrative 的真实 pipeline 要求到旧 recursive affine source。
+Clight library 用已证明的 builder record 组合原 word 与 affine factories；
+一次 table／selected installation／Csem→Asm 证明服务两者，kernel 不变。
+普通 proposer 把原 checked request 和小范围提案送给实际 Pluto／prepared
+codegen，最终 checker 仍核对原源与完整 bounds。非负起点的二层非矩形
+域、同一函数两个标注 region、静态 refusal／实际 fallback 和 continuation
+通过 1,008 Asm／1,008 Clight；同一 binary 的原 loaded-word 回归通过
+400／400。四模块 208 行、9 端点、1,594 绑定、旧 42 globals、无新增公理。
+
+这一交付只共享语言安装，不等同／合并两套 domain。当前优先切口是
+signed affine bound enclosure（旧 zero lower proposal 会让负坐标 profile
+被 final checker 拒绝）和三层 profiled prepared codegen 的长运行；必须取得
+实际候选与新 runtime 证据。之后组合一般 nonrect reached-point许可与
+loaded-word 观察、scalar/chunk 和 OLO 具体源。Rectangle box receipts 不能
+许可源域外读取。当前二层 profile/cap 与已有三层手写候选测试均不代替
+一般 affine 流水线闭合；没有新成本／盈利性测量。
+
 1. 以本阶段的完整成本／诊断作为后续条件工作的基线。原严格-map服务退到
    四模板 pair scan，新服务用三模板 canonical scan；比较不能单独归因到
    normalization，也不重跑已冻结的历史实验。

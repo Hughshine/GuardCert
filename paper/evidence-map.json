@@ -2654,6 +2654,57 @@
         "build/linear-canonical-scan/cost-plot-v1/report.json"
       ],
       "evidence_stage": "linear_canonical_alias_service_stage"
+    },
+    {
+      "id": "shared-selected-word-and-actual-affine-pipeline",
+      "status": "proved-installed-two-dimensional-nonnegative-tier-native",
+      "claim": "Two existing verified Clight factories share one selected installation/backend proof. The affine proposer sends the actual checked nonrectangular source plus small interval proposals through Pluto and prepared codegen, with final validation against the original request. A nonnegative two-dimensional tier and the existing loaded-word route pass functional matrices. Negative-coordinate bound adaptation and three-dimensional profiled codegen remain gaps; the latter hit a 600-second compiler deadline in a nonisolated run. This does not combine the semantic domains, extend the source grammar, or establish profitability or full-goal completion.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightCertifiedRegionBuilder.v",
+          "name": "build_region_or_else_sound"
+        },
+        {
+          "source": "prototype/interface/ClightCertifiedRegionBuilder.v",
+          "name": "checked_certified_regions_sound"
+        },
+        {
+          "source": "prototype/interface/ClightPolyhedralRegionBuilders.v",
+          "name": "build_affine_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightPolyhedralRegionBuilders.v",
+          "name": "certified_word_nested_builder"
+        },
+        {
+          "source": "prototype/interface/ClightPolyhedralRegionBuilders.v",
+          "name": "certified_affine_builder"
+        },
+        {
+          "source": "prototype/interface/ClightPolyhedralRegionBuilders.v",
+          "name": "certified_polyhedral_builder"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedCertifiedCompiler.v",
+          "name": "selected_certified_regions_cstrategy_forward"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedCertifiedCompiler.v",
+          "name": "compile_selected_certified_regions_correct"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedPolyhedralCompiler.v",
+          "name": "compile_selected_polyhedral_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/selected-affine-pipeline.md",
+        "build/selected-affine-pipeline/proof-v1/report.json",
+        "build/selected-affine-pipeline/affine-2d-native-v2/report.json",
+        "build/selected-affine-pipeline/word-regression-v1/report.json",
+        "build/selected-affine-pipeline/attempts-v1/report.json"
+      ],
+      "evidence_stage": "shared_selected_affine_pipeline_stage"
     }
   ],
   "bibliography_evidence": [
@@ -8362,6 +8413,25 @@
     "static_full_factory_acceptance_domain_equal_proved": false,
     "cross_host_clause_algebra_implemented": false,
     "ordinary_source_user_semantic_callback_added": false,
+    "full_goal_complete": false
+  },
+  "shared_selected_affine_pipeline_stage": {
+    "proof_report": "build/selected-affine-pipeline/proof-v1/report.json",
+    "native_report": "build/selected-affine-pipeline/affine-2d-native-v2/report.json",
+    "word_regression_report": "build/selected-affine-pipeline/word-regression-v1/report.json",
+    "attempts_report": "build/selected-affine-pipeline/attempts-v1/report.json",
+    "proof_report_sha256": "58c7f48419fd4abd23b4c2e5727cb6fd42a0df6cbe402cdb2b14b21d3f2e001b",
+    "native_report_sha256": "e1115730b8863d0335c3e4b5841043f49f3259b1ffa37117fe68f63cb000bbb0",
+    "word_regression_report_sha256": "77f4b54df5fc0346cdb422d35276bf1d7db7c0a64c5c72b9e9f410c2f1647124",
+    "attempts_report_sha256": "9951de0f1eb3ce8af7e81f272474fd84990f7d92be2c84fd72edcd518f916270",
+    "compiler": "build/selected-affine-pipeline/profiled-compiler-v1/ccomp",
+    "compiler_sha256": "92e164fa0c10ba16788fa7001de3f3b060e62eee3370c919d834f11c242dcdc2",
+    "native_installed_affine_rank": 2,
+    "nonnegative_initial_coordinate_profile": true,
+    "kernel_changed": false,
+    "semantic_domains_combined": false,
+    "new_axioms": false,
+    "new_profitability_evidence": false,
     "full_goal_complete": false
   }
 }

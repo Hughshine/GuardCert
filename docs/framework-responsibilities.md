@@ -40,6 +40,23 @@ entailment。先证明实际复用再更改 API。
 
 ## 阶段记录
 
+2026-10-08 [共享 selected affine compiler](selected-affine-pipeline.md)进一步
+落实 domain guarantee 与语言 installation 的分界。`certified_region_builder`
+由已证明的 domain factory 注册：实际 source/pool 的普通检查返回 target 时，
+交付 `projected_region_contract`。语言库证明静态 or_else、table soundness
+和一次通用 selected Csem→Asm；site 仍检查 annotation、原源 progress、
+scope／private resources。源码用户不提供该 proof record 或任意 OCaml
+semantic callback。Word 和 recursive affine 两实例共享此 host，保留各自
+源许可、候选 checker、实际 guard 和公开恢复，不合并语义前提。
+
+新的小范围 scheduler model 是普通提案；final checker 对原 request/
+bounds 的接受给旧 source certificate，不信任 proposer 的范围编码或 bound
+adaptation。负坐标 proposal 被拒绝及三层 codegen 长运行说明前提必须传到
+真实 model/生成过程；kernel composition 无法修复这些具体算法缺口。
+二层非负 profile 的 native／Clight 链和同 binary 的 loaded 回归已通过，
+无新公理；新的全局证明是一项共用语言证明，而非自动 contextual closure。
+Finite progress、公开 continuation 和各次 site obligations 继续单独验收。
+
 2026-10-08 [loop-linear canonical 服务](linear-canonical-alias-service.md)进一步
 分离 `C_derive` 与 `C_guard`。域证明只检查循环系数，允许不同常数和稳定
 参数系数；实际执行仍用完整地址模板。公共 Clight 适配器从 source/setup

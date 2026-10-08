@@ -1,5 +1,16 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: A [shared selected compiler](docs/selected-affine-pipeline.md) now
+registers the existing loaded-word and recursive affine factories under one
+Clight installation/backend proof. The affine proposer sends the actual checked
+nonrectangular source and small range proposals through Pluto/prepared codegen;
+the final checker still validates against the original request. The nonnegative
+two-dimensional tier passes 1,008 Asm and 1,008 separate Clight checks, including
+two marked regions, fallback and continuations; the same binary passes 400/400
+loaded-word regression checks. Negative-coordinate bound adaptation and slow
+three-dimensional profiled codegen remain open. This shares the language host;
+it does not merge the two semantic domains or establish profitability.
+
 2026-10-08: The [loop-coefficient alias service](docs/linear-canonical-alias-service.md) admits shifted access maps while using their original complete addresses. A reusable Clight execution adapter supplies safety and state transport; the domain supplies sufficiency, and the common factory/host/compiler remain unchanged. Sixteen endpoints audit with nine closed and no new axioms. Normal, shifted and differing-coefficient matrices pass 1,000/1,000 plus 180/180 and 180/180 Asm/Clight calls. In 810 paired complete-call batches, shifted accepted costs fall relative to the old service but remain 7.52 and 17.01 times source; refusal regressions remain. The [current plan](docs/current-work-plan.md) resumes broader affine source coverage and larger configured profiles. The default tested cap of eight is configurable, not a framework limit.
 
 2026-10-08: The [deduplicated alias scan service](docs/deduplicated-alias-scan-service.md) registers a third proved builder in the same factory, loaded host and selected compiler. Strict root/map deduplication preserves the Boolean specification and source-licensed checks; the Csem-to-Asm specialization reuses the existing theorem. Eleven endpoints audit with seven closed and no new axioms. The extracted compiler passes 1,000 Asm/1,000 Clight calls plus 180/180 nonuniform fallback calls. Row guard tests fall from 361 to 181 and 4,741 to 2,041. In 2,430 paired CPU batches, accepted costs fall relative to canonical scanning but remain 5.37–5.62 and 11.96–14.54 times source; regressions are retained. General affine coverage and the full goal remain open. Earlier records retain their checkpoint scope.
