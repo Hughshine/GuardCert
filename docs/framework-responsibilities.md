@@ -1,5 +1,7 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-07 [zero条件的完整安装](zero-loaded-word-installation.md)已接原源首点许可→actual receipt值保持→cached／helper／canonical及完整check出口→actual candidate→local contract→selected Csem→Asm。`tensor_preparation_certificate`是语言层内部服务，data factory生产其字段，优化使用者仍只提供描述／scalar／模型与候选数据。Kernel不负责词或指针安全，也不因此获得任意contextual closure；host继续独立检查progress、placement与fresh allocation。21端点保持42-global基线；560 Asm与224独立Clight分派通过，零值alias接受域扩大。下一难点是nonzero条件的安全观察许可、候选完整成本和收益策略；word观测保持不冒充byte／other-chunk／whole-memory equality。
+
 2026-10-07 [新的值保持condition与成本](loaded-word-condition-cost.md)将三方责任具体化：框架继续消费readonly_condition；Clight语言提供成功原RMW的scalar许可、checked控制／word观测保持及纯条件编码；domain仍需生产其accepted-state到cached／canonical执行的推导，host在收到local contract后才负责安装。局部C_encode不升级为compiler证书。已安装旧路径的720配对成本暴露明显退化；不得从guard work计数归因全部退化，仍须改进候选lowering和profitability策略。
 
 2026-10-07 [loaded-word factory](loaded-word-family-factory.md)已把原先语言／domain定理的静态字段变成AST、WORD、scope、freshness、typed-pool和canonical model的数据检查输出，actual candidate checker后生产局部保证，并消费现有selected host接Csem→Asm。前端行政skip和零index由语言服务证明；框架kernel保持。使用者提供标注和策略，不手填semantic callbacks。通用编译器定理与具体native producer成功由不同证据绑定：v3已验收真实调度／分块、动态接受／回退与完整上下文，420未插桩Asm及168独立Clight分派通过。下一难点是同族compact condition的安全与编码证明、接受域和实际guard／整程序成本；非端点数。

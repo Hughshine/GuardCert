@@ -14,9 +14,13 @@ now separates usability from correctness on that same installed family. The
 720 paired batches expose a dense complete-call regression of 17.69/20.43 times
 source; the independent Clight work count does not identify all of its causes.
 A new checked zero-RMW effect law and its existing `readonly_condition`
-encoding permit header aliases without changing the kernel. That certificate
-is not installation evidence: source-point licensing, capture/check-exit and
-canonical execution for its new accepted states remain the immediate connection.
+encoding permit header aliases without changing the kernel. The condition-only checkpoint did not establish installation. The
+[zero-capable successor](zero-loaded-word-installation.md) now proves source-point
+licensing, capture/helper/check-exit and canonical execution, produces the local
+contract and reuses the selected host. Its new Csem-to-Asm compiler and same-C
+native matrix preserve the existing assumptions. A fresh paired comparison
+shows expanded alias acceptance and zero scan work, but no complete-call
+speedup; candidate lowering and profitability take priority in cost work.
 The active plan also retains compact nonzero-RMW footprint conditions,
 candidate-lowering costs and conservative profitability policies.
 

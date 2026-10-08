@@ -560,8 +560,53 @@ CompCert globals, with no additions. It proves source-scalar licensing,
 syntax-checked effect preservation and the existing read-only encoding
 interface. Actual memory fixtures prove zero-condition acceptance, nonzero
 refusal, old separation refusal and preservation of two distinct aliased
-header words. The kernel and installed compiler are unchanged; this audit
-adds no new installed compact path or timing result for that path.
+header words. That library checkpoint left the kernel and installed compiler
+unchanged. A successor audit now queries 21 endpoints over 610 dependencies;
+two endpoints are closed, and its new selected Csem-to-Asm compiler uses exactly
+the existing 42 globals with no additions. The kernel remains closed.
+
+The successor compiler executes the same scheduling/tiling/codegen pipeline.
+Five configurations cover 112 calls each: 560 unmodified Asm calls and 224
+separate instrumented Clight dispatch calls. Full arrays, public exits and
+context markers match the wrapping-word model and GCC. Each installed layout
+executes zero preparation 25 times. Both $(2,2)$ and $(2,3)$ header aliases with
+zero increment enter the candidate; changing aliases retain fallback. These
+Clight counters are not assembly path instrumentation.
+
+A fresh old/new experiment runs twelve randomized paired rounds over both
+versions, two layouts, twelve inputs and two modes: 1,152 timing batches. It
+uses the same pinned CPU/process-time protocol and complete-result checks.
+Separate Clight derivatives show that a dense zero path removes all 4,805
+scan points and reduces guard \code{if} evaluations from 22,243 to 47. A dense
+nonzero path retains all scans and adds one \code{if}. Function size changes
+from 1,500/1,484 to 1,483/1,474 bytes in row/column order.
+
+\begin{table}[t]
+\centering
+\caption{Fresh complete-call cost for old and zero-capable loaded-word
+compilers. Entries are median paired cost/source ratios. The alias row uses
+header values 2 and 3: the old version refuses, the new version accepts.}
+\label{tab:zero-loaded-word-cost}
+\begin{tabular}{lrrrr}
+\toprule
+Input & Old row & New row & Old col. & New col. \\
+\midrule
+Zero, $3\times2\times5$ & 5.47 & 4.56 & 5.59 & 4.86 \\
+Zero, $31\times31\times5$ & 17.57 & 20.65 & 20.09 & 18.98 \\
+Zero, alias 2/3 & 1.05 & 4.10 & 1.05 & 4.23 \\
+Nonzero, dense & 17.59 & 21.65 & 20.12 & 19.87 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Scan elimination does not establish a complete-call speedup
+(Table~\ref{tab:zero-loaded-word-cost}). The new accepted aliases cost more
+than the old fallback, and dense row cost regresses despite scan elimination.
+Candidate execution, public restoration and backend layout remain in the
+measured call; the experiment does not isolate those costs quantitatively.
+Profiling candidate lowering and a profitability policy are now immediate
+follow-up work. These warm, capped measurements still provide no representative
+benchmark result, confidence interval or break-even inference.
 
 \pending{No representative benchmark speedup, final acceptance fraction, or
 comparative author effort has been established. The kernel timing experiment

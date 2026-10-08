@@ -1426,7 +1426,7 @@
     },
     {
       "section": "case-study/evaluation",
-      "claim": "Checked source/model/candidate data produces the loaded-word local guarantee, including word grammar, static scopes, typed private resources and canonical tensor binding. Existing language frontend equivalences handle reset/leaf skip prefixes and a zero-indexed root header. Selected base/frontend compiler endpoints establish Csem-to-Asm under successful compilation. The static dynamic-Horner RMW site is recognized; a succeeding same-C loaded/runtime-Horner pipeline installs actual tiling candidates, matches 420 unmodified assembly calls to the source model and GCC, and separately checks 168 Clight dispatch calls including changing-header aliases and skipped unavailable reads. Cost remains pending.",
+      "claim": "Checked source/model/candidate data produces the loaded-word local guarantee, including word grammar, static scopes, typed private resources and canonical tensor binding. Existing language frontend equivalences handle reset/leaf skip prefixes and a zero-indexed root header. Selected base/frontend compiler endpoints establish Csem-to-Asm under successful compilation. The static dynamic-Horner RMW site is recognized; a succeeding same-C loaded/runtime-Horner pipeline installs actual tiling candidates, matches 420 unmodified assembly calls to the source model and GCC, and separately checks 168 Clight dispatch calls including changing-header aliases and skipped unavailable reads. Cost is recorded in the succeeding experiments.",
       "theorems": [
         {
           "source": "prototype/interface/ClightTensorLoadedWordFactory.v",
@@ -1487,7 +1487,7 @@
     },
     {
       "section": "case-study and evaluation",
-      "claim": "Checked zero-RMW condition encodes preservation of defined Mint32 words; actual alias fixture; not installed. Frozen loaded-word assembly has paired complete-call regressions and separate Clight guard-work counts.",
+      "claim": "Checked zero-RMW condition encodes preservation of defined Mint32 words; actual alias fixture; condition-only checkpoint; installation is recorded by its successor. Frozen loaded-word assembly has paired complete-call regressions and separate Clight guard-work counts.",
       "theorems": [
         {
           "source": "prototype/interface/ClightZeroRmwCondition.v",
@@ -1510,6 +1510,54 @@
         "docs/loaded-word-condition-cost.md",
         "docs/current-work-plan.md",
         "docs/framework-responsibilities.md"
+      ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "A source-licensed zero-RMW preparation derives accepted cached/canonical execution at actual check exits, and the checked data factory installs actual generated candidates through a new selected Csem-to-Asm compiler. Stable distinct-header aliases accept; 560 unmodified Asm calls and 224 independent Clight dispatch calls pass. In 1152 fresh old/new timing batches, zero eliminates point scans but complete costs remain above source and dense row cost regresses.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightTensorPreparedGenerated.v",
+          "name": "tensor_preparation_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightTensorPreparedGenerated.v",
+          "name": "prepared_tensor_generated_contract"
+        },
+        {
+          "source": "prototype/interface/ClightTensorZeroRmwPreparation.v",
+          "name": "tensor_zero_rmw_captured_scalar"
+        },
+        {
+          "source": "prototype/interface/ClightTensorZeroRmwPreparation.v",
+          "name": "tensor_zero_rmw_captured_cached"
+        },
+        {
+          "source": "prototype/interface/ClightTensorZeroRmwDriver.v",
+          "name": "lwd_zero_driver_execution"
+        },
+        {
+          "source": "prototype/interface/ClightTensorZeroRmwDriver.v",
+          "name": "lwd_zero_preparation_certificate"
+        },
+        {
+          "source": "prototype/interface/ClightTensorZeroRmwFactory.v",
+          "name": "check_zero_loaded_word_generated_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightZeroLoadedWordFrontendFactory.v",
+          "name": "check_zero_loaded_word_frontend_region_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedZeroLoadedWordFrontendCompiler.v",
+          "name": "compile_selected_zero_loaded_word_frontend_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/zero-loaded-word-installation.md",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md",
+        "docs/narrative-to-tiling-integration.md"
       ]
     }
   ],
@@ -4095,7 +4143,7 @@
     "minimal_semantic_kernel_changed": false,
     "new_materialized_kernel_rule_package": false,
     "first_native_installation_check": "failed; original output matched but proposer did not recognize prefixed leaf",
-    "next_obligation": "install source-licensed compact condition with actual check-exit/canonical transport; improve nonzero RMW footprint guards, candidate lowering and profitability; extend source/domain coverage"
+    "next_obligation": "profile candidate execution and public restoration, improve nonzero footprint conditions and profitability; extend source/domain coverage"
   },
   "loaded_word_cost_stage": {
     "report": "build/loaded-word-cost/report.json",
@@ -4488,6 +4536,866 @@
       "capture/check-exit/canonical-source transport under the new effect premise",
       "install compact branch through the selected compiler and repeat same-C/cost evidence",
       "compact footprint conditions for nonzero RMW and candidate execution-cost improvements"
+    ],
+    "successor_installation_stage": "zero_loaded_word_compiler_stage"
+  },
+  "zero_loaded_word_compiler_stage": {
+    "report": "build/loaded-word-zero/proof-v2/report.json",
+    "report_sha256": "c459fc936f65c8765bcf0a0494b1a7c7b0d769beb0a73bdbfc6a7d264231f483",
+    "endpoints": 21,
+    "required_closure": 610,
+    "closed_endpoints": 2,
+    "maximum_endpoint_globals": 42,
+    "compiler_endpoint": "ClightSelectedZeroLoadedWordFrontendCompiler.compile_selected_zero_loaded_word_frontend_regions_correct",
+    "compiler_globals": 42,
+    "same_old_compiler_assumptions": true,
+    "additional_global_axioms": [],
+    "minimal_semantic_kernel_changed": false,
+    "factory_users_supply_semantic_callbacks": false,
+    "source_first_rmw_licenses_scalar": true,
+    "actual_check_exit_canonical_execution": true,
+    "new_guard_installed": true,
+    "native_report": "build/loaded-word-zero/native/report.json",
+    "native_report_sha256": "fa1280ed5295c18b498d82bb2b8f9d9cbe56c14862c78720fac15da813895ad1",
+    "compiler_stamp": "build/loaded-word-zero/compiler/.guard-build.json",
+    "compiler_stamp_sha256": "670e37e32892503ef4f914e757b78402e89864953ee3f6f168450667dfdcb85e",
+    "assembly_calls": 560,
+    "clight_dispatch_calls": 224,
+    "clight_zero_preparation_executions_per_installed_layout": 25,
+    "stable_distinct_header_alias_accepted": true,
+    "assembly_path_instrumented": false,
+    "original_literal_positive_required_for_scalar_license": true,
+    "parser_metadata_proved": false,
+    "raw_codegen_to_adapted_equivalence_proved": false
+  },
+  "zero_loaded_word_cost_stage": {
+    "report": "build/loaded-word-zero-cost/report.json",
+    "report_sha256": "724f0611c71c2cf0ad466335bdc8865172624da4439ea2c8c6baa11ef575a02d",
+    "samples": 1152,
+    "protocol": {
+      "rounds": 12,
+      "seed": 20261007,
+      "target_batch_cpu_seconds": 0.04,
+      "minimum_batch_cpu_seconds": 0.02,
+      "pinned_cpu": 0,
+      "clock": "C clock() process CPU time",
+      "fresh_process_per_batch": true,
+      "warmup_calls": 1,
+      "array_reset_per_call": false,
+      "array_initialization_and_validation_timed": false,
+      "actual_call_count_results_validated": true,
+      "assembly_instrumented": false,
+      "baseline": "unmarked function in the same frozen source/compiler/assembly configuration"
+    },
+    "cases": [
+      [
+        0,
+        3,
+        31,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        5,
+        7
+      ],
+      [
+        0,
+        2,
+        31,
+        32,
+        5,
+        -2
+      ],
+      [
+        1,
+        3,
+        31,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        0,
+        1001,
+        99,
+        -8,
+        7
+      ],
+      [
+        0,
+        3,
+        31,
+        0,
+        5,
+        7
+      ],
+      [
+        0,
+        1,
+        1001,
+        2,
+        5,
+        7
+      ],
+      [
+        0,
+        2,
+        3,
+        2,
+        -7,
+        -1
+      ],
+      [
+        0,
+        2,
+        3,
+        2,
+        -7,
+        0
+      ],
+      [
+        0,
+        3,
+        31,
+        2,
+        5,
+        0
+      ],
+      [
+        0,
+        31,
+        31,
+        31,
+        5,
+        0
+      ],
+      [
+        0,
+        2,
+        3,
+        3,
+        -7,
+        0
+      ]
+    ],
+    "case_names": [
+      "small-accepted",
+      "dense-accepted",
+      "row-layout-refusal-column-acceptance",
+      "nonzero-start-refusal",
+      "empty-root-null-unavailable-child",
+      "empty-child",
+      "stride-profile-refusal-after-scan",
+      "changing-header-alias-refusal",
+      "zero-increment-alias",
+      "small-zero",
+      "dense-zero",
+      "two-distinct-header-words-zero-alias"
+    ],
+    "configurations": {
+      "old-row-tile": {
+        "kernel_bytes": {
+          "source": 267,
+          "guarded": 1500
+        },
+        "diagnostic": {
+          "static_guard_if_sites": 54,
+          "cases": [
+            {
+              "case": 0,
+              "scan_points": 30,
+              "guard_if_evaluations": 194,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 1,
+              "scan_points": 4805,
+              "guard_if_evaluations": 22243,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 2,
+              "scan_points": 320,
+              "guard_if_evaluations": 1517,
+              "accepted": false,
+              "original_body_points": 320
+            },
+            {
+              "case": 3,
+              "scan_points": 0,
+              "guard_if_evaluations": 2,
+              "accepted": false,
+              "original_body_points": 20
+            },
+            {
+              "case": 4,
+              "scan_points": 0,
+              "guard_if_evaluations": 4,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 5,
+              "scan_points": 0,
+              "guard_if_evaluations": 6,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 6,
+              "scan_points": 10,
+              "guard_if_evaluations": 78,
+              "accepted": false,
+              "original_body_points": 10
+            },
+            {
+              "case": 7,
+              "scan_points": 1,
+              "guard_if_evaluations": 14,
+              "accepted": false,
+              "original_body_points": 5
+            },
+            {
+              "case": 8,
+              "scan_points": 1,
+              "guard_if_evaluations": 14,
+              "accepted": false,
+              "original_body_points": 20
+            },
+            {
+              "case": 9,
+              "scan_points": 30,
+              "guard_if_evaluations": 194,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 10,
+              "scan_points": 4805,
+              "guard_if_evaluations": 22243,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 11,
+              "scan_points": 1,
+              "guard_if_evaluations": 14,
+              "accepted": false,
+              "original_body_points": 30
+            }
+          ],
+          "production_assembly": false,
+          "scope": "Clight if evaluations from root-start test to final dispatch; scan points exclude failed loop-exit tests"
+        }
+      },
+      "old-column-tile": {
+        "kernel_bytes": {
+          "source": 268,
+          "guarded": 1484
+        },
+        "diagnostic": {
+          "static_guard_if_sites": 54,
+          "cases": [
+            {
+              "case": 0,
+              "scan_points": 30,
+              "guard_if_evaluations": 194,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 1,
+              "scan_points": 4805,
+              "guard_if_evaluations": 22243,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 2,
+              "scan_points": 320,
+              "guard_if_evaluations": 1525,
+              "accepted": true,
+              "original_body_points": 320
+            },
+            {
+              "case": 3,
+              "scan_points": 0,
+              "guard_if_evaluations": 2,
+              "accepted": false,
+              "original_body_points": 20
+            },
+            {
+              "case": 4,
+              "scan_points": 0,
+              "guard_if_evaluations": 4,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 5,
+              "scan_points": 0,
+              "guard_if_evaluations": 6,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 6,
+              "scan_points": 10,
+              "guard_if_evaluations": 78,
+              "accepted": false,
+              "original_body_points": 10
+            },
+            {
+              "case": 7,
+              "scan_points": 1,
+              "guard_if_evaluations": 14,
+              "accepted": false,
+              "original_body_points": 5
+            },
+            {
+              "case": 8,
+              "scan_points": 1,
+              "guard_if_evaluations": 14,
+              "accepted": false,
+              "original_body_points": 20
+            },
+            {
+              "case": 9,
+              "scan_points": 30,
+              "guard_if_evaluations": 194,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 10,
+              "scan_points": 4805,
+              "guard_if_evaluations": 22243,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 11,
+              "scan_points": 1,
+              "guard_if_evaluations": 14,
+              "accepted": false,
+              "original_body_points": 30
+            }
+          ],
+          "production_assembly": false,
+          "scope": "Clight if evaluations from root-start test to final dispatch; scan points exclude failed loop-exit tests"
+        }
+      },
+      "new-row-tile": {
+        "kernel_bytes": {
+          "source": 267,
+          "guarded": 1483
+        },
+        "diagnostic": {
+          "static_guard_if_sites": 55,
+          "cases": [
+            {
+              "case": 0,
+              "scan_points": 30,
+              "guard_if_evaluations": 195,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 1,
+              "scan_points": 4805,
+              "guard_if_evaluations": 22244,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 2,
+              "scan_points": 320,
+              "guard_if_evaluations": 1518,
+              "accepted": false,
+              "original_body_points": 320
+            },
+            {
+              "case": 3,
+              "scan_points": 0,
+              "guard_if_evaluations": 2,
+              "accepted": false,
+              "original_body_points": 20
+            },
+            {
+              "case": 4,
+              "scan_points": 0,
+              "guard_if_evaluations": 4,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 5,
+              "scan_points": 0,
+              "guard_if_evaluations": 6,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 6,
+              "scan_points": 10,
+              "guard_if_evaluations": 79,
+              "accepted": false,
+              "original_body_points": 10
+            },
+            {
+              "case": 7,
+              "scan_points": 1,
+              "guard_if_evaluations": 15,
+              "accepted": false,
+              "original_body_points": 5
+            },
+            {
+              "case": 8,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 20
+            },
+            {
+              "case": 9,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 10,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 11,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 30
+            }
+          ],
+          "production_assembly": false,
+          "scope": "Clight if evaluations from root-start test to final dispatch; scan points exclude failed loop-exit tests"
+        }
+      },
+      "new-column-tile": {
+        "kernel_bytes": {
+          "source": 268,
+          "guarded": 1474
+        },
+        "diagnostic": {
+          "static_guard_if_sites": 55,
+          "cases": [
+            {
+              "case": 0,
+              "scan_points": 30,
+              "guard_if_evaluations": 195,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 1,
+              "scan_points": 4805,
+              "guard_if_evaluations": 22244,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 2,
+              "scan_points": 320,
+              "guard_if_evaluations": 1526,
+              "accepted": true,
+              "original_body_points": 320
+            },
+            {
+              "case": 3,
+              "scan_points": 0,
+              "guard_if_evaluations": 2,
+              "accepted": false,
+              "original_body_points": 20
+            },
+            {
+              "case": 4,
+              "scan_points": 0,
+              "guard_if_evaluations": 4,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 5,
+              "scan_points": 0,
+              "guard_if_evaluations": 6,
+              "accepted": false,
+              "original_body_points": 0
+            },
+            {
+              "case": 6,
+              "scan_points": 10,
+              "guard_if_evaluations": 79,
+              "accepted": false,
+              "original_body_points": 10
+            },
+            {
+              "case": 7,
+              "scan_points": 1,
+              "guard_if_evaluations": 15,
+              "accepted": false,
+              "original_body_points": 5
+            },
+            {
+              "case": 8,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 20
+            },
+            {
+              "case": 9,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 30
+            },
+            {
+              "case": 10,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 4805
+            },
+            {
+              "case": 11,
+              "scan_points": 0,
+              "guard_if_evaluations": 47,
+              "accepted": true,
+              "original_body_points": 30
+            }
+          ],
+          "production_assembly": false,
+          "scope": "Clight if evaluations from root-start test to final dispatch; scan points exclude failed loop-exit tests"
+        }
+      }
+    },
+    "summaries": {
+      "old-row-tile": {
+        "0": {
+          "source_median_ns": 22.832370291425907,
+          "guarded_median_ns": 125.12890625,
+          "median_paired_cost_over_source": 5.490404065398813,
+          "paired_ratio_iqr": 0.049562432814959756
+        },
+        "1": {
+          "source_median_ns": 2638.634784622511,
+          "guarded_median_ns": 46425.5,
+          "median_paired_cost_over_source": 17.5886165775177,
+          "paired_ratio_iqr": 0.19527819034403038
+        },
+        "2": {
+          "source_median_ns": 182.83783131755018,
+          "guarded_median_ns": 412.22022559869055,
+          "median_paired_cost_over_source": 2.257516670475499,
+          "paired_ratio_iqr": 0.02255513113780605
+        },
+        "3": {
+          "source_median_ns": 17.015629253907314,
+          "guarded_median_ns": 17.067471239006224,
+          "median_paired_cost_over_source": 1.003813635503696,
+          "paired_ratio_iqr": 0.02573334466632826
+        },
+        "4": {
+          "source_median_ns": 3.558,
+          "guarded_median_ns": 4.1025,
+          "median_paired_cost_over_source": 1.1587845116532174,
+          "paired_ratio_iqr": 0.05638975859558393
+        },
+        "5": {
+          "source_median_ns": 4.85546875,
+          "guarded_median_ns": 4.954141244267656,
+          "median_paired_cost_over_source": 1.0160172298422476,
+          "paired_ratio_iqr": 0.026905071105423062
+        },
+        "6": {
+          "source_median_ns": 11.33625,
+          "guarded_median_ns": 19.339166666666667,
+          "median_paired_cost_over_source": 1.6991740662321142,
+          "paired_ratio_iqr": 0.023278307782301777
+        },
+        "7": {
+          "source_median_ns": 8.48137553008597,
+          "guarded_median_ns": 9.491666666666667,
+          "median_paired_cost_over_source": 1.1093987205365836,
+          "paired_ratio_iqr": 0.014367523642659918
+        },
+        "8": {
+          "source_median_ns": 17.154754288688572,
+          "guarded_median_ns": 17.64919007384022,
+          "median_paired_cost_over_source": 1.023715927063262,
+          "paired_ratio_iqr": 0.037555229666557555
+        },
+        "9": {
+          "source_median_ns": 22.72494270779937,
+          "guarded_median_ns": 125.37070907475149,
+          "median_paired_cost_over_source": 5.472677912212615,
+          "paired_ratio_iqr": 0.18260170809063414
+        },
+        "10": {
+          "source_median_ns": 2652.158233466489,
+          "guarded_median_ns": 46390.0,
+          "median_paired_cost_over_source": 17.56829784681107,
+          "paired_ratio_iqr": 0.23130869707074098
+        },
+        "11": {
+          "source_median_ns": 22.38179353181613,
+          "guarded_median_ns": 23.550422554272306,
+          "median_paired_cost_over_source": 1.051167104877416,
+          "paired_ratio_iqr": 0.013895179517896983
+        }
+      },
+      "old-column-tile": {
+        "0": {
+          "source_median_ns": 22.11091850924321,
+          "guarded_median_ns": 124.18754004174676,
+          "median_paired_cost_over_source": 5.60476659574267,
+          "paired_ratio_iqr": 0.07481400768869406
+        },
+        "1": {
+          "source_median_ns": 2751.2691889278376,
+          "guarded_median_ns": 55142.5,
+          "median_paired_cost_over_source": 20.11816579601937,
+          "paired_ratio_iqr": 0.32235033721484285
+        },
+        "2": {
+          "source_median_ns": 190.43919043919044,
+          "guarded_median_ns": 2719.5678271308525,
+          "median_paired_cost_over_source": 14.288227119178737,
+          "paired_ratio_iqr": 0.504168934685767
+        },
+        "3": {
+          "source_median_ns": 16.315575296021397,
+          "guarded_median_ns": 16.554814914243842,
+          "median_paired_cost_over_source": 1.0175184591762991,
+          "paired_ratio_iqr": 0.024275356623717048
+        },
+        "4": {
+          "source_median_ns": 3.54984375,
+          "guarded_median_ns": 4.173541666666667,
+          "median_paired_cost_over_source": 1.1770374042854939,
+          "paired_ratio_iqr": 0.02231739179056924
+        },
+        "5": {
+          "source_median_ns": 4.4900630612578825,
+          "guarded_median_ns": 5.0715625,
+          "median_paired_cost_over_source": 1.1220832534602665,
+          "paired_ratio_iqr": 0.039064522029436555
+        },
+        "6": {
+          "source_median_ns": 10.507730480132977,
+          "guarded_median_ns": 19.3875,
+          "median_paired_cost_over_source": 1.8384708206763345,
+          "paired_ratio_iqr": 0.041611663481550876
+        },
+        "7": {
+          "source_median_ns": 8.128969258060579,
+          "guarded_median_ns": 8.9609375,
+          "median_paired_cost_over_source": 1.106987042578743,
+          "paired_ratio_iqr": 0.020266075145174645
+        },
+        "8": {
+          "source_median_ns": 16.613438884453238,
+          "guarded_median_ns": 17.476022289668524,
+          "median_paired_cost_over_source": 1.0541180652735895,
+          "paired_ratio_iqr": 0.024758844624032772
+        },
+        "9": {
+          "source_median_ns": 22.236213892386807,
+          "guarded_median_ns": 124.65969529123096,
+          "median_paired_cost_over_source": 5.589883752448504,
+          "paired_ratio_iqr": 0.12009136416800636
+        },
+        "10": {
+          "source_median_ns": 2765.053061687759,
+          "guarded_median_ns": 55274.0,
+          "median_paired_cost_over_source": 20.09204105097385,
+          "paired_ratio_iqr": 0.8233256269473586
+        },
+        "11": {
+          "source_median_ns": 22.464751872062656,
+          "guarded_median_ns": 23.54170380209262,
+          "median_paired_cost_over_source": 1.0506494482024955,
+          "paired_ratio_iqr": 0.0318746565628949
+        }
+      },
+      "new-row-tile": {
+        "0": {
+          "source_median_ns": 23.12859297024707,
+          "guarded_median_ns": 127.04655617644569,
+          "median_paired_cost_over_source": 5.460156228175343,
+          "paired_ratio_iqr": 0.12598007997892147
+        },
+        "1": {
+          "source_median_ns": 2702.876020209872,
+          "guarded_median_ns": 59019.0,
+          "median_paired_cost_over_source": 21.653355749130707,
+          "paired_ratio_iqr": 1.405383863268753
+        },
+        "2": {
+          "source_median_ns": 184.71187022245945,
+          "guarded_median_ns": 400.75792620004984,
+          "median_paired_cost_over_source": 2.176464727507194,
+          "paired_ratio_iqr": 0.06661628111456785
+        },
+        "3": {
+          "source_median_ns": 17.0738347561529,
+          "guarded_median_ns": 17.50331687582922,
+          "median_paired_cost_over_source": 1.0210197576442286,
+          "paired_ratio_iqr": 0.013894429980325862
+        },
+        "4": {
+          "source_median_ns": 3.42171875,
+          "guarded_median_ns": 4.157161458333333,
+          "median_paired_cost_over_source": 1.2140502757678013,
+          "paired_ratio_iqr": 0.04519925324959062
+        },
+        "5": {
+          "source_median_ns": 4.484339102209054,
+          "guarded_median_ns": 5.210917318031331,
+          "median_paired_cost_over_source": 1.166094947785751,
+          "paired_ratio_iqr": 0.026524815160539283
+        },
+        "6": {
+          "source_median_ns": 11.494575071899494,
+          "guarded_median_ns": 19.452734375,
+          "median_paired_cost_over_source": 1.695896950797164,
+          "paired_ratio_iqr": 0.0553568742817081
+        },
+        "7": {
+          "source_median_ns": 8.563594285224642,
+          "guarded_median_ns": 9.487615373967948,
+          "median_paired_cost_over_source": 1.110152388890398,
+          "paired_ratio_iqr": 0.03668034164330303
+        },
+        "8": {
+          "source_median_ns": 17.242504310626078,
+          "guarded_median_ns": 69.73806973806974,
+          "median_paired_cost_over_source": 4.03943726699916,
+          "paired_ratio_iqr": 0.08464433946808825
+        },
+        "9": {
+          "source_median_ns": 23.227322661953664,
+          "guarded_median_ns": 105.714986339782,
+          "median_paired_cost_over_source": 4.556497658297898,
+          "paired_ratio_iqr": 0.10546358414862578
+        },
+        "10": {
+          "source_median_ns": 2714.7246444665534,
+          "guarded_median_ns": 55978.5,
+          "median_paired_cost_over_source": 20.64884799153058,
+          "paired_ratio_iqr": 1.2446121857499364
+        },
+        "11": {
+          "source_median_ns": 22.88490536871057,
+          "guarded_median_ns": 93.71494335718396,
+          "median_paired_cost_over_source": 4.095052528118741,
+          "paired_ratio_iqr": 0.11053904317598473
+        }
+      },
+      "new-column-tile": {
+        "0": {
+          "source_median_ns": 22.466681704173247,
+          "guarded_median_ns": 126.97896262108569,
+          "median_paired_cost_over_source": 5.695545178979825,
+          "paired_ratio_iqr": 0.34033121956083967
+        },
+        "1": {
+          "source_median_ns": 2739.7564635272392,
+          "guarded_median_ns": 54412.0,
+          "median_paired_cost_over_source": 19.869799636161524,
+          "paired_ratio_iqr": 1.2998432806048896
+        },
+        "2": {
+          "source_median_ns": 187.23868723868725,
+          "guarded_median_ns": 2475.3212159197747,
+          "median_paired_cost_over_source": 13.199323948367546,
+          "paired_ratio_iqr": 0.19689534342184345
+        },
+        "3": {
+          "source_median_ns": 16.185596110399434,
+          "guarded_median_ns": 16.845928487160705,
+          "median_paired_cost_over_source": 1.0394770701426346,
+          "paired_ratio_iqr": 0.0264637420894136
+        },
+        "4": {
+          "source_median_ns": 3.466666666666667,
+          "guarded_median_ns": 4.107843750000001,
+          "median_paired_cost_over_source": 1.1922786341202984,
+          "paired_ratio_iqr": 0.05560105821311634
+        },
+        "5": {
+          "source_median_ns": 4.4825625,
+          "guarded_median_ns": 5.6057500000000005,
+          "median_paired_cost_over_source": 1.2508860720060797,
+          "paired_ratio_iqr": 0.018813300422505508
+        },
+        "6": {
+          "source_median_ns": 10.518740898175945,
+          "guarded_median_ns": 19.763958333333335,
+          "median_paired_cost_over_source": 1.872347930409438,
+          "paired_ratio_iqr": 0.02650834203556296
+        },
+        "7": {
+          "source_median_ns": 8.049021504085125,
+          "guarded_median_ns": 9.464927872077322,
+          "median_paired_cost_over_source": 1.1774599238631436,
+          "paired_ratio_iqr": 0.028386273403247175
+        },
+        "8": {
+          "source_median_ns": 16.7049552131194,
+          "guarded_median_ns": 69.34706592353297,
+          "median_paired_cost_over_source": 4.155948914865036,
+          "paired_ratio_iqr": 0.07720774504984895
+        },
+        "9": {
+          "source_median_ns": 22.067,
+          "guarded_median_ns": 107.38721065630307,
+          "median_paired_cost_over_source": 4.855653361523098,
+          "paired_ratio_iqr": 0.088531957585678
+        },
+        "10": {
+          "source_median_ns": 2745.7477488081927,
+          "guarded_median_ns": 52607.0,
+          "median_paired_cost_over_source": 18.978058249901906,
+          "paired_ratio_iqr": 1.4680928719861193
+        },
+        "11": {
+          "source_median_ns": 22.253943063485767,
+          "guarded_median_ns": 92.9885750766688,
+          "median_paired_cost_over_source": 4.234329978473503,
+          "paired_ratio_iqr": 0.1431586693117337
+        }
+      }
+    },
+    "representative_benchmark_speedup_claimed": false,
+    "guard_only_assembly_cost_attributed": false,
+    "new_guard_installed": true,
+    "dense_zero_scan_eliminated": true,
+    "remaining_work": [
+      "profile actual candidate/public-exit/backend costs",
+      "compact safe nonzero-RMW conditions",
+      "profitability policy and common workload evidence",
+      "general loaded domains and full OLO BT layout/delinearization"
     ]
   }
 }
