@@ -5,6 +5,13 @@
 并讨论机器溢出检查和按实际访问域安排预加载。这些要求仍是本项目的功能与
 可用性验收依据；当前已证明的 tensor 子集不能替代完整论文场景。
 
+2026-10-08：[header-only empty rewrite](affine-empty-installation.md)补上
+实际loaded-affine片段的不活动路径：outer空跳过M，all-empty child跳过body
+输入／array观察，负K公开出口恢复`j=0`，已接selected Csem→Asm并通过
+2,280／2,280及旧五族同binary回归。这是带条件rewrite的另一实例，局部证书
+直接证明empty source／exit，不需要调度C_opt。非负参数profile、expanded
+tree和旧candidate内部的runtime组合仍是缺口，不声称完整signed／OLO域。
+
 2026-10-08：[actual-row observation 接入](affine-observation-installation.md)
 在具体二维loaded-affine族验收了separation或zero-RMW到同一header保证，
 numeric许可后测试alpha，再接actual Pluto/codegen、data依赖与Csem→Asm。

@@ -2902,6 +2902,61 @@
         "build/affine-observation/cost-v2/report.json"
       ],
       "evidence_stage": "affine_observation_installation_stage"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Original-source-licensed header-only empty affine rewrite, exact negative-child public exits and selected Csem-to-Asm installation; nonnegative parameter profile, expanded fallback and static registry priority remain explicit limits.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightAffineEmptyWidth.v",
+          "name": "compile_affine_empty_width_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyWidth.v",
+          "name": "compile_affine_empty_width_exact"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotSource.v",
+          "name": "affine_empty_snapshot_source_complete"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotSource.v",
+          "name": "affine_empty_snapshot_source_exit"
+        },
+        {
+          "source": "prototype/interface/ClightAffineOuterEmpty.v",
+          "name": "affine_outer_empty_source_exit"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotRewrite.v",
+          "name": "affine_empty_snapshot_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotCapture.v",
+          "name": "affine_empty_snapshot_prefix_contract"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotBuilder.v",
+          "name": "check_affine_empty_snapshot_source_sound"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedEmptySnapshotCompiler.v",
+          "name": "compile_selected_empty_snapshot_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/affine-empty-installation.md",
+        "docs/framework-responsibilities.md",
+        "docs/verified-guard-library.md"
+      ],
+      "artifacts": [
+        "build/affine-empty/proof-v1/report.json",
+        "build/affine-empty/native-v4/report.json",
+        "build/affine-empty/regression-v1/report.json",
+        "build/affine-empty/native-v1/failure.json",
+        "build/affine-empty/native-v2/failure.json",
+        "build/affine-empty/native-v3/failure.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -8884,5 +8939,74 @@
     "comparison_report_sha256": "381331cdd0acac74140f06b68a5ab74346a93ee8f56bee65a8a1aa9ec194ba8b",
     "complete_cost_report": "build/affine-observation/cost-v2/report.json",
     "complete_cost_report_sha256": "723815112d0efdd6d6f5493b02cf5425b98f0c556b4b59515285c6d8fa22d77f"
+  },
+  "affine_empty_installation_stage": {
+    "date": "2026-10-08",
+    "new_modules": 10,
+    "new_module_lines": 1000,
+    "audited_endpoints": 29,
+    "closed_endpoints": 5,
+    "maximum_inherited_globals": 42,
+    "additional_axioms": false,
+    "reachable_bindings": 2076,
+    "source_build_attempts": 53,
+    "successful_source_build_attempts": 10,
+    "rejected_source_build_attempts": 43,
+    "original_source_preexecution_at_runtime": false,
+    "source_user_semantic_callback_added": false,
+    "kernel_changed": false,
+    "host_changed": false,
+    "polyhedral_candidate_validators_changed": false,
+    "empty_rewrite_requires_polyhedral_C_opt": false,
+    "header_only_condition_installed": true,
+    "negative_child_public_counter_zero": true,
+    "outer_empty_skips_child_observation": true,
+    "native_assembly_calls": 2280,
+    "native_Clight_calls": 2280,
+    "array_cells_checked_per_call": 12000,
+    "source_width_matrices": [
+      "i+M / 2*i+M",
+      "i-M / 2*i-M"
+    ],
+    "normal_matrix_fast_selections": {
+      "add": 33,
+      "subtract": 87
+    },
+    "normal_matrix_fallback_selections": {
+      "add": 107,
+      "subtract": 53
+    },
+    "normal_matrix_unmarked_calls": 50,
+    "subtract_fast_NULL_body_pointer_calls": 27,
+    "subtract_fast_undefined_body_word_calls": 32,
+    "subtract_fast_header_data_overlap_calls": 27,
+    "normal_matrix_fast_NULL_child_pointer_calls": 6,
+    "same_binary_regression_calls_per_execution_kind": {
+      "word": 400,
+      "recursive_affine": 480,
+      "private_loaded": 270,
+      "zero_width": 672,
+      "rmw": 816
+    },
+    "normal_rmw_fast_selections_retained": 126,
+    "existing_registry_has_static_priority": true,
+    "runtime_empty_composition_with_previous_candidate_added": false,
+    "triangle_Clight_original_fallback_occurrences": 32,
+    "compact_check_plan_connected": false,
+    "profitability_measured": false,
+    "general_recursive_loaded_affine_complete": false,
+    "full_goal_complete": false,
+    "preserved_failed_harness_runs": [
+      "build/affine-empty/native-v1/failure.json",
+      "build/affine-empty/native-v2/failure.json",
+      "build/affine-empty/native-v3/failure.json"
+    ],
+    "proof_report": "build/affine-empty/proof-v1/report.json",
+    "proof_report_sha256": "ecee9787f1ff5acafd2ee7f45fc29f220256356ae4c5d8acfa613391c88f5c41",
+    "native_report": "build/affine-empty/native-v4/report.json",
+    "native_report_sha256": "42c9cba7c12787cc987c0e8367e9fa6427fee4d38af21199021f9328d1900c6d",
+    "regression_report": "build/affine-empty/regression-v1/report.json",
+    "regression_report_sha256": "690be97a820705dd72c5e68c71af71e0a0e09f29fcec5ba242dd8b2f03a3d648",
+    "negative_M_positive_root_shortcut_supported": false
   }
 }

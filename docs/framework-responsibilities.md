@@ -48,6 +48,15 @@ entailment。先证明实际复用再更改 API。
 
 ### Guard library 的契约责任
 
+2026-10-08，[header-only empty rewrite](affine-empty-installation.md)进一步
+检验责任边界：domain的仿射endpoint事实只需header words；language构造
+不执行leaf的actual source execution，并证明空outer／负child的精确公开出口。
+Factory从original source/capture生产调用前提，接共用host/backend到Csem→Asm；
+源码用户仍只给marked C／配置。该rewrite的局部正确性不需要调度C_opt，
+kernel不改。29端点无新增公理，2,280／2,280及旧五族同binary通过。
+非负参数profile、tree复制fallback、缺少旧候选内部的runtime empty选择分别
+属于编码、language lowering与factory组合的后继工作；不是kernel自动解决。
+
 [分类与源码对照](verified-guard-library.md)覆盖 arithmetic、ranges/footprints、
 separation、observation preservation 和 conditional control。它是 kernel
 之上的服务目录；各项先分开记录 safe invocation requires 与 accepted ensures，

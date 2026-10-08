@@ -1,5 +1,15 @@
 # GuardCert Working Manuscript
 
+The [header-only empty rewrite](../docs/affine-empty-installation.md) connects
+original loaded headers, safe affine endpoint checks, negative-child public
+exits and selected Csem-to-Asm installation. It needs no body-definedness or
+polyhedral scheduling certificate on acceptance. Twenty-nine endpoints audit
+without added axioms; 2,280 Asm/2,280 Clight complete-output calls and five
+same-binary earlier source families pass. Nonnegative header parameters,
+expanded fallback code and static registry priority remain explicit limits.
+Signed parameter encoding, compact lowering, runtime composition and the full
+OLO case remain active.
+
 The [zero-width successor](../docs/zero-width-installation.md) connects the
 actual wider-domain candidate checker, original-source condition, compact plan
 and selected Csem-to-Asm compiler. First-empty/nonempty-later inputs now accept.

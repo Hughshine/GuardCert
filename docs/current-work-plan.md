@@ -48,6 +48,38 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
+### 当前：header-only empty rewrite 的安装与后继验收
+
+2026-10-08，[实际全空 rewrite](affine-empty-installation.md)已接 original
+loaded Clight、private capture、header-only affine endpoint 条件、精确公开出口、
+factory 和 selected Csem→Asm。Outer `N<=0` 跳过 M，positive-root 下所有 child
+不活动时跳过 body-only words／array／alias 检查；负的 K 出口恢复为 `j=0`。
+这是实际 conditional rewrite，不需要 polyhedral C_opt；旧候选 route 保持。
+
+十模块1,000行、29端点／5closed／2,076bindings／至多旧42globals，无新增
+公理。两种width源、六配置共2,280 Asm／2,280 Clight完整输出与continuation
+通过，包含NULL body pointers、未初始化body-only变量、header/data overlap。
+同binary word400、recursive-affine480、private-loaded270、zero-width672、
+RMW816各自Asm/Clight回归通过。既有builder静态优先，旧候选正常接受保持。
+
+必须保留两个具体缺口：现有header参数profile只许可非负参数；`i-M`可接受
+负K，但positive-root `i+M`中的负M仍安全回退。新直接tree还展开了32处triangle原源fallback，
+没有compact或profitability结论。旧factory已经返回target的site没有新增运行时
+empty分支，静态registry组合不能代替该运行时组合。
+
+后续顺序：
+
+1. 用既有private-Boolean/check-plan定律降低新条件，证明原guard与紧凑AST的
+   对应、flag freshness及source/candidate入口出口运输，移除重复fallback。
+2. 为header-only signed参数建立安全编码服务，自动从原源头部许可生产调用
+   前提；不能只放宽Boolean而沿用非负typed-view／lowering证书。以负M的
+   `i+M`、NULL body与undefined scalar为实际accept/refuse验收。
+3. 组合empty与既有实际polyhedral候选的运行时选择，保留原接受域与candidate
+   C_opt；source/site producer继续生产placement／effects／context证据，
+   不增加源码用户completion或equivalence callback。
+4. 继续general recursive loaded affine／dynamic layout／完整OLO-BT、
+   broader scalar/chunk条件与完整成本。基础设施阶段不标记完整goal完成。
+
 ### Verified guard library 的组织约束
 
 [服务目录与契约对照](verified-guard-library.md)按 arithmetic/representation、

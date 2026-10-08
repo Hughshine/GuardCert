@@ -1187,6 +1187,28 @@ Csem-to-Asm installation are reused. The kernel is unchanged. This exercises
 alternative conditions and dependent invocation within one concrete host;
 it does not add arbitrary guard synthesis or cross-language contract reuse.
 
+\paragraph{Header-only empty rewrites.}
+A further conditional rewrite eliminates an outer loop when its signed
+loaded bound is nonpositive, or replaces positive outer execution when every
+affine child is empty. Its safely encoded endpoint test reads only header
+parameters. The domain produces their definedness from original loaded-source
+receipts; body words, array validity and separation are unnecessary on the
+accepting path. For $K=i-M$, $N=3$ and $M=4$, the original exits with
+$i=3$, $j=0$ and $K=-2$. The old nonnegative-child restore would incorrectly
+set $j=K$; a new actual-execution proof restores the exact empty-child exit.
+An empty outer leaves the original $j,K$ unchanged and skips M.
+
+The checked factory connects capture, readonly choice and public exits to the
+existing selected Csem-to-Asm host. This replacement uses an empty-source
+execution certificate rather than a scheduling certificate; the polyhedral
+candidate route remains separate. Existing builders keep static priority,
+so the new rewrite first serves sites they refuse during compilation. It does
+not yet add an empty runtime choice inside a previously returned candidate.
+The present parameter encoder requires nonnegative parameters: it accepts
+negative widths for $i-M$, while positive-root $i+M$ with negative M falls back. Its expanded
+decision tree also duplicates fallback code. Signed-parameter encoding,
+compact lowering and runtime composition remain required.
+
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,
 extend compact conditions to other stability and array

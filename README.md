@@ -1,5 +1,15 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: [Header-only empty rewrites](docs/affine-empty-installation.md)
+connect outer skip and all-empty affine children to the selected Csem-to-Asm
+compiler. They bypass body-only input/array checks and restore `j=0` even for
+negative child bounds. Ten modules audit 29 endpoints with no added axioms;
+2,280 Asm/2,280 Clight calls check complete arrays and public continuations,
+including NULL body pointers and an undefined body-only local. Existing builders
+keep static priority and five earlier source families pass in the same binary.
+Negative M still refuses the positive-root shortcut; the new tree duplicates fallback code
+and needs compact lowering. The full OLO/general goal remains active.
+
 2026-10-08: [Actual-row observation installation](docs/affine-observation-installation.md)
 connects alternative separation/zero-RMW conditions to the same header-stability
 obligation. The checked source selects its scalar; preparation licenses the

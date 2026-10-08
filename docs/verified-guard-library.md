@@ -4,7 +4,15 @@
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。
 
-最新安装态见 [actual-row observation](affine-observation-installation.md)：
+最新 [header-only empty rewrite](affine-empty-installation.md)将control／
+conditional observation与affine endpoint编码接到actual source、负child
+公开出口和selected Csem→Asm。All-empty入口不需要body words／array／alias
+许可，empty outer不读M；factory从原执行自动生产实际header调用域。旧registry
+静态优先，同binary旧五族保持。29端点无新增公理，2,280／2,280全输出通过。
+该服务的非负参数profile和展开tree是明确限制；signed参数、compact lowering
+及与旧candidate的runtime选择仍需实现，不以此宣称完整OLO能力或收益。
+
+此前安装态见 [actual-row observation](affine-observation-installation.md)：
 separation 和 zero-RMW 已分别建立 caller 所需的同一 header-match row 保证。
 Factory 自动选取 alpha、检查 original row；它的类型/读取许可来自先成功的
 numeric preparation。Readonly alternative、compact plan、actual candidate
