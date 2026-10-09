@@ -48,6 +48,17 @@ entailment。先证明实际复用再更改 API。
 
 ### Guard library 的契约责任
 
+2026-10-08，[runtime empty alternative](affine-empty-runtime-installation.md)
+落实带private effects的alternative责任：language library证明actual read
+prefix的精确replay，以及接受的fast出口／拒绝的source replay entry到旧
+opaque small-step projected contract的连接。Domain复用signed condition／
+actual empty-source，factory自动生产prefix／capture／typed/fresh条件并实例化
+该producer，再消费旧candidate和selected installation。15端点无新增公理；
+RMW同408输入保留126candidate、新增58empty，zero-width保留60candidate、
+新增56empty；kernel／host／validators与源码用户API不变。拒绝可能重复
+prefix／capture，成本未测。不能把这项Clight服务称为任意Boolean OR或
+跨host的boundary algebra，也不能从已有validator自动推出source/model桥。
+
 2026-10-08，[signed header 条件客户端](affine-empty-signed-installation.md)
 把具体condition编码与empty source／exit／capture／private choice／安装解耦。
 Condition producer提供调用域内safe readonly certificate与同一accepted facts；

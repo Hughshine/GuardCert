@@ -48,7 +48,38 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
-### 当前：signed header 条件与可复用 empty client 已安装
+### 当前：empty 与既有候选的 runtime 组合已安装
+
+2026-10-08 再次 fetch 与核对远端 heads，narrative 仍为 `c4b1395`，main
+文本一致。其 proof directions／premise provenance 约束应用于
+[runtime alternative 后继](affine-empty-runtime-installation.md)：旧 candidate
+的 Clight→Loop→candidate→Clight 链原样消费，新的 empty 分支使用 actual
+empty-source／exit 证书；不能把 polyhedral validation 当作 empty 或原源
+对应的证明。
+
+新 language service 消费旧 target 的 opaque small-step projected contract。
+接受时产生 fast branch／原 suffix 的公开出口；拒绝时生产 source replay
+entry 与 checked entry 的公开关系，复用旧证书。真实只读 prefix 可精确
+重放，capture／Boolean 的私有写入另作运输。Factory 自动检查 prefix
+outputs／pointer inputs、typed/fresh resources 与 signed 条件编码；静态
+wrapper refusal 保留旧 target。源码用户无新增 semantic callback。
+
+六模块529行、15端点／2closed／2,028bindings／旧42globals，无新增公理，
+提取编译器与 selected Csem→Asm 接通。旧empty矩阵2,280／2,280全部path
+保持。六配置RMW2,448／2,448完整输出/context通过；正常408输入保留126
+candidate接受，新增58empty接受，fallback146→88，一份original fallback。
+真实prefix／条件M-NULL安全与scheduler/resource refusal均实跑。
+
+同binary另有word400／400、recursive-affine480／480、private-loaded270／270、
+zero-width672／672。Zero-width保留60candidate并新增56empty，fallback164→108；
+regression引用上述已经完成的normal RMW816／816，不重复计为新batch。
+
+拒绝路径可能重复prefix／capture，完整调用成本未测；这不是收益结论。
+下一顺序是mixed negative/active child及general recursive loaded affine、
+broader scalar/chunk、dynamic layout／完整OLO-BT与完整成本。后继条件服务
+继续先明确调用许可与入口出口关系，再接原candidate／host；完整goal保持active。
+
+### 此前：signed header 条件与可复用 empty client 已安装
 
 2026-10-08，[signed header 后继](affine-empty-signed-installation.md)扩大
 header profile 到有符号区间，复用既有 `PolCertAffineClight` analyzer／range

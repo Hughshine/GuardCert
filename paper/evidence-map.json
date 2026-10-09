@@ -3077,6 +3077,85 @@
         "build/affine-empty-signed/regression-v1/report.json"
       ],
       "evidence_stage": "affine_empty_signed_installation_stage"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Runtime empty alternatives reuse previous candidate projected certificates through exact source-prefix replay and accepted/refused entry transport. Fifteen endpoints add no axioms; selected Csem-to-Asm compiler is extracted. Same-input RMW keeps 126 candidates and adds 58 empty choices per normal mode; zero-width keeps 60 and adds 56. Full outputs, old empty matrices, real source prefixes, fallback and same-binary regressions pass. No broader source grammar, mixed negative/active child coverage, cost/profitability or full OLO claim.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightSourcePrefixReplay.v",
+          "name": "source_prefix_output_transport"
+        },
+        {
+          "source": "prototype/interface/ClightSourcePrefixReplay.v",
+          "name": "source_prefix_replay"
+        },
+        {
+          "source": "prototype/interface/ClightProjectedRuntimeDispatch.v",
+          "name": "projected_runtime_dispatch_contract"
+        },
+        {
+          "source": "prototype/interface/ClightSourcePrefixRegion.v",
+          "name": "source_prefix_region_execution"
+        },
+        {
+          "source": "prototype/interface/ClightSourcePrefixRegion.v",
+          "name": "source_prefix_region_replay"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimePrelude.v",
+          "name": "affine_empty_runtime_prelude"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimePrelude.v",
+          "name": "affine_empty_runtime_contract"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimePrelude.v",
+          "name": "affine_empty_runtime_frameable_quiet"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimePrelude.v",
+          "name": "affine_empty_runtime_prefix_quiet"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimeBuilder.v",
+          "name": "affine_empty_runtime_normalized_previous"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimeBuilder.v",
+          "name": "check_affine_empty_runtime_source_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimeBuilder.v",
+          "name": "build_affine_empty_runtime_frontend_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimeBuilder.v",
+          "name": "build_affine_empty_runtime_extension_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyRuntimeBuilder.v",
+          "name": "certified_affine_empty_runtime_extension"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedEmptyRuntimeCompiler.v",
+          "name": "compile_selected_empty_runtime_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/affine-empty-runtime-installation.md",
+        "docs/framework-responsibilities.md",
+        "docs/verified-guard-library.md",
+        "docs/current-work-plan.md"
+      ],
+      "artifacts": [
+        "build/affine-empty-runtime/proof-v1/report.json",
+        "build/affine-empty-runtime/native-v1/report.json",
+        "build/affine-empty-runtime/native-rmw-v1/report.json",
+        "build/affine-empty-runtime/regression-v1/report.json"
+      ],
+      "evidence_stage": "affine_empty_runtime_installation_stage"
     }
   ],
   "bibliography_evidence": [
@@ -9266,5 +9345,88 @@
     "profile_refusal_report_sha256": "7f024da1ecf62c6395888cd4a0fb65133f03532eed7e8ee82b8db3a98f40a488",
     "regression_report": "build/affine-empty-signed/regression-v1/report.json",
     "regression_report_sha256": "a4355e82ebe37dcd348fb10ed1b9a51ed8609c572a553fbce0ae3708fa650ecc"
+  },
+  "affine_empty_runtime_installation_stage": {
+    "date": "2026-10-08",
+    "narrative_review_reference": "c4b1395668786f20cdb75fb2db020dd651bb4684",
+    "new_modules": 6,
+    "new_module_lines": 529,
+    "audited_endpoints": 15,
+    "closed_endpoints": 2,
+    "reachable_bindings": 2028,
+    "maximum_inherited_globals": 42,
+    "additional_axioms": false,
+    "source_build_attempts": 18,
+    "successful_source_build_attempts": 6,
+    "kernel_changed": false,
+    "host_changed": false,
+    "polyhedral_candidate_validators_changed": false,
+    "source_user_semantic_callback_added": false,
+    "original_source_preexecution_at_runtime": false,
+    "opaque_previous_small_step_contract_reused": true,
+    "source_read_prefix_exact_replay": true,
+    "runtime_empty_composition_with_previous_candidate_added": true,
+    "static_wrapper_refusal_keeps_previous_target": true,
+    "empty_matrix_calls_per_execution_kind": 2280,
+    "empty_historical_paths_retained": true,
+    "rmw_matrix_calls_per_execution_kind": 2448,
+    "normal_rmw_candidate_selections": [
+      126,
+      126
+    ],
+    "normal_rmw_fast_selections": [
+      126,
+      184
+    ],
+    "normal_rmw_empty_selections": 58,
+    "normal_rmw_refused_selections": [
+      146,
+      88
+    ],
+    "normal_rmw_unmarked_calls": 136,
+    "normal_rmw_gains_actual_outer_empty": 44,
+    "normal_rmw_gains_positive_outer_empty_children": 14,
+    "normal_rmw_gains_NULL_child": 4,
+    "actual_empty_candidate_original_paths_distinguished": true,
+    "old_candidate_choices_unchanged_when_empty_refuses": true,
+    "one_original_fallback_per_tested_function": true,
+    "normal_root_capture_occurrences_per_marked_function": 2,
+    "root_capture_occurrences_are_not_rewrite_site_counts": true,
+    "normal_zero_width_candidate_selections": [
+      60,
+      60
+    ],
+    "normal_zero_width_fast_selections": [
+      60,
+      116
+    ],
+    "normal_zero_width_refused_selections": [
+      164,
+      108
+    ],
+    "same_binary_regression_calls_per_execution_kind": {
+      "word": 400,
+      "recursive_affine": 480,
+      "private_loaded": 270,
+      "zero_width": 672
+    },
+    "rmw_normal_regression_calls_referenced_from_existing_runtime_matrix": 816,
+    "rmw_regression_is_not_additional_execution_batch": true,
+    "source_grammar_extended": false,
+    "mixed_negative_active_child_support_added": false,
+    "refusal_may_repeat_source_read_prefix_and_capture": true,
+    "complete_cost_measured": false,
+    "profitability_measured": false,
+    "full_goal_complete": false,
+    "proof_report": "build/affine-empty-runtime/proof-v1/report.json",
+    "proof_report_sha256": "f05d39c3050cd0a2aaa3419a63c1255c6ce3002ba5c02fe51ef624103f6b49aa",
+    "compiler": "build/affine-empty-runtime/compiler-v1/ccomp",
+    "compiler_sha256": "7f6e461b5a9ce8d8ecebc9905867b9d9454caaff60ff976d733c00ad02741964",
+    "native_report": "build/affine-empty-runtime/native-v1/report.json",
+    "native_report_sha256": "d67c00d3d232f0d1717ee6d51c4f4432e7f04b6b51723a1fa2ebb94fa7dbb003",
+    "runtime_rmw_report": "build/affine-empty-runtime/native-rmw-v1/report.json",
+    "runtime_rmw_report_sha256": "b35bc8b3c2e409fe91c70111a3648e4121c8491dc054dd8b19b9ca38bc728ec9",
+    "regression_report": "build/affine-empty-runtime/regression-v1/report.json",
+    "regression_report_sha256": "31f6bc18cface8762f2dbfc71988083a7331f75e051ac496618eaa155c5323b6"
   }
 }

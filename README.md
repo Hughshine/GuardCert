@@ -1,6 +1,15 @@
 # Guard：带前提的程序变换与组合证明
 
-2026-10-08: [Signed header profiles](docs/affine-empty-signed-installation.md)
+2026-10-08: [Runtime empty alternatives](docs/affine-empty-runtime-installation.md)
+reuse existing candidate certificates after proving the refused entry relation
+and exact source-prefix replay. Fifteen new endpoints audit without added axioms;
+the selected Csem-to-Asm compiler is extracted. The same RMW inputs retain 126
+candidate choices and add 58 empty choices per normal mode; zero-width retains
+60 and adds 56. Full Asm/Clight outputs pass with one original fallback, unchanged
+empty matrices and same-binary regressions. Refusal can repeat reads/capture;
+cost, broader domains and full OLO coverage remain active.
+
+2026-10-08 historical stage: [Signed header profiles](docs/affine-empty-signed-installation.md)
 reuse the existing signed interval encoder through a condition-certificate
 client. Twelve new endpoints audit without added axioms. The same 2,280
 Asm/2,280 Clight calls grow addition-width acceptance from 33 to 87 without

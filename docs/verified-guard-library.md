@@ -4,7 +4,15 @@
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。
 
-最新 [signed header 服务](affine-empty-signed-installation.md)复用generic
+最新 [runtime alternative](affine-empty-runtime-installation.md)复用旧candidate
+的opaque projected contract。Language证明prefix精确replay、private result
+运输以及接受／拒绝的不同入口出口；factory生产实际source/resource证据。
+旧C_opt不重证，源码用户无新增semantic callback；15端点无新增公理。
+RMW同408输入的126candidate保持并新增58empty，zero-width保留60candidate
+并新增56empty。静态wrapper拒绝保留旧target；运行时拒绝可重复prefix与capture，
+成本仍待测。这是带private effects的Clight alternative服务，不是任意条件OR。
+
+此前 [signed header 服务](affine-empty-signed-installation.md)复用generic
 signed interval analyzer／range guard／lowering。旧非负限制来自client profile，
 不是generic encoder。新的condition client消费同一readonly facts契约，复用
 原源／capture／公开出口／安装；factory自动生产前提，源码用户API不变。

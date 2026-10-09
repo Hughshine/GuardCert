@@ -1,6 +1,16 @@
 # GuardCert Working Manuscript
 
-The [signed-header successor](../docs/affine-empty-signed-installation.md)
+The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
+the empty condition to previously installed targets. Its language proof supplies
+exact source-prefix replay and the refused entry relation to the old small-step
+certificate; the candidate and host proofs are reused. Fifteen new endpoints
+audit without added axioms. Same-input RMW acceptance retains 126 candidate
+choices and adds 58 empty choices per normal mode; zero-width retains 60 and
+adds 56. Actual Asm/Clight outputs, selection and fallback pass. Cost and broader
+OLO coverage remain open; the narrative's proof directions and premise provenance
+remain the presentation boundary.
+
+The historical [signed-header successor](../docs/affine-empty-signed-installation.md)
 instantiates the existing signed interval encoder and extracts a condition
 client that reuses the actual empty-source/capture/public-exit proofs. Twelve
 new endpoints audit without added axioms; the same 2,280 Asm/2,280 Clight calls

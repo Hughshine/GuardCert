@@ -1475,3 +1475,25 @@ earlier source families pass 2,638/2,638 calls in the same binary; their records
 remain unchanged and normal RMW acceptance remains 126. Out-of-profile safe
 valuations, runtime composition with already installed candidates, mixed
 negative/active children, complete cost and the combined OLO case remain open.
+
+\paragraph{Runtime alternatives with existing candidates.}
+Six new modules total 529 lines and audit fifteen endpoints, two closed, over
+2,028 reachable bindings, with at most the same forty-two inherited globals
+and no new axiom. The extracted selected compiler retains all historical empty
+paths across 2,280 assembly and 2,280 Clight calls. The same 408 RMW inputs run
+in six configurations, passing 2,448 assembly and 2,448 Clight full-output and
+continuation checks. Each normal mode retains all 126 old candidate selections
+and adds 58 empty selections, reducing original fallback from 146 to 88.
+Those additions comprise 44 actual outer-empty and fourteen positive-outer
+executions with empty children; four have NULL M. Diagnostics distinguish all
+three paths and confirm one original fallback AST per marked function.
+
+The same binary passes word 400/400, recursive-affine 480/480,
+private-loaded 270/270 and zero-width 672/672 assembly/Clight checks. The
+zero-width matrix retains sixty candidate selections and adds fifty-six empty
+selections, reducing fallback from 164 to 108 per normal mode. Candidate
+choices remain unchanged whenever the new condition refuses. Scheduler and
+resource refusal retain the standalone empty path; unmarked and disabled
+configurations install neither alternative. The regression report references
+the 816/816 normal RMW calls already counted above. Refusal can repeat source
+reads and capture; this stage supplies no cost or profitability result.
