@@ -2,9 +2,57 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 首要任务：PolCert／CGO 2017 对齐与完整程序正确性
+
+2026-10-08 用户确认：功能、优化效果和 benchmark 至少对齐 PolCert 与
+CGO 2017 Optimistic Loop Optimization，最终交付完整程序正确性。
+并发相关可不支持；其余顺序能力不能仅凭当前 matcher、profile、witness 或
+lowering 限制移出目标。支持范围是第一优先级，未支持项须有详尽尝试与具体诊断。
+
+本次同步 `topdown/research-positioning@8ce9c8b` 的功能与完整程序验收要求。
+本节决定后续顺序。下面的 signed/header-empty、scan 和其他阶段记录保留成果与
+回归证据；其中历史“下一步”不覆盖本节。新增证明端点、调用数量或条件 AST
+缩小，不代替源范围、变换、benchmark 效果及完整程序保证的完成。
+
+1. 建立 [PolCert／CGO 2017 对照清单](polcert-integration-target.md)：
+   PolCert 62 个 case 全部保留，逐例运行适用的顺序配置；保存最佳用了并行的
+   case 重新评估顺序路线。按作者 artifact 固定 CGO 2017 程序、版本与输入，
+   从原 NPB Serial C／BT compute_rhs 和 LLVM Test Suite 输入推进；未取得的
+   SPEC／其他源和语言缺口明确列为待解决，不能默默删除。
+2. 批量定位实际失败并补源／目标支持：保留原计算、数值类型、参数规模、多语句、
+   多数组、loaded bounds 与实际上下文。记录 source/model、proposal、validator、
+   codegen、candidate checker、Clight lowering、installation 各步结果及已尝试
+   修复；原 benchmark 不可由简化整数 fixture 代替。优先定位 matmul、fusion、
+   multi-stmt-stencil-seq 和原 BT compute_rhs，完整清单继续保留。
+3. 按案例接入缺失顺序路线：实际 scheduling→tiling 组合，以及适用的 ISS、
+   intra-tile、diamond／two-level tiling、unroll／jam。复用现有 PolCert
+   验证与代码生成，补 statement、witness、坐标和实际目标结构限制；
+   不等所有 guard 边界补完才接真实 pipeline。Vector annotation／机器 SIMD
+   另行调查，不能直接随并发排除，也不能用注解成功代替实际 lowering。
+4. 每项扩展同时完成现有 host 上的安装：factory／site 自动建立调用、source/model、
+   guard/candidate、scope、placement、progress、typing 与资源前提；保留
+   memory／public exits／continuation，重复改写证据针对当前中间程序。
+   复用 finite／open Clight host 和 CompCert，成功返回目标时交付实际
+   Csem→Asm backward simulation。不能留用户语义 callback 或未证明的
+   context lifting 假设；不先增加通用 context algebra、第二 IR 或公理。
+5. 同源验收实际效果与成本：原源、PolCert／Polly 的适用顺序目标、候选本身和 GuardCert
+   完整调用使用对应计算、输入与可比后端，明确报告 Polly／CompCert 后端配置差异。
+   计入 guard、candidate／fallback、
+   出口恢复，保存编译成本、代码尺寸、实际变换、接受／拒绝和负结果。
+   Identity、全 fallback 或 tiny 回归不算所要求优化已支持；仅相对旧 guard
+   节省也不算 benchmark 收益；效果差距有诊断仍属未完成，继续推进。
+   最新联合 compiler 再做干净源码树全链复现。
+
+已有 runtime empty 组合、signed-empty、RMW observation、canonical／dedup／linear
+服务保持回归。Mixed negative/active、broader scalar/chunk、recursive loaded 与条件降本，按上述 benchmark 的实际支持缺口或主要成本安排；并未取消。
+无具体阻塞的 kernel／库分类／host 抽象重构不优先于范围接入。
+当前定位是“可复用框架与若干完整编译路径已有，目标优化器支持范围与效果仍待完成”，
+不是“主体已完成、只剩论文评估”。进度逐程序／配置报告已实现、已尝试仍缺什么、
+尚未尝试，以及完整证明与效果状态，不估工期或总完成百分比。
+
 ### Narrative 的持续设计约束
 
-2026-10-08 fetch 并核对 narrative 新提交
+以下保留 2026-10-08 的旧导入记录：当时核对 narrative
 `topdown/research-positioning@c4b1395`，在 guard library 澄清之上又同步
 source/model proof directions 与 premise provenance。以下根据
 [paper narrative](topdown/paper-narrative.md) 和
@@ -19,8 +67,7 @@ guard/capture/transport facts，以及作为证明起点的 original source exec
 不要求每个前提都有一个 emitted test，不在运行时先执行源程序来许可 guard。
 最终 installed theorem 必须生产适用前提，不能留给源码用户。
 
-本次重新 fetch 后 remote 仍为 `c4b1395`，main 的 narrative 文本与该版本
-一致。[实际 loaded-affine 证明对照](snapshot-polyhedral-native-pipeline.md#sourcemodel-证明方向与前提来源)
+该次旧导入时 remote 为 `c4b1395`，main 的 narrative 文本与该版本一致。[实际 loaded-affine 证明对照](snapshot-polyhedral-native-pipeline.md#sourcemodel-证明方向与前提来源)
 已把 capture、cached-source、Clight-to-Loop、candidate lowering、public
 restore 和全局安装分别关联到具体定理。后续 first-empty-child 等扩展沿用
 同一前提来源审查；这项说明不新增实现里程碑或要求重命名定理。
@@ -48,10 +95,10 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
-### 当前：empty 与既有候选的 runtime 组合已安装
+### 已完成阶段：empty 与既有候选的 runtime 组合已安装
 
-2026-10-08 再次 fetch 与核对远端 heads，narrative 仍为 `c4b1395`，main
-文本一致。其 proof directions／premise provenance 约束应用于
+该阶段于 2026-10-08 fetch 与核对远端 heads，当时 narrative 为 `c4b1395`，
+main 文本一致。其 proof directions／premise provenance 约束应用于
 [runtime alternative 后继](affine-empty-runtime-installation.md)：旧 candidate
 的 Clight→Loop→candidate→Clight 链原样消费，新的 empty 分支使用 actual
 empty-source／exit 证书；不能把 polyhedral validation 当作 empty 或原源
@@ -75,7 +122,7 @@ zero-width672／672。Zero-width保留60candidate并新增56empty，fallback164�
 regression引用上述已经完成的normal RMW816／816，不重复计为新batch。
 
 拒绝路径可能重复prefix／capture，完整调用成本未测；这不是收益结论。
-下一顺序是mixed negative/active child及general recursive loaded affine、
+该阶段提出的下一顺序是mixed negative/active child及general recursive loaded affine、
 broader scalar/chunk、dynamic layout／完整OLO-BT与完整成本。后继条件服务
 继续先明确调用许可与入口出口关系，再接原candidate／host；完整goal保持active。
 

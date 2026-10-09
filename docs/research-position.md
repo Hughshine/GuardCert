@@ -2,6 +2,24 @@
 
 当前整体叙事沿用 `topdown/research-positioning` 的 [paper narrative](topdown/paper-narrative.md)：**语言无关 verified optimistic transformation 框架，加有实质算法与条件正确性证明的 CompCert 循环实例**。框架、语言实例、优化／domain 实现者的责任和最难验收见 [责任矩阵](framework-responsibilities.md)，已列入 [活动目标与计划](current-work-plan.md)。框架的贡献由可复用的条件／证据处理和安装设施体现；循环实例必须实际提供候选验证、入口推导和真实语义对应。不能只凭一条 abstract select 定理或一个外围 if 支撑这项叙事。以下文献与固定提交的证据限制继续有效，预期贡献不等于已证实的新颖性。
 
+## 当前目标与进度定位（2026-10-08）
+
+用户确认的目标是：至少在功能、优化效果与 benchmark 上对齐 PolCert 和
+CGO 2017，并交付完整程序正确性。并发相关可不支持；其他顺序能力保留为目标，
+不以当前 template／checker／lowering 限制提前排除。具体范围、逐例失败诊断和
+完成标准见[功能接入目标](polcert-integration-target.md)与[当前计划](current-work-plan.md)。
+
+当前应定位为：kernel、条件服务和语言安装已有可复用证明基础，若干实际源族已有
+完整 Csem→Asm 路径；PolCert 顺序支持范围、CGO 2017 条件算法／原程序对照、
+代表性 benchmark 效果仍未完成。新增接受、证明数量、原生回归数量和稿件篇幅
+不代替这些结果，也不能把项目定位为只剩评估收尾。
+
+Context lifting 是最终交付要求：actual source／candidate 和当前 site 的前提由
+factory／language host／site producer 建立，保留公开状态、内存、控制和
+continuation，再连接 CompCert；不作为用户语义假设，不先引入新 context
+机制、第二 IR 或公理。该目标同时要求功能效果和正确性；相对既有工作的科学
+增量仍须同例比较，不能由“完整程序保证”或对齐目标本身直接宣布新颖性。
+
 初次核对日期：2026-10-02；五个直接近邻与实现证据定向复核：2026-10-05（main `cf4d442`）。该固定基线的定位见文末修订结论及[逐能力证据矩阵](evidence-to-claim-2026-10-05.md)；后续评审吸收与当前计划见[综合记录](review-synthesis-2026-10-05.md)和[工作计划](current-work-plan.md)。下文旧实现表格为历史阶段，不能用于判定当前支持范围。结论是：**有值得试验的候选问题，但条件变换、运行时版本选择和局部到全程序组合均已有先例；当前原型不能据此宣称新颖性。** 这些先例并不都提供本项目要的同一种接口或机械保证，应逐层比较。本文将已确认的覆盖与我们的研究推断分开。跨领域需求见 [扩展 survey](survey-general.md)，人工/工具候选见 [候选条件化设计](candidate-conditioning.md)，接口调整见 [框架扩展设计](framework-extension.md)。
 
 实现进展补充于 2026-10-03：`1b6e3fd` 阶段已实现实际 C 的稳定地址参数、真实指针活动足迹检查、外部仿射／分块候选、完整 Csem→Asm 保证及提取运行，见[功能对齐记录](polcert-integration-target.md)和[地址参数证据](memory-affine-address-parameters.md)。因此下表的实现列已更新；上述文献核对日期及新颖性判断不因实现进展改变。[固定地址参数的边界扫描](memory-parameter-boundary-scans.md)随后也完成证明审计、提取和同源完整程序对照；[多个运行时条件方案](memory-version-families.md)也已进入同一实际编译器：抽象核心对异质定义域、前提和状态关系保持源观察，实际组件从已认证检查器获得；完整程序审计没有新增公理。同源测试新增接受 474 次函数调用，但地址查询和代码大小增长，因此不能由这项能力推断性能收益或文献新颖性。

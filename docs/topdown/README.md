@@ -9,12 +9,15 @@ tracked in [the synthesis](../review-synthesis-2026-10-05.md) and
 This branch is reserved for top-down positioning and design notes that run in
 parallel with the bottom-up implementation work on `main`.
 
-The latest narrative update, `12419c1` (2026-10-07), prioritizes explicit
-`#pragma scop` region selection and the real polyhedral scheduling/code-generation
-pipeline. The [integration review](../narrative-pipeline-review-2026-10-07.md)
-records the source gaps, revised work order and milestone acceptance. The CAV
-2027 [working manuscript](../../paper/README.md) continues alongside implementation.
-Earlier imported reviews below retain their historical implementation boundaries.
+The 2026-10-08 acceptance decision, synchronized from `8ce9c8b`, prioritizes PolCert and CGO 2017
+functionality, sequential optimization effects and benchmark alignment, with
+mandatory whole-program Csem-to-Asm correctness. The [current work plan](../current-work-plan.md)
+and [functional target](../polcert-integration-target.md) give the case-based
+implementation order; [context lifting](context-lifting.md#delivery-requirement-2026-10-08)
+fixes the installation requirement. Explicit SCoP selection and the real
+optimizer pipeline remain required. The CAV 2027 [working manuscript](../../paper/README.md)
+continues alongside implementation. Earlier imports and integration reviews
+retain their historical implementation boundaries.
 
 The working object is **verified guarded transformation**: a transformation may
 be correct only under a semantic condition; that condition is turned into a

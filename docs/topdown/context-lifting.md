@@ -8,6 +8,31 @@ final API proposal.  The current implementation already has generic
 Clight hosts; the purpose here is to make the semantic gap explicit and ask
 whether the current factoring is the right one.
 
+## Delivery requirement (2026-10-08)
+
+The functional and benchmark target is PolCert plus CGO 2017, with concurrent
+execution optional. Whole-program correctness is mandatory for the delivered
+optimizer, not just a local or Loop-to-Loop result. Each supported compiler
+configuration must connect its actual checked source, guard, candidate and
+fallback to the successful-compilation Csem-to-Asm backward-simulation theorem
+for the corresponding source `Csyntax.program`, within the existing CompCert
+parsing/assembly/linking boundary.
+
+Factories and site checks must establish the applicable invocation, scope,
+placement, progress, typing and resource premises; source users do not supply
+unproved semantic callbacks. Public state, memory, traces and control outcomes,
+and private freshness/frame properties must support the actual continuation.
+For repeated installation or passes, evidence applies to the current
+intermediate program, not a stale source or site.
+
+Reuse the existing finite or open Clight host according to the required
+progress semantics; terminating-execution evidence alone cannot justify a
+potentially divergent replacement. Extend those services only for a concrete
+benchmark obligation. This acceptance requirement does not mandate re-proving
+the whole compiler per benchmark, a new generic context algebra, a second IR,
+or new axioms. The factoring questions below remain design questions, not a
+reason to defer or assume the installation proof.
+
 ## 1. What must be lifted
 
 GuardCert's most language-independent result is local:
