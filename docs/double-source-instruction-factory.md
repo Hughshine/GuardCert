@@ -116,7 +116,10 @@ opam exec --root=/tmp/guard-opam --switch=guard -- \
   python3 scripts/summarize_double_source_instructions.py --validate
 ```
 
-下一步组合 actual assignment、loop 和 sequence source grammar，建立初始化＋
-reduction 的 intermediate-memory 语义、实际 header 许可／稳定性、公开 I64 exits
-及 source progress，复用真实 scheduling／validation／codegen 和安装到 Csem→Asm。
+[初始化＋inner reduction 后继](initialized-double-reductions.md)已组合实际
+instructions、共同 registry 与完整 canonical inner loop，保留 intermediate memory、
+header load 和精确 I64 iterator 出口，含 count0；从 checked metadata 和数学 point
+bounds 内部生产地址 resolution。Outer nest、raw progress、安全入口 capture/condition
+与安装仍待接入；corpus coverage 保持1/62。下一步按实际 source grammar 扩到完整
+marked region，复用真实 scheduling／validation／codegen 和 Csem→Asm。
 `mvt` 的相继 nests、真实 tiling／ISS、原 BT 与完整成本仍是后续验收要求。

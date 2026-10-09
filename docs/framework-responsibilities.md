@@ -104,6 +104,17 @@ I64 modular expression、tensor address 和 assignment 定律；domain decoder �
 完整 source factory 内部建立。这里没有新 runtime condition 或 whole-loop/compiler
 endpoint；不能将 repr 对应叫 no-wrap，也不能从地址 metadata 推断读写权限。
 
+[初始化＋inner reduction 后继](initialized-double-reductions.md)将两条 actual
+instructions 接到经过检查的共同 registry 与完整内层 Seq/Loop，保留真实中间
+memory 和精确 I64 iterator 出口。Language 证明 assignment effects、global store
+保持 header、实际地址及 settled-loop 定律；domain checked descriptor 自动组合
+这些义务，没有要求源码用户提供 callbacks。Checked metadata 加数学 point bounds
+内部产生地址 resolution；actual fixture geometry lemmas 已编译，bounds 与入口
+header load 仍待完整 entry producer 建立。五库／wrapper 共973行、39端点，无新增
+公理；outer nest、raw progress、runtime condition 与新 installation 仍未交付。
+Kernel／host 不改，nonidentity coverage 保持1/62；不能把本 finite iff 写成完成
+`C_derive`、检查安全或 whole-program compiler。
+
 ### 原 matmul 入口事实的生产责任
 
 本次重新 fetch 核对 narrative `8ce9c8b`；main 的 narrative 和

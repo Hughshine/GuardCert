@@ -302,9 +302,20 @@ both initialization and reduction assignments in these inputs to finite typed
 instruction execution in both directions. Address receipts follow from checked
 metadata, the host state and resolved point bounds; declarations do not imply
 load/store permissions. I64 modular correspondence is distinct from no-wrap.
-Complete loop bridges, entry conditions, progress and installation for these
-programs remain source-factory obligations; the C user supplies no semantic
-callbacks.
+Full marked-region bridges, entry conditions, progress and installation for
+these programs remain source-factory obligations; the C user supplies no
+semantic callbacks.
+
+A checked initialization/reduction composition now connects these instructions
+through a common registry and real intermediate memory. It recognizes each
+canonical initialized reduction body, reconstructs its complete control syntax,
+and proves finite normal correspondence with a typed sequence and inner loop.
+The inner I64 iterator exits at the captured count, including zero. Checked
+global writes preserve the loaded header; checked metadata and mathematical
+coordinate bounds establish address resolution. Original mxv and matmul-init
+components bind this service to their actual ASTs. Outer loops, raw-source
+progress, safe entry checks and installation remain obligations; address
+resolution supplies no memory-access permission.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,

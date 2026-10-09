@@ -44,14 +44,31 @@ controls 分别为1／2／2／3维，不要求 initializer 读取未初始化的
 条件和 progress 尚需 source factory discharge，不能把这些内部接口交给 C 用户。
 未新增 runtime guard、compiler/native 或 corpus optimized case；最小 kernel／host 不改。
 
+[初始化＋完整 inner reduction 后继](initialized-double-reductions.md)已组合 checked
+共同 registry、实际 intermediate memory、header store frame 与 signed-I64 loop。
+原两例 canonical row/element bodies 的有限正常 source↔Seq/Loop 双向对应已编译，
+inner iterator 精确退出为 count，含 count0；actual geometry lemmas 和 checked-bounds
+服务在库内生产地址 resolution。五库与 wrapper 共973行／39端点、13 closed，
+最多6 inherited globals，无新增公理。原入口 header load 和 reached-point bounds
+仍是逻辑前提；outer nest/raw progress、runtime guard、factory/install 未新增，
+corpus nonidentity coverage 仍为1/62。
+
+再次核对远程 heads，narrative 最新可见仍为 `8ce9c8b`，两份 topdown 正文与
+main 一致。吸收其具体验收方式：每项 premise 标明静态、runtime/capture/transport
+或原执行 receipt 来源，factory 内部 discharge；检查安全、接受充分性、拒绝/入口
+运输分别证明。后续 helper 必须解除真实 benchmark blocker，条件尺寸、检查工作
+与有用接受域分别记账。Finite inner iff 不作为 progress 或新整程序优化结果。
+
 后续以真实输入推动以下衔接，而不是继续加入按 benchmark 名字固定的证明包装：
 
-1. 将已通过的 actual instruction/data producer 组合到 loop/sequence source grammar，
-   在 reached point 内部建立 I64 controls 和 cell resolution。AST decode 仍不推断
-   allocation／load safety；不支持的 temp/cast/地址结构必须安全拒绝。
-2. 完成 nested loops 和 sequence 的实际执行桥。原 `mxv` 与
-   `matmul-init` 需要初始化＋reduction；`mvt` 需要两个相继 nests。建立实际
-   intermediate-memory 语义、公开 I64 exits 与 source progress，不能只收集叶子。
+1. 将已通过的 actual instruction/data 与初始化＋reduction producer 扩到完整
+   loop/sequence grammar。原 `mxv` 下一步接 outer loop 与 raw frontend progress，
+   随后原 `matmul-init` 外层 nest，再处理 `mvt` 相继 nests。保持 intermediate memory、
+   所有公开 I64 exits 与未到达 inner controls；不能只收集叶子或 finite iff。
+2. 从接受入口和循环 invariant 生产 header load／稳定性与 reached bounds，复用
+   checked-bounds 服务得到所有 point 地址。实际 capture／机器范围条件须证明安全、
+   接受充分性及拒绝入口运输；AST／地址 bounds 不推断 allocation／load safety。
+   不支持的 temp/cast/地址结构安全拒绝，不把逻辑前提转交 marked C 用户。
 3. 从 actual program 和候选 rank 分配并核对 typed captures/scratch，移除固定 IDs、
    layout/private pool 限制。保留逐 site 进入时的 runtime capture 和未标记排除。
 4. 每条 source 扩展立即复用真实 pipeline、guard、candidate lowering 和 scoped host
@@ -62,7 +79,7 @@ controls 分别为1／2／2／3维，不要求 initializer 读取未初始化的
 [verified guard library](verified-guard-library.md)。条件安全、接受充分性与检查出口
 运输独立核对；有 private effects 的服务不能只用 predicate AND／OR 拼接。
 真实源码覆盖、条件推导／接受域、完整程序证明与完整成本分别记账。整个 goal 保持
-active；本 assignment 子步骤不改变 PolCert／CGO 2017 的验收目标。
+active；本 source/model 子步骤不改变 PolCert／CGO 2017 的验收目标。
 
 下面是此前检查点的历史能力边界，其“下一步”不覆盖本节。
 

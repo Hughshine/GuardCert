@@ -1,0 +1,435 @@
+{
+  "status": "compiled",
+  "kind": "checked-double-initialization-and-reduction-composition",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoubleSourceTransport.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceLoopModel.v",
+    "adapters/compcert-memory/GuardMemoryDoubleInitializedReductionData.v",
+    "adapters/compcert-memory/GuardMemoryDoubleInitializedReductionSource.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceResolvedPoints.v",
+    "build/double-initialized-reductions/source-proof-v1/OriginalInitializedDoubleReductions.v"
+  ],
+  "new_source_lines": 973,
+  "endpoints": [
+    "GuardMemoryDoubleSourceTransport.checked_double_source_layout_certificate",
+    "GuardMemoryDoubleSourceTransport.checked_double_source_shared_receipts",
+    "GuardMemoryDoubleSourceTransport.checked_double_source_shared_execution",
+    "GuardMemoryDoubleSourceTransport.checked_double_source_shared_execution_iff",
+    "GuardMemoryDoubleSourceTransport.checked_double_source_assignment_effects",
+    "GuardMemoryDoubleSourceTransport.global_double_location_symbol",
+    "GuardMemoryDoubleSourceTransport.double_source_model_preserves_global",
+    "GuardMemoryDoubleSourceLoopModel.double_source_arguments_value",
+    "GuardMemoryDoubleSourceLoopModel.double_source_instruction_Loop",
+    "GuardMemoryDoubleSourceLoopModel.double_source_model_point_frame",
+    "GuardMemoryDoubleSourceLoopModel.double_source_reduction_loop_memory",
+    "GuardMemoryDoubleSourceLoopModel.double_source_model_sequence",
+    "GuardMemoryDoubleSourceLoopModel.double_source_initialized_reduction_model_memory",
+    "GuardMemoryDoubleInitializedReductionData.checked_double_initialized_reduction_sound",
+    "GuardMemoryDoubleInitializedReductionData.double_initialized_reduction_static_sound",
+    "GuardMemoryDoubleInitializedReductionSource.double_source_control_values",
+    "GuardMemoryDoubleInitializedReductionSource.double_source_control_words",
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_scope",
+    "GuardMemoryDoubleInitializedReductionSource.double_source_identity_loop_exit",
+    "GuardMemoryDoubleInitializedReductionSource.checked_double_initialized_reduction_header_binding",
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_body_bridge",
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_loop_equivalence",
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_source_model",
+    "GuardMemoryDoubleSourceResolvedPoints.double_source_bounded_tensor_index",
+    "GuardMemoryDoubleSourceResolvedPoints.checked_double_source_access_resolved",
+    "GuardMemoryDoubleSourceResolvedPoints.checked_double_source_reads_resolved",
+    "GuardMemoryDoubleSourceResolvedPoints.checked_double_source_instruction_resolved_from_bounds",
+    "OriginalInitializedDoubleReductions.mxv_initial_bounds",
+    "OriginalInitializedDoubleReductions.mxv_body_bounds",
+    "OriginalInitializedDoubleReductions.mxv_initialized_body_compiles",
+    "OriginalInitializedDoubleReductions.mxv_initialized_header_iterator",
+    "OriginalInitializedDoubleReductions.mxv_initialized_scope",
+    "OriginalInitializedDoubleReductions.mxv_initialized_source_model",
+    "OriginalInitializedDoubleReductions.matmul_init_initial_bounds",
+    "OriginalInitializedDoubleReductions.matmul_init_body_bounds",
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_body_compiles",
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_header_iterator",
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_scope",
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_source_model"
+  ],
+  "endpoint_assumptions": {
+    "GuardMemoryDoubleSourceTransport.checked_double_source_layout_certificate": [],
+    "GuardMemoryDoubleSourceTransport.checked_double_source_shared_receipts": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceTransport.checked_double_source_shared_execution": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceTransport.checked_double_source_shared_execution_iff": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceTransport.checked_double_source_assignment_effects": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceTransport.global_double_location_symbol": [],
+    "GuardMemoryDoubleSourceTransport.double_source_model_preserves_global": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceLoopModel.double_source_arguments_value": [],
+    "GuardMemoryDoubleSourceLoopModel.double_source_instruction_Loop": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceLoopModel.double_source_model_point_frame": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceLoopModel.double_source_reduction_loop_memory": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceLoopModel.double_source_model_sequence": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceLoopModel.double_source_initialized_reduction_model_memory": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleInitializedReductionData.checked_double_initialized_reduction_sound": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleInitializedReductionData.double_initialized_reduction_static_sound": [],
+    "GuardMemoryDoubleInitializedReductionSource.double_source_control_values": [],
+    "GuardMemoryDoubleInitializedReductionSource.double_source_control_words": [],
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_scope": [],
+    "GuardMemoryDoubleInitializedReductionSource.double_source_identity_loop_exit": [],
+    "GuardMemoryDoubleInitializedReductionSource.checked_double_initialized_reduction_header_binding": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_body_bridge": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_loop_equivalence": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleInitializedReductionSource.double_initialized_reduction_source_model": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleSourceResolvedPoints.double_source_bounded_tensor_index": [],
+    "GuardMemoryDoubleSourceResolvedPoints.checked_double_source_access_resolved": [],
+    "GuardMemoryDoubleSourceResolvedPoints.checked_double_source_reads_resolved": [],
+    "GuardMemoryDoubleSourceResolvedPoints.checked_double_source_instruction_resolved_from_bounds": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.mxv_initial_bounds": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.mxv_body_bounds": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.mxv_initialized_body_compiles": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.mxv_initialized_header_iterator": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.mxv_initialized_scope": [],
+    "OriginalInitializedDoubleReductions.mxv_initialized_source_model": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.matmul_init_initial_bounds": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.matmul_init_body_bounds": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_body_compiles": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_header_iterator": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_scope": [],
+    "OriginalInitializedDoubleReductions.matmul_init_initialized_source_model": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ]
+  },
+  "additional_global_axioms": [],
+  "allowed_parent_globals": [
+    "Allocation.regalloc",
+    "Archi.win64",
+    "Axioms.proof_irr",
+    "ClassicalDedekindReals.sig_forall_dec",
+    "ClassicalDedekindReals.sig_not_dec",
+    "Classical_Prop.classic",
+    "Compiler.print_Clight",
+    "Compiler.print_Cminor",
+    "Compiler.print_LTL",
+    "Compiler.print_Mach",
+    "Compiler.print_RTL",
+    "Compopts.debug",
+    "Compopts.generate_float_constants",
+    "Compopts.optim_CSE",
+    "Compopts.optim_constprop",
+    "Compopts.optim_for_size",
+    "Compopts.optim_redundancy",
+    "Compopts.optim_tailcalls",
+    "Compopts.propagate_float_constants",
+    "Compopts.va_strict",
+    "CoqAddOn.posPr",
+    "CoqAddOn.zPr",
+    "Eqdep.Eq_rect_eq.eq_rect_eq",
+    "Events.external_functions_properties",
+    "Events.external_functions_sem",
+    "Events.inline_assembly_properties",
+    "Events.inline_assembly_sem",
+    "FunctionalExtensionality.functional_extensionality_dep",
+    "Inlining.inlining_analysis",
+    "Inlining.inlining_info",
+    "Inlining.should_inline",
+    "Linearize.enumerate_aux",
+    "PedraQBackend.add",
+    "PedraQBackend.isEmpty",
+    "PedraQBackend.pr",
+    "PedraQBackend.t",
+    "PedraQBackend.top",
+    "RTLgen.more_likely",
+    "SelectOp.symbol_is_relocatable",
+    "Selection.compile_switch",
+    "Selection.if_conversion_heuristic",
+    "SimplExpr.first_unused_ident"
+  ],
+  "closed_endpoints": 13,
+  "maximum_endpoint_globals": 6,
+  "reachable_source_count": 241,
+  "attempts": [
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionData-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionData-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionData-v1.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionData-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionData-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionData-v2.json",
+      "returncode": 0
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v1.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v2.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v3.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v4.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v4.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v4.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v5.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v5.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v5.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v6.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v6.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedReductionSource-v6.json",
+      "returncode": 0
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v1.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v2.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v3.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v4.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v4.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceLoopModel-v4.json",
+      "returncode": 0
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceResolvedPoints-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceResolvedPoints-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceResolvedPoints-v1.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceResolvedPoints-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceResolvedPoints-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceResolvedPoints-v2.json",
+      "returncode": 0
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v1.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v2.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v3.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v4.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v4.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTransport-v4.json",
+      "returncode": 0
+    }
+  ],
+  "actual_original_case_bindings": [
+    "mxv",
+    "matmul-init"
+  ],
+  "initialized_reduction_components_compiled": 2,
+  "outer_control_dimensions": [
+    1,
+    2
+  ],
+  "ordinary_actual_AST_descriptors_without_semantic_callbacks": true,
+  "source_assignment_services_accept_checked_common_registry": true,
+  "initializer_and_reduction_share_real_intermediate_memory": true,
+  "source_model_finite_normal_equivalence": true,
+  "reduction_I64_exit_proved_including_zero_count": true,
+  "header_stability_from_checked_global_writes": true,
+  "symbol_and_cell_resolution_derived_from_checked_metadata_and_point_bounds": true,
+  "actual_100_extent_coordinate_bounds_lemmas_compiled": true,
+  "initializer_requires_uninitialized_reduction_iterator": false,
+  "generic_library_hardcodes_benchmark_names_identifiers_or_tensor_rank": false,
+  "access_bounds_infer_allocation_or_load_store_permission": false,
+  "loop_entry_header_load_and_point_bounds_still_logical_premises": true,
+  "raw_frontend_skip_transport_added": false,
+  "new_whole_marked_region_or_progress_endpoint": false,
+  "new_runtime_condition_or_compiler_installation": false,
+  "source_user_supplies_semantic_callbacks": false,
+  "generic_kernel_or_host_changed": false,
+  "original_corpus_nonidentity_optimized_cases": 1,
+  "new_native_or_cost_evidence": false,
+  "full_goal_complete": false,
+  "toolchain": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.1",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "proof_report": {
+    "path": "build/double-initialized-reductions/proof-v1/report.json",
+    "sha256": "8c75d0420d832a6d520b79147a75f4310ff764fe9b082725782d0814e196e042"
+  },
+  "bound_files": 8105
+}

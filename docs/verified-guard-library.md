@@ -154,6 +154,14 @@ assignments 均有 typed INSTR 双向有限对应。它仍属于 source/model �
 guard：`Int64.repr` 计算对应不等于 no-wrap，地址 bounds 不等于 load/store permission。
 完整循环 producer 必须把这些前提接到安全 entry 条件和 reached-state invariant。
 
+[Initialization/reduction composition](initialized-double-reductions.md)已将 checked
+共同 registry、bounds→cell resolution 和 header-preserving stores 接到完整 inner
+loop 的 source/model iff。该服务不执行新条件：数学 bounds、原入口 header load
+仍须由后继安全 capture/condition producer 建立。它在 language/domain 的执行桥
+中复用 arithmetic、footprint 与 observation-preservation 定律，不因此完成 guard
+的 safe invocation、accepted/refused entry transport 或整程序安装。实际 `mxv`、
+`matmul-init` 的 canonical 内层组件有绑定，outer/raw progress 仍待交付。
+
 ### 现有契约能复用到哪里
 
 | 契约 | Safe invocation 的来源 | 实际出口与成功事实 |
