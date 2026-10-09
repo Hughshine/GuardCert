@@ -1,0 +1,239 @@
+{
+  "status": "compiled",
+  "kind": "actual-double-assignment-data-decoder-and-literal-conversion",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoubleAssignmentLiteral.v",
+    "adapters/compcert-memory/GuardMemoryDoubleAssignmentFactory.v",
+    "build/double-source-initialization/source-proof-v1/OriginalDoubleInitialization.v"
+  ],
+  "new_source_lines": 319,
+  "endpoints": [
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_evaluation",
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_cast",
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_normalization",
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_code",
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_source_decode",
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_lowered_execution",
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_shape",
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_source_execution",
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_model_execution",
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_execution_iff",
+    "OriginalDoubleInitialization.original_initialization_assignment_counts",
+    "OriginalDoubleInitialization.original_initializers_have_integer_rhs",
+    "OriginalDoubleInitialization.mxv_initializer_decodes",
+    "OriginalDoubleInitialization.matmul_initializer_decodes",
+    "OriginalDoubleInitialization.original_initializers_have_no_reads",
+    "OriginalDoubleInitialization.mxv_initializer_execution",
+    "OriginalDoubleInitialization.matmul_initializer_execution"
+  ],
+  "endpoint_assumptions": {
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_evaluation": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_cast": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_normalization": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_code": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_source_decode": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentLiteral.double_assignment_literal_lowered_execution": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_shape": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_source_execution": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_model_execution": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "GuardMemoryDoubleAssignmentFactory.decoded_double_assignment_execution_iff": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalDoubleInitialization.original_initialization_assignment_counts": [],
+    "OriginalDoubleInitialization.original_initializers_have_integer_rhs": [],
+    "OriginalDoubleInitialization.mxv_initializer_decodes": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalDoubleInitialization.matmul_initializer_decodes": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalDoubleInitialization.original_initializers_have_no_reads": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalDoubleInitialization.mxv_initializer_execution": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "OriginalDoubleInitialization.matmul_initializer_execution": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ]
+  },
+  "additional_global_axioms": [],
+  "allowed_parent_globals": [
+    "Allocation.regalloc",
+    "Archi.win64",
+    "Axioms.proof_irr",
+    "ClassicalDedekindReals.sig_forall_dec",
+    "ClassicalDedekindReals.sig_not_dec",
+    "Classical_Prop.classic",
+    "Compiler.print_Clight",
+    "Compiler.print_Cminor",
+    "Compiler.print_LTL",
+    "Compiler.print_Mach",
+    "Compiler.print_RTL",
+    "Compopts.debug",
+    "Compopts.generate_float_constants",
+    "Compopts.optim_CSE",
+    "Compopts.optim_constprop",
+    "Compopts.optim_for_size",
+    "Compopts.optim_redundancy",
+    "Compopts.optim_tailcalls",
+    "Compopts.propagate_float_constants",
+    "Compopts.va_strict",
+    "CoqAddOn.posPr",
+    "CoqAddOn.zPr",
+    "Eqdep.Eq_rect_eq.eq_rect_eq",
+    "Events.external_functions_properties",
+    "Events.external_functions_sem",
+    "Events.inline_assembly_properties",
+    "Events.inline_assembly_sem",
+    "FunctionalExtensionality.functional_extensionality_dep",
+    "Inlining.inlining_analysis",
+    "Inlining.inlining_info",
+    "Inlining.should_inline",
+    "Linearize.enumerate_aux",
+    "PedraQBackend.add",
+    "PedraQBackend.isEmpty",
+    "PedraQBackend.pr",
+    "PedraQBackend.t",
+    "PedraQBackend.top",
+    "RTLgen.more_likely",
+    "SelectOp.symbol_is_relocatable",
+    "Selection.compile_switch",
+    "Selection.if_conversion_heuristic",
+    "SimplExpr.first_unused_ident"
+  ],
+  "closed_endpoints": 2,
+  "maximum_endpoint_globals": 6,
+  "reachable_source_count": 134,
+  "attempts": [
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentFactory-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentFactory-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentFactory-v1.json",
+      "returncode": 0
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v1.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v2.json",
+      "returncode": 1
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAssignmentLiteral-v3.json",
+      "returncode": 0
+    }
+  ],
+  "actual_original_case_bindings": [
+    "mxv",
+    "matmul-init"
+  ],
+  "assignment_nodes_observed": 4,
+  "initialization_nodes_decoded": 2,
+  "source_and_model_directions_proved": true,
+  "literal_signed_I32_signed_I64_F64_casts_use_CompCert_semantics": true,
+  "IEEE_rounding_or_expression_order_changed": false,
+  "read_address_receipts_produced_by_syntax_decoder": false,
+  "destination_store_permission_inferred_from_metadata": false,
+  "actual_original_integer_zero_assignments_retained": true,
+  "source_user_supplies_semantic_callbacks": false,
+  "generic_kernel_or_host_changed": false,
+  "new_runtime_condition_generated": false,
+  "new_complete_source_loop_or_compiler_endpoint": false,
+  "original_corpus_nonidentity_optimized_cases": 1,
+  "new_native_or_cost_evidence": false,
+  "full_goal_complete": false,
+  "toolchain": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.1",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "proof_report": {
+    "path": "build/double-source-initialization/proof-v1/report.json",
+    "sha256": "40d6e5ea375c1a7c9568d59886b37271071f221a3c2992db9e8d05410b628793"
+  },
+  "bound_files": 7911
+}

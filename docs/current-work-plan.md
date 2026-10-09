@@ -19,6 +19,41 @@ factory，生产新的 control/instruction/source-model/guard 证据，继续其
 tiling、ISS、其他 sequential phases、原 BT 及 larger tiers／完整成本仍必需。不能把已
 识别一份模板、多 site 或新增 proof 数当作原 benchmark 能力完成。
 
+### Narrative 复核与 typed source factory 的执行顺序
+
+2026-10-09 重新 fetch 后，narrative 仍为 `8ce9c8b`，正文已与 main 一致。
+继续执行其三个责任层：kernel 组合局部证书；language 证明检查执行／安全、
+state/frame/progress 和安装；domain 生产实际 source/model、充分前提及候选证明。
+`C_opt`／`C_derive`／`C_guard`／`C_host` 指证据来源，不是让 C 用户填四份 record。
+Static syntax/metadata、runtime conditions 和原执行 receipts 分别生产适用前提；
+原执行是证明起点，不是 runtime 预执行。
+
+[Double assignment 后继](double-assignment-source-factory.md)已补第一个实际表示缺口：
+原 `mxv`、`matmul-init` 的 integer-zero→double 初始化。数据 decoder 复用 double
+运算树并精确保留 assignment cast，两个 actual-source initializer 的有限 iff 已绑定。
+两库与 wrapper 共319行／17端点，无新增公理；没有新 loop/compiler/native 覆盖。
+这属于 language/domain 服务，kernel 和 host 不改，也没有新增 runtime condition。
+
+后续以真实输入推动以下衔接，而不是继续加入按 benchmark 名字固定的证明包装：
+
+1. 从 actual global tensor lvalue、声明与 I64 affine index 生产普通 access/layout
+   数据及地址 receipts。AST decode 不推断 allocation／load safety；拒绝无法建立
+   receipts 的 temp/cast/地址结构。
+2. 组合 assignment、nested loops 和 sequence source grammar。原 `mxv` 与
+   `matmul-init` 需要初始化＋reduction；`mvt` 需要两个相继 nests。建立实际
+   intermediate-memory 语义、公开 I64 exits 与 source progress，不能只收集叶子。
+3. 从 actual program 和候选 rank 分配并核对 typed captures/scratch，移除固定 IDs、
+   layout/private pool 限制。保留逐 site 进入时的 runtime capture 和未标记排除。
+4. 每条 source 扩展立即复用真实 pipeline、guard、candidate lowering 和 scoped host
+   到 Csem→Asm，验收原输入的接受、拒绝、多 site、continuation；继续修复实际
+   tiling／ISS／其他 sequential routes 的具体表示缺口。
+
+五类 guard 服务和 requires／accepted／refused／effects 的契约目录继续采用
+[verified guard library](verified-guard-library.md)。条件安全、接受充分性与检查出口
+运输独立核对；有 private effects 的服务不能只用 predicate AND／OR 拼接。
+真实源码覆盖、条件推导／接受域、完整程序证明与完整成本分别记账。整个 goal 保持
+active；本 assignment 子步骤不改变 PolCert／CGO 2017 的验收目标。
+
 下面是此前检查点的历史能力边界，其“下一步”不覆盖本节。
 
 2026-10-09 [实际 raw matmul 编译器](original-matmul-raw-installation.md)已完成

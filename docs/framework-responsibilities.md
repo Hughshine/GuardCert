@@ -85,6 +85,16 @@ Clause factoring 的具体约束继续采用
 relation，不能仅凭 exit weakening 推出含入口/scope/progress 的完整 contract
 entailment。先证明实际复用再更改 API。
 
+2026-10-09 再核对 narrative `8ce9c8b` 后，[typed assignment 数据后继](double-assignment-source-factory.md)
+按此责任补原 `mxv`、`matmul-init` 的整数常量→double 赋值。Language 证明实际 cast
+与有限 assignment normalization，domain decoder 生产原 destination、operand leaves
+和精确 operation tree，复用 memory action 双向桥；kernel／host 不改。两个原输入
+的 initializer AST 与执行 iff 已绑定，319行／17端点，无新增公理。地址 receipts
+仍是后继 factory 的内部义务，不从 syntax 推断权限，不交给 C 用户 callbacks。
+这不是新 runtime guard 或完整循环安装，nonidentity corpus coverage 仍为1/62；
+下一项须生产实际 tensor/I64 access 数据并组合 initialization／reduction／sequence
+source 到既有 pipeline、progress 和 Csem→Asm。
+
 ### 原 matmul 入口事实的生产责任
 
 本次重新 fetch 核对 narrative `8ce9c8b`；main 的 narrative 和

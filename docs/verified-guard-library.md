@@ -140,6 +140,13 @@ refused 两种实际出口。不能默认前一个检查完成后完整 state �
 集合，不是 memory read footprint。上述共用 records 尚未携带统一的精确、
 带路径 memory-read 元数据；各服务的 receipt / safety 定理承担这部分义务。
 
+2026-10-09 的 [typed assignment decoder](double-assignment-source-factory.md)
+同样区分语法与许可：它从原 integer-zero 初始化及 double 运算树生成 operand
+数据，实际地址／权限 receipts 由后继 source producer 提供。Signed I64→F64
+使用机器舍入语义，不能把该 conversion theorem 称为 mathematical exactness
+或 no-wrap 检查。此次没有 runtime condition，属于 source/model 库的语言
+算术服务；两个 actual initializer 的有限对应不提供 loop progress 或安装。
+
 ### 现有契约能复用到哪里
 
 | 契约 | Safe invocation 的来源 | 实际出口与成功事实 |
