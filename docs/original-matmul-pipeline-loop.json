@@ -1,0 +1,34 @@
+{
+  "status": "audited_actual_pipeline_Loop_source_bridge_not_installed_optimization",
+  "proof_report": {
+    "path": "build/original-matmul/pipeline-loop-proof-v1/report.json",
+    "sha256": "070a3d197560268de736db86ec178ac8bbdc0a0e31e2d789551dd5507a32229f"
+  },
+  "source_report": {
+    "path": "build/original-matmul/source-pipeline-loop-v1/report.json",
+    "sha256": "09abd7e2d415361af51392a536ca1a154e8b463988f7c6b436d63f3a2bbd649b"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulPipelineLoop.v"
+  ],
+  "new_source_lines": 99,
+  "endpoints": 4,
+  "closed_endpoints": 1,
+  "maximum_endpoint_globals": 6,
+  "additional_global_axioms": [],
+  "reachable_sources": 221,
+  "bindings": 7186,
+  "successful_attempts": 2,
+  "rejected_attempts": 2,
+  "generative_AST_type_rejection_reproduced_and_bound": true,
+  "actual_POLIRS_Loop_constructors_used": true,
+  "execution_correspondence": "both finite directions",
+  "actual_original_selected_region_connected": true,
+  "instruction_and_state_kept": "same strict double instruction, CompCert memory and registry",
+  "new_external_scheduler_call_or_candidate_lowering": false,
+  "safe_runtime_guard_and_entry_producer_installed": false,
+  "new_Csem_to_Asm_endpoint": false,
+  "new_native_optimized_case": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "full_goal_complete": false
+}

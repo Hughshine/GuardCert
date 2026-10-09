@@ -3287,6 +3287,74 @@
         "build/original-matmul/source-loop-v1/report.json"
       ],
       "scope": "Original finite nonnegative inner k loop, under explicit entry premises. No complete three-loop correspondence, runtime guard, source-user API or installed optimization."
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Actual original matmul selected three-loop Clight region connects in both finite execution directions to physical memory iterations and the complete typed PolCert Loop, preserving final memory and the entire public temporary exit. Entry N load is required only if M positive, and K load only if M and N positive. M=0 retains original j/k; N=0 under positive M retains original k. Static facts and reached loop invariants produce assignment entries. Scope is nonnegative bounded signed-I64 controls. Safe entry production, actual typed pipeline/candidate lowering, guard/progress and selected installation remain incomplete; no new optimized case, native or cost result.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongLoopSettle.v",
+          "name": "memory_long_initialized_settled_equivalence"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleNestControl.v",
+          "name": "double_matmul_row_preserves_load"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulNest.v",
+          "name": "double_matmul_source_nest_equivalence"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulNestModel.v",
+          "name": "double_matmul_nest_model_lift"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulNestModel.v",
+          "name": "double_matmul_original_nest_Loop"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/original-matmul/source-nest-v1/OriginalMatmulNest.v",
+          "name": "original_full_nest_typed_model",
+          "source_sha256": "0e230d280406b4f730009b4130f10ce140cd9b91e1fa3c2375dc40db9e26bb03"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-full-nest.json",
+        "docs/original-matmul-full-nest.md"
+      ],
+      "artifacts": [
+        "build/original-matmul/nest-proof-v1/report.json",
+        "build/original-matmul/source-nest-v1/report.json"
+      ],
+      "scope": "Original finite full three-loop source/model correspondence under static and conditional entry premises. No runtime guard, total progress, candidate Clight lowering or installed optimization."
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Explicit constructors and bidirectional execution proofs connect the original matmul full-nest source bridge to the actual DoubleAssignmentIRs.Loop instance used by typed extraction and codegen. The source Loop AST cannot be passed directly across the generative instance boundary; that expected type rejection is reproduced and bound. This retains the strict double instruction and actual runtime state, without new scheduler, candidate lowering, guard, installation or native result.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulPipelineLoop.v",
+          "name": "double_pipeline_nest_correspondence"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/original-matmul/source-pipeline-loop-v1/OriginalMatmulPipeline.v",
+          "name": "original_full_nest_pipeline_model",
+          "source_sha256": "4d8b01348097b0d9be8df57ec1c55a9db0669220e424fec46cf9fe6a4147722c"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-pipeline-loop.json",
+        "docs/original-matmul-full-nest.md"
+      ],
+      "artifacts": [
+        "build/original-matmul/pipeline-loop-proof-v1/report.json",
+        "build/original-matmul/source-pipeline-loop-v1/report.json",
+        "build/original-matmul/pipeline-loop-diagnostics-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -9848,5 +9916,111 @@
     ],
     "full_goal_complete": false,
     "documentation_summary_sha256": "ba188ad16f98589139905ae621ab1f99b974d5eef39dae02e08bb877526ef143"
+  },
+  "original_matmul_full_nest": {
+    "status": "audited_full_finite_source_model_bridge_not_installed_optimization",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "source": "build/benchmark-alignment/probe-v1/matmul/marked.c",
+    "source_adaptation": "existing scop markers only; original double computation, nested arrays and I64 controls retained",
+    "actual_selected_region_exact": true,
+    "proof_report": {
+      "path": "build/original-matmul/nest-proof-v1/report.json",
+      "sha256": "80f3f2184572fcaf29664fdaa58533080e4fe133b892a6f4760c70cfbca4f84a"
+    },
+    "source_nest_report": {
+      "path": "build/original-matmul/source-nest-v1/report.json",
+      "sha256": "5aae683286a6f6303b5e0297feff4b89015513f52b8adeb13f6ddc8c021102f8"
+    },
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryLongLoopSettle.v",
+      "adapters/compcert-memory/GuardMemoryDoubleNestControl.v",
+      "adapters/compcert-memory/GuardMemoryDoubleMatmulNest.v",
+      "adapters/compcert-memory/GuardMemoryDoubleMatmulNestModel.v"
+    ],
+    "new_source_lines": 567,
+    "endpoint_count": 23,
+    "closed_endpoints": 8,
+    "maximum_endpoint_globals": 6,
+    "inherited_globals_union": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "additional_global_axioms": [],
+    "reachable_source_count": 215,
+    "bound_files": 7148,
+    "successful_attempts": 5,
+    "rejected_attempts": 12,
+    "complete_three_loop_source_model_correspondence": true,
+    "execution_directions": "both finite execution directions, under static and conditional entry premises",
+    "final_memory_and_all_temporary_exits_exact": true,
+    "outer_zero_trip": "only i is set to zero; original j and k, including absent values, are retained",
+    "middle_zero_trip": "i ends at M and j at zero; original k is retained",
+    "active_middle_exit": "i=M, j=N, k=K; includes K=0 initialization and break",
+    "header_premises": [
+      "M load at entry",
+      "N load only if M positive",
+      "K load only if M and N positive"
+    ],
+    "header_stability": "all original C actions preserve M/N/K loads by global block separation",
+    "per_assignment_entry": "derived from static facts, reached coordinates and loop invariants",
+    "scope": "nonnegative signed-I64 bounds with padding/address limits; finite executions, no total progress or divergence theorem",
+    "kernel_or_existing_host_changed": false,
+    "additional_optimizer_IR": false,
+    "source_user_premises_automatically_produced": false,
+    "conditional_capture_or_runtime_guard_installed": false,
+    "actual_double_scheduler_or_candidate_lowering_installed": false,
+    "new_selected_Csem_to_Asm_endpoint": false,
+    "new_native_optimized_case": false,
+    "original_corpus_requested_optimized_cases": 0,
+    "cost_or_profitability_evidence": false,
+    "pending": [
+      "source/site metadata producer and safely licensed conditional bound capture/guard",
+      "negative bound paths and broader affine/statement/value families",
+      "actual typed scheduling/tiling/codegen and candidate Clight lowering",
+      "candidate entry/public exits, progress and selected Csem-to-Asm installation",
+      "native acceptance/fallback, whole contexts and complete costs",
+      "remaining original PolCert/CGO17 programs and sequential configurations"
+    ],
+    "full_goal_complete": false,
+    "documentation_summary_sha256": "8ef1f8db7785ca36cb40f988a38f22c5ed4b40d55a537da0bddca729b757116e"
+  },
+  "original_matmul_pipeline_loop": {
+    "status": "audited_actual_pipeline_Loop_source_bridge_not_installed_optimization",
+    "proof_report": {
+      "path": "build/original-matmul/pipeline-loop-proof-v1/report.json",
+      "sha256": "070a3d197560268de736db86ec178ac8bbdc0a0e31e2d789551dd5507a32229f"
+    },
+    "source_report": {
+      "path": "build/original-matmul/source-pipeline-loop-v1/report.json",
+      "sha256": "09abd7e2d415361af51392a536ca1a154e8b463988f7c6b436d63f3a2bbd649b"
+    },
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoubleMatmulPipelineLoop.v"
+    ],
+    "new_source_lines": 99,
+    "endpoints": 4,
+    "closed_endpoints": 1,
+    "maximum_endpoint_globals": 6,
+    "additional_global_axioms": [],
+    "reachable_sources": 221,
+    "bindings": 7186,
+    "successful_attempts": 2,
+    "rejected_attempts": 2,
+    "generative_AST_type_rejection_reproduced_and_bound": true,
+    "actual_POLIRS_Loop_constructors_used": true,
+    "execution_correspondence": "both finite directions",
+    "actual_original_selected_region_connected": true,
+    "instruction_and_state_kept": "same strict double instruction, CompCert memory and registry",
+    "new_external_scheduler_call_or_candidate_lowering": false,
+    "safe_runtime_guard_and_entry_producer_installed": false,
+    "new_Csem_to_Asm_endpoint": false,
+    "new_native_optimized_case": false,
+    "original_corpus_requested_optimized_cases": 0,
+    "full_goal_complete": false,
+    "documentation_summary_sha256": "a388ca90f9aeca69a3c89ae4b245d6cea540ea501ab20748c999a2149eb03116"
   }
 }

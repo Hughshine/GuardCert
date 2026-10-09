@@ -4,6 +4,11 @@
 赋值的局部双向桥，并实例化 typed PolCert 验证与代码生成。**尚未安装完整
 matmul 优化**；原 corpus 的 requested optimized case 数保持零。
 
+后继[完整 nest 对应](original-matmul-full-nest.md)已补上非负有界 I64 的
+实际三层 source/model finite iff 与精确公开出口。本文的统计和下文缺口
+描述保留本阶段当时范围；最新入口／guard／candidate／安装计划以该后继和
+[当前工作计划](current-work-plan.md)为准。
+
 ## 实际输入与已完成链
 
 使用[首轮原案例](original-benchmark-first-attempt.md)固定的 `matmul/marked.c`，

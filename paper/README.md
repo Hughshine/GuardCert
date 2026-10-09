@@ -26,6 +26,19 @@ and 27 endpoints audit without new axioms. Header stability is proved, while
 entry K definedness and ranges remain logical premises. The outer loops,
 conditional capture, guard and selected installation remain open; no optimized
 case or native result is added.
+The [full-nest successor](../docs/original-matmul-full-nest.md) now connects the
+actual selected three-loop region in both finite directions to the complete
+typed Loop. It preserves memory and all temporary exits, including untouched
+j/k on outer-empty paths and untouched k on middle-empty paths. N/K entry load
+premises follow the reached paths. Four modules and 23 endpoints audit without
+added axioms. These remain logical entry premises under nonnegative bounded I64
+controls; metadata production, safe guard, actual candidate and selected
+installation are incomplete. No optimized case or native result is added.
+A 99-line [pipeline Loop adapter](../docs/original-matmul-pipeline-loop.json)
+also connects the actual source to the specific Loop instance used by typed
+extraction and codegen. Four endpoints audit without added axioms. It resolves
+an AST-instance mismatch and proves execution correspondence; scheduler, guard
+and installation work remains.
 
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies

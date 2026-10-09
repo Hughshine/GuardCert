@@ -55,7 +55,24 @@ assignment entry。五模块700行、27端点／4closed、212 reachable sources�
 selected Csem→Asm。新增优化案例仍为零。此次重新 fetch 核对 narrative
 最新仍为 `8ce9c8b`，main 文本一致；责任边界与原计算验收要求继续适用。
 
-下一实现继续该原 matmul 的整条链：外层 I64 i／j／完整 nest、条件 bound capture 与入口前提
+再后继[原 matmul 完整 nest](original-matmul-full-nest.md)已完成实际 selected
+三层 initialized Clight↔physical iterations↔完整 typed PolCert Loop 的有限
+双向证明。M=0 保留原 j/k，M>0、N=0 保留原 k，其余公开终值精确为
+i=M、j=N、k=K；所有其他 temps 和最终 memory 精确保留。入口 N load
+仅在 M>0 时要求，K load 仅在 M/N>0 时要求；C store 的 global block
+分离生产嵌套 header stability。四模块567行、23端点／8closed、215 reachable
+sources／7,148 bindings、最多6 inherited globals，无新增公理。这仍是
+非负有界 I64 的有限 source/model bridge，entry loads／ranges 尚是逻辑
+前提；没有新 safe guard／producer／candidate／progress／全程序安装。
+Requested optimized cases 保持零。
+
+实际 `DoubleAssignmentIRs.Loop` 与 source bridge 的 Loop 是不同 AST 实例，
+直接传递的 type rejection 已重现并保留。新增99行 adapter／4端点／1closed，
+221 reachable sources／7,186 bindings，最多6 inherited globals，无新增公理，
+将同一实际 selected source 双向接到 pipeline 的具体 Loop constructors。
+这关闭了类型／执行衔接，不等于 external scheduler／codegen 已被调用。
+
+下一实现继续该原 matmul 的整条链：source/site metadata、条件 bound capture 与入口前提
 producer，实际 typed scheduler/codegen 与候选降低，安全 guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。

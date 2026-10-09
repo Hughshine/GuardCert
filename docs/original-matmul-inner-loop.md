@@ -5,6 +5,10 @@ Clight 的零初始化、重复读取 K、`loop + break`、混合 I64/I32 increm
 以及公开 k 出口。**这是内层循环对应，不是已安装的 matmul 优化。**
 原 corpus 的 requested optimized case 数仍为零。
 
+后继[完整三层 nest](original-matmul-full-nest.md)已扩展本阶段的 source/model
+finite iff 与公开出口，并条件化 N／K 入口 load 前提。本文保留内层检查点
+当时的统计与范围；最新缺口和执行顺序见该后继及[当前工作计划](current-work-plan.md)。
+
 重新 fetch 核对 narrative `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`；
 main 的 [paper narrative](topdown/paper-narrative.md) 与远端一致。按其责任
 边界推进原计算的证明，kernel／既有 whole-program host 均不变。

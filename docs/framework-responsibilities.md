@@ -37,6 +37,14 @@ entry 和精确公开 k 出口。此处只有入口 K load／范围的逻辑前�
 guard／factory producer，不许可提前读 N／K。外层 nest、actual candidate、
 progress 与 whole-program 安装仍须完成。Kernel 与既有 host 均未改变。
 
+[完整 nest 后继](original-matmul-full-nest.md)将同一实际三层 region 接到
+完整 typed Loop，并精确刻画全部 public temps／memory。Language settled-loop
+library 暴露 body／settle／frame／invariant 义务；matmul domain 已逐级
+discharge。入口 N/K load 前提按外层到达路径条件化，不许可 speculative
+reads。此处 source/model finite iff 已完成，candidate／guard、entry
+metadata／producer、progress 和 selected 安装仍待完成；不能混写为整个
+`C_opt`／`C_guard`／whole-program compiler 已交付。
+
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
 | --- | --- | --- |
 | 局部 guarded 正确性 | Kernel | `guardify_refinement` / `guardify_preservation` 消费证书；refinement、preservation、equivalence 保留各自方向 |
