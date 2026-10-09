@@ -5,8 +5,11 @@
 本轮 narrative 对照没有更晚远端版本：仍为 `8ce9c8b`，两份 topdown 正文
 与 main 一致。下一参数下标扩展按[工作计划的逐项验收](current-work-plan.md)
 区分 language 的实际 global observation／安全执行、domain 的 source/model
-与入口范围推导，以及 host/site 的当前程序安装。新的 header-affine proof
-仍在进行，不计为已交付服务或 compiler 能力。尤其 `Int64.repr` 下的执行
+与入口范围推导，以及 host/site 的当前程序安装。[Header-access 后继](double-header-access.md)
+已在这三层接线：实际读取、source/model、correlated bounds、capture transport、
+最终 candidate checker 和当前 program 安装均被新 Csem→Asm proof 消费。
+原 fusion5 两段已安装；第一 proposal 的拒绝和 V2 的接受分开保留。
+尤其 `Int64.repr` 下的执行
 对应不是数学地址的 no-overflow 证明，数学 footprint bounds 不是 `Mem` 权限，
 header load 的稳定性也不是首次读取许可。这三处分别需要实际证据。
 

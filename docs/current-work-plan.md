@@ -2,28 +2,28 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
-### Narrative 澄清对下一扩展的约束
+### Narrative 澄清与参数下标扩展的实际交付
 
 本轮重新 fetch 的 `origin/topdown/research-positioning` 仍为
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`；`paper-narrative.md` 与
 `context-lifting.md` 的 main 正文均与远端一致，没有另报较新提交。
-按 narrative §§3–6、8，把下一原 `fusion5` 参数下标扩展拆成以下验收。
+按 narrative §§3–6、8，把原 `fusion5` 参数下标扩展拆成以下验收。
 这些是实现者的内部证明责任，不是交给 C 使用者填写的六份证书。
 
 | 连接与责任方 | 要生产并被后续证明消费的证据 | 当前状态 |
 | --- | --- | --- |
-| Language：实际参数观察 | 原 `Evar N` 的类型、global binding 和实际 `Mint64` load；读取许可与接受后的范围分开 | 已有 global-long/header 服务可复用；新族尚未接线 |
-| Domain：source/model 对应 | 保留原下标运算树，把同一个运行时 `n` 放入 access rows；decoder 以实际源 AST 重建检查为依据 | Header-affine successor 正在证明，无成功编译证据 |
-| Domain：入口推出全部局部义务 | 同时用 `0<=j<n` 与同一 `n` 推导 reached access bounds；接机器表示及物理 layout，数学 bounds 不冒称 `Mem` 权限 | 新参数范围 producer 待实现 |
-| Language/domain：观察运输 | 原 body 写入保持 `N` 的实际 load；安全 capture 的 private frame、接受／拒绝入口运输 | 复用 global-store/header 定律，新族需要 discharge |
-| Domain/language：实际候选 | 对固定捕获参数消费最终 candidate checker、progress、实际 Clight lowering 和 public iterator exits | 不以数学 decoder 或 raw codegen 结果代替 |
-| Language host/site：全程序 | 对实际 intermediate program 生产 scope、resources、placement 和所需 progress，再连接 Csem→Asm | 与这条功能扩展同时交付，尚未完成 |
+| Language：实际参数观察 | 原 `Evar N` 的类型、global binding 和实际 `Mint64` load；读取许可与接受后的范围分开 | Header-affine execution 与 access receipts 已编译，并被 source/model 消费 |
+| Domain：source/model 对应 | 保留原下标运算树，把同一个运行时 `n` 放入 access rows；decoder 以实际源 AST 重建检查为依据 | 实际 assignment／finite nest iff 已闭合；复用现有 double instruction 与 memory model |
+| Domain：入口推出全部局部义务 | 同时用 `0<=j<n` 与同一 `n` 推导 reached access bounds；接机器表示及物理 layout，数学 bounds 不冒称 `Mem` 权限 | Correlated affine profiles、endpoint checker、cap producer 与 entry-ready proof 被 factory 消费 |
+| Language/domain：观察运输 | 原 body 写入保持 `N` 的实际 load；安全 capture 的 private frame、接受／拒绝入口运输 | 复用并 discharge 实际 global-store/header、private capture 和 refusal transport |
+| Domain/language：实际候选 | 对固定捕获参数消费最终 candidate checker、progress、实际 Clight lowering 和 public iterator exits | 第一 proposal 错把 n 当 iterator，被 checker 拒绝；V2 恢复实际参数后通过相同 checker |
+| Language host/site：全程序 | 对实际 intermediate program 生产 scope、resources、placement 和所需 progress，再连接 Csem→Asm | 新 complete compiler 已证明、提取；原 fusion5 两段安装且完整输出匹配 |
 
 `N-j+2` 说明 condition derivation 必须保留参数和迭代域的关联：在
 `1<=n`、`0<=j<n` 时其范围为 `[3,n+2]`。独立地包络 `n` 和 `j`
 会丢失这项关联。原第二段的 `C[i+2][j+2]` 与 `B[i+2][N-j+2]`
-分别声明为 `100×100` 与 `101×101`；它们提示一个共同 count cap `98`，
-这只是待验证的充分范围提议。静态 checker、runtime check、原 source execution
+分别声明为 `100×100` 与 `101×101`；共同 count cap `98` 已由静态 checker
+和 closed examples 检查，仍只声称充分范围。静态 checker、runtime check、原 source execution
 和 transport 应各自 discharge 适用前提；不会发出一个 test 对应每条 premise，
 也不会在运行时预执行原片段。空域路径必须单独处理读取与 public exits。
 Language 的 I64 expression 执行结果若仅以 `Int64.repr` 描述，仍需范围桥才能
@@ -33,7 +33,21 @@ Language 的 I64 expression 执行结果若仅以 `Int64.repr` 描述，仍需�
 `T(S1)` 都为 `(i_0)`，domain rank 为一。现有 `infer_witness` 拒绝
 `added<=0`，即没有新增 tile 维度；尚未产生 candidate。后续应处理 actual
 untiled／mixed phase results 的契约，不能把这一失败泛称为 scalar source 不支持，
-也不能为了增加安装数将 identity guard 计作优化。这里没有新增 native 或成本结果。
+也不能为了增加安装数将 identity guard 计作优化。Header 扩展尚未修复该 blocker。
+
+2026-10-09 [Header-access 后继](double-header-access.md)新增 14 core modules、
+1,730 行及 52 queried endpoints，15 closed、最大继承 42 个 globals，没有
+新增全局假设或 kernel／host 定律。`native-v2` 安装原第二段参数下标版本；
+第一段仍通过既有 route。31 context checks、20 initialized regressions 和十次
+unchanged-assembly path observations 通过，包括真实 q=1/1/2、empty capture、
+negative fallback 和 public exits。同一 build 的完整 62＋两适配重放保持 60raw＋
+2adapted 匹配、两个既有 frontend 拒绝、零 timeout/mismatch；15 原例从 31 到
+32 sites，新增原 fusion5 第二段。29 quotient 中包含一处 header-access，不能
+重复计数。43 compiled originals 无 phase，tricky2/tricky3 仍 phase 后不安装。
+其他项目实验结束后的七组交替完整调用 medians 为 0.004383682／0.004313963 秒，
+比值 1.016161，短调用无 useful speedup；guard、affinity／外部 host load 未隔离。
+11 份报告／18,287 bindings 分别固定 proof、refusal、native、paths 和 costs。
+早期 `native-v1` candidate refusal 保留，不能重标为两段安装成功。
 
 2026-10-09 [Literal promotion后继](double-literal-operands.md)从原 `fusion5` 的
 实际 early refusal 扩展源表达式：language证明 signed I32/I64 operands 的实际
@@ -54,14 +68,12 @@ guard或控制affinity／外部host load，短调用结果未建立稳定加速�
 
 **后续先扩展原source表达力，并立即连接当前program与backend：**
 
-1. 原fusion5的`N-j`要求含参数的access rows，以及实际global/header observation
-   到captured parameter的稳定性与执行运输；不能仅把数学decoder放宽或拿编译时
-   常数替代原读。先复用语言memory/header服务，再由domain/factory闭合源/model。
-2. 同时按原语料共同blockers扩展独立bounds、非零／inclusive headers、statement
+1. 参数 access rows、原 `Evar` 观察与 capture 运输已接入完整编译器。下一 source
+   扩展按原语料共同 blockers 选择独立 bounds、非零／inclusive headers、statement
    sequences和scalar operands；补tricky2的未分块rank-one／mixed phase result契约，
    继续定位tricky3的phase后拒绝。
    Source users不补未证明callback，也不使用简化word-copy替换原浮点/scalar计算。
-3. 每条扩展保留实际候选最终checker、安全condition及其调用前提、公开exits、
+2. 每条扩展保留实际候选最终checker、安全condition及其调用前提、公开exits、
    progress和current-site安装；kernel保持最小局部边界。原BT／LLVM／SPEC、larger
    tiers和其余sequential phases仍在完整goal。减少已有检查和点执行工作、完整
    调用成本验收继续进行；服务分类/封装不能替代compact-condition算法或收益。

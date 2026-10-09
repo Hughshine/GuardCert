@@ -50,5 +50,25 @@ source、guard、candidate和site证据属于其实际输入program，C用户不
 已将下一参数下标扩展按实际观察、source/model、入口充分性、状态运输、实际
 candidate和当前全程序安装逐项列出责任及未完成项。固定tricky2 scheduler日志
 进一步显示前后均为一维 `(i_0)`；拒绝来自adapter要求新增tile维度，应按未分块／
-mixed phase结果处理，不能泛称scalar source不支持。本轮没有新的compiler运行、
-coverage或性能结果。
+mixed phase结果处理，不能泛称scalar source不支持。该诊断本身没有增加安装或
+性能证据。
+
+## Header-access 后继实际消费此前列出的责任
+
+本次 fetch 的远端仍为 `8ce9c8b`。[参数下标后继](double-header-access.md)将此前
+表中的六项连接全部接入 compiler：language 提供原 header load、private 安全
+capture 和 frame，domain/source instance 提供实际 source/model 及 correlated
+footprint 推导，domain candidate checker 验证恢复参数后的实际候选，既有 host
+消费 scope、progress、public exits 和 region contract。新 complete theorem
+组合实际 intermediate programs 到原 Csem→Asm。Kernel 没有新增 obligation。
+
+这里最难的是保留 `n` 与 `0<=j<n` 的关联、运输实际 global observation，以及
+区分 instruction 参数与 iterator。首版提议把 n 当坐标并生成 `n<n`，最终
+checker 拒绝；V2 只修复 untrusted proposal 的临时投影／参数恢复，再让相同
+checker 验证实际 candidate。成功 import、codegen 或 native digest 均不替代
+最后的 candidate acceptance。数学 bounds、Mem 权限和原读取许可也保持区分。
+
+原 fusion5 两段安装、15 原例32sites、31＋20 context checks、十次 actual paths
+和完整调用比值1.016161分别有新报告。比值没有证明 useful speedup；其他原
+source／配置与 OLO 功能、条件和效果仍需具体修复。既有阶段的 counts/costs
+保持其原 build，不能重标为本次结果。

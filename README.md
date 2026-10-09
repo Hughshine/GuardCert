@@ -1,5 +1,18 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-09: [Runtime-header array indices](docs/double-header-access.md) now
+connect original `Evar N` reads and correlated footprint bounds through actual
+source/model execution, safe capture, final candidate validation and a new
+Csem-to-Asm endpoint. Both original fusion5 nests install. One build replays all
+62 originals and two disclosed adaptations: sixty raw and two adapted outputs
+match GCC, two frontend refusals remain, and no timeout or mismatch occurs.
+Fifteen originals retain 32 sites, including one new header-access site;
+31 contexts, twenty initialized regressions and ten unchanged-assembly path
+observations pass. Complete fusion5 calls measure 1.016 times the same-compiler
+unmarked median; the short measurement establishes no useful speedup.
+The [fixed checkpoint](docs/double-header-access.json) retains the first proposal
+refusal separately. Broader PolCert/OLO coverage and useful effects remain active.
+
 2026-10-09: [Verified literal promotion](docs/double-literal-operands.md) now
 feeds the actual normalized Clight program to guarded optimization and a new
 Csem-to-Asm endpoint. Original fusion5's first nest installs quotient tiling;

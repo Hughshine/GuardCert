@@ -1,5 +1,22 @@
 # PolCert／CGO 2017 对齐：验收范围与下一步
 
+2026-10-09 [Header-access 后继](double-header-access.md)接通原 fusion5 第二段
+`N-j`，保留实际 global read、I64 运算树及 double memory model。新 14 模块／
+52 端点消费 correlated bounds、capture transport、最终实际 candidate 和 host
+installation，连接新 Csem→Asm；没有新增全局假设或 kernel／host 定律。
+同 binary 完整 62＋两适配：60raw＋2adapted 匹配、两个既有 frontend 拒绝、
+零 timeout/mismatch。15 原例 32sites，其中 29 quotient（包含一处新 header
+site）和三处 initialized。43 compiled originals 无 phase，tricky2/tricky3 仍
+phase 后未安装。31 contexts、20 initialized regressions 和十次原汇编 paths
+通过。首版 proposal 错把 n 当 iterator、被最终 checker 拒绝的证据独立保留。
+
+同 compiler／flags 七组交替的原 fusion5 完整调用为 0.004383682／0.004313963
+秒，比值 1.016161；没有建立 useful speedup，guard 未隔离，affinity／外部
+host load 未控制。11 份报告／18,287 bindings 固定。独立 bounds、非零／
+inclusive headers、statement sequences、untiled rank-one/mixed proposals 等
+继续按原 corpus blockers 扩展，并同步全程序证明；其他顺序 phases、原 OLO
+程序和有用效果仍需完成。
+
 2026-10-09 [Literal promotion后继](double-literal-operands.md)在真实标注Clight上
 规范化受支持的signed integer operands，并组合当前program安装及新Csem→Asm。
 同一build完整62＋两适配：60raw＋2adapted匹配、两个既有frontend拒绝、零

@@ -4709,6 +4709,40 @@
         "docs/double-literal-operands.json",
         "docs/narrative-quotient-integration-2026-10-09.md"
       ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Actual runtime-header indices and correlated footprint conditions are consumed through source/model, safe capture, actual final candidate validation and current-program Csem-to-Asm; native installations, paths and complete costs remain distinct evidence.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongHeaderAffine.v",
+          "name": "long_header_affine_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderBounds.v",
+          "name": "double_header_row_bounds_check_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderNestSource.v",
+          "name": "double_header_nest_canonical_source_model"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderNestCapture.v",
+          "name": "checked_double_header_capture_model"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderQuotientLowering.v",
+          "name": "checked_double_header_quotient_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/HeaderLiteralQuotientTiledCompiler.v",
+          "name": "compile_selected_header_literal_quotient_tiled_stable_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-header-access.md",
+        "docs/double-header-access.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -17219,5 +17253,107 @@
     "kernel_changed": false,
     "new_host_contract": false,
     "full_goal_complete": false
+  },
+  "double_header_access_evidence": {
+    "scope": "actual original header reads and correlated bounds through finite source/model correspondence, safe capture, final actual candidate, current-program installation and Csem-to-Asm",
+    "summary": "docs/double-header-access.json",
+    "summary_sha256": "055d04e30fac95c890fd677390ce872fb5e99a272161f0633dc4487bc277898e",
+    "new_source_lines": 1730,
+    "queried_endpoints": 52,
+    "closed_endpoints": 15,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "whole_program_theorem": "HeaderLiteralQuotientTiledCompiler.compile_selected_header_literal_quotient_tiled_stable_program_correct",
+    "compiler_sha256": "6ac62054ed5bceef2f51723b0b759b893b66830653a8e0eceaeae5ba37d63cac",
+    "corpus": {
+      "originals": 62,
+      "adaptations": 2,
+      "raw_native_matches": 60,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": [],
+      "native_mismatches": [],
+      "installed_original_cases": {
+        "dct": 1,
+        "fusion5": 2,
+        "fusion6": 1,
+        "fusion7": 2,
+        "gemver": 4,
+        "matmul-init": 1,
+        "matmul-seq": 2,
+        "matmul-seq3": 3,
+        "multi-loop-param": 3,
+        "mvt": 2,
+        "mxv": 1,
+        "mxv-seq": 2,
+        "mxv-seq3": 3,
+        "polynomial": 1,
+        "tce": 4
+      },
+      "installed_sites": 32,
+      "newly_installed_originals": [],
+      "added_original_sites": {
+        "fusion5": 1
+      },
+      "compiled_originals_without_tiling_phase": 43,
+      "phase_without_installation": [
+        "tricky2",
+        "tricky3"
+      ]
+    },
+    "actual_quotient_sites": 29,
+    "header_access_sites": 1,
+    "context_counts": {
+      "header_contexts": 31,
+      "initialized_contexts": 20,
+      "assembly_paths": 10
+    },
+    "cost": {
+      "case": "fusion5",
+      "trials_per_variant": 7,
+      "medians_seconds": {
+        "optimized": 0.00438368198229,
+        "unmarked": 0.004313962999731302
+      },
+      "optimized_over_unmarked_complete_call_ratio": 1.0161612379529077,
+      "measurement_scope": "wall time including startup, initialization, region and digest",
+      "guard_cost_isolated": false,
+      "cpu_affinity_or_host_load_controlled": false,
+      "benchmark_wide_profitability_claimed": false
+    },
+    "kernel_changed": false,
+    "new_host_contract": false,
+    "full_goal_complete": false,
+    "first_final_candidate_refusal_retained": true,
+    "parameter_projection_is_untrusted": true,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryLongHeaderAffine.v",
+        "name": "long_header_affine_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderBounds.v",
+        "name": "double_header_row_bounds_check_sound"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderNestSource.v",
+        "name": "double_header_nest_canonical_source_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderNestCapture.v",
+        "name": "checked_double_header_capture_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleHeaderQuotientLowering.v",
+        "name": "checked_double_header_quotient_guarded_execution"
+      },
+      {
+        "source": "prototype/interface/HeaderLiteralQuotientTiledCompiler.v",
+        "name": "compile_selected_header_literal_quotient_tiled_stable_program_correct"
+      }
+    ]
   }
 }
