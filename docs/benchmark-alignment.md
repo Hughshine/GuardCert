@@ -44,8 +44,11 @@ Class S 的三配置各 17 个单元完成构建并通过原 NPB 自检，十行
 本轮 source/model 缺口具体包括原 harness 的 I64 controls、global array
 地址和 F64／scalar 运算，以及 BT 的 inclusive／非零 starts、loaded globals
 与公共 scalar exits。新增 generic memory value instruction 与 IEEE double
-表达式后继已经独立审计，但只有 model→Clight 方向；原源 decode、Mfloat64
-guard 和完整 compiler 安装仍缺。后续先走原 matmul 的完整链，再扩 fusion、
+表达式后继已审计。其后[原 matmul typed bridge](original-matmul-typed-bridge.md)
+已双向接 source assignment／memory action／PolCert 单 body Loop，并精确核对
+同一原 C 的 exported Clight；八字节地址及 I64 点级对应也已编译审计。
+完整 I64 nest、入口前提 producer、实际 typed scheduler、runtime Mfloat64
+guard 和 compiler 安装仍缺，优化 case 数保持零。后续走原 matmul 的完整链，再扩 fusion、
 multi-stmt-stencil-seq 和 BT；其余 corpus 与配置继续保留。
 
 ## 必须分别完成的五项验收

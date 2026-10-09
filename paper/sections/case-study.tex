@@ -109,16 +109,28 @@ associativity assumption or model of real numbers. Dependencies on each
 matrix output still constrain traversal order. Reassociation and parallel
 reduction require separate justification.
 
-The current expression bridge is forward: typed operand-evaluation receipts,
-emitted expression code and model evaluation imply actual Clight expression
-evaluation. It is not an original-source decoder or a bidirectional equivalence
-result. Original Clight-to-model correspondence, eight-byte Mfloat64 addressing
-and checks, Int64 control correspondence, typed candidate lowering and selected
-factory installation remain open. The kernel is unchanged. The language
-instance supplies concrete value, memory, control and entry/exit proofs; the
-optimizer supplies source modeling, assumptions and candidate validation.
-The eventual site producer must discharge these obligations from the checked
-source rather than require semantic callbacks from a C programmer.
+The first expression bridge has a forward direction. Its successor decodes
+actual source evaluation and connects double assignment in both directions.
+Address receipts identify locations without assuming successful loads. The
+original assignment licenses its RHS observations; its cast and store supply
+the corresponding model action. A strict assignment instance accepts only
+floating results, since a load can return \code{Vundef} while a double cast
+cannot accept that value.
+
+For original matmul, a complete exported Clight AST matches the selected
+three-loop region and assignment template. The RHS decoder returns the exact
+expression tree. Eight-byte nested-array addresses and mixed I64/I32 index
+operations connect that body to a concrete PolCert instruction and body Loop.
+Typed validators, extraction and prepared codegen are instantiated. This local
+bridge still takes explicit global, coordinate and layout facts. Complete I64
+loop correspondence, their entry producer, actual scheduling, a safe guard,
+candidate lowering and selected installation remain open.
+
+The kernel is unchanged. The language instance supplies concrete value,
+memory, control and entry/exit proofs; the optimizer supplies source modeling,
+assumptions and candidate validation. The site producer must discharge the
+applicable premises from the checked source. Local explicit premises do not
+constitute an installed interface for a C programmer.
 
 \subsection{Nested Loaded Bounds and Actual Candidate Execution}
 

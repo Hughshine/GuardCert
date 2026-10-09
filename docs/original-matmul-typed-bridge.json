@@ -1,0 +1,84 @@
+{
+  "status": "audited_local_progress_not_installed_optimization",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "source": "build/benchmark-alignment/probe-v1/matmul/marked.c",
+  "source_adaptation": "existing scop markers only; original computation, double/global arrays and I64 controls retained",
+  "exported_AST_adaptation": "Rocq import namespaces only",
+  "proof_report": {
+    "path": "build/original-matmul/proof-v1/report.json",
+    "sha256": "ae8628ac41fdd4c76843df2969f1be9691fbf7fcc27fbed39915cf86cc0f854a"
+  },
+  "source_AST_report": {
+    "path": "build/original-matmul/source-ast-v2/report.json",
+    "sha256": "587572f06e82a4742aeb24a037f3669b53876d4662f97e723eed1ada7a126704"
+  },
+  "frontend_report": {
+    "path": "build/original-matmul/frontend-v1/report.json",
+    "sha256": "c951d5a277991b9df77b457f122747ed9445d01bf2a95319a28448946cd3eb33"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryObservationDeterminism.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSource.v",
+    "adapters/compcert-memory/GuardMemoryDoubleLocations.v",
+    "adapters/compcert-memory/GuardMemoryDoubleAssignment.v",
+    "adapters/compcert-memory/GuardMemoryLongControl.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmul.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulInstr.v",
+    "adapters/compcert-memory/GuardMemoryDoublePolyhedral.v"
+  ],
+  "new_source_lines": 1181,
+  "endpoint_count": 40,
+  "closed_endpoints": 10,
+  "maximum_endpoint_globals": 12,
+  "inherited_globals_union": [
+    "Axioms.proof_irr",
+    "ClassicalDedekindReals.sig_forall_dec",
+    "ClassicalDedekindReals.sig_not_dec",
+    "Classical_Prop.classic",
+    "CoqAddOn.posPr",
+    "CoqAddOn.zPr",
+    "Events.external_functions_sem",
+    "Events.inline_assembly_sem",
+    "FunctionalExtensionality.functional_extensionality_dep",
+    "PedraQBackend.add",
+    "PedraQBackend.isEmpty",
+    "PedraQBackend.pr",
+    "PedraQBackend.t",
+    "PedraQBackend.top"
+  ],
+  "additional_global_axioms": [],
+  "reachable_source_count": 159,
+  "bound_files": 6990,
+  "new_proof_successful_attempts": 8,
+  "new_proof_rejected_attempts": 35,
+  "source_AST_import_namespace_rejection_preserved": true,
+  "actual_source_selected_region_and_assignment_exact": true,
+  "decoder_executed_on_actual_original_RHS": true,
+  "local_execution_directions": [
+    "original assignment to memory action",
+    "memory action to lowered assignment",
+    "memory action to and from concrete PolCert INSTR and body Loop"
+  ],
+  "local_entry_premises": "global bindings, temp/control values, shifted index bounds, address span, layout lookup",
+  "partial_reads": "successful original assignment licenses its RHS reads; address receipts assume no load",
+  "strict_assignment": "only Vfloat can be a successful double assignment value",
+  "IEEE_reassociation_or_FMA_licensed": false,
+  "I64_point_expressions_and_tests_proved": true,
+  "typed_polyhedral_validator_extractor_and_prepared_codegen_instantiated": true,
+  "typed_codegen_direction": "generated Loop to source model; progress and target lowering remain separate",
+  "source_user_entry_premises_automatically_produced": false,
+  "kernel_or_existing_host_changed": false,
+  "whole_loop_or_Mfloat64_guard_or_selected_factory_installed": false,
+  "new_native_optimized_case": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "new_Csem_to_Asm_optimization_endpoint": false,
+  "cost_or_profitability_evidence": false,
+  "pending": [
+    "complete original I64 nest to Loop correspondence and partial bound/capture producer",
+    "actual typed scheduling/tiling and candidate lowering",
+    "safe runtime guard, source-derived entry premises and exact public exits",
+    "selected factory and Csem-to-Asm installation, native acceptance/fallback and full cost",
+    "remaining 62-case sequential configurations and original CGO17 programs"
+  ],
+  "full_goal_complete": false
+}

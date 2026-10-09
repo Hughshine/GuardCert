@@ -5,6 +5,10 @@
 运行结果通过，但 **没有一个案例完成所请求的优化**。这不是完整 corpus 的
 配置、效果或成本对齐；原始案例接入仍是[当前计划](current-work-plan.md)的首要任务。
 
+后继[原 matmul typed bridge](original-matmul-typed-bridge.md)已完成真实 source
+assignment 到 PolCert 单 body Loop 的双向对应，并实例化 typed validators／
+codegen；尚未完成 loop／guard／factory 安装。下文保留首轮检查点的历史范围。
+
 ## 实际做了什么
 
 | 输入 | 编译与运行 | 优化证据 | 观察范围 |

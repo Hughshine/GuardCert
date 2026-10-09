@@ -11,10 +11,14 @@ plus six after two disclosed initializer adaptations. All 124 active outputs
 remain unchanged and make no pipeline call. Original serial BT Class S builds
 17 units and passes its self-check and ten numerical-row comparisons in each
 mode, also without optimization. The new 259-line IEEE double foundation audits
-five endpoints without added axioms, but only its model-to-Clight expression
-direction is connected. Original-source decode, Mfloat64 guard, I64 controls
-and factory/compiler installation remain open. Full configuration, effect and
-cost alignment has not run; existing fixture evidence keeps its stated scope.
+five endpoints without added axioms; that checkpoint has the model-to-Clight
+expression direction. The [original-matmul successor](../docs/original-matmul-typed-bridge.md)
+now connects actual source assignment in both directions to a concrete PolCert
+body Loop, with eight-byte addresses and I64 point expressions. Eight modules,
+40 endpoints and 6,990 bound files audit without new axioms. Complete I64 nests,
+entry production, actual typed scheduling, runtime guard and selected installation
+remain open; this adds no optimized case or native result. Full configuration,
+effect and cost alignment has not run; existing fixture evidence keeps its scope.
 
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies

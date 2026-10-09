@@ -51,13 +51,23 @@ two modules totaling 259 lines. An independent audit queries five endpoints,
 binds 114 reachable sources and 256 files, and finds no new axioms beyond the
 inherited baseline; each endpoint uses at most five existing globals. Three
 rejected proof attempts and two successful attempts are retained. The
-expression theorem is model-to-Clight only. No source decoder, Mfloat64 guard
-or installed double optimizer is claimed.
+expression theorem is model-to-Clight only at that checkpoint.
+
+The original-matmul successor adds eight modules totaling 1,181 lines. Its
+audit queries 40 endpoints, ten closed, follows 159 reachable sources and
+binds 6,990 files including parent checkpoints and the actual exported AST.
+Each endpoint uses at most twelve inherited globals, with no new axioms.
+The original assignment connects in both directions to a memory action and
+PolCert body Loop, under explicit entry facts. Point addresses and I64
+expressions are proved; the complete nest and factory are pending. Typed
+validation and codegen are instantiated, with no installed double scheduler,
+guard or whole-program optimizer. This stage adds no optimized benchmark,
+native comparison or cost result.
 
 \pending{Full alignment of input tiers, sequential routes, retained
 transformations and costs remains incomplete. Next, connect the original
-matmul source with its double values, global arrays and I64 controls to typed
-validation, code generation, a safe guard and the selected compiler theorem.
+matmul nest and entry producer to actual typed scheduling, code generation,
+a safe guard and the selected compiler theorem.
 Other PolCert cases, original NPB programs, LLVM Test Suite inputs and
 unavailable SPEC sources remain targets.}
 

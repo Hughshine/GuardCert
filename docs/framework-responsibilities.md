@@ -23,7 +23,12 @@ callbacks。已有有限／open host 和 backend 可复用，按真实 progress 
 消费 typed operand receipts；原源 decode、Mfloat64 地址／alignment／权限、
 I64 控制与公开出口的实际 producer 尚缺。不能把这些前提移交给 marked C
 用户，也不能用 generic `INSTR` 的实例化代替完整 source/candidate／guard／
-factory 安装。本轮 kernel 与现有 host 不变；下一项验收是原 matmul 的整条链。
+factory 安装。该旧检查点之后，[原 matmul typed bridge](original-matmul-typed-bridge.md)
+已完成 actual source assignment↔memory action↔PolCert INSTR／单 body Loop，
+以及 Mfloat64 地址、global registry 非 alias 和 I64 点表达式对应。其 entry／
+layout 逻辑前提尚待完整 loop 与 factory 自动生产；typed validator／codegen
+实例化也不等于 scheduler、guard 或 whole-program installation。Kernel 与现有
+host 不变；下一项验收仍是原 matmul 的整条链，不能把显式前提交给 C 用户。
 
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
 | --- | --- | --- |

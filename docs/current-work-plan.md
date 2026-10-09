@@ -30,11 +30,25 @@ Clight 全部与 disabled 相同，无 pipeline 调用，所请求优化支持�
 针对实际数据类型差距，新增 generic value instruction／IEEE double 实例
 两模块 259 行、五端点独立审计，114 reachable sources／256 bindings，
 最多五个继承 globals，无新增公理。复用既有任意 chunk 的独立 footprint
-交换，保持表达式运算顺序。现有表达式证明仅是 model→Clight；尚未有原源
-decode、Mfloat64 地址 guard、I64 控制与安装，不算 F64 优化支持。
-下一实现链先接原 matmul 的 double body／global arrays／I64 controls，并
-同步 typed validator／codegen／guard／factory／Csem→Asm，随后扩 fusion、
-multi-stmt-stencil-seq、BT。特殊 fixture 或未安装 helper 不替代该链。
+交换，保持表达式运算顺序。该旧检查点仅有 model→Clight expression 方向。
+
+后继[原 matmul typed bridge](original-matmul-typed-bridge.md)保留同一原 C、
+double 运算树、global nested arrays 和 I64 controls，导出并精确核对完整
+Clight 中的 selected region／assignment。八模块1,181行、40端点／10closed、
+159 reachable sources／6,990 bindings、最多12 inherited globals，无新增公理。
+已完成 source assignment↔memory action↔真实 PolCert INSTR／单 body Loop，
+八字节 lvalue／raw load-store 对应及 global registry 非 alias；I64/I32 addition、
+初始化／increment／test 是点级证明。Typed affine／tiling validators、extractor、
+prepared codegen 已实例化，尚无 external double scheduler／native 安装。
+严格 assignment 实例拒绝 Vundef 成功结果；source execution 生产真实 read
+许可，不提前假设未发生的 loads。显式 entry／layout 前提未自动由 factory
+生产，完整 I64 nest、runtime guard、candidate lowering、公开出口与 Csem→Asm
+仍缺，requested optimized cases 保持零。
+
+下一实现继续该原 matmul 的整条链：I64 nest／条件 bound capture 与入口前提
+producer，实际 typed scheduler/codegen 与候选降低，安全 guard／factory／
+public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
+BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。
 
 两个 signed-child 草稿尚未成功编译／审计／安装，不算新支持；其后续投入
 按下面的实际 case/configuration 阻塞或主要成本安排。特殊 fixture 保持回归。
