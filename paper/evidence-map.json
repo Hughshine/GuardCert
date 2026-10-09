@@ -4595,10 +4595,6 @@
         {
           "source": "theories/PolCertFloorClight.v",
           "name": "upper_bound_pure"
-        },
-        {
-          "source": "adapters/compcert-memory/GuardMemoryDoubleFloorMembership.v",
-          "name": "DoubleFloorMembership"
         }
       ],
       "documents": [
