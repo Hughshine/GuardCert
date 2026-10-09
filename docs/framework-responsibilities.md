@@ -229,6 +229,13 @@ domain factory 在真实 source 上生产保留 raw fallback 的 contract，再�
 既有 host/back-end theorem。C 用户不用提供额外证明，框架也不用加入具体
 Clight syntax。这个差距没有改变任一原 benchmark 或 sequential route 的验收要求。
 
+[Raw 执行运输后继](original-matmul-raw-transport.md)现已交付上述语言服务的
+有限执行部分：实际 source 与 canonical source 双向运输所有有限 trace、
+memory、temporaries 和 outcome，raw fallback 及 caller temporary footprint
+保持。五端点无新增公理。它属于 language library；domain 实例消费其 relation
+以复用 source/model 证明。Raw small-step progress 和具体 contract/installation
+仍须独立生产，不能由 finite equivalence 推断，C 用户仍不提供语义 callbacks。
+
 ### Guard library 的契约责任
 
 [原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了

@@ -1,0 +1,37 @@
+{
+  "status": "compiled",
+  "kind": "finite-raw-skip-prefix-source-and-guarded-fallback-execution-transport",
+  "new_modules": [
+    "theories/ClightSkipPrefix.v",
+    "prototype/interface/OriginalMatmulRawEquivalence.v"
+  ],
+  "new_source_lines": 149,
+  "endpoints": [
+    "ClightSkipPrefix.skip_prefix_execution_equivalent",
+    "ClightSkipPrefix.skip_prefix_temporary_footprint",
+    "OriginalMatmulRawEquivalence.original_matmul_raw_source_execution",
+    "OriginalMatmulRawEquivalence.original_matmul_raw_temporary_footprint",
+    "OriginalMatmulRawEquivalence.original_matmul_raw_guarded_execution"
+  ],
+  "closed_endpoints": 2,
+  "maximum_endpoint_globals": 6,
+  "additional_global_axioms": [],
+  "reachable_source_count": 274,
+  "actual_raw_frontend_and_canonical_source_finite_execution_equivalent": true,
+  "raw_fallback_kept_in_guarded_statement": true,
+  "all_finite_traces_outcomes_memories_and_temporaries_preserved": true,
+  "temporary_footprint_unchanged": true,
+  "language_service_not_generic_kernel": true,
+  "generic_kernel_changed": false,
+  "raw_small_step_progress_or_divergence_proved": false,
+  "new_raw_selector_contract_or_installed_compiler": false,
+  "new_native_or_cost_evidence": false,
+  "full_goal_complete": false,
+  "proof_report": {
+    "path": "build/original-matmul/raw-transport-proof-v2/report.json",
+    "sha256": "c8be8d6a1127df8980d5fce89b427a282b2d19726943226a1b7c7ec0424d3b82"
+  },
+  "proof_bindings": 7786,
+  "successful_proof_attempts": 2,
+  "rejected_proof_attempts": 5
+}

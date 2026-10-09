@@ -2,6 +2,13 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [raw source 执行运输后继](original-matmul-raw-transport.md)已补上
+下述诊断中的 finite source/guarded correspondence：真实 skip-prefix 与旧
+canonical source 保持全部有限 trace、memory、temporaries 和控制出口，raw
+fallback 保留，temporary footprint 不变。两模块149行、五端点／两closed，
+最多六个继承 globals，无新增公理。下一项明确为 raw small-step progress、
+scoped selector contract 和同原 C 的实际安装验收；有限执行对应不代替 protocol。
+
 ### 2026-10-09 最新衔接：真实 frontend 的 skip-prefix
 
 [原 matmul program compiler 后继](original-matmul-installation.md)已证明 exported
@@ -17,7 +24,7 @@ nodes。额外 raw exporter 保存真正 statement，closed Rocq endpoint 核对
 形状。这关闭诊断，不关闭语义运输／raw progress。此检查点 evidence 绑定20,114
 文件，保留三次成功和两次失败 native builds；成本仅为未安装配置的完整调用。
 
-下一实现先复用现有 I64/framed 服务，证明 raw skip-prefix 的执行运输与
+该诊断阶段下一实现先复用现有 I64/framed 服务，证明 raw skip-prefix 的执行运输与
 administrative-step progress，生产保留 raw fallback 的 contract，再重提取同一
 selected compiler。在相同原 C 上验收实际 i/k/j installation 和 runtime
 accept/refuse。不能用 unverified normalizer、省略 source→model 桥，或将 pipeline

@@ -5,7 +5,9 @@ now has a Csem-to-Asm theorem and an extracted double-pipeline executable.
 Its 26 endpoints introduce no new axioms. Ten actual original-C configurations
 match GCC digests, but expected installations fail: the frontend retains skip
 sequences omitted by the Rocq exporter. The exact raw statement has a closed
-shape check; its execution transport and progress remain open. No original
+shape check. [Finite execution transport](../docs/original-matmul-raw-transport.md)
+now covers the source and raw guarded fallback; raw progress and installation
+remain open. No original
 optimized case or guard-path cost result is claimed at this checkpoint.
 
 The [original-program acceptance plan](../docs/benchmark-alignment.md), from
