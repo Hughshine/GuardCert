@@ -4218,6 +4218,33 @@
         "build/double-reduction-nests/compiler-native-checks/contexts-v1/report.json",
         "build/double-reduction-nests/compiler-native-checks/contexts-v2/report.json"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Full pinned-corpus comparison diagnoses missing coordinate witnesses; an untrusted bounded policy reaches three further original interchange cases through the unchanged quantified choices compiler theorem, with separate installation, nonidentity, context and path evidence.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ReductionDoubleChoicesCompiler.v",
+          "name": "check_reduction_double_choices_sound"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleChoicesCompiler.v",
+          "name": "compile_selected_reduction_choices_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/narrative-corpus-review-2026-10-09.md",
+        "docs/double-witness-policy.md",
+        "docs/double-witness-policy.json"
+      ],
+      "artifacts": [
+        "build/benchmark-alignment/current-double-attempts/corpus-v1/report.json",
+        "build/benchmark-alignment/witness-policy-attempts/corpus-v1/report.json",
+        "build/double-witness-policy/compiler-attempts/native-v1/report.json",
+        "build/double-witness-policy/check-attempts/contexts-v1/report.json",
+        "build/double-witness-policy/path-attempts/paths-v1/report.json",
+        "build/double-witness-policy/path-attempts/paths-v2/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -14157,5 +14184,613 @@
       "larger tiers and controlled complete-call cost comparisons"
     ],
     "full_goal_complete": false
+  },
+  "double_witness_policy_summary": {
+    "status": "validated",
+    "kind": "narrative-corpus-review-and-checked-witness-policy-delivery",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "new_semantic_proofs_or_axioms": false,
+    "kernel_and_host_unchanged": true,
+    "compiler_entrypoint": "ReductionDoubleChoicesCompiler.compile_selected_reduction_choices_program",
+    "compiler_theorem": "ReductionDoubleChoicesCompiler.compile_selected_reduction_choices_program_correct",
+    "inherited_maximum_endpoint_globals": 42,
+    "policy": {
+      "default_axes": 6,
+      "choices": [
+        [],
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "environment_option": "GUARDCERT_DOUBLE_WITNESS_AXES, 0..32",
+      "all_choices_rechecked_by_existing_factory": true,
+      "complete_for_arbitrary_affine_changes": false,
+      "initialized_and_legacy_witness_policy_unchanged": true
+    },
+    "corpus": {
+      "original_cases": 62,
+      "prior_configurations": 192,
+      "prior_native_matches": 186,
+      "successor_configurations": 64,
+      "successor_native_matches": 62,
+      "raw_frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "disclosed_initializer_adaptations": [
+        "corcol3",
+        "pca"
+      ],
+      "prior_affine_installed_cases": 11,
+      "affine_installed_cases": 14,
+      "affine_installed_regions": 30,
+      "installed_case_names": [
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "mvt",
+        "mxv",
+        "mxv-seq",
+        "mxv-seq3",
+        "tce",
+        "tricky3"
+      ],
+      "new_policy_reached_cases": [
+        "matmul-seq",
+        "matmul-seq3",
+        "tce"
+      ],
+      "refused_before_scheduler": [
+        "1dloop-invar",
+        "adi",
+        "advect3d",
+        "corcol",
+        "costfunc",
+        "covcol",
+        "doitgen",
+        "dsyr2k",
+        "dsyrk",
+        "fdtd-1d",
+        "fdtd-2d",
+        "floyd",
+        "fusion1",
+        "fusion10",
+        "fusion2",
+        "fusion3",
+        "fusion4",
+        "fusion5",
+        "fusion8",
+        "fusion9",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "jacobi-1d-imper",
+        "jacobi-2d-imper",
+        "lu",
+        "multi-stmt-stencil-seq",
+        "negparam",
+        "nodep",
+        "noloop",
+        "seidel",
+        "seq",
+        "shift",
+        "spatial",
+        "ssymm",
+        "strmm",
+        "strsm",
+        "tmm",
+        "tricky1",
+        "tricky2",
+        "tricky4",
+        "trisolv",
+        "wavefront"
+      ],
+      "refused_after_scheduler": [
+        "dct",
+        "polynomial"
+      ],
+      "early_static_refusal_internal_checker_not_yet_localized": true,
+      "nonidentity_cases_with_current_or_retained_evidence": [
+        "matmul",
+        "mxv",
+        "matmul-init",
+        "mvt",
+        "gemver",
+        "matmul-seq",
+        "matmul-seq3",
+        "tce"
+      ],
+      "installation_alone_not_counted_as_nonidentity": true
+    },
+    "actual_emitted_coordinates": {
+      "matmul-seq": {
+        "identity": [
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$198",
+              "$200",
+              "$202"
+            ],
+            "accepted_block_sha256": "74e12bdab9ba35df2820a684d0e93be946ee8721b6d69fc035658b512f6075f4"
+          },
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$198",
+              "$200",
+              "$202"
+            ],
+            "accepted_block_sha256": "237224aacbdc88b7c83528859b5ccc66262c3c2db9e45e3681bd055eda7cf58d"
+          }
+        ],
+        "affine": [
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              2
+            ],
+            "private_iterators": [
+              "$198",
+              "$200",
+              "$202"
+            ],
+            "accepted_block_sha256": "5d7aa348b45b238f914c37dce090bd8d382d033b35a74044dc2b6fa8ef7b6d20"
+          },
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              2
+            ],
+            "private_iterators": [
+              "$198",
+              "$200",
+              "$202"
+            ],
+            "accepted_block_sha256": "8142c71fe3f92a9d96aa25c6167a459f23d3f5e1a3a85adaf0580a3d68b4edb2"
+          }
+        ],
+        "scope": "diagnostic coordinates in actual emitted accepted Clight; not an independent semantic proof"
+      },
+      "matmul-seq3": {
+        "identity": [
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$207",
+              "$209",
+              "$211"
+            ],
+            "accepted_block_sha256": "54e4b29089966a8293994579a6e8aeae538dc8be257cde350cdcb7efc73fb9d3"
+          },
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$207",
+              "$209",
+              "$211"
+            ],
+            "accepted_block_sha256": "14eda5bfbb139d9d3154877b3c6f7a00a1ab37e37901a02f51950ac6e36194a6"
+          },
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$207",
+              "$209",
+              "$211"
+            ],
+            "accepted_block_sha256": "7c8ba8dcc9f9d1183e8470126c7906427a06c91fba8985780199b0d9abe817c9"
+          }
+        ],
+        "affine": [
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              2
+            ],
+            "private_iterators": [
+              "$207",
+              "$209",
+              "$211"
+            ],
+            "accepted_block_sha256": "dd2527b99591024ebef0e1207cec5d4f86d200be46490a5440dbcaf94370edfa"
+          },
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              2
+            ],
+            "private_iterators": [
+              "$207",
+              "$209",
+              "$211"
+            ],
+            "accepted_block_sha256": "525d5f0deae36a3ef7ca14639eafe43a1e813c5b619da23be5b66f419ea5e477"
+          },
+          {
+            "loop_depth": 3,
+            "store_axes": [
+              0,
+              2
+            ],
+            "private_iterators": [
+              "$207",
+              "$209",
+              "$211"
+            ],
+            "accepted_block_sha256": "cdec4006e07cce2ab81be72020ee4ccf831bad07969268874509e84373660e9e"
+          }
+        ],
+        "scope": "diagnostic coordinates in actual emitted accepted Clight; not an independent semantic proof"
+      },
+      "tce": {
+        "identity": [
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "23b962b69fa9b0f611888e378362ca8af10601570821612cd211e2c861d5304e"
+          },
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "da73981e65c7864aa58048c64abd656451cdc602ddbbcaec24426660dd7e25f5"
+          },
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "ed43796f5b95921996403a2200910b1c50a3dad7c893ec8f87fbe7b8797feb9f"
+          },
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "1b953eee0cd968ba1431da190e5475df1de307e3663dabee4b7ff0ad56e977a5"
+          }
+        ],
+        "affine": [
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "55854b717b57fd3c2a060a564529eb58c8df424d778b57fef445620242cdcb43"
+          },
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "4bbdaaa6cb77e9d7fc45bade87774beda1bce2647efb1d43fc3a946f3dfaa2d8"
+          },
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "a531f75e8eac53266c61f2200f025e2bf578364cee07ff0e4f91d02ce0576026"
+          },
+          {
+            "loop_depth": 5,
+            "store_axes": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "private_iterators": [
+              "$232",
+              "$234",
+              "$236",
+              "$238",
+              "$240"
+            ],
+            "accepted_block_sha256": "b3ce0b10c0aafa08757f53379f4c2e107188fc1b8f2443a5940c19cb4e9fd2f7"
+          }
+        ],
+        "scope": "diagnostic coordinates in actual emitted accepted Clight; not an independent semantic proof"
+      },
+      "gemver": {
+        "identity": [
+          {
+            "loop_depth": 2,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$208",
+              "$210"
+            ],
+            "accepted_block_sha256": "c6833f6dfc389c3091b70dd53310b099f42659b43ad662e4fd7b9afab79fe055"
+          },
+          {
+            "loop_depth": 2,
+            "store_axes": [
+              0
+            ],
+            "private_iterators": [
+              "$208",
+              "$210"
+            ],
+            "accepted_block_sha256": "0b78b32c51dcf17236262f5024c45657882849c8ad9e90573e0f0b20bbdadadc"
+          },
+          {
+            "loop_depth": 1,
+            "store_axes": [
+              0
+            ],
+            "private_iterators": [
+              "$208"
+            ],
+            "accepted_block_sha256": "c78003cd4952d118a01c2c3a6ac2ae26479cf3c261407355caca57ac31f21960"
+          },
+          {
+            "loop_depth": 2,
+            "store_axes": [
+              0
+            ],
+            "private_iterators": [
+              "$208",
+              "$210"
+            ],
+            "accepted_block_sha256": "c8850ae4ea169391599552caebd5995624f9d613edd8bffba8d345eb9acd0a1b"
+          }
+        ],
+        "affine": [
+          {
+            "loop_depth": 2,
+            "store_axes": [
+              0,
+              1
+            ],
+            "private_iterators": [
+              "$208",
+              "$210"
+            ],
+            "accepted_block_sha256": "c6833f6dfc389c3091b70dd53310b099f42659b43ad662e4fd7b9afab79fe055"
+          },
+          {
+            "loop_depth": 2,
+            "store_axes": [
+              1
+            ],
+            "private_iterators": [
+              "$208",
+              "$210"
+            ],
+            "accepted_block_sha256": "63488cdd520cbcf2c8b3d94358e9096883058517f5029f225033812df3d63836"
+          },
+          {
+            "loop_depth": 1,
+            "store_axes": [
+              0
+            ],
+            "private_iterators": [
+              "$208"
+            ],
+            "accepted_block_sha256": "c78003cd4952d118a01c2c3a6ac2ae26479cf3c261407355caca57ac31f21960"
+          },
+          {
+            "loop_depth": 2,
+            "store_axes": [
+              0
+            ],
+            "private_iterators": [
+              "$208",
+              "$210"
+            ],
+            "accepted_block_sha256": "c8850ae4ea169391599552caebd5995624f9d613edd8bffba8d345eb9acd0a1b"
+          }
+        ],
+        "scope": "diagnostic coordinates in actual emitted accepted Clight; not an independent semantic proof"
+      }
+    },
+    "contexts": {
+      "checks": 18,
+      "all_passed": true,
+      "public_controls": {
+        "matmul-seq-public-positive": [
+          "96,96,96"
+        ],
+        "matmul-seq-public-zero": [
+          "0,23,29"
+        ],
+        "matmul-seq-public-negative": [
+          "0,23,29"
+        ]
+      },
+      "multiple_marked_installs_and_calls": [
+        4,
+        2
+      ],
+      "marked_with_unmarked_installs_and_calls": [
+        2,
+        2
+      ]
+    },
+    "paths": {
+      "checks": 3,
+      "unchanged_assembly": true,
+      "positive": [
+        2,
+        0
+      ],
+      "zero": [
+        2,
+        0
+      ],
+      "negative": [
+        0,
+        2
+      ],
+      "first_sandbox_ptrace_refusal_preserved": true
+    },
+    "controlled_cost_comparison": false,
+    "full_goal_complete": false,
+    "pending": [
+      "actual double tiling with final generated-loop progress, lowering and installation",
+      "initialized-site witness choices and additional source bodies",
+      "general affine coordinate changes and domains",
+      "multi-parameter source bounds",
+      "other sequential PolCert phases",
+      "original BT and LLVM/SPEC",
+      "larger tiers, useful acceptance and controlled complete-call costs"
+    ],
+    "reports": [
+      {
+        "path": "docs/reduction-double-installation.json",
+        "status": "validated",
+        "sha256": "3db6ae2a9c7f773bdd560f0a1d1449ca346749f309411cbdad200923e3d457d0"
+      },
+      {
+        "path": "build/benchmark-alignment/current-double-attempts/corpus-v1/report.json",
+        "status": "diagnostic_complete",
+        "sha256": "7920106c1146908efc0958e1bb97ada87b5902ead5a3436581795b694e1b6cf0"
+      },
+      {
+        "path": "build/double-witness-policy/compiler-attempts/native-v1/report.json",
+        "status": "built",
+        "sha256": "078d3f5b9ceb7b70251b81c60aa20cfb3d32bc2e24d4b1bce90ac61e94dcab86"
+      },
+      {
+        "path": "build/benchmark-alignment/witness-policy-attempts/corpus-v1/report.json",
+        "status": "diagnostic_complete",
+        "sha256": "86919d9b27c88cc304a58f3199a19469053492e05563a460d22dfe511f1b5945"
+      },
+      {
+        "path": "build/double-witness-policy/check-attempts/contexts-v1/report.json",
+        "status": "passed",
+        "sha256": "6c4317a8c7579f658621b99684b4aea93b8b54be65db8b9844966f477cbe4117"
+      },
+      {
+        "path": "build/double-witness-policy/path-attempts/paths-v2/report.json",
+        "status": "passed",
+        "sha256": "7fb8c7bed2e923145c89e47e033b87cb2fa246d5e563a9b5c2f04e818502bdf5"
+      },
+      {
+        "path": "build/double-witness-policy/path-attempts/paths-v1/report.json",
+        "status": "rejected",
+        "sha256": "6b5f5717e8f07b9269f4c0a06cb3869a04d718b75128f102c0f3b896b5919cb2"
+      }
+    ]
   }
 }

@@ -4,6 +4,13 @@
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
 固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。
 
+2026-10-09 [当前 compiler 的完整对照和实际修复](double-witness-policy.md)已完成：
+先跑全部62原案例的三模式，再依据缺见证拒绝扩大 checked witness search。
+新策略实际安装 `matmul-seq`／`matmul-seq3`／`tce`；完整 affine 复核无 native
+mismatch。当前14/62原案例安装30处，8/62有非恒等证据；44项 scheduler 前回退、
+dct／polynomial phase 后拒绝及两项 raw frontend refusal 仍是缺口。当前支持的
+configured guards 和 Csem→Asm 端点已连接，完整 sequential phases／cost 未完成。
+
 ## 已核对的输入清单
 
 [机器可读清单](benchmark-alignment-inventory.json)绑定两个上游提交、下载内容

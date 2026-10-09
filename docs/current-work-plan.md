@@ -2,6 +2,24 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [narrative／完整语料复核](narrative-corpus-review-2026-10-09.md)已重新
+fetch 并吸收 `8ce9c8b` 的三方责任、检查安全／接受充分性、source-model 桥及
+每项扩展同步整程序 delivery。实际跑完 62 原案例三配置，186 native matches；
+安装仅 11/62。[Witness-policy 后继](double-witness-policy.md)解除实际坐标 1／3
+缺见证，原 `matmul-seq`／`matmul-seq3`／`tce` 经原 checker 和同一 Csem→Asm
+端点安装 interchange；再次跑完整 affine corpus，无 native mismatch。
+当前 affine 安装 14/62、30 sites，实际非恒等证据 8/62；18 项 focused context／
+拒绝和3次 unchanged assembly path 通过。未新增语义证明／公理或 kernel／host。
+
+下一优先是 actual double tiling 的 producer、最终生成 Loop progress、实际降低
+及整程序安装；已有 TV 实例化和 word tiling 不替代该验收。与此同时定位 dct 的
+initialized witness/source body、polynomial 的 skew coordinate/domain；44 项在
+scheduler 前回退的内部 checker 尚待逐个定位。所有 sequential phases、原 BT、
+LLVM／SPEC、larger tiers、条件接受域和受控完整成本继续必需。库整理只在解除
+这些实际 blocker 时优先；不以更长 swap 列表宣称一般 affine 支持。
+
+以下纯 assignment 记录保留其阶段边界。
+
 2026-10-09 [纯 double assignment nests 后继](reduction-double-installation.md)已把原
 `mvt` 的两个相继 reduction 接到 checked source、充分 footprint condition、实际
 候选和 Csem→Asm；第二处从 i/j 改为 j/i。逐 site 验证 `[]`／`[0]` 坐标见证，

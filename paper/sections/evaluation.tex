@@ -1857,3 +1857,27 @@ initialization and digest, and three check suites ran concurrently; they
 provide no controlled performance or isolated guard-cost result. Remaining
 source structures, multi-parameter bounds, actual sequential tiling/ISS, BT,
 resource/witness policies and larger-tier cost comparisons remain open.
+
+\paragraph{Corpus and witness policy.}
+We then run all 62 pinned original harnesses with the preceding compiler in
+unmarked, identity and affine modes. Including the two separately disclosed
+initializer adaptations gives 192 configurations: 186 match the frozen GCC
+references; six raw configurations refuse in the frontend. Affine mode installs
+21 sites in eleven original cases. These installation counts do not establish
+nonidentity effects or profitability.
+
+The comparison exposes a bounded witness-search gap. The pure-assignment
+factory tried identity and adjacent swap~0, while the real matmul-seq and
+matmul-seq3 candidates need swap~1 and the five-level tce candidates need
+swap~3. An untrusted successor tries identity and single adjacent swaps over
+six axes. Each attempt uses the same checked factory and the same compiler
+theorem, already quantified over finite choices. Re-running all affine inputs
+installs 30 sites in fourteen original cases and preserves the earlier installs;
+60 raw executions and both adaptations match GCC, with two raw frontend
+refusals. Actual emitted coordinates and retained evidence identify nonidentity
+effects in eight original cases. Eighteen focused refusal/context checks and
+three debugger observations on unchanged assembly pass. No new semantic proof
+or axiom is added. Forty-four original cases still refuse before calling the
+scheduler, and dct and polynomial call it without installation. Their internal
+blockers, actual double tiling, remaining sequential phases, original BT and
+controlled larger-input costs remain open; this experiment reports no speedup.

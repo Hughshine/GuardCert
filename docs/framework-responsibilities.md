@@ -2,6 +2,18 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [最新 narrative 复核](narrative-corpus-review-2026-10-09.md)将五类 guard
+服务的安全调用／接受事实／公共 frame／拒绝运输分开映射，并说明最难的原
+Clight→Loop、全部局部义务的入口推导、固定参数 candidate progress、actual
+lowering 和当前 context 安装。最小 kernel 仍止于局部 guarded correctness；
+完整程序安装由语言 host 和 actual site evidence 支撑，C 用户不手填 callbacks。
+
+[实际 witness-policy 交付](double-witness-policy.md)展示已有责任边界的复用：
+producer 扩大不受信任有限搜索，原 factory 核对每项，原 quantified choices
+定理继续交付 Csem→Asm。三个原 benchmark 新安装，full corpus/native/context
+及实际 branch 检查通过；无新 semantics／axioms。14/62 安装与8/62非恒等证据
+分开，完整优化和成本目标未完成。不能把未知的44项早期拒绝统一归因于 frontend。
+
 2026-10-09 [无 initializer 的 double nests 后继](reduction-double-installation.md)从
 实际 mvt 解除新 source shape 与二维 coordinate witness blocker，复用 condition、
 candidate 和 scoped host 服务，完成 Csem→Asm／native interchange。逐 site 尝试
