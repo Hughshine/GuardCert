@@ -230,6 +230,25 @@ delivers the actual guarded statement's scoped region contract. Declarations
 provide no memory-read permissions. Original I64 source progress, the concrete
 site/factory and Csem-to-Asm connection remain open.
 
+A profiled selected compiler successor now composes source progress, scoped
+installation and the backend into \code{compile_original_matmul_program_correct}.
+The language protocol uses the remaining signed I64 counter distance: a
+successful strict comparison implies that the next increment cannot wrap.
+Body frames preserve enclosing counters. This control proof requires no header
+stability or accepted numeric range; it establishes neither source definedness
+nor safe loads. Static environment and public-scope checks transport the
+existing local contract to the current program. They allow changed function
+bodies and initial values within the checked profile.
+
+Actual original-C execution exposes a remaining source boundary. CompCert's
+Rocq exporter removes \code{Ssequence Sskip s}, while its frontend retains that
+statement. The current matcher therefore installs no guarded region on these
+inputs, despite successful pipeline calls. A diagnostic exporter preserves
+every statement, and a closed Rocq theorem checks the raw three-loop shape.
+Execution transport and progress for those administrative steps remain open.
+The successful-compilation theorem covers the actual pass's refusal behavior;
+it does not establish an installed optimization on these original inputs.
+
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,
 assumptions and candidate validation. The site producer must discharge the

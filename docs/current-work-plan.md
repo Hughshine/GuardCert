@@ -2,6 +2,28 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 2026-10-09 最新衔接：真实 frontend 的 skip-prefix
+
+[原 matmul program compiler 后继](original-matmul-installation.md)已证明 exported
+region 的 I64 control protocol、scoped selected whole-Clight simulation，以及
+checked compiler 的 Csem→Asm。八模块1,320行、26端点／4 closed、最大42个
+继承 globals，无新增公理。编译期检查实际 program environment/public scope；
+不比较整个函数体或 initial values。Kernel 不改，语言 host 负责安装与后端。
+
+实际原 C 验收十项全部匹配 GCC digest，但只有五项 refusal/unmarked 预期通过；
+五项预期安装失败。真实 pipeline 共调用九次，guarded region 安装数为零。
+已定位 CompCert exporter 省略 `Ssequence Sskip s`，而真实 frontend 保留这些
+nodes。额外 raw exporter 保存真正 statement，closed Rocq endpoint 核对其三层
+形状。这关闭诊断，不关闭语义运输／raw progress。此检查点 evidence 绑定20,114
+文件，保留三次成功和两次失败 native builds；成本仅为未安装配置的完整调用。
+
+下一实现先复用现有 I64/framed 服务，证明 raw skip-prefix 的执行运输与
+administrative-step progress，生产保留 raw fallback 的 contract，再重提取同一
+selected compiler。在相同原 C 上验收实际 i/k/j installation 和 runtime
+accept/refuse。不能用 unverified normalizer、省略 source→model 桥，或将 pipeline
+调用当作优化完成。随后扩其他原案例、fusion/stencil、BT 与要求的 sequential
+routes。下面此前“下一步”保留其历史边界；本节更新直接实现顺序。
+
 ### 首要任务：PolCert／CGO 2017 对齐与完整程序正确性
 
 2026-10-08 用户确认：功能、优化效果和 benchmark 至少对齐 PolCert 与
@@ -169,7 +191,7 @@ language host contract 增加一个有完整 simulation 证明的 scoped 后继�
 实际 source progress、matmul 安装与 selected Csem→Asm 仍缺，没有新 native
 或成本结果，新已安装 benchmark 仍为零。
 
-下一实现继续该原 matmul 的整条链：原 I64 nest 的适用 progress protocol，
+该阶段下一实现继续原 matmul 的整条链：原 I64 nest 的适用 progress protocol，
 source/site typing／placement 与 private resources，以及实际 guard／candidate／fallback
 到 factory／selected Csem→Asm 的接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture

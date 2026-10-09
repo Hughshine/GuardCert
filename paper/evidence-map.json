@@ -3796,6 +3796,47 @@
       "artifacts": [
         "build/original-matmul/program-bindings-proof-v1/report.json"
       ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Profiled original-double compiler composes to Csem-to-Asm; actual original-C attempts reveal a skip-prefix frontend matcher refusal, with zero guarded installations.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongLoadedProgress.v",
+          "name": "long_initialized_region_progress"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulSourceProgress.v",
+          "name": "original_matmul_source_progress"
+        },
+        {
+          "source": "prototype/interface/ClightScopedSelectedRegionProof.v",
+          "name": "transform_program_correct2"
+        },
+        {
+          "source": "theories/ClightProgramEnvironment.v",
+          "name": "program_environment_check_sound"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulProgramCompiler.v",
+          "name": "compile_original_matmul_program_correct"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulRawSource.v",
+          "name": "original_matmul_raw_frontend_shape"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-installation.md",
+        "docs/original-matmul-installation.json",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md"
+      ],
+      "artifacts": [
+        "build/original-matmul/installation-proof-v2/report.json",
+        "build/original-matmul/compiler-evidence-v1/report.json",
+        "build/original-matmul/compiler-native-checks/original-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -10774,5 +10815,112 @@
     "new_native_or_cost_results": false,
     "original_corpus_requested_optimized_cases": 0,
     "full_goal_complete": false
+  },
+  "original_matmul_installation": {
+    "status": "audited_frontend_matcher_refusal",
+    "proof_report": "build/original-matmul/installation-proof-v2/report.json",
+    "proof_report_sha256": "6916ffee230ad5d72a92f83e427e88d56053fe092b7f84f77e8aba043d86daf2",
+    "proof_source_lines": 1320,
+    "proof_endpoints": 26,
+    "proof_closed_endpoints": 4,
+    "proof_maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "proof_reachable_sources": 395,
+    "proof_bindings": 7742,
+    "successful_proof_attempts": 8,
+    "rejected_proof_attempts": 12,
+    "raw_shape_endpoint": "OriginalMatmulRawSource.original_matmul_raw_frontend_shape",
+    "raw_shape_endpoint_closed": true,
+    "raw_shape_source_lines": 127,
+    "successful_native_builds": [
+      {
+        "report": "build/original-matmul/compiler-attempts/native-v3/report.json",
+        "sha256": "6fa4dc839763a8266539fba6cf458656a86501313c1fe2694c9239c4a60c4952",
+        "compiler": "build/original-matmul/compiler-attempts/native-v3/ccomp",
+        "compiler_sha256": "428b8a02bf17d30cbef282954f4bae7fe16236ec00018685b593d3316210508f"
+      },
+      {
+        "report": "build/original-matmul/compiler-attempts/native-v4/report.json",
+        "sha256": "df00132f3f2311e002769a4c4db80be80ce3feb7221bc453f7e7eb155a21f359",
+        "compiler": "build/original-matmul/compiler-attempts/native-v4/ccomp",
+        "compiler_sha256": "6164429a9e46d84fef17a3d310e31867ff12624a210869b81e98b63986a87172"
+      },
+      {
+        "report": "build/original-matmul/compiler-attempts/native-v5/report.json",
+        "sha256": "c7ce020954882a18cce15a44af60fa6ec4174bab263cf7d91563a563f5df1b62",
+        "compiler": "build/original-matmul/compiler-attempts/native-v5/ccomp",
+        "compiler_sha256": "2d5481e49ac77d9d143b82251aa75d489a15ca4798163c7fe8256c890df661f0"
+      }
+    ],
+    "rejected_native_builds": [
+      "build/original-matmul/compiler-attempts/native-v1/rejection.json",
+      "build/original-matmul/compiler-attempts/native-v2/rejection.json"
+    ],
+    "native_attempt_report": "build/original-matmul/compiler-native-checks/original-v1/report.json",
+    "native_attempt_report_sha256": "96c54702e088843400e093684e928e7e1eb0c4a3cf973057b2f0c3ade76c584b",
+    "native_cases": 10,
+    "native_digest_matches_GCC": 10,
+    "installation_expectations_passed": 5,
+    "installation_expectations_failed": 5,
+    "actual_pipeline_calls": 9,
+    "actual_installed_regions": 0,
+    "actual_frontend_AST_exact_match": false,
+    "exporter_elides_skip_sequences": true,
+    "raw_AST_shape_compiled_but_execution_transport_and_progress_not_proved": true,
+    "actual_Csem_to_Asm_compiler_theorem": "OriginalMatmulProgramCompiler.compile_original_matmul_program_correct",
+    "new_native_optimized_original_case": false,
+    "source_users_supply_semantic_callbacks": false,
+    "generic_kernel_changed": false,
+    "full_goal_complete": false,
+    "costs": {
+      "original-affine": {
+        "compiler_wall_seconds": 1.2635651839664206,
+        "native_wall_median_seconds": 0.006771882006432861
+      },
+      "original-identity": {
+        "compiler_wall_seconds": 0.18583595898235217,
+        "native_wall_median_seconds": 0.006500251998659223
+      },
+      "unmarked": {
+        "compiler_wall_seconds": 0.059253440995234996,
+        "native_wall_median_seconds": 0.00652504904428497
+      },
+      "scheduler-refusal": {
+        "compiler_wall_seconds": 0.0592649340396747,
+        "native_wall_median_seconds": 0.006806647987104952
+      },
+      "reverse-dependences": {
+        "compiler_wall_seconds": 0.3753901820164174,
+        "native_wall_median_seconds": 0.006873429985716939
+      },
+      "malformed-schedule": {
+        "compiler_wall_seconds": 0.08442424499662593,
+        "native_wall_median_seconds": 0.006731230008881539
+      },
+      "wrong-coordinate-witness": {
+        "compiler_wall_seconds": 0.4629954199772328,
+        "native_wall_median_seconds": 0.0067406370071694255
+      },
+      "runtime-negative-M": {
+        "compiler_wall_seconds": 1.0057017370127141,
+        "native_wall_median_seconds": 0.004391930007841438
+      },
+      "runtime-zero-M": {
+        "compiler_wall_seconds": 1.004379138990771,
+        "native_wall_median_seconds": 0.0044043720117770135
+      },
+      "runtime-negative-N": {
+        "compiler_wall_seconds": 0.9984058599802665,
+        "native_wall_median_seconds": 0.004307330003939569
+      }
+    },
+    "cost_scope": "compiler wall time includes frontend, checked pipeline, scheduler and backend; native wall time includes initialization and digest",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "compiler_evidence_report": {
+      "path": "build/original-matmul/compiler-evidence-v1/report.json",
+      "sha256": "17323c2a9902c73585125d740559499308680d67bbc5e1a894bc17b08ba211a2"
+    },
+    "bound_files": 20114,
+    "original_corpus_requested_optimized_cases": 0
   }
 }

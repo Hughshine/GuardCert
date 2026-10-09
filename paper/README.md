@@ -1,5 +1,13 @@
 # GuardCert Working Manuscript
 
+The [profiled original-matmul compiler](../docs/original-matmul-installation.md)
+now has a Csem-to-Asm theorem and an extracted double-pipeline executable.
+Its 26 endpoints introduce no new axioms. Ten actual original-C configurations
+match GCC digests, but expected installations fail: the frontend retains skip
+sequences omitted by the Rocq exporter. The exact raw statement has a closed
+shape check; its execution transport and progress remain open. No original
+optimized case or guard-path cost result is claimed at this checkpoint.
+
 The [original-program acceptance plan](../docs/benchmark-alignment.md), from
 narrative `8ce9c8b`, now governs implementation and evaluation priorities:
 PolCert and CGO 2017 functionality and sequential effects, with whole-program

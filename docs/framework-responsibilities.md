@@ -209,6 +209,26 @@ bindings／static span，实际 guarded execution 已交付 scoped contract。
 progress protocol、site/resources 和 selected Csem→Asm。有限正常执行对应
 本身不是该 protocol，也不推出 divergence preservation。
 
+### Program compiler 与真实 frontend 的新边界
+
+[安装编译器后继](original-matmul-installation.md)已用 I64 control rank 与 body
+frame 交付此前 exported region 的 source protocol，复用 occurrence-sensitive
+traversal，证明 scoped whole-Clight simulation 并组合到 Csem→Asm。Program
+environment、public scope 与 no-shadow 由实际编译期检查生产。Kernel 不改；
+这些是 language/host 服务与 domain 实例的交付，不是通用 kernel 的 contextual
+closure。
+
+原 C 验收同时定位了更具体的 source 义务：CompCert exporter 省略前置 skip，
+实际 frontend 保留它们。当前 source matcher 因此拒绝，十个完整程序虽匹配
+GCC digest，实际安装仍为零。Raw AST shape 有 closed 检查；执行运输及 raw
+progress 尚未交付。Source/model theorem 的输入必须是实际 pass 接收的语法；
+exported AST 的字面 equality 或 source 有限正常执行不能省掉这项接线。
+
+下一语言服务证明 skip-prefix 的执行关系和 administrative steps 的 protocol；
+domain factory 在真实 source 上生产保留 raw fallback 的 contract，再消费
+既有 host/back-end theorem。C 用户不用提供额外证明，框架也不用加入具体
+Clight syntax。这个差距没有改变任一原 benchmark 或 sequential route 的验收要求。
+
 ### Guard library 的契约责任
 
 [原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了
