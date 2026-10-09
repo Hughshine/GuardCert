@@ -2,6 +2,18 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 再次核对 narrative `8ce9c8b` 后，[分块后重排后继](double-reindexed-tiling.md)
+已落实真实 phases＋最终实际候选＋整程序安装：原 mvt／matmul-seq 各两处；
+10 项原输入／回退、14 context、3 unchanged assembly 路径通过。五模块492行／
+10端点，无新增公理。Domain 复用坐标同构，修复最终 tiling 表示；语言复用
+capture／lowering／公开出口与安装，kernel 不改。初始 affine schedule 在
+这四处仍是 identity，实际重排发生在 tile 内。保留三轮拒绝与策略修复证据。
+下一项是此 compiler 的完整 corpus／逐阶段 blockers、更多 source 结构和
+sequential phases；unit／一般 affine completion、受控成本和 BT 等继续待验收。
+原 source→model、前提→安全检查、固定参数 candidate progress、公开出口和
+当前 context 的义务必须内部 discharge。复用要指出实际消费的定理，不能把
+import kernel、native match 或端点数本身当成框架贡献。
+
 2026-10-09 [narrative／完整语料复核](narrative-corpus-review-2026-10-09.md)已重新
 fetch 并吸收 `8ce9c8b` 的三方责任、检查安全／接受充分性、source-model 桥及
 每项扩展同步整程序 delivery。实际跑完 62 原案例三配置，186 native matches；

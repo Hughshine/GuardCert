@@ -2,6 +2,14 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [实际分块后重排](double-reindexed-tiling.md)进一步验证三层分工：
+新证明属于 domain 的坐标表示／实际候选 progress，复用已有同构；语言提供
+source capture、实际 lowering／公开 I64 出口和 scoped Csem→Asm 安装，
+kernel 定律不变。支持族的 C 使用者仍只给标注和策略。原案例／context／实际
+branch 验收通过，不能替代完整 corpus、条件接受域或完整成本验收。此后继的
+guarded execution 直接展开 Clight 分支，不能把 import 或 kernel 未改计作
+直接消费 generic composition theorem；科学复用证据须定位实际定理与义务。
+
 2026-10-09 [真实 double tiling](double-tiling-installation.md)把上述证明接到
 Pluto/data producer、prepared codegen、最终actual candidate与native compiler。
 Unit coordinate completion也仅是不受信任提议，复用同一checker／Csem→Asm；

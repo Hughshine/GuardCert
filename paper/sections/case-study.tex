@@ -1594,3 +1594,24 @@ axiom. Automatic scheduling followed by tiling, initialized and multiple-bound
 source structures, other sequential phases and faster high-rank compilation
 remain open. The current route performs real tiling, but its affine pretransform
 is the identity.
+
+\paragraph{Checked point reordering after tiling.}
+A further producer enables automatic affine scheduling, tiling and intra-tile
+scheduling. The initial affine schedules remain identities on the four tested
+sites; after tiling, Pluto changes mvt's second point order to j/i and both
+sequential matmul point orders to i/k/j. The actual generated Loop remains
+unchanged by representation-witness search. A new final checker tries finite
+adjacent-coordinate witnesses and transports execution through the existing
+proved coordinate isomorphism. Constructive tiling progress then establishes
+execution at the same captured parameters. The new domain factory reuses
+capture, concrete lowering, public exits and scoped installation, yielding
+another Csem-to-Asm endpoint without a kernel or host-law change.
+
+The first installed-driver attempts still refused reordered candidates: the
+old policy supplied only the identity witness in tiling mode. A data-only
+policy repair enables checked retries. These results identify concrete proof
+and implementation reuse. This route's guarded execution directly constructs
+Clight branch execution; unchanged kernel definitions or imports do not show
+that it invokes the generic composition theorem. Complete corpus coverage,
+unit-coordinate completion under the new schedules, general affine changes
+and controlled costs remain to be established.

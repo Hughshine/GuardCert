@@ -4301,6 +4301,35 @@
         "build/double-tiling/check-attempts/contexts-v2/report.json",
         "build/double-tiling/path-attempts/paths-v1/report.json"
       ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Checked coordinate representation and actual tiled intra-tile scheduling are installed on original mvt and sequential matmul through Csem-to-Asm; initial affine schedules remain identities, and wider coverage and cost remain pending.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReindexedTiling.v",
+          "name": "validated_double_reindexed_tiling_loops_at"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleReindexedTiledFactory.v",
+          "name": "check_reindexed_tiled_reduction_double_region_sound"
+        },
+        {
+          "source": "prototype/interface/DoubleReindexedTiledChoicesCompiler.v",
+          "name": "compile_selected_tiled_choices_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-reindexed-tiling.md",
+        "docs/double-reindexed-tiling.json",
+        "docs/double-reindexed-tiling-proof.json"
+      ],
+      "artifacts": [
+        "build/affine-double-tiling/compiler-attempts/native-v4/report.json",
+        "build/double-tiling/original-attempts/affine-original-v4/report.json",
+        "build/double-tiling/check-attempts/affine-contexts-v2/report.json",
+        "build/affine-double-tiling/path-attempts/paths-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
