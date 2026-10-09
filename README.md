@@ -1,5 +1,16 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-09: [Verified literal promotion](docs/double-literal-operands.md) now
+feeds the actual normalized Clight program to guarded optimization and a new
+Csem-to-Asm endpoint. Original fusion5's first nest installs quotient tiling;
+its parameter-dependent second nest remains unsupported. A full replay retains
+15 installed originals and 31 sites, with sixty raw and two adapted GCC matches,
+two frontend refusals and no timeout or mismatch. All 24 literal/context and
+twenty initialized checks pass. Complete fusion5 calls measure 0.979 times the
+same-compiler unmarked median; the short-call measurement does not establish
+stable speedup. The [active plan](docs/current-work-plan.md) retains the broader
+PolCert/OLO target and separates kernel, language-host and domain obligations.
+
 2026-10-09: [Dynamic quotient bounds in the native compiler](docs/quotient-double-tiling.md)
 now install 27 quotient versions in eleven original cases through a new
 current-program Csem-to-Asm endpoint. The full 62-case replay retains fourteen

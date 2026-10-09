@@ -2,6 +2,39 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [Literal promotion后继](double-literal-operands.md)从原 `fusion5` 的
+实际 early refusal 扩展源表达式：language证明 signed I32/I64 operands 的实际
+Clight promotion，已有 scoped host 安装，domain compiler消费规范化后的当前
+program并交付新的Csem→Asm。三模块321行／八新端点无新增全局假设，不改变
+kernel或host定律，也不是新runtime guard。Fallback为当前normalized source；
+前一simulation连接最初C程序。C使用者仍不给语义callbacks。
+
+同一新build完整重放62＋两适配：60raw＋2adapted匹配、两个既知frontend拒绝，
+零timeout/mismatch；15原例31sites，其中12原例28处quotient及三处initialized。
+新增的是fusion5第一段，第二段`N-j`仍拒绝。24 literal/context及20 initialized
+regressions通过。无phase原例从45到43：tricky2开始进入phase但未安装，tricky3
+也仍未安装。安装计数不能代替各原例/configuration全部覆盖或useful costs。
+单独trace确认tricky2两处在producer因missing tiled point space拒绝，尚无candidate。
+本build原fusion5七组交替完整调用比值0.978860（0.004334／0.004428秒），未隔离
+guard或控制affinity／外部host load，短调用结果未建立稳定加速。九份报告／
+16,751bindings固定；前一polynomial成本不重标为本build。
+
+**后续先扩展原source表达力，并立即连接当前program与backend：**
+
+1. 原fusion5的`N-j`要求含参数的access rows，以及实际global/header observation
+   到captured parameter的稳定性与执行运输；不能仅把数学decoder放宽或拿编译时
+   常数替代原读。先复用语言memory/header服务，再由domain/factory闭合源/model。
+2. 同时按原语料共同blockers扩展独立bounds、非零／inclusive headers、statement
+   sequences和scalar operands；补tricky2的rank-one/scalar point-space契约，
+   继续定位tricky3的phase后拒绝。
+   Source users不补未证明callback，也不使用简化word-copy替换原浮点/scalar计算。
+3. 每条扩展保留实际候选最终checker、安全condition及其调用前提、公开exits、
+   progress和current-site安装；kernel保持最小局部边界。原BT／LLVM／SPEC、larger
+   tiers和其余sequential phases仍在完整goal。减少已有检查和点执行工作、完整
+   调用成本验收继续进行；服务分类/封装不能替代compact-condition算法或收益。
+
+以下quotient文字保留前一build的独立证据；不将其成本比值重标为本build。
+
 2026-10-09 native 后继：[动态 quotient bounds](quotient-double-tiling.md)已提取、
 安装并运行。再次 fetch 的 narrative 仍为 `8ce9c8b`，正文与 main 一致；
 [本轮对照](narrative-quotient-integration-2026-10-09.md)落实 kernel／language／domain

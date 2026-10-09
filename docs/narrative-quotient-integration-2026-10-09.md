@@ -27,3 +27,21 @@
 每条扩展立即连接完整程序；同时减少实际条件/点执行工作。条件库分类和contract
 整理以实际共享和blocker为依据，不能变成推迟optimizer接线的新前置要求。
 原BT、LLVM/SPEC、larger tiers以及其他顺序变换仍在active goal中。
+
+## Literal promotion后继对两项澄清的具体落实
+
+再次fetch仍见同一narrative，没有声称看到更晚提交。
+[新后继](double-literal-operands.md)从原fusion5的实际拒绝出发，消费language的
+实际Clight expression/assignment forward证明，再通过已有host安装，在所得
+当前program上运行domain optimizer，连接最初C输入的Csem→Asm。这展示的是
+具体证明服务和host的复用；不是kernel新定律，也不是新增runtime guard类别。
+
+局部表达式定理的前提是原source execution和cast；它们用于证明，编译器不会
+预执行source。后续guard的source fallback是当前normalized source，不是要求
+AST与最初parsed程序逐字相同；前一simulation提供原程序关系。每个阶段的
+source、guard、candidate和site证据属于其实际输入program，C用户不填callbacks。
+
+完整重放的15/62、31sites只新增fusion5第一段，不能算第二段或全部configuration
+覆盖。Tricky2进入producer后缺point space，保持未支持；成本0.978860属于本build
+原fusion5短完整调用，不重标此前polynomial测量或宣称稳定加速。参数addresses／
+实际观察运输、scalar/rank-one producer及更广source/configuration仍按计划推进。

@@ -1,5 +1,23 @@
 # PolCert／CGO 2017 对齐：验收范围与下一步
 
+2026-10-09 [Literal promotion后继](double-literal-operands.md)在真实标注Clight上
+规范化受支持的signed integer operands，并组合当前program安装及新Csem→Asm。
+同一build完整62＋两适配：60raw＋2adapted匹配、两个既有frontend拒绝、零
+timeout/mismatch；15原例31sites，12原例28处q及三处initialized。新增fusion5
+第一段，第二段含参数下标未支持；24 literal/context及20 initialized回归通过。
+43个编译原例未进入phase；tricky2/tricky3进入phase未安装，前者已trace到
+producer缺少tiled point space，而非final validator拒绝。九份固定报告和
+16,751bindings分别记录proof／native／coverage／refusal／cost。
+
+其他goal命令结束后七组交替的原fusion5完整调用medians为0.004334／0.004428秒，
+optimized/unmarked比值0.978860。启动、初始化、两段region和digest均计入，
+guard未隔离、affinity／外部host load未控制；未据此建立稳定加速。前一build的
+polynomial比值1.300657保持前一证据边界。下一source扩展是参数access rows／
+实际capture运输、rank-one/scalar producer和独立bounds等；全部sequential
+configurations、原BT／LLVM／SPEC、larger tiers和OLO条件/效果验收仍必需。
+
+以下各段保留此前独立阶段的计数和当时的下一步。
+
 2026-10-09 [Native quotient后继](quotient-double-tiling.md)单一新build完成62原例＋
 两适配，默认策略、tile=32：60raw＋2adapted匹配，`corcol3/pca`前端拒绝，
 零timeout/mismatch。14原例30sites中，11原例27sites为新q-dependent版本；

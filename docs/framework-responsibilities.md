@@ -2,6 +2,23 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [Literal promotion后继](double-literal-operands.md)落实了原source
+execution和current-program两项澄清：language的实际promotion/cast/assignment
+forward证明被region contract消费；已有host提供scope／frame／finite progress
+及安装，后续domain compiler消费真实normalized program，新的Csem→Asm连接
+最初C输入。Guard fallback为该阶段source，前一simulation给出原程序关系。
+这是unconditional preprocessing，不是新增guard类别或standalone双向表达式
+等价；kernel／host定律不变。三模块321行／八新端点无新增全局假设，C用户不
+补callbacks。
+
+Native完整语料为15/62、31sites（12原例28处q），新fusion5仅第一段，第二段
+含参数下标仍拒绝。24 literal/context及20 initialized regressions通过。
+Tricky2的两段scalar更新已进入producer，但因missing tiled point space在
+candidate生成前拒绝，不能算validator拒绝或scalar优化支持。完整fusion5短调用
+比值0.978860，未建立稳定加速。最难的下一接线在实际参数observations／稳定性、
+地址数学模型和candidate/continuation；domain或language作者分别提供这些证明，
+不能把它们转交kernel或C源码用户。完整sequential/OLO和useful costs仍未完成。
+
 2026-10-09 [Native quotient后继](quotient-double-tiling.md)已把这些证据用于实际
 compiler：domain的参数extension/relation和最终checker，language的安全q capture、
 typed view／frame／公开出口，scoped host的progress／当前site安装和backend。

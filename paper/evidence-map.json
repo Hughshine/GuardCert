@@ -4678,6 +4678,37 @@
         "docs/quotient-double-tiling.json",
         "docs/narrative-quotient-integration-2026-10-09.md"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual signed-literal promotion and selected assignment contracts composed on the current normalized Clight program through guarded polyhedral optimization and Csem-to-Asm; original fusion5 first nest installed, second nest unsupported, 15 originals and 31 sites, with separate producer refusals and bounded complete-call measurement.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleLiteralOperands.v",
+          "name": "normalized_double_literal_operands_forward"
+        },
+        {
+          "source": "prototype/interface/DoubleLiteralSelectedNormalization.v",
+          "name": "selected_double_literal_assignment_execution"
+        },
+        {
+          "source": "prototype/interface/DoubleLiteralSelectedNormalization.v",
+          "name": "selected_double_literal_assignment_contract"
+        },
+        {
+          "source": "prototype/interface/DoubleLiteralSelectedNormalization.v",
+          "name": "normalize_selected_double_literals_correct"
+        },
+        {
+          "source": "prototype/interface/LiteralQuotientDoubleTiledCompiler.v",
+          "name": "compile_selected_literal_quotient_tiled_stable_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-literal-operands.md",
+        "docs/double-literal-operands.json",
+        "docs/narrative-quotient-integration-2026-10-09.md"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -17111,6 +17142,80 @@
     "new_native_or_context_runs": false,
     "new_runtime_cost_measured": false,
     "additional_global_axioms": [],
+    "kernel_changed": false,
+    "new_host_contract": false,
+    "full_goal_complete": false
+  },
+  "double_literal_promotion_evidence": {
+    "scope": "actual selected Clight preprocessing, guarded compiler consumption, original input and current-program Csem-to-Asm; first fusion5 nest only",
+    "summary": "docs/double-literal-operands.json",
+    "summary_sha256": "fbb14f3190faa34b242e135de842224a8b8398798ee77807b18caf230a999c05",
+    "additional_source_lines": 321,
+    "additional_endpoints": 8,
+    "complete_source_lines": 1414,
+    "queried_endpoints": 29,
+    "closed_endpoints": 3,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "whole_program_theorem": "LiteralQuotientDoubleTiledCompiler.compile_selected_literal_quotient_tiled_stable_program_correct",
+    "compiler_sha256": "bd817ee4ecc595b46ce712a6ffb927f94a190ffdd8c97e9961e63b1b77ec8d65",
+    "corpus": {
+      "originals": 62,
+      "adaptations": 2,
+      "raw_native_matches": 60,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": [],
+      "native_mismatches": [],
+      "installed_original_cases": {
+        "dct": 1,
+        "fusion5": 1,
+        "fusion6": 1,
+        "fusion7": 2,
+        "gemver": 4,
+        "matmul-init": 1,
+        "matmul-seq": 2,
+        "matmul-seq3": 3,
+        "multi-loop-param": 3,
+        "mvt": 2,
+        "mxv": 1,
+        "mxv-seq": 2,
+        "mxv-seq3": 3,
+        "polynomial": 1,
+        "tce": 4
+      },
+      "installed_sites": 31,
+      "newly_installed_originals": [
+        "fusion5"
+      ],
+      "compiled_originals_without_tiling_phase": 43,
+      "phase_without_installation": [
+        "tricky2",
+        "tricky3"
+      ]
+    },
+    "actual_quotient_sites": 28,
+    "context_counts": {
+      "literal_contexts": 24,
+      "initialized_contexts": 20
+    },
+    "cost": {
+      "case": "fusion5",
+      "trials_per_variant": 7,
+      "medians_seconds": {
+        "optimized": 0.004334373981691897,
+        "unmarked": 0.004427981039043516
+      },
+      "optimized_over_unmarked_complete_call_ratio": 0.9788601042944305,
+      "measurement_scope": "wall time including startup, initialization, region and digest",
+      "guard_cost_isolated": false,
+      "cpu_affinity_or_host_load_controlled": false,
+      "benchmark_wide_profitability_claimed": false
+    },
+    "new_runtime_guard_category": false,
     "kernel_changed": false,
     "new_host_contract": false,
     "full_goal_complete": false

@@ -1801,3 +1801,26 @@ arbitrary resolvers and composes simulations at the actual intermediate
 program, with unchanged kernel and host laws. This connects the default policy
 through public restoration, source fallback and Csem-to-Asm compilation without
 assuming that the partition is optimal or complete.
+
+\paragraph{Literal promotion on the actual intermediate program.}
+The first nest in original fusion5 contains an integer literal multiplied by a
+double array element. Clight retains the integer operand, so the existing
+F64-only expression decoder refuses the nest before scheduling. A verified
+preprocessing pass converts supported signed I32/I64 literals using CompCert's
+actual floating conversions. It follows the original operation tree for
+floating addition, subtraction, multiplication, division and negation;
+unsigned operands and integer subtrees remain unsupported. This is an
+unconditional source normalization, rather than a new runtime condition.
+
+Its expression theorem starts from actual source evaluation and the assignment
+cast, then derives evaluation of the normalized expression with the same
+result and memory. The assignment theorem consumes this forward result, and
+the existing selected Clight host lifts the region contract using computed
+scope, public-state transport and finite assignment progress, without private
+resources. Only marked assignments are normalized. The successor compiler
+composes that simulation with guarded optimization of the actual normalized
+program and the Csem-to-Asm theorem. A later guard's fallback is its current
+normalized source; the preceding simulation relates it to the initial C
+program. Source users supply annotations and strategy options without semantic
+callbacks. Kernel and host laws remain unchanged. The one-way expression
+theorem is not presented as a standalone bidirectional equivalence.
