@@ -72,8 +72,19 @@ Requested optimized cases 保持零。
 将同一实际 selected source 双向接到 pipeline 的具体 Loop constructors。
 这关闭了类型／执行衔接，不等于 external scheduler／codegen 已被调用。
 
+后继[原 double prepared pipeline](original-matmul-prepared-pipeline.md)现已实际
+运行该原源 request 的 extractor／OpenScop／Pluto／importer／typed validator／
+prepared codegen。Pluto 产生 i/j/k→i/k/j，实际检查接受并保留原 IEEE
+instruction；identity 接受，reverse／malformed／external Err 三种拒绝
+均无 alarm。新135行 adapter／四端点／一closed，224 reachable sources、
+7,217 bindings，至多十二 inherited globals，无新增公理。Native 验收六项，
+绑定8,295文件，包含首版 probe dense-ID 诊断导出错误的重现；五项实际
+pipeline 验收通过。没有 C optimizer／guard／candidate Clight 安装，
+新增 optimized cases 仍为零。Codegen theorem 是 wrapped Loop 的 backward
+方向；固定 captured 参数下的对应还须由最终 candidate/factory 交付。
+
 下一实现继续该原 matmul 的整条链：source/site metadata、条件 bound capture 与入口前提
-producer，实际 typed scheduler/codegen 与候选降低，安全 guard／factory／
+producer，生成候选的固定参数证书与 Clight 降低，安全 guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。
 
@@ -86,8 +97,8 @@ receipts，以及候选入口／出口运输分别验收。已有 source/model i
 这些 producer，也不代替 source progress 或实际候选的进展证明。
 
 下一项完整接入必须自动建立当前显式的 static／layout／conditional-load／
-range 前提。明确这些 producer 消费和返回的证据，同时接实际 scheduler／
-codegen；不为 C 用户增加语义 callback。对未到达的 N／K 和 body operands
+range 前提。明确这些 producer 消费和返回的证据，并消费已接通的实际
+scheduler／codegen 结果；不为 C 用户增加语义 callback。对未到达的 N／K 和 body operands
 保持条件式许可；声明、symbol binding、稳定性或范围事实单独都不能证明
 一次 load 的 definedness。拒绝后的 fallback 要从实际 checked state 接回
 原 source，不能忽略私有 capture 或已执行 prefix 对入口关系的影响。

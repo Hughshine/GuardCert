@@ -1,0 +1,51 @@
+{
+  "status": "audited_real_double_prepared_pipeline_not_installed_C_optimization",
+  "proof_report": {
+    "path": "build/original-matmul/prepared-proof-v1/report.json",
+    "sha256": "bb9b91cc2f6b2385ccfd6d6330cc5803f856abf7793274f8e11ae994d29e1126"
+  },
+  "source_report": {
+    "path": "build/original-matmul/source-prepared-v1/report.json",
+    "sha256": "7250a1be5a874a883342bac001e7eda2388e3ec14dd6c3cbfffe2cbbd0d8811b"
+  },
+  "native_report": {
+    "path": "build/original-matmul/prepared-native-check-v1/report.json",
+    "sha256": "70bfaf01846864b716c663f3076703be02a89895de809a9374e6c88cb20016e0"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoublePrepared.v"
+  ],
+  "new_source_lines": 135,
+  "endpoints": 4,
+  "closed_endpoints": 1,
+  "maximum_endpoint_globals": 12,
+  "additional_global_axioms": [],
+  "reachable_sources": 224,
+  "proof_bindings": 7217,
+  "successful_proof_attempts": 2,
+  "rejected_proof_attempts": 1,
+  "native_runs": 6,
+  "native_bindings": 8295,
+  "native_pipeline_results": {
+    "identity": "accepted",
+    "affine": "accepted",
+    "reverse": "refused",
+    "malformed": "refused",
+    "refuse": "refused"
+  },
+  "actual_original_selected_source_supplies_exportable_input": true,
+  "parameter_context": "K,N,M; model execution environment M,N,K",
+  "real_affine_schedule": "i/j/k -> i/k/j",
+  "original_double_instruction_tree_retained": true,
+  "prepared_codegen_direction": "generated wrapped Loop execution to source wrapped Loop execution",
+  "fixed_parameter_source_candidate_execution_bridge_complete": false,
+  "prior_dense_array_probe_transport_failure_reproduced": true,
+  "current_exporter_double_bit_literals_supported": false,
+  "safe_runtime_guard_and_entry_producer_installed": false,
+  "candidate_Clight_lowering_installed": false,
+  "new_Csem_to_Asm_endpoint": false,
+  "new_native_optimized_case": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "cost_or_profitability_evidence": false,
+  "full_goal_complete": false
+}

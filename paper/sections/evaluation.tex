@@ -88,10 +88,21 @@ six inherited globals, with no added axioms. Its audit follows 221 sources and
 binds 7,186 files, including a reproduced AST-type rejection. This adds execution
 correspondence between the instances, with no new scheduler or native run.
 
+The prepared-pipeline successor adds a 135-line adapter and four audited
+endpoints, one closed, with at most twelve inherited globals and no added
+axioms. Its audit follows 224 sources and binds 7,217 files. The actual source
+supplies an exportable typed input. Five native pipeline probes accept identity
+and real Pluto i/k/j scheduling, and refuse reverse dependence order, malformed
+import and external failure. Accepted candidates retain the original double
+instruction. A sixth probe reproduces the first harness's dense-array
+diagnostic export error; the successor preserves faithful returned-data receipts.
+The native audit binds 8,295 files. These are model-pipeline executions, with
+no new installed C optimization, whole-program result or profitability measure.
+
 \pending{Full alignment of input tiers, sequential routes, retained
-transformations and costs remains incomplete. Next, connect the original
-matmul nest and entry producer to actual typed scheduling, code generation,
-a safe guard and the selected compiler theorem.
+transformations and costs remains incomplete. Next, connect the generated
+matmul candidate to checked parameters, safe entry production, Clight lowering,
+a runtime guard and the selected compiler theorem.
 Other PolCert cases, original NPB programs, LLVM Test Suite inputs and
 unavailable SPEC sources remain targets.}
 

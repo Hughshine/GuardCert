@@ -119,6 +119,16 @@ source PolyLang 执行；它不单独保证候选进展，也不提供 actual Cl
 
 ### Guard library 的契约责任
 
+[原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了
+显式 untrusted phase callback、实际 importer／typed validator／codegen 和
+原 selected source 到可导出输入的证明。实际 Pluto i/k/j 候选接受，逆序
+依赖／malformed／external Err 拒绝，原 IEEE instruction 保留。四个新
+端点无新增公理；五项 pipeline 验收与首版 probe 错误重现完成。这里是
+domain 的模型优化能力，不是 `C_guard` 或 language installation 的完成。
+Wrapped Loop correctness 对参数环境存在量化，固定 captured M/N/K 的
+对应仍须由实际 candidate checker／factory 交付。入口 producer、安全
+guard、Clight lowering、公开出口和 progress 继续沿上表责任接入。
+
 2026-10-08，[runtime empty alternative](affine-empty-runtime-installation.md)
 落实带private effects的alternative责任：language library证明actual read
 prefix的精确replay，以及接受的fast出口／拒绝的source replay entry到旧

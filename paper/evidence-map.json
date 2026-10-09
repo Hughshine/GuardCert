@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-08",
+  "date": "2026-10-09",
   "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
@@ -3355,6 +3355,42 @@
         "build/original-matmul/source-pipeline-loop-v1/report.json",
         "build/original-matmul/pipeline-loop-diagnostics-v1/report.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The actual original matmul source supplies an exportable typed pipeline request. An explicit data-only OpenScop callback connects Pluto, retained-instruction import, DoubleAssignment validation and prepared codegen. Native probes accept identity and real i/j/k-to-i/k/j scheduling, refuse reverse dependence order, malformed import and external failure, and reproduce the original dense-ID diagnostic export failure. Generated wrapped Loop execution implies source wrapped Loop execution. Fixed captured parameters, safe entry production, guard, Clight lowering, progress and selected Csem-to-Asm remain incomplete; no new installed optimized benchmark or profitability result.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePrepared.v",
+          "name": "checked_double_prepared_phase_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePrepared.v",
+          "name": "checked_double_prepared_loop_correct"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/original-matmul/source-prepared-v1/OriginalMatmulPrepared.v",
+          "name": "original_matmul_request_exportable",
+          "source_sha256": "f3db7e9e9c8829391c995a567c09755cdb7b67be80ffd112a0c47514fe945a32"
+        },
+        {
+          "source": "build/original-matmul/source-prepared-v1/OriginalMatmulPrepared.v",
+          "name": "original_matmul_request_source_execution",
+          "source_sha256": "f3db7e9e9c8829391c995a567c09755cdb7b67be80ffd112a0c47514fe945a32"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-prepared-pipeline.md",
+        "docs/original-matmul-prepared-pipeline.json"
+      ],
+      "artifacts": [
+        "build/original-matmul/prepared-proof-v1/report.json",
+        "build/original-matmul/source-prepared-v1/report.json",
+        "build/original-matmul/prepared-native-check-v1/report.json"
+      ],
+      "scope": "Actual model-pipeline scheduling/codegen and wrapped backward correctness. No fixed-parameter candidate bridge, installed C guard/candidate or new whole-program optimizer."
     }
   ],
   "bibliography_evidence": [
@@ -10022,5 +10058,57 @@
     "original_corpus_requested_optimized_cases": 0,
     "full_goal_complete": false,
     "documentation_summary_sha256": "a388ca90f9aeca69a3c89ae4b245d6cea540ea501ab20748c999a2149eb03116"
+  },
+  "original_matmul_prepared_pipeline": {
+    "status": "audited_real_double_prepared_pipeline_not_installed_C_optimization",
+    "proof_report": {
+      "path": "build/original-matmul/prepared-proof-v1/report.json",
+      "sha256": "bb9b91cc2f6b2385ccfd6d6330cc5803f856abf7793274f8e11ae994d29e1126"
+    },
+    "source_report": {
+      "path": "build/original-matmul/source-prepared-v1/report.json",
+      "sha256": "7250a1be5a874a883342bac001e7eda2388e3ec14dd6c3cbfffe2cbbd0d8811b"
+    },
+    "native_report": {
+      "path": "build/original-matmul/prepared-native-check-v1/report.json",
+      "sha256": "70bfaf01846864b716c663f3076703be02a89895de809a9374e6c88cb20016e0"
+    },
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoublePrepared.v"
+    ],
+    "new_source_lines": 135,
+    "endpoints": 4,
+    "closed_endpoints": 1,
+    "maximum_endpoint_globals": 12,
+    "additional_global_axioms": [],
+    "reachable_sources": 224,
+    "proof_bindings": 7217,
+    "successful_proof_attempts": 2,
+    "rejected_proof_attempts": 1,
+    "native_runs": 6,
+    "native_bindings": 8295,
+    "native_pipeline_results": {
+      "identity": "accepted",
+      "affine": "accepted",
+      "reverse": "refused",
+      "malformed": "refused",
+      "refuse": "refused"
+    },
+    "actual_original_selected_source_supplies_exportable_input": true,
+    "parameter_context": "K,N,M; model execution environment M,N,K",
+    "real_affine_schedule": "i/j/k -> i/k/j",
+    "original_double_instruction_tree_retained": true,
+    "prepared_codegen_direction": "generated wrapped Loop execution to source wrapped Loop execution",
+    "fixed_parameter_source_candidate_execution_bridge_complete": false,
+    "prior_dense_array_probe_transport_failure_reproduced": true,
+    "current_exporter_double_bit_literals_supported": false,
+    "safe_runtime_guard_and_entry_producer_installed": false,
+    "candidate_Clight_lowering_installed": false,
+    "new_Csem_to_Asm_endpoint": false,
+    "new_native_optimized_case": false,
+    "original_corpus_requested_optimized_cases": 0,
+    "cost_or_profitability_evidence": false,
+    "full_goal_complete": false,
+    "documentation_summary_sha256": "3546be382035f645c2e48580724d44aad144583cfac73682284641c9810da9a8"
   }
 }

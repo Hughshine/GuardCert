@@ -40,6 +40,16 @@ extraction and codegen. Four endpoints audit without added axioms. It resolves
 an AST-instance mismatch and proves execution correspondence; scheduler, guard
 and installation work remains.
 
+The [prepared-pipeline successor](../docs/original-matmul-prepared-pipeline.md)
+now runs this actual source request through Pluto and the typed validator/codegen.
+The i/k/j schedule and identity accept with original double instructions;
+reverse dependence order, malformed input and external refusal reject.
+Four endpoints audit without new axioms. Six bound native probes include a
+reproduced first-harness diagnostic failure. These are model-pipeline runs;
+fixed checked parameters, safe guard, Clight lowering, progress and selected
+installation remain incomplete. The original corpus still has zero new
+installed optimized cases and no new profitability result.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

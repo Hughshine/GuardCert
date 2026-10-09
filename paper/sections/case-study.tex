@@ -140,13 +140,20 @@ It preserves final memory and characterizes the entire temporary environment:
 M=0 changes only i; positive M with N=0 also initializes j and retains k;
 an active middle loop leaves i=M, j=N and k=K, including K=0.
 Loop invariants supply each reached assignment entry. This result covers
-nonnegative bounded I64 controls. Conditional capture, metadata and entry
-production, actual scheduling, a safe guard, candidate lowering, progress
-and selected installation remain open.
+nonnegative bounded I64 controls. That proof checkpoint supplies no conditional
+capture, metadata or entry producer, safe guard, candidate lowering, progress
+or selected installation.
 
 An explicit adapter puts this source model in the typed pipeline's own Loop
 instance and proves both execution directions. This closes an AST-instance
-boundary, not the remaining scheduler, guard or installation obligations.
+boundary. A further adapter exports this actual source model, invokes Pluto,
+checks the imported schedule and runs the typed prepared code generator.
+The native probe accepts an i/j/k-to-i/k/j schedule and retains the original
+double instruction. Its correctness theorem maps generated wrapped Loop
+execution to source wrapped Loop execution. That relation quantifies over a
+parameter environment; installation still needs correspondence at the actual
+captured M/N/K values. Safe entry production, Clight lowering, public exits,
+progress and selected installation remain open.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,
