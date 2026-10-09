@@ -2,6 +2,13 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [无 initializer 的 double nests 后继](reduction-double-installation.md)从
+实际 mvt 解除新 source shape 与二维 coordinate witness blocker，复用 condition、
+candidate 和 scoped host 服务，完成 Csem→Asm／native interchange。逐 site 尝试
+不同数据见证仍由 checker 生产证书，缓存外部提议不增加受信任语义。这个实例
+区分了新 transformation 作者的 source correspondence 义务与已支持族的源码
+用户接口；minimal kernel／language host 不改。4/62不是完整验收。
+
 2026-10-09 [initialized double factory 后继](initialized-double-installation.md)已内部
 组合 actual source metadata、footprint 条件、安全 capture、source/model/candidate、
 公共出口、独立 progress 和 scoped 安装，完成新 Csem→Asm 端点。原 mxv／matmul-init

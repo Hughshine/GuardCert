@@ -1,5 +1,9 @@
 # 实际 initialized double source：factory、整程序证明与 native 安装
 
+[无 initializer 的 double nests 后继](reduction-double-installation.md)现已接通原
+mvt 的相继 reduction 和逐 site coordinate witnesses，覆盖增为4/62。下文保留
+本阶段的三个原案例、编译器和实验边界。
+
 2026-10-09。[安全入口与真实 pipeline](initialized-double-pipeline.md)的整程序
 后继已安装并执行原 `mxv` 的初始化/reduction fission 和原 `matmul-init` 的
 fission＋i/k/j。原 `matmul` 路线保留，非恒等原案例覆盖为3/62，完整目标未完成。

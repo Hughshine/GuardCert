@@ -2,6 +2,18 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [纯 double assignment nests 后继](reduction-double-installation.md)已把原
+`mvt` 的两个相继 reduction 接到 checked source、充分 footprint condition、实际
+候选和 Csem→Asm；第二处从 i/j 改为 j/i。逐 site 验证 `[]`／`[0]` 坐标见证，
+复用 proposal 避免重复调用 Pluto，解除继承三层见证导致的二维 candidate 拒绝。
+8项原输入、14项 context／出口、7项旧例回归及3次实际 branch 观测通过。
+公共空出口保留内层值；改名／维度、多 marked／unmarked 与错见证拒绝均覆盖。
+Kernel/host 不改，源码用户不补内部证明，nonidentity 原案例覆盖为4/62。
+下一步继续其他实际 source structures、多参数界限与 sequential tiling／ISS，
+每项携带整程序 delivery；BT、LLVM/SPEC、资源／见证政策和受控成本仍必需。
+
+以下 initialized 记录保留其阶段边界。
+
 2026-10-09 [initialized double 整程序后继](initialized-double-installation.md)已将
 原 `mxv`／`matmul-init` 接到 actual typed source/data factory、真实 pipeline、
 compact capture、candidate lowering、public I64 exits 和 scoped Csem→Asm。

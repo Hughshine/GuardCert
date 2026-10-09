@@ -4163,6 +4163,61 @@
         "build/double-initialized-nests/compiler-native-checks/public-v1/report.json",
         "build/double-initialized-nests/guard-path-attempts/paths-v1/report.json"
       ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Actual-source pure assignment nests support the two successive mvt reductions through Csem to assembly, with the second interchanged to j/i. Per-site coordinate witnesses are checked. Twenty-nine compiler checks and three actual branch observations pass; original nonidentity coverage is 4/62 and full acceptance remains open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionNestSource.v",
+          "name": "double_reduction_nest_canonical_source_model"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionNestEntry.v",
+          "name": "checked_double_reduction_raw_pipeline_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionNestCapture.v",
+          "name": "checked_double_reduction_capture_model"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionNestExitCode.v",
+          "name": "double_reduction_exit_code_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionNestLowering.v",
+          "name": "checked_double_reduction_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleRegionFactory.v",
+          "name": "check_reduction_double_region_sound"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleChoicesCompiler.v",
+          "name": "check_reduction_double_choices_sound"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleChoicesCompiler.v",
+          "name": "compile_selected_reduction_choices_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/reduction-double-installation.md",
+        "docs/reduction-double-installation.json"
+      ],
+      "artifacts": [
+        "build/double-reduction-nests/installation-proof-v1/report.json",
+        "build/double-reduction-nests/choices-proof-v1/report.json",
+        "build/double-reduction-nests/compiler-attempts/native-v2/report.json",
+        "build/double-reduction-nests/compiler-native-checks/original-v2/report.json",
+        "build/double-reduction-nests/compiler-native-checks/contexts-v3/report.json",
+        "build/double-initialized-nests/compiler-native-checks/reduction-regressions-v1/report.json",
+        "build/double-reduction-nests/guard-path-attempts/paths-v1/report.json",
+        "build/double-reduction-nests/compiler-attempts/native-v1/report.json",
+        "build/double-reduction-nests/compiler-native-checks/original-v1/report.json",
+        "build/double-reduction-nests/compiler-native-checks/contexts-v1/report.json",
+        "build/double-reduction-nests/compiler-native-checks/contexts-v2/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -13933,6 +13988,173 @@
       "BT and LLVM/SPEC investigation",
       "private scratch count derived from actual candidate",
       "larger tiers and full cost comparisons"
+    ],
+    "full_goal_complete": false
+  },
+  "reduction_double_installation": {
+    "status": "validated",
+    "kind": "pure-double-assignment-nests-per-site-witnesses-whole-program-installation",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestData.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestModel.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestSource.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestProgress.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestEntry.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestCapture.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestExitCode.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionNestLowering.v",
+      "prototype/interface/ReductionDoubleRegionFactory.v",
+      "prototype/interface/ReductionDoubleSelectedCompiler.v",
+      "prototype/interface/ReductionDoubleWitnessCompiler.v",
+      "prototype/interface/ReductionDoubleChoicesCompiler.v"
+    ],
+    "source_lines": 1488,
+    "audited_endpoints": 55,
+    "closed_endpoints": 8,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "reachable_sources": 490,
+    "proof_attempts": {
+      "successful": 12,
+      "failed": 16
+    },
+    "compiler_entrypoint": "ReductionDoubleChoicesCompiler.compile_selected_reduction_choices_program",
+    "compiler_theorem": "ReductionDoubleChoicesCompiler.compile_selected_reduction_choices_program_correct",
+    "condition": {
+      "family": "one common global I64 bound, checked actual affine footprints",
+      "original_range": [
+        0,
+        98
+      ],
+      "extent_104_range": [
+        0,
+        102
+      ],
+      "runtime": "two ordered I64 comparisons and accepted private I32 capture per installed site",
+      "new_runtime_alias_test": false,
+      "weakest_precondition_or_optimality_claimed": false
+    },
+    "factory": {
+      "no_per_row_initializer_required": true,
+      "actual_source_metadata_checked": true,
+      "source_user_supplies_semantic_callbacks": false,
+      "kernel_or_host_changed": false,
+      "coordinate_witness_choices": "empty witness then adjacent swap 0, checked per site",
+      "external_schedule_proposals_memoized": true,
+      "scratch_count_is_resource_parameter": true
+    },
+    "native": {
+      "original_checks": 8,
+      "context_and_exit_checks": 14,
+      "legacy_regressions": 7,
+      "guard_paths": 3,
+      "all_passed": true,
+      "actual_original_case": "mvt",
+      "installed_sites": 2,
+      "effect": "second reduction changes i/j to j/i, first retains i/j",
+      "public_positive_exit": [
+        96,
+        96,
+        29
+      ],
+      "public_zero_and_negative_exit": [
+        0,
+        23,
+        29
+      ],
+      "path_counts": {
+        "ordinary": [
+          2,
+          0
+        ],
+        "zero": [
+          2,
+          0
+        ],
+        "negative": [
+          0,
+          2
+        ]
+      },
+      "multiple_marked": {
+        "installed_sites": 4,
+        "external_scheduler_calls": 2
+      },
+      "wrong_witness": {
+        "installed_sites": 1,
+        "interchanged_second_candidate_refused": true
+      },
+      "observation": "modeled scalar/array digest and added public controls, not universal state comparison",
+      "cost": "small full-call diagnostics; three independent suites ran concurrently; no profitability claim"
+    },
+    "prior_failed_suite_reports_preserved": 3,
+    "reports": [
+      {
+        "path": "build/double-reduction-nests/installation-proof-v1/report.json",
+        "status": "compiled",
+        "sha256": "e5c2694a52288bcff3a31c8ce39a86267d9afbf0407b5f7599b78d25a56d6de7"
+      },
+      {
+        "path": "build/double-reduction-nests/choices-proof-v1/report.json",
+        "status": "compiled",
+        "sha256": "481aed7178280dc0c3ee7cce6aa6077c64bb977ffd009233755c856dec4a5434"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-attempts/native-v2/report.json",
+        "status": "built",
+        "sha256": "d6c84e083b0e5a18d3315e57ffe83e1a637e924ba2a89f220a9c3e0dec43dbc4"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-native-checks/original-v2/report.json",
+        "status": "passed",
+        "sha256": "01cff9ea6d3061ddcceeda939121423c9f835eb1d4e4c39f5b37363b173a8687"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-native-checks/contexts-v3/report.json",
+        "status": "passed",
+        "sha256": "a8f54b71e94b773989ee298eecf7274434b2ba20b165dcdadede1df2fa9b385a"
+      },
+      {
+        "path": "build/double-initialized-nests/compiler-native-checks/reduction-regressions-v1/report.json",
+        "status": "passed",
+        "sha256": "b07a159354ebcf2ee9af184666411972fd70290accdea40d2a362829dc323eaf"
+      },
+      {
+        "path": "build/double-reduction-nests/guard-path-attempts/paths-v1/report.json",
+        "status": "passed",
+        "sha256": "5eb5b3cfb79a78d83a115c02c0a49c35411bd99db6215b49a4323b981eaa5515"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-attempts/native-v1/report.json",
+        "status": "built",
+        "sha256": "33e24501bb69d1537dd193b987ab0a2cfed938b0ac8e8e8b773c91acd988544f"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-native-checks/original-v1/report.json",
+        "status": "rejected",
+        "sha256": "85218a433578f3ae746b65b5c16cf890f356b1df9861e3059a20036ca9229c61"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-native-checks/contexts-v1/report.json",
+        "status": "rejected",
+        "sha256": "078277b25a1160b235aa7d6bc9e3cc1cdfadf9499e6ded48c31d28408120e993"
+      },
+      {
+        "path": "build/double-reduction-nests/compiler-native-checks/contexts-v2/report.json",
+        "status": "rejected",
+        "sha256": "5cf80f8be159c8d1708d762f1b282670573b47d14fc2f34567d640feeb7f3a9a"
+      }
+    ],
+    "new_installed_nonidentity_original_cases": 1,
+    "original_corpus_nonidentity_optimized_cases": 4,
+    "original_corpus_total_cases": 62,
+    "pending": [
+      "other original source structures and multi-parameter bounds",
+      "real sequential tiling and ISS configurations",
+      "BT and LLVM/SPEC coverage",
+      "candidate-derived scratch and coordinate witness policies",
+      "larger tiers and controlled complete-call cost comparisons"
     ],
     "full_goal_complete": false
   }
