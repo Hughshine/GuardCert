@@ -19,6 +19,13 @@ body Loop, with eight-byte addresses and I64 point expressions. Eight modules,
 entry production, actual typed scheduling, runtime guard and selected installation
 remain open; this adds no optimized case or native result. Full configuration,
 effect and cost alignment has not run; existing fixture evidence keeps its scope.
+The [inner-loop successor](../docs/original-matmul-inner-loop.md) connects the
+actual initialized k loop in both finite execution directions to the typed
+PolCert Loop, preserving final memory and the exact public k exit. Five modules
+and 27 endpoints audit without new axioms. Header stability is proved, while
+entry K definedness and ranges remain logical premises. The outer loops,
+conditional capture, guard and selected installation remain open; no optimized
+case or native result is added.
 
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies

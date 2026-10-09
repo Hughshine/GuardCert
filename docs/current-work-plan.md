@@ -45,7 +45,17 @@ prepared codegen 已实例化，尚无 external double scheduler／native 安装
 生产，完整 I64 nest、runtime guard、candidate lowering、公开出口与 Csem→Asm
 仍缺，requested optimized cases 保持零。
 
-下一实现继续该原 matmul 的整条链：I64 nest／条件 bound capture 与入口前提
+后继[原 matmul 内层循环](original-matmul-inner-loop.md)已完成实际 exported
+Clight initialized k loop↔真实 memory iterations↔typed PolCert 完整 inner
+Loop，保留最终 memory／全部 temps，并精确设置公开 k 出口。C／K global
+block 分离证明重复 K load 的稳定性，static＋loop invariant 自动建立每个
+assignment entry。五模块700行、27端点／4closed、212 reachable sources／
+7,082 bindings、最多6 inherited globals，无新增公理。入口 K load／范围
+仍是逻辑前提；没有新的 guard／factory、完整三层 nest、scheduler 或
+selected Csem→Asm。新增优化案例仍为零。此次重新 fetch 核对 narrative
+最新仍为 `8ce9c8b`，main 文本一致；责任边界与原计算验收要求继续适用。
+
+下一实现继续该原 matmul 的整条链：外层 I64 i／j／完整 nest、条件 bound capture 与入口前提
 producer，实际 typed scheduler/codegen 与候选降低，安全 guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。

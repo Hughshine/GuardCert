@@ -1,0 +1,67 @@
+{
+  "status": "audited_finite_inner_loop_bridge_not_installed_optimization",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "source": "build/benchmark-alignment/probe-v1/matmul/marked.c",
+  "source_adaptation": "existing scop markers only; original double computation, arrays and I64 controls retained",
+  "actual_source_AST": "reuses frozen exported complete program and verifies selected inner-loop identity",
+  "proof_report": {
+    "path": "build/original-matmul/loop-proof-v1/report.json",
+    "sha256": "7e4a29874ee0af89005e613e897af1c96d3d0933f575e67d51ea30240266951c"
+  },
+  "source_loop_report": {
+    "path": "build/original-matmul/source-loop-v1/report.json",
+    "sha256": "a96edefb578c7a2df9b116c83a47939bcce48af172a8861da188d7b609a11794"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryLongLoopControl.v",
+    "adapters/compcert-memory/GuardMemoryLongLoopIterations.v",
+    "adapters/compcert-memory/GuardMemoryDoubleHeaderFrame.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulLoops.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulLoopModel.v"
+  ],
+  "new_source_lines": 700,
+  "endpoint_count": 27,
+  "closed_endpoints": 4,
+  "maximum_endpoint_globals": 6,
+  "inherited_globals_union": [
+    "ClassicalDedekindReals.sig_forall_dec",
+    "ClassicalDedekindReals.sig_not_dec",
+    "Classical_Prop.classic",
+    "Events.external_functions_sem",
+    "Events.inline_assembly_sem",
+    "FunctionalExtensionality.functional_extensionality_dep"
+  ],
+  "additional_global_axioms": [],
+  "reachable_source_count": 212,
+  "bound_files": 7082,
+  "successful_attempts": 6,
+  "rejected_attempts": 23,
+  "execution_directions": [
+    "actual initialized k loop to and from finite physical memory iterations",
+    "physical iterations to and from typed PolCert inner Loop"
+  ],
+  "public_exit": "all temporaries retained, except k set exactly to the nonnegative I64 upper bound",
+  "invariant_producer": "static global/layout facts and loop invariant produce each reached assignment entry",
+  "loaded_header_stability": "writes to C preserve K by global symbol/block separation",
+  "conditional_reads": "body reads come from actual assignment execution; no speculative body preload",
+  "entry_header_load_and_range": "explicit logical premises, not automatically produced runtime checks",
+  "finite_scope": "nonnegative signed-I64 upper bound; no total progress or divergence theorem added",
+  "kernel_or_existing_host_changed": false,
+  "complete_three_loop_nest": false,
+  "conditional_bound_capture_installed": false,
+  "new_emitted_runtime_guard": false,
+  "actual_double_scheduler_or_candidate_lowering_installed": false,
+  "source_user_premises_automatically_produced": false,
+  "new_selected_Csem_to_Asm_endpoint": false,
+  "new_native_optimized_case": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "cost_or_profitability_evidence": false,
+  "pending": [
+    "outer i/j loops, conditional M/N/K observation and full public exits",
+    "actual typed scheduling/tiling/codegen and candidate lowering",
+    "safe guard and checked source/site premise producer",
+    "selected Csem-to-Asm installation, native acceptance/fallback and complete costs",
+    "remaining original PolCert/CGO17 cases and sequential configurations"
+  ],
+  "full_goal_complete": false
+}

@@ -30,6 +30,13 @@ layout 逻辑前提尚待完整 loop 与 factory 自动生产；typed validator�
 实例化也不等于 scheduler、guard 或 whole-program installation。Kernel 与现有
 host 不变；下一项验收仍是原 matmul 的整条链，不能把显式前提交给 C 用户。
 
+[内层循环后继](original-matmul-inner-loop.md)增加有限 original k loop↔typed
+PolCert Loop：language 提供实际 loop step／stop、I64 global 观察与 C store
+保持 K load；domain 利用 static＋loop invariant 建立 reached assignment
+entry 和精确公开 k 出口。此处只有入口 K load／范围的逻辑前提，尚无安全
+guard／factory producer，不许可提前读 N／K。外层 nest、actual candidate、
+progress 与 whole-program 安装仍须完成。Kernel 与既有 host 均未改变。
+
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
 | --- | --- | --- |
 | 局部 guarded 正确性 | Kernel | `guardify_refinement` / `guardify_preservation` 消费证书；refinement、preservation、equivalence 保留各自方向 |

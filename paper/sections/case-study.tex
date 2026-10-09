@@ -122,9 +122,18 @@ three-loop region and assignment template. The RHS decoder returns the exact
 expression tree. Eight-byte nested-array addresses and mixed I64/I32 index
 operations connect that body to a concrete PolCert instruction and body Loop.
 Typed validators, extraction and prepared codegen are instantiated. This local
-bridge still takes explicit global, coordinate and layout facts. Complete I64
-loop correspondence, their entry producer, actual scheduling, a safe guard,
-candidate lowering and selected installation remain open.
+bridge takes explicit global, coordinate and layout facts.
+
+A successor connects the actual initialized k loop in both finite execution
+directions to the typed PolCert inner Loop. It preserves final memory and
+all temporaries except k, whose exact exit is the nonnegative upper bound.
+Each reached assignment entry follows from static facts and the loop
+invariant. Stores to the C global preserve repeated K loads because their
+blocks are distinct. The entry K load and range remain logical premises;
+this proof does not license speculative observation or establish total
+progress. Outer loops, conditional bound capture, the entry producer,
+actual scheduling, a safe guard, candidate lowering and selected installation
+remain open.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,
