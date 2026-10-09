@@ -1,5 +1,13 @@
 # Verified guard library：服务分类与依赖契约
 
+2026-10-09 [未分块phase](mixed-double-phases.md)复用独立header的安全capture与
+范围服务，没有新增guard类别。接受receipt提供实际I32参数，untiled机器bound
+直接消费实际参数；最终checker证明提议的完整Loop，不因少了tile link而跳过
+验证。源许可、accepted范围、private写入与refusal transport继续分开。首policy
+把去掉零schedule分量误认成变化的counterexample保留；原样后继拒绝属于策略
+而非新的语义前提。没有承诺任意schedule identity判定或minimal condition。
+
+
 2026-10-08，对照 `topdown/research-positioning@c4b1395` 的澄清。
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。

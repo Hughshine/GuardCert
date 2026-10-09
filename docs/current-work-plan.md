@@ -2,6 +2,39 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 未分块 phase 与实际参数 bounds
+
+[未分块后继](mixed-double-phases.md)复用已量化 arbitrary phases／adapters 的
+当前完整compiler theorem。零 link witness 表示 source point 不加tile维度，
+而非 schedule 不改变；自动Pluto与手工 affine order 都实际进入phase／最终
+candidate验证、typed lowering、public exits和Csem→Asm。源码用户仍不给callbacks。
+Kernel／host定律及Rocq证明源码不改；没有新增全局假设。
+
+首build的scattering AST相等判断误将Pluto去零分量后的seq当成变化；五项诊断
+保留失败。V2零分量signature后继的28 contexts通过；V3保留手工未分块实际affine参数
+bounds，33 contexts和六次unchanged-assembly接受／fallback观察通过。摘要发现
+V3自动选项仍触发Pluto默认tiling；V4显式`--notile`后真实automatic零link
+候选安装，33 contexts和六次actual paths通过。旧build与失败摘要inputs保留。
+Seq的错误IEEE累加interchange在affine dependence validation拒绝，原seq／
+tricky2和手工identity调度不注入guard，不能算新增source优化覆盖。
+完整语料仍60raw＋2adapted匹配、两frontend拒绝、零timeout/mismatch，22原例39sites。
+固定CPU、200次原matmul区域的七组轮换完整调用wall medians为unmarked0.479495、
+tiled0.239062、untiled0.210629秒；比值0.498570／0.439272，在此披露上下文有用。
+External load未控制、guard未隔离、非原coverage，按[固定摘要](mixed-double-phases.json)
+验收，旧build的覆盖和成本不重标。
+
+**下一优先仍以功能和完整效果交付为准：**
+
+1. Untiled契约已实际接线；真正mixed／异深度多statement region尚未交付。
+   从原多statement source blockers拓展decoder／source-model／progress与phase
+   candidate shape，并保持当前程序host与backend的实际消费。
+2. Tiled独立参数路线仍用常数cap包络；继续接private quotient vector或可由
+   安全machine算术表达的实际参数相关tile bounds，不用关闭变换替代收益。
+3. 扩展非零／inclusive／affine headers和statement sequences，每条路线同时
+   证明前提编码、安全调用、candidate、公开状态、progress与Csem→Asm。
+4. 完整sequential phases、原BT／LLVM／SPEC／larger tiers、OLO condition
+   derivation和有用效果仍active；未分块案例和库封装不替代完整goal。
+
 ### 独立边界：完整安装与资源后继
 
 已重新 fetch/read narrative：远端仍为 `8ce9c8b`，两份 topdown 正文与

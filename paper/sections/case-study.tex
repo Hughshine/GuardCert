@@ -1889,3 +1889,29 @@ A resource successor permits one unused private declaration before parsing
 counter pairs, closing the parity difference between two- and three-axis nests.
 It reuses the same local contract and machine lowering without changing the
 kernel or host laws.
+\paragraph{Untiled scheduling through the same contract.}
+A phase proposal can introduce zero tile links while changing execution order.
+The existing compiler theorem quantifies arbitrary phases and adapters, so this
+case reuses its source/model, final candidate, machine lowering and host proofs.
+A native successor accepts zero-link witnesses and supports both automatic
+Pluto scheduling without tiling and a manual permutation of source axes.
+The permutation changes scattering data while retaining domains, accesses and
+instructions. Dependence validation checks that proposal before code generation;
+the final checker checks the actual generated Loop.
+
+The independent-bound adapter can retain actual affine parameter bounds for
+zero-link candidates. Typed capture and machine range checks authorize their
+execution, and the existing guard restores public exits or uses source fallback.
+This removes cap enumeration and added membership predicates on this route.
+Tiled candidates retain their preceding adapter. No new semantic callback,
+Rocq theorem, kernel law or host law is introduced.
+
+Identity point embedding is distinct from identity scheduling. Original seq's
+floating accumulation receives an unchanged untiled schedule; a proposed axis
+interchange is refused by dependence validation. Original tricky2 also receives
+unchanged one-dimensional schedules. A conservative policy declines such
+canonical unchanged results without installing identity guards. Its first
+structural comparison failed when Pluto removed zero schedule components;
+that counterexample remains separate from the repaired policy. This policy is
+untrusted and does not decide arbitrary schedule equivalence. It establishes
+neither mixed-statement region support nor additional original source coverage.

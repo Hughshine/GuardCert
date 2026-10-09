@@ -2,6 +2,16 @@
 
 ## 持续适用的责任表
 
+[未分块phase后继](mixed-double-phases.md)只增加untrusted策略：既有完整theorem
+量化arbitrary phases／adapters，source/model、safe capture、逐轴ranges、实际
+candidate checker、machine lowering和current-program host继续消费实际提议。
+没有新增Rocq模块或kernel／host定律。零links不要求identity schedule；正确的
+自动／手工interchange可以安装，IEEE累加的非法interchange由dependence验证
+拒绝。原样结果由保守policy拒绝，不计作优化。V3手工未分块adapter保留实际参数
+bounds；V4修复自动CLI默认tiling，并另通过33完整contexts、六次actual paths
+和完整62＋两adaptations。两个policy counterexamples与各build成本分别固定。真正mixed多statement source／
+候选、动态独立tile bounds与其余完整goal仍未交付。
+
 2026-10-09 [独立边界安装](rectangular-double-installation.md)落实同一三层
 责任：domain的actual source decoder／独立参数模型／逐轴footprint范围与
 最终candidate validation，language的source-licensed capture／typed values／

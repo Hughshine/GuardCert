@@ -1,0 +1,101 @@
+{
+  "status": "validated",
+  "whole_program_entrypoint": "RectangularHeaderLiteralQuotientPaddedCompiler.compile_selected_rectangular_header_literal_quotient_tiled_stable_program",
+  "whole_program_theorem": "RectangularHeaderLiteralQuotientPaddedCompiler.compile_selected_rectangular_header_literal_quotient_tiled_stable_program_correct",
+  "compiler": "build/mixed-double-phases/compiler-attempts/native-v4/ccomp",
+  "compiler_sha256": "95857e106d0f862fd56901b1dd85c42f29d7802b7e81c71b0e9b15c1ef9e4c94",
+  "existing_arbitrary_phase_and_adapter_theorem_reused": true,
+  "new_Rocq_proof_modules": 0,
+  "kernel_changed": false,
+  "host_laws_changed": false,
+  "additional_global_axioms": [],
+  "source_users_supply_semantic_callbacks": false,
+  "first_structural_identity_policy_counterexample": [
+    "seq-auto"
+  ],
+  "first_build_policy_metadata_not_accepted_as_native_evidence": true,
+  "v2_contexts": 28,
+  "v3_contexts": 33,
+  "v4_contexts": 33,
+  "v4_actual_assembly_paths": 6,
+  "automatic_and_manual_zero_link_candidates_installed": true,
+  "zero_link_rectangular_candidates_retain_actual_parameter_bounds": true,
+  "invalid_IEEE_accumulation_interchange_refused_by_dependence_validation": true,
+  "canonical_unchanged_untiled_schedules_declined": true,
+  "policy_proves_arbitrary_schedule_identity_or_minimality": false,
+  "v3_automatic_untiled_configuration_was_actually_tiled": true,
+  "v4_automatic_untiled_configuration_explicitly_passes_notile": true,
+  "corpus": {
+    "original_native_matches": 60,
+    "adapted_native_matches": 2,
+    "frontend_refusals": [
+      "corcol3",
+      "pca"
+    ],
+    "timeouts": [],
+    "installed_original_cases": 22,
+    "installed_original_sites": 39
+  },
+  "new_original_source_coverage_claimed": false,
+  "mixed_tiled_and_untiled_statements_in_one_installed_region_demonstrated": false,
+  "cost": {
+    "report": "build/mixed-double-phases/cost-attempts/repeated-matmul-v2/report.json",
+    "repetitions_per_call": 200,
+    "trials_per_variant": 7,
+    "medians": {
+      "unmarked": {
+        "wall_seconds": 0.4794954360113479,
+        "user_seconds": 0.4778500000000001,
+        "system_seconds": 0.0,
+        "child_cpu_seconds": 0.4778500000000001
+      },
+      "tiled": {
+        "wall_seconds": 0.23906181898200884,
+        "user_seconds": 0.2375089999999993,
+        "system_seconds": 0.0,
+        "child_cpu_seconds": 0.2375089999999993
+      },
+      "untiled": {
+        "wall_seconds": 0.21062870998866856,
+        "user_seconds": 0.20896300000000068,
+        "system_seconds": 0.0,
+        "child_cpu_seconds": 0.20896300000000068
+      }
+    },
+    "over_unmarked_ratios": {
+      "tiled": {
+        "wall_seconds": 0.49856954003697984,
+        "child_cpu_seconds": 0.4970367270063812
+      },
+      "untiled": {
+        "wall_seconds": 0.43927156375203485,
+        "child_cpu_seconds": 0.4372983153709336
+      }
+    },
+    "cpu_affinity": 0,
+    "external_host_load_controlled": false,
+    "guard_cost_isolated": false,
+    "repeat_context_is_disclosed_variant_not_original_corpus": true,
+    "benchmark_wide_profitability_claimed": false
+  },
+  "reports": {
+    "build/rectangular-double-nests/installation-proof-v2/report.json": "b02ea3fbaddb2a70aae1cc8e13a4477489afc7456b9027dc05d0faff1bf9db34",
+    "build/mixed-double-phases/compiler-attempts/native-v1/report.json": "5d62e27e2ce7d2c6afe487d7b0a79466b9276ab3dfe92a0929d85647763d5cd9",
+    "build/mixed-double-phases/compiler-attempts/native-v2/report.json": "9cb911ce55cc5efc4c519d2fa5002aed018ed297c90089cf5d6a10474edcb451",
+    "build/mixed-double-phases/compiler-attempts/native-v3/report.json": "9062ae2037d6ff0586dd6bf3c6869db0637cb0f7bffdcb82e1dcafa8f84add1e",
+    "build/mixed-double-phases/compiler-attempts/native-v4/report.json": "30855423958e16557aa8f120652b8ffefbdca99c6895f611fd2491a3d7e5561c",
+    "build/mixed-double-phases/context-attempts/contexts-v1/report.json": "1ccb9011926fd68bbf4f4ee295beba4e69aedb7108d1ea1f1277a22df12b2176",
+    "build/mixed-double-phases/context-attempts/contexts-v2/report.json": "cb799747c848745e1ea78c503535ba334ffc9bfdcae47f5a6f6211a6f54c4771",
+    "build/mixed-double-phases/context-attempts/contexts-v3/report.json": "3a4dad655ca074b5a7060191c7cc33f704577843436ff5912ab024403021ef0f",
+    "build/mixed-double-phases/context-attempts/contexts-v4/report.json": "65b01cf9a7e69616052eeb1f9ebd2da825b9436257c144a92ab572115e73ba30",
+    "build/mixed-double-phases/path-attempts/paths-v2/report.json": "e2b39940c8c4c6f5e73f0b21d7cbd8dbf2be8922be156f73d64189f56a1b03d3",
+    "build/benchmark-alignment/adaptive-tiled-attempts/mixed-full-corpus-v2/report.json": "fa340b17e549f9512f5a3bf69001837ecea2e120cb97de20a068fbbf46a10c9f",
+    "build/mixed-double-phases/cost-attempts/repeated-matmul-v2/report.json": "f6f90ff89ed45d8dfcf80d2f95fb451cf854b3519787e32fbc88cccf752706a2",
+    "build/benchmark-alignment/adaptive-tiled-attempts/mixed-full-corpus-v1/report.json": "1ea60bb7a2d356a4c1601c214c8c15e405f7a9ff6e7897d938adf235774f916e",
+    "build/mixed-double-phases/cost-attempts/repeated-matmul-v1/report.json": "154f60b13d07cf351438d116ccb6ba199cd08ab8dd104b6d77bebc3f605a63ae"
+  },
+  "full_goal_complete": false,
+  "report": "build/mixed-double-phases/summary-v1/report.json",
+  "report_sha256": "ea6f60db469a53b615ec74da6aff1405b30744f2f8c8756efbb0cd713cb0b5f4",
+  "binding_count": 19493
+}
