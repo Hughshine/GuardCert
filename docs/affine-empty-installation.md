@@ -5,6 +5,10 @@ provenance clarified in `topdown/research-positioning@c4b1395`. It adds an
 ordinary conditional rewrite to the existing selected CompCert compiler. The
 kernel, installation host and polyhedral validators are unchanged.
 
+The [shared-fallback successor](affine-empty-plan-installation.md) now removes
+the repeated original loops while preserving every tested acceptance/refusal
+path. This document retains the expanded compiler checkpoint and its evidence.
+
 The source family has an original loaded root and an affine loaded child:
 
 ```c

@@ -48,13 +48,21 @@ entailment。先证明实际复用再更改 API。
 
 ### Guard library 的契约责任
 
+2026-10-08，[共享 fallback 后继](affine-empty-plan-installation.md)进一步复用
+既有domain条件／actual empty source与出口证明。Clight choice library负责
+readonly alternative factoring、私有Boolean执行与公开投影；site factory
+检查第三个typed private和condition／branch／live freshness，再接原安装host。
+9新端点无新增公理，2,280／2,280逐输入输出和path保持；triangle原源loop
+从32份到1份。Kernel和candidate checker均未改；signed编码和旧candidate
+内部的runtime组合仍归各自producer／language责任。
+
 2026-10-08，[header-only empty rewrite](affine-empty-installation.md)进一步
 检验责任边界：domain的仿射endpoint事实只需header words；language构造
 不执行leaf的actual source execution，并证明空outer／负child的精确公开出口。
 Factory从original source/capture生产调用前提，接共用host/backend到Csem→Asm；
 源码用户仍只给marked C／配置。该rewrite的局部正确性不需要调度C_opt，
 kernel不改。29端点无新增公理，2,280／2,280及旧五族同binary通过。
-非负参数profile、tree复制fallback、缺少旧候选内部的runtime empty选择分别
+该历史阶段的非负参数profile、tree复制fallback、缺少旧候选内部的runtime empty选择分别
 属于编码、language lowering与factory组合的后继工作；不是kernel自动解决。
 
 [分类与源码对照](verified-guard-library.md)覆盖 arithmetic、ranges/footprints、

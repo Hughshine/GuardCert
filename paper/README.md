@@ -1,6 +1,14 @@
 # GuardCert Working Manuscript
 
-The [header-only empty rewrite](../docs/affine-empty-installation.md) connects
+The [shared-fallback successor](../docs/affine-empty-plan-installation.md)
+reuses the empty-source condition and exact public exits, lowers the readonly
+alternatives through a private Boolean, and preserves every tested historical
+path. Nine new endpoints audit without added axioms; 2,280 Asm/2,280 Clight
+complete-output calls pass. The actual triangle fallback count falls from 32
+to one. Condition-tree size, signed header encoding, runtime composition with
+existing candidates, complete cost and full OLO coverage remain separate.
+
+The historical [header-only empty rewrite](../docs/affine-empty-installation.md) connects
 original loaded headers, safe affine endpoint checks, negative-child public
 exits and selected Csem-to-Asm installation. It needs no body-definedness or
 polyhedral scheduling certificate on acceptance. Twenty-nine endpoints audit

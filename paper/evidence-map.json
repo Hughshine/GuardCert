@@ -2957,6 +2957,60 @@
         "build/affine-empty/native-v2/failure.json",
         "build/affine-empty/native-v3/failure.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Compact readonly alternative with a private Boolean, one original fallback and accepted outer retest; original source/capture, empty width encoding and exact exits are reused through selected Csem-to-Asm. All 2280 Asm/2280 Clight paths equal the frozen expanded compiler and five same-binary families pass 2638/2638 with unchanged records. Signed header encoding, runtime existing-candidate composition, general condition-size bounds, profitability and full OLO remain open.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightReadonlyAlternativePlan.v",
+          "name": "readonly_alternative_selected_execution"
+        },
+        {
+          "source": "prototype/interface/ClightReadonlyAlternativePlan.v",
+          "name": "readonly_alternative_planned_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotPlannedCapture.v",
+          "name": "affine_empty_snapshot_planned_captured_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotPlannedCapture.v",
+          "name": "affine_empty_snapshot_planned_prefix_contract"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotPlannedBuilder.v",
+          "name": "check_affine_empty_snapshot_planned_source_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotPlannedBuilder.v",
+          "name": "build_affine_empty_snapshot_planned_frontend_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotPlannedBuilder.v",
+          "name": "certified_affine_empty_snapshot_planned_builder"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySnapshotPlannedBuilder.v",
+          "name": "certified_affine_empty_snapshot_planned_extension"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedEmptySnapshotPlannedCompiler.v",
+          "name": "compile_selected_empty_snapshot_planned_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/affine-empty-plan-installation.md",
+        "docs/framework-responsibilities.md",
+        "docs/verified-guard-library.md"
+      ],
+      "artifacts": [
+        "build/affine-empty-plan/proof-v1/report.json",
+        "build/affine-empty-plan/native-v1/report.json",
+        "build/affine-empty-plan/regression-v1/report.json",
+        "build/affine-empty-plan/compiler-build-v1.json"
+      ],
+      "evidence_stage": "affine_empty_plan_installation_stage"
     }
   ],
   "bibliography_evidence": [
@@ -9008,5 +9062,71 @@
     "regression_report": "build/affine-empty/regression-v1/report.json",
     "regression_report_sha256": "690be97a820705dd72c5e68c71af71e0a0e09f29fcec5ba242dd8b2f03a3d648",
     "negative_M_positive_root_shortcut_supported": false
+  },
+  "affine_empty_plan_installation_stage": {
+    "date": "2026-10-08",
+    "new_modules": 4,
+    "new_module_lines": 263,
+    "audited_endpoints": 9,
+    "closed_endpoints": 0,
+    "maximum_inherited_globals": 42,
+    "additional_axioms": false,
+    "reachable_bindings": 1988,
+    "source_build_attempts": 7,
+    "successful_source_build_attempts": 4,
+    "rejected_source_build_attempts": 3,
+    "kernel_changed": false,
+    "host_changed": false,
+    "polyhedral_candidate_validators_changed": false,
+    "source_user_semantic_callback_added": false,
+    "original_source_preexecution_at_runtime": false,
+    "source_empty_width_and_public_exit_proofs_reused": true,
+    "private_Boolean_choice_connected": true,
+    "private_cache_count": 2,
+    "private_Boolean_count": 1,
+    "accepted_readonly_outer_test_repeated": true,
+    "native_assembly_calls": 2280,
+    "native_Clight_calls": 2280,
+    "array_cells_checked_per_call": 12000,
+    "all_historical_input_paths_identical": true,
+    "normal_matrix_fast_selections": {
+      "add": 33,
+      "subtract": 87
+    },
+    "normal_matrix_fallback_selections": {
+      "add": 107,
+      "subtract": 53
+    },
+    "normal_matrix_unmarked_calls": 50,
+    "original_fallback_occurrences_per_tested_function": 1,
+    "historical_triangle_original_fallback_occurrences": 32,
+    "condition_tree_still_materialized": true,
+    "general_linear_condition_size_bound_proved": false,
+    "same_binary_regression_calls_per_execution_kind": {
+      "word": 400,
+      "recursive_affine": 480,
+      "private_loaded": 270,
+      "zero_width": 672,
+      "rmw": 816
+    },
+    "regression_records_match_historical": true,
+    "normal_rmw_fast_selections_retained": 126,
+    "existing_registry_has_static_priority": true,
+    "runtime_empty_composition_with_previous_candidate_added": false,
+    "negative_M_positive_root_shortcut_supported": false,
+    "profitability_measured": false,
+    "general_recursive_loaded_affine_complete": false,
+    "full_goal_complete": false,
+    "preserved_failed_runs": [
+      "build/affine-empty-plan/compiler-build-v1.json"
+    ],
+    "proof_report": "build/affine-empty-plan/proof-v1/report.json",
+    "proof_report_sha256": "d434f1e7782c8883eb67d2ca6fccd6c126d947510e0383408408c98002a9ae0e",
+    "compiler": "build/affine-empty-plan/compiler-v1/ccomp",
+    "compiler_sha256": "0e4f82b165b04dcaeb21f8c0392602118c57ed5421fc3625fb86436a0529ad64",
+    "native_report": "build/affine-empty-plan/native-v1/report.json",
+    "native_report_sha256": "731c89361c5a95e6c069b802be42d52570949e90a09a5b2b25978d86179c9bb2",
+    "regression_report": "build/affine-empty-plan/regression-v1/report.json",
+    "regression_report_sha256": "8724d42a0a34d9c9d3b3d1645742644590081d626000caa81a1df47711dfee65"
   }
 }

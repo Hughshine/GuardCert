@@ -1205,9 +1205,18 @@ candidate route remains separate. Existing builders keep static priority,
 so the new rewrite first serves sites they refuse during compilation. It does
 not yet add an empty runtime choice inside a previously returned candidate.
 The present parameter encoder requires nonnegative parameters: it accepts
-negative widths for $i-M$, while positive-root $i+M$ with negative M falls back. Its expanded
-decision tree also duplicates fallback code. Signed-parameter encoding,
-compact lowering and runtime composition remain required.
+negative widths for $i-M$, while positive-root $i+M$ with negative M falls back.
+
+A further Clight choice service factors the outer-empty and all-children-empty
+alternatives through one fresh private Boolean. Its target contains one
+original fallback loop. On acceptance, it repeats the small readonly outer
+test to select skip or exact public restoration. The site factory checks a
+third typed private temporary and its absence from condition reads, branch
+temporaries and public live state. The actual-source certificate, condition
+encoding and host are reused. This removes repeated fallback statements;
+the condition itself still uses a finite decision tree and Boolean assignments.
+Signed-parameter encoding, runtime composition with existing candidates and
+complete-call cost remain required.
 
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,

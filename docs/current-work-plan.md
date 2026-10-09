@@ -48,7 +48,28 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
-### 当前：header-only empty rewrite 的安装与后继验收
+### 当前：empty rewrite 的共享 fallback 已安装
+
+2026-10-08，[共享 fallback 后继](affine-empty-plan-installation.md)复用已证
+header-only 条件、original source/capture 与精确出口，将 outer-empty／
+all-empty alternative 降低为私有 Boolean 与一次原源 fallback。新的 Clight
+language service 证明短路 choice factoring、接受分支重查 outer 的实际执行
+及私有 flag 的公开投影；factory 自动检查第三个 signed32 private 和 resources。
+共用 kernel／host／candidate checker 不变，selected Csem→Asm 已接。
+
+四模块263行、9新端点／1,988bindings／旧42globals，无新增公理。
+同源同配置2,280 Asm／2,280 Clight完整输出通过，全部逐输入path记录与
+冻结旧compiler相同；实际triangle原源loop从32份到1份，每个测试函数
+恰有一份。同binary旧五族共2,638 Asm／2,638 Clight回归通过，RMW正常126个快路径
+保持；其历史path／configuration记录相同。条件本身仍是finite tree和Boolean assignments，不声称通用
+condition size bound、最小条件或完整成本收益。
+
+原计划compact fallback项已完成。接下来优先signed header参数安全编码，
+再将empty选择接入已有candidate的运行时路径，继续general recursive
+loaded affine／broader scalar/chunk／完整OLO-BT与完整成本。静态registry
+优先不等于已经完成运行时组合。完整goal保持active。
+
+### 此前：header-only empty rewrite 的安装与后继验收
 
 2026-10-08，[实际全空 rewrite](affine-empty-installation.md)已接 original
 loaded Clight、private capture、header-only affine endpoint 条件、精确公开出口、
@@ -67,7 +88,7 @@ RMW816各自Asm/Clight回归通过。既有builder静态优先，旧候选正常
 没有compact或profitability结论。旧factory已经返回target的site没有新增运行时
 empty分支，静态registry组合不能代替该运行时组合。
 
-后续顺序：
+此前验收顺序（第一项已由上述后继完成）：
 
 1. 用既有private-Boolean/check-plan定律降低新条件，证明原guard与紧凑AST的
    对应、flag freshness及source/candidate入口出口运输，移除重复fallback。

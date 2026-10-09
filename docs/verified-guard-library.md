@@ -4,7 +4,14 @@
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。
 
-最新 [header-only empty rewrite](affine-empty-installation.md)将control／
+最新 [共享 fallback](affine-empty-plan-installation.md)复用同一 empty 条件与
+source/capture/exit证书，language library将readonly alternative降低到私有
+Boolean与一份原源循环。Factory检查第三个typed private及resources；
+selected Csem→Asm已接，9新端点无新增公理。2,280／2,280全输出及逐输入
+path与冻结旧版一致，triangle fallback从32份到1份。条件仍是finite tree，
+不是通用线性尺寸或收益证明；signed参数与旧candidate运行时组合仍待实现。
+
+此前 [header-only empty rewrite](affine-empty-installation.md)将control／
 conditional observation与affine endpoint编码接到actual source、负child
 公开出口和selected Csem→Asm。All-empty入口不需要body words／array／alias
 许可，empty outer不读M；factory从原执行自动生产实际header调用域。旧registry

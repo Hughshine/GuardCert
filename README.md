@@ -1,6 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
-2026-10-08: [Header-only empty rewrites](docs/affine-empty-installation.md)
+2026-10-08: [Shared fallback for empty rewrites](docs/affine-empty-plan-installation.md)
+lowers the two readonly alternatives through one private Boolean and one
+original loop. Four modules audit nine new endpoints without added axioms;
+2,280 Asm/2,280 Clight complete-output calls retain every historical path.
+The actual triangle fallback count falls from 32 to one. The condition still
+uses a finite tree; signed header parameters, runtime composition with existing
+candidates, complete cost and the full OLO/general goal remain active.
+
+2026-10-08 historical stage: [Header-only empty rewrites](docs/affine-empty-installation.md)
 connect outer skip and all-empty affine children to the selected Csem-to-Asm
 compiler. They bypass body-only input/array checks and restore `j=0` even for
 negative child bounds. Ten modules audit 29 endpoints with no added axioms;
