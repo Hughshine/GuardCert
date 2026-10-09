@@ -268,11 +268,28 @@ refusal still compiles the source.
 The actual original C program now installs Pluto's i/k/j candidate and retains
 the double operation tree, nested arrays and I64 source controls. A marked
 fragment beside an identical unmarked fragment installs only the marked one.
-Two marked fragments still fail the whole-environment/public-scope profile,
+At that checkpoint, two marked fragments fail the whole-environment/public-scope profile,
 although both statements match exactly. The next language-instance extension
 must obtain relevant global facts from actual declarations and extend public
 frames, rather than require the program's complete symbol map and temporary
 set to match a reference. The generic kernel and candidate proof are unchanged.
+
+An actual-program successor removes that contextual restriction. It checks the
+eight relevant declarations in the input program, local no-shadow requirements,
+and separation of private resources from its actual public temporaries.
+Capture, source transport and candidate lowering frame that public set;
+the remaining source/model, candidate and exit certificates are reused.
+The complete reference symbol map and temporary set are no longer compared.
+\code{compile_actual_original_matmul_program_correct} composes the resulting
+contract through the same scoped selected host to Csem-to-Asm.
+
+Both marked regions in the formerly refused fixture now install. A neighboring
+identical unmarked region remains unchanged, and an unrelated global is allowed.
+One checked family proposal serves the two identical source sites, with capture
+and guarding at each entry. The source template, relevant identifier/layout
+profile and fixed private pool remain restrictions; private conflicts refuse.
+The next frontend extension must produce these instance data and certificates
+from broader actual source families.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,

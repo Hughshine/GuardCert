@@ -1,5 +1,7 @@
 # 原 matmul：实际安装、运行时选择与 Csem→Asm
 
+后继已修复双标记拒绝，并扩到实际程序的 global receipts／public frames，见[当前结果](original-matmul-actual-installation.md)。以下保留原检查点。
+
 2026-10-09，原始 matmul C 输入已通过真实 Pluto scheduling、typed validation、
 prepared codegen、guarded Clight installation 和 CompCert backend。实际候选将
 `i/j/k` 改为 `i/k/j`，保留原 double 运算树、100×100 nested arrays 和 I64

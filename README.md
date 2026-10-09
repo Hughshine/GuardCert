@@ -1,13 +1,13 @@
 # Guard：带前提的程序变换与组合证明
 
-The [raw original-matmul compiler](docs/original-matmul-raw-installation.md)
-now installs real Pluto i/k/j output on the original double-array/I64 source and
-has a Csem-to-Asm theorem. All ten original-C installation/refusal checks match
-GCC digests. Four dynamic-header fixtures show the actual candidate or fallback
-entry in unchanged assembly. A marked region beside an identical unmarked one
-installs once. Two marked regions still expose an environment/public-scope
-profile restriction; their matching sources and safe refusal are recorded.
-The 62-case corpus, other sequential routes and cost comparison remain active.
+The [actual-program matmul compiler](docs/original-matmul-actual-installation.md)
+checks relevant declarations and frames the caller's actual public temporaries.
+It installs both marked regions in the formerly refused context, preserves an
+identical unmarked region, and permits an unrelated global. Twenty original and
+context checks match GCC and installation expectations; four unchanged-assembly
+guard-route observations pass. The Csem-to-Asm theorem adds no axioms. Source
+layout, identifier and private-pool generalization, other original benchmarks,
+sequential transformations and cost alignment remain active.
 
 2026-10-08: The [updated acceptance plan](docs/benchmark-alignment.md) follows
 narrative `8ce9c8b`: PolCert and CGO 2017 functionality, sequential optimization

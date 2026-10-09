@@ -2,6 +2,25 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [actual-program matmul 后继](original-matmul-actual-installation.md)已关闭
+下述双标记 environment/public-scope profile 失败。四模块447行、13端点／1closed，
+最大42 inherited globals、无新增公理；actual declarations/no-shadow/private separation
+生产所需证据，capture/source/candidate frame 参数化到 actual public temps，Csem→Asm
+接线完成。Kernel、raw source、候选 pipeline 和 runtime guard 复用。
+
+原十项及新增十项全部安装／拒绝预期和 GCC modeled-state digests 通过；两个 marked
+各安装一次，identical unmarked 保留，增加无关 global 接受。新的实际 branch 观测四项
+通过；类型和 private-resource 冲突静态拒绝。对应 dynamic unmarked baseline 已补，
+七次完整调用 wall medians 仅为小输入诊断，不作 profitability 或单独 guard 成本结论。
+Evidence 共绑定16,753文件，旧失败保留；corpus nonidentity 支持仍为1/62。
+
+下一步把固定 template/global identifiers/layout/private pool 扩成实际 typed source/data
+factory，生产新的 control/instruction/source-model/guard 证据，继续其余原案例；真实
+tiling、ISS、其他 sequential phases、原 BT 及 larger tiers／完整成本仍必需。不能把已
+识别一份模板、多 site 或新增 proof 数当作原 benchmark 能力完成。
+
+下面是此前检查点的历史能力边界，其“下一步”不覆盖本节。
+
 2026-10-09 [实际 raw matmul 编译器](original-matmul-raw-installation.md)已完成
 raw source progress、scoped contract 和 Csem→Asm 接线。五模块628行、16个端点、
 最大42 inherited globals，无新增公理。实际原 C 十项全部符合安装／拒绝预期，

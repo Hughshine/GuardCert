@@ -3900,6 +3900,36 @@
         "build/original-matmul/raw-installation-proof-v1/report.json",
         "build/original-matmul/raw-compiler-evidence-v1/report.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Actual declaration receipts and public live frames replace whole-reference profile checks; both marked original matmul regions install, unrelated global context passes, and Csem-to-Asm composes without new axioms.",
+      "theorems": [
+        {
+          "source": "prototype/interface/OriginalMatmulPublicCapture.v",
+          "name": "original_matmul_public_capture_and_source_model"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulPublicLowering.v",
+          "name": "original_matmul_public_guarded_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulActualProgramBindings.v",
+          "name": "original_matmul_actual_scoped_contract"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulActualProgramCompiler.v",
+          "name": "compile_actual_original_matmul_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-actual-installation.md",
+        "docs/original-matmul-actual-installation.json"
+      ],
+      "artifacts": [
+        "build/original-matmul/actual-installation-proof-v1/report.json",
+        "build/original-matmul/actual-compiler-evidence-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -11305,6 +11335,320 @@
       "sha256": "914df2ffb5e27de076ea29172bb67fd22b411354db3e40853e54c6b2e6cc10e2"
     },
     "bound_files": 13468,
+    "original_corpus_requested_optimized_cases": 1
+  },
+  "original_matmul_actual_installation": {
+    "status": "audited_actual_program_context_installation",
+    "proof_report": "build/original-matmul/actual-installation-proof-v1/report.json",
+    "proof_report_sha256": "b68c1d050d62e3b84c167a724de6c959b84468f3a0df49ff9c18ad3e9c7b173d",
+    "proof_source_lines": 447,
+    "proof_endpoints": 13,
+    "proof_closed_endpoints": 1,
+    "proof_maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "proof_reachable_sources": 406,
+    "proof_bindings": 7843,
+    "successful_proof_attempts": 4,
+    "rejected_proof_attempts": 5,
+    "actual_Csem_to_Asm_compiler_theorem": "OriginalMatmulActualProgramCompiler.compile_actual_original_matmul_program_correct",
+    "input_reports": [
+      {
+        "path": "build/original-matmul/compiler-attempts/actual-native-v1/report.json",
+        "sha256": "ec8ac8bf32efd5c8b3a360136cc9d7044c01e2e2d77f7a3887aef74c609a3d73",
+        "status": "built"
+      },
+      {
+        "path": "build/original-matmul/compiler-native-checks/actual-original-v1/report.json",
+        "sha256": "333dac1d634d8732bbb6af892b6ee0bc240f6675bf5769bab1bc731458722190",
+        "status": "passed"
+      },
+      {
+        "path": "build/original-matmul/compiler-native-checks/actual-context-v1/report.json",
+        "sha256": "05a8619e58ed0393029166690cae6126afa32c574740cb42b756c3111a8d4a99",
+        "status": "passed"
+      },
+      {
+        "path": "build/original-matmul/guard-path-attempts/actual-path-v1/report.json",
+        "sha256": "00d25abcec333595b0fc6a706fa0f248bcbfebc1240097a1dfb0932d5e983168",
+        "status": "passed"
+      }
+    ],
+    "original_native_cases": 10,
+    "original_native_digest_matches_GCC": 10,
+    "original_installation_expectations_passed": 10,
+    "original_pipeline_calls": 9,
+    "original_installed_regions": 5,
+    "original_nonidentity_optimized_benchmarks": 1,
+    "context_native_cases": 10,
+    "context_native_digest_matches_GCC": 10,
+    "context_installation_expectations_passed": 10,
+    "context_pipeline_calls": 7,
+    "context_installed_regions": 8,
+    "two_marked_regions_supported": true,
+    "two_marked_actual_installed_regions": 2,
+    "identical_source_family_proposal_calls_for_two_sites": 1,
+    "guards_run_at_each_region_entry": true,
+    "marked_and_identical_unmarked_distinguished": true,
+    "unrelated_global_context_supported": true,
+    "actual_relevant_declarations_checked": true,
+    "actual_public_temps_framed": true,
+    "whole_reference_symbol_map_comparison": false,
+    "whole_reference_public_scope_comparison": false,
+    "declaration_type_and_private_resource_refusal_checked": true,
+    "dynamic_branch_cases": [
+      {
+        "case": "dynamic-accept",
+        "link_command": [
+          "gcc",
+          "-Wa,-L",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/compiler-native-checks/actual-context-v1/dynamic-accept/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-accept/program"
+        ],
+        "debugger_command": [
+          "gdb",
+          "--batch",
+          "--nx",
+          "-x",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-accept/debugger.gdb",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-accept/program"
+        ],
+        "debugger_returncode": 0,
+        "accepted_label": ".L119",
+        "refused_label": ".L116",
+        "addresses": {
+          ".L119": "000000000040194e",
+          ".L116": "0000000000401a2a"
+        },
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "digest_in_debugger_output": true,
+        "passed": true
+      },
+      {
+        "case": "dynamic-negative-M",
+        "link_command": [
+          "gcc",
+          "-Wa,-L",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/compiler-native-checks/actual-context-v1/dynamic-negative-M/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-negative-M/program"
+        ],
+        "debugger_command": [
+          "gdb",
+          "--batch",
+          "--nx",
+          "-x",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-negative-M/debugger.gdb",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-negative-M/program"
+        ],
+        "debugger_returncode": 0,
+        "accepted_label": ".L119",
+        "refused_label": ".L116",
+        "addresses": {
+          ".L119": "000000000040194e",
+          ".L116": "0000000000401a2a"
+        },
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "digest_in_debugger_output": true,
+        "passed": true
+      },
+      {
+        "case": "dynamic-negative-N",
+        "link_command": [
+          "gcc",
+          "-Wa,-L",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/compiler-native-checks/actual-context-v1/dynamic-negative-N/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-negative-N/program"
+        ],
+        "debugger_command": [
+          "gdb",
+          "--batch",
+          "--nx",
+          "-x",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-negative-N/debugger.gdb",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-negative-N/program"
+        ],
+        "debugger_returncode": 0,
+        "accepted_label": ".L119",
+        "refused_label": ".L116",
+        "addresses": {
+          ".L119": "000000000040194e",
+          ".L116": "0000000000401a2a"
+        },
+        "expected": [
+          0,
+          1
+        ],
+        "actual": [
+          0,
+          1
+        ],
+        "digest_in_debugger_output": true,
+        "passed": true
+      },
+      {
+        "case": "dynamic-zero-M",
+        "link_command": [
+          "gcc",
+          "-Wa,-L",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/compiler-native-checks/actual-context-v1/dynamic-zero-M/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-zero-M/program"
+        ],
+        "debugger_command": [
+          "gdb",
+          "--batch",
+          "--nx",
+          "-x",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-zero-M/debugger.gdb",
+          "/home/hugh/research/polyhedral/guard/build/original-matmul/guard-path-attempts/actual-path-v1/dynamic-zero-M/program"
+        ],
+        "debugger_returncode": 0,
+        "accepted_label": ".L119",
+        "refused_label": ".L116",
+        "addresses": {
+          ".L119": "000000000040194e",
+          ".L116": "0000000000401a2a"
+        },
+        "expected": [
+          1,
+          0
+        ],
+        "actual": [
+          1,
+          0
+        ],
+        "digest_in_debugger_output": true,
+        "passed": true
+      }
+    ],
+    "dynamic_branch_cases_passed": 4,
+    "source_or_assembly_path_instrumentation": false,
+    "original_numeric_types_and_operation_tree_preserved": true,
+    "dynamic_fixture_adaptation": "remove const from M/N/K; two existing rotate-by-16 calls per header preserve tested signed32 values and prevent constant folding",
+    "matching_dynamic_unmarked_baseline_measured": true,
+    "native_samples_per_configuration": 7,
+    "original_costs": {
+      "original-affine": {
+        "compiler_wall_seconds": 1.2725639039999805,
+        "native_wall_median_seconds": 0.005191126023419201
+      },
+      "original-identity": {
+        "compiler_wall_seconds": 0.19187664502533153,
+        "native_wall_median_seconds": 0.006823013012763113
+      },
+      "unmarked": {
+        "compiler_wall_seconds": 0.05862052697921172,
+        "native_wall_median_seconds": 0.006800224015023559
+      },
+      "scheduler-refusal": {
+        "compiler_wall_seconds": 0.058782857027836144,
+        "native_wall_median_seconds": 0.006862023030407727
+      },
+      "reverse-dependences": {
+        "compiler_wall_seconds": 0.37407582299783826,
+        "native_wall_median_seconds": 0.006681663973722607
+      },
+      "malformed-schedule": {
+        "compiler_wall_seconds": 0.07954808499198407,
+        "native_wall_median_seconds": 0.006564662035088986
+      },
+      "wrong-coordinate-witness": {
+        "compiler_wall_seconds": 0.4559250259771943,
+        "native_wall_median_seconds": 0.006704368977807462
+      },
+      "runtime-negative-M": {
+        "compiler_wall_seconds": 1.023439139011316,
+        "native_wall_median_seconds": 0.0042363679967820644
+      },
+      "runtime-zero-M": {
+        "compiler_wall_seconds": 1.007947632984724,
+        "native_wall_median_seconds": 0.004259001987520605
+      },
+      "runtime-negative-N": {
+        "compiler_wall_seconds": 1.0053930439753458,
+        "native_wall_median_seconds": 0.0043474569683894515
+      }
+    },
+    "context_costs": {
+      "multiple-marked": {
+        "compiler_wall_seconds": 1.0033313190215267,
+        "native_wall_median_seconds": 0.006355543038807809
+      },
+      "marked-and-unmarked": {
+        "compiler_wall_seconds": 1.0104702539974824,
+        "native_wall_median_seconds": 0.007404670002870262
+      },
+      "unrelated-global": {
+        "compiler_wall_seconds": 1.0141396910184994,
+        "native_wall_median_seconds": 0.0050323629984632134
+      },
+      "array-type-refusal": {
+        "compiler_wall_seconds": 0.05858787999022752,
+        "native_wall_median_seconds": 0.00661141803720966
+      },
+      "private-resource-refusal": {
+        "compiler_wall_seconds": 0.05747759900987148,
+        "native_wall_median_seconds": 0.006687966000754386
+      },
+      "dynamic-unmarked": {
+        "compiler_wall_seconds": 0.057976312993559986,
+        "native_wall_median_seconds": 0.006706244952511042
+      },
+      "dynamic-accept": {
+        "compiler_wall_seconds": 1.0101785179576837,
+        "native_wall_median_seconds": 0.005404748022556305
+      },
+      "dynamic-negative-M": {
+        "compiler_wall_seconds": 1.0046843540039845,
+        "native_wall_median_seconds": 0.004046534013468772
+      },
+      "dynamic-negative-N": {
+        "compiler_wall_seconds": 1.0037817810080014,
+        "native_wall_median_seconds": 0.004375167016405612
+      },
+      "dynamic-zero-M": {
+        "compiler_wall_seconds": 1.0089284490095451,
+        "native_wall_median_seconds": 0.004118924029171467
+      }
+    },
+    "cost_scope": "compiler wall time includes frontend, checked pipeline, scheduler and backend; native wall time includes initialization and digest",
+    "guard_only_runtime_cost_measured": false,
+    "profitability_established": false,
+    "generic_kernel_changed": false,
+    "source_user_supplies_semantic_callbacks": false,
+    "remaining_profile_restrictions": "one raw source template, relevant global identifier/layout profile and fixed private pool; conflicting actual public resources refuse",
+    "remaining_corpus_cases_and_sequential_routes_complete": false,
+    "full_goal_complete": false,
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "compiler_evidence_report": {
+      "path": "build/original-matmul/actual-compiler-evidence-v1/report.json",
+      "sha256": "5806d3f4117eba78fa7c98df9f1767ed53b5437415487154609a18d346af470c"
+    },
+    "bound_files": 16753,
     "original_corpus_requested_optimized_cases": 1
   }
 }

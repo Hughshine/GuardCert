@@ -229,6 +229,14 @@ domain factory 在真实 source 上生产保留 raw fallback 的 contract，再�
 既有 host/back-end theorem。C 用户不用提供额外证明，框架也不用加入具体
 Clight syntax。这个差距没有改变任一原 benchmark 或 sequential route 的验收要求。
 
+[Actual-program 安装后继](original-matmul-actual-installation.md)已移除全参考 symbol
+map/public-scope comparison，用 actual declarations、no-shadow 和 private separation
+生产证据；capture/source/candidate frame 对 actual public temps 参数化。两个 marked
+现均安装并匹配 GCC，identical unmarked 保留，无关 global 接受。Local contract 复用
+同一 source/model/condition/candidate，whole-program guarantee 使用同一 scoped host。
+这体现语言实例可替换证据 producer 的责任；C 使用者不新增 proof callbacks，kernel
+不改。固定 source template/layout/private pool 及其余原案例／顺序路线仍未完成。
+
 [实际 raw 安装后继](original-matmul-raw-installation.md)已把 literal frontend 的
 progress／有限执行运输接到 scoped selected host 与 Csem→Asm。实际原 C 十项
 安装／拒绝预期通过，原 matmul 获得真实 i/k/j 优化；dynamic guard 的分支也在
