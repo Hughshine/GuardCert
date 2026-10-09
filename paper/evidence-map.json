@@ -17408,5 +17408,60 @@
         "name": "rectangular_capture_observations_axes"
       }
     ]
+  },
+  "rectangular_double_installation": {
+    "stage": "independent-bound-source-capture-final-candidate-current-program-installation",
+    "proof_report": "build/rectangular-double-nests/installation-proof-v1/report.json",
+    "proof_report_sha256": "1c41ea6f2cb6b2eac437cbcc227e9c03136a1cca25b812ee1cdf144c82042f1c",
+    "resource_successor_proof_report": "build/rectangular-double-nests/installation-proof-v2/report.json",
+    "source_model_premises_closed_by_factory": true,
+    "kernel_or_host_laws_changed": false,
+    "original_matmul_native_v1": "build/rectangular-double-nests/compiler-attempts/native-v1/report.json",
+    "v1_full_corpus": "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-full-corpus-v1/report.json",
+    "v1_contexts": "build/rectangular-double-nests/context-attempts/contexts-v1/report.json",
+    "v1_actual_paths": "build/rectangular-double-nests/path-attempts/paths-v2/report.json",
+    "controlled_cost_evidence": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRectangularNestEntry.v",
+        "name": "checked_double_rectangular_raw_pipeline_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRectangularNestCapture.v",
+        "name": "checked_double_rectangular_capture_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRectangularPrepared.v",
+        "name": "checked_double_rectangular_tiled_prepared_loop_progress_at"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRectangularLowering.v",
+        "name": "checked_double_rectangular_guarded_execution"
+      },
+      {
+        "source": "prototype/interface/RectangularDoubleTiledFactory.v",
+        "name": "rectangular_tiled_double_region_contract"
+      },
+      {
+        "source": "prototype/interface/RectangularHeaderLiteralQuotientPaddedCompiler.v",
+        "name": "compile_selected_rectangular_header_literal_quotient_tiled_stable_program_correct"
+      }
+    ],
+    "summary": "docs/rectangular-double-installation.json",
+    "resource_successor_native": "build/rectangular-double-nests/compiler-attempts/native-v2/report.json",
+    "v2_full_corpus": "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-full-corpus-v2/report.json",
+    "v2_contexts": [
+      "build/rectangular-double-nests/context-attempts/contexts-v2/report.json",
+      "build/rectangular-double-nests/context-attempts/rank-two-contexts-v1/report.json"
+    ],
+    "v2_actual_paths": "build/rectangular-double-nests/path-attempts/paths-v3/report.json",
+    "cost": "build/pruned-double-tiling/cost-attempts/rectangular-matmul-v1/report.json",
+    "original_installed_cases": 22,
+    "original_installed_sites": 39,
+    "new_rectangular_sites": 7,
+    "same_compiler_complete_call_cost_measured": true,
+    "guard_cost_isolated": false,
+    "benchmark_wide_profitability_claimed": false
   }
 }

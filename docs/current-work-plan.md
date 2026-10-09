@@ -2,22 +2,46 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
-### 独立边界的证明接线：本轮最新进度
+### 独立边界：完整安装与资源后继
 
-本轮重新 fetch/read narrative，远端仍为 `8ce9c8b`，两份 topdown 正文
-与 main 一致。按其中的责任边界推进
-[独立 N/M/K 边界](rectangular-double-nests.md)：原 Clight source/model
-有限执行 iff、实际 AST decoder、逐轴数学 footprint checker、原执行许可
-的顺序 capture、精确参数和 memory/private frame 已编译。任一步拒绝后
-停止读取后续边界；非正轴保守 fallback。Kernel／host 定律保持不变。
+已重新 fetch/read narrative：远端仍为 `8ce9c8b`，两份 topdown 正文与
+main 一致。[独立边界安装](rectangular-double-installation.md)把 source/model
+的适用前提交给 factory、language 和 domain 闭合；kernel 保持局部边界。
+实际 receipts／entry transport、逐轴范围下的最终 candidate checker、机器
+lowering、精确 public exits、独立 source progress、当前程序 host 与 Csem→Asm
+已证明、审计并提取。源码使用者只给标注与配置，caps／phases／adapters
+仍是数据提议。首次 pool parity 拒绝及 padding 后继分别固定。
 
-**此新族尚无 factory／Csem→Asm／native 安装，不增加既有覆盖计数。**
-下一步由具体 declarations、accepted observation receipts、cap 与 layout
-生产完整 reached readiness／稳定性／entry transport，再接实际固定参数的
-candidate checker、progress、Clight lowering、公开出口和当前 program 安装。
-Source/model 的显式前提由实现者闭合。逐轴短路检查是 condition library
-实例，库组织不能替代端到端接线。原独立参数及 `N!=M`、空域/拒绝、多个
-sites 和完整输出需要实际验收。
+首 build 完整62＋两adaptations重放：60raw＋2adapted匹配、两既有frontend
+拒绝、零timeout/mismatch；16原例33sites，新增原matmul一处。23 contexts和
+10 unchanged-assembly路径通过，包括M/N/K不等、逐轴拒绝与公开出口。
+Padding 后继七目标原例中安装原intratileopt1–4、spatial、matmul；seq仍
+因producer的missing tiled point space拒绝。Decoder实际接受seq、cap为98/98；
+Pluto前后T(S1)保持(i0,i1)，没有候选，不写成source或最终validator拒绝。
+后继完整62＋两adaptations也为60raw＋2adapted匹配、两既有frontend拒绝、
+零timeout/mismatch；22原例39sites，新独立族七处，不与旧32处重复计数。
+后继三维23＋二维13 contexts和十次actual assembly paths全部通过。原matmul
+七组交替完整调用wall median比值0.730883（0.005166783／0.007069233秒），
+本次较低约26.91%；包含startup／初始化／区域／摘要，guard未隔离、affinity和
+外部load未控制，不建立稳定或普遍profitability。16报告按各build分别固定。
+
+**下一优先按实际共同 blocker 与完整效果交付：**
+
+1. 已交付padding后继的当前程序／完整语料／接受和fallback证据，保留16份
+   报告。后续路线继续按compiler分别验收；源码用户不补语义回调，finite
+   source/model iff不替代独立progress，失败inputs和实际phase中间产物保持。
+2. 处理seq／tricky2等实际untiled或mixed phase result的契约，继续让最终
+   checker验证实际body。不能以identity guard或提议调度计作优化覆盖。
+3. 降低独立参数路线的常数包络、membership和无效枚举工作；接私有quotient
+   vector／实际参数相关的tile bounds，测同compiler／flags的完整原调用。
+   已有原matmul短调用的独立成本记录；继续扩大／控制测量，不重标旧header
+   或polynomial比值，不以profitability gate或关闭变换替代效果。
+4. 按原source blockers继续扩展非零／inclusive／affine bounds和statement
+   sequences，每条路线同时交付safe condition、source/candidate对应、公开
+   状态、progress、current-program安装和backend。三方责任及guard-library
+   safe requires／accepted ensures 的分类继续适用，不把算法推导移进kernel。
+5. 其余sequential phases/configurations、原BT、LLVM/SPEC、larger tiers、OLO
+   compact-condition算法与useful effects继续active；库组织和阶段交付不替代目标。
 
 ### Narrative 澄清与参数下标扩展的实际交付
 

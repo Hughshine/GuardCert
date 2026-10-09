@@ -1,0 +1,139 @@
+{
+  "status": "validated",
+  "proofs": [
+    {
+      "report": "build/rectangular-double-nests/proof-v1/report.json",
+      "source_lines": 1044,
+      "endpoints": 37,
+      "closed_endpoints": 18,
+      "maximum_endpoint_globals": 6,
+      "bindings": 9318
+    },
+    {
+      "report": "build/rectangular-double-nests/installation-proof-v1/report.json",
+      "source_lines": 1107,
+      "endpoints": 33,
+      "closed_endpoints": 10,
+      "maximum_endpoint_globals": 42,
+      "bindings": 9423
+    },
+    {
+      "report": "build/rectangular-double-nests/installation-proof-v2/report.json",
+      "source_lines": 287,
+      "endpoints": 4,
+      "closed_endpoints": 0,
+      "maximum_endpoint_globals": 42,
+      "bindings": 9454
+    }
+  ],
+  "whole_program_entrypoint": "RectangularHeaderLiteralQuotientPaddedCompiler.compile_selected_rectangular_header_literal_quotient_tiled_stable_program",
+  "whole_program_theorem": "RectangularHeaderLiteralQuotientPaddedCompiler.compile_selected_rectangular_header_literal_quotient_tiled_stable_program_correct",
+  "compiler_v2": "build/rectangular-double-nests/compiler-attempts/native-v2/ccomp",
+  "compiler_v2_sha256": "12dcbb08373a17a5a77c32c6f6e1d6100e51c374ec0fe9503103214bbb2a1f4c",
+  "corpus_builds": [
+    {
+      "report": "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-full-corpus-v1/report.json",
+      "original_native_matches": 60,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": [],
+      "installed_original_cases": 16,
+      "installed_original_sites": 33,
+      "new_rectangular_sites": {
+        "matmul": 1
+      },
+      "compiled_originals_without_tiling_phase": 42
+    },
+    {
+      "report": "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-full-corpus-v2/report.json",
+      "original_native_matches": 60,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": [],
+      "installed_original_cases": 22,
+      "installed_original_sites": 39,
+      "new_rectangular_sites": {
+        "fdtd-2d": 1,
+        "intratileopt1": 1,
+        "intratileopt2": 1,
+        "intratileopt3": 1,
+        "intratileopt4": 1,
+        "matmul": 1,
+        "spatial": 1
+      },
+      "compiled_originals_without_tiling_phase": 35
+    }
+  ],
+  "contexts_and_paths": [
+    {
+      "report": "build/rectangular-double-nests/context-attempts/contexts-v1/report.json",
+      "cases": 23
+    },
+    {
+      "report": "build/rectangular-double-nests/context-attempts/contexts-v2/report.json",
+      "cases": 23
+    },
+    {
+      "report": "build/rectangular-double-nests/context-attempts/rank-two-contexts-v1/report.json",
+      "cases": 13
+    },
+    {
+      "report": "build/rectangular-double-nests/path-attempts/paths-v2/report.json",
+      "cases": 10
+    },
+    {
+      "report": "build/rectangular-double-nests/path-attempts/paths-v3/report.json",
+      "cases": 10
+    }
+  ],
+  "v2_context_cases": 36,
+  "v2_actual_assembly_path_cases": 10,
+  "cost": {
+    "report": "build/pruned-double-tiling/cost-attempts/rectangular-matmul-v1/report.json",
+    "case": "matmul",
+    "trials_per_variant": 7,
+    "medians_seconds": {
+      "optimized": 0.00516678299754858,
+      "unmarked": 0.007069232990033925
+    },
+    "optimized_over_unmarked_complete_call_ratio": 0.7308831106334472,
+    "guard_cost_isolated": false,
+    "cpu_affinity_or_host_load_controlled": false,
+    "benchmark_wide_profitability_claimed": false
+  },
+  "additional_global_axioms": [],
+  "kernel_changed": false,
+  "host_laws_changed": false,
+  "factory_closes_source_model_premises": true,
+  "source_users_supply_semantic_callbacks": false,
+  "first_pool_parity_refusal_and_failed_probe_attempts_retained": true,
+  "seq_and_tricky2_untiled_phase_contract_remains_open": true,
+  "reports": {
+    "build/rectangular-double-nests/proof-v1/report.json": "65ee0c076a7ece2ddbaf32959923caa346e9d6b4cac49e7c35f97a6bbf39c21f",
+    "build/rectangular-double-nests/installation-proof-v1/report.json": "1c41ea6f2cb6b2eac437cbcc227e9c03136a1cca25b812ee1cdf144c82042f1c",
+    "build/rectangular-double-nests/installation-proof-v2/report.json": "b02ea3fbaddb2a70aae1cc8e13a4477489afc7456b9027dc05d0faff1bf9db34",
+    "build/rectangular-double-nests/compiler-attempts/native-v1/report.json": "5a275621707de21e53c898381e2e1ffa205ed68e4c278b134a340943e3f42165",
+    "build/rectangular-double-nests/compiler-attempts/native-v2/report.json": "b7acb3d93250fb86fdede80b5e38918088c75a4b2e0ab1636508d25aa4999d36",
+    "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-originals-v1/report.json": "9fb36481f2f772d60891efa9ba6999f1d949d8b56e051b6eb1d10462613353cc",
+    "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-originals-v2/report.json": "22cd54d4b99a7d6e651e922584ac9acd87fd023eaa19e901cfda062e2aa34067",
+    "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-full-corpus-v1/report.json": "bda491b6d65579f46609014a4d9137cb43a43f995e78d6d9725fda26303142c0",
+    "build/benchmark-alignment/adaptive-tiled-attempts/rectangular-full-corpus-v2/report.json": "0b9fdfc0c17a0aef855923dc09e450a6e18750005d33b0b44415dd59e264a43b",
+    "build/rectangular-double-nests/context-attempts/contexts-v1/report.json": "b7f4ceeaa9a8e8180d7ae1e5c6f976adb67ee0cdd3c953706e1bda98f25231aa",
+    "build/rectangular-double-nests/context-attempts/contexts-v2/report.json": "e8c55a3445a0738c97cc4895efb54f5b72da89ae1d2208fe8a58a3ed1b9057c6",
+    "build/rectangular-double-nests/context-attempts/rank-two-contexts-v1/report.json": "10ed21b6f327bf7cbeb15dea1a10840a59e96013d845435c029d1149147057ea",
+    "build/rectangular-double-nests/path-attempts/paths-v2/report.json": "3e00da944e855543b8cd2e8aa7d6fff786a9cdad64a97347cf9f161315207076",
+    "build/rectangular-double-nests/path-attempts/paths-v3/report.json": "91a502c775e09edefb535e8804569eec1bf3a873bf9636358e4bd9a06db070b5",
+    "build/rectangular-double-nests/source-probe-v4/report.json": "c05eca8a4245a8e94d8930609b14ad49c6c740f07396bf5427780da05cf4679c",
+    "build/pruned-double-tiling/cost-attempts/rectangular-matmul-v1/report.json": "c710c68ceccc7b6eae9e13c8f53777ceae6e328d1469db1cc753fad81db9f855"
+  },
+  "full_goal_complete": false,
+  "binding_count": 18485,
+  "report": "build/rectangular-double-nests/installation-summary-v1/report.json",
+  "report_sha256": "b2c31140003a2dd59a5faeab671c816c2d4846853c982549ee4baa7bbdf2c4a2"
+}

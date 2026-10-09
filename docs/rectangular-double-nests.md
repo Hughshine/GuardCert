@@ -1,5 +1,9 @@
 # 独立循环边界：source/model 与依赖 capture 的证明阶段
 
+安装后继见 [独立边界的完整编译器](rectangular-double-installation.md)：已闭合
+factory 和 Csem→Asm，并提取 native 路线。以下保留最初 source/capture
+阶段的证明边界与固定证据，不把这些历史数据重标为后继安装结果。
+
 本阶段为真实 double assignment nests 保留每轴独立的运行时边界，
 准备接入已存在的 polyhedral compiler。原语料中的 `intratileopt1–4`、
 `seq`、`spatial` 使用 `N/M`，原 `matmul` 使用 `M/N/K`；默认数值相同

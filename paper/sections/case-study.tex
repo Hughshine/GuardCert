@@ -1861,7 +1861,7 @@ host, then runs later passes on the actual intermediate program and connects
 the result to Csem-to-Asm. Source users provide no semantic callbacks. The
 minimal kernel and host laws remain unchanged.
 
-\paragraph{Independent bounds: proof extension in progress.}
+\paragraph{Independent bounds and source/model closure.}
 A source/model successor retains a separate observed header for each axis,
 including the $N/M$ and $M/N/K$ shapes required by remaining original programs.
 Under explicit entry, layout, range and stability premises, its finite-execution
@@ -1873,7 +1873,19 @@ the preceding positive range check accepts. Refusal stops further observations;
 nonpositive counts conservatively use source fallback. Defined original source
 execution licenses these reads in the proof, without runtime pre-execution.
 Accepted receipts connect actual loads, count ranges and exact private I32
-values to the source/model observation interface. The implementing factory must
-still discharge reached-point readiness, entry/refusal transport, final
-candidate validation and progress, lowering and current-program installation.
-This extension has no new Csem-to-Asm endpoint or native coverage yet.
+values to the source/model observation interface. The factory consumes these
+receipts and checked source metadata to discharge reached-point location
+resolution and entry/refusal transport. It validates the actual candidate under
+per-axis parameter ranges, lowers it with the typed captured environment, and
+restores public I64 iterator exits. An independent raw-source progress protocol
+supports installation through the existing scoped host. The complete compiler
+composes normalization and subsequent passes on the actual intermediate program,
+then connects the original Csyntax program to Csem-to-Asm. Caps, phases and
+adapters remain untrusted data; source users supply no semantic callbacks.
+The first native build installs original matmul with its independent M/N/K
+parameters, tiling and intra-tile i/k/j order. The source/model premises are
+internal implementation obligations rather than assumptions left to C users.
+A resource successor permits one unused private declaration before parsing
+counter pairs, closing the parity difference between two- and three-axis nests.
+It reuses the same local contract and machine lowering without changing the
+kernel or host laws.

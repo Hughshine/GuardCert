@@ -2,14 +2,22 @@
 
 ## 持续适用的责任表
 
-2026-10-09 [独立边界证明阶段](rectangular-double-nests.md)按同一分工扩展
-真实 N/M/K：domain 提供原 AST decoder、参数模型、数学 footprint checker
-和带显式前提的 source/model iff；language 提供原执行许可的逐轴 capture、
-精确表示、memory/private frame 和接受后的 observation 接线。后一步检查
-仅在前一步接受时执行，任一步拒绝停止读取。Kernel／host 定律保持。
-新族的 entry/readiness、稳定性、候选 progress／lowering、refusal transport
-与 actual current-program 安装仍由实现者闭合；没有新 native 或全程序覆盖。
-条件库的分类和局部服务证明不能代替这条交付，也不把适用前提交给 C 用户。
+2026-10-09 [独立边界安装](rectangular-double-installation.md)落实同一三层
+责任：domain的actual source decoder／独立参数模型／逐轴footprint范围与
+最终candidate validation，language的source-licensed capture／typed values／
+private frame／entry和refusal运输／actual lowering与public exits，以及host/site
+的独立progress／scope／resources／当前程序安装，均被完整Csem→Asm消费。
+C源码使用者不给语义callbacks；caps、phases和adapter是untrusted data。
+Generic kernel／host laws不变；Clight guarded execution直接证明，实际消费
+的Loop库服务是`DoubleAssumption.guard_execution`，不把import写成guardify调用。
+
+首native安装原matmul；padding后继复用同一个region contract，允许counter-pair
+parser留一个不用的private声明，关闭二维/三维资源奇偶性拒绝。原intratileopt1–4
+与spatial进入实际pipeline并安装；seq的remaining refusal在producer的untiled
+point-space契约，尚无candidate。完整语料、参数不等／公开出口和实际path按
+compiler build分别验收。Condition service把安全调用许可、接受范围和观察
+保持分开：memory readonly但flag/cache为private写入；拒绝不建立前提的否定。
+动态紧凑bound／完整成本及其余OLO/PolCert能力继续未完成。
 
 本轮 narrative 对照没有更晚远端版本：仍为 `8ce9c8b`，两份 topdown 正文
 与 main 一致。下一参数下标扩展按[工作计划的逐项验收](current-work-plan.md)

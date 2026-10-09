@@ -91,6 +91,14 @@ memory。它复用 prefix/composition/language primitives，证明 scan AST 与�
 相同；十模块／35端点，无新增公理。仍需 wider-domain actual checker、
 factory/compiler/native；全 guard 成本不由 scan AST equality 推出。
 
+[独立边界安装](rectangular-double-installation.md)是本分类的另一个实际
+client：source progress/entry license许可逐轴global I64观察，arithmetic建立
+精确I32 cache，ranges推出逐轴数学footprint，global-store frame保持各header。
+Capture短路，拒绝入口可继续原source；factory消费typed view和这些relations，
+接最终candidate／public exits／当前程序和Csem→Asm。它不增加kernel定律、
+不把范围解释成allocation，也不增加runtime alias test。Pool padding是资源
+组织的后继，不是condition simplification；compact动态边界与成本仍独立验收。
+
 ## 服务按建立的事实分类
 
 分类不是互斥的：一个实际扫描可能同时需要 arithmetic、footprint 和
