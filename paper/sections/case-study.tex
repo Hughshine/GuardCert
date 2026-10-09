@@ -1720,3 +1720,36 @@ forms the same conjunction from supported tests. Wrong bounds, missing domain
 predicates and wrong coordinates still refuse. Original polynomial retains its
 skew schedule, IEEE computation and source arrays. This stage adds no machine
 floor-division lowering; its constant caps can still over-enumerate small inputs.
+
+\paragraph{A verified bound-predicate service.}
+A reusable domain service now constructs exact tests for lower and upper bound
+membership in the actual Loop IR. It supports affine expressions, positive
+constant floor division, lower-bound maxima, upper-bound minima and constant
+offsets, refusing unsupported expressions. For $d>0$, its proofs establish
+$\lfloor e/d\rfloor\leq p\iff e\leq d(p+1)-1$ and
+$p<\lfloor e/d\rfloor\iff d(p+1)\leq e$, including negative $e$.
+The language service composes construction with checked Clight lowering.
+Successful construction plus a typed parameter view and interval membership
+gives exact Boolean decision execution. The resulting trees read temporaries,
+perform no writes and need no memory loads; existing decision dispatch supplies
+state and trace preservation. Arithmetic coefficients and intermediates still
+have to fit the checked machine ranges. This does not replace mathematical
+floor division by truncating C division on negative inputs.
+
+The native generator consumes the extracted proved constructors. It proposes
+tile-prefix tests and hoists tests independent of an inner iterator to skip
+empty tiles. Original polynomial exercises four constructor calls across
+forty-six floor nodes in the bound inputs. Prefix placement, variable lifting,
+enclosing bounds and hoisting remain untrusted; the final checker validates the
+entire actual candidate. Existing final-test lowering remains the theorem
+consumed by the compiler proof. The new composite machine contract is available
+to service clients, rather than asserted as a new compiler-proof dependency.
+The arbitrary-adapter Csem-to-Asm theorem and kernel/host laws are unchanged.
+
+Mixed-unit point completion also retains the actual non-unit argument order
+instead of imposing the completer's previous order. Only canonical missing
+unit coordinates are inserted; the final coordinate checker still licenses
+installation. Neither this repair nor prefix pruning supplies dynamic tile-loop
+bounds. The next integration requires safely captured quotient parameters,
+an extended affine model relation and actual source/candidate execution
+transport through the language factory.

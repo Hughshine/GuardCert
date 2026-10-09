@@ -1,6 +1,18 @@
 # GuardCert Working Manuscript
 
-The latest [validation under a proved entry range](../docs/bounded-double-tiling.md)
+The latest [verified prefix-condition service](../docs/pruned-double-tiling.md)
+constructs exact floor-membership predicates, proves safe pure Clight execution
+under typed views and checked intervals, and is consumed by the native generator.
+The final checker licenses placement and the existing arbitrary-adapter theorem
+still connects Csem to Asm. Eight endpoints add no assumptions. The full corpus
+retains fourteen installed originals and thirty sites, without compiler timeout
+or native mismatch; ten canonical unit-mask configurations and 64 context/path
+checks pass. Polynomial complete calls take 1.271 times the same-compiler
+unmarked median. Cost acceptance still fails; dynamic quotient parameters and
+broader original source/configuration coverage remain required. Earlier records
+retain their checkpoint scope.
+
+The preceding [validation under a proved entry range](../docs/bounded-double-tiling.md)
 uses capture evidence to restrict the final actual-candidate checker, then
 reuses Clight lowering, public exits and installation through a new Csem-to-Asm
 endpoint. The kernel and host laws stay unchanged. One complete build retains

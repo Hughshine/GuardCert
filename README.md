@@ -1,5 +1,17 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-09: [Verified prefix conditions and tile pruning](docs/pruned-double-tiling.md)
+adds an exact floor-membership service and safe pure Clight contracts, with
+actual extracted constructor calls in the candidate generator. Eight endpoints
+add no global assumptions; the arbitrary-adapter Csem-to-Asm theorem and kernel
+remain unchanged. A complete build retains fourteen of 62 installed originals
+and thirty sites, with sixty raw and two adapted output matches and no timeout
+or mismatch. Ten canonical unit-mask configurations and 64 context/path checks
+pass. Complete polynomial calls take 1.271 times the same-compiler unmarked
+median, so cost acceptance still fails. Captured quotient parameters and dynamic
+affine tile bounds are the next integration target; broader PolCert/OLO coverage
+remains required. The following notes preserve their earlier checkpoint scope.
+
 2026-10-09: [Validation under a proved entry range](docs/bounded-double-tiling.md)
 uses actual capture evidence in the final polyhedral checker and connects the
 accepted candidate through Clight lowering and public exits to a new Csem-to-Asm

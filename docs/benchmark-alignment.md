@@ -1,5 +1,14 @@
 # PolCert／CGO 2017 对齐：验收范围与下一步
 
+2026-10-09 [verified prefix condition后继](pruned-double-tiling.md)在实际producer
+消费已证明floor构造，复用同一final checker／Csem→Asm proof；完整62＋两适配
+保持60raw＋2adapted匹配、14/62安装30处、零timeout／mismatch。十种canonical
+unit masks和64 context／actual path checks通过，proper mixed-unit matmul已修复。
+同compiler／flags七次交替的原polynomial完整调用慢1.271472倍，成本仍失败。
+Constant prefix caps仍需接safe quotient capture与dynamic affine model参数；没有
+扩大原source族或宣称完成OLO，其余source／sequential配置、原BT和larger tiers
+继续验收。下列前序build不合并为最新结果。
+
 2026-10-08，吸收 narrative
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
 固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。

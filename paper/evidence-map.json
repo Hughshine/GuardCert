@@ -4559,6 +4559,52 @@
         "build/double-tiling/original-attempts/bounded-point-mixed-rank3-v2/report.json",
         "build/bounded-double-tiling/cost-attempts/cost-v2/report.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Exact positive-constant floor membership including negative numerators; safe pure Clight realization under typed views and checked intervals; native constructor consumption with final checked placement and unchanged arbitrary-adapter Csem-to-Asm theorem.",
+      "theorems": [
+        {
+          "source": "theories/PolCertFloorMembership.v",
+          "name": "floor_le_cleared"
+        },
+        {
+          "source": "theories/PolCertFloorMembership.v",
+          "name": "lt_floor_cleared"
+        },
+        {
+          "source": "theories/PolCertFloorMembership.v",
+          "name": "lower_membership_correct"
+        },
+        {
+          "source": "theories/PolCertFloorMembership.v",
+          "name": "upper_membership_correct"
+        },
+        {
+          "source": "theories/PolCertFloorClight.v",
+          "name": "lower_bound_exact"
+        },
+        {
+          "source": "theories/PolCertFloorClight.v",
+          "name": "upper_bound_exact"
+        },
+        {
+          "source": "theories/PolCertFloorClight.v",
+          "name": "lower_bound_pure"
+        },
+        {
+          "source": "theories/PolCertFloorClight.v",
+          "name": "upper_bound_pure"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleFloorMembership.v",
+          "name": "DoubleFloorMembership"
+        }
+      ],
+      "documents": [
+        "docs/pruned-double-tiling.md",
+        "docs/pruned-double-tiling.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -16781,6 +16827,196 @@
         "name": "cost",
         "path": "build/bounded-double-tiling/cost-attempts/cost-v2/report.json",
         "sha256": "aeda66e46b0a4c806eae0d3130f6913f4c69dce9c8e895bc8c73ebfc6c319f88",
+        "status": "measured"
+      }
+    ],
+    "full_goal_complete": false
+  },
+  "pruned_double_tiling_checkpoint": {
+    "summary": "docs/pruned-double-tiling.json",
+    "summary_sha256": "a26eae954ba3e37b2265b4c155103c7489a2dffd460440dfdfde9677a9aef6cd",
+    "new_source_lines": 222,
+    "queried_endpoints": 8,
+    "closed_endpoints": 6,
+    "maximum_service_endpoint_globals": 4,
+    "bound_files": 32683,
+    "complete_default_corpus": {
+      "originals": 62,
+      "adaptations": 2,
+      "raw_native_matches": 60,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": [],
+      "installed_original_cases": {
+        "dct": 1,
+        "fusion6": 1,
+        "fusion7": 2,
+        "gemver": 4,
+        "matmul-init": 1,
+        "matmul-seq": 2,
+        "matmul-seq3": 3,
+        "multi-loop-param": 3,
+        "mvt": 2,
+        "mxv": 1,
+        "mxv-seq": 2,
+        "mxv-seq3": 3,
+        "polynomial": 1,
+        "tce": 4
+      },
+      "installed_sites": 30,
+      "compiled_originals_without_tiling_phase": 45,
+      "compiled_originals_with_phase_without_installation": [
+        "tricky3"
+      ],
+      "polynomial_compiler_wall_seconds": 2.5840746689937077,
+      "tce_compiler_wall_seconds": 149.6945409050095,
+      "diagnostic_times_are_not_controlled_compile_time_comparisons": true
+    },
+    "contexts": {
+      "polynomial": 20,
+      "reduction": 14,
+      "initialized": 20,
+      "public_and_legacy": 7,
+      "unchanged_assembly_paths": 3,
+      "canonical_unit_mask_configurations": 10
+    },
+    "complete_call_cost": {
+      "trials_per_variant": 7,
+      "medians_seconds": {
+        "optimized": 0.017283473047427833,
+        "unmarked": 0.01359328004764393
+      },
+      "optimized_over_unmarked_complete_call_ratio": 1.27147185865736,
+      "measurement_scope": "wall time including startup, initialization, region and digest",
+      "guard_cost_isolated": false,
+      "same_compiler_flags_and_toolchain": true,
+      "other_concurrent_goal_commands_running": false,
+      "cpu_affinity_or_host_load_controlled": false,
+      "benchmark_wide_profitability_claimed": false
+    },
+    "cost_acceptance_failed": true,
+    "native_predicate_construction_proved": true,
+    "native_placement_and_hoisting_proved_by_service": false,
+    "final_actual_candidate_check_authoritative": true,
+    "semantic_compiler_proof_unchanged": true,
+    "machine_service_contract_directly_called_by_compiler_proof": false,
+    "new_runtime_dependent_loop_bounds": false,
+    "reports": [
+      {
+        "name": "preceding_checkpoint",
+        "path": "docs/bounded-double-tiling.json",
+        "sha256": "9b25f97c022e8f43e8809b0a89c7d9b9ae869a9327ecd88d6aae12e1e4c6e212",
+        "status": "validated"
+      },
+      {
+        "name": "first_compiler",
+        "path": "build/pruned-double-tiling/compiler-attempts/native-v1/report.json",
+        "sha256": "722fe78e481ce17282410b8b14d65b79673510526543578ed048fab13d02be5c",
+        "status": "built"
+      },
+      {
+        "name": "first_profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/pruned-point-profile-v1/report.json",
+        "sha256": "2b713cec180bb192b22301890ef4751dcdbf24f610f87057b611dc0c58f82aa8",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "unit_compiler",
+        "path": "build/pruned-double-tiling/compiler-attempts/native-v2/report.json",
+        "sha256": "b58f49e8e46ed12a12de1272f47cbb17fc0434a88cfec814bc0d78af37bce9d1",
+        "status": "built"
+      },
+      {
+        "name": "unit_corpus",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/pruned-point-corpus-v2/report.json",
+        "sha256": "0d18b200b3c802433be404838a3703b53c065c86c0616f39166f3e84e3962c9d",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "unit_contexts",
+        "path": "build/bounded-double-tiling/context-attempts/pruned-contexts-v2/report.json",
+        "sha256": "f4525de06bb2efefd3dd2e9cd6316433b1dc1023ecce69d23f6132781b43a071",
+        "status": "passed"
+      },
+      {
+        "name": "first_mixed_rank3",
+        "path": "build/double-tiling/original-attempts/pruned-mixed-rank3-v2/report.json",
+        "sha256": "fdd0bfc8953e47ed5c2fc6d57cc2d8aff30eea7803af9076018adc9302bb644e",
+        "status": "passed"
+      },
+      {
+        "name": "unit_cost",
+        "path": "build/pruned-double-tiling/cost-attempts/cost-v2/report.json",
+        "sha256": "717afa5c0afbe84201b70fc86bd9bc7480bfa204b5c3509d2f85e8167d0de3cf",
+        "status": "measured"
+      },
+      {
+        "name": "proof",
+        "path": "build/pruned-double-tiling/floor-proof-v1/report.json",
+        "sha256": "cf2f46d268e8f032560977afddc99243e5f9619f07052af09ea08e0ffccae7b7",
+        "status": "compiled"
+      },
+      {
+        "name": "build_rejection",
+        "path": "build/pruned-double-tiling/compiler-attempts/native-v3/rejection.json",
+        "sha256": "03e105f209ec288cfc8d88c95867dfa501be916cf1e437cd67da02334369d601",
+        "status": "rejected"
+      },
+      {
+        "name": "compiler",
+        "path": "build/pruned-double-tiling/compiler-attempts/native-v4/report.json",
+        "sha256": "dc74f2729ba68f3279462a8dd3c5a5f0c5a2ce9782c9018f517b3c862064bcca",
+        "status": "built"
+      },
+      {
+        "name": "corpus",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/verified-prefix-corpus-v4/report.json",
+        "sha256": "45092272e3dfbd82f06a4e0287e2006828919de8a466b59acba9ef2b9db73db8",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "unit_matrix",
+        "path": "build/pruned-double-tiling/unit-matrix-attempts/verified-prefix-v4/report.json",
+        "sha256": "989528262584f44b0d6d85c1790175346d144f3b2289a986439060334d4816b3",
+        "status": "passed"
+      },
+      {
+        "name": "contexts",
+        "path": "build/bounded-double-tiling/context-attempts/verified-prefix-contexts-v4/report.json",
+        "sha256": "9f7ed9425185efe06dee61aaee89eb645820532b5f137633362ff9c5436af1da",
+        "status": "passed"
+      },
+      {
+        "name": "reduction_contexts",
+        "path": "build/double-tiling/check-attempts/verified-prefix-contexts-v4/report.json",
+        "sha256": "876c5caa7fcde589d0a277dbb7ee33c94b7f870de33451dc975474a22e3c3adb",
+        "status": "passed"
+      },
+      {
+        "name": "initialized_contexts",
+        "path": "build/initialized-double-tiling/check-attempts/verified-prefix-contexts-v4/report.json",
+        "sha256": "f143cdee0b5c72804776fe1d5f05cc69dbc00bf238b6053f5ca1537686e83434",
+        "status": "passed"
+      },
+      {
+        "name": "public_and_legacy",
+        "path": "build/initialized-double-tiling/public-attempts/verified-prefix-public-v4/report.json",
+        "sha256": "19642b6dde7fcae6ef88c5404376cbcbbf76cd2b735a4de1667b1a4326df46e8",
+        "status": "passed"
+      },
+      {
+        "name": "paths",
+        "path": "build/pruned-double-tiling/path-attempts/verified-prefix-paths-v4/report.json",
+        "sha256": "a6450b3fb830f77dcb0e68baeb5dfadda59eae2db6b52094d1032b61f1b686f6",
+        "status": "passed"
+      },
+      {
+        "name": "cost",
+        "path": "build/pruned-double-tiling/cost-attempts/verified-prefix-cost-v4/report.json",
+        "sha256": "2f2d756963ef27a2610df15ffc9b4ed5bb19bf38e4fb985d6d792dc1e9815daa",
         "status": "measured"
       }
     ],

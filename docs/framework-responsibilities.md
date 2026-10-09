@@ -2,6 +2,22 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [floor condition服务](pruned-double-tiling.md)将数学构造与机器执行
+分开：domain 支持 positive-constant floor、lower max／upper min和offset，证明
+两方向精确编码，允许负 numerator；language 复用 range checker，要求safe
+invocation 的 typed view／env interval membership，提供纯 Clight exact contract。
+不将这些prerequisites冒称为service自动runtime测试。Native实际调用数学构造；
+placement、hoisting和unit补全仍经final candidate checker，旧final-test machine
+lowering和量化任意adapter的Csem→Asm proof继续授权。Composite language theorem
+可供clients用，不是当前compiler proof的新dependency。三模块八端点无新增假设，
+kernel／host不改；C用户仅给标注和策略。
+
+最新完整build仍14/62、30sites；十种canonical unit masks已修复并验收，64上下文／
+路径通过。原polynomial完整调用慢1.271472倍，成本仍失败。下个最难接口是捕获
+quotient参数、模型参数lifting与实际execution/frame/installation。已有nonnegative
+machine division primitive，未完成的是dynamic affine bound的完整接线。保留分层
+责任和未验收原source／configuration／OLO tiers，不把同一个if定理当成主要难点。
+
 2026-10-09 [范围内验证后继](bounded-double-tiling.md)明确将证书链中的入口事实
 用于candidate validation：domain包装模型域并证明解除包装，language实际capture
 供给range、exact conversion和state transport，factory内部组合source/model、

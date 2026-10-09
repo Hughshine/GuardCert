@@ -1,5 +1,14 @@
 # Top-down research track
 
+The [prefix-condition successor](../pruned-double-tiling.md) follows the narrative
+responsibility split: exact mathematical construction, safe pure Clight
+execution contracts, actual native service consumption, and independently
+checked candidate placement. The existing arbitrary-adapter Csem-to-Asm theorem
+and minimal kernel are unchanged. Ten canonical unit masks now pass, while the
+full corpus remains fourteen installed originals and thirty sites. Complete
+polynomial cost is still 1.271 times the unmarked median. Captured quotient
+parameters and dynamic affine bounds remain an implementation obligation.
+
 Imported review snapshot from `topdown/research-positioning` at
 `39df0d0a40c2c16642b4e4ed91fd8137a87a46c6`. The notes retain their reviewed
 `cf4d442` implementation boundary. Decisions and subsequent implementation are

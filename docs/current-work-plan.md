@@ -2,6 +2,29 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [prefix pruning 与条件服务](pruned-double-tiling.md)按 narrative 的
+三层责任接线：domain 证明 floor membership 的精确编码，包括负 numerator；
+language 给 checked ranges／typed view 下的纯 Clight exact contract；native
+实际调用提取后的构造函数，placement／hoisting／unit completion 仍是不受信任
+提议。最终 candidate checker 与旧 machine lowering 继续授权，量化 arbitrary
+adapter 的 Csem→Asm 定理、kernel／host不改。三个模块222行／八端点无新增
+假设；新 composite language contract 是可用服务，不冒称 compiler proof 直接
+消费了它。C 使用者仍不给 semantic callbacks。
+
+最新单一 build 完整62原例＋两适配保持14/62、30sites，60raw＋2adapted匹配，
+两个frontend拒绝、零timeout／mismatch。十种rank2／rank3 canonical unit mask
+全部安装并匹配；此前mixed-unit nonunit order blocker已修复，非任意affine
+completion。64 context／public／actual path checks通过。七次交替完整polynomial
+median为0.017283秒，对同compiler未标记0.013593秒，慢1.271472倍；成本仍失败。
+
+**下一优先是安全计算私有 quotient 参数并接动态 affine tile bounds。** 已有
+Clight positive nonnegative division primitive，不应把它写成不存在。困难在
+新增 q 的safe capture／private frame／typed layout，source model参数lifting、
+`0<=d*q-n<=d-1`的proved affine relation，以及实际final checker／lowering／
+公开出口和当前program安装；这项集成尚未实现。复用当前range proof，不以
+profitability gate或关闭变换替代收益。45原例无phase、tricky3、其余source／
+sequential配置、原BT、LLVM／SPEC与larger tiers继续必需。以下保留旧阶段证据。
+
 2026-10-09 [入口范围内的候选验证](bounded-double-tiling.md)已把实际 capture 的
 `0<=n<=limit` 用于 source／最终 candidate 的模型域限制，证明在接受参数处解除
 Guard 包裹，接实际 lowering、公开出口、两个 factory和新的 Csem→Asm。
