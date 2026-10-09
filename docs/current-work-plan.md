@@ -28,12 +28,34 @@ External load未控制、guard未隔离、非原coverage，按[固定摘要](mix
 1. Untiled契约已实际接线；真正mixed／异深度多statement region尚未交付。
    从原多statement source blockers拓展decoder／source-model／progress与phase
    candidate shape，并保持当前程序host与backend的实际消费。
-2. Tiled独立参数路线仍用常数cap包络；继续接private quotient vector或可由
-   安全machine算术表达的实际参数相关tile bounds，不用关闭变换替代收益。
+2. Tiled独立参数路线仍用常数cap包络；先尝试复用现有正除数／非负分子的
+   machine division服务，保留实际参数相关tile bounds。比如正整数tile size
+   `d`的上界可提议为`(n+d-1)/d`；语言range checker必须检查包括加法在内的
+   全部中间值，不能只凭数学ceil恒等式声称机器编码安全。当前generic range
+   analyzer已经支持这种Div形状，但尚未验收实际tiled候选及其完整路径。
+   最终candidate checker仍是authority；若这条路线被实际表示／验证限制拒绝，
+   记录具体阶段及尝试，再考虑private quotient vector，不用关闭变换替代收益。
 3. 扩展非零／inclusive／affine headers和statement sequences，每条路线同时
    证明前提编码、安全调用、candidate、公开状态、progress与Csem→Asm。
 4. 完整sequential phases、原BT／LLVM／SPEC／larger tiers、OLO condition
    derivation和有用效果仍active；未分块案例和库封装不替代完整goal。
+
+**下一项动态bounds的三方责任与验收：** 对照narrative §§3–6、8，kernel保持
+局部证书组合边界。以下是实现者要闭合的连接，不是要求C源码用户交证明回调。
+
+| 责任方 | 现有服务与下一步实际消费 |
+| --- | --- |
+| Domain／优化实现者 | 从实际phase/codegen产物提议bounds与必要membership guards；最终checker验证实际candidate相对于已认证source model的完整域／依赖对应。未证明的整理不作为raw到adapted等价，也不作为通用前提推导。 |
+| Language／condition服务 | 原source许可安全capture，接受receipt提供typed参数和区间；[PolCertAffineClight.v](../theories/PolCertAffineClight.v)的`compile_expr_sound`与`compiled_expr_pure`分别提供受检表达式的实际I32求值／范围与纯性，实际nested lowering必须消费相应证据。调用前提与接受后事实分开；数学footprint不代替Mem权限。 |
+| Language host／实际site | Factory生产资源、scope、公开出口、entry/refusal运输和独立source progress；完整compiler在当前intermediate program上消费实际candidate并连接原Csyntax程序的Csem→Asm端点。局部有限执行对应不代替progress。 |
+
+验收保留实际源、phase、raw／adapted候选和最终检查结果，确认生成的Clight／
+assembly使用运行时参数bound。参数不等、tile边界前后、空域、逐轴range拒绝、
+错误候选与公开出口都要走完整程序。原语料／configuration覆盖与完整调用成本
+按新build单独记账，不把bounds改善算作新增source覆盖。动态candidate bounds也
+不等于OLO的compact entry-condition derivation；后者仍需安全编码、有效接受域、
+检查工作和同源成本的独立验收。证明复用必须定位实际消费，不能由kernel未改或
+import推断作者负担降低。
 
 ### 独立边界：完整安装与资源后继
 
