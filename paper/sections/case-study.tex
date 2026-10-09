@@ -1780,3 +1780,24 @@ through the existing host, and subsequent passes check the current intermediate
 program. A new endpoint proves Csem-to-Asm backward simulation without changing
 the kernel or host laws. Native extraction and measured dynamic-bound behavior
 remain outstanding for this checkpoint.
+
+\paragraph{Native quotient proposals and current-program policy.}
+A native successor now proposes actual quotient-dependent prefix bounds from
+the raw pipeline result. Original polynomial uses $2q$ and $q$ for its two tile
+prefixes at tile size 32, retaining the local widths, point predicates, original
+IEEE instructions and final checker. The first build already installed this
+path, but a subsequent old pass also versioned its fallback. An observer that
+expected raw source on the false branch consequently reported zero quotient
+versions. Stage traces and exported Clight distinguish this observation failure
+from validator refusal.
+
+A successor compiler lets an untrusted resolver receive the actual intermediate
+Clight program before choosing the old phase policy. The native policy extracts
+source-model keys from installed quotient guards and conservatively refuses
+matching models. It does not depend on phase-call history. Equal models at
+other locations may also lose optimization opportunities; every produced
+candidate still passes the existing checker. The compiler theorem quantifies
+arbitrary resolvers and composes simulations at the actual intermediate
+program, with unchanged kernel and host laws. This connects the default policy
+through public restoration, source fallback and Csem-to-Asm compilation without
+assuming that the partition is optimal or complete.

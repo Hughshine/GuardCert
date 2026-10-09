@@ -1,5 +1,18 @@
 # PolCert／CGO 2017 对齐：验收范围与下一步
 
+2026-10-09 [Native quotient后继](quotient-double-tiling.md)单一新build完成62原例＋
+两适配，默认策略、tile=32：60raw＋2adapted匹配，`corcol3/pca`前端拒绝，
+零timeout/mismatch。14原例30sites中，11原例27sites为新q-dependent版本；
+另三处为initialized，默认完整重跑无旧reduction安装。原source coverage未增加。
+70项context/path与10种unit配置通过；原polynomial完整调用的optimized/unmarked
+median比值1.300657，成本仍失败。十二模块21端点的current-program Csem→Asm
+证明无新增globals。19报告／17,799bindings固定本阶段；下方旧阶段不合并。
+
+下一优先是当前45项无phase、`tricky3`及其他原source/configuration blockers，
+每条修复同时交付guard/fallback、真实candidate执行、公开出口和whole-program。
+Actual条件/点工作及useful complete costs继续优化。其余顺序变换、原BT、LLVM／
+SPEC、larger tiers和OLO可用性均保留，目标不缩为本次q族。
+
 2026-10-09 [Quotient 参数证明接线](quotient-parameter-installation.md)已将实际
 安全capture、模型参数插入、精确affine relation、最终candidate执行、公开出口／
 回退和当前program安装接到新的Csem→Asm端点。九模块15端点没有新增全局假设。

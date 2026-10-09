@@ -1,5 +1,17 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-09: [Dynamic quotient bounds in the native compiler](docs/quotient-double-tiling.md)
+now install 27 quotient versions in eleven original cases through a new
+current-program Csem-to-Asm endpoint. The full 62-case replay retains fourteen
+installed originals and thirty sites: sixty raw and two disclosed adapted
+outputs match GCC, with two frontend refusals and no timeout or mismatch.
+Seventy context/dispatch checks and ten unit-mask configurations pass.
+Original polynomial complete calls take 1.301 times the same-compiler unmarked
+median, so useful cost and broader PolCert/OLO coverage remain unfinished.
+The [narrative reconciliation](docs/narrative-quotient-integration-2026-10-09.md)
+keeps kernel, language-host and domain obligations separate. Earlier notes retain
+their checkpoint scope.
+
 2026-10-09: [Quotient-parameter installation proofs](docs/quotient-parameter-installation.md)
 connect safe private capture and model extension to validation of the actual
 candidate, Clight execution, public exits, original fallback and a new Csem-to-Asm

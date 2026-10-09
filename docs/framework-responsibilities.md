@@ -2,6 +2,23 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [Native quotient后继](quotient-double-tiling.md)已把这些证据用于实际
+compiler：domain的参数extension/relation和最终checker，language的安全q capture、
+typed view／frame／公开出口，scoped host的progress／当前site安装和backend。
+Kernel仍止于local correctness；不是所有直接Clight证明都调用generic guardify。
+新fallback resolver以当前program为输入，证明量化任意resolver，不要求其正确
+partition。错误识别会减少机会，产生的候选仍必须checked。Repeated rewrite的
+正确性与其收益/终止保持分开。
+
+最难的源许可→安全check→实际candidate入口→continuation链已在共同n／static
+global double族的q路线闭合；下一个source族仍须自行生产其具体义务。源码用户
+不补逐sitecallbacks，language/domain作者的证明责任也不转给kernel。当前11原例
+27处q版本、70context/path检查与10unit配置通过；完整polynomial调用慢1.300657倍。
+原source coverage、其余sequential/OLO功能及useful costs仍未完成。条件库的safe
+invocation、accept facts、private effects及refusal transport继续分别陈述。
+
+### 前序证明接线阶段
+
 2026-10-09 [Quotient 参数接线](quotient-parameter-installation.md)让新服务成为
 实际 compiler proof 的 dependency：language 的 safe capture 产生 relation；
 guarded execution 消费该 relation，domain 的参数 lifting／最终 checker证明

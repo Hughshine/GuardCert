@@ -1,5 +1,16 @@
 # GuardCert Working Manuscript
 
+The [native quotient successor](../docs/quotient-double-tiling.md) installs
+runtime-dependent tile bounds and preserves the original fallback through a
+current-program phase resolver and a new Csem-to-Asm endpoint. Twelve modules
+audit 21 endpoints without added global assumptions. One full corpus replay
+retains fourteen installed originals and thirty sites, including 27 quotient
+versions in eleven cases. Seventy context/dispatch checks and ten unit masks
+pass. Original polynomial complete calls take 1.301 times the same-compiler
+unmarked median. Useful costs and broader source/configuration coverage remain
+required. These results have their own frozen summary; earlier notes preserve
+their preceding checkpoint scope.
+
 The latest [quotient-parameter proof checkpoint](../docs/quotient-parameter-installation.md)
 connects safe private capture, actual Loop parameter extension and the final
 candidate checker to Clight execution, public exits and a new Csem-to-Asm theorem.

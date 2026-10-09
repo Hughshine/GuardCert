@@ -2,6 +2,37 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 native 后继：[动态 quotient bounds](quotient-double-tiling.md)已提取、
+安装并运行。再次 fetch 的 narrative 仍为 `8ce9c8b`，正文与 main 一致；
+[本轮对照](narrative-quotient-integration-2026-10-09.md)落实 kernel／language／domain
+责任及困难证明。新 resolver 接收实际 intermediate program，避免默认策略再次
+优化新 q fallback；任意提议仍由 checker 授权。十二模块1,093行、21端点，
+没有新增globals或host/kernel定律。源码用户沿用标注和策略，不填语义callbacks。
+
+单一新build完整重跑62＋两适配：60raw＋2adapted匹配、两个既知frontend拒绝，
+零timeout/mismatch；14原例30sites，其中11原例27sites为实际q版本，另外三处
+为initialized。70项context／actual dispatch和10种unit masks通过。完整原
+polynomial调用为0.017455/0.013420秒，optimized/unmarked比值1.300657，成本仍
+失败。原source coverage未增加。原19份报告和17,799bindings独立固定；首轮
+trace/extraction及unit observer错误保留，不改写成功输入。
+
+**下一阶段按实际原语料／配置blockers扩展功能，并同时交付完整程序证明。**
+
+1. 依据当前45项无tiling phase原例的actual static/source checker拒绝，选取能
+   解除共有限制的source结构；`tricky3`的phase后拒绝另行定位。不能停在诊断，
+   也不能用简化word-copy替代原IEEE/scalar计算。
+2. 每条source/transformation扩展都生产安全条件、actual fixed-parameter
+   source/candidate对应、public exits、progress与当前program安装，连接Csem→Asm；
+   annotation不提供语义事实，kernel不承担任意前提推断。
+3. 同时减少已安装路线的实际membership/prefix检查与点执行工作，再在对应原输入
+   测完整调用成本。Dynamic q已接线，不再列为尚无native的设计事项；小n路径通过
+   不等于原benchmark成本通过，库分类/封装不替代compact condition算法。
+4. 其余sequential phases/configurations、原BT、LLVM/SPEC、larger tiers及OLO
+   condition handling／acceptance／effects仍是active goal验收；接口、例子或阶段
+   成果不代替完整目标。有限重复rewrite每步重新检查当前program。
+
+以下保留各前序阶段当时的证据和下一步；当前执行顺序以上述native后继为准。
+
 2026-10-09 再次 fetch/read narrative，可见远端仍为 `8ce9c8b`，两份 topdown
 正文与 main 一致。[Quotient 参数的证明接线](quotient-parameter-installation.md)
 已落实三方责任：domain 证明实际 Loop 参数插入及 affine quotient relation，

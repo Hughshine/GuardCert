@@ -1,5 +1,15 @@
 # Top-down research track
 
+The [native quotient successor](../quotient-double-tiling.md) now installs actual
+runtime-dependent bounds through a current-program Csem-to-Asm theorem.
+It retains fourteen installed originals and thirty sites, including 27 quotient
+versions in eleven cases, with seventy context/dispatch checks and ten unit masks
+passing. Original polynomial complete calls take 1.301 times the unmarked median;
+source coverage and useful cost remain open. The [new reconciliation](../narrative-quotient-integration-2026-10-09.md)
+records the visible narrative revision and the kernel/language/domain split,
+including actual service consumption and current-program rewrite evidence.
+The following notes preserve their earlier checkpoint scope.
+
 Fetched narrative still resolves to `8ce9c8b`; its main text and context note
 match main. The [quotient-parameter proof](../quotient-parameter-installation.md)
 now connects safe capture, model parameter extension, the final actual-candidate

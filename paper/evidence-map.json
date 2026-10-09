@@ -4647,6 +4647,37 @@
         "docs/quotient-parameter-installation.md",
         "docs/quotient-parameter-installation.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Native runtime-dependent quotient tile bounds and a fallback phase resolver over the actual intermediate program, with exact traced computation and current-program Csem-to-Asm composition; eleven originals and 27 quotient sites, unchanged source coverage and failed complete-call cost acceptance.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleQuotientTrace.v",
+          "name": "traced_double_quotient_prepared_loop_exact"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleQuotientFactoryTrace.v",
+          "name": "traced_check_quotient_reduction_double_region_exact"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleQuotientFactoryTrace.v",
+          "name": "quotient_lowering_stage_exact"
+        },
+        {
+          "source": "prototype/interface/PartitionedQuotientDoubleTiledCompiler.v",
+          "name": "checked_selected_partitioned_quotient_tiled_stable_program_correct"
+        },
+        {
+          "source": "prototype/interface/PartitionedQuotientDoubleTiledCompiler.v",
+          "name": "compile_selected_partitioned_quotient_tiled_stable_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/quotient-double-tiling.md",
+        "docs/quotient-double-tiling.json",
+        "docs/narrative-quotient-integration-2026-10-09.md"
+      ]
     }
   ],
   "bibliography_evidence": [
