@@ -59,12 +59,20 @@ main 一致。吸收其具体验收方式：每项 premise 标明静态、runtim
 运输分别证明。后续 helper 必须解除真实 benchmark blocker，条件尺寸、检查工作
 与有用接受域分别记账。Finite inner iff 不作为 progress 或新整程序优化结果。
 
-后续以真实输入推动以下衔接，而不是继续加入按 benchmark 名字固定的证明包装：
+[完整 initialized nests 后继](initialized-double-nests.md)现已关闭原 `mxv`、
+`matmul-init` 的 outer loops、完整 I64 exits 和 literal frontend source progress。
+八库与两份 actual-source wrappers 共1,191行／50端点、14 closed，最多6 inherited
+globals；261 reachable sources，8,278 bindings，无新增公理。Actual raw AST checks
+closed，完整有限 source/model iff 接通；count0 保留未到达的 inner temporaries。
+两个 source protocols 独立于接受范围／header stability。入口 load/range 仍是逻辑
+前提，尚未新增 emitted condition、candidate/install 或 native 优化覆盖。
 
-1. 将已通过的 actual instruction/data 与初始化＋reduction producer 扩到完整
-   loop/sequence grammar。原 `mxv` 下一步接 outer loop 与 raw frontend progress，
-   随后原 `matmul-init` 外层 nest，再处理 `mvt` 相继 nests。保持 intermediate memory、
-   所有公开 I64 exits 与未到达 inner controls；不能只收集叶子或 finite iff。
+后续以真实输入推动以下衔接：
+
+1. 直接把原 `mxv` 的已编译完整 literal-source 服务接到安全 single-header capture、
+   compact range condition、真实 PolCert/Pluto candidate 和 scoped compiler。
+   取得实际 source 的 Csem→Asm 与 native 安装／回退，再将同一数据路径用于
+   `matmul-init`；其后扩 `mvt` 的相继 nests。未安装的 source proof 不增加 coverage。
 2. 从接受入口和循环 invariant 生产 header load／稳定性与 reached bounds，复用
    checked-bounds 服务得到所有 point 地址。实际 capture／机器范围条件须证明安全、
    接受充分性及拒绝入口运输；AST／地址 bounds 不推断 allocation／load safety。

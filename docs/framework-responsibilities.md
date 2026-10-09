@@ -115,6 +115,16 @@ header load 仍待完整 entry producer 建立。五库／wrapper 共973行、39
 Kernel／host 不改，nonidentity coverage 保持1/62；不能把本 finite iff 写成完成
 `C_derive`、检查安全或 whole-program compiler。
 
+[完整 initialized nests 后继](initialized-double-nests.md)已交付两例的整个
+canonical/literal region 对应、所有 public I64 exits 和独立 source protocols。
+Language 提供 skip-prefix finite transport 与真实 raw-step protocol；domain 从
+actual AST 生成 arbitrary-depth same-header nest 数据，内部组合 model/frame/control
+并从接受范围＋actual geometry 生产所有 point resolution。八库／两 wrapper 共
+1,191行、50端点，无新增公理；kernel／host 不改。Count0 保留未到达内层 controls。
+这关闭 source 部分，未闭合入口 header load/range 的 producer、候选或安装。
+下一步由 factory 证明 safe capture、接受／拒绝状态运输，接 actual pipeline、
+lowering/public restore 和既有 host 的 Csem→Asm；C 用户不接收这些逻辑前提。
+
 ### 原 matmul 入口事实的生产责任
 
 本次重新 fetch 核对 narrative `8ce9c8b`；main 的 narrative 和

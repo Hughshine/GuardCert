@@ -162,6 +162,16 @@ loop 的 source/model iff。该服务不执行新条件：数学 bounds、原入
 的 safe invocation、accepted/refused entry transport 或整程序安装。实际 `mxv`、
 `matmul-init` 的 canonical 内层组件有绑定，outer/raw progress 仍待交付。
 
+[完整 initialized nests 后继](initialized-double-nests.md)已补两例的 outer/raw
+source 对应、精确 public exits 和独立 source protocols。数学 geometry 在
+captured count≤98 时内部生产全部 point resolution，仍未生成新 guard。
+下一 producer 从原 outer test 许可 capture 同一个 global I64 N，以安全 range
+condition 建立 nonnegative／100 extent 的充分条件，再运输接受和拒绝状态。
+这里对应 arithmetic/representation、range/footprint、observation preservation
+及 control/licensing 四类；static global separation 已供给 header stability。
+Source proof 不许可额外预读 data operands，也不从 address bounds 推断权限。
+候选／host 应消费同一模型与公开出口，不能把 guard 服务的分类当作安装完成。
+
 ### 现有契约能复用到哪里
 
 | 契约 | Safe invocation 的来源 | 实际出口与成功事实 |

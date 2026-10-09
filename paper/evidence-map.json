@@ -3989,7 +3989,7 @@
     },
     {
       "section": "case-study and evaluation",
-      "claim": "Checked initialization/reduction components for original mxv and matmul-init have finite normal source/model correspondence over common layouts and real intermediate memory, with exact inner I64 exits; outer regions, safe entry guards, raw progress and installation remain pending.",
+      "claim": "At the initialization/reduction checkpoint, checked original mxv and matmul-init components have finite normal source/model correspondence over common layouts and real intermediate memory, with exact inner I64 exits; the complete-nest successor supplies the outer and literal-source services.",
       "theorems": [
         {
           "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTransport.v",
@@ -4019,6 +4019,49 @@
       "artifacts": [
         "build/double-initialized-reductions/source-proof-v1/report.json",
         "build/double-initialized-reductions/proof-v1/report.json"
+      ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Complete checked initialized nests for original mxv and matmul-init have finite source/model correspondence, precise public I64 exits including unreached inner controls, literal frontend transport, and independent source protocols; safe entry guard production, generated candidates and whole-program installation for these cases remain pending.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedNestData.v",
+          "name": "checked_double_initialized_nest_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedNestModel.v",
+          "name": "double_source_initialized_nest_preserves_global"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedNestExit.v",
+          "name": "double_initialized_nest_settled_exit"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedNestSource.v",
+          "name": "checked_double_initialized_nest_source_model"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedNestProgress.v",
+          "name": "checked_double_initialized_nest_region_progress"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedRawNest.v",
+          "name": "checked_double_initialized_raw_nest_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedRawNestProgress.v",
+          "name": "checked_double_initialized_raw_nest_region_progress"
+        }
+      ],
+      "documents": [
+        "docs/initialized-double-nests.md",
+        "docs/initialized-double-nests.json"
+      ],
+      "artifacts": [
+        "build/double-initialized-nests/source-proof-v1/report.json",
+        "build/double-initialized-nests/raw-proof-v1/report.json",
+        "build/double-initialized-nests/proof-v1/report.json"
       ]
     }
   ],
@@ -12826,5 +12869,643 @@
       "sha256": "8c75d0420d832a6d520b79147a75f4310ff764fe9b082725782d0814e196e042"
     },
     "bound_files": 8105
+  },
+  "initialized_double_nests": {
+    "status": "compiled",
+    "kind": "checked-complete-initialized-double-nests-and-literal-progress",
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedNestData.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedNestModel.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedNestExit.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedNestSyntax.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedNestSource.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedNestProgress.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedRawNest.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedRawNestProgress.v",
+      "build/double-initialized-nests/source-proof-v1/OriginalInitializedDoubleNests.v",
+      "build/double-initialized-nests/raw-proof-v1/OriginalInitializedDoubleRawNests.v"
+    ],
+    "new_source_lines": 1191,
+    "endpoints": [
+      "GuardMemoryDoubleInitializedNestData.checked_double_initialized_nest_sound",
+      "GuardMemoryDoubleInitializedNestData.double_initialized_nest_fresh_disjoint",
+      "GuardMemoryDoubleInitializedNestData.double_initialized_nest_fresh_nodup",
+      "GuardMemoryDoubleInitializedNestData.checked_double_initialized_nest_normal",
+      "GuardMemoryDoubleInitializedNestData.checked_double_initialized_nest_writes",
+      "GuardMemoryDoubleInitializedNestModel.double_source_extended_environment",
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_iterations",
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_frame",
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_memory",
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_preserves_global",
+      "GuardMemoryDoubleInitializedNestExit.double_source_set_words_frame",
+      "GuardMemoryDoubleInitializedNestExit.double_source_set_words_idempotent",
+      "GuardMemoryDoubleInitializedNestExit.double_initialized_nest_exit_frame",
+      "GuardMemoryDoubleInitializedNestExit.double_initialized_nest_exit_commute",
+      "GuardMemoryDoubleInitializedNestExit.double_initialized_nest_settled_exit",
+      "GuardMemoryDoubleInitializedNestSyntax.double_initialized_nest_code_fuel",
+      "GuardMemoryDoubleInitializedNestSyntax.checked_double_initialized_nest_complete",
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_ready_child",
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_prefix_disjoint",
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_outer_fresh",
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_canonical_source_model",
+      "GuardMemoryDoubleInitializedNestSource.checked_double_initialized_nest_source_model",
+      "GuardMemoryDoubleInitializedNestProgress.double_initialized_nest_assignment_progress",
+      "GuardMemoryDoubleInitializedNestProgress.checked_double_initialized_nest_framed_progress",
+      "GuardMemoryDoubleInitializedNestProgress.checked_double_initialized_nest_region_progress",
+      "GuardMemoryDoubleInitializedRawNest.double_initialized_elide_skips_execution",
+      "GuardMemoryDoubleInitializedRawNest.checked_double_initialized_raw_nest_sound",
+      "GuardMemoryDoubleInitializedRawNestProgress.double_initialized_raw_nest_assignment_progress",
+      "GuardMemoryDoubleInitializedRawNestProgress.checked_double_initialized_raw_nest_framed_progress",
+      "GuardMemoryDoubleInitializedRawNestProgress.checked_double_initialized_raw_nest_region_progress",
+      "OriginalInitializedDoubleNests.mxv_whole_nest_compiles",
+      "OriginalInitializedDoubleNests.mxv_whole_nest_ready",
+      "OriginalInitializedDoubleNests.mxv_whole_source_model",
+      "OriginalInitializedDoubleNests.mxv_whole_zero_exit",
+      "OriginalInitializedDoubleNests.mxv_whole_positive_exit",
+      "OriginalInitializedDoubleNests.mxv_whole_source_progress",
+      "OriginalInitializedDoubleNests.matmul_init_whole_nest_compiles",
+      "OriginalInitializedDoubleNests.matmul_init_whole_nest_ready",
+      "OriginalInitializedDoubleNests.matmul_init_whole_source_model",
+      "OriginalInitializedDoubleNests.matmul_init_whole_zero_exit",
+      "OriginalInitializedDoubleNests.matmul_init_whole_positive_exit",
+      "OriginalInitializedDoubleNests.matmul_init_whole_source_progress",
+      "OriginalInitializedDoubleRawNests.mxv_raw_whole_compiles",
+      "OriginalInitializedDoubleRawNests.mxv_raw_canonical_execution",
+      "OriginalInitializedDoubleRawNests.mxv_raw_whole_source_model",
+      "OriginalInitializedDoubleRawNests.mxv_raw_whole_source_progress",
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_whole_compiles",
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_canonical_execution",
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_whole_source_model",
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_whole_source_progress"
+    ],
+    "endpoint_assumptions": {
+      "GuardMemoryDoubleInitializedNestData.checked_double_initialized_nest_sound": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestData.double_initialized_nest_fresh_disjoint": [],
+      "GuardMemoryDoubleInitializedNestData.double_initialized_nest_fresh_nodup": [],
+      "GuardMemoryDoubleInitializedNestData.checked_double_initialized_nest_normal": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestData.checked_double_initialized_nest_writes": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestModel.double_source_extended_environment": [],
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_iterations": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_frame": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_memory": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestModel.double_source_initialized_nest_preserves_global": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestExit.double_source_set_words_frame": [],
+      "GuardMemoryDoubleInitializedNestExit.double_source_set_words_idempotent": [],
+      "GuardMemoryDoubleInitializedNestExit.double_initialized_nest_exit_frame": [],
+      "GuardMemoryDoubleInitializedNestExit.double_initialized_nest_exit_commute": [],
+      "GuardMemoryDoubleInitializedNestExit.double_initialized_nest_settled_exit": [],
+      "GuardMemoryDoubleInitializedNestSyntax.double_initialized_nest_code_fuel": [],
+      "GuardMemoryDoubleInitializedNestSyntax.checked_double_initialized_nest_complete": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_ready_child": [],
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_prefix_disjoint": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_outer_fresh": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestSource.double_initialized_nest_canonical_source_model": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestSource.checked_double_initialized_nest_source_model": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestProgress.double_initialized_nest_assignment_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestProgress.checked_double_initialized_nest_framed_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedNestProgress.checked_double_initialized_nest_region_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedRawNest.double_initialized_elide_skips_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedRawNest.checked_double_initialized_raw_nest_sound": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedRawNestProgress.double_initialized_raw_nest_assignment_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedRawNestProgress.checked_double_initialized_raw_nest_framed_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleInitializedRawNestProgress.checked_double_initialized_raw_nest_region_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.mxv_whole_nest_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.mxv_whole_nest_ready": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.mxv_whole_source_model": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.mxv_whole_zero_exit": [],
+      "OriginalInitializedDoubleNests.mxv_whole_positive_exit": [],
+      "OriginalInitializedDoubleNests.mxv_whole_source_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.matmul_init_whole_nest_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.matmul_init_whole_nest_ready": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.matmul_init_whole_source_model": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleNests.matmul_init_whole_zero_exit": [],
+      "OriginalInitializedDoubleNests.matmul_init_whole_positive_exit": [],
+      "OriginalInitializedDoubleNests.matmul_init_whole_source_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.mxv_raw_whole_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.mxv_raw_canonical_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.mxv_raw_whole_source_model": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.mxv_raw_whole_source_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_whole_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_canonical_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_whole_source_model": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalInitializedDoubleRawNests.matmul_init_raw_whole_source_progress": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "additional_global_axioms": [],
+    "allowed_parent_globals": [
+      "Allocation.regalloc",
+      "Archi.win64",
+      "Axioms.proof_irr",
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Compiler.print_Clight",
+      "Compiler.print_Cminor",
+      "Compiler.print_LTL",
+      "Compiler.print_Mach",
+      "Compiler.print_RTL",
+      "Compopts.debug",
+      "Compopts.generate_float_constants",
+      "Compopts.optim_CSE",
+      "Compopts.optim_constprop",
+      "Compopts.optim_for_size",
+      "Compopts.optim_redundancy",
+      "Compopts.optim_tailcalls",
+      "Compopts.propagate_float_constants",
+      "Compopts.va_strict",
+      "CoqAddOn.posPr",
+      "CoqAddOn.zPr",
+      "Eqdep.Eq_rect_eq.eq_rect_eq",
+      "Events.external_functions_properties",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_properties",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep",
+      "Inlining.inlining_analysis",
+      "Inlining.inlining_info",
+      "Inlining.should_inline",
+      "Linearize.enumerate_aux",
+      "PedraQBackend.add",
+      "PedraQBackend.isEmpty",
+      "PedraQBackend.pr",
+      "PedraQBackend.t",
+      "PedraQBackend.top",
+      "RTLgen.more_likely",
+      "SelectOp.symbol_is_relocatable",
+      "Selection.compile_switch",
+      "Selection.if_conversion_heuristic",
+      "SimplExpr.first_unused_ident"
+    ],
+    "closed_endpoints": 14,
+    "maximum_endpoint_globals": 6,
+    "reachable_source_count": 261,
+    "attempts": [
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v3.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v4.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v4.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v4.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v5.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v5.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v5.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v6.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v6.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v6.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v7.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v7.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestData-v7.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestExit-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestExit-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestExit-v1.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestModel-v3.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestProgress-v3.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v3.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v4.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v4.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v4.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v5.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v5.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSource-v5.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v3.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v4.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v4.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedNestSyntax-v4.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNest-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNest-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNest-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNest-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNest-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNest-v2.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNestProgress-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNestProgress-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNestProgress-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNestProgress-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNestProgress-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleInitializedRawNestProgress-v2.json",
+        "returncode": 0
+      }
+    ],
+    "wrapper_attempts": [
+      {
+        "metadata": "build/double-initialized-nests/source-proof-v1/attempts/v1.json",
+        "returncode": 1,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/source-proof-v1/attempts/v2.json",
+        "returncode": 1,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/source-proof-v1/attempts/v3.json",
+        "returncode": 0,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v1-MatmulInitRawSource.json",
+        "returncode": 0,
+        "exported_AST": true
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v1-MxvRawSource.json",
+        "returncode": 0,
+        "exported_AST": true
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v1.json",
+        "returncode": 1,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v2.json",
+        "returncode": 1,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v3.json",
+        "returncode": 1,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v4.json",
+        "returncode": 1,
+        "exported_AST": false
+      },
+      {
+        "metadata": "build/double-initialized-nests/raw-proof-v1/attempts/v5.json",
+        "returncode": 0,
+        "exported_AST": false
+      }
+    ],
+    "actual_original_case_bindings": [
+      "mxv",
+      "matmul-init"
+    ],
+    "outer_control_dimensions": [
+      1,
+      2
+    ],
+    "arbitrary_depth_same_header_canonical_and_literal_nest_descriptors": true,
+    "ordinary_actual_AST_descriptors_without_semantic_callbacks": true,
+    "full_marked_source_model_finite_normal_equivalence": true,
+    "full_public_I64_exits_including_unreached_inner_temporaries": true,
+    "header_stability_from_checked_global_writes": true,
+    "all_point_resolution_produced_from_captured_range_and_actual_100_extent_geometry": true,
+    "literal_frontend_skip_transport_preserves_all_finite_traces_and_outcomes": true,
+    "literal_and_canonical_small_step_source_progress": true,
+    "source_progress_requires_accepted_range_or_header_stability": false,
+    "generic_library_hardcodes_benchmark_names_identifiers_or_tensor_rank": false,
+    "access_bounds_infer_allocation_or_load_store_permission": false,
+    "entry_header_load_and_range_still_logical_premises": true,
+    "new_runtime_condition_or_compiler_installation": false,
+    "source_user_supplies_semantic_callbacks": false,
+    "generic_kernel_or_host_changed": false,
+    "original_corpus_nonidentity_optimized_cases": 1,
+    "new_native_or_cost_evidence": false,
+    "full_goal_complete": false,
+    "toolchain": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.1",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "proof_report": {
+      "path": "build/double-initialized-nests/proof-v1/report.json",
+      "sha256": "ec74bcd8df51e709d18f0b7a68b79d2c4647fd826f624fd0af6ecf916e8e6ff5"
+    },
+    "bound_files": 8278
   }
 }

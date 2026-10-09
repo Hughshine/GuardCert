@@ -1,5 +1,9 @@
 # 从实际初始化＋reduction 到完整内层模型
 
+后继[完整 initialized nests](initialized-double-nests.md)已关闭本记录中的 outer
+regions、literal finite transport 和独立 source progress；入口条件和安装仍待接入。
+下文保留本 inner-loop 检查点的范围。
+
 2026-10-09。本阶段组合[实际 instruction producer](double-source-instruction-factory.md)，
 解决原 `mxv`、`matmul-init` 中初始化与 reduction 共享 memory/layout 的缺口。
 从实际 canonical Clight body 产生普通描述数据，证明 initializer 后完整内层循环

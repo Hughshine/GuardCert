@@ -302,9 +302,9 @@ both initialization and reduction assignments in these inputs to finite typed
 instruction execution in both directions. Address receipts follow from checked
 metadata, the host state and resolved point bounds; declarations do not imply
 load/store permissions. I64 modular correspondence is distinct from no-wrap.
-Full marked-region bridges, entry conditions, progress and installation for
-these programs remain source-factory obligations; the C user supplies no
-semantic callbacks.
+These local services are composed below into full marked-region bridges;
+entry conditions and installation remain source-factory obligations. The C
+user supplies no semantic callbacks.
 
 A checked initialization/reduction composition now connects these instructions
 through a common registry and real intermediate memory. It recognizes each
@@ -313,9 +313,20 @@ and proves finite normal correspondence with a typed sequence and inner loop.
 The inner I64 iterator exits at the captured count, including zero. Checked
 global writes preserve the loaded header; checked metadata and mathematical
 coordinate bounds establish address resolution. Original mxv and matmul-init
-components bind this service to their actual ASTs. Outer loops, raw-source
-progress, safe entry checks and installation remain obligations; address
-resolution supplies no memory-access permission.
+components bind this service to their actual ASTs. Address resolution supplies
+no memory-access permission.
+
+A complete-nest successor checks arbitrary-depth outer loops sharing the
+loaded header and reconstructs the literal frontend reset/test/increment
+syntax. For original mxv and matmul-init, it proves finite normal execution
+correspondence for the full marked regions and exact public iterator exits.
+An empty outer loop resets only its iterator and preserves unreached inner
+temporaries. Static global write separation preserves the header, and the
+captured range plus actual array geometry establishes all reached addresses.
+Separate source protocols cover the literal administrative steps independently
+of the accepted range or header stability. These source services are compiled;
+safe capture/range guards, generated candidates and installation for these
+two inputs remain pending.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,
