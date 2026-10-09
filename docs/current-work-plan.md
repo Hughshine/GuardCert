@@ -154,9 +154,24 @@ statement 或完整 C/Asm，没有新收益／成本结果。这个 local forwar
 bindings 与 finite normal source execution；没有自动 metadata producer、
 source-total/divergence 或 selected Csem→Asm，也没有新已安装 benchmark。
 
-下一实现继续该原 matmul 的整条链：source/site metadata、完整静态入口
-producer，实际 guard／candidate／fallback 与 factory／selected Csem→Asm
-接入，交付所需 typing／placement／progress；随后扩 fusion、multi-stmt-stencil-seq、
+2026-10-09 再次 fetch 核对 narrative，远端仍为 `8ce9c8b`，main 的两份
+正文一致。后继[实际程序 bindings 与 scoped host](original-matmul-program-bindings.md)
+已补上 universal contract 与 actual program facts 的量化差距：检查指定 globals
+不被 params/vars 遮蔽，证明该 invariant 经 allocation、两种函数入口及全部
+source steps（含 call/return/goto）保持。Scoped language-host successor 复用
+原 private-region AST transform，交付 whole-Clight forward simulation；静态
+no-shadow／private-pool 拒绝返回原程序。原 matmul 的八项真实 typed global
+声明检查，自动生产五个 data bindings、三个 header bindings 和 layout span，
+已把实际 guarded execution 交付给 scoped region contract。六模块970行，
+15端点／4 closed、275 reachable sources／7,650 bindings，至多14 inherited
+globals，无新增公理；6成功／15拒绝尝试保留。Kernel 不改，没有第二 IR；
+language host contract 增加一个有完整 simulation 证明的 scoped 后继。
+实际 source progress、matmul 安装与 selected Csem→Asm 仍缺，没有新 native
+或成本结果，新已安装 benchmark 仍为零。
+
+下一实现继续该原 matmul 的整条链：原 I64 nest 的适用 progress protocol，
+source/site typing／placement 与 private resources，以及实际 guard／candidate／fallback
+到 factory／selected Csem→Asm 的接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture
 已消费 reached-header license 并生产范围／精确转换和 source state transport。
 固定参数 backward 对应已消费真实 scheduler／codegen receipt；最终

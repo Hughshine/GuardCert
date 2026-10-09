@@ -198,10 +198,16 @@ bindings，以及 locals 不遮蔽相应 IDs 的事实。检查原 program 的�
 simulation proof 中证明该限制可运输。不能仅给局部定理再加一个静态
 checker，就声称旧安装定理已经可用。
 
-目前尚未选定或实现这个衔接。不把它变成源码用户的 callback，不先改
-generic kernel 或增加 context algebra；以原 matmul 的实际安装证明检验
-所需服务。另行交付 I64 source 的适用 progress protocol：有限正常执行
-对应本身不是这个 protocol，也不推出 divergence preservation。
+后继[实际程序 bindings 与 scoped host](original-matmul-program-bindings.md)
+现已实现该环境衔接：language 检查 actual program 的 no-shadow，沿 allocation、
+两种函数入口、call/return/goto 及其余 source steps 证明 invariant 保持；
+scoped private-region host 在这个 invariant 下交付 whole-Clight simulation，
+直接复用原 AST transform。旧 universal contract 可嵌入 scoped contract，
+generic kernel 不改。Domain 的 actual matmul typed metadata 已生产八个
+bindings／static span，实际 guarded execution 已交付 scoped contract。
+这不是 complete matmul installation：仍须另行交付原 I64 source 的适用
+progress protocol、site/resources 和 selected Csem→Asm。有限正常执行对应
+本身不是该 protocol，也不推出 divergence preservation。
 
 ### Guard library 的契约责任
 

@@ -101,6 +101,13 @@ progress/divergence and selected installation remain open. Native probes emit
 candidate and guarded Clight ASTs; they execute no Clight statement or C/Asm
 program. The original corpus still has zero new installed optimized cases.
 
+The [actual-program bindings and scoped host](../docs/original-matmul-program-bindings.md)
+successor now produces matmul's static globals/layout facts from typed declarations
+and a no-shadow invariant preserved by Clight execution. It reuses the private-region
+AST transform and proves the scoped language-host simulation. Actual guarded
+execution delivers that host's region contract. Source progress, concrete site/factory
+and selected Csem-to-Asm remain incomplete; no native or cost result is added.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

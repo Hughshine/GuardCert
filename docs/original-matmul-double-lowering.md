@@ -1,5 +1,10 @@
 # 原 matmul：实际 guarded Clight 执行与 double lowering
 
+后继[实际程序 bindings 与 scoped host](original-matmul-program-bindings.md)
+已自动生产 static bindings，并交付实际 guarded region 的 scoped contract；
+以下保留 double-lowering 检查点当时的范围。原 I64 source progress、实际
+matmul installation 和 selected Csem→Asm 仍待完成。
+
 2026-10-09 后继把[同参数 candidate model progress](original-matmul-candidate-progress.md)
 接到实际 Clight statement。原 C、double 数组、IEEE 运算树、I64 controls、
 100×100 global layouts 和 padding=2 均保留。实际 prepared pipeline 返回的

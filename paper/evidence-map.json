@@ -3735,6 +3735,67 @@
         "build/original-matmul/double-lowering-native-check-v1/report.json"
       ],
       "scope": "Actual finite local guarded Clight execution and native AST emission, under static bindings and checked receipts; no source-total/divergence or complete-program installation."
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Actual-program no-shadow checks establish an invariant preserved by Clight entry, allocation and all source steps; a scoped host successor reuses the original AST transform and proves whole-Clight simulation. Actual matmul typed declarations produce static global/header bindings and its guarded statement meets the scoped region contract. No source-total progress, concrete matmul installation, Csem-to-Asm connection or new native/cost result is supplied.",
+      "theorems": [
+        {
+          "source": "theories/ClightGlobalScope.v",
+          "name": "program_avoids_check_sound"
+        },
+        {
+          "source": "theories/ClightGlobalScope.v",
+          "name": "step_preserves_global_scope"
+        },
+        {
+          "source": "theories/ClightGlobalScope.v",
+          "name": "initial_global_scope"
+        },
+        {
+          "source": "theories/ClightScopedPrivateRegion.v",
+          "name": "projected_region_contract"
+        },
+        {
+          "source": "theories/ClightScopedPrivateRegionProof.v",
+          "name": "transform_program_correct2"
+        },
+        {
+          "source": "theories/ClightScopedPrivatePool.v",
+          "name": "transform_scoped_private_program_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleProgramBindings.v",
+          "name": "checked_global_binding"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulProgramBindings.v",
+          "name": "original_matmul_declarations_checked"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulProgramBindings.v",
+          "name": "original_matmul_globals_checked"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulProgramBindings.v",
+          "name": "original_matmul_checked_static"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulProgramBindings.v",
+          "name": "original_matmul_checked_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/OriginalMatmulProgramBindings.v",
+          "name": "original_matmul_scoped_contract"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-program-bindings.md",
+        "docs/original-matmul-program-bindings.json"
+      ],
+      "artifacts": [
+        "build/original-matmul/program-bindings-proof-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -10665,6 +10726,52 @@
     "native_candidate_and_guarded_Clight_ASTs_emitted": true,
     "native_Clight_statement_or_C_Asm_execution": false,
     "new_cost_results": false,
+    "original_corpus_requested_optimized_cases": 0,
+    "full_goal_complete": false
+  },
+  "original_matmul_program_bindings": {
+    "status": "audited_actual_program_static_producer_and_scoped_contract_not_installed_matmul_compiler",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "proof_report": {
+      "path": "build/original-matmul/program-bindings-proof-v1/report.json",
+      "sha256": "2f42418bc8bb38001de1a81e5f3c0d6be28f9182361775621a0a13c259d77378"
+    },
+    "new_modules": [
+      "theories/ClightGlobalScope.v",
+      "theories/ClightScopedPrivateRegion.v",
+      "theories/ClightScopedPrivateRegionProof.v",
+      "theories/ClightScopedPrivatePool.v",
+      "adapters/compcert-memory/GuardMemoryDoubleProgramBindings.v",
+      "prototype/interface/OriginalMatmulProgramBindings.v"
+    ],
+    "new_source_lines": 970,
+    "endpoints": 15,
+    "closed_endpoints": 4,
+    "maximum_endpoint_globals": 14,
+    "additional_global_axioms": [],
+    "reachable_sources": 275,
+    "proof_bindings": 7650,
+    "successful_proof_attempts": 6,
+    "rejected_proof_attempts": 15,
+    "typed_global_declaration_and_no_shadow_checkers": true,
+    "actual_program_scope_invariant_preserved_by_all_Clight_steps": true,
+    "scoped_host_forward_simulation_proved": true,
+    "old_universal_contract_admitted_by_scoped_contract": true,
+    "original_private_region_AST_transform_reused": true,
+    "actual_matmul_static_and_header_bindings_produced": true,
+    "actual_matmul_scoped_region_contract_proved": true,
+    "declarations_imply_memory_read_permissions": false,
+    "static_global_bindings_still_supplied_by_source_user": false,
+    "program_preservation_and_no_shadow_guarantees_supplied_by_language_host": true,
+    "source_execution_not_runtime_preexecution": true,
+    "finite_normal_source_execution_and_actual_pipeline_lowering_receipts_still_required": true,
+    "generic_kernel_changed": false,
+    "language_host_contract_successor_added": true,
+    "source_total_progress_or_divergence_proved": false,
+    "actual_matmul_host_installation_complete": false,
+    "selected_compiler_connected": false,
+    "new_Csem_to_Asm_endpoint": false,
+    "new_native_or_cost_results": false,
     "original_corpus_requested_optimized_cases": 0,
     "full_goal_complete": false
   }
