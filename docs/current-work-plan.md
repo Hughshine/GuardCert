@@ -77,6 +77,22 @@ producer，实际 typed scheduler/codegen 与候选降低，安全 guard／facto
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。
 
+本次响应 narrative 分支澄清，重新 fetch 并完整核对 `8ce9c8b` 的
+`paper-narrative.md` 与 `context-lifting.md`；两份正文与 main 一致。
+核对基线为 `2ed2c60`，没有更新的远端 narrative 提交。具体落实到
+[原 matmul 入口事实的生产责任](framework-responsibilities.md#原-matmul-入口事实的生产责任)：
+静态 metadata、读取的 safe invocation、guard 接受事实、原执行的 reached
+receipts，以及候选入口／出口运输分别验收。已有 source/model iff 不代替
+这些 producer，也不代替 source progress 或实际候选的进展证明。
+
+下一项完整接入必须自动建立当前显式的 static／layout／conditional-load／
+range 前提。明确这些 producer 消费和返回的证据，同时接实际 scheduler／
+codegen；不为 C 用户增加语义 callback。对未到达的 N／K 和 body operands
+保持条件式许可；声明、symbol binding、稳定性或范围事实单独都不能证明
+一次 load 的 definedness。拒绝后的 fallback 要从实际 checked state 接回
+原 source，不能忽略私有 capture 或已执行 prefix 对入口关系的影响。
+这些是下一实现的责任约束，本次核对没有新增 proof、native 或成本结果。
+
 两个 signed-child 草稿尚未成功编译／审计／安装，不算新支持；其后续投入
 按下面的实际 case/configuration 阻塞或主要成本安排。特殊 fixture 保持回归。
 

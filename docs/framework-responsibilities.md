@@ -85,6 +85,38 @@ Clause factoring 的具体约束继续采用
 relation，不能仅凭 exit weakening 推出含入口/scope/progress 的完整 contract
 entailment。先证明实际复用再更改 API。
 
+### 原 matmul 入口事实的生产责任
+
+本次重新 fetch 核对 narrative `8ce9c8b`；main 的 narrative 和
+context-lifting 正文一致。以下对照 `2ed2c60` 的实际原 matmul 端点，
+约束下一次接入。它不是新证书接口或已完成 producer 的声明。
+
+`OriginalMatmulPipeline.original_full_nest_pipeline_model` 仍显式消费
+static、layout、M/N/K bindings、每维至多 98 的非负范围和条件式 header
+load invariant。该 theorem 已完成实际三层源与 pipeline Loop 的有限 iff，
+没有自动建立这些入口前提。下一 factory 必须建立下表适用的证据。
+
+| 事实／义务 | 证据生产责任 | 接入要求 |
+| --- | --- | --- |
+| 实际 source AST、double 运算树、I64 controls、global layouts | Domain matcher／metadata checker，使用 language 的声明和 scope 定律 | 从实际 normalized program 核对；layout registry 与真实 globals 对应，locals 不遮蔽 globals。单独声明不提供运行时 load 许可。 |
+| Global symbols 与 block 分离 | Language 的 global-environment 定律；factory 提供 identifier、scope 和 symbol 事实 | 区分静态 checker 结果与其在实际 ge／locals 中的解释。原 C store 保持 headers 已有定理可复用。 |
+| M 的读取；M 活动时 N 的读取；M/N 活动时 K 的读取 | Language 的执行／definedness 服务与 domain capture producer | 从适用的已证明调用域或原执行到达路径取得许可；使用原执行作为证明前提，不在运行时预先执行整个源。当前没有该 producer。 |
+| Checked words 到数学维数、I64 no-wrap 与地址范围 | Domain 的充分条件；language 的实际 machine guard | Guard 接受必须生产当前非负小范围 bridge 所需的事实。I32 私有模型若被使用，还须证明 I64 range check／转换；源 counter 类型保持。负 bound 路径仍待接入。 |
+| Body operand reads／store 与实际 model actions | Domain source decoder 和 language 的实际 load／store 定律 | 旧 assignment bridge 从给定原执行恢复 reached receipts；检查未到达的 operands 须另有 safe invocation 证明，不能由 AST／范围事实假定可读。 |
+| Private captures、接受入口与拒绝入口 | Language 的 typed/fresh allocation、frame 和 state-transport 服务；domain factory 实例化 | 对接受状态解释 model parameters；对拒绝状态建立原 fallback 入口关系。共享 prefix 的 effects 与 private writes 分别运输。 |
+| 真实候选、公开出口、progress 和安装 | Domain 的实际 scheduler／validator／codegen／lowering；language host 与 site checker | 保持 IEEE 表达式树、依赖顺序和实际 public exits，交付所需 progress，再复用 selected installation／Csem→Asm。终止执行 iff 不生产完整 progress。 |
+
+这里没有要求每个 premise 都生成一个 runtime test。Checked metadata、静态
+推导、原执行 receipts 与 runtime condition 分别生产适合各自语义边界的
+事实。只有最终 factory／host 的证明自动 discharge 这些责任，才形成
+源码用户仅给 marked C／策略的完整路径。
+
+`GuardMemoryDoublePolyhedral` 的外部 phase producer 目前仍返回 Err／None。
+`checked_double_schedule_codegen_correct` 的方向是 generated Loop 执行到
+source PolyLang 执行；它不单独保证候选进展，也不提供 actual Clight lowering。
+因此 typed checker／codegen 的实例化和 pipeline Loop 的连接仍不算一次
+已安装的原 matmul 优化。本次责任核对没有新增 proof、native 或性能结果。
+
 ### Guard library 的契约责任
 
 2026-10-08，[runtime empty alternative](affine-empty-runtime-installation.md)
