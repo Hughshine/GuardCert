@@ -1866,10 +1866,9 @@ references; six raw configurations refuse in the frontend. Affine mode installs
 21 sites in eleven original cases. These installation counts do not establish
 nonidentity effects or profitability.
 
-The comparison exposes a bounded witness-search gap. The pure-assignment
-factory tried identity and adjacent swap~0, while the real matmul-seq and
-matmul-seq3 candidates need swap~1 and the five-level tce candidates need
-swap~3. An untrusted successor tries identity and single adjacent swaps over
+The comparison exposes a gap in witness search. The factory tried identity
+and swap~0. Both sequential matmul cases need swap~1, while tce needs swap~3
+in its nest of five loops. An untrusted successor tries identity and single adjacent swaps over
 six axes. Each attempt uses the same checked factory and the same compiler
 theorem, already quantified over finite choices. Re-running all affine inputs
 installs 30 sites in fourteen original cases and preserves the earlier installs;
