@@ -4379,6 +4379,56 @@
       "artifact_reports": [
         "docs/initialized-double-tiling.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Input-derived resource and coordinate proposals reuse the existing checked factories and Csem-to-Asm theorem. Definitionally equal traces locate the original polynomial timeout in AST generation; duplicate-constraint proposals do not resolve it and add no runtime guard family.",
+      "theorems": [
+        {
+          "source": "prototype/interface/InitializedDoubleTiledStableCompiler.v",
+          "name": "compile_selected_initialized_tiled_stable_program_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTiledPhaseTrace.v",
+          "name": "double_phase_stage_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTiledPhaseTrace.v",
+          "name": "traced_double_tiled_prepared_phase_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleCodegenTrace.v",
+          "name": "traced_double_lex_codegen_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleCodegenTrace.v",
+          "name": "traced_double_codegen_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleCodegenTrace.v",
+          "name": "traced_double_prepared_codegen_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTiledCodegenTrace.v",
+          "name": "traced_double_tiled_codegen_phase_exact"
+        }
+      ],
+      "documents": [
+        "docs/adaptive-double-tiling.md"
+      ],
+      "artifact_reports": [
+        "docs/adaptive-double-tiling.json"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "One default-policy build attempts all 62 originals and two adaptations, installs thirteen original cases and 29 sites, retains two frontend refusals and the polynomial compiler timeout, and passes seven public/legacy checks. Three focused diagnostic builds retain mvt but time out in polynomial; no controlled cost or speedup is established.",
+      "documents": [
+        "docs/adaptive-double-tiling.md"
+      ],
+      "artifact_reports": [
+        "docs/adaptive-double-tiling.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -15998,6 +16048,280 @@
         "name": "high_rank_witness_retry",
         "path": "build/benchmark-alignment/reindexed-tiled-attempts/initialized-tce-axes10-v1/report.json",
         "sha256": "7c0b43817d6d1d86ee47b2ad44093a6c201d3a6749f09bee7ab7d3ccf7ab811e",
+        "status": "diagnostic_complete"
+      }
+    ]
+  },
+  "adaptive_double_tiling_stage": {
+    "status": "validated",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "compiler_entrypoint": "InitializedDoubleTiledStableCompiler.compile_selected_initialized_tiled_stable_program",
+    "compiler_theorem": "InitializedDoubleTiledStableCompiler.compile_selected_initialized_tiled_stable_program_correct",
+    "semantic_compiler_proof_unchanged": true,
+    "kernel_and_host_laws_unchanged": true,
+    "new_semantic_axioms": [],
+    "source_users_supply_semantic_callbacks": false,
+    "generic_kernel_composition_theorem_directly_invoked": false,
+    "untrusted_input_policy": {
+      "source_depth_scope": "all Csyntax function bodies",
+      "candidate_depth_proposal": "(tiling enabled ? 2 : 1) * maximum source loop depth",
+      "private_count_default": "max(16, 2 * candidate_depth + 2)",
+      "witness_axes_default": "max(6, candidate_depth)",
+      "minimum_or_universal_sufficiency_proved": false,
+      "existing_factories_check_freshness_capacity_and_witnesses": true,
+      "tce_actual_policy": [
+        "GUARDCERT_DOUBLE_POLICY source_loop_depth=5 private_count=22 witness_axes=10 private_override=false witness_override=false"
+      ]
+    },
+    "complete_default_corpus": {
+      "originals": 62,
+      "adaptations": 2,
+      "raw_native_matches": 59,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": {
+        "polynomial": 600.0163109459681
+      },
+      "installed_original_cases": {
+        "dct": 1,
+        "fusion6": 1,
+        "fusion7": 2,
+        "gemver": 4,
+        "matmul-init": 1,
+        "matmul-seq": 2,
+        "matmul-seq3": 3,
+        "multi-loop-param": 3,
+        "mvt": 2,
+        "mxv": 1,
+        "mxv-seq": 2,
+        "mxv-seq3": 3,
+        "tce": 4
+      },
+      "installed_sites": 29,
+      "compiled_originals_without_tiling_phase": 45,
+      "compiled_originals_with_phase_without_installation": [
+        "tricky3"
+      ],
+      "native_mismatches": [],
+      "installed_cases_are_not_speedup_or_exhaustive_nonidentity_counts": true
+    },
+    "public_and_legacy_cases": 7,
+    "trace_proofs": {
+      "modules": [
+        "GuardMemoryDoubleCodegenTrace",
+        "GuardMemoryDoubleTiledCodegenTrace",
+        "GuardMemoryDoubleTiledPhaseTrace"
+      ],
+      "source_lines": 172,
+      "endpoints": 6,
+      "closed_endpoints": 1,
+      "inherited_globals": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "CoqAddOn.posPr",
+        "CoqAddOn.zPr",
+        "FunctionalExtensionality.functional_extensionality_dep",
+        "PedraQBackend.add",
+        "PedraQBackend.isEmpty",
+        "PedraQBackend.pr",
+        "PedraQBackend.t",
+        "PedraQBackend.top"
+      ],
+      "additional_globals": [],
+      "attempts": [
+        {
+          "module": "GuardMemoryDoubleTiledPhaseTrace",
+          "attempt": "v1",
+          "returncode": 0
+        },
+        {
+          "module": "GuardMemoryDoubleCodegenTrace",
+          "attempt": "v1",
+          "returncode": 1
+        },
+        {
+          "module": "GuardMemoryDoubleCodegenTrace",
+          "attempt": "v2",
+          "returncode": 0
+        },
+        {
+          "module": "GuardMemoryDoubleTiledCodegenTrace",
+          "attempt": "v1",
+          "returncode": 1
+        },
+        {
+          "module": "GuardMemoryDoubleTiledCodegenTrace",
+          "attempt": "v2",
+          "returncode": 0
+        }
+      ],
+      "definitionally_equal_to_original_computation": true
+    },
+    "compact_oracle": {
+      "untrusted_add_proposal": "keep first constraint per exact canonical key",
+      "only_existing_input_certificates_returned": true,
+      "original_emptiness_search_and_LCF_check_retained": true,
+      "conjunction_equivalence_or_minimality_proved": false,
+      "polynomial_codegen_timeout_resolved": false,
+      "full_corpus_with_compact_policy_attempted": false
+    },
+    "new_runtime_guard_or_check_family": false,
+    "target_execution_instrumented": false,
+    "controlled_cost_or_profitability_established": false,
+    "full_goal_complete": false,
+    "summary_report": "docs/adaptive-double-tiling.json",
+    "summary_sha256": "c03d2b4f4a2ffb5cd31da9769ab08cfd4cf78d69e0633bac48f66a4c73cc080a",
+    "bound_files": 14618,
+    "profile_scope": {
+      "profile": {
+        "mvt": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            2,
+            0,
+            2
+          ],
+          "uncompleted_stages": [],
+          "raw_candidates": 2,
+          "final_candidates": 2
+        },
+        "polynomial": {
+          "status": "compiler_timeout",
+          "installed": null,
+          "uncompleted_stages": [
+            "prepared-codegen"
+          ],
+          "raw_candidates": 0,
+          "final_candidates": 0
+        }
+      },
+      "compact_profile": {
+        "mvt": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            2,
+            0,
+            2
+          ],
+          "uncompleted_stages": [],
+          "raw_candidates": 2,
+          "final_candidates": 2
+        },
+        "polynomial": {
+          "status": "compiler_timeout",
+          "installed": null,
+          "uncompleted_stages": [
+            "prepared-codegen"
+          ],
+          "raw_candidates": 0,
+          "final_candidates": 0
+        }
+      },
+      "codegen_profile": {
+        "mvt": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            2,
+            0,
+            2
+          ],
+          "uncompleted_stages": [],
+          "raw_candidates": 2,
+          "final_candidates": 2
+        },
+        "polynomial": {
+          "status": "compiler_timeout",
+          "installed": null,
+          "uncompleted_stages": [
+            "prepared-codegen",
+            "codegen-ast"
+          ],
+          "raw_candidates": 0,
+          "final_candidates": 0
+        }
+      }
+    },
+    "reports": [
+      {
+        "name": "adaptive_build_rejection",
+        "path": "build/adaptive-double-tiling/compiler-attempts/native-v1/rejection.json",
+        "sha256": "1178c54cbe06be7df4a67778598e74cfff1988d188ed97bf5a1749f8555b43c7",
+        "status": "rejected"
+      },
+      {
+        "name": "compiler",
+        "path": "build/adaptive-double-tiling/compiler-attempts/native-v2/report.json",
+        "sha256": "a707bbf077d5bacdb258cb21f18b919b4110fac58a771f41930d362d56847b58",
+        "status": "built"
+      },
+      {
+        "name": "preceding_corpus",
+        "path": "build/benchmark-alignment/reindexed-tiled-attempts/corpus-v1/report.json",
+        "sha256": "6b237648a0cddafac3d9fb7147c73d221d4e18a4e74c94dca87f5c4040b76126",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "corpus",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/corpus-v1/report.json",
+        "sha256": "537016fadfb78c5e7cdabe661c8f7ec69d552c2ee9125356e9012eb0cc23bfdb",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "public",
+        "path": "build/initialized-double-tiling/public-attempts/adaptive-public-v1/report.json",
+        "sha256": "96d24580d6226a96b48fde37c7bfec4912035932316592dd0af65bd32cb26b3d",
+        "status": "passed"
+      },
+      {
+        "name": "trace_precheck_rejection",
+        "path": "build/profiled-double-tiling/precheck-rejections/v1/report.json",
+        "sha256": "4b1d03726072fb90cd25e5de633619d6f796f7e2a008b00d9553f9e9616871d1",
+        "status": "rejected"
+      },
+      {
+        "name": "profiled_compiler",
+        "path": "build/profiled-double-tiling/compiler-attempts/native-v1/report.json",
+        "sha256": "72bfdf0654fa9effbf140445bb5395ab35fd6186fc6aacbf8c54e103eb3ab932",
+        "status": "built"
+      },
+      {
+        "name": "profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/profile-polynomial-v1/report.json",
+        "sha256": "5bc272ed25eeb9fbbf438d7ece8109c3d06c6644f5eddfaccc82f89fa6bf95ce",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "compact_compiler",
+        "path": "build/profiled-double-tiling/compiler-attempts/native-v2/report.json",
+        "sha256": "9c5659f552f0f3bc5ba06260bbef584ccc19485fcf9050fbfa5b704fbd2c3459",
+        "status": "built"
+      },
+      {
+        "name": "compact_profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/compact-profile-polynomial-v1/report.json",
+        "sha256": "11329cfcf8e554af1f16c3d0549eac6ef7e098e02467c2558889e64eefe436bb",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "codegen_compiler",
+        "path": "build/profiled-double-tiling/compiler-attempts/native-v3/report.json",
+        "sha256": "603b4a1d5cac7fa0bb15ef3b2836ada46076b18a508b13966d60dd10535c3e94",
+        "status": "built"
+      },
+      {
+        "name": "codegen_profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/codegen-profile-polynomial-v1/report.json",
+        "sha256": "ba48a5f11eacf6c5d04702f991d722d475d8027065d55343f4cc1fa473b5d98e",
         "status": "diagnostic_complete"
       }
     ]

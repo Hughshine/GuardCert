@@ -1,5 +1,12 @@
 # GuardCert Working Manuscript
 
+The latest [default-policy corpus replay](../docs/adaptive-double-tiling.md)
+uses one build without resource overrides: thirteen of 62 original cases
+install 29 sites, and 59 raw outputs plus two disclosed adaptations match GCC.
+Two frontend refusals and polynomial's AST-generation timeout remain separate.
+Seven public-exit/legacy checks pass; no controlled cost or speedup is claimed.
+The notes below preserve each earlier checkpoint's scope.
+
 The [actual-program matmul compiler](../docs/original-matmul-actual-installation.md)
 checks relevant declarations and frames the caller's actual public temporaries.
 It installs both marked regions in the formerly refused context, preserves an

@@ -2,6 +2,15 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [默认策略和 codegen 诊断](adaptive-double-tiling.md)再次落实 narrative：
+不受信任策略从实际输入提议 private/coordinate budgets，既有 factory 生产
+资源／见证证书，原量化 compiler theorem 仍到 Csem→Asm；不把提议的充分性
+或最小性当作已证明。完整默认build为13/62安装29处，仍有超时／早期拒绝。
+Trace wrappers 已证明与原计算相等，只增加编译器观察；compact oracle仅提议
+已有LCF certificates的子集，原检查仍是authority。二者都不是新runtime guard
+或框架kernel能力。当前难点在actual AST generation；raw codegen完成后还需
+固定captured参数的最终candidate progress、lowering和公开出口，不能跳过。
+
 2026-10-09 [initialized tiling 与拒绝资源后继](initialized-double-tiling.md)
 按 narrative 把 source/model、充分入口条件、实际安全 capture 与条件状态运输，
 最终 candidate progress、lowering/public exits及安装分别指向实际消费的定理。

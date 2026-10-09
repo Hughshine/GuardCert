@@ -23,7 +23,10 @@ The [pinned inventory and work order](../benchmark-alignment.md) retain all 62
 PolCert cases, including 19 with saved concurrent best routes, and identify the
 serial NPB sources. Complete affine and single-configuration tiling corpus
 attempts now have separately bound build and failure scopes; see the
-[initialized tiling and corpus successor](../initialized-double-tiling.md).
+[initialized tiling and corpus successor](../initialized-double-tiling.md) and
+the [default resource-policy replay](../adaptive-double-tiling.md). The latter
+uses one build and no resource overrides: thirteen originals install 29 sites,
+while frontend refusals and a codegen AST-generation timeout remain separate.
 The full sequential configuration matrix, optimized BT and complete costs
 remain unfinished.
 

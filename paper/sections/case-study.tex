@@ -1638,3 +1638,24 @@ intermediate program. The resulting compiler composes to Csem-to-Asm with
 unchanged kernel and host laws. This is concrete reuse of condition, execution
 and installation services; the guarded-execution proof still constructs Clight
 branches directly rather than invoking the generic composition theorem.
+
+\paragraph{Input-derived proposals and compilation diagnostics.}
+The default driver now proposes private capacity and coordinate choices from
+the actual Csyntax loop depth. Tiling doubles that depth estimate; the proposed
+capacity is at least sixteen, and coordinate search covers the estimated axes.
+These are untrusted policies, with explicit diagnostic overrides. Existing
+factories check actual freshness, capacity and each witness, so the same
+Csem-to-Asm theorem applies. The estimate is neither a proved minimum nor a
+universal sufficiency result. Supported source users provide marked C and phase
+options, while the factory retains its source/model and installation obligations.
+
+An original polynomial case exposes a different limitation. Its affine and
+tiling validators complete, but prepared code generation times out. Three
+trace modules prove equality with the original computations and distinguish
+AST generation, simplification, Loop lowering and cleanup. The diagnostic
+stops in AST generation. An independent untrusted add policy proposes removal
+of duplicate constraints by returning only existing certificates; the original
+LCF checks and emptiness search remain. It advances more queries but does not
+resolve the timeout. This compiler diagnostic adds no runtime guard family or
+kernel feature. Completing raw generation still leaves the actual skew
+candidate's representation, forward execution and installation to establish.

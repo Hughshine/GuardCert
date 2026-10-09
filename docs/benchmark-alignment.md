@@ -4,6 +4,14 @@
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
 固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。
 
+2026-10-09 [默认资源策略完整后继](adaptive-double-tiling.md)在单一build上重跑
+62原例＋两适配，无手动budget覆盖：59raw＋2adapted匹配，两个raw frontend拒绝，
+polynomial600.016秒compiler timeout；13/62安装29处。Tce自动22temps／十轴安装
+四处，原dct、mxv、matmul-init各一处。45个已编译raw无tiling phase，tricky3调用
+但无raw candidate。独立120秒trace／compact attempts将polynomial定位到AST
+generation，尚未修复；后者不是完整重跑。七项public／legacy通过，没有controlled
+cost或收益结论。下面保留前序build的范围，不能混成最新完整结果。
+
 2026-10-09 [新完整 reindexed 对照与 initialized 后继](initialized-double-tiling.md)
 保留原62＋两适配：前一build为59raw＋2adapted native matches，两个raw
 frontend refusals、polynomial600.102秒compiler timeout，9/62安装22处。

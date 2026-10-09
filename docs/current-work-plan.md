@@ -2,6 +2,27 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 用户提示后再 fetch/read narrative，可见远端仍为 `8ce9c8b`，两份
+topdown 正文与 main 一致。[默认策略与完整重跑](adaptive-double-tiling.md)已将
+资源／coordinate budgets 从实际 Csyntax 提议，再由既有 factory 检查；支持族
+源码用户不给逐 site callbacks，同一 Csem→Asm 端点复用，kernel／host 不改。
+单一默认 build 的 62 原例＋两适配中，59raw＋2adapted 输出匹配，两个 raw
+frontend 拒绝，polynomial600.016秒 compiler timeout；13/62安装29处。Tce自动
+22temps／十轴安装四处；dct、mxv、matmul-init各一处。七项public／legacy通过。
+45个已编译raw没有tiling phase，tricky3调用但无raw candidate。安装数不是收益。
+
+三个 definitionally-equal trace modules／六端点无新增公理；120秒diagnostics
+定位 polynomial 在 codegen AST generation，尚未到 simplification／Loop lowering。
+Exact-duplicate untrusted add 后继增加查询进展但仍超时，保留失败范围；该
+compact build没有完整重跑，不能覆盖默认完整运行的证据。下一优先为实际投影／
+canonization增长的可检查补救，随后实际skew表示与最终候选安装；不换identity
+schedule规避。继续实际nonzero／inclusive／multiple-bound source结构和其余
+sequential phases，每项同步完整程序证明。BT、LLVM/SPEC、larger tiers、条件
+接受域／紧凑条件与完整成本仍必需。Kernel止于local，language负责安全与安装，
+domain factory内部discharge适用前提；C_opt等四链是来源，不是四份用户record。
+
+以下保留前序检查点的当时边界，其下一步不覆盖上面的当前执行顺序。
+
 2026-10-09 再读 narrative `8ce9c8b`，正文已与 main 一致。按其三方责任和
 source/model 前提来源，[initialized tiling 后继](initialized-double-tiling.md)
 复用既有 capture、最终 candidate progress、lowering、公开出口和 scoped host，
