@@ -1,5 +1,9 @@
 # 原 matmul：生成 Loop 在同一 captured 参数下的 backward source 连接
 
+本页保留该冻结检查点的范围。后继[实际候选有限 model progress](original-matmul-candidate-progress.md)
+已复用通用化的 forward extractor 和最终候选检查，取得同参数 source／
+candidate Loop 的有限执行对应；candidate Clight lowering 与安装仍未完成。
+
 2026-10-09 后继关闭[conditional capture 阶段](original-matmul-capture.md)所留的
 固定参数 backward 缺口。实际 pipeline 的生成 Loop 在本次捕获的 M/N/K 下
 完成执行，能恢复同一组参数下的 source Loop 与原 Clight source，并恢复精确

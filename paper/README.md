@@ -79,6 +79,18 @@ endpoints, with no added axioms. This is finite backward correspondence;
 candidate forward execution/progress, Clight lowering and selected installation
 remain incomplete. No new native, cost or optimized-benchmark result is added.
 
+The [final-candidate progress successor](../docs/original-matmul-candidate-progress.md)
+generalizes the existing signed32 source-to-point-list and representation proofs
+to POLIRS, then instantiates them for double. It checks the actual generated
+Loop, including coordinate witnesses, equivalent domains and dependences.
+Given finite original-source execution and accepted capture/final receipts,
+that Loop has finite execution at the same captured M/N/K and final memory.
+Seven modules and twelve audited endpoints add no axioms. The extracted checker
+accepts real Pluto i/k/j and refuses a wrong witness and invalid proposals.
+These native runs check certificates; they execute no source/candidate model
+or whole C/Asm program. Candidate Clight lowering, static premise production
+and selected installation remain incomplete; installed optimized cases stay zero.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

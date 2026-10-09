@@ -118,8 +118,22 @@ cleanup 不更换参数。通用 `POLIRS` adapter 与 double 实例两模块409�
 候选一定能执行。Forward execution／progress、double Clight lowering、
 static metadata producer 与 selected Csem→Asm 仍缺，新优化案例仍为零。
 
+最新[实际 generated candidate progress](original-matmul-candidate-progress.md)
+将原 signed32 的完整 source→point-list 证明参数化为 `POLIRS` 并实例化
+到 double；不是重新发明该 forward 证明。Actual final generated body
+重新提取，checked coordinate swaps／domain equivalence 对齐表示，再双向
+检查依赖。Actual capture 和原 source 的有限正常执行现可推出候选 Loop
+在同一 M/N/K 下有限执行，最终 memory 相同。七模块1,860行、12端点，
+256 reachable sources／7,468 bindings，至多14 inherited globals，无新增
+公理；8成功／14失败证明尝试保留。提取后的最终检查器实际接受 identity
+及 Pluto i/k/j，拒绝 wrong-witness／reverse／malformed／external Err，
+另复现并修正第一版静态输出 marker 的范围错误，共七项验收、8,652 bindings。
+Native 不执行 source/candidate model 或完整 C/Asm，无成本／收益结果。
+这是 conditional finite model progress；double Clight lowering、static
+producer、source-total／divergence 和 selected 安装仍缺，新优化案例仍为零。
+
 下一实现继续该原 matmul 的整条链：source/site metadata、完整入口前提
-producer，生成候选的 forward execution／progress 与 Clight 降低，guard／factory／
+producer，生成候选的实际 Clight 降低与进展，guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture
 已消费 reached-header license 并生产范围／精确转换和 source state transport。
@@ -130,10 +144,11 @@ wrapped semantics 中仅长度匹配的存在参数替代，并交付 host 安�
 下一实现已定位可复用的具体服务：`FramedNestedClightFor(I)(M)` 对任意
 instruction backend 提供已检查 nested lowering 的执行／private frame，
 不需要为 double 再造 host。Double backend 仍须把 I32 私有坐标精确转换
-成原 global-array 地址表达式并消费真实 reads/stores。Candidate progress
-可沿 final candidate extraction／双向 validation／固定参数 reconstruction
-推进；source Loop→point-list 的 forward producer 尚缺，原 codegen 的
-backward theorem 不能代替它。带 min/max/floordiv 的实际输出仍要覆盖，
+成原 global-array 地址表达式并消费真实 reads/stores。Candidate model progress
+已沿 final candidate extraction／双向 validation／固定参数 reconstruction
+闭合，source Loop→point-list 的 forward producer 已通用化并实际复用；
+仍不能由它推断 candidate Clight lowering 或 host progress 完成。
+带 min/max/floordiv 的实际输出仍要覆盖，
 不能因 final extractor 目前只接受 affine bounds 将这些路线移出目标。
 
 此前响应 narrative 分支澄清，重新 fetch 并完整核对 `8ce9c8b` 的

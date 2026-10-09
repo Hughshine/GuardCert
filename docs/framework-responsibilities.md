@@ -153,6 +153,18 @@ captured values 与 generated-model receipt 接回 checked-entry 的原 Clight
 progress、actual Clight lowering 与 installation 仍未交付；不由 wrapped
 theorem 或本次参数桥推断这些责任完成。
 
+最新[最终候选有限 model progress](original-matmul-candidate-progress.md)
+将已有 signed32 forward extractor／point representation 证明参数化为
+`POLIRS`，使用语言实例的 instruction semantics 与 State.eq。Double
+优化实现交付 actual generated Loop 的 final extraction／coordinate witness／
+等价域与依赖检查；从同参数 source execution 推出 candidate execution。
+实际 matmul AST 实例消费 safe capture 与有限 source receipt，取得同一
+captured M/N/K 下候选的有限 model execution 和相同 final memory。
+12端点无新增公理；native 检查器接受真实 i/k/j 并拒绝错误 witness。
+这是 `C_opt` 的 forward 部分，不交付 candidate Clight lowering、静态
+producer、source-total progress／divergence 或 selected host installation。
+实际 C 用户不因此新增语义 callback 或局部证明责任。
+
 ### Guard library 的契约责任
 
 [原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了

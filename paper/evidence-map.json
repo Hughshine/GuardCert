@@ -3595,6 +3595,74 @@
         "build/original-matmul/source-prepared-parameters-v1/report.json"
       ],
       "scope": "Finite generated-model-to-concrete-source backward execution at the actual captured parameters; no candidate forward progress or installation."
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Existing signed32 trace, domain coverage, schedule order and point representation proofs are generalized to POLIRS and instantiated for double. The actual generated Loop is re-extracted and checked with coordinate witnesses, equivalent domains and dependence validation. Given finite original source execution and accepted capture/final receipts, it executes at the same captured parameters and original final memory. Native checker probes accept real Pluto i/k/j and refuse wrong coordinate witnesses and invalid proposals; they execute no source/candidate model or whole C/Asm program. Candidate Clight lowering, static premise production and selected installation remain incomplete. No installed optimized case or profitability result.",
+      "theorems": [
+        {
+          "source": "theories/PolCertExtractorForward.v",
+          "name": "memory_extracted_stmt_forward"
+        },
+        {
+          "source": "theories/PolCertExtractorForward.v",
+          "name": "memory_extractor_forward_at"
+        },
+        {
+          "source": "theories/PolCertExtractorForward.v",
+          "name": "memory_domain_normalization_execution"
+        },
+        {
+          "source": "theories/PolCertCandidateRepresentation.v",
+          "name": "memory_point_isomorphism_execution"
+        },
+        {
+          "source": "theories/PolCertCandidateRepresentation.v",
+          "name": "memory_coordinate_swap_execution"
+        },
+        {
+          "source": "theories/PolCertCandidateRepresentation.v",
+          "name": "memory_reindexed_execution"
+        },
+        {
+          "source": "theories/PolCertCandidateRepresentation.v",
+          "name": "memory_aligned_domains_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleCandidateProgress.v",
+          "name": "double_extractor_execution_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleCandidateProgress.v",
+          "name": "validated_double_candidate_loops_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleCandidateProgress.v",
+          "name": "checked_double_prepared_loop_progress_at"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/original-matmul/source-candidate-progress-v1/OriginalMatmulCandidateProgress.v",
+          "name": "original_matmul_generated_progress_at",
+          "source_sha256": "1f38b219e4e29854150f0eec629659bf7fbbaaac6d276f58544120d01c5643f8"
+        },
+        {
+          "source": "build/original-matmul/source-candidate-progress-v1/OriginalMatmulCandidateProgress.v",
+          "name": "original_matmul_capture_to_candidate_progress",
+          "source_sha256": "1f38b219e4e29854150f0eec629659bf7fbbaaac6d276f58544120d01c5643f8"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-candidate-progress.md",
+        "docs/original-matmul-candidate-progress.json"
+      ],
+      "artifacts": [
+        "build/original-matmul/candidate-progress-proof-v1/report.json",
+        "build/original-matmul/source-candidate-progress-v1/report.json",
+        "build/original-matmul/candidate-progress-native-check-v1/report.json"
+      ],
+      "scope": "Conditional finite final-generated-model progress at actual captured parameters, with actual extracted final-checker receipts; no candidate Clight lowering or complete-program installation."
     }
   ],
   "bibliography_evidence": [
@@ -10414,6 +10482,62 @@
     "selected_compiler_connected": false,
     "new_Csem_to_Asm_endpoint": false,
     "new_native_or_cost_results": false,
+    "original_corpus_requested_optimized_cases": 0,
+    "full_goal_complete": false
+  },
+  "original_matmul_candidate_progress": {
+    "status": "audited_final_generated_model_progress_at_actual_captured_parameters_not_installed_Clight_candidate",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "proof_report": {
+      "path": "build/original-matmul/candidate-progress-proof-v1/report.json",
+      "sha256": "0216603a293e2f88aa118b8e8780c50c125e3b0b5872c1e04218d0c98d11dc26"
+    },
+    "source_report": {
+      "path": "build/original-matmul/source-candidate-progress-v1/report.json",
+      "sha256": "a3cc835437fd82a628069ee77270e46e63064ce9579be86917fd7aecc8163cf6"
+    },
+    "native_report": {
+      "path": "build/original-matmul/candidate-progress-native-check-v1/report.json",
+      "sha256": "3a98c142af5ae0626df97cfde242e6b69481797b63e0da5039dcc0fdf9070fd0"
+    },
+    "new_modules": [
+      "theories/PolCertSourceTrace.v",
+      "theories/PolCertExtractorTrace.v",
+      "theories/PolCertExtractorCoverage.v",
+      "theories/PolCertExtractorOrder.v",
+      "theories/PolCertExtractorForward.v",
+      "theories/PolCertCandidateRepresentation.v",
+      "adapters/compcert-memory/GuardMemoryDoubleCandidateProgress.v"
+    ],
+    "new_source_lines": 1860,
+    "endpoints": 12,
+    "closed_endpoints": 0,
+    "maximum_endpoint_globals": 14,
+    "additional_global_axioms": [],
+    "reachable_sources": 256,
+    "proof_bindings": 7468,
+    "successful_proof_attempts": 8,
+    "rejected_proof_attempts": 14,
+    "native_bindings": 8652,
+    "native_checks": 7,
+    "generic_POLIRS_forward_extraction_and_representation": true,
+    "source_and_target_parameter_environment": "the same actual captured [M;N;K]; named polyhedral environment is its reverse",
+    "coordinate_witness_and_domain_alignment_checked": true,
+    "actual_final_generated_body_checked": true,
+    "actual_checked_double_pipeline_consumed": true,
+    "actual_capture_to_generated_model_progress_bridge": true,
+    "original_source_fallback_and_public_exits_connected": true,
+    "header_load_or_numeric_range_premises": false,
+    "static_layout_bindings_and_finite_normal_source_execution_still_required": true,
+    "proof_direction": "given finite actual source execution, accepted capture and final pipeline certificate imply finite generated Loop execution at the same parameters and final memory",
+    "original_optimizer_and_kernel_unchanged": true,
+    "candidate_Clight_lowering_complete": false,
+    "candidate_model_forward_progress_proved": true,
+    "source_total_progress_or_divergence_proved": false,
+    "selected_compiler_connected": false,
+    "new_Csem_to_Asm_endpoint": false,
+    "native_source_or_candidate_model_execution": false,
+    "new_cost_results": false,
     "original_corpus_requested_optimized_cases": 0,
     "full_goal_complete": false
   }
