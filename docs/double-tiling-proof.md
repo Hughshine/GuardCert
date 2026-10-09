@@ -6,6 +6,9 @@
 本阶段完成证明接线；真实 double tiling 的 native producer 和原案例安装验收
 尚未完成。原 corpus 安装／非恒等计数不变，不报告性能结果。
 
+后继 [真实 native tiling 安装](double-tiling-installation.md)已交付 producer、
+提取 compiler 和原案例／context 验收；本页保留单独的证明阶段边界。
+
 ## 交付内容与责任
 
 | 提供者 | 本阶段的工作 | 使用者还需要什么 |

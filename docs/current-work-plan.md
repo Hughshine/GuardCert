@@ -19,10 +19,20 @@ selected Csem→Asm。六模块1,132行、16端点／3closed，495 reachable sou
 与最终 adapted candidate forward 分开，后续 pass 消费当前 intermediate program。
 这是证明阶段，没有新的 native 安装或 corpus coverage。
 
-下一优先是 actual double tiling 的 native producer 和原程序安装／回退／context
-验收；已有 TV 实例化、word tiling 或上述 compiler theorem 不替代运行验收。
-保持真实 double/I64/source，保存 actual phase 和 raw/final Loop；核对 bound
-adaptation 的有效迭代宽度、scratch 和 unit coordinates。与此同时定位 dct 的
+[真实 double tiling 后继](double-tiling-installation.md)已交付 native producer 和
+提取 compiler：完整62 raw＋2 adaptations 中59 raw／2 adapted native matches，
+两个既知 frontend refusals、tce180秒compiler timeout；9/62安装22处。Tce在
+600秒预算后继中229.206秒完成，四处十层Loop安装且原digest匹配；两build实测
+并集10/62、26处。10项原矩阵、非方形tile、14 context及3 unchanged assembly
+path通过；unit坐标补全四配置经同一checker通过。保留初次unit拒绝和测试脚本
+失败；native后继无新语义证明／公理。Identity pretransform＋tiling不冒充
+affine→tiling，跨build计数不冒充最新compiler完整重跑。没有受控性能结果。
+
+下一优先是实际 affine scheduling 后的 tiling、initialized／multiple-bound／
+loaded 等实际 source structures 和 ISS／其余 sequential phases；同时诊断
+高维编译、scratch 自动计数及紧凑 quotient enclosure。最终checker当前覆盖
+所有参数，不能直接用runtime limit作常数截断。50个已编译raw案例没有调用
+专用tiling phase，需定位具体checker并扩支持族。与此同时定位 dct 的
 initialized witness/source body、polynomial 的 skew coordinate/domain；44 项在
 scheduler 前回退的内部 checker 尚待逐个定位。所有 sequential phases、原 BT、
 LLVM／SPEC、larger tiers、条件接受域和受控完整成本继续必需。库整理只在解除

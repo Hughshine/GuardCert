@@ -2,6 +2,13 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [真实 double tiling](double-tiling-installation.md)把上述证明接到
+Pluto/data producer、prepared codegen、最终actual candidate与native compiler。
+Unit coordinate completion也仅是不受信任提议，复用同一checker／Csem→Asm；
+不用额外语义公理替代表示修复。两build实测10/62安装26处，context／实际
+assembly paths已验收；identity pretransform、较慢高维编译与source族限制明确
+保留。原source用户不给proof callbacks，语言／domain库内部责任不转给用户。
+
 2026-10-09 [Double tiling 证明接线](double-tiling-proof.md)继续落实 narrative
 的三方边界：构造性 progress functor 属于 polyhedral domain；实际执行、frame、
 公开出口及安装复用 Clight language 服务；minimal kernel 不改。Factory 内部

@@ -4275,6 +4275,32 @@
         "build/double-tiling/installation-proof-v2/report.json"
       ],
       "section": "case-study and evaluation"
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Real sequential double tiling is extracted through the existing proved entry and tested on the complete original corpus, with separate high-rank, unit-coordinate, context and unchanged-assembly evidence; combined counts span two builds.",
+      "theorems": [
+        {
+          "source": "prototype/interface/DoubleTiledChoicesCompiler.v",
+          "name": "compile_selected_tiled_choices_program_correct"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleTiledFactory.v",
+          "name": "check_tiled_reduction_double_region_sound"
+        }
+      ],
+      "documents": [
+        "docs/double-tiling-installation.md",
+        "docs/double-tiling-installation.json"
+      ],
+      "artifacts": [
+        "build/benchmark-alignment/double-tiled-attempts/corpus-v1/report.json",
+        "build/double-tiling/compiler-attempts/native-v1/report.json",
+        "build/double-tiling/compiler-attempts/native-v2/report.json",
+        "build/double-tiling/original-attempts/high-rank-v1/report.json",
+        "build/double-tiling/check-attempts/contexts-v2/report.json",
+        "build/double-tiling/path-attempts/paths-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -14866,5 +14892,280 @@
     "proof_report_sha256": "544baf92231d6b58803a73202c181f704063d6efa5cadb3c810058735041c4c2",
     "bindings": 8698,
     "next_acceptance": "actual native Pluto tiling producer plus original double/I64 full-program runtime acceptance/refusal and context tests"
+  },
+  "double_tiling_native": {
+    "status": "validated",
+    "whole_program_entrypoint": "DoubleTiledChoicesCompiler.compile_selected_tiled_choices_program",
+    "whole_program_theorem": "DoubleTiledChoicesCompiler.compile_selected_tiled_choices_program_correct",
+    "proof_report": "docs/double-tiling-proof.json",
+    "proof_report_sha256": "544baf92231d6b58803a73202c181f704063d6efa5cadb3c810058735041c4c2",
+    "new_semantic_proofs_in_native_successor": false,
+    "additional_global_axioms": [],
+    "maximum_inherited_globals": 42,
+    "phase_options": "real Pluto sequential tiling with identity pretransform; later scheduling/ISS not connected here",
+    "original_numeric_types_and_computations_preserved": true,
+    "C_users_supply_semantic_callbacks_or_handwritten_target": false,
+    "full_corpus_v1": {
+      "originals": 62,
+      "disclosed_adaptations": 2,
+      "raw_native_matches": 59,
+      "adaptation_native_matches": 2,
+      "installed_cases": {
+        "fusion6": 1,
+        "fusion7": 2,
+        "gemver": 4,
+        "matmul-seq": 2,
+        "matmul-seq3": 3,
+        "multi-loop-param": 3,
+        "mvt": 2,
+        "mxv-seq": 2,
+        "mxv-seq3": 3
+      },
+      "installed_sites": 22,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "terminal_compiler_timeout_seconds": {
+        "tce": 180
+      },
+      "cases_without_phase_calls": [
+        "1dloop-invar",
+        "adi",
+        "advect3d",
+        "corcol",
+        "costfunc",
+        "covcol",
+        "dct",
+        "doitgen",
+        "dsyr2k",
+        "dsyrk",
+        "fdtd-1d",
+        "fdtd-2d",
+        "floyd",
+        "fusion1",
+        "fusion10",
+        "fusion2",
+        "fusion3",
+        "fusion4",
+        "fusion5",
+        "fusion8",
+        "fusion9",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "jacobi-1d-imper",
+        "jacobi-2d-imper",
+        "lu",
+        "matmul",
+        "matmul-init",
+        "multi-stmt-stencil-seq",
+        "mxv",
+        "negparam",
+        "nodep",
+        "noloop",
+        "seidel",
+        "seq",
+        "shift",
+        "spatial",
+        "ssymm",
+        "strmm",
+        "strsm",
+        "tmm",
+        "tricky1",
+        "tricky2",
+        "tricky4",
+        "trisolv",
+        "wavefront"
+      ],
+      "default_tile_size": 32,
+      "private_count": 32,
+      "Clight_comparison_to_unmarked_not_available_in_this_report": true
+    },
+    "high_rank_v2": {
+      "case": "tce",
+      "installed_sites": 4,
+      "compiler_budget_seconds": 600,
+      "compiler_elapsed_seconds_diagnostic": 229.20613595301984,
+      "compiler_wall_controlled": false,
+      "point_dimensions": 5,
+      "tiled_loop_depth": 10,
+      "native_matches_original_GCC": true,
+      "private_count": 32
+    },
+    "combined_original_tiling_cases": {
+      "fusion6": 1,
+      "fusion7": 2,
+      "gemver": 4,
+      "matmul-seq": 2,
+      "matmul-seq3": 3,
+      "multi-loop-param": 3,
+      "mvt": 2,
+      "mxv-seq": 2,
+      "mxv-seq3": 3,
+      "tce": 4
+    },
+    "combined_original_tiling_sites": 26,
+    "combined_counts_span_two_bound_native_builds": true,
+    "original_matrix_checks_v1": 10,
+    "rectangular_sizes_v1": "2,3",
+    "context_checks_v1_compiler": 14,
+    "public_controls": {
+      "mvt-public-positive": [
+        "96,96"
+      ],
+      "mvt-public-zero": [
+        "0,23"
+      ],
+      "mvt-public-negative": [
+        "0,23"
+      ]
+    },
+    "multiple_marked_installs_and_calls": [
+      4,
+      4
+    ],
+    "marked_with_unmarked_installs_and_calls": [
+      2,
+      2
+    ],
+    "unchanged_assembly_path_checks_v1_compiler": 3,
+    "paths": {
+      "mvt-dynamic-positive": [
+        2,
+        0
+      ],
+      "mvt-dynamic-negative": [
+        0,
+        2
+      ],
+      "mvt-dynamic-zero": [
+        2,
+        0
+      ]
+    },
+    "unit_coordinate_successor_v2": {
+      "checks": 4,
+      "tested_tiles": [
+        "1,3",
+        "3,1",
+        "1,1",
+        "1,3,2"
+      ],
+      "checker_and_proof_unchanged": true,
+      "prepared_codegen_dump": "original-raw-generated.loop",
+      "completion_proposal_dump": "completed.loop",
+      "final_candidate_dump": "generated.loop",
+      "base_raw_dump_is_adapter_input": true
+    },
+    "normal_v2_native_checks": 2,
+    "initial_unit_refusal_and_context_script_failures_preserved": true,
+    "compact_runtime_guard_changed_by_this_stage": false,
+    "dynamic_alias_guard_added": false,
+    "guard_or_total_cost_controlled": false,
+    "speedup_claimed": false,
+    "full_goal_complete": false,
+    "pending": [
+      "affine scheduling followed by tiling; other sequential phases",
+      "initialized/multiple-bound/loaded and other original source structures",
+      "automatic scratch sizing and faster high-rank compilation",
+      "compact conditions, useful acceptance and controlled complete costs",
+      "original BT and LLVM/SPEC plus larger tiers"
+    ],
+    "reports": [
+      {
+        "name": "compiler_v1",
+        "path": "build/double-tiling/compiler-attempts/native-v1/report.json",
+        "sha256": "20c3ef4f90bc21d73ceacfc0d3ba4933ee7ecfd1ed63a2b31b776cf2ecb58c6f",
+        "status": "built"
+      },
+      {
+        "name": "compiler_v2",
+        "path": "build/double-tiling/compiler-attempts/native-v2/report.json",
+        "sha256": "aebce30ad1138064328d9251a9d298fa6a2f2bb401f5ae392cbd16b0c6b821db",
+        "status": "built"
+      },
+      {
+        "name": "original_matrix",
+        "path": "build/double-tiling/original-attempts/original-matrix-v1/report.json",
+        "sha256": "1dd776302947b5a731e1e576b7ded610690836140be4e930fdfff22c95d3437a",
+        "status": "passed"
+      },
+      {
+        "name": "rectangular_sizes",
+        "path": "build/double-tiling/original-attempts/rectangular-sizes-v1/report.json",
+        "sha256": "84f3e7f45105f3c33bf2bc0816bc5f8a785372b5f96a78aa7796978b1dabca96",
+        "status": "passed"
+      },
+      {
+        "name": "contexts",
+        "path": "build/double-tiling/check-attempts/contexts-v2/report.json",
+        "sha256": "0b58d257fb941b0a601654ce330c1d07f051100e1a0b78f52f268f77becb9d2f",
+        "status": "passed"
+      },
+      {
+        "name": "paths",
+        "path": "build/double-tiling/path-attempts/paths-v1/report.json",
+        "sha256": "c0516adaa28e0ca81c60e0463547062155fdfb62d7c8df4533f784ee90057422",
+        "status": "passed"
+      },
+      {
+        "name": "corpus",
+        "path": "build/benchmark-alignment/double-tiled-attempts/corpus-v1/report.json",
+        "sha256": "33cf83d9dbde5fc2d238b8428373f85af2838674c69abacfc61be3e55888de5d",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "initial_context_rejection",
+        "path": "build/double-tiling/check-attempts/contexts-v1/rejection.json",
+        "sha256": "f5db8756cbcafd611050dab02bb852df5e1b0d02a0032b60ec0ccdf35e9dc8b0",
+        "status": "rejected"
+      },
+      {
+        "name": "initial_unit_refusal",
+        "path": "build/double-tiling/original-attempts/mixed-unit-v1/report.json",
+        "sha256": "4ed1d1e6f7831d15a62c80b12da82927cc48c9a4e214ab8c4de3e5d21d1f0e62",
+        "status": "rejected"
+      },
+      {
+        "name": "mixed_unit",
+        "path": "build/double-tiling/original-attempts/mixed-unit-v2/report.json",
+        "sha256": "1295e77c8d4c33b197ab73b986ef0716f8998b51e130a18e7a790a89bcb7f31a",
+        "status": "passed"
+      },
+      {
+        "name": "transpose_unit",
+        "path": "build/double-tiling/original-attempts/transpose-unit-v2/report.json",
+        "sha256": "d57f44849aa77f9b3985411efb0164859aa7215e74dd47ab93deb5a37e74ffbc",
+        "status": "passed"
+      },
+      {
+        "name": "all_unit",
+        "path": "build/double-tiling/original-attempts/all-unit-v2/report.json",
+        "sha256": "a8febca6fb5b259f616ae6082ad4b210e0fe42829316d07a7b3c5c21327cbef0",
+        "status": "passed"
+      },
+      {
+        "name": "three_axis_unit",
+        "path": "build/double-tiling/original-attempts/three-axis-unit-v2/report.json",
+        "sha256": "c01d985ae3ec0d54ad7e4f13fd91dd19e4023ce7b49b21c2eeb5ac2b38e65147",
+        "status": "passed"
+      },
+      {
+        "name": "normal_v2",
+        "path": "build/double-tiling/original-attempts/original-v2/report.json",
+        "sha256": "b1dc6d70f7588898511dcdb2076866dd8a26ba515da1aeaa6df5b14ec4b235ec",
+        "status": "passed"
+      },
+      {
+        "name": "high_rank",
+        "path": "build/double-tiling/original-attempts/high-rank-v1/report.json",
+        "sha256": "a9954ea04a3422cc0f759ac1a49cbc04d07fb5a57cf71e89c92740dd3a961da6",
+        "status": "passed"
+      }
+    ],
+    "summary_sha256": "f4fd020f6c617c5bcbc2a2c7494f0f1aadb75cbd41ce1303fa65cfc3bc4c5c02",
+    "bindings": 14485
   }
 }

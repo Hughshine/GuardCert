@@ -11,6 +11,13 @@ mismatch。当前14/62原案例安装30处，8/62有非恒等证据；44项 sche
 dct／polynomial phase 后拒绝及两项 raw frontend refusal 仍是缺口。当前支持的
 configured guards 和 Csem→Asm 端点已连接，完整 sequential phases／cost 未完成。
 
+[Actual double tiling 后继](double-tiling-installation.md)跑完同一完整语料，保留
+原IEEE／I64／布局：9/62原案例安装22处，59raw与2adaptations匹配，两个raw
+frontend拒绝和`tce`180秒编译超时。后继`tce`长预算安装4处并匹配，跨两build
+实测并集10/62、26处；不是最新build完整重跑。Unit／context／原出口和实际
+branch验收也通过。本路线为identity pretransform＋tiling，affine后tiling与
+其余sequential配置仍待连接，不报告收益或controlled cost。
+
 ## 已核对的输入清单
 
 [机器可读清单](benchmark-alignment-inventory.json)绑定两个上游提交、下载内容
@@ -120,5 +127,6 @@ Finite completion 与 open/diverging host 按实际 progress 要求选择；退�
    signed-child 草稿尚未成功编译、审计或安装；其功能不计入覆盖，继续投入
    前先说明它们解除哪个真实 case/configuration 的限制。
 
-目前这份完整 corpus/program 比较尚未运行。历史 header／empty／alias
-验收继续有效，但不构成此清单的通过数量。完整研究 goal 保持 active。
+目前已完成原corpus的baseline、完整affine和上述单一tiling配置比较；完整
+顺序phase矩阵、原BT优化、LLVM／SPEC和较大tiers／成本仍未完成。历史
+header／empty／alias验收继续有效，不替代这些原程序功能。完整goal active。
