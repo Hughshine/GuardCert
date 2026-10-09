@@ -58,6 +58,18 @@ endpoints audit without added axioms. This supplies source-definedness receipts;
 emitted capture, range acceptance, checked-state transport, candidate execution
 at the captured parameters, progress and installation remain incomplete.
 
+The [conditional-capture successor](../docs/original-matmul-capture.md) now emits
+dependent M/N/K checks, tests the signed-I64 range before exact I32 conversion,
+and skips unread child headers on zero paths. Four fresh private names are
+checked against the original program. Its source/fallback transport and source
+Loop at the actual captured parameters are proved. Three modules and 20 endpoints
+audit without added axioms. Sixteen capture-only native runs pass, with two
+expected failures outside the read-license domain. The probe uses extracted
+CompCert machine/memory operations with a supplied global lookup and unproved
+AST interpreter. Static layout/bindings and finite normal source execution remain
+premises; generated candidate parameters, progress, lowering and selected
+installation remain pending. No new installed optimized benchmark is claimed.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

@@ -93,12 +93,27 @@ loads、非负范围、layout、stability 或 body operands 可读。两个模�
 progress 或安装，新优化案例仍为零。2026-10-09 在 `d1f533b` 基线上再次
 fetch narrative，最新仍为 `8ce9c8b`，两份正文与 main 一致。
 
-下一实现继续该原 matmul 的整条链：source/site metadata、条件 bound capture 与入口前提
+最新后继[原 matmul conditional capture](original-matmul-capture.md)已生成
+实际 Clight M/N/K 检查：先在 I64 上检查 0≤header≤98，才精确转换为 I32
+私有参数；拒绝停止后续读取，零维填充剩余 caches 而跳过未到达 headers。
+实际完整 program 的四个 fresh names 通过资源检查。所有完成检查的 E0、
+memory frame、已定义 flag 与接受 soundness 已证；原 source 从 checked
+state 的 fallback entry／public exit transport 已证。接受接到同一 captured
+M/N/K 下的 source pipeline Loop。三个模块562行、20端点／4closed、
+243 reachable sources／7,332 bindings，至多六 inherited globals，无新增
+公理；4成功／16失败证明尝试保留。18项 native capture probe 包括6接受、
+10拒绝及2个域外预期失败，绑定7,625文件。Probe 使用实际提取的 AST 和
+CompCert Cop／Mem，global lookup 与 AST interpreter 由 harness 提供，
+不执行 source／candidate／fallback／Asm。Static/layout/bindings 和给定
+finite normal source execution 仍是逻辑前提；generated candidate 的固定
+参数桥、progress 和 selected 安装未完成，新 optimized cases 仍为零。
+
+下一实现继续该原 matmul 的整条链：source/site metadata、完整入口前提
 producer，生成候选的固定参数证书与 Clight 降低，安全 guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture
-必须消费新的 reached-header license；接受分别生产范围／精确转换和
-state transport。最终 candidate 证书必须作用于同一实际 captured M/N/K，
+已消费 reached-header license 并生产范围／精确转换和 source state transport。
+最终 candidate 证书必须作用于同一实际 captured M/N/K，
 不能用 wrapped semantics 中仅长度匹配的存在参数替代；同时消费真实
 scheduler／codegen 输出并交付 host 所需 progress 和安装。
 
@@ -110,8 +125,8 @@ scheduler／codegen 输出并交付 host 所需 progress 和安装。
 receipts，以及候选入口／出口运输分别验收。已有 source/model iff 不代替
 这些 producer，也不代替 source progress 或实际候选的进展证明。
 
-下一项完整接入必须自动建立当前显式的 static／layout／conditional-load／
-range 前提。明确这些 producer 消费和返回的证据，并消费已接通的实际
+下一项完整接入必须自动建立仍显式的 static／layout／binding 前提，消费
+已完成 capture 的 conditional-load／range／source transport 证据，并消费实际
 scheduler／codegen 结果；不为 C 用户增加语义 callback。对未到达的 N／K 和 body operands
 保持条件式许可；声明、symbol binding、稳定性或范围事实单独都不能证明
 一次 load 的 definedness。拒绝后的 fallback 要从实际 checked state 接回

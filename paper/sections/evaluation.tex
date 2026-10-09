@@ -107,10 +107,24 @@ permissions to the actual exported source without header-load or numeric-range
 premises. This is a finite source-definedness result; no emitted capture,
 runtime guard, new native optimized case or whole-program endpoint is added.
 
+The conditional-capture successor adds three modules totaling 562 lines and
+20 audited endpoints, four closed, with at most six inherited globals and no
+added axioms. It follows 243 sources and binds 7,332 files, retaining four
+successful and sixteen failed proof attempts. Actual source capture checks,
+exact conversion, private frames, source/fallback transport and source semantics
+at the captured parameters are proved. Sixteen native capture runs pass:
+six accept and ten refuse. Two further inputs fail as expected outside the
+read-license domain; they are not runtime fallbacks. These probes execute the
+extracted capture AST with CompCert machine/memory primitives, a supplied global
+lookup and an unproved AST interpreter. They check I64 extremes, pre-truncation
+refusal, zero-path bypass and header read counts. Native receipts bind 7,625
+files. No source body, candidate, fallback C or Asm executes in these probes,
+and no new optimized benchmark, whole-program endpoint or cost result is added.
+
 \pending{Full alignment of input tiers, sequential routes, retained
 transformations and costs remains incomplete. Next, connect the generated
-matmul candidate to checked parameters, safe entry production, Clight lowering,
-a runtime guard and the selected compiler theorem.
+matmul candidate to the captured parameters, complete the static entry producer,
+and connect Clight lowering, candidate progress and the selected compiler theorem.
 Other PolCert cases, original NPB programs, LLVM Test Suite inputs and
 unavailable SPEC sources remain targets.}
 

@@ -1,0 +1,58 @@
+{
+  "status": "audited_actual_conditional_capture_to_fixed_source_model_not_installed_candidate",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "proof_report": {
+    "path": "build/original-matmul/capture-proof-v1/report.json",
+    "sha256": "2297a0f313c0d9d576efa782a1888d006fbb2eef042b4e8cbb7b84e5a1acb055"
+  },
+  "source_report": {
+    "path": "build/original-matmul/source-capture-v1/report.json",
+    "sha256": "7d3f42aae61f67be58bfdebb5ce1f0072b04fc77dcae47abbfb247e4fd7401fb"
+  },
+  "native_report": {
+    "path": "build/original-matmul/capture-native-check-v1/report.json",
+    "sha256": "749b0d2ece37fc4a1ca768c8c5c735a9e63b15b6526f586cfe1d782a4331eae2"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryLongRangeCapture.v",
+    "adapters/compcert-memory/GuardMemoryLongCapturePath.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulCapture.v"
+  ],
+  "new_source_lines": 562,
+  "endpoints": 20,
+  "closed_endpoints": 4,
+  "maximum_endpoint_globals": 6,
+  "additional_global_axioms": [],
+  "reachable_sources": 243,
+  "proof_bindings": 7332,
+  "successful_proof_attempts": 4,
+  "rejected_proof_attempts": 16,
+  "actual_original_selected_region_connected": true,
+  "read_permission_source": "finite normal execution of the actual original region",
+  "header_load_or_numeric_range_premises": false,
+  "runtime_source_preexecution_required": false,
+  "conditional_capture_Clight_execution_proved": true,
+  "all_completed_capture_executions_sound": true,
+  "I64_checks_precede_exact_I32_conversion": true,
+  "numeric_limit": 98,
+  "empty_path_private_parameters_filled_without_child_reads": true,
+  "fresh_capture_resources_checked_from_actual_program": true,
+  "E0_memory_and_public_temp_frame_proved": true,
+  "original_fallback_entry_and_source_exit_transport_proved": true,
+  "source_model_at_actual_captured_parameters": true,
+  "static_layout_bindings_and_finite_source_execution_still_required": true,
+  "successful_capture_native_runs": 16,
+  "accepted_native_runs": 6,
+  "refused_native_runs": 10,
+  "expected_outside_license_failures": 2,
+  "native_bindings": 7625,
+  "native_boundary": "actual extracted capture AST and CompCert Cop/Mem operations; probe supplies global lookup and an unproved AST interpreter",
+  "native_source_candidate_fallback_or_Asm_execution": false,
+  "fixed_parameter_generated_candidate_bridge_complete": false,
+  "total_source_or_candidate_progress_proved": false,
+  "selected_compiler_connected": false,
+  "new_Csem_to_Asm_endpoint": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "cost_or_profitability_evidence": false,
+  "full_goal_complete": false
+}

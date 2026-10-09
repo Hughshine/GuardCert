@@ -100,10 +100,10 @@ load invariant。该 theorem 已完成实际三层源与 pipeline Loop 的有限
 | --- | --- | --- |
 | 实际 source AST、double 运算树、I64 controls、global layouts | Domain matcher／metadata checker，使用 language 的声明和 scope 定律 | 从实际 normalized program 核对；layout registry 与真实 globals 对应，locals 不遮蔽 globals。单独声明不提供运行时 load 许可。 |
 | Global symbols 与 block 分离 | Language 的 global-environment 定律；factory 提供 identifier、scope 和 symbol 事实 | 区分静态 checker 结果与其在实际 ge／locals 中的解释。原 C store 保持 headers 已有定理可复用。 |
-| M 的读取；M 活动时 N 的读取；M/N 活动时 K 的读取 | Language 的执行／definedness 服务与 domain capture producer | 新 header-license 服务从实际原执行取得原入口 memory 的条件式 load receipts；不在运行时预执行源。实际 capture producer 仍待接入。 |
-| Checked words 到数学维数、I64 no-wrap 与地址范围 | Domain 的充分条件；language 的实际 machine guard | Guard 接受必须生产当前非负小范围 bridge 所需的事实。I32 私有模型若被使用，还须证明 I64 range check／转换；源 counter 类型保持。负 bound 路径仍待接入。 |
+| M 的读取；M 活动时 N 的读取；M/N 活动时 K 的读取 | Language 的执行／definedness 服务与 domain capture producer | Header-license 从实际原执行取得原入口 memory 的条件式 load receipts；后继实际 capture 消费这些 receipts。零维跳过子读取，拒绝停止后续检查，不在运行时预执行源。 |
+| Checked words 到数学维数、I64 no-wrap 与地址范围 | Domain 的充分条件；language 的实际 machine guard | 实际 I64 范围检查接受生产 0..98 与精确 I32 转换；负值／超界拒绝。源 I64 counters 保持。Static layout／binding 的自动 producer 和其他数值域仍待接入。 |
 | Body operand reads／store 与实际 model actions | Domain source decoder 和 language 的实际 load／store 定律 | 旧 assignment bridge 从给定原执行恢复 reached receipts；检查未到达的 operands 须另有 safe invocation 证明，不能由 AST／范围事实假定可读。 |
-| Private captures、接受入口与拒绝入口 | Language 的 typed/fresh allocation、frame 和 state-transport 服务；domain factory 实例化 | 对接受状态解释 model parameters；对拒绝状态建立原 fallback 入口关系。共享 prefix 的 effects 与 private writes 分别运输。 |
+| Private captures、接受入口与拒绝入口 | Language 的 typed/fresh allocation、frame 和 state-transport 服务；domain factory 实例化 | 四个 fresh names 从原完整 program 核对，capture 只写这些 temps。接受已连接同一 captured source model；任一 checked entry 已证明原 fallback execution／public exit transport。候选入口运输和完整 factory 仍待接入。 |
 | 真实候选、公开出口、progress 和安装 | Domain 的实际 scheduler／validator／codegen／lowering；language host 与 site checker | 保持 IEEE 表达式树、依赖顺序和实际 public exits，交付所需 progress，再复用 selected installation／Csem→Asm。终止执行 iff 不生产完整 progress。 |
 
 这里没有要求每个 premise 都生成一个 runtime test。Checked metadata、静态
@@ -120,8 +120,9 @@ source PolyLang 执行；它不单独保证候选进展，也不提供 actual Cl
 2026-10-09 后继[原 matmul header license](original-matmul-header-license.md)
 实际实现 safe invocation 的 receipt 子步骤：language 生产首个 header 和
 首个 body 执行，domain 沿原 nest 组合，actual exported AST 再绑定原输入。
-六端点编译／审计，无新增公理。范围成立、safe emitted capture、private
-freshness／frame、拒绝入口和整程序安装仍需对应 producer。`C_guard`
+六端点编译／审计，无新增公理。该旧 checkpoint 的范围成立、safe emitted
+capture、private freshness／frame、拒绝入口由下面的后继实现；整程序安装
+仍需 producer。`C_guard`
 不能只交付接受 soundness 而省略检查安全。
 
 已运行的[double prepared pipeline](original-matmul-prepared-pipeline.md)使用
@@ -131,6 +132,16 @@ captured M/N/K。Domain candidate checker／factory 必须闭合固定参数下
 的真实执行桥与 progress；language 负责 private 参数状态运输、实际降低
 服务和 host 安装。框架 kernel 不承担该参数解释，也不由源码用户补语义
 callback。此次重新 fetch 的 narrative 仍为 `8ce9c8b`，正文与 main 一致。
+
+2026-10-09 [实际 conditional capture 后继](original-matmul-capture.md)将上述
+许可接到 language 的 signed-I64 range/精确转换、依赖式 Clight 检查与 private
+frame。Domain 实例生产非负有界 nat 维数和 header invariant；实际 AST
+实例核对 program-wide fresh pool，连接 source/fallback transport 及同一
+captured 参数下的 source Loop。20端点／4closed、无新增公理；capture-only
+native 16次完成、2次域外预期失败，不算新优化 benchmark。Static/layout/
+bindings 和给定 finite normal source execution 仍需 host/factory 处理；
+candidate 固定参数、progress、lowering 和 selected Csem→Asm 尚未闭合。
+Kernel 没有修改，也没有把这些责任移交 marked C 用户。
 
 ### Guard library 的契约责任
 

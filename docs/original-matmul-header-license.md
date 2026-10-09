@@ -6,6 +6,10 @@
 六端点通过 Rocq 编译和假设审计，无新增公理。**还没有生成或安装原
 matmul capture／guard**，新增优化案例仍为零。
 
+本页保留该冻结检查点的范围。[Conditional capture 后继](original-matmul-capture.md)
+已实现实际范围检查、private frame、source/fallback transport 和接受时固定
+参数的 source model；generated candidate／progress／整程序安装仍未完成。
+
 ## 已证事实与实际输入
 
 `GuardMemoryLongHeaderLicense` 从 initialized I64 loop 的有限正常执行

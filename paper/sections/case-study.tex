@@ -162,8 +162,22 @@ No header-load or nonnegative-range premise is assumed. The successful I64
 comparison rules out undefined and non-long values; first-iteration execution
 receipts establish the conditional reads before any body store. These are
 proof receipts, not runtime pre-execution of the source. Global bindings remain
-premises. Emitted capture, range acceptance, private-state transport, candidate
-execution at the captured parameters and installation remain incomplete.
+premises. That checkpoint supplies no emitted capture or installed candidate.
+
+The conditional-capture successor now emits dependent Clight checks for these
+headers. It tests $0\leq h\leq98$ with signed I64 comparisons before casting
+to a private I32 model parameter; acceptance proves that conversion exact.
+Refusal stops later reads. A zero dimension fills the remaining private caches
+with zero and skips their headers. The flag is defined before dispatch.
+Every completed check has an empty trace, unchanged memory and a private
+temporary frame. Four fresh names are checked against the actual program.
+Source execution is transported to the checked entry, including fallback and
+public exits. Acceptance supplies source Loop semantics at the actual captured
+M/N/K, without entry-load or numeric-range premises. Static layout, global
+bindings and a given finite normal source execution still remain premises.
+This closes the source parameter bridge, not the generated candidate bridge:
+fixed-parameter candidate correspondence, progress, lowering and selected
+installation remain incomplete.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,
