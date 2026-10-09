@@ -76,6 +76,11 @@ source/capture、同参数 candidate 与 lowering receipts；kernel 保持原来
 local guarded composition 边界。Local finite theorem 不建立 source-total
 progress、divergence 或 contextual closure。
 
+现有 `projected_region_contract` 对任意 program/locals 量化，当前定理则
+依赖实际 globals/no-shadow bindings。静态声明检查还不构成该 universal
+contract；需要[环境事实的生产与运输](framework-responsibilities.md#实际程序事实与-host-契约的量化差距)，
+或证明在旧契约全部环境下适用的对应。该衔接尚未实现。
+
 下一项接入要自动生产 static registry/bindings，把实际 capture/candidate/
 fallback 交付给既有 selected host，建立适用的 typing、placement、progress
 和 private-resource 义务，再连接 Csem→Asm。其他真实 source、tiling/ISS/

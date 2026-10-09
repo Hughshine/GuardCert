@@ -179,6 +179,30 @@ host 安装仍由 factory/language 分别交付。给定原 source finite execut
 不能代替这些 host 前提，也不是运行时 pre-execution；native AST emission
 不能作为 source/candidate C 或 Asm 已执行的证据。
 
+### 实际程序事实与 host 契约的量化差距
+
+2026-10-09 对照 [projected contract](../theories/ClightPrivateRegion.v) 与
+[installation proof](../theories/ClightPrivateRegionProof.v) 后，还须区分两件事。
+`projected_region_contract` 对任意 `temps p e le tle m` 量化；旧
+`transform_private_program_correct` 消费能在这些环境下成立的 contract。
+实际 matmul theorem 则显式消费五个 array/scalar globals 与 M/N/K 的
+bindings，以及 locals 不遮蔽相应 IDs 的事实。检查原 program 的声明，
+不自动取得那个更强的、任意 program/locals 下的 contract。
+
+这是 language host 与 site producer 的具体衔接义务。下一接入先检查可复用
+的环境／scope 定律：从实际 globals 与 enclosing function declarations
+生产 binding/no-shadow 事实，并沿 allocation、实际函数入口和 source steps
+运输到被替换 site；program rewriting 保持 symbols 与 composite environment。
+若使用既有 universal contract，须证明 source/model 组合在它的全部量化
+环境下适用；若需要限制到实际 program 的环境不变量，须在现有 host 的
+simulation proof 中证明该限制可运输。不能仅给局部定理再加一个静态
+checker，就声称旧安装定理已经可用。
+
+目前尚未选定或实现这个衔接。不把它变成源码用户的 callback，不先改
+generic kernel 或增加 context algebra；以原 matmul 的实际安装证明检验
+所需服务。另行交付 I64 source 的适用 progress protocol：有限正常执行
+对应本身不是这个 protocol，也不推出 divergence preservation。
+
 ### Guard library 的契约责任
 
 [原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了

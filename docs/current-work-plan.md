@@ -170,6 +170,13 @@ wrapped semantics 中仅长度匹配的存在参数替代，并交付 host 安�
 已沿 final candidate extraction／双向 validation／固定参数 reconstruction
 闭合，source Loop→point-list 的 forward producer 已通用化并实际复用；
 Clight lowering 由后继独立证明，host progress 与安装仍缺。
+已定位一个具体 installation 差距：旧 `projected_region_contract` 对任意
+program/locals 量化，当前 local theorem 消费实际 global/no-shadow bindings。
+静态 declaration checker 不直接填平该量化差距。下一项沿 allocation、
+函数入口与 source steps 生产／运输适用环境不变量，检查如何在现有 host
+simulation 中复用；或证明符合既有 universal contract 的对应。选择须由
+实际 matmul 安装证明决定，不先加 generic context record，也不留用户
+callback。详见[契约量化责任](framework-responsibilities.md#实际程序事实与-host-契约的量化差距)。
 带 min/max/floordiv 的实际输出仍要覆盖，
 不能因 final extractor 目前只接受 affine bounds 将这些路线移出目标。
 
