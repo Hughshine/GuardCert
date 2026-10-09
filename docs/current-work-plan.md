@@ -2,6 +2,23 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 独立边界的证明接线：本轮最新进度
+
+本轮重新 fetch/read narrative，远端仍为 `8ce9c8b`，两份 topdown 正文
+与 main 一致。按其中的责任边界推进
+[独立 N/M/K 边界](rectangular-double-nests.md)：原 Clight source/model
+有限执行 iff、实际 AST decoder、逐轴数学 footprint checker、原执行许可
+的顺序 capture、精确参数和 memory/private frame 已编译。任一步拒绝后
+停止读取后续边界；非正轴保守 fallback。Kernel／host 定律保持不变。
+
+**此新族尚无 factory／Csem→Asm／native 安装，不增加既有覆盖计数。**
+下一步由具体 declarations、accepted observation receipts、cap 与 layout
+生产完整 reached readiness／稳定性／entry transport，再接实际固定参数的
+candidate checker、progress、Clight lowering、公开出口和当前 program 安装。
+Source/model 的显式前提由实现者闭合。逐轴短路检查是 condition library
+实例，库组织不能替代端到端接线。原独立参数及 `N!=M`、空域/拒绝、多个
+sites 和完整输出需要实际验收。
+
 ### Narrative 澄清与参数下标扩展的实际交付
 
 本轮重新 fetch 的 `origin/topdown/research-positioning` 仍为

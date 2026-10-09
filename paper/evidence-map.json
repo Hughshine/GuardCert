@@ -17355,5 +17355,58 @@
         "name": "compile_selected_header_literal_quotient_tiled_stable_program_correct"
       }
     ]
+  },
+  "rectangular_double_nests_proof_checkpoint": {
+    "stage": "independent-bound-source-model-and-dependent-capture-proofs",
+    "proof_report": "build/rectangular-double-nests/proof-v1/report.json",
+    "proof_report_sha256": "65ee0c076a7ece2ddbaf32959923caa346e9d6b4cac49e7c35f97a6bbf39c21f",
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoubleRectangularNestData.v",
+      "adapters/compcert-memory/GuardMemoryDoubleRectangularNestModel.v",
+      "adapters/compcert-memory/GuardMemoryDoubleRectangularNestSource.v",
+      "adapters/compcert-memory/GuardMemoryDoubleRectangularHeaderLicense.v",
+      "adapters/compcert-memory/GuardMemoryDoubleRectangularBounds.v",
+      "adapters/compcert-memory/GuardMemoryDoubleRectangularNestDecoder.v",
+      "adapters/compcert-memory/GuardMemoryLongPositiveCapture.v",
+      "adapters/compcert-memory/GuardMemoryRectangularCapture.v",
+      "adapters/compcert-memory/GuardMemoryRectangularCaptureObservations.v"
+    ],
+    "source_lines": 1044,
+    "queried_endpoints": 37,
+    "closed_endpoints": 18,
+    "maximum_endpoint_globals": 6,
+    "additional_global_axioms": [],
+    "reachable_sources": 262,
+    "bindings": 9318,
+    "installed_factory_consumes_new_source_model": false,
+    "new_whole_program_endpoint": null,
+    "new_native_coverage": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRectangularNestSource.v",
+        "name": "double_rectangular_nest_canonical_source_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRectangularBounds.v",
+        "name": "double_rectangular_instruction_bounds_check_sound"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryRectangularCapture.v",
+        "name": "rectangular_capture_source_licensed"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryRectangularCapture.v",
+        "name": "rectangular_capture_receipt_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryRectangularCaptureObservations.v",
+        "name": "rectangular_capture_accepted_observations"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryRectangularCaptureObservations.v",
+        "name": "rectangular_capture_observations_axes"
+      }
+    ]
   }
 }

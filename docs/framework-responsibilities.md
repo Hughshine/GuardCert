@@ -2,6 +2,15 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [独立边界证明阶段](rectangular-double-nests.md)按同一分工扩展
+真实 N/M/K：domain 提供原 AST decoder、参数模型、数学 footprint checker
+和带显式前提的 source/model iff；language 提供原执行许可的逐轴 capture、
+精确表示、memory/private frame 和接受后的 observation 接线。后一步检查
+仅在前一步接受时执行，任一步拒绝停止读取。Kernel／host 定律保持。
+新族的 entry/readiness、稳定性、候选 progress／lowering、refusal transport
+与 actual current-program 安装仍由实现者闭合；没有新 native 或全程序覆盖。
+条件库的分类和局部服务证明不能代替这条交付，也不把适用前提交给 C 用户。
+
 本轮 narrative 对照没有更晚远端版本：仍为 `8ce9c8b`，两份 topdown 正文
 与 main 一致。下一参数下标扩展按[工作计划的逐项验收](current-work-plan.md)
 区分 language 的实际 global observation／安全执行、domain 的 source/model
