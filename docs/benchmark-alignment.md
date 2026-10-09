@@ -1,0 +1,97 @@
+# PolCert／CGO 2017 对齐：验收范围与下一步
+
+2026-10-08，吸收 narrative
+`8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
+固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。
+
+## 已核对的输入清单
+
+[机器可读清单](benchmark-alignment-inventory.json)绑定两个上游提交、下载内容
+的 SHA-256 和原始文件的 Git blob。以下是清单事实，不是 GuardCert 运行结果。
+
+| 来源 | 固定版本与输入 | 当前核对结果 |
+| --- | --- | --- |
+| [PolCert corpus](https://github.com/Hughshine/PolCert/blob/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/polopt-generated/README.md) | `ca1ae3199c816594bab9d51eb77309a0d17527aa`；62 个 `.loop` 输入 | 原始 tree、strict manifest、saved best 配置与运行报告的案例集合一致 |
+| [PolCert generated C](https://github.com/Hughshine/PolCert/blob/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/end-to-end-generated/README.md) | 同提交；由源／目标 Loop 对生成 harness | 这是另一层 materialization；不能把 Loop 输入直接算作已接入的 C 程序 |
+| [CGO 2017 author artifact](https://github.com/jdoerfert/CGO17_ArtifactEvaluation/tree/1b23e28261eb1c161192afa86ab996eb67d65f0c) | `1b23e28261eb1c161192afa86ab996eb67d65f0c`；serial NPB 源码 | 找到 BT、CG、DC、EP、FT、IS、LU、MG、SP、UA 十组 C 源；BT 的原文件为 `BT/rhs.c` |
+| LLVM Test Suite | Artifact 指定 `1d312ed`／SVN r287194 | 完整 Git revision、实际输入名单与本地取得仍待完成 |
+| SPEC2000／SPEC2006 | Artifact 不附专有源码 | 源码取得和 C／C++ frontend 差距保持未解决项，不能删出对照范围 |
+
+62 项中有 19 项的已保存 best route 使用并发；这些案例全部保留，改跑其
+顺序配置。Saved report 为每项提供顺序配置记录，同时有七条候选记录没有
+execution metadata；清单保留后者，不将其解释为成功运行。Saved best 只是
+历史调参记录，不作为当前机器上的最优性或 GuardCert 支持证据。
+
+复现清单：
+
+```sh
+python3 scripts/benchmark_alignment_inventory.py --fetch
+```
+
+固定来源缓存于 `build/benchmark-alignment/source-pins/`。已有缓存可不带
+`--fetch`；该命令只生成 inventory，不运行编译器或测量速度。
+
+## 必须分别完成的五项验收
+
+1. **实际源码。** 保留 numeric types、原运算、loaded bounds、驱动及周围
+   context。PolCert harness 的生成过程与 CGO 原程序分别登记。标注、尺寸
+   缩减、header 适配等修改保留 diff；word-copy fixture 不能代替浮点计算。
+2. **实际优化。** 记录源模型、proposal、phase validation、生成的 candidate
+   与最终 retained transformation。顺序路线包含适用的 affine scheduling
+   后 tiling、ISS、intra-tile scheduling、diamond／two-level tiling、unroll/jam。
+   Vector annotation 与实际 SIMD lowering 分别调查。Identity、静态拒绝和
+   全部运行时 fallback 是诊断结果，不能算完成所需优化。
+3. **安全条件。** 区分 assumption construction／simplification、实际安全
+   machine check 和成功后的模型义务。源语义许可的读、短路、capture、
+   stability、私有 state transport 与拒绝入口都有具体 producer。扫描可以
+   是中间实现；条件代码尺寸、动态工作和完整成本仍需验收。
+4. **整程序证明。** 每条支持的配置把实际 checked source、guard、candidate、
+   fallback 和公开出口连接到对应 `Csyntax.program` 的 successful-compilation
+   Csem→Asm backward simulation，保留现有 parsing／assembly／linking 边界。
+   原源码用户只给标注和策略，不补未证 semantic callback。
+5. **顺序效果与成本。** 对应计算、输入 tier 和可比顺序 backend，计入检查、
+   fallback、capture、出口恢复与完整调用。原八线程 BT speedup 不是顺序目标。
+   不要求相同 guard 或 speedup，但有用的顺序效果是尚须达成的目标。
+
+## 责任与逐配置记录
+
+Kernel 保持局部证书组合；language 提供执行、guarded choice、frames、
+资源和 region installation；optimizer/domain 提供 source selection、
+modeling、充分前提、源／候选对应及可核对的 proposal。Factory/site checks
+生产适用的 invocation、scope、placement、progress、typing 与 freshness。
+已有 host/backend 可以复用；复用不允许省去新 source/candidate 的对应。
+
+每个 program/configuration 的运行记录必须绑定 source/hash、适配 diff、
+numeric types、input tier、compiler/options、proposal、各 phase 的通过／
+失败、actual candidate/hash、condition/hash、installed theorem endpoint 和
+source `Csyntax.program`、native path／输出以及 complete-call measurement。
+尚未生产的记录标为 pending；失败保留所在阶段、具体原因、已尝试修复和
+后继行动。不能因某阶段当前有限制就缩小输入名单。
+
+Concrete-to-model decode、model transformation、model-to-Clight、public exits
+分别记录实际证明方向；loaded source 另有 capture/stable-source 桥。静态
+syntax/resources、dynamic check/capture/transport 和作为证明起点的原 source
+execution 不混为同一种前提，也不在 runtime 先执行 source 来许可检查。
+Finite completion 与 open/diverging host 按实际 progress 要求选择；退出关系
+本身不能证明可能发散的替换。重复安装的证据针对当前中间程序重新产生。
+
+## 当前执行顺序
+
+1. 从上述 62 项 materialize 原 C、numeric types 与 input tiers，跑实际
+   selected compiler／顺序配置；以阶段失败表选择下一个实现阻塞项。同步
+   固定 CGO serial NPB 的 build inputs、LLVM Test Suite 完整版本与案例名单。
+   首批定位 matmul、fusion、multi-stmt-stencil-seq；它们不是最终子集，完整
+   清单继续保留。
+2. 首批原程序重点包含 BT `compute_rhs`。读取原浮点／scalar computation、
+   loaded bounds、布局与周围 context；先取得真实 frontend/model/phase
+   拒绝证据，再补对应 source 或 candidate 结构。当前 integer tensor 的
+   standalone fixtures 保留为回归，不代替这个工作。
+3. 每次 source／phase 扩展同时接入现有 guard、候选、fallback、出口、host
+   和 CompCert theorem，随后提取／native。Context lifting 不留到最终集成；
+   不重造 kernel、第二 IR 或抽象 context algebra 来延期。
+4. 以原案例明确的阻塞项决定 condition service 扩展和成本改进。当前两个
+   signed-child 草稿尚未成功编译、审计或安装；其功能不计入覆盖，继续投入
+   前先说明它们解除哪个真实 case/configuration 的限制。
+
+目前这份完整 corpus/program 比较尚未运行。历史 header／empty／alias
+验收继续有效，但不构成此清单的通过数量。完整研究 goal 保持 active。

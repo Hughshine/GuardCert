@@ -1,5 +1,12 @@
 # Optimistic Loop Optimization 验收账本
 
+2026-10-08 最新验收更新：按 narrative `8ce9c8b` 的
+[固定原程序／配置清单](benchmark-alignment.md)比较 PolCert 和 CGO 2017 的
+实际顺序功能与优化效果，并逐条接到整程序 Csem→Asm。原 serial NPB／BT
+浮点计算与周围 context 不能替换成简化 word-copy fixtures；LLVM Test
+Suite／SPEC 的取得或语言差距继续保留为未解决项。下文是历史能力证据，
+不是这份原始 corpus 的通过统计，完整 case/configuration 比较仍未运行。
+
 2026-10-05。主要参照 Doerfert、Grosser、Hack 的 [CGO 2017 论文](https://compilers.cs.uni-saarland.de/papers/doerfert_cgo17.pdf)（pp. 292–304）。本文将论文需求转成 GuardCert 的工程验收，不要求复现 LLVM/Polly 的代码和性能结果。下表的实现划分与测试标准是本项目设计。
 
 ## 论文能力与当前证据

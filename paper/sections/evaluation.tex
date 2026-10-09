@@ -5,6 +5,25 @@ The evaluation distinguishes semantic proof, compilation, execution validation,
 and cost. A successful native test is not a universal correctness proof, and
 proof counts are not a measure of practical optimization value.
 
+\paragraph{Required original-program comparison.}
+The acceptance target includes all 62 cases in the
+\href{https://github.com/Hughshine/PolCert/tree/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/polopt-generated}{pinned PolCert corpus}
+and the \href{https://github.com/jdoerfert/CGO17_ArtifactEvaluation/tree/1b23e28261eb1c161192afa86ab996eb67d65f0c}{CGO~2017 author artifact}'s
+original computations and program contexts.
+Cases whose saved best route used concurrency remain in the sequential
+comparison. Applicable scheduling, tiling, ISS, intra-tile scheduling,
+diamond/two-level tiling and unroll/jam routes require concrete attempts;
+vector annotations and actual SIMD lowering are investigated separately.
+Each supported configuration must connect its checked source, guard, generated
+candidate and fallback to the corresponding Csem-to-Asm theorem. Static
+refusal, identity and all-fallback execution do not establish support for the
+requested optimization. Comparisons must preserve numeric types and report
+source adaptations and complete-call costs with comparable sequential backends.
+\pending{The corpus inventory has been checked, but this full comparison has
+not run. Original serial NPB, including BT's floating-point computation, must
+not be replaced by word-copy fixtures; LLVM Test Suite input identification
+and unavailable SPEC sources remain unresolved items.}
+
 The shared selected compiler adds four Rocq modules totaling 208 lines and nine
 audited endpoints, with no axioms beyond the inherited 42-global CompCert
 baseline. The lines include imports and audit queries; author time was not

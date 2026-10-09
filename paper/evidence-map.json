@@ -1,6 +1,6 @@
 {
   "date": "2026-10-08",
-  "narrative_reference": "c4b1395668786f20cdb75fb2db020dd651bb4684",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
   "claims": [
@@ -9428,5 +9428,34 @@
     "runtime_rmw_report_sha256": "b35bc8b3c2e409fe91c70111a3648e4121c8491dc054dd8b19b9ca38bc728ec9",
     "regression_report": "build/affine-empty-runtime/regression-v1/report.json",
     "regression_report_sha256": "31f6bc18cface8762f2dbfc71988083a7331f75e051ac496618eaa155c5323b6"
+  },
+  "benchmark_alignment_acceptance": {
+    "status": "pinned_inventory_verified; full_original_case_comparison_not_run",
+    "documents": [
+      "docs/benchmark-alignment.md",
+      "docs/benchmark-alignment-inventory.json"
+    ],
+    "inventory_generator": "scripts/benchmark_alignment_inventory.py",
+    "inventory_sha256": "412647895f925daba25c56fc0ce36da8421bbc161a25c6baa7a81414c1b5c4c6",
+    "polcert_revision": "ca1ae3199c816594bab9d51eb77309a0d17527aa",
+    "polcert_cases": 62,
+    "saved_concurrent_best_cases_retained_for_serial_comparison": 19,
+    "cgo17_artifact_revision": "1b23e28261eb1c161192afa86ab996eb67d65f0c",
+    "serial_npb_program_source_groups": 10,
+    "requirements": [
+      "actual numeric types and original computations/context",
+      "applicable sequential polyhedral phases and useful effects",
+      "safe executable checks and actual branch entry/exit transport",
+      "installed source-specific Csem-to-Asm endpoint per supported configuration",
+      "complete-call sequential cost including guards/fallback/public exits"
+    ],
+    "new_proof_or_native_optimization_results": false,
+    "pending": [
+      "materialize and compare pinned PolCert C/source tiers and phase configurations",
+      "original serial NPB including BT compute_rhs",
+      "full LLVM Test Suite revision and inputs",
+      "SPEC availability and C/C++ frontend coverage",
+      "actual retained transformation and complete-call effects"
+    ]
   }
 }

@@ -14,6 +14,16 @@ lowering 限制移出目标。支持范围是第一优先级，未支持项须�
 回归证据；其中历史“下一步”不覆盖本节。新增证明端点、调用数量或条件 AST
 缩小，不代替源范围、变换、benchmark 效果及完整程序保证的完成。
 
+本次已核对[固定版本 inventory](benchmark-alignment-inventory.json)：62 个 Loop
+输入与 strict manifest／saved route reports 的案例集合一致，保留 19 项并发
+saved-best 的顺序配置，并定位 CGO artifact 的十组 serial NPB 与 BT 原
+`rhs.c`。七条缺少 execution metadata 的上游候选记录也保留。来源、复现
+命令与逐配置证据字段见[原程序对齐计划](benchmark-alignment.md)。这是清单
+核对，完整 corpus/configuration 比较尚未运行，不计新优化或性能结果。
+
+两个 signed-child 草稿尚未成功编译／审计／安装，不算新支持；其后续投入
+按下面的实际 case/configuration 阻塞或主要成本安排。特殊 fixture 保持回归。
+
 1. 建立 [PolCert／CGO 2017 对照清单](polcert-integration-target.md)：
    PolCert 62 个 case 全部保留，逐例运行适用的顺序配置；保存最佳用了并行的
    case 重新评估顺序路线。按作者 artifact 固定 CGO 2017 程序、版本与输入，

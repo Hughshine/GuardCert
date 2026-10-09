@@ -1,5 +1,14 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-08: The [updated acceptance plan](docs/benchmark-alignment.md) follows
+narrative `8ce9c8b`: PolCert and CGO 2017 functionality, sequential optimization
+effects and original programs, with Csem-to-Asm correctness for each supported
+configuration. The pinned inventory retains all 62 PolCert cases, including
+19 whose saved best route used concurrency, and locates ten serial NPB source
+groups. This is an inventory, not an optimization result. Original-case
+comparisons now determine implementation priority; existing fixtures remain
+regressions. The complete goal stays active.
+
 2026-10-08: [Runtime empty alternatives](docs/affine-empty-runtime-installation.md)
 reuse existing candidate certificates after proving the refused entry relation
 and exact source-prefix replay. Fifteen new endpoints audit without added axioms;

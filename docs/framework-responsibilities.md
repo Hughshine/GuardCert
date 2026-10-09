@@ -2,9 +2,19 @@
 
 ## 持续适用的责任表
 
-2026-10-08 对照 narrative 新版本 `c4b1395`，已同步 guard library 的
-分类／依赖契约与 source/model 方向和前提来源澄清。本表约束后续阶段，下面的日期记录保留各阶段当时的
+2026-10-08 对照 narrative 新版本 `8ce9c8b`，已同步 PolCert／CGO 2017
+原案例、顺序功能／效果与逐配置 whole-program delivery 要求；此前 guard library 的
+分类／依赖契约与 source/model 方向和前提来源澄清继续适用。本表约束后续阶段，下面的日期记录保留各阶段当时的
 交付范围。
+
+验收来源与优先级见[原程序对齐计划](benchmark-alignment.md)。每条支持配置
+都必须把实际 source、guard、candidate、fallback 和公开出口连接到对应
+source `Csyntax.program` 的 Csem→Asm backward simulation；不是只提供
+local 或 Loop→Loop 结果。Factory/site 生产 invocation、scope、placement、
+progress、typing 与 private resources，源码用户不补 unproved semantic
+callbacks。已有有限／open host 和 backend 可复用，按真实 progress 要求
+选择；不能从终止执行的证据推出可能发散的替换正确。安装随每条功能扩展
+交付，不能以 clause factoring 仍是设计问题为由延期。
 
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
 | --- | --- | --- |

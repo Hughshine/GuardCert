@@ -6,6 +6,11 @@ PolCert 和 CGO 2017 同时作为功能、效果与 benchmark 参照；最终输
 程序 Csem→Asm 保证。并发可不支持，其他顺序缺口经具体尝试继续解决。
 当前已有框架和若干真实路径，不等于此验收已经完成。
 
+[固定清单与复现](benchmark-alignment.md)绑定 62 个 Loop 输入、19 项并发
+saved-best 对应的顺序配置，以及 CGO artifact 的十组 serial NPB 源文件。
+来源核对已经完成，实际 corpus/configuration 比较仍未运行；完整清单见
+[inventory](benchmark-alignment-inventory.json)。
+
 固定 [PolCert 62-case corpus](https://github.com/Hughshine/PolCert/blob/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/polopt-generated/README.md)，
 逐例保留 identity、默认 affine＋tiling、affine-only、ISS 和其他适用顺序配置。
 并行 saved-best case 不删除，重新选择顺序配置；跟踪实际调度后分块、tile 内

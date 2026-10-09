@@ -1,0 +1,1523 @@
+{
+  "kind": "acceptance_inventory_not_coverage_results",
+  "narrative_revision": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "pins": [
+    {
+      "cache_file": "polcert-readme.md",
+      "url": "https://raw.githubusercontent.com/Hughshine/PolCert/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/polopt-generated/README.md",
+      "sha256": "c172007fa4f952a35e8bfa51c88ba4a2d98a1f6d8e25ac289f4805c8735d6741"
+    },
+    {
+      "cache_file": "polcert-tree.json",
+      "url": "https://api.github.com/repos/Hughshine/PolCert/git/trees/ca1ae3199c816594bab9d51eb77309a0d17527aa?recursive=1",
+      "sha256": "cd2ff54a828282a8a3d3e17dc007d1e74966ba38d64198fc837be18f464fc3b1"
+    },
+    {
+      "cache_file": "polcert-strict_suite_manifest.json",
+      "url": "https://raw.githubusercontent.com/Hughshine/PolCert/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/polopt-generated/strict_suite_manifest.json",
+      "sha256": "fd19eaab1b19e72324e6402866030441c62e91dc9559f923fadfcc8731a0222b"
+    },
+    {
+      "cache_file": "polcert-best_pipelines.json",
+      "url": "https://raw.githubusercontent.com/Hughshine/PolCert/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/end-to-end-generated/best_pipelines.json",
+      "sha256": "a60dec3e29d7cfe5ab863740447bc87ba67b91002daafe6689d51a72a89eaa7d"
+    },
+    {
+      "cache_file": "polcert-best_pipeline_report.json",
+      "url": "https://raw.githubusercontent.com/Hughshine/PolCert/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/end-to-end-generated/best_pipeline_report.json",
+      "sha256": "e274162e40d5364840bbc9c8773489d8851a52da5b926bcb656baac63e209c8e"
+    },
+    {
+      "cache_file": "polcert-README.md",
+      "url": "https://raw.githubusercontent.com/Hughshine/PolCert/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/end-to-end-generated/README.md",
+      "sha256": "201dfb05abe75afca0cd85ab5e3c1edc11891ec87d4455e77562390d83a451b1"
+    },
+    {
+      "cache_file": "cgo17-readme",
+      "url": "https://raw.githubusercontent.com/jdoerfert/CGO17_ArtifactEvaluation/1b23e28261eb1c161192afa86ab996eb67d65f0c/README.md",
+      "sha256": "20b12d66c78e6d8294c1572c1b6c450b314124863bbad5f7b5ef5c034b74399e"
+    },
+    {
+      "cache_file": "cgo17-tree.json",
+      "url": "https://api.github.com/repos/jdoerfert/CGO17_ArtifactEvaluation/git/trees/1b23e28261eb1c161192afa86ab996eb67d65f0c?recursive=1",
+      "sha256": "593ccb24a69fab7c45bdd4c50b51de13144e8d7f5653c10347452e951db2b67c"
+    }
+  ],
+  "polcert": {
+    "revision": "ca1ae3199c816594bab9d51eb77309a0d17527aa",
+    "case_count": 62,
+    "saved_concurrent_best_count": 19,
+    "input_kind": "Loop fragments; generated C harnesses require separate materialization and validation",
+    "cases": [
+      {
+        "case": "1dloop-invar",
+        "source_loop": "tests/polopt-generated/inputs/1dloop-invar.loop",
+        "source_git_blob": "6f6a44c5f0d72f888b7148a93197069fb96b61ac",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": true,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "adi",
+        "source_loop": "tests/polopt-generated/inputs/adi.loop",
+        "source_git_blob": "12c81b33aa4d1b32430fad3bb05369ed925f604f",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "advect3d",
+        "source_loop": "tests/polopt-generated/inputs/advect3d.loop",
+        "source_git_blob": "f73c3014fef0d06134668c86c7f3d0fe0daddb24",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "corcol",
+        "source_loop": "tests/polopt-generated/inputs/corcol.loop",
+        "source_git_blob": "8e0464ad4599e524fbbc0f0383c75407f9e08e8c",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "corcol3",
+        "source_loop": "tests/polopt-generated/inputs/corcol3.loop",
+        "source_git_blob": "991daf0742086b131be710357fba9ea58d50bf84",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "costfunc",
+        "source_loop": "tests/polopt-generated/inputs/costfunc.loop",
+        "source_git_blob": "f51efea1716efddbe42b136fad8e6158f6834f8a",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "covcol",
+        "source_loop": "tests/polopt-generated/inputs/covcol.loop",
+        "source_git_blob": "a1ead5ba5a1313dc147cc1a3d06452cf2adcaa45",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "dct",
+        "source_loop": "tests/polopt-generated/inputs/dct.loop",
+        "source_git_blob": "081b6592ce40b6a51552cd4e25f3556aeee1bc6b",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "doitgen",
+        "source_loop": "tests/polopt-generated/inputs/doitgen.loop",
+        "source_git_blob": "195a1152103583930cefdf485bbccf564a06406b",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "dsyr2k",
+        "source_loop": "tests/polopt-generated/inputs/dsyr2k.loop",
+        "source_git_blob": "fb2224cb96f2af388dd37a1433c0288fb0fbf202",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [
+          "iss_parallel_4"
+        ],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "dsyrk",
+        "source_loop": "tests/polopt-generated/inputs/dsyrk.loop",
+        "source_git_blob": "397382adcb7d9f62bf65a0ab6672d0d1c417bb2a",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [
+          "iss_parallel_4"
+        ],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fdtd-1d",
+        "source_loop": "tests/polopt-generated/inputs/fdtd-1d.loop",
+        "source_git_blob": "09dd8a0fdb8ed4c04ab76c2727fdd630e94356f5",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fdtd-2d",
+        "source_loop": "tests/polopt-generated/inputs/fdtd-2d.loop",
+        "source_git_blob": "e0eadfc8a9f4e3a12ff7e27058d1ab15c5f1f229",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "floyd",
+        "source_loop": "tests/polopt-generated/inputs/floyd.loop",
+        "source_git_blob": "aed661fea7ccfbfd3ed5ce6e053babb5160bcb78",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion1",
+        "source_loop": "tests/polopt-generated/inputs/fusion1.loop",
+        "source_git_blob": "ed309e870c0c45f2173d48ceeb45b167089454c1",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion10",
+        "source_loop": "tests/polopt-generated/inputs/fusion10.loop",
+        "source_git_blob": "fcb2a078fe1fc01da3863f7e27d8e8f1d3814cec",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion2",
+        "source_loop": "tests/polopt-generated/inputs/fusion2.loop",
+        "source_git_blob": "e18dbd44416347dd387ef7ad769b5518d298818c",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion3",
+        "source_loop": "tests/polopt-generated/inputs/fusion3.loop",
+        "source_git_blob": "86bc9b5499fc53750e72e45016d972fb062bf6af",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion4",
+        "source_loop": "tests/polopt-generated/inputs/fusion4.loop",
+        "source_git_blob": "936804c79ff14243fd273834b9670ba0498f435f",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion5",
+        "source_loop": "tests/polopt-generated/inputs/fusion5.loop",
+        "source_git_blob": "adc0d8f0da13e89fb9247c86820891a162a60b99",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion6",
+        "source_loop": "tests/polopt-generated/inputs/fusion6.loop",
+        "source_git_blob": "764766ce7b624c06f45fe374053ac0d38710441c",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [
+          "parallel_4",
+          "iss_parallel_4"
+        ],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion7",
+        "source_loop": "tests/polopt-generated/inputs/fusion7.loop",
+        "source_git_blob": "7582eacc47321f264ca46c6243e06962ad460718",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion8",
+        "source_loop": "tests/polopt-generated/inputs/fusion8.loop",
+        "source_git_blob": "1b5f45e34683bfdf9d0d54faf020ced5298b0e4b",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "fusion9",
+        "source_loop": "tests/polopt-generated/inputs/fusion9.loop",
+        "source_git_blob": "8df16b81ffcc6fc0f9731ea991a2164372400f47",
+        "saved_best_route": "iss_parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "gemver",
+        "source_loop": "tests/polopt-generated/inputs/gemver.loop",
+        "source_git_blob": "6f8eafad926a1d56d722fa0a6a0170e0673c8e3c",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "intratileopt1",
+        "source_loop": "tests/polopt-generated/inputs/intratileopt1.loop",
+        "source_git_blob": "efa54899888d25f6a569dde1fc96f52e8d193ba0",
+        "saved_best_route": "iss_parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "intratileopt2",
+        "source_loop": "tests/polopt-generated/inputs/intratileopt2.loop",
+        "source_git_blob": "fac82e15b94da46f306908e54a12ba1d190634a2",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "intratileopt3",
+        "source_loop": "tests/polopt-generated/inputs/intratileopt3.loop",
+        "source_git_blob": "80356416d7c0169741e8a58a7c2e225d7eca229a",
+        "saved_best_route": "iss_parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "intratileopt4",
+        "source_loop": "tests/polopt-generated/inputs/intratileopt4.loop",
+        "source_git_blob": "437814272a9874a7a026db544529fc14be1031c3",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "jacobi-1d-imper",
+        "source_loop": "tests/polopt-generated/inputs/jacobi-1d-imper.loop",
+        "source_git_blob": "c507f868d5173c956e2e43b86a6e9a9e3681d390",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "jacobi-2d-imper",
+        "source_loop": "tests/polopt-generated/inputs/jacobi-2d-imper.loop",
+        "source_git_blob": "418a27605bff835bdab2b726617e7989770ee81f",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "lu",
+        "source_loop": "tests/polopt-generated/inputs/lu.loop",
+        "source_git_blob": "dcbdc2a09c62836b005370016233f8c34ce88159",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "matmul-init",
+        "source_loop": "tests/polopt-generated/inputs/matmul-init.loop",
+        "source_git_blob": "72609c19ed2b9a4178754a92010b15d0ff04e3d2",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "matmul-seq",
+        "source_loop": "tests/polopt-generated/inputs/matmul-seq.loop",
+        "source_git_blob": "76b1bc1e62742e9477e8e2f821604c13bc8c12d6",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "matmul-seq3",
+        "source_loop": "tests/polopt-generated/inputs/matmul-seq3.loop",
+        "source_git_blob": "c7fe43e14f61358b43190617c6d2213ef1076d07",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "matmul",
+        "source_loop": "tests/polopt-generated/inputs/matmul.loop",
+        "source_git_blob": "7e29ce545e5b9a904a9ac4303514fecb7f18b6ee",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "multi-loop-param",
+        "source_loop": "tests/polopt-generated/inputs/multi-loop-param.loop",
+        "source_git_blob": "f7fb5224f47607695fd659385146bf0c03efa9cd",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "multi-stmt-stencil-seq",
+        "source_loop": "tests/polopt-generated/inputs/multi-stmt-stencil-seq.loop",
+        "source_git_blob": "d512c95bf8a39cd8de14ae2704db7e8d46497c81",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "mvt",
+        "source_loop": "tests/polopt-generated/inputs/mvt.loop",
+        "source_git_blob": "53b65b40f79ef886078f0cbb6bb913f0ef2803a4",
+        "saved_best_route": "iss_parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "mxv-seq",
+        "source_loop": "tests/polopt-generated/inputs/mxv-seq.loop",
+        "source_git_blob": "e4f471c1c9af00c6c379357495b7243d0fdd6598",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "mxv-seq3",
+        "source_loop": "tests/polopt-generated/inputs/mxv-seq3.loop",
+        "source_git_blob": "fc5bd5a929d44c2f5d4f54a8e46ecb9ce49bb835",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "mxv",
+        "source_loop": "tests/polopt-generated/inputs/mxv.loop",
+        "source_git_blob": "dbeaf2565c5e76898fff278a4f57a8f954046e99",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "negparam",
+        "source_loop": "tests/polopt-generated/inputs/negparam.loop",
+        "source_git_blob": "0e1ca5e9573bba87d8606169825d2326e585d6a4",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "nodep",
+        "source_loop": "tests/polopt-generated/inputs/nodep.loop",
+        "source_git_blob": "aaa2cfe7a7b1c72e0b709ba82cb36ea197eac9b5",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "noloop",
+        "source_loop": "tests/polopt-generated/inputs/noloop.loop",
+        "source_git_blob": "3ed59bda482bdba380378e94c0ab70b883cde833",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": true,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "pca",
+        "source_loop": "tests/polopt-generated/inputs/pca.loop",
+        "source_git_blob": "6da8ae2ad1dc14901ead7d2461b0ab1f4734d0b2",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "polynomial",
+        "source_loop": "tests/polopt-generated/inputs/polynomial.loop",
+        "source_git_blob": "1327d4004fecb102cedc7861ada717873d88e4cf",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "seidel",
+        "source_loop": "tests/polopt-generated/inputs/seidel.loop",
+        "source_git_blob": "c667c811f413344aad0a46537e9b204403c902d6",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "seq",
+        "source_loop": "tests/polopt-generated/inputs/seq.loop",
+        "source_git_blob": "43458b514876ed82ad4f79a0ec5331add014f09d",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "shift",
+        "source_loop": "tests/polopt-generated/inputs/shift.loop",
+        "source_git_blob": "e384a065469e2f909fa1c20a7f4f954ec846532c",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "spatial",
+        "source_loop": "tests/polopt-generated/inputs/spatial.loop",
+        "source_git_blob": "452ed88e204d0ef24607bbcab1c902f0db55158c",
+        "saved_best_route": "iss_parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "ssymm",
+        "source_loop": "tests/polopt-generated/inputs/ssymm.loop",
+        "source_git_blob": "682c8d96505b9e01e8cbac78edbab2592e03300f",
+        "saved_best_route": "iss_parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "strmm",
+        "source_loop": "tests/polopt-generated/inputs/strmm.loop",
+        "source_git_blob": "9d40137013508ab599fc8cc180c87ccf5be00cf5",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [
+          "iss_parallel_4"
+        ],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "strsm",
+        "source_loop": "tests/polopt-generated/inputs/strsm.loop",
+        "source_git_blob": "b2b6f539c2c8fd07d19e2f396d8b8ec9c070c5d2",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [
+          "iss_parallel_4"
+        ],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "tce",
+        "source_loop": "tests/polopt-generated/inputs/tce.loop",
+        "source_git_blob": "d8510e35ab7e7cf736e5c156b68072755408e845",
+        "saved_best_route": "identity",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "tmm",
+        "source_loop": "tests/polopt-generated/inputs/tmm.loop",
+        "source_git_blob": "888dd9a1653994785126d1e987e5b71182627dae",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [
+          "iss_parallel_4"
+        ],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "tricky1",
+        "source_loop": "tests/polopt-generated/inputs/tricky1.loop",
+        "source_git_blob": "dbcf78744c78e6ddd4aa66d2b75de60cde641127",
+        "saved_best_route": "affine_only",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "tricky2",
+        "source_loop": "tests/polopt-generated/inputs/tricky2.loop",
+        "source_git_blob": "a0ae87989ab047f9610b0074e96da345b72db197",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "tricky3",
+        "source_loop": "tests/polopt-generated/inputs/tricky3.loop",
+        "source_git_blob": "67ded844f2c3a19d6cae2d54217ac24da329b08e",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "tricky4",
+        "source_loop": "tests/polopt-generated/inputs/tricky4.loop",
+        "source_git_blob": "e409d87a146061c718e980b708d9fd4b7d8c9d88",
+        "saved_best_route": "iss",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": true,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "trisolv",
+        "source_loop": "tests/polopt-generated/inputs/trisolv.loop",
+        "source_git_blob": "2a920bedb920a00e143bf8346086e5f5c0fddf8d",
+        "saved_best_route": "parallel_4",
+        "saved_best_uses_concurrency": true,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": false,
+        "default_requires_nontrivial_change": false,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      },
+      {
+        "case": "wavefront",
+        "source_loop": "tests/polopt-generated/inputs/wavefront.loop",
+        "source_git_blob": "882bd0a195114ca289ddfef0488ea19b987e04fe",
+        "saved_best_route": "default_no_iss_affine_tiling",
+        "saved_best_uses_concurrency": false,
+        "saved_serial_configurations": [
+          "affine_only",
+          "default_no_iss_affine_tiling",
+          "identity",
+          "iss"
+        ],
+        "saved_configurations_without_execution_metadata": [],
+        "default_requires_visible_tiling": true,
+        "default_requires_nontrivial_change": true,
+        "default_requires_unchanged": false,
+        "guardcert_pinned_case_comparison": "not_run"
+      }
+    ]
+  },
+  "cgo17": {
+    "revision": "1b23e28261eb1c161192afa86ab996eb67d65f0c",
+    "serial_npb_program_count": 10,
+    "serial_npb_sources": {
+      "BT": [
+        {
+          "path": "resources/NPB3.3-SER-C/BT/add.c",
+          "git_blob": "e7ef05ba979b66586f6c072429383fe120cc0553"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/adi.c",
+          "git_blob": "ceca7ed26742076262dc18b37853f76c5bbeb240"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/bt.c",
+          "git_blob": "29f86bb5ed5dfd1504cb916a4444e8ff23f4bf3b"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/error.c",
+          "git_blob": "06e226db8652b5ac439fc0f23983311f3524d00d"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/exact_rhs.c",
+          "git_blob": "fbf48b1d3a5f2132163501a3d05e6c3182a3b405"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/exact_solution.c",
+          "git_blob": "142326c0d610cc17ceb2b8d2948f70964dea4eac"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/initialize.c",
+          "git_blob": "43a7a0311a7802ab1481e104ab91afde86a1907a"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/rhs.c",
+          "git_blob": "2b58b1152f52be1abd47b0d2a4bff3f9d7568f7e"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/set_constants.c",
+          "git_blob": "44b65596d2d42a794d0d360e31f88b1b533c0f6c"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/solve_subs.c",
+          "git_blob": "c0661748eb5b16bc7f1e9242740ba8500fd94af5"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/verify.c",
+          "git_blob": "4c7bdeb9fa829b19ca303de639e8cf0cfc81d256"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/x_solve.c",
+          "git_blob": "29e4c626ae52cc3d00226a245d402dc7373b68f0"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/y_solve.c",
+          "git_blob": "be008f1bf89a37cddffe0c88c14282e2f47e0e5d"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/BT/z_solve.c",
+          "git_blob": "63ccb19f3cca6c400666536b5ca19089fc17ee0b"
+        }
+      ],
+      "CG": [
+        {
+          "path": "resources/NPB3.3-SER-C/CG/cg.c",
+          "git_blob": "d3df6998124647dd2a3e641ea2a477f6eb5f06f1"
+        }
+      ],
+      "DC": [
+        {
+          "path": "resources/NPB3.3-SER-C/DC/adc.c",
+          "git_blob": "715182638205e5ef6ca53a31ae20f67cfbfc354b"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/DC/dc.c",
+          "git_blob": "6984897986f6b32bc86d9ce1a9e8bddc958b9a7f"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/DC/extbuild.c",
+          "git_blob": "3550537c11024d6b3c14c5278bc403fa37554ef8"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/DC/jobcntl.c",
+          "git_blob": "c8e7dcd7917f721c2ff91a5b2428c964e6561c88"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/DC/rbt.c",
+          "git_blob": "ae96e45e48bf2000fdc57715b80a81d6ce2fad39"
+        }
+      ],
+      "EP": [
+        {
+          "path": "resources/NPB3.3-SER-C/EP/ep.c",
+          "git_blob": "f9a281858aaa976a9abdda194628a5c615eb5b19"
+        }
+      ],
+      "FT": [
+        {
+          "path": "resources/NPB3.3-SER-C/FT/appft.c",
+          "git_blob": "db7f8597f1fd93aa85bf6a5af0a122e296ed64ee"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/FT/auxfnct.c",
+          "git_blob": "c5b375f62b43e3b76779e7a41b466c54f2cf2d7c"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/FT/fft3d.c",
+          "git_blob": "66a7ad0604fcbfb260a858ab7d3b48062825cbd6"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/FT/mainft.c",
+          "git_blob": "cc45327b8fdab9c0df6c89e2252d9d5528333043"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/FT/verify.c",
+          "git_blob": "8dd6b982992a16d8b6450f7274bc2015b9b623fa"
+        }
+      ],
+      "IS": [
+        {
+          "path": "resources/NPB3.3-SER-C/IS/is.c",
+          "git_blob": "d211c5268e2b402a91a17378d912dc5601ffe230"
+        }
+      ],
+      "LU": [
+        {
+          "path": "resources/NPB3.3-SER-C/LU/blts.c",
+          "git_blob": "8b3984eb90b8a948a38f6c9b063ab6384844aa19"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/buts.c",
+          "git_blob": "c75f4336db582dc12c729944084f1b4c538dcbe8"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/domain.c",
+          "git_blob": "60e38146e5aa6f60a763d847ea63f8577988302b"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/erhs.c",
+          "git_blob": "18a8c2c4af610c0577567161c5af79ce3254478d"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/error.c",
+          "git_blob": "ed70f7a0ffcb661b473d2b0641d83189dfca4429"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/exact.c",
+          "git_blob": "6437e0a0cd3aaa83864e0448454d7d1d5a46a32b"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/jacld.c",
+          "git_blob": "61a8272ca3f5d05743ae8c9d8ef913c4cb858260"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/jacu.c",
+          "git_blob": "0c904926ff65c5634dbc1579bf75612385732eca"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/l2norm.c",
+          "git_blob": "90679c42868fc4c331d8910af8daec59bad9e175"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/lu.c",
+          "git_blob": "da8cf9710030ef88f8e18aa40f8dfefd729e3b95"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/pintgr.c",
+          "git_blob": "5332477b1f1ab1525cd97dfa5ee7f04853e06f65"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/read_input.c",
+          "git_blob": "88ec2bd9a5f9e563597308df1fa4c092b35fe1a3"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/rhs.c",
+          "git_blob": "66fbf8638460e86a671911caba8fc29076c3dae2"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/setbv.c",
+          "git_blob": "d1e4b77c6c21a12c0c95b4b436869ddc7e2b026c"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/setcoeff.c",
+          "git_blob": "0f8456be3577fb2499f97a4943d09e819f696d76"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/setiv.c",
+          "git_blob": "f62cce6880e5f2ef0c34c023e72fdd76cfbeebc8"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/ssor.c",
+          "git_blob": "32c11778d47c98f1024ba1aa0baf2df09a75eb3c"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/LU/verify.c",
+          "git_blob": "3ce27ff851484ac3a37903c4e06029e6ca8babcc"
+        }
+      ],
+      "MG": [
+        {
+          "path": "resources/NPB3.3-SER-C/MG/mg.c",
+          "git_blob": "8f834c6197a578164e83e7e649756e2c97b8c34e"
+        }
+      ],
+      "SP": [
+        {
+          "path": "resources/NPB3.3-SER-C/SP/add.c",
+          "git_blob": "e0a9ad596fac7c0281a552c2a9956a540a61e2f9"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/adi.c",
+          "git_blob": "63070cb515ebe04a992b653c4a8f35e96df35e20"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/error.c",
+          "git_blob": "d1e287d8e614d02f922850851b6b1e5aa6918ea5"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/exact_rhs.c",
+          "git_blob": "5159cd11ffaa628174f0f53d5c314d8a5d713d96"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/exact_solution.c",
+          "git_blob": "88d67a945af6591b7d75d71ae3da71102da6c49b"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/initialize.c",
+          "git_blob": "79b778bd776a865bf44cbd4a0ef183eb87e439ce"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/ninvr.c",
+          "git_blob": "d589b5e86ef032de1f813c20847cb18cffa7648e"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/pinvr.c",
+          "git_blob": "f16b8a0b7a928e264467a215f3f265cafc391ecb"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/rhs.c",
+          "git_blob": "548f57b416a893b2968e566322982c5f6778f4fd"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/set_constants.c",
+          "git_blob": "1625215e47fb471ec34c0ab5094c062bc92308d1"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/sp.c",
+          "git_blob": "e4c1eea9229698cafbf6a60ef7839d825aeb3304"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/txinvr.c",
+          "git_blob": "077dc9a0fb8008c0cbc5c25a5fa21a7212ec1fa5"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/tzetar.c",
+          "git_blob": "fa4043380fb08bdbcccf1ff4eb4e4a395ccd6a79"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/verify.c",
+          "git_blob": "dee19733bbe4765f13e10e235fd7811e5a928520"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/x_solve.c",
+          "git_blob": "4f6725dcb8b175719ffd5369badcfea9d11656bf"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/y_solve.c",
+          "git_blob": "d4b6b8ad905f5b497bcb59dca60f077efba8474b"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/SP/z_solve.c",
+          "git_blob": "4734687f05e13f68c62e9e057b1b4ad17a027e14"
+        }
+      ],
+      "UA": [
+        {
+          "path": "resources/NPB3.3-SER-C/UA/adapt.c",
+          "git_blob": "fbeb8880fc89a59f36659d391c7afd9f5426c158"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/convect.c",
+          "git_blob": "88f7e010d3ae9beed309631d8151be01e8b01180"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/diffuse.c",
+          "git_blob": "2c38f584be2f6c3f7ebc764f4b7f79a96484a1f1"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/mason.c",
+          "git_blob": "09d57d238d8bbd388005c264176e392284d6a426"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/move.c",
+          "git_blob": "6f1587faf3fd0aac654d52e18c0ca8e3b6796d70"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/precond.c",
+          "git_blob": "e6622e33360aae34c9eddc07883e8c78c85c5783"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/setup.c",
+          "git_blob": "c2eabe79504d302dd308d5114b8136f823298471"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/transfer.c",
+          "git_blob": "22972bafa35021b8c1b9b4a263c54191b0cabfc0"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/ua.c",
+          "git_blob": "59021041fb32a8282ba9da210a8bcef6e01f94a1"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/utils.c",
+          "git_blob": "f1defbb3e25b793f0c597971aee033d8d5a67fcb"
+        },
+        {
+          "path": "resources/NPB3.3-SER-C/UA/verify.c",
+          "git_blob": "3ca68c1de25878cf79e52aaf0a346392ec39b022"
+        }
+      ]
+    },
+    "bt_compute_rhs_source": {
+      "path": "resources/NPB3.3-SER-C/BT/rhs.c",
+      "git_blob": "2b58b1152f52be1abd47b0d2a4bff3f9d7568f7e"
+    },
+    "llvm_test_suite": {
+      "artifact_revision": "1d312ed",
+      "artifact_svn_revision": 287194,
+      "full_revision_and_input_list": "pending"
+    },
+    "spec": {
+      "suites": [
+        "SPEC2000",
+        "SPEC2006"
+      ],
+      "availability": "not included in author artifact",
+      "local_sources_and_frontend_coverage": "pending"
+    },
+    "guardcert_original_program_comparison": "not_run"
+  }
+}

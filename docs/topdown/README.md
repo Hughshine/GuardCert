@@ -19,6 +19,11 @@ optimizer pipeline remain required. The CAV 2027 [working manuscript](../../pape
 continues alongside implementation. Earlier imports and integration reviews
 retain their historical implementation boundaries.
 
+The [pinned inventory and work order](../benchmark-alignment.md) retain all 62
+PolCert cases, including 19 with saved concurrent best routes, and identify the
+serial NPB sources. This is source inventory evidence; the complete original-case
+comparison has not run.
+
 The working object is **verified guarded transformation**: a transformation may
 be correct only under a semantic condition; that condition is turned into a
 safe executable guard; rejection falls back to the source fragment; and the

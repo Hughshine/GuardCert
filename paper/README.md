@@ -1,5 +1,14 @@
 # GuardCert Working Manuscript
 
+The [original-program acceptance plan](../docs/benchmark-alignment.md), from
+narrative `8ce9c8b`, now governs implementation and evaluation priorities:
+PolCert and CGO 2017 functionality and sequential effects, with whole-program
+Csem-to-Asm correctness for each supported configuration. The pinned inventory
+retains all 62 PolCert cases and identifies the serial NPB source groups.
+The full original-case comparison has not run; the existing proof and fixture
+results below remain evidence for their stated families. New special cases
+take priority when they remove a demonstrated original-case blocker.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step
