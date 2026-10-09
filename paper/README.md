@@ -1,10 +1,13 @@
 # GuardCert Working Manuscript
 
-The latest [default-policy corpus replay](../docs/adaptive-double-tiling.md)
-uses one build without resource overrides: thirteen of 62 original cases
-install 29 sites, and 59 raw outputs plus two disclosed adaptations match GCC.
-Two frontend refusals and polynomial's AST-generation timeout remain separate.
-Seven public-exit/legacy checks pass; no controlled cost or speedup is claimed.
+The latest [actual generated-point recovery](../docs/generated-point-recovery.md)
+installs original polynomial through the existing final checker and Csem-to-Asm
+endpoint. One complete build installs 30 sites in fourteen of 62 originals;
+60 raw outputs and both disclosed adaptations match GCC, with two frontend
+refusals and no compiler timeout. Context, public-exit and unchanged-assembly
+route checks pass. Complete polynomial calls nevertheless take 193.740 times
+the same-compiler unmarked median. Cost acceptance fails; tighter quotient
+bounds, other source/configuration families and larger tiers remain required.
 The notes below preserve each earlier checkpoint's scope.
 
 The [actual-program matmul compiler](../docs/original-matmul-actual-installation.md)

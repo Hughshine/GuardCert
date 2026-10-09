@@ -4,6 +4,14 @@
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
 固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。
 
+2026-10-09 [实际 point 恢复后继](generated-point-recovery.md)的新 build 完整重跑
+62原例＋两适配：60raw＋2adapted匹配，两个既知frontend拒绝、零compiler timeout，
+14/62安装30处。原polynomial保留真实 `(i+j,i)` schedule／tiling，经原最终checker
+和同一Csem→Asm安装。16新context类与旧route/public回归通过，proper mixed-unit
+matmul仍拒绝。七次原polynomial完整调用对同compiler未标记版慢193.740倍，
+因此成本验收失败；下一优先是紧凑quotient/min/max bounds和实际效果，继续其余
+source／sequential配置、BT及larger tiers。以下旧范围保留，不合并为最新结果。
+
 2026-10-09 [默认资源策略完整后继](adaptive-double-tiling.md)在单一build上重跑
 62原例＋两适配，无手动budget覆盖：59raw＋2adapted匹配，两个raw frontend拒绝，
 polynomial600.016秒compiler timeout；13/62安装29处。Tce自动22temps／十轴安装

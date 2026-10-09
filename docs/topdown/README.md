@@ -22,13 +22,14 @@ retain their historical implementation boundaries.
 The [pinned inventory and work order](../benchmark-alignment.md) retain all 62
 PolCert cases, including 19 with saved concurrent best routes, and identify the
 serial NPB sources. Complete affine and single-configuration tiling corpus
-attempts now have separately bound build and failure scopes; see the
-[initialized tiling and corpus successor](../initialized-double-tiling.md) and
-the [default resource-policy replay](../adaptive-double-tiling.md). The latter
-uses one build and no resource overrides: thirteen originals install 29 sites,
-while frontend refusals and a codegen AST-generation timeout remain separate.
-The full sequential configuration matrix, optimized BT and complete costs
-remain unfinished.
+attempts now have separately bound builds and failures. The latest
+[actual generated-point recovery](../generated-point-recovery.md) installs
+original polynomial after its skew schedule and tiling: one full build installs
+30 sites in fourteen originals, with no compiler timeout. Sixty raw outputs and
+both adaptations match GCC; two frontend refusals remain. Complete polynomial
+calls regress by 193.740 times against the same-compiler unmarked median, so
+cost acceptance fails. Tighter quotient bounds, further source/configuration
+families, optimized BT and larger tiers remain required.
 
 The working object is **verified guarded transformation**: a transformation may
 be correct only under a semantic condition; that condition is turned into a

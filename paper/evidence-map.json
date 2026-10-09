@@ -4429,6 +4429,71 @@
       "artifact_reports": [
         "docs/adaptive-double-tiling.json"
       ]
+    },
+    {
+      "id": "generated_point_recovery",
+      "claim": "Actual original polynomial skew scheduling and tiling install after untrusted affine singleton substitution and innermost point recovery, through the unchanged final checker and Csem-to-Asm endpoint. One full build installs 30 sites in fourteen original cases, retaining two frontend refusals with no compiler timeout. Refusal/context/public-exit and unchanged-assembly checks pass. Complete original calls regress by 193.740 times against the same-compiler unmarked median; cost acceptance fails.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReindexedTiledPrepared.v",
+          "name": "checked_double_reindexed_tiled_prepared_loop_progress_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReindexedTiling.v",
+          "name": "validated_double_reindexed_tiling_loops_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionReindexedTiledLowering.v",
+          "name": "checked_double_reindexed_tiled_reduction_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledStableCompiler.v",
+          "name": "compile_selected_initialized_tiled_stable_program_correct"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "vendor/PolCert-optimizer/VPL/coq/PedraQ.v",
+          "name": "assume_correct",
+          "source_sha256": "e76e7774ee88a0cea7b4c65ac7e2a6727d908d95ee4480fc9ba7ff3a3a14d93d"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
+          "name": "fromCs_correct",
+          "source_sha256": "bcc00dd49831c516d84fa58fb2a714c7aa9d566c6462f7a55a69ff3a51454374"
+        },
+        {
+          "source": "vendor/PolCert-optimizer/lib/VplInterface.v",
+          "name": "canonize_Cs_correct",
+          "source_sha256": "bcc00dd49831c516d84fa58fb2a714c7aa9d566c6462f7a55a69ff3a51454374"
+        }
+      ],
+      "documents": [
+        "docs/generated-point-recovery.md",
+        "docs/generated-point-recovery.json",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md"
+      ],
+      "artifacts": [
+        "docs/adaptive-double-tiling.json",
+        "build/profiled-double-tiling/compiler-attempts/native-v4/report.json",
+        "build/benchmark-alignment/adaptive-tiled-attempts/ray-profile-polynomial-v1/report.json",
+        "build/profiled-double-tiling/compiler-attempts/native-v5/rejection.json",
+        "build/profiled-double-tiling/compiler-attempts/native-v6/report.json",
+        "build/benchmark-alignment/adaptive-tiled-attempts/point-profile-polynomial-v1/report.json",
+        "build/benchmark-alignment/adaptive-tiled-attempts/point-corpus-v1/report.json",
+        "build/double-tiling/check-attempts/point-contexts-v1/report.json",
+        "build/initialized-double-tiling/check-attempts/point-contexts-v1/report.json",
+        "build/initialized-double-tiling/public-attempts/point-public-v1/report.json",
+        "build/generated-point-recovery/context-attempts/contexts-v1/report.json",
+        "build/generated-point-recovery/context-attempts/contexts-v2/report.json",
+        "build/double-tiling/original-attempts/point-unit-v1/report.json",
+        "build/double-tiling/original-attempts/point-mixed-unit-v1/report.json",
+        "build/double-tiling/original-attempts/point-mixed-rank3-v1/report.json",
+        "build/generated-point-recovery/path-attempts/paths-v1/report.json",
+        "build/generated-point-recovery/cost-attempts/cost-v1/report.json",
+        "build/generated-point-recovery/cost-attempts/cost-v2/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -16323,6 +16388,209 @@
         "path": "build/benchmark-alignment/adaptive-tiled-attempts/codegen-profile-polynomial-v1/report.json",
         "sha256": "ba48a5f11eacf6c5d04702f991d722d475d8027065d55343f4cc1fa473b5d98e",
         "status": "diagnostic_complete"
+      }
+    ]
+  },
+  "generated_point_recovery_stage": {
+    "status": "validated",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "compiler_entrypoint": "InitializedDoubleTiledStableCompiler.compile_selected_initialized_tiled_stable_program",
+    "compiler_theorem": "InitializedDoubleTiledStableCompiler.compile_selected_initialized_tiled_stable_program_correct",
+    "semantic_compiler_proof_unchanged": true,
+    "kernel_and_host_laws_unchanged": true,
+    "new_semantic_axioms": [],
+    "source_users_supply_semantic_callbacks": false,
+    "generic_kernel_composition_theorem_directly_invoked": false,
+    "oracle_policy": {
+      "proposal": "existing strongest normalized parallel halfspaces and distinct equalities",
+      "emptiness_search_LCF_and_ExactCs_reverse_check_unchanged": true,
+      "native_policy_exactness_or_minimality_proved": false
+    },
+    "point_proposal": {
+      "actual_instruction_argument_affine_analysis": true,
+      "affine_singleton_substitution_and_innermost_point_translation": true,
+      "raw_to_adapted_equivalence_assumed": false,
+      "same_actual_final_checker_is_authority": true,
+      "arbitrary_affine_recovery_or_mixed_unit_completion_claimed": false
+    },
+    "complete_default_corpus": {
+      "originals": 62,
+      "adaptations": 2,
+      "raw_native_matches": 60,
+      "adapted_native_matches": 2,
+      "frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": [],
+      "installed_original_cases": {
+        "dct": 1,
+        "fusion6": 1,
+        "fusion7": 2,
+        "gemver": 4,
+        "matmul-init": 1,
+        "matmul-seq": 2,
+        "matmul-seq3": 3,
+        "multi-loop-param": 3,
+        "mvt": 2,
+        "mxv": 1,
+        "mxv-seq": 2,
+        "mxv-seq3": 3,
+        "polynomial": 1,
+        "tce": 4
+      },
+      "installed_sites": 30,
+      "compiled_originals_without_tiling_phase": 45,
+      "compiled_originals_with_phase_without_installation": [
+        "tricky3"
+      ],
+      "native_mismatches": [],
+      "installation_counts_are_not_profitability": true,
+      "polynomial_compiler_wall_seconds": 2.7195672540110536,
+      "tce_compiler_wall_seconds": 134.9433981240145
+    },
+    "context_evidence": {
+      "point_contexts_passed_across_original_and_repair": 16,
+      "context_script_failure_preserved": "identifier renaming changed an escaped newline",
+      "reduction_contexts": 14,
+      "initialized_contexts": 20,
+      "public_and_legacy": 7,
+      "unchanged_assembly_path_observations": 3,
+      "all_unit_cases": 2,
+      "mixed_unit_mvt_accepted": true,
+      "mixed_unit_matmul_wrong_arity_refused": true,
+      "proper_rank3_mixed_unit_matmul_still_refused": "generated coordinate order outside unit completion"
+    },
+    "complete_call_cost": {
+      "trials_per_variant": 7,
+      "medians_seconds": {
+        "optimized": 2.671250356012024,
+        "unmarked": 0.013787775998935103
+      },
+      "optimized_over_unmarked_complete_call_ratio": 193.74048114926856,
+      "measurement_scope": "wall time including startup, initialization, region and digest",
+      "guard_cost_isolated": false,
+      "same_compiler_flags_and_toolchain": true,
+      "other_concurrent_goal_commands_running": false,
+      "cpu_affinity_or_host_load_controlled": false,
+      "benchmark_wide_profitability_claimed": false
+    },
+    "preceding_cost_dump_flag_difference_preserved": true,
+    "cost_acceptance_failed": true,
+    "next_required_blocker": "checked tighter quotient/min/max bounds without loose affine enumeration",
+    "new_runtime_guard_family": false,
+    "target_assembly_instrumented": false,
+    "full_goal_complete": false,
+    "summary_path": "docs/generated-point-recovery.json",
+    "summary_sha256": "d11da5a3bae0a6864796e84203531ea786a66dbe4115161b913f2fadc7968b1d",
+    "reports": [
+      {
+        "name": "preceding_checkpoint",
+        "path": "docs/adaptive-double-tiling.json",
+        "sha256": "c03d2b4f4a2ffb5cd31da9769ab08cfd4cf78d69e0633bac48f66a4c73cc080a",
+        "status": "validated"
+      },
+      {
+        "name": "ray_compiler",
+        "path": "build/profiled-double-tiling/compiler-attempts/native-v4/report.json",
+        "sha256": "4eba27c0e13055e29047892880a121c0e88ac5f67169539f0b4d95c60ea50039",
+        "status": "built"
+      },
+      {
+        "name": "ray_profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/ray-profile-polynomial-v1/report.json",
+        "sha256": "78509d24a1b53d882e60c11fc889666a100cb255742b18e565432456bed35e88",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "point_build_rejection",
+        "path": "build/profiled-double-tiling/compiler-attempts/native-v5/rejection.json",
+        "sha256": "bb82365a2ff4a4de78bee03e03506fc190c82bf41b53154a24ea23d1c2c5586f",
+        "status": "rejected"
+      },
+      {
+        "name": "compiler",
+        "path": "build/profiled-double-tiling/compiler-attempts/native-v6/report.json",
+        "sha256": "e76010fe6d47bf5983c29a925498d7c3b341ee34b32bfa5eb825e5eb273d40d3",
+        "status": "built"
+      },
+      {
+        "name": "profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/point-profile-polynomial-v1/report.json",
+        "sha256": "03d91592aa9dbe49cde9455bbcdcd95c22d278f09707626a2c909c4a55f8887b",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "corpus",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/point-corpus-v1/report.json",
+        "sha256": "3d15bb7930135d1d8bdf6d34f06e198341fa69cdd2bb8db6449c2ba47389bd6a",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "reduction_contexts",
+        "path": "build/double-tiling/check-attempts/point-contexts-v1/report.json",
+        "sha256": "5175946c89688b1a1417b3166bf5d679c2586969f27df271a83f5f1ad09c1fcb",
+        "status": "passed"
+      },
+      {
+        "name": "initialized_contexts",
+        "path": "build/initialized-double-tiling/check-attempts/point-contexts-v1/report.json",
+        "sha256": "ed58afe284e9b086f8662fc0b4861344ad1c8873f1b52dbe2037aa71b765c1ae",
+        "status": "passed"
+      },
+      {
+        "name": "public_and_legacy",
+        "path": "build/initialized-double-tiling/public-attempts/point-public-v1/report.json",
+        "sha256": "9949296e45ae837cdd8348db84fb0ec63fea2ffeb9a25667d3888241a2083b2e",
+        "status": "passed"
+      },
+      {
+        "name": "point_contexts",
+        "path": "build/generated-point-recovery/context-attempts/contexts-v1/report.json",
+        "sha256": "6d34dc9ebc24f51cfb884f044ff96d6cb0aa9846ed4dbb5edadac2708e128351",
+        "status": "rejected"
+      },
+      {
+        "name": "point_context_repair",
+        "path": "build/generated-point-recovery/context-attempts/contexts-v2/report.json",
+        "sha256": "dee03389441d20d55565cfb5bf9d7bf38c0b6cda4551e148ee338999f40f98c7",
+        "status": "passed"
+      },
+      {
+        "name": "all_unit",
+        "path": "build/double-tiling/original-attempts/point-unit-v1/report.json",
+        "sha256": "2594ab42199dcc14dfb54bbf6aab6387f67426e15c1b882d90223b521d1f29c1",
+        "status": "passed"
+      },
+      {
+        "name": "mixed_unit_wrong_arity",
+        "path": "build/double-tiling/original-attempts/point-mixed-unit-v1/report.json",
+        "sha256": "64014999f26d0830b782e1146ed8abcad4e7a34e04c6e2d79b34fcd39a59d86f",
+        "status": "rejected"
+      },
+      {
+        "name": "mixed_unit_rank3",
+        "path": "build/double-tiling/original-attempts/point-mixed-rank3-v1/report.json",
+        "sha256": "42d8a86462e33865d3b2b23f49e343f5c1334a67e9b77ec3f691e858d8ea6ea8",
+        "status": "rejected"
+      },
+      {
+        "name": "paths",
+        "path": "build/generated-point-recovery/path-attempts/paths-v1/report.json",
+        "sha256": "665bfcbea956d7ed187cf8e5423a4e30f8136a80aad2bef285f94308767fa35a",
+        "status": "passed"
+      },
+      {
+        "name": "cost_dump_flag_difference",
+        "path": "build/generated-point-recovery/cost-attempts/cost-v1/report.json",
+        "sha256": "ff9fe4b602944d6a59f0d8642c850ad3af8aa6b7b9ce98e62ef05ed4a3012855",
+        "status": "measured"
+      },
+      {
+        "name": "complete_cost",
+        "path": "build/generated-point-recovery/cost-attempts/cost-v2/report.json",
+        "sha256": "a9c3dfad38b7cdf91a85f319d3a0abb81cc9fb7c5c18ab507b6ef1f67708c294",
+        "status": "measured"
       }
     ]
   }

@@ -2,6 +2,18 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [实际 point 恢复](generated-point-recovery.md)复用既有 arbitrary-adapt
+定理、最终 actual-candidate checker和Csem→Asm端点。Native提议最强平行halfspaces，
+旧LCF／ExactCs反向检查仍是authority；另从实际Loop提议singletons／point translation，
+不假定raw→adapted等价。原polynomial安装，完整build为14/62、30sites，无新增
+semantics／kernel／host。它不是新增guard类别，也不自动构成generic kernel theorem
+直接复用。源码用户仍不提供内部callbacks。
+
+完整调用却慢193.740倍，成本验收失败。下一难点是紧凑quotient／min/max bounds：
+domain负责数学表示和实际candidate，language负责machine division安全、floor约定、
+实际loop execution/private frame及安装，kernel保持语义抽象。当前宽enclosure虽通过
+checker，但不提供有用效果。不得以native match、编译不再超时或proof端点代替该验收。
+
 2026-10-09 [默认策略和 codegen 诊断](adaptive-double-tiling.md)再次落实 narrative：
 不受信任策略从实际输入提议 private/coordinate budgets，既有 factory 生产
 资源／见证证书，原量化 compiler theorem 仍到 Csem→Asm；不把提议的充分性

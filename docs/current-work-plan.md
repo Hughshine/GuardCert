@@ -2,6 +2,25 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [实际 point 恢复后继](generated-point-recovery.md)关闭原 polynomial 的
+AST-generation／最终安装 blocker。Ray-only 先完成 raw 但拒绝安装；新 adapter
+从实际 instruction arguments 做 singleton substitution 和 innermost translation，
+同一最终 checker／Csem→Asm 端点接受原 `(i+j,i)` scheduling＋tiling，未新增
+语义公理或 kernel／host。新 build 完整62原例＋两适配：60raw＋2adapted匹配，
+两个既知frontend拒绝、零timeout，14/62安装30处。16 polynomial context 类、
+14 reduction、20 initialized、7 public／legacy及3 unchanged assembly路径通过；
+保留生成器错误与修正。Proper rank3 mixed-unit matmul仍拒绝。
+
+**下一优先改为紧凑 quotient／min/max bound lowering 与效果。** 七次交替完整
+调用的原 polynomial median 为2.671250秒，对同compiler／flags未标记source的
+0.013788秒，慢193.740倍；全部输出匹配，但成本验收失败。宽affine enclosure
+与membership过滤是可定位机制，未隔离各自成本。Domain需证明数学bounds／
+最终表示，language需证明machine floor/division安全／execution/frame，再复用
+progress、公开出口和整程序安装；kernel不处理C division。不能将当前all-parameter
+checker直接按runtime limit截断。45原例无phase、tricky3缺tiled point space，
+其余source structures／sequential phases、BT、LLVM/SPEC、larger tiers和条件接受域
+仍必需。下列记录保留前序阶段范围，不是最新完整结果。
+
 2026-10-09 用户提示后再 fetch/read narrative，可见远端仍为 `8ce9c8b`，两份
 topdown 正文与 main 一致。[默认策略与完整重跑](adaptive-double-tiling.md)已将
 资源／coordinate budgets 从实际 Csyntax 提议，再由既有 factory 检查；支持族
