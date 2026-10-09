@@ -4,7 +4,15 @@
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。
 
-最新 [共享 fallback](affine-empty-plan-installation.md)复用同一 empty 条件与
+最新 [signed header 服务](affine-empty-signed-installation.md)复用generic
+signed interval analyzer／range guard／lowering。旧非负限制来自client profile，
+不是generic encoder。新的condition client消费同一readonly facts契约，复用
+原源／capture／公开出口／安装；factory自动生产前提，源码用户API不变。
+12新端点无新增公理，2,280／2,280同源输入add接受33→87、无丢失；极大
+profile静态拒绝后旧builder另有190／190，旧五族2,638／2,638保持。参数仍有
+profile界，mixed negative/active domains及旧candidate运行时组合未接。
+
+此前 [共享 fallback](affine-empty-plan-installation.md)复用同一 empty 条件与
 source/capture/exit证书，language library将readonly alternative降低到私有
 Boolean与一份原源循环。Factory检查第三个typed private及resources；
 selected Csem→Asm已接，9新端点无新增公理。2,280／2,280全输出及逐输入

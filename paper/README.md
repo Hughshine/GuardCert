@@ -1,6 +1,16 @@
 # GuardCert Working Manuscript
 
-The [shared-fallback successor](../docs/affine-empty-plan-installation.md)
+The [signed-header successor](../docs/affine-empty-signed-installation.md)
+instantiates the existing signed interval encoder and extracts a condition
+client that reuses the actual empty-source/capture/public-exit proofs. Twelve
+new endpoints audit without added axioms; the same 2,280 Asm/2,280 Clight calls
+grow addition-width acceptance from 33 to 87 without losses. A 190/190
+large-profile refusal run retains the old builder, and five earlier source
+families pass another 2,638/2,638. This supports bounded signed parameters;
+body/candidate profiles, runtime candidate composition and full OLO coverage
+remain unchanged or incomplete.
+
+The historical [shared-fallback successor](../docs/affine-empty-plan-installation.md)
 reuses the empty-source condition and exact public exits, lowers the readonly
 alternatives through a private Boolean, and preserves every tested historical
 path. Nine new endpoints audit without added axioms; 2,280 Asm/2,280 Clight

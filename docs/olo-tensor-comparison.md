@@ -5,7 +5,15 @@
 并讨论机器溢出检查和按实际访问域安排预加载。这些要求仍是本项目的功能与
 可用性验收依据；当前已证明的 tensor 子集不能替代完整论文场景。
 
-2026-10-08：[共享 fallback 后继](affine-empty-plan-installation.md)保留同一
+2026-10-08：[signed header 后继](affine-empty-signed-installation.md)在已有
+Clight source语法内覆盖bounded负参数：同add矩阵接受33→87，无旧接受丢失，
+包括负M／NULL body／undefined word。12新端点无新增公理，2,280／2,280、
+极大profile后备190／190及旧五族2,638／2,638通过。复用generic signed interval
+encoder及同一condition client，不是新source语法／完整OLO projection；
+profile外safe valuations、mixed negative/active child与旧candidate runtime
+组合仍待证实和安装。
+
+2026-10-08历史阶段：[共享 fallback 后继](affine-empty-plan-installation.md)保留同一
 header-only接受域和public exits，将原源triangle fallback从32份降到1份。
 9新端点无新增公理，2,280／2,280及逐输入path与冻结旧版一致。该language
 choice服务不新增OLO的语法／建模域；条件仍finite tree，signed参数、旧

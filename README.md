@@ -1,6 +1,16 @@
 # Guard：带前提的程序变换与组合证明
 
-2026-10-08: [Shared fallback for empty rewrites](docs/affine-empty-plan-installation.md)
+2026-10-08: [Signed header profiles](docs/affine-empty-signed-installation.md)
+reuse the existing signed interval encoder through a condition-certificate
+client. Twelve new endpoints audit without added axioms. The same 2,280
+Asm/2,280 Clight calls grow addition-width acceptance from 33 to 87 without
+losses, including negative M with NULL body pointers and an undefined body
+word. A 190/190 large-profile run exercises static refusal and the old builder;
+five earlier families pass 2,638/2,638 in the same binary. Coverage remains
+bounded by the header profile; runtime candidate composition and full OLO
+remain active.
+
+2026-10-08 historical stage: [Shared fallback for empty rewrites](docs/affine-empty-plan-installation.md)
 lowers the two readonly alternatives through one private Boolean and one
 original loop. Four modules audit nine new endpoints without added axioms;
 2,280 Asm/2,280 Clight complete-output calls retain every historical path.

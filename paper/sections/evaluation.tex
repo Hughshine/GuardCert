@@ -1460,5 +1460,18 @@ another 2,638 assembly and 2,638 Clight calls in the same binary, with historica
 path/configuration records unchanged and normal RMW acceptance still 126.
 This establishes removal of repeated
 fallback statements, without a general condition-size bound or profitability
-measurement. Safe signed-header encoding, runtime composition with already
-installed candidates and the combined OLO case remain open.
+measurement.
+
+The bounded signed-header successor audits twelve new endpoints across five
+modules and 2,000 reachable bindings, with the same inherited globals and no
+new axiom. The same 2,280 assembly and 2,280 Clight calls pass. In the addition
+matrix, acceptance rises from 33 to 87 without losses; all fifty-four added
+calls have negative M, including eighteen NULL-body calls, twenty-one with an
+undefined body word and eighteen with header/data overlap (categories overlap).
+Subtraction acceptance remains 87. A separate 190/190 run with header cap
+$2^{31}-1$ and an unavailable scheduler exercises static signed-lowering refusal
+and the retained nonnegative builder, with the same subtraction paths. Five
+earlier source families pass 2,638/2,638 calls in the same binary; their records
+remain unchanged and normal RMW acceptance remains 126. Out-of-profile safe
+valuations, runtime composition with already installed candidates, mixed
+negative/active children, complete cost and the combined OLO case remain open.

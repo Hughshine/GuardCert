@@ -6,6 +6,11 @@ It changes the concrete choice representation and its checked private resources.
 The kernel, installation host, candidate validators and native proposal API are
 unchanged.
 
+The [signed-header successor](affine-empty-signed-installation.md) now adds
+bounded negative-parameter acceptance through a condition-certificate client.
+The generic encoder already supports signed intervals; the nonnegative limit
+below describes this historical client profile.
+
 ## Choice and responsibilities
 
 Write `O` for the outer-empty tree, `E` for the positive all-children-empty

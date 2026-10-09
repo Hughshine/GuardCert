@@ -3011,6 +3011,72 @@
         "build/affine-empty-plan/compiler-build-v1.json"
       ],
       "evidence_stage": "affine_empty_plan_installation_stage"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Bounded signed header profiles reuse generic signed interval encoding and a condition-certificate client for the existing source/capture/empty-exit/private-choice chain. Same 2280 Asm/2280 Clight inputs expand addition acceptance 33 to 87 with no losses; 190/190 large-profile refusal exercises the old builder, and five existing families pass 2638/2638 unchanged. No body/source grammar extension, runtime candidate union, profitability or full OLO is claimed.",
+      "theorems": [
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedCondition.v",
+          "name": "affine_empty_signed_range_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedCondition.v",
+          "name": "affine_empty_signed_header_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedCondition.v",
+          "name": "affine_empty_signed_width_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedCondition.v",
+          "name": "affine_empty_signed_condition"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyConditionClient.v",
+          "name": "affine_empty_client_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyConditionCapture.v",
+          "name": "affine_empty_client_captured_execution"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptyConditionCapture.v",
+          "name": "affine_empty_client_prefix_contract"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedBuilder.v",
+          "name": "check_affine_empty_signed_source_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedBuilder.v",
+          "name": "build_affine_empty_signed_frontend_sound"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedBuilder.v",
+          "name": "certified_affine_empty_signed_builder"
+        },
+        {
+          "source": "prototype/interface/ClightAffineEmptySignedBuilder.v",
+          "name": "certified_affine_empty_signed_extension"
+        },
+        {
+          "source": "prototype/interface/ClightSelectedEmptySignedCompiler.v",
+          "name": "compile_selected_empty_signed_regions_correct"
+        }
+      ],
+      "documents": [
+        "docs/affine-empty-signed-installation.md",
+        "docs/framework-responsibilities.md",
+        "docs/verified-guard-library.md"
+      ],
+      "artifacts": [
+        "build/affine-empty-signed/proof-v1/report.json",
+        "build/affine-empty-signed/native-v1/report.json",
+        "build/affine-empty-signed/profile-refusal-v1/report.json",
+        "build/affine-empty-signed/regression-v1/report.json"
+      ],
+      "evidence_stage": "affine_empty_signed_installation_stage"
     }
   ],
   "bibliography_evidence": [
@@ -9128,5 +9194,77 @@
     "native_report_sha256": "731c89361c5a95e6c069b802be42d52570949e90a09a5b2b25978d86179c9bb2",
     "regression_report": "build/affine-empty-plan/regression-v1/report.json",
     "regression_report_sha256": "8724d42a0a34d9c9d3b3d1645742644590081d626000caa81a1df47711dfee65"
+  },
+  "affine_empty_signed_installation_stage": {
+    "date": "2026-10-08",
+    "new_modules": 5,
+    "new_module_lines": 391,
+    "audited_endpoints": 12,
+    "closed_endpoints": 0,
+    "reachable_bindings": 2000,
+    "maximum_inherited_globals": 42,
+    "additional_axioms": false,
+    "source_build_attempts": 7,
+    "successful_source_build_attempts": 5,
+    "rejected_source_build_attempts": 2,
+    "type_inspection_probes_retained": true,
+    "kernel_changed": false,
+    "host_changed": false,
+    "polyhedral_candidate_validators_changed": false,
+    "source_user_semantic_callback_added": false,
+    "original_source_preexecution_at_runtime": false,
+    "generic_signed_interval_encoder_already_existed": true,
+    "empty_condition_certificate_client_connected": true,
+    "signed_header_profile_connected": true,
+    "arbitrary_int32_parameters_supported": false,
+    "body_and_candidate_profiles_unchanged": true,
+    "source_grammar_extended": false,
+    "native_assembly_calls": 2280,
+    "native_Clight_calls": 2280,
+    "array_cells_checked_per_call": 12000,
+    "normal_add_matrix_acceptance": [
+      33,
+      87
+    ],
+    "normal_subtract_matrix_acceptance": [
+      87,
+      87
+    ],
+    "historical_fast_paths_lost": 0,
+    "added_negative_M_calls": 54,
+    "added_NULL_body_pointer_calls": 18,
+    "added_undefined_body_word_calls": 21,
+    "added_header_data_overlap_calls": 18,
+    "added_call_categories_overlap": true,
+    "original_fallback_occurrences_per_tested_function": 1,
+    "static_signed_refusal_old_builder_profile_cap": 2147483647,
+    "static_refusal_Asm_calls": 190,
+    "static_refusal_Clight_calls": 190,
+    "static_refusal_actual_old_header_gate_observed": true,
+    "static_refusal_historical_subtract_paths_retained": true,
+    "same_binary_regression_calls_per_execution_kind": {
+      "word": 400,
+      "recursive_affine": 480,
+      "private_loaded": 270,
+      "zero_width": 672,
+      "rmw": 816
+    },
+    "regression_records_match_historical": true,
+    "normal_rmw_fast_selections_retained": 126,
+    "existing_registry_has_static_priority": true,
+    "runtime_empty_composition_with_previous_candidate_added": false,
+    "mixed_negative_and_active_child_support_added": false,
+    "profitability_measured": false,
+    "full_goal_complete": false,
+    "proof_report": "build/affine-empty-signed/proof-v1/report.json",
+    "proof_report_sha256": "f95d5100b783b88db7460a7b0ae5660fc6b8dbf162fa5c2bd54f9854fdf1f9a3",
+    "compiler": "build/affine-empty-signed/compiler-v1/ccomp",
+    "compiler_sha256": "f3ca07d8b1e92474eac5e49ce12bf7d877481f55037cd20a86f6ad603fb65efc",
+    "native_report": "build/affine-empty-signed/native-v1/report.json",
+    "native_report_sha256": "f03763720778ea458743ed964c127ccf5adb3604e46824b83615a9a7f0267f80",
+    "profile_refusal_report": "build/affine-empty-signed/profile-refusal-v1/report.json",
+    "profile_refusal_report_sha256": "7f024da1ecf62c6395888cd4a0fb65133f03532eed7e8ee82b8db3a98f40a488",
+    "regression_report": "build/affine-empty-signed/regression-v1/report.json",
+    "regression_report_sha256": "a4355e82ebe37dcd348fb10ed1b9a51ed8609c572a553fbce0ae3708fa650ecc"
   }
 }

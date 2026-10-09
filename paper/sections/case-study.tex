@@ -1204,8 +1204,8 @@ execution certificate rather than a scheduling certificate; the polyhedral
 candidate route remains separate. Existing builders keep static priority,
 so the new rewrite first serves sites they refuse during compilation. It does
 not yet add an empty runtime choice inside a previously returned candidate.
-The present parameter encoder requires nonnegative parameters: it accepts
-negative widths for $i-M$, while positive-root $i+M$ with negative M falls back.
+The first parameter profile required nonnegative parameters: it accepted
+negative widths for $i-M$, while positive-root $i+M$ with negative M fell back.
 
 A further Clight choice service factors the outer-empty and all-children-empty
 alternatives through one fresh private Boolean. Its target contains one
@@ -1215,8 +1215,17 @@ third typed private temporary and its absence from condition reads, branch
 temporaries and public live state. The actual-source certificate, condition
 encoding and host are reused. This removes repeated fallback statements;
 the condition itself still uses a finite decision tree and Boolean assignments.
-Signed-parameter encoding, runtime composition with existing candidates and
-complete-call cost remain required.
+
+The signed-header condition producer widens header-parameter profiles from
+$[0,c-1]$ to $[-c,c-1]$, retaining the root profile. The generic affine analyzer
+and encoder already support signed intervals; new runtime range gates establish
+their applicable premises. A condition-certificate client consumes the same
+accepted empty-loop facts, reusing actual source execution, capture, public
+restoration and private choice. The checked factory instantiates that client
+without adding source-user semantic callbacks. If the wider profile prevents
+safe static lowering, the registry retains the preceding nonnegative builder.
+This gives bounded signed-parameter support. Runtime composition with existing
+candidates, mixed negative/active children and complete-call cost remain required.
 
 \pending{Lower the complete entry-parameter guard cost with safe sufficient
 conditions, extend useful acceptance,

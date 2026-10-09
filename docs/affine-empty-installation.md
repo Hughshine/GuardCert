@@ -5,6 +5,11 @@ provenance clarified in `topdown/research-positioning@c4b1395`. It adds an
 ordinary conditional rewrite to the existing selected CompCert compiler. The
 kernel, installation host and polyhedral validators are unchanged.
 
+The [signed-header successor](affine-empty-signed-installation.md) now adds
+bounded negative-parameter acceptance through a condition-certificate client.
+The generic encoder already supports signed intervals; the nonnegative limit
+below describes this historical client profile.
+
 The [shared-fallback successor](affine-empty-plan-installation.md) now removes
 the repeated original loops while preserving every tested acceptance/refusal
 path. This document retains the expanded compiler checkpoint and its evidence.

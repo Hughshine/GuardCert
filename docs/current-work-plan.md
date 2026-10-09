@@ -48,7 +48,33 @@ Guarantee/requirement 与 clause factoring 保持设计问题。先在至少两�
 与 open step simulation 分别验收。每次 rewrite 的 region/site 证据必须
 针对当前中间程序产生，有限序列的组合不能修复过期的 placement 或 freshness。
 
-### 当前：empty rewrite 的共享 fallback 已安装
+### 当前：signed header 条件与可复用 empty client 已安装
+
+2026-10-08，[signed header 后继](affine-empty-signed-installation.md)扩大
+header profile 到有符号区间，复用既有 `PolCertAffineClight` analyzer／range
+primitive／lowering。源码核对修正此前诊断：generic `typed_view`／`env_within`
+与 encoder 已支持signed，限制是旧client传入的非负profile；不能将其原证书
+直接用于负值，但也不需要新造算术语义。
+
+新的empty condition client消费同一readonly condition／facts契约，source／
+capture／公开出口／private Boolean／安装证明与具体编码解耦。Factory自动
+生产调用／resource前提；源码用户API、kernel、host、candidate checker保持。
+五模块391行、12新端点／2,000bindings／旧42globals，无新增公理。
+
+同源同配置2,280 Asm／2,280 Clight完整输出通过；add矩阵接受33→87，
+新增54个均为负M，无旧接受丢失，包含NULL body、undefined word和header overlap。
+subtract矩阵保持87。极大cap／scheduler refusal另有190／190，确认signed
+静态编码拒绝后实际安装旧condition并保留接受。单一original fallback保持。
+
+同binary旧五族另有2,638 Asm／2,638 Clight，历史path／configuration记录相同，
+RMW每种正常配置126接受保持。
+
+这是bounded signed profile，不声称任意int32参数；generic dynamic wide guard
+可作为后继producer，但还没有接到这个client。后续继续已有candidate的
+runtime empty组合、mixed negative/active child、general recursive loaded
+仿射域／broader scalar/chunk／完整OLO-BT和完整成本。完整goal保持active。
+
+### 此前：empty rewrite 的共享 fallback 已安装
 
 2026-10-08，[共享 fallback 后继](affine-empty-plan-installation.md)复用已证
 header-only 条件、original source/capture 与精确出口，将 outer-empty／
@@ -64,8 +90,8 @@ language service 证明短路 choice factoring、接受分支重查 outer 的实
 保持；其历史path／configuration记录相同。条件本身仍是finite tree和Boolean assignments，不声称通用
 condition size bound、最小条件或完整成本收益。
 
-原计划compact fallback项已完成。接下来优先signed header参数安全编码，
-再将empty选择接入已有candidate的运行时路径，继续general recursive
+该历史阶段完成compact fallback；signed header参数已由上述后继接入。此前顺序为：
+将empty选择接入已有candidate的运行时路径，继续general recursive
 loaded affine／broader scalar/chunk／完整OLO-BT与完整成本。静态registry
 优先不等于已经完成运行时组合。完整goal保持active。
 
@@ -88,7 +114,7 @@ RMW816各自Asm/Clight回归通过。既有builder静态优先，旧候选正常
 没有compact或profitability结论。旧factory已经返回target的site没有新增运行时
 empty分支，静态registry组合不能代替该运行时组合。
 
-此前验收顺序（第一项已由上述后继完成）：
+此前验收顺序（前两项已有上述bounded后继）：
 
 1. 用既有private-Boolean/check-plan定律降低新条件，证明原guard与紧凑AST的
    对应、flag freshness及source/candidate入口出口运输，移除重复fallback。

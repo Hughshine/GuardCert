@@ -48,6 +48,14 @@ entailment。先证明实际复用再更改 API。
 
 ### Guard library 的契约责任
 
+2026-10-08，[signed header 条件客户端](affine-empty-signed-installation.md)
+把具体condition编码与empty source／exit／capture／private choice／安装解耦。
+Condition producer提供调用域内safe readonly certificate与同一accepted facts；
+客户端消费它，factory从checked source自动实例化。既有generic interval encoder
+已经支持signed；新producer改变profile并重新证明其range gate，不能沿用旧
+非负范围证书。12新端点无新增公理，add同输入33→87、无损，极大profile
+静态refusal复用旧builder；旧candidate／host／kernel保持。
+
 2026-10-08，[共享 fallback 后继](affine-empty-plan-installation.md)进一步复用
 既有domain条件／actual empty source与出口证明。Clight choice library负责
 readonly alternative factoring、私有Boolean执行与公开投影；site factory
