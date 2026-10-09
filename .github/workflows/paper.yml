@@ -22,7 +22,14 @@ jobs:
         with:
           persist-credentials: false
       - name: Build the manuscript container
-        run: docker build --tag guardcert-paper --file paper/Dockerfile paper
+        run: |
+          # Preload Docker's official Debian image from ECR Public to avoid
+          # Docker Hub's anonymous pull limit. Pin the verified amd64 manifest;
+          # the manuscript Dockerfile and Tectonic checksum stay as recorded.
+          PAPER_BASE_IMAGE=public.ecr.aws/docker/library/debian:bookworm-slim@sha256:a4672c0cb26fbdde88e38fa2dfb6c681942306680e41e4378b28770b6e79ee91
+          docker pull "$PAPER_BASE_IMAGE"
+          docker tag "$PAPER_BASE_IMAGE" debian:bookworm-slim
+          docker build --tag guardcert-paper --file paper/Dockerfile paper
       - name: Compile and check the PDF
         run: |
           docker run --rm --user "$(id -u):$(id -g)" \
