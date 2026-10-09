@@ -2,6 +2,13 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [Double tiling 证明接线](double-tiling-proof.md)继续落实 narrative
+的三方边界：构造性 progress functor 属于 polyhedral domain；实际执行、frame、
+公开出口及安装复用 Clight language 服务；minimal kernel 不改。Factory 内部
+闭合支持族的 source/model 和适用前提，最终 checker 检查实际将降低的 body。
+Raw backward 与 final forward 分开，精确 state equality 在 double 实例内证明；
+完整 Csem→Asm 端点已审计，不等于 native producer／原程序 tiling 已验收。
+
 2026-10-09 [最新 narrative 复核](narrative-corpus-review-2026-10-09.md)将五类 guard
 服务的安全调用／接受事实／公共 frame／拒绝运输分开映射，并说明最难的原
 Clight→Loop、全部局部义务的入口推导、固定参数 candidate progress、actual

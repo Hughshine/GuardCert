@@ -11,12 +11,24 @@ fetch 并吸收 `8ce9c8b` 的三方责任、检查安全／接受充分性、sou
 当前 affine 安装 14/62、30 sites，实际非恒等证据 8/62；18 项 focused context／
 拒绝和3次 unchanged assembly path 通过。未新增语义证明／公理或 kernel／host。
 
-下一优先是 actual double tiling 的 producer、最终生成 Loop progress、实际降低
-及整程序安装；已有 TV 实例化和 word tiling 不替代该验收。与此同时定位 dct 的
+本次再次 fetch，narrative 仍为 `8ce9c8b`，两份 topdown 正文与 main 一致。
+[Double tiling 证明接线](double-tiling-proof.md)已完成最终实际 Loop 的固定参数
+progress、复用 actual lowering／capture／公开 I64 出口、checked factory 和
+selected Csem→Asm。六模块1,132行、16端点／3closed，495 reachable sources，
+最大42 inherited globals，无新增公理；kernel／host 不改。Raw codegen backward
+与最终 adapted candidate forward 分开，后续 pass 消费当前 intermediate program。
+这是证明阶段，没有新的 native 安装或 corpus coverage。
+
+下一优先是 actual double tiling 的 native producer 和原程序安装／回退／context
+验收；已有 TV 实例化、word tiling 或上述 compiler theorem 不替代运行验收。
+保持真实 double/I64/source，保存 actual phase 和 raw/final Loop；核对 bound
+adaptation 的有效迭代宽度、scratch 和 unit coordinates。与此同时定位 dct 的
 initialized witness/source body、polynomial 的 skew coordinate/domain；44 项在
 scheduler 前回退的内部 checker 尚待逐个定位。所有 sequential phases、原 BT、
 LLVM／SPEC、larger tiers、条件接受域和受控完整成本继续必需。库整理只在解除
-这些实际 blocker 时优先；不以更长 swap 列表宣称一般 affine 支持。
+这些实际 blocker 时优先；不以更长 swap 列表宣称一般 affine 支持。沿 narrative
+将安全调用、接受充分性与拒绝／入口运输分别证明，条件尺寸、运行工作、接受域和
+完整调用成本分别记账；不增加 kernel 功能来替代具体 language/domain 义务。
 
 以下纯 assignment 记录保留其阶段边界。
 

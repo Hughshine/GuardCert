@@ -4245,6 +4245,36 @@
         "build/double-witness-policy/path-attempts/paths-v1/report.json",
         "build/double-witness-policy/path-attempts/paths-v2/report.json"
       ]
+    },
+    {
+      "id": "double-tiling-proof-chain",
+      "claim": "Final actual double tiling candidate checked at captured parameters, guarded Clight lowering, public exits, scoped installation and Csem-to-Asm; native producer and original tiling acceptance pending.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleExtractedTiling.v",
+          "name": "validated_double_extracted_tiling_loops_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTiledPrepared.v",
+          "name": "checked_double_tiled_prepared_loop_progress_at"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleTiledFactory.v",
+          "name": "check_tiled_reduction_double_region_sound"
+        },
+        {
+          "source": "prototype/interface/DoubleTiledChoicesCompiler.v",
+          "name": "compile_selected_tiled_choices_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-tiling-proof.md",
+        "docs/double-tiling-proof.json"
+      ],
+      "artifacts": [
+        "build/double-tiling/installation-proof-v2/report.json"
+      ],
+      "section": "case-study and evaluation"
     }
   ],
   "bibliography_evidence": [
@@ -14792,5 +14822,49 @@
         "sha256": "6b5f5717e8f07b9269f4c0a06cb3869a04d718b75128f102c0f3b896b5919cb2"
       }
     ]
+  },
+  "double_tiling_proof": {
+    "status": "compiled",
+    "kind": "actual-double-tiled-loop-factory-scoped-csem-to-asm",
+    "new_modules": [
+      "theories/PolCertTilingProgress.v",
+      "adapters/compcert-memory/GuardMemoryDoubleExtractedTiling.v",
+      "adapters/compcert-memory/GuardMemoryDoubleTiledPrepared.v",
+      "adapters/compcert-memory/GuardMemoryDoubleReductionTiledLowering.v",
+      "prototype/interface/ReductionDoubleTiledFactory.v",
+      "prototype/interface/DoubleTiledChoicesCompiler.v"
+    ],
+    "new_source_lines": 1132,
+    "endpoints": [
+      "GuardMemoryDoubleExtractedTiling.double_tiling_state_eq_exact",
+      "GuardMemoryDoubleExtractedTiling.DoubleTiling.indexed_lift_before_shape",
+      "GuardMemoryDoubleExtractedTiling.DoubleTiling.indexed_lift_before_execution",
+      "GuardMemoryDoubleExtractedTiling.DoubleTiling.multiple_lift_shape",
+      "GuardMemoryDoubleExtractedTiling.DoubleTiling.multiple_lift_execution",
+      "GuardMemoryDoubleExtractedTiling.DoubleTiling.before_to_retiled_multiple_progress",
+      "GuardMemoryDoubleExtractedTiling.DoubleTiling.validated_memory_multiple_tiling_progress_at",
+      "GuardMemoryDoubleExtractedTiling.validated_double_extracted_tiling_loops_at",
+      "GuardMemoryDoubleTiledPrepared.checked_double_tiled_prepared_phase_correct",
+      "GuardMemoryDoubleTiledPrepared.checked_double_tiled_prepared_loop_progress_at",
+      "GuardMemoryDoubleReductionTiledLowering.checked_double_tiled_reduction_guarded_execution",
+      "ReductionDoubleTiledFactory.tiled_reduction_double_region_contract",
+      "ReductionDoubleTiledFactory.check_tiled_reduction_double_region_sound",
+      "DoubleTiledChoicesCompiler.checked_selected_tiled_double_program_correct",
+      "DoubleTiledChoicesCompiler.checked_selected_tiled_choices_program_correct",
+      "DoubleTiledChoicesCompiler.compile_selected_tiled_choices_program_correct"
+    ],
+    "closed_endpoints": 3,
+    "maximum_endpoint_globals": 42,
+    "additional_global_axioms": [],
+    "reachable_source_count": 495,
+    "whole_program_entrypoint": "DoubleTiledChoicesCompiler.compile_selected_tiled_choices_program",
+    "whole_program_theorem": "DoubleTiledChoicesCompiler.compile_selected_tiled_choices_program_correct",
+    "new_native_or_cost_evidence": false,
+    "installed_original_benchmark_coverage_increased": false,
+    "full_goal_complete": false,
+    "proof_report": "docs/double-tiling-proof.json",
+    "proof_report_sha256": "544baf92231d6b58803a73202c181f704063d6efa5cadb3c810058735041c4c2",
+    "bindings": 8698,
+    "next_acceptance": "actual native Pluto tiling producer plus original double/I64 full-program runtime acceptance/refusal and context tests"
   }
 }

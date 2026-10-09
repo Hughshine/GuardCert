@@ -1565,3 +1565,15 @@ the second changes to j/i. The complete compiler retains the preceding routes,
 with a Csem-to-Asm backward simulation. Kernel and host laws remain unchanged;
 the new source family and witness producer belong to
 the concrete language/domain instantiation.
+
+\paragraph{Tiled double path.}
+A successor validates scheduling and tiling phase data, runs prepared codegen,
+and rechecks the final adapted Loop at the captured parameters. A constructive
+tiling-progress library is parameterized by the existing \code{POLIRS} interface;
+the double instance proves the exact-state equality law it uses. Raw codegen's
+backward correspondence and the installed body's forward execution remain
+separate, with no assumed raw-to-adapted equivalence. Existing capture, lowering,
+public-exit restoration and scoped installation services connect the checked
+factory to a Csem-to-Asm theorem. Neither the minimal kernel nor the host laws
+change. The native double tiling producer and original-program acceptance are
+still unfinished.
