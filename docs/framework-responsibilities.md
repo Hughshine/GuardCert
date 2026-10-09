@@ -2,6 +2,14 @@
 
 ## 持续适用的责任表
 
+本轮 narrative 对照没有更晚远端版本：仍为 `8ce9c8b`，两份 topdown 正文
+与 main 一致。下一参数下标扩展按[工作计划的逐项验收](current-work-plan.md)
+区分 language 的实际 global observation／安全执行、domain 的 source/model
+与入口范围推导，以及 host/site 的当前程序安装。新的 header-affine proof
+仍在进行，不计为已交付服务或 compiler 能力。尤其 `Int64.repr` 下的执行
+对应不是数学地址的 no-overflow 证明，数学 footprint bounds 不是 `Mem` 权限，
+header load 的稳定性也不是首次读取许可。这三处分别需要实际证据。
+
 2026-10-09 [Literal promotion后继](double-literal-operands.md)落实了原source
 execution和current-program两项澄清：language的实际promotion/cast/assignment
 forward证明被region contract消费；已有host提供scope／frame／finite progress
@@ -13,8 +21,9 @@ forward证明被region contract消费；已有host提供scope／frame／finite p
 
 Native完整语料为15/62、31sites（12原例28处q），新fusion5仅第一段，第二段
 含参数下标仍拒绝。24 literal/context及20 initialized regressions通过。
-Tricky2的两段scalar更新已进入producer，但因missing tiled point space在
-candidate生成前拒绝，不能算validator拒绝或scalar优化支持。完整fusion5短调用
+Tricky2的两段scalar更新已进入producer，但Pluto保留一维未分块结果；当前
+adapter要求新增tile维度，因missing tiled point space在candidate生成前拒绝。
+这不能算validator拒绝、普遍scalar不支持或scalar优化支持。完整fusion5短调用
 比值0.978860，未建立稳定加速。最难的下一接线在实际参数observations／稳定性、
 地址数学模型和candidate/continuation；domain或language作者分别提供这些证明，
 不能把它们转交kernel或C源码用户。完整sequential/OLO和useful costs仍未完成。

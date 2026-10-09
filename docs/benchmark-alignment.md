@@ -6,7 +6,9 @@
 timeout/mismatch；15原例31sites，12原例28处q及三处initialized。新增fusion5
 第一段，第二段含参数下标未支持；24 literal/context及20 initialized回归通过。
 43个编译原例未进入phase；tricky2/tricky3进入phase未安装，前者已trace到
-producer缺少tiled point space，而非final validator拒绝。九份固定报告和
+producer缺少tiled point space，而非final validator拒绝。两份固定scheduler logs
+的前后 `T(S1)` 都为 `(i_0)`；Pluto保留一维未分块结果，当前adapter要求新增
+tile维度而拒绝，不能据此推断scalar source普遍不支持。九份固定报告和
 16,751bindings分别记录proof／native／coverage／refusal／cost。
 
 其他goal命令结束后七组交替的原fusion5完整调用medians为0.004334／0.004428秒，

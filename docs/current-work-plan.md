@@ -2,6 +2,39 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Narrative 澄清对下一扩展的约束
+
+本轮重新 fetch 的 `origin/topdown/research-positioning` 仍为
+`8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`；`paper-narrative.md` 与
+`context-lifting.md` 的 main 正文均与远端一致，没有另报较新提交。
+按 narrative §§3–6、8，把下一原 `fusion5` 参数下标扩展拆成以下验收。
+这些是实现者的内部证明责任，不是交给 C 使用者填写的六份证书。
+
+| 连接与责任方 | 要生产并被后续证明消费的证据 | 当前状态 |
+| --- | --- | --- |
+| Language：实际参数观察 | 原 `Evar N` 的类型、global binding 和实际 `Mint64` load；读取许可与接受后的范围分开 | 已有 global-long/header 服务可复用；新族尚未接线 |
+| Domain：source/model 对应 | 保留原下标运算树，把同一个运行时 `n` 放入 access rows；decoder 以实际源 AST 重建检查为依据 | Header-affine successor 正在证明，无成功编译证据 |
+| Domain：入口推出全部局部义务 | 同时用 `0<=j<n` 与同一 `n` 推导 reached access bounds；接机器表示及物理 layout，数学 bounds 不冒称 `Mem` 权限 | 新参数范围 producer 待实现 |
+| Language/domain：观察运输 | 原 body 写入保持 `N` 的实际 load；安全 capture 的 private frame、接受／拒绝入口运输 | 复用 global-store/header 定律，新族需要 discharge |
+| Domain/language：实际候选 | 对固定捕获参数消费最终 candidate checker、progress、实际 Clight lowering 和 public iterator exits | 不以数学 decoder 或 raw codegen 结果代替 |
+| Language host/site：全程序 | 对实际 intermediate program 生产 scope、resources、placement 和所需 progress，再连接 Csem→Asm | 与这条功能扩展同时交付，尚未完成 |
+
+`N-j+2` 说明 condition derivation 必须保留参数和迭代域的关联：在
+`1<=n`、`0<=j<n` 时其范围为 `[3,n+2]`。独立地包络 `n` 和 `j`
+会丢失这项关联。原第二段的 `C[i+2][j+2]` 与 `B[i+2][N-j+2]`
+分别声明为 `100×100` 与 `101×101`；它们提示一个共同 count cap `98`，
+这只是待验证的充分范围提议。静态 checker、runtime check、原 source execution
+和 transport 应各自 discharge 适用前提；不会发出一个 test 对应每条 premise，
+也不会在运行时预执行原片段。空域路径必须单独处理读取与 public exits。
+Language 的 I64 expression 执行结果若仅以 `Int64.repr` 描述，仍需范围桥才能
+把它当作数学地址；不将 modular equality 写成 no-overflow 已证明。
+
+另据已固定 `literal-tricky2-trace-v1` 的两份 scheduler logs，Pluto 的前后
+`T(S1)` 都为 `(i_0)`，domain rank 为一。现有 `infer_witness` 拒绝
+`added<=0`，即没有新增 tile 维度；尚未产生 candidate。后续应处理 actual
+untiled／mixed phase results 的契约，不能把这一失败泛称为 scalar source 不支持，
+也不能为了增加安装数将 identity guard 计作优化。这里没有新增 native 或成本结果。
+
 2026-10-09 [Literal promotion后继](double-literal-operands.md)从原 `fusion5` 的
 实际 early refusal 扩展源表达式：language证明 signed I32/I64 operands 的实际
 Clight promotion，已有 scoped host 安装，domain compiler消费规范化后的当前
@@ -25,7 +58,7 @@ guard或控制affinity／外部host load，短调用结果未建立稳定加速�
    到captured parameter的稳定性与执行运输；不能仅把数学decoder放宽或拿编译时
    常数替代原读。先复用语言memory/header服务，再由domain/factory闭合源/model。
 2. 同时按原语料共同blockers扩展独立bounds、非零／inclusive headers、statement
-   sequences和scalar operands；补tricky2的rank-one/scalar point-space契约，
+   sequences和scalar operands；补tricky2的未分块rank-one／mixed phase result契约，
    继续定位tricky3的phase后拒绝。
    Source users不补未证明callback，也不使用简化word-copy替换原浮点/scalar计算。
 3. 每条扩展保留实际候选最终checker、安全condition及其调用前提、公开exits、
