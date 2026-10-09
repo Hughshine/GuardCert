@@ -4,6 +4,15 @@
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
 固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。
 
+2026-10-09 [范围内最终验证](bounded-double-tiling.md)连接实际capture范围、实际
+candidate checker、Clight lowering／公开出口和新Csem→Asm后，单一新build完整
+重跑62原例＋两适配：60raw＋2adapted匹配，两个既知frontend拒绝、零timeout，
+14/62安装30处。64项context／path验收通过，另有三个unit配置通过；proper
+rank3 mixed-unit matmul仍拒绝。七次交替原polynomial完整调用为0.031044秒，
+同compiler未标记版0.013714秒，慢2.263590倍，成本仍失败。当前cap常数界限
+不是runtime-dependent quotient／min/max lowering；小n成本、source／sequential
+配置、原BT和larger tiers继续待验收。前序build的结果保持其独立边界。
+
 2026-10-09 [实际 point 恢复后继](generated-point-recovery.md)的新 build 完整重跑
 62原例＋两适配：60raw＋2adapted匹配，两个既知frontend拒绝、零compiler timeout，
 14/62安装30处。原polynomial保留真实 `(i+j,i)` schedule／tiling，经原最终checker

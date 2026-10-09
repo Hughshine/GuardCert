@@ -4494,6 +4494,71 @@
         "build/generated-point-recovery/cost-attempts/cost-v1/report.json",
         "build/generated-point-recovery/cost-attempts/cost-v2/report.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Final actual-candidate validation is restricted to a range proved by safe capture, then connected through actual Clight lowering, public exits and factories to Csem-to-Asm. Complete replay retains 14 installed originals and 30 sites; compact bounds reduce the recorded polynomial cost regression but remain 2.264 times the same-compiler unmarked median. Refused producers and mixed-unit failures remain evidence.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleBoundedTiledPrepared.v",
+          "name": "double_parameter_range_test_true"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleBoundedTiledPrepared.v",
+          "name": "double_bounded_assumed_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleBoundedTiledPrepared.v",
+          "name": "checked_double_bounded_tiled_prepared_loop_progress_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionBoundedTiledLowering.v",
+          "name": "checked_double_bounded_tiled_reduction_guarded_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedBoundedTiledLowering.v",
+          "name": "checked_double_initialized_bounded_tiled_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleBoundedTiledFactory.v",
+          "name": "check_bounded_tiled_reduction_double_region_sound"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleBoundedTiledRegionFactory.v",
+          "name": "check_initialized_double_bounded_tiled_region_sound"
+        },
+        {
+          "source": "prototype/interface/BoundedDoubleTiledStableCompiler.v",
+          "name": "checked_selected_bounded_tiled_stable_program_correct"
+        },
+        {
+          "source": "prototype/interface/BoundedDoubleTiledStableCompiler.v",
+          "name": "compile_selected_bounded_tiled_stable_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/bounded-double-tiling.md",
+        "docs/bounded-double-tiling.json"
+      ],
+      "artifacts": [
+        "build/bounded-double-tiling/installation-proof-v1/report.json",
+        "build/bounded-double-tiling/compiler-attempts/native-v1/report.json",
+        "build/benchmark-alignment/adaptive-tiled-attempts/bounded-point-profile-v1/report.json",
+        "build/bounded-double-tiling/context-attempts/contexts-v1/report.json",
+        "build/initialized-double-tiling/public-attempts/bounded-point-public-v1/report.json",
+        "build/bounded-double-tiling/compiler-attempts/native-v2/report.json",
+        "build/benchmark-alignment/adaptive-tiled-attempts/bounded-point-profile-v2/report.json",
+        "build/benchmark-alignment/adaptive-tiled-attempts/bounded-point-corpus-v2/report.json",
+        "build/bounded-double-tiling/context-attempts/contexts-v2/report.json",
+        "build/double-tiling/check-attempts/bounded-point-contexts-v2/report.json",
+        "build/initialized-double-tiling/check-attempts/bounded-point-contexts-v2/report.json",
+        "build/initialized-double-tiling/public-attempts/bounded-point-public-v2/report.json",
+        "build/bounded-double-tiling/path-attempts/paths-v2/report.json",
+        "build/double-tiling/original-attempts/bounded-point-unit-v2/report.json",
+        "build/double-tiling/original-attempts/bounded-point-mixed-mvt-v2/report.json",
+        "build/double-tiling/original-attempts/bounded-point-mixed-rank3-v2/report.json",
+        "build/bounded-double-tiling/cost-attempts/cost-v2/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -16593,5 +16658,132 @@
         "status": "measured"
       }
     ]
+  },
+  "bounded_double_tiling_stage": {
+    "summary": "docs/bounded-double-tiling.json",
+    "summary_sha256": "9b25f97c022e8f43e8809b0a89c7d9b9ae869a9327ecd88d6aae12e1e4c6e212",
+    "proof_source_lines": 863,
+    "proof_endpoints": 19,
+    "maximum_inherited_globals": 42,
+    "additional_global_assumptions": [],
+    "parameter_range_discharged_by_actual_capture": true,
+    "generic_Loop_guard_execution_service_consumed": true,
+    "generic_Clight_guardify_composition_directly_invoked": false,
+    "new_machine_floor_division_lowering": false,
+    "complete_default_build_installed_originals": 14,
+    "complete_default_build_installed_sites": 30,
+    "complete_call_ratio": 2.263590394784983,
+    "cost_acceptance_failed": true,
+    "reports": [
+      {
+        "name": "preceding_checkpoint",
+        "path": "docs/generated-point-recovery.json",
+        "sha256": "d11da5a3bae0a6864796e84203531ea786a66dbe4115161b913f2fadc7968b1d",
+        "status": "validated"
+      },
+      {
+        "name": "proof",
+        "path": "build/bounded-double-tiling/installation-proof-v1/report.json",
+        "sha256": "aa55f185fa3ee1c405091b95ab50b279c41c1e036e7964ecdd1b23dbb25f32a8",
+        "status": "compiled"
+      },
+      {
+        "name": "first_compiler",
+        "path": "build/bounded-double-tiling/compiler-attempts/native-v1/report.json",
+        "sha256": "65908ca3871c2a320801202cc34b58880e8c0af423bfaaf74ebbccc1f7ce5c72",
+        "status": "built"
+      },
+      {
+        "name": "first_profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/bounded-point-profile-v1/report.json",
+        "sha256": "fd0e60f529426a5322d97df9c3539240eed48a90f55fa5bd996ef71732534b4e",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "first_contexts",
+        "path": "build/bounded-double-tiling/context-attempts/contexts-v1/report.json",
+        "sha256": "52d357585c7435c0712939d5ff13e5b6ecd6d3690658c3977fe4f56897d98c68",
+        "status": "rejected"
+      },
+      {
+        "name": "first_public",
+        "path": "build/initialized-double-tiling/public-attempts/bounded-point-public-v1/report.json",
+        "sha256": "292459b1e1bbd8899a9a8afe26ea2b7e4e592859830c0a734853b22c5c5f9f6c",
+        "status": "rejected"
+      },
+      {
+        "name": "compiler",
+        "path": "build/bounded-double-tiling/compiler-attempts/native-v2/report.json",
+        "sha256": "c9dc9ebddab6896fa722fa1a6f4a2dd10cb9a9fcd1f85ac555523b3535be72a2",
+        "status": "built"
+      },
+      {
+        "name": "profile",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/bounded-point-profile-v2/report.json",
+        "sha256": "bf87e80155372fdbd03f81ffae8d21bec55361101f8817221ae655bff91d44ce",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "corpus",
+        "path": "build/benchmark-alignment/adaptive-tiled-attempts/bounded-point-corpus-v2/report.json",
+        "sha256": "d1b8c23f3f58286fd3182b887cc32a12e96cf314dd5cb0223a73b4d31b98842d",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "contexts",
+        "path": "build/bounded-double-tiling/context-attempts/contexts-v2/report.json",
+        "sha256": "c80009597fbb15208d4b626d69b83e8cde3b6028f414ebcfdbf5ad99ea5429a0",
+        "status": "passed"
+      },
+      {
+        "name": "reduction_contexts",
+        "path": "build/double-tiling/check-attempts/bounded-point-contexts-v2/report.json",
+        "sha256": "cb6c698fbfd5db1b8a03855f5dbf882fc722eb1466bc8685e4e1f6df781bd201",
+        "status": "passed"
+      },
+      {
+        "name": "initialized_contexts",
+        "path": "build/initialized-double-tiling/check-attempts/bounded-point-contexts-v2/report.json",
+        "sha256": "191bcad210a0d1aef1a84319d6f1e965f8eeacc194b36e9690cde970a30f9e56",
+        "status": "passed"
+      },
+      {
+        "name": "public_and_legacy",
+        "path": "build/initialized-double-tiling/public-attempts/bounded-point-public-v2/report.json",
+        "sha256": "694a39b22646a0f7bb0e0bcd1cc7f95489d692666921f847a34e6489f5befaa4",
+        "status": "passed"
+      },
+      {
+        "name": "paths",
+        "path": "build/bounded-double-tiling/path-attempts/paths-v2/report.json",
+        "sha256": "b90983fcddb9d34174c68fb53c86113e4ec1a02e8ec725d13cf7b15995299ac0",
+        "status": "passed"
+      },
+      {
+        "name": "unit",
+        "path": "build/double-tiling/original-attempts/bounded-point-unit-v2/report.json",
+        "sha256": "ef2c12e82d79de50b4f40ed9dd961609f3e803344a1410bc118f4fc907411b36",
+        "status": "passed"
+      },
+      {
+        "name": "mixed_mvt",
+        "path": "build/double-tiling/original-attempts/bounded-point-mixed-mvt-v2/report.json",
+        "sha256": "cded75c051a9c40af1709836df397352a683d56f3b879973d6226b0081b1225e",
+        "status": "passed"
+      },
+      {
+        "name": "mixed_rank3",
+        "path": "build/double-tiling/original-attempts/bounded-point-mixed-rank3-v2/report.json",
+        "sha256": "0ed3840380df8796d735a18068ee99fbcf74c42be1f14215a413e9b1b5498d1a",
+        "status": "rejected"
+      },
+      {
+        "name": "cost",
+        "path": "build/bounded-double-tiling/cost-attempts/cost-v2/report.json",
+        "sha256": "aeda66e46b0a4c806eae0d3130f6913f4c69dce9c8e895bc8c73ebfc6c319f88",
+        "status": "measured"
+      }
+    ],
+    "full_goal_complete": false
   }
 }

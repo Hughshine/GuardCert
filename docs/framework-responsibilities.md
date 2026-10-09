@@ -2,6 +2,23 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [范围内验证后继](bounded-double-tiling.md)明确将证书链中的入口事实
+用于candidate validation：domain包装模型域并证明解除包装，language实际capture
+供给range、exact conversion和state transport，factory内部组合source/model、
+actual lowering／public exits／fallback，host连接当前program和新的Csem→Asm。
+模型层实际消费通用`DoubleAssumption.guard_execution`；Clight局部证明仍直接构造
+branches，未声称直接调用generic guardify。Kernel／host定律不变，无新增global
+assumption，源码用户不给callbacks。Native interval／point predicates仅是提议，
+最终checker拒绝错bound／domain／coordinate；首次不受支持的Boolean AST与命名
+修正均保留。这是已证明condition为conditional validation提供license的实例，
+不是新guard类别或任意assumption inference。
+
+完整build保持14/62、30sites；原polynomial完整调用比同compiler未标记版慢
+2.263590倍，成本仍失败。当前常数cap enclosure没有提供runtime-dependent
+machine quotient服务，小输入接受后的工作仍可能过多。Domain需处理具体floor／
+min/max表示与checker，language需证明实际算术安全／执行与frame，再复用安装；
+不得将既有range proof或native interval arithmetic当成该服务已完成。
+
 2026-10-09 [实际 point 恢复](generated-point-recovery.md)复用既有 arbitrary-adapt
 定理、最终 actual-candidate checker和Csem→Asm端点。Native提议最强平行halfspaces，
 旧LCF／ExactCs反向检查仍是authority；另从实际Loop提议singletons／point translation，

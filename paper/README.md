@@ -1,6 +1,16 @@
 # GuardCert Working Manuscript
 
-The latest [actual generated-point recovery](../docs/generated-point-recovery.md)
+The latest [validation under a proved entry range](../docs/bounded-double-tiling.md)
+uses capture evidence to restrict the final actual-candidate checker, then
+reuses Clight lowering, public exits and installation through a new Csem-to-Asm
+endpoint. The kernel and host laws stay unchanged. One complete build retains
+fourteen installed originals and thirty sites, with no compiler timeout or
+native mismatch. Original polynomial complete calls take 2.264 times the
+same-compiler unmarked median. The cost acceptance still fails;
+runtime-dependent bounds, mixed-unit coordinate order and broader sequential
+coverage remain required. Earlier notes preserve their checkpoint scope.
+
+The preceding [actual generated-point recovery](../docs/generated-point-recovery.md)
 installs original polynomial through the existing final checker and Csem-to-Asm
 endpoint. One complete build installs 30 sites in fourteen of 62 originals;
 60 raw outputs and both disclosed adaptations match GCC, with two frontend

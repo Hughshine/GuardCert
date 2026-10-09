@@ -1689,3 +1689,34 @@ dynamic pointer-alias service. Its complete-call cost nevertheless regresses
 severely: loose affine enclosures enumerate points subsequently rejected by
 membership tests. Tight quotient/min/max bounds now require concrete domain
 representation and language execution work, while the kernel stays abstract.
+
+\paragraph{Validation under an established entry condition.}
+The source factory already derives a limit from declared footprints, and safe
+capture establishes $R(n)\equiv0\leq n\leq\mathit{limit}$ at the actual checked
+entry. A successor uses this evidence in final candidate validation. It checks
+the source and actual candidate models wrapped by $\mathsf{Guard}(R,\cdot)$.
+The Loop instance's generic guard-execution law and the proved capture range
+remove those wrappers at the accepted parameters. The resulting theorem gives
+execution of the actual, unwrapped candidate from source execution. Capture,
+concrete lowering, public exits and the existing host then connect this result
+to a new Csem-to-Asm endpoint.
+
+This makes an entry assumption useful to both validation and runtime versioning.
+The model restriction adds no runtime test: the existing capture establishes
+the fact. The domain supplies the restricted models and their correspondence;
+the language supplies capture and execution transport; the host supplies
+installation into the current program. The model proof consumes
+\code{DoubleAssumption.guard\_execution}, while the Clight proof still constructs
+branch execution directly. Neither the minimal kernel nor host laws change.
+The service currently restricts the first captured parameter; it claims no
+universal assumption extraction or arbitrary multi-parameter condition compiler.
+
+An untrusted producer uses the captured range to propose constant enclosures
+for quotient tile loops, retains affine tile-local widths, and proposes point
+predicates on actual instruction arguments. Final validation remains
+authoritative. The first producer appends a constant-true Boolean node that the
+affine extractor does not support, so its candidates refuse. A named successor
+forms the same conjunction from supported tests. Wrong bounds, missing domain
+predicates and wrong coordinates still refuse. Original polynomial retains its
+skew schedule, IEEE computation and source arrays. This stage adds no machine
+floor-division lowering; its constant caps can still over-enumerate small inputs.

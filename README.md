@@ -1,5 +1,17 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-09: [Validation under a proved entry range](docs/bounded-double-tiling.md)
+uses actual capture evidence in the final polyhedral checker and connects the
+accepted candidate through Clight lowering and public exits to a new Csem-to-Asm
+endpoint. Eight modules audit nineteen endpoints without added global
+assumptions or kernel/host-law changes. One complete build retains fourteen of
+62 installed originals and thirty sites, with sixty raw and two adapted output
+matches, two frontend refusals and no compiler timeout. Context and actual guard
+routes pass. Original polynomial complete calls now take 2.264 times the
+same-compiler unmarked median; cost acceptance still fails. Runtime-dependent
+quotient bounds, mixed-unit coordinate order and broader sequential/OLO coverage
+remain active work. Earlier notes retain their checkpoint scope.
+
 The [actual-program matmul compiler](docs/original-matmul-actual-installation.md)
 checks relevant declarations and frames the caller's actual public temporaries.
 It installs both marked regions in the formerly refused context, preserves an

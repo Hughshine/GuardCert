@@ -2,6 +2,29 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [入口范围内的候选验证](bounded-double-tiling.md)已把实际 capture 的
+`0<=n<=limit` 用于 source／最终 candidate 的模型域限制，证明在接受参数处解除
+Guard 包裹，接实际 lowering、公开出口、两个 factory和新的 Csem→Asm。
+八模块863行／19 queried endpoints，无新增 global assumption，kernel／host不改。
+`DoubleAssumption.guard_execution` 是实际消费的通用 Loop 服务；Clight branch
+仍直接证明，不把它宣称为 generic guardify composition。
+首次 native predicate 的 `TConstantTest true` 不被 affine extractor接受；保留
+零安装失败和命名后继。修正后完整62原例＋两适配保持60raw＋2adapted匹配、
+14/62安装30处、零timeout；20 polynomial、14 reduction、20 initialized、
+7 public／legacy及3 unchanged assembly paths通过。
+
+**下一优先仍是 runtime-dependent quotient／min/max 的紧凑候选与完整效果。**
+同compiler／flags、七次交替的原polynomial完整调用为0.031044秒，对未标记
+0.013714秒慢2.263590倍，成本验收仍失败。当前常数外界来自source footprints
+的cap，小n仍可能有大量空枚举；没有新增machine floor/division lowering。
+先选定可验证的quotient／piecewise-bound表示，接实际safe arithmetic／Loop执行
+和最终candidate correspondence，再复用这次范围服务、capture、公开出口与host。
+不以profitability gate或关闭变换代替实际成本验收。另修复mixed-unit与intratile
+重排：matmul实际point args `(v4,v0,v1)`，旧completer期待`(v4,v1,v0)`，最终
+checker仍须验证修正提议。45无phase原例、tricky3及其余source／sequential phases、
+原BT、LLVM／SPEC和larger tiers继续必需，逐项同步整程序证据。
+下列日期记录保留前序阶段范围。
+
 2026-10-09 [实际 point 恢复后继](generated-point-recovery.md)关闭原 polynomial 的
 AST-generation／最终安装 blocker。Ray-only 先完成 raw 但拒绝安装；新 adapter
 从实际 instruction arguments 做 singleton substitution 和 innermost translation，

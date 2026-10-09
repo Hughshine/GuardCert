@@ -19,6 +19,15 @@ optimizer pipeline remain required. The CAV 2027 [working manuscript](../../pape
 continues alongside implementation. Earlier imports and integration reviews
 retain their historical implementation boundaries.
 
+The [captured-range validation successor](../bounded-double-tiling.md) now uses
+an actual capture fact to restrict final candidate checking and connects it to
+a new Csem-to-Asm endpoint. The minimal kernel and host laws stay unchanged;
+the model proof consumes the generic Loop guard-execution service. One complete
+build retains fourteen installed originals and thirty sites. Original polynomial
+complete calls take 2.264 times the same-compiler unmarked median, so cost
+acceptance still fails. Runtime-dependent bounds, mixed-unit point order,
+broader sequential coverage and original OLO inputs remain required.
+
 The [pinned inventory and work order](../benchmark-alignment.md) retain all 62
 PolCert cases, including 19 with saved concurrent best routes, and identify the
 serial NPB sources. Complete affine and single-configuration tiling corpus
