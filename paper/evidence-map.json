@@ -4330,6 +4330,55 @@
         "build/double-tiling/check-attempts/affine-contexts-v2/report.json",
         "build/affine-double-tiling/path-attempts/paths-v1/report.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual initialized-double tiling reuses safe capture, source/model transport, final-candidate progress, concrete lowering and public exits; proved empty-table identity avoids subsequent private-resource conflicts and the checked compiler composes to original Csem-to-Asm.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedTiledLowering.v",
+          "name": "checked_double_initialized_tiled_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledRegionFactory.v",
+          "name": "initialized_double_tiled_region_contract"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledRegionFactory.v",
+          "name": "check_initialized_double_tiled_region_sound"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledStableCompiler.v",
+          "name": "checked_initialized_tiled_program_if_nonempty_correct"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledStableCompiler.v",
+          "name": "checked_tiled_double_program_if_nonempty_correct"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledStableCompiler.v",
+          "name": "checked_selected_initialized_tiled_stable_program_correct"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleTiledStableCompiler.v",
+          "name": "compile_selected_initialized_tiled_stable_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/initialized-double-tiling.md",
+        "docs/initialized-double-tiling-proof.json",
+        "docs/initialized-double-tiling-stable-proof.json"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Initialized tiling and resource repair pass 47 native checks and six unchanged-assembly path observations. A separately bound preceding complete corpus installs nine original cases, retaining two frontend refusals and the polynomial compiler timeout; a focused high-rank witness retry is not final-build full-corpus or profitability evidence.",
+      "documents": [
+        "docs/initialized-double-tiling.md"
+      ],
+      "artifact_reports": [
+        "docs/initialized-double-tiling.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -15196,5 +15245,761 @@
     ],
     "summary_sha256": "f4fd020f6c617c5bcbc2a2c7494f0f1aadb75cbd41ce1303fa65cfc3bc4c5c02",
     "bindings": 14485
+  },
+  "initialized_double_tiling_stage": {
+    "status": "validated",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "compiler_entrypoint": "InitializedDoubleTiledStableCompiler.compile_selected_initialized_tiled_stable_program",
+    "compiler_theorem": "InitializedDoubleTiledStableCompiler.compile_selected_initialized_tiled_stable_program_correct",
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedTiledLowering.v",
+      "prototype/interface/InitializedDoubleTiledRegionFactory.v",
+      "prototype/interface/InitializedDoubleTiledChoicesCompiler.v",
+      "prototype/interface/InitializedDoubleTiledStableCompiler.v"
+    ],
+    "source_lines": 427,
+    "audited_endpoints": 11,
+    "closed_endpoints": 1,
+    "reachable_sources": 502,
+    "maximum_inherited_globals": 42,
+    "additional_global_axioms": [],
+    "kernel_and_host_laws_unchanged": true,
+    "generic_composition_theorem_directly_invoked_by_this_guarded_execution": false,
+    "factory_discharges_source_model_guard_frame_scope_and_public_exit_obligations": true,
+    "source_users_supply_semantic_callbacks": false,
+    "empty_tiling_tables_preserve_program_and_do_not_allocate_private_temps": true,
+    "current_intermediate_program_evidence_recomputed_at_each_pass": true,
+    "condition": {
+      "common_global_I64_bound": true,
+      "original_accepting_range": [
+        0,
+        98
+      ],
+      "extent104_accepting_range": [
+        0,
+        102
+      ],
+      "runtime_alias_test": false,
+      "private_capture_not_whole_state_readonly": true,
+      "weakest_or_optimal_condition_claimed": false
+    },
+    "original_installed_tiled_sites": {
+      "mxv": 1,
+      "matmul-init": 1
+    },
+    "actual_phase_schedules": {
+      "mxv": {
+        "directory": "build/initialized-double-tiling/original-attempts/stable-matrix-v2/mxv-tile/tiling-pipeline-1",
+        "before": [
+          {
+            "inputs": 1,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "inputs": 2,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "middle": [
+          {
+            "inputs": 1,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "inputs": 2,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "after": [
+          {
+            "inputs": 2,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "inputs": 4,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1,
+                0,
+                0
+              ]
+            ]
+          }
+        ]
+      },
+      "matmul-init": {
+        "directory": "build/initialized-double-tiling/original-attempts/stable-matrix-v2/matmul-init-tile/tiling-pipeline-1",
+        "before": [
+          {
+            "inputs": 2,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "inputs": 3,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "middle": [
+          {
+            "inputs": 2,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "inputs": 3,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "after": [
+          {
+            "inputs": 4,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "inputs": 6,
+            "parameters": 1,
+            "rows": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "final_checks": {
+      "original_modes": 10,
+      "contexts": 20,
+      "public_and_legacy": 7,
+      "retained_reduction_modes": 10,
+      "unchanged_assembly_paths": 6
+    },
+    "guard_paths": {
+      "mxv-dynamic-accept": [
+        1,
+        0
+      ],
+      "mxv-dynamic-negative-N": [
+        0,
+        1
+      ],
+      "mxv-dynamic-zero-N": [
+        1,
+        0
+      ],
+      "matmul-init-dynamic-accept": [
+        1,
+        0
+      ],
+      "matmul-init-dynamic-negative-N": [
+        0,
+        1
+      ],
+      "matmul-init-dynamic-zero-N": [
+        1,
+        0
+      ]
+    },
+    "public_controls": {
+      "mxv-public-positive": "96,96,29",
+      "mxv-public-zero": "0,23,29",
+      "mxv-public-negative": "0,23,29",
+      "matmul-init-public-positive": "96,96,96",
+      "matmul-init-public-zero": "0,23,29",
+      "matmul-init-public-negative": "0,23,29"
+    },
+    "preceding_complete_corpus": {
+      "entrypoint": "DoubleReindexedTiledChoicesCompiler.compile_selected_tiled_choices_program",
+      "originals": 62,
+      "raw_native_matches": 59,
+      "adapted_native_matches": 2,
+      "raw_frontend_refusals": [
+        "corcol3",
+        "pca"
+      ],
+      "compiler_timeouts": {
+        "polynomial": 600.1021617089864
+      },
+      "installed_original_cases": 9,
+      "installed_sites": 22,
+      "compiled_originals_without_tiling_phase_calls": 48,
+      "compiled_phase_called_without_installation": [
+        "tce",
+        "tricky3"
+      ],
+      "all_matches_are_not_installed_or_nonidentity_effects": true
+    },
+    "focused_high_rank_retry": {
+      "entrypoint": "InitializedDoubleTiledChoicesCompiler.compile_selected_initialized_tiled_choices_program",
+      "case": "tce",
+      "private_temporaries": 32,
+      "witness_axes": 10,
+      "installed_sites": 4,
+      "compiler_seconds": 236.46738457499305,
+      "native_matches_original_GCC": true,
+      "default_six_axis_policy_not_repaired": true,
+      "complete_corpus_replay": false
+    },
+    "complete_corpus_replayed_with_final_resource_repair_build": false,
+    "controlled_cost_or_profitability_established": false,
+    "full_goal_complete": false,
+    "preserved_rejected_reports": [
+      "initial_paths_sandbox_refusal",
+      "initial_public_mixed_configuration",
+      "initial_public_resource_collision",
+      "matrix_command_error",
+      "retained_command_error"
+    ],
+    "summary_sha256": "7a6ea8a2a3e706b4aeb0b5a7c319e0f56632342b887e8d27d4be972f0d0387e8",
+    "bound_files": 16767,
+    "reports": [
+      {
+        "name": "compiler_before_resource_repair",
+        "path": "build/initialized-double-tiling/compiler-attempts/native-v1/report.json",
+        "sha256": "4889827a06d34dd34721874e5288dae0678ca35db44a63b149056ae86e9df040",
+        "status": "built"
+      },
+      {
+        "name": "compiler",
+        "path": "build/initialized-double-tiling/compiler-attempts/native-v2/report.json",
+        "sha256": "869f749685b04fae2abb2b65f14c887c79a0f09fd2677bb102307d4084d2b3ac",
+        "status": "built"
+      },
+      {
+        "name": "initial_originals",
+        "path": "build/initialized-double-tiling/original-attempts/originals-v1/report.json",
+        "sha256": "7994402475397a271f48c636758fa8c9589414d35d2c05e464b4dfc1a88876f9",
+        "status": "passed"
+      },
+      {
+        "name": "initial_matrix",
+        "path": "build/initialized-double-tiling/original-attempts/original-matrix-v1/report.json",
+        "sha256": "b9a5e814ce4310932197a1306311e1cce0c4eb6d0d98be0de85952dacbd7889c",
+        "status": "passed"
+      },
+      {
+        "name": "initial_contexts",
+        "path": "build/initialized-double-tiling/check-attempts/contexts-v1/report.json",
+        "sha256": "a399a090f1b437d03c483f55a95523f41336eedc40e18a1fea07c5aad386cdef",
+        "status": "passed"
+      },
+      {
+        "name": "initial_public_mixed_configuration",
+        "path": "build/initialized-double-tiling/public-attempts/public-v1/report.json",
+        "sha256": "9d86be1d363b902809ed1541ce194d2fa5f3b5225da495cb46436ba51c1d7098",
+        "status": "rejected"
+      },
+      {
+        "name": "initial_public_resource_collision",
+        "path": "build/initialized-double-tiling/public-attempts/public-v2/report.json",
+        "sha256": "76606dbb1afe6c62055024c8e774d24a967de63107d4fcaabd24bf71120cd5dc",
+        "status": "rejected"
+      },
+      {
+        "name": "initial_paths_sandbox_refusal",
+        "path": "build/initialized-double-tiling/path-attempts/paths-v1/report.json",
+        "sha256": "3a275ed71a1fee9ba7107c274e559a9197781da333ff879d241beb0a6e3be17c",
+        "status": "rejected"
+      },
+      {
+        "name": "initial_paths",
+        "path": "build/initialized-double-tiling/path-attempts/paths-v2/report.json",
+        "sha256": "e188251bc87f5db102c179c06dd39b9eebb41db2303e288b96831e273fea52e3",
+        "status": "passed"
+      },
+      {
+        "name": "matrix_command_error",
+        "path": "build/initialized-double-tiling/original-attempts/stable-matrix-v1/report.json",
+        "sha256": "ef213d44bdc7c0c232c5dff2960b256e150e12a57a7c1c0d7a562c604e1d1175",
+        "status": "rejected"
+      },
+      {
+        "name": "matrix",
+        "path": "build/initialized-double-tiling/original-attempts/stable-matrix-v2/report.json",
+        "sha256": "cc637d7b5a98f70452afd001f15b3d04783f982075e45935950fde235ca8e84f",
+        "status": "passed"
+      },
+      {
+        "name": "contexts",
+        "path": "build/initialized-double-tiling/check-attempts/stable-contexts-v1/report.json",
+        "sha256": "8d648d6d2c3ccd3eb867256f8b2fd4ad3486699ea96dffbfd0948a21060edbc0",
+        "status": "passed"
+      },
+      {
+        "name": "public",
+        "path": "build/initialized-double-tiling/public-attempts/stable-public-v1/report.json",
+        "sha256": "5d66f758b1ab71a39e86c43def94b9e9396094b1199016ee80b338455ebf5425",
+        "status": "passed"
+      },
+      {
+        "name": "paths",
+        "path": "build/initialized-double-tiling/path-attempts/stable-paths-v1/report.json",
+        "sha256": "98205dc8c7d719d5019d2f92767af0dc0db3472ae4a7673e2bf1b12818ec229d",
+        "status": "passed"
+      },
+      {
+        "name": "retained_command_error",
+        "path": "build/double-tiling/original-attempts/stable-initialized-retained-v1/report.json",
+        "sha256": "e9829d2d0a71abf74959f085e521b466ca5bf2730dd21465d36c7a279fff2fee",
+        "status": "rejected"
+      },
+      {
+        "name": "retained_reductions",
+        "path": "build/double-tiling/original-attempts/stable-initialized-retained-v2/report.json",
+        "sha256": "0ba31957f0ae934e647082f5bc1246479e5840d8e55e68a22b78857f25d31a0d",
+        "status": "passed"
+      },
+      {
+        "name": "preceding_full_corpus",
+        "path": "build/benchmark-alignment/reindexed-tiled-attempts/corpus-v1/report.json",
+        "sha256": "6b237648a0cddafac3d9fb7147c73d221d4e18a4e74c94dca87f5c4040b76126",
+        "status": "diagnostic_complete"
+      },
+      {
+        "name": "high_rank_witness_retry",
+        "path": "build/benchmark-alignment/reindexed-tiled-attempts/initialized-tce-axes10-v1/report.json",
+        "sha256": "7c0b43817d6d1d86ee47b2ad44093a6c201d3a6749f09bee7ab7d3ccf7ab811e",
+        "status": "diagnostic_complete"
+      }
+    ]
   }
 }

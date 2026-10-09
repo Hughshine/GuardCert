@@ -21,8 +21,11 @@ retain their historical implementation boundaries.
 
 The [pinned inventory and work order](../benchmark-alignment.md) retain all 62
 PolCert cases, including 19 with saved concurrent best routes, and identify the
-serial NPB sources. This is source inventory evidence; the complete original-case
-comparison has not run.
+serial NPB sources. Complete affine and single-configuration tiling corpus
+attempts now have separately bound build and failure scopes; see the
+[initialized tiling and corpus successor](../initialized-double-tiling.md).
+The full sequential configuration matrix, optimized BT and complete costs
+remain unfinished.
 
 The working object is **verified guarded transformation**: a transformation may
 be correct only under a semantic condition; that condition is turned into a

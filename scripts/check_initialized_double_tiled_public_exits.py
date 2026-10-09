@@ -1,0 +1,133 @@
+"""Check initialized double tiling public I64 exits and retained original matmul with native digests."""
+
+import argparse
+import json
+import os
+from pathlib import Path
+import re
+import statistics
+import subprocess
+import time
+
+from audit_interface_clight import ROOT, sha
+from audit_word_store_sequence import permitted
+
+SOURCES = {name:ROOT / "build/benchmark-alignment/probe-v1" / name / "marked.c" for name in ["mxv","matmul-init"]}
+PLUTO = ROOT / "build/polyhedral-pipeline/pluto-source/tool/pluto"
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--compiler-report", required=True, type=Path)
+    parser.add_argument("--attempt", required=True)
+    args = parser.parse_args()
+    if not args.attempt or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in args.attempt):
+        raise ValueError("Use a simple attempt name")
+    build_report = permitted(ROOT / args.compiler_report)
+    build = json.loads(build_report.read_text())
+    if build["status"] != "built":
+        raise ValueError("A successfully extracted compiler is required")
+    for name,digest in build["bindings"].items():
+        if sha(permitted(ROOT / name)) != digest:
+            raise ValueError("Changed compiler input: "+name)
+    compiler = ROOT / build["compiler"]
+    work = ROOT / "build/initialized-double-tiling/public-attempts" / args.attempt
+    work.mkdir(parents=True,exist_ok=False)
+    (work / "check-script.py").write_bytes(Path(__file__).read_bytes())
+    rows = []
+    def run(command,directory,label,environment=None):
+        start = time.monotonic()
+        try:
+            outcome = subprocess.run(command,cwd=directory,env=environment,capture_output=True,timeout=180)
+            stdout,stderr = outcome.stdout,outcome.stderr
+            status = {"returncode":outcome.returncode,"timeout":False}
+        except subprocess.TimeoutExpired as error:
+            stdout,stderr = error.stdout or b"",error.stderr or b""
+            status = {"returncode":None,"timeout":True}
+        for suffix,data in [("stdout",stdout),("stderr",stderr)]:
+            (directory / (label+"."+suffix)).write_bytes(data)
+        status.update(argv=command,elapsed_seconds=time.monotonic()-start)
+        return status,stdout,stderr
+    cases = []
+    for benchmark,path in SOURCES.items():
+        original = path.read_text()
+        first,last = original.index("#pragma scop"),original.index("#pragma endscop")+len("#pragma endscop")
+        selected = original[first:last]
+        shared = selected.replace("for (long long i", "for (i").replace("for (long long j", "for (j").replace("for (long long k", "for (k")
+        source = original[:first]+"long long i=17, j=23, k=29;\n"+shared+'\nprintf("controls=%lld,%lld,%lld\\n",i,j,k);\n'+original[last:]
+        source = source.replace("static const long long", "static long long").replace("  init_data();", "  init_data();\n  N = (int)polcert_rotr32((unsigned int)N, 16);\n  N = (int)polcert_rotr32((unsigned int)N, 16);")
+        for name,value in [("public-positive",96),("public-zero",0),("public-negative",-1)]:
+            cases.append((benchmark+"-"+name,"tile",source.replace("long long N = 96;","long long N = "+str(value)+";"),1,1))
+    legacy = ROOT / "build/benchmark-alignment/probe-v1/matmul/marked.c"
+    cases.append(("matmul-legacy-affine","affine",legacy.read_text(),1,1))
+    for name,mode,source_text,calls,installed in cases:
+        directory = work / name
+        directory.mkdir()
+        source = directory / "program.c"
+        source.write_text(source_text)
+        environment = {key:value for key,value in os.environ.items() if not key.startswith("GUARDCERT_")}
+        environment.update(GUARDCERT_ORIGINAL_MODE=mode,GUARDCERT_PLUTO=str(PLUTO),
+                           GUARDCERT_ORIGINAL_OUTPUT=str(directory),GUARDCERT_SCOP_DIAGNOSTICS="1",
+                           GUARDCERT_DOUBLE_TILING_MODE="tile",GUARDCERT_TILE_SIZES="32")
+        if name.endswith("private-resource-refusal"):
+            environment["GUARDCERT_DOUBLE_PRIVATE_COUNT"] = "1"
+        row = {"case":name,"mode":mode,"source_sha256":sha(source),
+               "expected_pipeline_calls":calls,"expected_installed_regions":installed}
+        row["compiler"],out,err = run([str(compiler),"-fall","-stdlib",str(compiler.parent / "runtime"),
+            "-dclight","-S","-o",str(directory / "program.s"),str(source)],directory,"compiler",environment)
+        trace = (out+err).decode(errors="replace")
+        found = re.findall(r"GUARDCERT_DOUBLE_INSTALLED original=(\d+) initialized=(\d+)",trace)
+        phase = re.findall(r"GUARDCERT_DOUBLE_TILING_INSTALLED reduction=\d+ phase_calls=(\d+)",trace)
+        affine = re.findall(r"GUARDCERT_DOUBLE_INSTALLED original=\d+ initialized=\d+ regions=\d+ pipeline_calls=(\d+)",trace)
+        row["installed_regions"] = sum(map(int, found[-1])) if found else None
+        row["pipeline_calls"] = (int(phase[-1]) if phase else None) if mode == "tile" else (int(affine[-1]) if affine else None)
+        row["selection_trace"] = re.findall(r"^GUARDCERT_SCOP .*",trace,re.M)
+        row["source_types_preserved"] = "double" in source_text and "[100]" in source_text and "long long i" in source_text
+        row["profile_and_installation_match_expected"] = row["installed_regions"] == installed and row["pipeline_calls"] == calls
+        if row["compiler"]["returncode"] == 0:
+            row["link"],_,_ = run(["gcc","-no-pie",str(directory / "program.s"),"-lm","-o",str(directory / "program")],directory,"link")
+            row["gcc_build"],_,_ = run(["gcc","-O0","-ffp-contract=off",str(source),"-lm","-o",str(directory / "reference")],directory,"gcc-build")
+            if row["link"]["returncode"] == row["gcc_build"]["returncode"] == 0:
+                row["native"],actual,_ = run([str(directory / "program")],directory,"native")
+                row["reference"],expected,_ = run([str(directory / "reference")],directory,"reference")
+                row["digest_matches_original_GCC"] = row["native"]["returncode"] == row["reference"]["returncode"] == 0 and actual == expected
+                row["digest"] = actual.decode().strip()
+                samples = []
+                for trial in range(7):
+                    sample,output,_ = run([str(directory / "program")],directory,f"timing-{trial}")
+                    samples.append(sample["elapsed_seconds"])
+                    if sample["returncode"] or output != expected:
+                        row["digest_matches_original_GCC"] = False
+                row["native_wall_seconds_including_initialization_and_digest"] = samples
+                row["native_wall_median_seconds"] = statistics.median(samples)
+        if "-public-" in name:
+            expected_controls = "0,23,29" if name.endswith(("zero","negative")) else ("96,96,29" if name.startswith("mxv-") else "96,96,96")
+            row["expected_public_controls"] = expected_controls
+            row["public_controls_match_expected"] = "controls="+expected_controls in row.get("digest","")
+        row["passed"] = row["profile_and_installation_match_expected"] and row.get("digest_matches_original_GCC",False) and row.get("public_controls_match_expected",True)
+        rows.append(row)
+        (directory / "case-report.json").write_text(json.dumps(row,indent=2)+"\n")
+        print(json.dumps({"case":name,"passed":row["passed"],"pipeline_calls":row["pipeline_calls"],
+                          "installed_regions":row["installed_regions"]}),flush=True)
+    bindings = dict(build["bindings"])
+    for source in [Path(__file__),*SOURCES.values(),legacy,PLUTO,build_report,*[p for p in work.rglob("*") if p.is_file()]]:
+        bindings[str(source.relative_to(ROOT))] = sha(permitted(source))
+    report = {"status":"passed" if all(row["passed"] for row in rows) else "rejected",
+              "compiler_report":str(build_report.relative_to(ROOT)),"compiler_report_sha256":sha(build_report),
+              "compiler_entrypoint":build["whole_program_entrypoint"],"cases":rows,"bindings":bindings,
+              "actual_Clight_and_Asm_native_execution":True,"original_double_arrays_and_I64_computations_retained":True,
+              "original_cases":["mxv","matmul-init"],"legacy_original_matmul_regression":True,"public_control_values_observed":True,"native_guard_branch_observations_added":False,
+              "actual_metadata_identifiers_dimensions_and_multiple_sites_exercised":True,
+              "runtime_path_evidence":"installed generated guard and call-produced mutable headers; native full-state digests",
+              "runtime_guard_instrumented":False,
+              "cost_scope":"compiler wall time includes frontend, checked pipeline, scheduler and backend; native wall time includes initialization and digest",
+              "corpus_alignment_complete":False,"full_goal_complete":False}
+    (work / "report.json").write_text(json.dumps(report,indent=2)+"\n")
+    print(json.dumps({"status":report["status"],"cases":len(rows),"passed":sum(row["passed"] for row in rows),
+                      "report":str((work / "report.json").relative_to(ROOT))}),flush=True)
+    if report["status"] != "passed":
+        raise SystemExit(1)
+
+
+if __name__ == "__main__":
+    main()

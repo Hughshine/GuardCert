@@ -2,6 +2,24 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 再读 narrative `8ce9c8b`，正文已与 main 一致。按其三方责任和
+source/model 前提来源，[initialized tiling 后继](initialized-double-tiling.md)
+复用既有 capture、最终 candidate progress、lowering、公开出口和 scoped host，
+原 mxv／matmul-init 接到真实 affine→tiling→intra-tile pipeline 与 Csem→Asm。
+实际回归又暴露空候选表追加 private temps、阻断旧 matmul private pool 的问题；
+新后继对空表保持 program，非空表复用 installation 定理。四模块427行／11端点，
+无新增公理；kernel／host 定律不改，源码用户不给 semantic callbacks。
+
+前一 reindexed compiler 已完整尝试62原例＋2适配：59raw＋2adapted native matches，
+两raw frontend拒绝，polynomial在raw Loop前600.102秒超时；9/62安装22处。
+48个已编译raw没有tiling phase，tce／tricky3有phase但未安装，具体早期拒绝须定位。
+Tce定向十轴见证后继已安装四处并匹配；不是最新build完整重跑，也未修复默认策略。
+下一顺序为自动提议并检查 actual resource／coordinate预算、polynomial分阶段
+定位、实际非零／inclusive／多bound source structures与ISS等sequential phases。
+每项同步整程序证明。BT、LLVM／SPEC、larger tiers、条件接受域与完整成本继续必需。
+Five-family库整理须记录requires／accepted／refused／effects与实际消费定理；
+此路线直接构造Clight branches，不能将kernel未改或imports叫直接kernel theorem复用。
+
 2026-10-09 再次核对 narrative `8ce9c8b` 后，[分块后重排后继](double-reindexed-tiling.md)
 已落实真实 phases＋最终实际候选＋整程序安装：原 mvt／matmul-seq 各两处；
 10 项原输入／回退、14 context、3 unchanged assembly 路径通过。五模块492行／

@@ -2,6 +2,17 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [initialized tiling 与拒绝资源后继](initialized-double-tiling.md)
+按 narrative 把 source/model、充分入口条件、实际安全 capture 与条件状态运输，
+最终 candidate progress、lowering/public exits及安装分别指向实际消费的定理。
+新 factory 不将适用前提交给 C 用户；minimal kernel 和 host 定律保持。
+空表安装仍添加 private temps 的回归说明：每个 pass 的 resource effects
+会改变下一 pass 的 invocation 域，即使没有安装 rewrite。后继对空表返回原
+program，非空表复用旧 installation；当前 intermediate program 的证据仍重算。
+这属于语言/compiler责任，不是新 kernel 定律或通用 contextual closure。
+完整 corpus 中的超时、静态拒绝、native match、实际安装和 nonidentity effects
+分别记账。高维见证重试只改变不受信任提议，checker和已量化定理仍是 authority。
+
 2026-10-09 [实际分块后重排](double-reindexed-tiling.md)进一步验证三层分工：
 新证明属于 domain 的坐标表示／实际候选 progress，复用已有同构；语言提供
 source capture、实际 lowering／公开 I64 出口和 scoped Csem→Asm 安装，

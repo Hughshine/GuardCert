@@ -4,6 +4,14 @@
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。本文面向参与实现和评审的人，
 固定原始程序、配置与完整证明的验收口径；不把案例登记算作功能通过。
 
+2026-10-09 [新完整 reindexed 对照与 initialized 后继](initialized-double-tiling.md)
+保留原62＋两适配：前一build为59raw＋2adapted native matches，两个raw
+frontend refusals、polynomial600.102秒compiler timeout，9/62安装22处。
+Tce生成四个实际最终候选而未安装；十轴见证定向后继已安装四处并匹配，但默认
+策略和最新build完整重跑仍待完成。Initialized mxv／matmul-init新增真实分块
+配置，各安装一处并接Csem→Asm；空表资源后继修复legacy affine回归。
+这些分别有build/configuration边界，不能合并为最新完整corpus或成本结果。
+
 2026-10-09 [当前 compiler 的完整对照和实际修复](double-witness-policy.md)已完成：
 先跑全部62原案例的三模式，再依据缺见证拒绝扩大 checked witness search。
 新策略实际安装 `matmul-seq`／`matmul-seq3`／`tce`；完整 affine 复核无 native

@@ -1615,3 +1615,26 @@ Clight branch execution; unchanged kernel definitions or imports do not show
 that it invokes the generic composition theorem. Complete corpus coverage,
 unit-coordinate completion under the new schedules, general affine changes
 and controlled costs remain to be established.
+
+\paragraph{Initialized tiling and pass resources.}
+The next factory connects original mxv and matmul-init to automatic scheduling,
+tiling and intra-tile scheduling. Their initializer and reduction have different
+statement depths. The existing uniform exporter, prepared code generator and
+final reindexed checker handle those depths. The recorded initial schedules
+perform initializer/reduction fission; tiling then introduces the actual tile
+coordinates. Source users supply marked C and policy data. Existing checked
+footprints, safe I64 capture, source/model transport, concrete candidate
+lowering and public exits discharge the applicable premises internally.
+The new factory consumes final-candidate forward execution at the captured
+parameters and reuses the language's scoped installation theorem.
+
+An original-matmul regression exposes a separate installation obligation.
+Even with no candidate, the first two tiling passes appended private temporary
+declarations. These declarations conflicted with the later legacy route's
+fixed private pool, so its checked factory refused. A proved successor returns
+the original program for an empty table and reuses the existing installation
+theorem for a nonempty table. Every subsequent pass still checks the current
+intermediate program. The resulting compiler composes to Csem-to-Asm with
+unchanged kernel and host laws. This is concrete reuse of condition, execution
+and installation services; the guarded-execution proof still constructs Clight
+branches directly rather than invoking the generic composition theorem.

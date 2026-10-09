@@ -4,6 +4,15 @@
 读者是准备增加条件服务或 transformation 的库作者。本记录从现有 Rocq
 定义整理调用前提、成功事实和组合边界。
 
+[Initialized tiling 后继](initialized-double-tiling.md)复用同一 common-I64
+range capture：arithmetic 对应与 footprint 充分性由接受建立，读取许可来自
+原source执行，global separation保持header，接受／拒绝运输公开state。
+Runtime只写private cache/flag，没有新alias test；完整state不是readonly。
+新的tiling body消费这些已有条件契约，复用candidate lowering/public exits，
+再经scoped host连接Csem→Asm。这里没有通用assumption extraction或新condition
+combinator。Compile-time空表不分配private temps的后继属于pass资源组织，
+不能当作runtime condition simplification或减少动态checking工作。
+
 最新 [runtime alternative](affine-empty-runtime-installation.md)复用旧candidate
 的opaque projected contract。Language证明prefix精确replay、private result
 运输以及接受／拒绝的不同入口出口；factory生产实际source/resource证据。

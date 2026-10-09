@@ -1938,3 +1938,38 @@ support for the requested reordering. The repaired build has not replayed the
 full corpus or established unit/general affine completion, controlled costs
 or profitability. The initial affine schedules on these sites remain identities;
 the recorded nonidentity effect is intra-tile scheduling after real tiling.
+
+\paragraph{Complete reindexed replay and initialized tiling.}
+A subsequent complete attempt with that reindexed build covers all 62 original
+cases and the two disclosed adaptations at tile size 32, with 32 private
+temporaries, the default six-axis witness policy and a 600-second compiler
+budget. Fifty-nine raw executions and both adaptations match GCC; corcol3 and
+pca retain their frontend refusals. Polynomial completes Pluto output but
+times out after 600.102 seconds before a raw generated Loop appears. This is
+a compiler timeout, not a completed fallback compilation. Nine original cases
+install 22 sites. Forty-eight compiled originals make no tiling-phase call;
+tce and tricky3 call it without installation. Tce produces four final candidates.
+A focused retry with the initial initialized-tiling build and ten-axis witness
+search installs all four and matches GCC, taking 236.467 seconds diagnostically.
+The default policy remains unchanged; this retry is not a full corpus replay.
+
+The initialized-family extension installs one tiled region in each of original
+mxv and matmul-init. Including the empty-table resource repair, four modules
+total 427 lines with eleven audited endpoints, one closed, and 502 reachable
+sources. No endpoint adds an axiom beyond the existing 42-global baseline.
+Two unsuccessful public/legacy reports preserve the resource conflict and
+the earlier mixed configuration; their native outputs still match GCC.
+The repaired build passes ten original mode checks, twenty context checks,
+seven public-exit or legacy checks and ten retained reduction-route checks.
+Six debugger observations in unchanged assembly confirm candidate entry for
+ordinary and zero bounds and fallback for negative bounds. A sandbox ptrace
+refusal and two incorrectly delimited test-mode commands are also retained.
+The aggregate binds eighteen reports and 16,767 files.
+
+These results establish the supported configurations' source/guard/candidate
+and whole-program connections. The final resource-repair build has not replayed
+the complete corpus. Tests ran partly concurrently and include initialization
+and digest work; no controlled cost, isolated guard cost or speedup is claimed.
+Automatic resource/witness proposals, the polynomial bottleneck, further source
+structures and sequential phases, original BT and larger-tier costs remain
+required acceptance work.
