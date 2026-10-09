@@ -125,6 +125,18 @@ actual AST 生成 arbitrary-depth same-header nest 数据，内部组合 model/f
 下一步由 factory 证明 safe capture、接受／拒绝状态运输，接 actual pipeline、
 lowering/public restore 和既有 host 的 Csem→Asm；C 用户不接收这些逻辑前提。
 
+[安全入口／真实 pipeline 后继](initialized-double-pipeline.md)已闭合两例的数值
+入口 producer：原 source finite normal execution 许可实际 header capture；private
+range check 接受生产 count≤98，接受／拒绝均运输 source/public state。Language
+提供 load/capture/frame 及已有 Loop instances 的结构 execution 对应；domain
+从 actual descriptor 构造真实 request，修复共同 scattering 坐标，使用原 typed
+validator/codegen/final checker 生产 captured-count candidate 对应。Kernel／host
+不改，共1,052行／29端点、无新增公理。14次 native model-pipeline probes 验证5接受／
+9拒绝，含 mxv fission 和 matmul-init i/k/j；不是 installed C/Asm 优化覆盖。
+Actual scope/private allocation、candidate lowering/public exit restore 和 scoped
+host guarantee 仍须 factory discharge，再接 Csem→Asm。Finite invocation contract
+不自动证明 open/diverging installation；源码用户不填写这些 proof obligations。
+
 ### 原 matmul 入口事实的生产责任
 
 本次重新 fetch 核对 narrative `8ce9c8b`；main 的 narrative 和

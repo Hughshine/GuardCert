@@ -7,6 +7,11 @@ frontend 结构缺口。真实 source 与现有 PolCert `Loop` 的有限正常�
 安全入口条件、candidate/factory 和整程序安装仍未为这两个案例交付；原 corpus
 的 nonidentity optimized coverage 仍为1/62。
 
+本页保留此 source-only 检查点的边界。后继
+[安全入口与真实 pipeline](initialized-double-pipeline.md)已生产实际 capture/range、
+接受／拒绝状态运输与两例的 real Pluto/final-checker candidates；candidate lowering、
+public restore 和整程序安装仍待接通。
+
 ## 实例作者使用的接口
 
 [GuardMemoryDoubleInitializedNestData.v](../adapters/compcert-memory/GuardMemoryDoubleInitializedNestData.v)

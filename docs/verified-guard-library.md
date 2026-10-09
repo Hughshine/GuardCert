@@ -172,6 +172,17 @@ condition 建立 nonnegative／100 extent 的充分条件，再运输接受和�
 Source proof 不许可额外预读 data operands，也不从 address bounds 推断权限。
 候选／host 应消费同一模型与公开出口，不能把 guard 服务的分类当作安装完成。
 
+[Initialized entry/pipeline 后继](initialized-double-pipeline.md)已交付上述 producer。
+`checked_double_initialized_raw_source_capture` 消费 checked nonempty raw nest、实际
+header binding、有限正常原执行、合法 limit 和两个不同 private slots。它许可实际
+compact range capture，接受生产 exact count/cache；检查 memory 保持。额外 private
+footprint separation 生产接受／拒绝的 source execution 和 public-state transport。
+实际两例 limit98/extent100/padding2 内部建立 point resolution，并接到真实候选。
+Safe invocation、accepted facts、refused transport 分别有证明；不由裸 predicate
+AND/OR 代替。该 finite contract 未单独证明任意入口/divergence 的 guard safety。
+Runtime 服务复用已有 range statement，没有新的 callable C library 或 kernel 条件
+语言；scope/allocation、candidate lowering/public restore 和 host 安装仍待 factory。
+
 ### 现有契约能复用到哪里
 
 | 契约 | Safe invocation 的来源 | 实际出口与成功事实 |

@@ -4023,7 +4023,7 @@
     },
     {
       "section": "case-study and evaluation",
-      "claim": "Complete checked initialized nests for original mxv and matmul-init have finite source/model correspondence, precise public I64 exits including unreached inner controls, literal frontend transport, and independent source protocols; safe entry guard production, generated candidates and whole-program installation for these cases remain pending.",
+      "claim": "Complete checked initialized nests for original mxv and matmul-init have finite source/model correspondence, precise public I64 exits including unreached inner controls, literal frontend transport, and independent source protocols; this source-only checkpoint precedes the safe-entry/pipeline successor, while whole-program installation for these cases remains pending.",
       "theorems": [
         {
           "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedNestData.v",
@@ -4062,6 +4062,61 @@
         "build/double-initialized-nests/source-proof-v1/report.json",
         "build/double-initialized-nests/raw-proof-v1/report.json",
         "build/double-initialized-nests/proof-v1/report.json"
+      ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Actual original mxv and matmul-init finite normal execution licenses compact header capture; acceptance produces the numeric source/candidate entry facts and refusal preserves public source execution. Uniform OpenScop coordinates connect real Pluto to final checked typed Loop candidates, including fission and i/k/j; candidate lowering, public restoration and scoped Csem-to-Asm installation remain pending for these inputs.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePipelineTransport.v",
+          "name": "double_pipeline_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedPipeline.v",
+          "name": "double_initialized_pipeline_model_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedEntry.v",
+          "name": "checked_double_initialized_raw_header_license"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedEntry.v",
+          "name": "checked_double_initialized_raw_source_capture"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedEntry.v",
+          "name": "checked_double_initialized_capture_source_transport"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleUniformPrepared.v",
+          "name": "checked_double_uniform_prepared_phase_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleUniformPrepared.v",
+          "name": "checked_double_uniform_prepared_loop_progress_at"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/double-initialized-nests/uniform-proof-v1/OriginalInitializedDoubleUniform.v",
+          "source_sha256": "d34c86f8a75530a45bbe79e3559dbba069c3787ed1b2ec9a3aa304e7c99e3323",
+          "name": "mxv_capture_and_uniform_candidate"
+        },
+        {
+          "source": "build/double-initialized-nests/uniform-proof-v1/OriginalInitializedDoubleUniform.v",
+          "source_sha256": "d34c86f8a75530a45bbe79e3559dbba069c3787ed1b2ec9a3aa304e7c99e3323",
+          "name": "matmul_init_capture_and_uniform_candidate"
+        }
+      ],
+      "documents": [
+        "docs/initialized-double-pipeline.md",
+        "docs/initialized-double-pipeline.json"
+      ],
+      "artifacts": [
+        "build/double-initialized-nests/pipeline-audit-v1/report.json",
+        "build/double-initialized-nests/uniform-audit-v1/report.json",
+        "build/double-initialized-nests/uniform-native-check-v1/report.json"
       ]
     }
   ],
@@ -13507,5 +13562,182 @@
       "sha256": "ec74bcd8df51e709d18f0b7a68b79d2c4647fd826f624fd0af6ecf916e8e6ff5"
     },
     "bound_files": 8278
+  },
+  "initialized_double_pipeline": {
+    "status": "validated",
+    "kind": "actual-initialized-source-safe-entry-and-real-pipeline",
+    "actual_original_cases": [
+      "mxv",
+      "matmul-init"
+    ],
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoublePipelineTransport.v",
+      "adapters/compcert-memory/GuardMemoryDoubleLiteralPrepared.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedPipeline.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedEntry.v",
+      "build/double-initialized-nests/pipeline-proof-v1/OriginalInitializedDoublePipeline.v",
+      "build/double-initialized-nests/entry-proof-v1/OriginalInitializedDoubleEntry.v",
+      "adapters/compcert-memory/GuardMemoryDoubleUniformPrepared.v",
+      "build/double-initialized-nests/uniform-proof-v1/OriginalInitializedDoubleUniform.v"
+    ],
+    "source_lines": 1052,
+    "audited_endpoints": 29,
+    "closed_endpoints": 2,
+    "maximum_endpoint_globals": 14,
+    "additional_global_axioms": [],
+    "reachable_sources": 293,
+    "generic_library_attempts": {
+      "successful": 5,
+      "failed": 6
+    },
+    "actual_wrapper_attempts": {
+      "successful": 3,
+      "failed": 2,
+      "interrupted": 2
+    },
+    "reports": [
+      {
+        "path": "build/double-initialized-nests/pipeline-audit-v1/report.json",
+        "sha256": "99094e72acf0c7f98a01b6b73b2b27e8ae478aa17fef34ade0f4fc9695bc123c",
+        "bound_files": 8359
+      },
+      {
+        "path": "build/double-initialized-nests/uniform-audit-v1/report.json",
+        "sha256": "22404d8b4eb5ab429db41549af5afafe8f5d60d1184fefcd36d3718ea2cbafe7",
+        "bound_files": 8392
+      },
+      {
+        "path": "build/double-initialized-nests/uniform-native-check-v1/report.json",
+        "sha256": "0240b4e9867ff76e1b9ac622c90ab3e1c347c03e4b434af100dcf16ebf99f1e1",
+        "bound_files": 10541
+      }
+    ],
+    "structural_transport_between_existing_Loop_instances": true,
+    "safe_header_capture_contract_from_original_finite_normal_execution": true,
+    "accepted_capture_produces_count_and_point_resolution": true,
+    "accepted_and_refused_capture_preserve_public_source_execution": true,
+    "original_IEEE_instructions_retained_by_actual_model_import_and_codegen": true,
+    "uniform_scattering_coordinates_support_mixed_statement_depths": true,
+    "actual_parameter_count_used_for_schedule_import": true,
+    "runtime_read_license_assumes_source_is_preexecuted": false,
+    "all_arbitrary_entry_states_or_divergence_safety_proved": false,
+    "condition": {
+      "family": "single global I64 header; private I32 cache and Boolean flag",
+      "accepted_range": [
+        0,
+        98
+      ],
+      "actual_extent": 100,
+      "source_padding": 2,
+      "numeric_entry_premises_supplied_by_C_user": false,
+      "actual_scope_and_private_allocation_still_need_factory_receipts": true
+    },
+    "native": {
+      "checks": 14,
+      "accepted": 5,
+      "refused": 9,
+      "timeouts": 0,
+      "changes": {
+        "mxv": "initialization/reduction fission",
+        "matmul-init": "initialization/reduction fission and i/k/j reduction order"
+      },
+      "checks_by_stage": [
+        {
+          "case": "mxv",
+          "mode": "identity",
+          "swap_witness": "none",
+          "stage": "accepted-final-candidate"
+        },
+        {
+          "case": "mxv",
+          "mode": "affine",
+          "swap_witness": "none",
+          "stage": "accepted-final-candidate"
+        },
+        {
+          "case": "mxv",
+          "mode": "affine",
+          "swap_witness": "0",
+          "stage": "final-check-refusal"
+        },
+        {
+          "case": "mxv",
+          "mode": "affine",
+          "swap_witness": "1",
+          "stage": "accepted-final-candidate"
+        },
+        {
+          "case": "mxv",
+          "mode": "reverse",
+          "swap_witness": "none",
+          "stage": "export-import-or-phase-refusal"
+        },
+        {
+          "case": "mxv",
+          "mode": "malformed",
+          "swap_witness": "none",
+          "stage": "export-import-or-phase-refusal"
+        },
+        {
+          "case": "mxv",
+          "mode": "refuse",
+          "swap_witness": "none",
+          "stage": "export-import-or-phase-refusal"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "identity",
+          "swap_witness": "none",
+          "stage": "accepted-final-candidate"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "affine",
+          "swap_witness": "none",
+          "stage": "final-check-refusal"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "affine",
+          "swap_witness": "0",
+          "stage": "final-check-refusal"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "affine",
+          "swap_witness": "1",
+          "stage": "accepted-final-candidate"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "reverse",
+          "swap_witness": "none",
+          "stage": "export-import-or-phase-refusal"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "malformed",
+          "swap_witness": "none",
+          "stage": "export-import-or-phase-refusal"
+        },
+        {
+          "case": "matmul-init",
+          "mode": "refuse",
+          "swap_witness": "none",
+          "stage": "export-import-or-phase-refusal"
+        }
+      ],
+      "failed_builds_preserved": 2,
+      "previous_diagnostic_refusals": 4,
+      "previous_diagnostic_interruptions": 1,
+      "executes_C_or_assembly": false,
+      "guard_or_optimized_program_cost_measured": false
+    },
+    "candidate_lowering_public_exit_restore_and_scoped_Csem_installation_added": false,
+    "new_installed_original_corpus_cases": 0,
+    "original_corpus_nonidentity_optimized_cases": 1,
+    "original_corpus_total_cases": 62,
+    "kernel_or_language_host_changed": false,
+    "full_goal_complete": false
   }
 }

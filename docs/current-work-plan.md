@@ -67,15 +67,30 @@ closed，完整有限 source/model iff 接通；count0 保留未到达的 inner 
 两个 source protocols 独立于接受范围／header stability。入口 load/range 仍是逻辑
 前提，尚未新增 emitted condition、candidate/install 或 native 优化覆盖。
 
+[安全入口与真实 pipeline 后继](initialized-double-pipeline.md)已生产两例的实际
+header capture/range 与接受／拒绝 source/public-state 运输。原 finite normal source
+execution 许可 header 读取，接受建立 count≤98，内部产生所有 point resolution；
+不是 runtime 预执行。Actual requests 接真实 PolCert/Pluto、prepared codegen 与最终
+双向 checker。新 uniform exporter/importer 修复不同 statement depth 的坐标补零和
+parameter slicing；旧拒绝／中断记录保留。五库与三 wrapper 共1,052行／29端点，
+2 closed、最多14 inherited globals，293 reachable sources，无新增公理。
+
+14次 standalone native pipeline checks 为5接受／9拒绝／0超时。原 mxv 的 affine
+候选做初始化/reduction fission；matmul-init 另有 i/k/j，需要 swap1 的最终坐标
+见证。错误见证、reverse、malformed、external refusal 有明确拒绝阶段。Probe
+不执行 C/Asm，也不安装 candidate；两例 lowering/public restore/scoped Csem→Asm
+尚待接通。Native aggregate 绑定10,541文件；installed corpus coverage 仍为1/62。
+
 后续以真实输入推动以下衔接：
 
-1. 直接把原 `mxv` 的已编译完整 literal-source 服务接到安全 single-header capture、
-   compact range condition、真实 PolCert/Pluto candidate 和 scoped compiler。
-   取得实际 source 的 Csem→Asm 与 native 安装／回退，再将同一数据路径用于
+1. 将原 `mxv` 的已接受真实候选 lower 到 actual Clight，恢复原 public I64 controls，
+   连接 typed private allocation、candidate bounds 和 scoped compiler。
+   取得实际 source 的 Csem→Asm 与原 C native 安装／回退，再将同一数据路径用于
    `matmul-init`；其后扩 `mvt` 的相继 nests。未安装的 source proof 不增加 coverage。
-2. 从接受入口和循环 invariant 生产 header load／稳定性与 reached bounds，复用
-   checked-bounds 服务得到所有 point 地址。实际 capture／机器范围条件须证明安全、
-   接受充分性及拒绝入口运输；AST／地址 bounds 不推断 allocation／load safety。
+2. 在 actual factory 中消费已生产的 capture/header/count/point receipts 和 source
+   protocol，建立实际 host 所需 guarantee。当前安全契约从 finite normal source
+   execution 开始，不单独宣称任意入口或 divergence 下的安装安全。
+   AST／地址 bounds 不推断 allocation／load safety。
    不支持的 temp/cast/地址结构安全拒绝，不把逻辑前提转交 marked C 用户。
 3. 从 actual program 和候选 rank 分配并核对 typed captures/scratch，移除固定 IDs、
    layout/private pool 限制。保留逐 site 进入时的 runtime capture 和未标记排除。
