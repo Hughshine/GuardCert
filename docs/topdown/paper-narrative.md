@@ -468,12 +468,46 @@ another candidate fixture as the complete pipeline.
 
 ### Functional coverage and usability: implementation order
 
-Clarification from the 2026-10-06 discussion: first complete the proof chain for
-the agreed implementation scope, then improve condition derivation and guard
-generation. A certified scan is a valid intermediate implementation; there is
-no need to interrupt that proof work merely because its checks are expensive.
-This sequencing does not make efficient condition handling an optional polish
-item or require completing every roadmap extension before improving guards.
+**Acceptance decision (2026-10-08): align functionality, optimization effects,
+and benchmarks with PolCert and CGO 2017, while delivering whole-program
+correctness.** Concurrent execution may be excluded. Other sequential routes
+remain implementation targets: current frontend, witness, candidate syntax, or
+lowering restrictions are concrete gaps to investigate and repair, not grounds
+for reducing the target without detailed attempts.
+
+Use the [62-case PolCert corpus](https://github.com/Hughshine/PolCert/blob/ca1ae3199c816594bab9d51eb77309a0d17527aa/tests/polopt-generated/README.md)
+as the initial case list. Retain cases whose saved best route used parallelism
+and evaluate their sequential configurations. Track affine scheduling followed
+by tiling, ISS, intra-tile scheduling, diamond/two-level tiling, and unroll/jam
+where applicable. Investigate vector annotations and actual SIMD lowering
+separately; excluding concurrent execution does not settle that question.
+
+Use the [CGO 2017 author artifact](https://github.com/jdoerfert/CGO17_ArtifactEvaluation/tree/1b23e28261eb1c161192afa86ab996eb67d65f0c)
+to fix source versions, inputs, assumption construction/simplification, and
+safe check generation. Begin with the available serial NPB sources, including
+the original BT `compute_rhs`, and identify the LLVM Test Suite inputs.
+Record unavailable sources and language/frontend gaps, including SPEC and C++
+cases, as unresolved items rather than silently removing them. Do not use the
+cited eight-thread BT speedup as a sequential performance target.
+
+For each program/configuration, bind the actual source, numeric types, input
+tier, proposal, validated transformation, generated candidate, guard, and final
+installation. Preserve source adaptations explicitly. Record failures by stage
+and attempted remedies; safe refusal, identity, or all-fallback execution does
+not establish support for the requested optimization. Compare retained
+transformations and complete-call performance on corresponding computations
+with comparable sequential backends, including guard/fallback/exit costs.
+
+Functionality is the first priority. Run the case/configuration comparison and
+implement the missing source or target structures and sequential phases it
+exposes. Carry each extension through the existing Clight installation and
+CompCert theorem as it is implemented; context lifting is not deferred to a
+final integration step. A certified scan can serve as an intermediate guard,
+but its cost remains part of that case's unfinished performance acceptance.
+Existing header/empty/alias fixtures remain regressions; further special cases
+and service refactoring take priority only when they remove a measured or
+demonstrated benchmark blocker. This decision does not require a new kernel,
+context algebra, second IR, or semantic assumptions.
 
 [Optimistic Loop Optimization (CGO 2017)](https://pollylabs.org/publications/grosser-2017-Optimistic-Loop-Optimization.pdf),
 especially Figures 2a–2b and Sections 5–7, is a functional and usability
@@ -495,15 +529,17 @@ semantic obligations, and entry-state transport; it should reuse the existing
 candidate and host proofs where their contracts still apply. Identical old/new
 acceptance sets and globally minimal conditions are not required.
 
-Use selected C examples and benchmark kernels from the CGO 2017 work to compare
-the source problem, required assumptions, enabled transformation, guard cost,
-and acceptance. Record source adaptations and attribute gaps to frontend/source
-coverage, condition algorithms, unfinished proofs, or a specific semantic
-difference. LLVM/Polly and CompCert/Clight need not produce identical guards or
-support every same program, but verification alone does not explain a
-functional gap. Correctness, functional coverage, and usability are separate
-acceptance criteria; this note does not claim that the comparison or cost
-evaluation is already complete.
+Compare the original CGO 2017 programs and kernels, including their surrounding
+program contexts, required assumptions, enabled transformations, guard work,
+and acceptance. Exactly matching guards or numerical speedups are not required;
+comparable functionality and useful sequential effects remain the target. A
+coverage or effect gap remains open after diagnosis and requires further
+concrete attempts. The comparison must not substitute simplified word-copy
+fixtures for floating-point/scalar
+computations or original loaded sources. Report source coverage, transformation
+support, condition algorithms, whole-program proof, and benchmark effects
+separately. This note fixes acceptance targets; it does not claim those
+comparisons or runtime experiments are already complete.
 
 ## 9. How to present generality
 

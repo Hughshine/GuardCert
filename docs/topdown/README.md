@@ -15,13 +15,13 @@ The active target is **CAV 2027**. Prepare manuscript sections alongside
 implementation, starting with the introduction, related work, and minimal
 framework; see the [active writing track](paper-narrative.md#active-writing-track-cav-2027).
 
-The next integration milestone is the **real polyhedral compilation pipeline
-with explicit SCoP selection**: implement `#pragma scop` / `#pragma endscop`,
-connect model extraction, scheduling/transformation, validation and code
-generation to guarded C-to-assembly compilation. See the
-[implementation directive](paper-narrative.md#explicit-region-selection-and-the-polyhedral-pipeline);
-directly constructed candidate loops are regression fixtures, not completion
-of this milestone.
+The current acceptance target is **PolCert and CGO 2017 functionality,
+optimization effects and benchmarks, with whole-program Csem-to-Asm
+correctness**. Concurrent execution may be excluded; other sequential gaps
+require detailed attempts. Explicit SCoP selection and the real optimizer
+pipeline remain required. See the [functional work order](paper-narrative.md#functional-coverage-and-usability-implementation-order)
+and [installation requirement](context-lifting.md#delivery-requirement-2026-10-08).
+Fixtures, safe fallback and local certificates alone do not meet that target.
 
 Current notes:
 
