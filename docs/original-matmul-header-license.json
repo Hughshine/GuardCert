@@ -1,0 +1,43 @@
+{
+  "status": "audited_actual_source_conditional_header_licenses_not_installed_capture",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "proof_report": {
+    "path": "build/original-matmul/header-license-proof-v1/report.json",
+    "sha256": "73d34b416d37f70cce0075332536f65819417bfbcadfebb63699c59ff9d69cc2"
+  },
+  "source_report": {
+    "path": "build/original-matmul/source-header-license-v1/report.json",
+    "sha256": "4fa5dabdaec101d47532bf9740bba6ce5156a2a88238eb2b7fd8b277b749cfe7"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryLongHeaderLicense.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulHeaderLicense.v"
+  ],
+  "new_source_lines": 157,
+  "endpoints": 6,
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 6,
+  "additional_global_axioms": [],
+  "reachable_sources": 218,
+  "proof_bindings": 7263,
+  "successful_proof_attempts": 3,
+  "rejected_proof_attempts": 6,
+  "actual_original_selected_region_connected": true,
+  "read_permission_source": "finite normal execution of the actual original region",
+  "header_load_or_numeric_range_premises": false,
+  "license_memory": "original region entry memory",
+  "conditional_read_dependencies": "M; signed M>0 licenses N; signed M,N>0 licenses K",
+  "static_bindings_and_finite_normal_execution_still_required": true,
+  "runtime_source_preexecution_required": false,
+  "scope": "signed I64 header observations without a nonnegative bound premise",
+  "new_capture_or_emitted_guard": false,
+  "numeric_range_acceptance_complete": false,
+  "checked_state_transport_complete": false,
+  "fixed_parameter_candidate_bridge_complete": false,
+  "total_progress_or_divergence_proved": false,
+  "new_Csem_to_Asm_endpoint": false,
+  "new_native_optimized_case": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "cost_or_profitability_evidence": false,
+  "full_goal_complete": false
+}

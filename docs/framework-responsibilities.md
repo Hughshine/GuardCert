@@ -100,7 +100,7 @@ load invariant。该 theorem 已完成实际三层源与 pipeline Loop 的有限
 | --- | --- | --- |
 | 实际 source AST、double 运算树、I64 controls、global layouts | Domain matcher／metadata checker，使用 language 的声明和 scope 定律 | 从实际 normalized program 核对；layout registry 与真实 globals 对应，locals 不遮蔽 globals。单独声明不提供运行时 load 许可。 |
 | Global symbols 与 block 分离 | Language 的 global-environment 定律；factory 提供 identifier、scope 和 symbol 事实 | 区分静态 checker 结果与其在实际 ge／locals 中的解释。原 C store 保持 headers 已有定理可复用。 |
-| M 的读取；M 活动时 N 的读取；M/N 活动时 K 的读取 | Language 的执行／definedness 服务与 domain capture producer | 从适用的已证明调用域或原执行到达路径取得许可；使用原执行作为证明前提，不在运行时预先执行整个源。当前没有该 producer。 |
+| M 的读取；M 活动时 N 的读取；M/N 活动时 K 的读取 | Language 的执行／definedness 服务与 domain capture producer | 新 header-license 服务从实际原执行取得原入口 memory 的条件式 load receipts；不在运行时预执行源。实际 capture producer 仍待接入。 |
 | Checked words 到数学维数、I64 no-wrap 与地址范围 | Domain 的充分条件；language 的实际 machine guard | Guard 接受必须生产当前非负小范围 bridge 所需的事实。I32 私有模型若被使用，还须证明 I64 range check／转换；源 counter 类型保持。负 bound 路径仍待接入。 |
 | Body operand reads／store 与实际 model actions | Domain source decoder 和 language 的实际 load／store 定律 | 旧 assignment bridge 从给定原执行恢复 reached receipts；检查未到达的 operands 须另有 safe invocation 证明，不能由 AST／范围事实假定可读。 |
 | Private captures、接受入口与拒绝入口 | Language 的 typed/fresh allocation、frame 和 state-transport 服务；domain factory 实例化 | 对接受状态解释 model parameters；对拒绝状态建立原 fallback 入口关系。共享 prefix 的 effects 与 private writes 分别运输。 |
@@ -115,7 +115,22 @@ load invariant。该 theorem 已完成实际三层源与 pipeline Loop 的有限
 `checked_double_schedule_codegen_correct` 的方向是 generated Loop 执行到
 source PolyLang 执行；它不单独保证候选进展，也不提供 actual Clight lowering。
 因此 typed checker／codegen 的实例化和 pipeline Loop 的连接仍不算一次
-已安装的原 matmul 优化。本次责任核对没有新增 proof、native 或性能结果。
+已安装的原 matmul 优化。此前责任核对没有新增 proof、native 或性能结果。
+
+2026-10-09 后继[原 matmul header license](original-matmul-header-license.md)
+实际实现 safe invocation 的 receipt 子步骤：language 生产首个 header 和
+首个 body 执行，domain 沿原 nest 组合，actual exported AST 再绑定原输入。
+六端点编译／审计，无新增公理。范围成立、safe emitted capture、private
+freshness／frame、拒绝入口和整程序安装仍需对应 producer。`C_guard`
+不能只交付接受 soundness 而省略检查安全。
+
+已运行的[double prepared pipeline](original-matmul-prepared-pipeline.md)使用
+显式 untrusted callback；冻结 POLIRS 的 Err／None 字段仍保持原状。其
+wrapped backward theorem 的存在参数与 `InitEnv` 长度条件不保证本次
+captured M/N/K。Domain candidate checker／factory 必须闭合固定参数下
+的真实执行桥与 progress；language 负责 private 参数状态运输、实际降低
+服务和 host 安装。框架 kernel 不承担该参数解释，也不由源码用户补语义
+callback。此次重新 fetch 的 narrative 仍为 `8ce9c8b`，正文与 main 一致。
 
 ### Guard library 的契约责任
 

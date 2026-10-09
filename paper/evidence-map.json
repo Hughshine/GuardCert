@@ -3391,6 +3391,48 @@
         "build/original-matmul/prepared-native-check-v1/report.json"
       ],
       "scope": "Actual model-pipeline scheduling/codegen and wrapped backward correctness. No fixed-parameter candidate bridge, installed C guard/candidate or new whole-program optimizer."
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "The actual original matmul finite normal execution licenses the M read and conditionally reached N/K reads in the original entry memory without header-load or numeric-range premises. Static global bindings remain required. No emitted capture, numeric acceptance, checked-state transport, fixed-parameter candidate bridge, progress or selected installation is completed by this source-definedness service.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongHeaderLicense.v",
+          "name": "memory_long_first_header"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongHeaderLicense.v",
+          "name": "memory_long_initialized_first_header"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongHeaderLicense.v",
+          "name": "memory_global_long_zero_test_license"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongHeaderLicense.v",
+          "name": "memory_global_long_initialized_license"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulHeaderLicense.v",
+          "name": "double_matmul_source_headers_licensed"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/original-matmul/source-header-license-v1/OriginalMatmulHeaderLicense.v",
+          "name": "original_matmul_conditional_header_license",
+          "source_sha256": "7cde7ec9da40ea8a16ab16cbe5d4e6c52b5cea1ca0d0442f93ee148a0c4bc6ec"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-header-license.md",
+        "docs/original-matmul-header-license.json"
+      ],
+      "artifacts": [
+        "build/original-matmul/header-license-proof-v1/report.json",
+        "build/original-matmul/source-header-license-v1/report.json"
+      ],
+      "scope": "Conditional signed I64 observation receipts from finite normal source execution; no load/range premises, installed guard or new whole-program result."
     }
   ],
   "bibliography_evidence": [

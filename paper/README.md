@@ -50,6 +50,14 @@ fixed checked parameters, safe guard, Clight lowering, progress and selected
 installation remain incomplete. The original corpus still has zero new
 installed optimized cases and no new profitability result.
 
+The [header-license successor](../docs/original-matmul-header-license.md) derives
+the M read and conditionally reached N/K reads in the original entry memory
+from finite normal execution of the actual exported source. It assumes global
+bindings, without header-load or numeric-range premises. Two modules and six
+endpoints audit without added axioms. This supplies source-definedness receipts;
+emitted capture, range acceptance, checked-state transport, candidate execution
+at the captured parameters, progress and installation remain incomplete.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

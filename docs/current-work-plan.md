@@ -83,12 +83,26 @@ pipeline 验收通过。没有 C optimizer／guard／candidate Clight 安装，
 新增 optimized cases 仍为零。Codegen theorem 是 wrapped Loop 的 backward
 方向；固定 captured 参数下的对应还须由最终 candidate/factory 交付。
 
+最新[原 matmul header license](original-matmul-header-license.md)从实际
+selected source 的有限正常执行取得原入口 memory 上的 M load；仅在
+signed M>0 时取得 N，仅在 signed M/N>0 时取得 K。没有先假设 header
+loads、非负范围、layout、stability 或 body operands 可读。两个模块157行、
+六端点、218 reachable sources／7,263 bindings，至多六 inherited globals，
+无新增公理；三次成功、六次失败的证明尝试保留。这里只关闭 safe invocation
+的 source receipt 子步骤；没有实际 capture／range guard、入口 transport、
+progress 或安装，新优化案例仍为零。2026-10-09 在 `d1f533b` 基线上再次
+fetch narrative，最新仍为 `8ce9c8b`，两份正文与 main 一致。
+
 下一实现继续该原 matmul 的整条链：source/site metadata、条件 bound capture 与入口前提
 producer，生成候选的固定参数证书与 Clight 降低，安全 guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
-BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。
+BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture
+必须消费新的 reached-header license；接受分别生产范围／精确转换和
+state transport。最终 candidate 证书必须作用于同一实际 captured M/N/K，
+不能用 wrapped semantics 中仅长度匹配的存在参数替代；同时消费真实
+scheduler／codegen 输出并交付 host 所需 progress 和安装。
 
-本次响应 narrative 分支澄清，重新 fetch 并完整核对 `8ce9c8b` 的
+此前响应 narrative 分支澄清，重新 fetch 并完整核对 `8ce9c8b` 的
 `paper-narrative.md` 与 `context-lifting.md`；两份正文与 main 一致。
 核对基线为 `2ed2c60`，没有更新的远端 narrative 提交。具体落实到
 [原 matmul 入口事实的生产责任](framework-responsibilities.md#原-matmul-入口事实的生产责任)：

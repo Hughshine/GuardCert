@@ -82,6 +82,10 @@ factory 必须把生成候选检查并连接到真实 checked parameters、Cligh
 backward Loop theorem 自动完成。源码用户仍只给 marked C 与策略，不承担
 未完成的入口事实或语义 callback。
 
+后继[原 header-license 服务](original-matmul-header-license.md)现已从实际
+源执行生产 M、条件式 N/K 的原入口 load receipts，无预设 loads／范围。
+它关闭读取许可子步骤；实际 capture、范围接受和 state transport 尚未完成。
+
 下一实现接 metadata／safe conditional capture、候选 Clight lowering及
 固定参数证书，再复用 selected host／backend。Tiling、其他顺序阶段、全部
 原 PolCert／CGO17 cases 和完整调用成本继续保留在总目标中。
