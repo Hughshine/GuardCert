@@ -1,5 +1,13 @@
 # PolCert／CGO 2017 对齐：验收范围与下一步
 
+2026-10-09 [Quotient 参数证明接线](quotient-parameter-installation.md)已将实际
+安全capture、模型参数插入、精确affine relation、最终candidate执行、公开出口／
+回退和当前program安装接到新的Csem→Asm端点。九模块15端点没有新增全局假设。
+本阶段没有新native build或原例/context/成本运行；下述14/62、30sites及成本仍
+属于前一build。下一步提取实际q-dependent tile bounds compiler，分别记录新路线
+与旧路线安装，完整重跑原案例／上下文／回退并测完整调用成本。原BT、LLVM／
+SPEC、larger tiers、source structures与其余sequential phases继续必需。
+
 2026-10-09 [verified prefix condition后继](pruned-double-tiling.md)在实际producer
 消费已证明floor构造，复用同一final checker／Csem→Asm proof；完整62＋两适配
 保持60raw＋2adapted匹配、14/62安装30处、零timeout／mismatch。十种canonical

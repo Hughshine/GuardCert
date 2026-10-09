@@ -2,6 +2,26 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 再次 fetch/read narrative，可见远端仍为 `8ce9c8b`，两份 topdown
+正文与 main 一致。[Quotient 参数的证明接线](quotient-parameter-installation.md)
+已落实三方责任：domain 证明实际 Loop 参数插入及 affine quotient relation，
+language 证明安全 private capture／typed view／ranges／frame，factory **消费**
+捕获 relation 和最终 candidate validator，连接实际 Clight、公开出口、原 source
+回退及当前 program 的 scoped installation。新 Csem→Asm 端点已编译／审计；
+九模块884行、15端点、最大42个既有globals，没有新增全局假设。Kernel／host
+定律不变；C 使用者不给逐 site semantic callbacks。原执行仍是证明起点，不是
+runtime 预执行；one-way source/model 定理不宣称为独立双向等价。
+
+**下一优先是提取新 compiler 并安装 runtime-dependent affine tile bounds。**
+本次只有证明，没有新 native build／安装／context／成本结果。Adapter 要从实际
+raw candidate 提议 q-dependent bounds，最终 checker 必须继续验证实际 body；
+保存 private quotient／bound receipts并区分 quotient 与旧路线安装。随后跑
+原 polynomial、mvt/matmul、完整62原例＋两适配、拒绝／回退／public exits和
+当前完整程序 context，再测同 compiler／flags 的完整调用成本。前一 build 的
+14/62、30sites和1.271472倍成本仍属于前一 build，不改标为新结果。45无phase
+原例、tricky3、其余source／sequential配置、原BT、LLVM／SPEC与larger tiers
+继续必需；库抽象优先级仍由实际 blocker 决定。以下保留前序阶段证据。
+
 2026-10-09 [prefix pruning 与条件服务](pruned-double-tiling.md)按 narrative 的
 三层责任接线：domain 证明 floor membership 的精确编码，包括负 numerator；
 language 给 checked ranges／typed view 下的纯 Clight exact contract；native

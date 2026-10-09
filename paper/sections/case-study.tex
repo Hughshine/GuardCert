@@ -1753,3 +1753,30 @@ installation. Neither this repair nor prefix pruning supplies dynamic tile-loop
 bounds. The next integration requires safely captured quotient parameters,
 an extended affine model relation and actual source/candidate execution
 transport through the language factory.
+
+\paragraph{A captured quotient as an affine parameter.}
+The following proof checkpoint adds a private parameter
+$q=\lfloor(n+d-1)/d\rfloor$ for a positive constant $d$.
+The existing entry capture establishes $0\leq n\leq\mathit{limit}$.
+Checked expression construction verifies the representation range of every
+intermediate, and the actual Clight division executes only on that accepted
+path. Its execution theorem supplies the extended typed environment $[q,n]$,
+interval membership, private frame and exact quotient relation.
+For this ceiling expression, the relation is the affine condition
+$0\leq dq-n\leq d-1$. The model-level quotient theorem supports integer floor;
+the concrete machine capture retains the nonnegative numerator restriction.
+
+A parameter-extension theorem preserves actual Loop execution while inserting
+q after the iterator prefix. Earlier scheduling and code generation operate on
+the original source; the generated candidate is then lifted and passed to an
+untrusted adapter. The final checker compares the actual source and adapted
+candidate under both the entry range and quotient relation. Witness extension
+and proposed q-dependent bounds remain data subject to that checker.
+Guarded execution consumes the capture's relation to establish the parameter
+value required by validation, then consumes actual candidate lowering and
+public iterator restoration. Runtime refusal skips quotient capture and follows
+the original source. The selected pass installs the resulting region contract
+through the existing host, and subsequent passes check the current intermediate
+program. A new endpoint proves Csem-to-Asm backward simulation without changing
+the kernel or host laws. Native extraction and measured dynamic-bound behavior
+remain outstanding for this checkpoint.

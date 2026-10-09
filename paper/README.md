@@ -1,6 +1,14 @@
 # GuardCert Working Manuscript
 
-The latest [verified prefix-condition service](../docs/pruned-double-tiling.md)
+The latest [quotient-parameter proof checkpoint](../docs/quotient-parameter-installation.md)
+connects safe private capture, actual Loop parameter extension and the final
+candidate checker to Clight execution, public exits and a new Csem-to-Asm theorem.
+Nine modules audit fifteen endpoints without new global assumptions.
+The manuscript records the actual theorem dependencies and the remaining native
+extraction, dynamic-bound installation and cost evaluation. Earlier native
+coverage and timings remain evidence for their own builds.
+
+The preceding [verified prefix-condition service](../docs/pruned-double-tiling.md)
 constructs exact floor-membership predicates, proves safe pure Clight execution
 under typed views and checked intervals, and is consumed by the native generator.
 The final checker licenses placement and the existing arbitrary-adapter theorem

@@ -1,5 +1,12 @@
 # Guard：带前提的程序变换与组合证明
 
+2026-10-09: [Quotient-parameter installation proofs](docs/quotient-parameter-installation.md)
+connect safe private capture and model extension to validation of the actual
+candidate, Clight execution, public exits, original fallback and a new Csem-to-Asm
+theorem. Fifteen endpoints add no global assumptions. The kernel and host laws
+remain unchanged. Native extraction and dynamic-bound runs are the next step;
+this proof checkpoint adds no installation count or performance result.
+
 2026-10-09: [Verified prefix conditions and tile pruning](docs/pruned-double-tiling.md)
 adds an exact floor-membership service and safe pure Clight contracts, with
 actual extracted constructor calls in the candidate generator. Eight endpoints

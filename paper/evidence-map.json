@@ -4601,6 +4601,52 @@
         "docs/pruned-double-tiling.md",
         "docs/pruned-double-tiling.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Proof checkpoint: actual safe quotient capture, Loop parameter extension and exact affine quotient relation are consumed by final candidate validation, Clight lowering, public exits, original fallback and a new scoped Csem-to-Asm theorem; no new native or cost result.",
+      "theorems": [
+        {
+          "source": "theories/PolCertParameterExtension.v",
+          "name": "parameter_extension_exact"
+        },
+        {
+          "source": "theories/PolCertQuotientParameter.v",
+          "name": "quotient_residual_exact"
+        },
+        {
+          "source": "theories/PolCertQuotientCapture.v",
+          "name": "quotient_capture_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleQuotientPrepared.v",
+          "name": "checked_double_quotient_tiled_prepared_loop_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleQuotientLowering.v",
+          "name": "compiled_double_ceil_capture_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleReductionQuotientLowering.v",
+          "name": "checked_double_reduction_quotient_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/ReductionDoubleQuotientFactory.v",
+          "name": "check_quotient_reduction_double_region_sound"
+        },
+        {
+          "source": "prototype/interface/DoubleQuotientTiledCompiler.v",
+          "name": "checked_selected_quotient_tiled_double_program_correct"
+        },
+        {
+          "source": "prototype/interface/QuotientDoubleTiledStableCompiler.v",
+          "name": "compile_selected_quotient_tiled_stable_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/quotient-parameter-installation.md",
+        "docs/quotient-parameter-installation.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -17016,6 +17062,26 @@
         "status": "measured"
       }
     ],
+    "full_goal_complete": false
+  },
+  "quotient_parameter_installation_evidence": {
+    "scope": "compiled model, Clight execution, factory and Csem-to-Asm proofs",
+    "summary": "docs/quotient-parameter-installation.json",
+    "summary_sha256": "6e0919755bcef19c3bc6d2af2eb189e446da279d6485bc54e19e3d1ca2b8b7a4",
+    "proof_report": "build/quotient-double-tiling/installation-proof-v1/report.json",
+    "proof_report_sha256": "39c631247c1dd54a5831ea7174b214a56e7009b1e55805ce96b92d504901ce78",
+    "source_lines": 884,
+    "queried_endpoints": 15,
+    "closed_endpoints": 3,
+    "maximum_endpoint_globals": 42,
+    "reachable_sources": 511,
+    "whole_program_theorem": "QuotientDoubleTiledStableCompiler.compile_selected_quotient_tiled_stable_program_correct",
+    "new_native_compiler_built": false,
+    "new_native_or_context_runs": false,
+    "new_runtime_cost_measured": false,
+    "additional_global_axioms": [],
+    "kernel_changed": false,
+    "new_host_contract": false,
     "full_goal_complete": false
   }
 }

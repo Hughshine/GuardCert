@@ -2,6 +2,20 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [Quotient 参数接线](quotient-parameter-installation.md)让新服务成为
+实际 compiler proof 的 dependency：language 的 safe capture 产生 relation；
+guarded execution 消费该 relation，domain 的参数 lifting／最终 checker证明
+固定 `[q,n]` 的实际候选；既有 lowering／公开出口和 scoped host 连接新的
+Csem→Asm。后续 passes 重新消费当前 intermediate program 的证据。原 source
+execution 是证明起点；static、runtime及 source receipts 分别 discharge适用前提，
+源码用户不填内部callbacks。Kernel止于local，host定律不变，九模块15端点无新增
+全局假设；不把直接Clight分支证明冒称generic guardify theorem 的直接调用。
+
+这次闭合的是证明链，尚无新的 native quotient 路径或成本结果。最难的下一验收
+是动态 affine bounds 的实际producer／最终安装和有用效果，随后继续原语料及
+OLO sequential缺口。此前条件服务安全调用前提不改称runtime自动测试，旧build
+计数不改称新quotient能力。
+
 2026-10-09 [floor condition服务](pruned-double-tiling.md)将数学构造与机器执行
 分开：domain 支持 positive-constant floor、lower max／upper min和offset，证明
 两方向精确编码，允许负 numerator；language 复用 range checker，要求safe

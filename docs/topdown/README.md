@@ -1,6 +1,14 @@
 # Top-down research track
 
-The [prefix-condition successor](../pruned-double-tiling.md) follows the narrative
+Fetched narrative still resolves to `8ce9c8b`; its main text and context note
+match main. The [quotient-parameter proof](../quotient-parameter-installation.md)
+now connects safe capture, model parameter extension, the final actual-candidate
+checker, Clight execution and public exits through the existing scoped host to
+a new Csem-to-Asm theorem. Fifteen endpoints add no global assumptions.
+The kernel and host laws are unchanged; native extraction, dynamic-bound
+installation and new cost evidence remain the next delivery step.
+
+The preceding [prefix-condition successor](../pruned-double-tiling.md) follows the narrative
 responsibility split: exact mathematical construction, safe pure Clight
 execution contracts, actual native service consumption, and independently
 checked candidate placement. The existing arbitrary-adapter Csem-to-Asm theorem
