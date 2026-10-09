@@ -1939,12 +1939,11 @@ captured parameters, such as $(N+31)/32$, rather than cap constants. The members
 guards remain; general point-loop min/max lowering and guard residualization
 are separate unfinished services.
 
-A new factory and complete compiler theorem consume the new lowering, reusing
-source-licensed capture, public-exit restoration, independent source progress,
-the current-program host and the CompCert backend. The actual division Loop is
-authorized by the checked affine reference and the postpass theorem, not by a
-claim that the affine extractor accepts division. Kernel and host laws are
-unchanged, with no new global assumptions or source-user semantic callbacks.
-This is a domain service instantiated with a language range and lowering
-interface, rather than a new universal kernel rule or compact entry-condition
-derivation algorithm.
+A new factory and complete compiler theorem consume the new lowering. They
+reuse capture licensed by source execution, public exits, independent source
+progress, the host for the current program and the CompCert backend. The checked
+affine reference and the postpass theorem authorize the actual division Loop.
+The final extractor continues to check the affine reference. Kernel and host
+laws are unchanged; no global assumptions or semantic callbacks from C users
+are added. This service combines domain reasoning with language range checks
+and lowering. Compact entry conditions remain a separate algorithmic obligation.
