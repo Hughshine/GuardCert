@@ -98,15 +98,17 @@ CompCert compilation succeeds. The first original-source attempts in
 Section~\ref{sec:evaluation} expose this boundary without replacing those
 computations with integer fixtures.
 
-A new memory instruction functor separates explicit access footprints from
-value computation. The closed double instance evaluates bit constants,
-loaded operands, addition, subtraction, multiplication, division and negation
-using CompCert's IEEE operations. It reuses the existing independent-footprint
-exchange proof for arbitrary memory chunks: independent actions observe the
-same operands and retain each expression's operation tree. No floating-point
-associativity or real-number model is assumed. For matrix multiplication,
-dependencies on each output still constrain traversal order; this foundation
-does not authorize reassociation or parallel reduction.
+A new memory instruction functor separates access footprints from value
+computation. Its closed double instance supports bit constants and loaded
+operands. Addition, subtraction, multiplication, division and negation use
+CompCert's IEEE operations.
+
+The instance reuses the existing exchange proof for independent memory
+footprints, which applies to arbitrary chunks. Independent actions read the
+same operands and keep each expression's operation tree. The proof needs no
+associativity assumption or model of real numbers. Dependencies on each
+matrix output still constrain traversal order. Reassociation and parallel
+reduction require separate justification.
 
 The current expression bridge is forward: typed operand-evaluation receipts,
 emitted expression code and model evaluation imply actual Clight expression
@@ -114,7 +116,7 @@ evaluation. It is not an original-source decoder or a bidirectional equivalence
 result. Original Clight-to-model correspondence, eight-byte Mfloat64 addressing
 and checks, Int64 control correspondence, typed candidate lowering and selected
 factory installation remain open. The kernel is unchanged. The language
-instance supplies concrete value/memory/control and entry/exit proofs; the
+instance supplies concrete value, memory, control and entry/exit proofs; the
 optimizer supplies source modeling, assumptions and candidate validation.
 The eventual site producer must discharge these obligations from the checked
 source rather than require semantic callbacks from a C programmer.

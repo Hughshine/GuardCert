@@ -54,12 +54,12 @@ rejected proof attempts and two successful attempts are retained. The
 expression theorem is model-to-Clight only. No source decoder, Mfloat64 guard
 or installed double optimizer is claimed.
 
-\pending{Full input-tier, applicable sequential-route, retained-transformation
-and cost alignment remains incomplete. The next implementation chain is the
-original matmul double/global-memory/I64 source, typed validation/codegen,
-safe guard and selected Csem-to-Asm installation. Other PolCert cases, original
-NPB programs, LLVM Test Suite input identification and unavailable SPEC sources
-remain targets.}
+\pending{Full alignment of input tiers, sequential routes, retained
+transformations and costs remains incomplete. Next, connect the original
+matmul source with its double values, global arrays and I64 controls to typed
+validation, code generation, a safe guard and the selected compiler theorem.
+Other PolCert cases, original NPB programs, LLVM Test Suite inputs and
+unavailable SPEC sources remain targets.}
 
 The shared selected compiler adds four Rocq modules totaling 208 lines and nine
 audited endpoints, with no axioms beyond the inherited 42-global CompCert
