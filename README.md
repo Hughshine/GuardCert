@@ -1,14 +1,13 @@
 # Guard：带前提的程序变换与组合证明
 
-2026-10-09: The [original-matmul compiler successor](docs/original-matmul-installation.md)
-proves a profiled selected Csem-to-Asm compiler and extracts it with the actual
-double pipeline. Its 26 endpoints add no axioms. Ten original-C configurations
-match GCC digests, but none installs a guarded region: CompCert's exporter
-elides skip sequences that its frontend retains. Exact raw syntax is now saved
-and checked. [Finite execution transport](docs/original-matmul-raw-transport.md)
-is now proved for the source and raw fallback. Raw progress and installation
-are next; the complete goal
-and original benchmark requirements remain active.
+The [raw original-matmul compiler](docs/original-matmul-raw-installation.md)
+now installs real Pluto i/k/j output on the original double-array/I64 source and
+has a Csem-to-Asm theorem. All ten original-C installation/refusal checks match
+GCC digests. Four dynamic-header fixtures show the actual candidate or fallback
+entry in unchanged assembly. A marked region beside an identical unmarked one
+installs once. Two marked regions still expose an environment/public-scope
+profile restriction; their matching sources and safe refusal are recorded.
+The 62-case corpus, other sequential routes and cost comparison remain active.
 
 2026-10-08: The [updated acceptance plan](docs/benchmark-alignment.md) follows
 narrative `8ce9c8b`: PolCert and CGO 2017 functionality, sequential optimization

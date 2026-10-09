@@ -242,7 +242,7 @@ bodies and initial values within the checked profile.
 
 Actual original-C execution exposes a remaining source boundary. CompCert's
 Rocq exporter removes \code{Ssequence Sskip s}, while its frontend retains that
-statement. The current matcher therefore installs no guarded region on these
+statement. That compiler's matcher therefore installs no guarded region on these
 inputs, despite successful pipeline calls. A diagnostic exporter preserves
 every statement, and a closed Rocq theorem checks the raw three-loop shape.
 Execution transport and progress for those administrative steps remain open.
@@ -255,6 +255,24 @@ every finite trace, outcome, memory and temporary, as well as the temporary
 footprint. The guarded-statement instance retains the actual raw fallback.
 This relation lets the domain reuse its source/model proof; raw small-step
 progress and the concrete installation remain separate obligations.
+
+A raw-source compiler successor closes those obligations for the original
+matmul input. Its control protocol accounts for each administrative step and
+composes the three framed loops. Finite execution and footprint transport reuse
+the source/model, capture, candidate and public-exit certificates; the installed
+fallback is the literal frontend statement. The scoped selected host and backend
+then establish \code{compile_raw_original_matmul_program_correct}, a
+Csem-to-Asm backward simulation for successful compilation. Profile or validator
+refusal still compiles the source.
+
+The actual original C program now installs Pluto's i/k/j candidate and retains
+the double operation tree, nested arrays and I64 source controls. A marked
+fragment beside an identical unmarked fragment installs only the marked one.
+Two marked fragments still fail the whole-environment/public-scope profile,
+although both statements match exactly. The next language-instance extension
+must obtain relevant global facts from actual declarations and extend public
+frames, rather than require the program's complete symbol map and temporary
+set to match a reference. The generic kernel and candidate proof are unchanged.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,

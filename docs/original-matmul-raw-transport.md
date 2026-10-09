@@ -1,5 +1,7 @@
 # 原 matmul：raw skip-prefix 执行运输
 
+后继已完成实际 raw source 安装与动态路径验收，见[当前结果](original-matmul-raw-installation.md)。下面保留本检查点的历史能力边界。
+
 2026-10-09 后继补上[原 C matcher 诊断](original-matmul-installation.md)中的有限
 执行运输。两个模块149行、五个端点／两个 closed、最多六个原 baseline globals，
 无新增公理。它证明 raw source 与此前 canonical source 的双向有限执行对应，

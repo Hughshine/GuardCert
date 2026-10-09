@@ -1,5 +1,7 @@
 # 原 matmul：program compiler 与 raw frontend 衔接
 
+后继已完成实际 raw source 安装与动态路径验收，见[当前结果](original-matmul-raw-installation.md)。下面保留本检查点的历史能力边界。
+
 2026-10-09 已证明 profiled selected compiler 的 `Csem → Asm` 正确性，并
 提取可运行编译器。原 C 的首轮验收暴露了明确的 matcher 差距：实际 frontend
 保留 `Ssequence Sskip s`，此前 Rocq exporter 省略这些节点。当前十个完整

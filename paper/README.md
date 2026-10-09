@@ -1,14 +1,13 @@
 # GuardCert Working Manuscript
 
-The [profiled original-matmul compiler](../docs/original-matmul-installation.md)
-now has a Csem-to-Asm theorem and an extracted double-pipeline executable.
-Its 26 endpoints introduce no new axioms. Ten actual original-C configurations
-match GCC digests, but expected installations fail: the frontend retains skip
-sequences omitted by the Rocq exporter. The exact raw statement has a closed
-shape check. [Finite execution transport](../docs/original-matmul-raw-transport.md)
-now covers the source and raw guarded fallback; raw progress and installation
-remain open. No original
-optimized case or guard-path cost result is claimed at this checkpoint.
+The [raw original-matmul compiler](../docs/original-matmul-raw-installation.md)
+now installs real Pluto i/k/j output on the original double-array/I64 source and
+has a Csem-to-Asm theorem. All ten original-C installation/refusal checks match
+GCC digests. Four dynamic-header fixtures show the actual candidate or fallback
+entry in unchanged assembly. A marked region beside an identical unmarked one
+installs once. Two marked regions still expose an environment/public-scope
+profile restriction; their matching sources and safe refusal are recorded.
+The 62-case corpus, other sequential routes and cost comparison remain active.
 
 The [original-program acceptance plan](../docs/benchmark-alignment.md), from
 narrative `8ce9c8b`, now governs implementation and evaluation priorities:

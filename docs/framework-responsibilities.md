@@ -229,6 +229,14 @@ domain factory 在真实 source 上生产保留 raw fallback 的 contract，再�
 既有 host/back-end theorem。C 用户不用提供额外证明，框架也不用加入具体
 Clight syntax。这个差距没有改变任一原 benchmark 或 sequential route 的验收要求。
 
+[实际 raw 安装后继](original-matmul-raw-installation.md)已把 literal frontend 的
+progress／有限执行运输接到 scoped selected host 与 Csem→Asm。实际原 C 十项
+安装／拒绝预期通过，原 matmul 获得真实 i/k/j 优化；dynamic guard 的分支也在
+未改汇编上观察。Kernel 不改，优化器候选证明复用，语言实例补行政步骤与上下文。
+两个 marked identical source 虽均精确匹配，当前 whole-environment/public-scope
+profile 仍拒绝。后继要生产 actual global receipts，并扩展 public frame；不能把该
+语言限制移入用户语义回调或缩减多 rewrite 验收。成本与其他原案例继续未完成。
+
 [Raw 执行运输后继](original-matmul-raw-transport.md)现已交付上述语言服务的
 有限执行部分：实际 source 与 canonical source 双向运输所有有限 trace、
 memory、temporaries 和 outcome，raw fallback 及 caller temporary footprint

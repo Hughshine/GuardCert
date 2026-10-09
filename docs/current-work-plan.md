@@ -2,6 +2,24 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [实际 raw matmul 编译器](original-matmul-raw-installation.md)已完成
+raw source progress、scoped contract 和 Csem→Asm 接线。五模块628行、16个端点、
+最大42 inherited globals，无新增公理。实际原 C 十项全部符合安装／拒绝预期，
+全部 digest 匹配 GCC；五项安装，Pluto 的 i/k/j 候选在原 double/I64/array 上执行。
+Pinned corpus 中现有一个原始 nonidentity optimized case。
+
+四项 call-produced dynamic-header fixtures 在未改汇编上观察到正确 candidate／fallback
+入口；marked＋identical unmarked 上下文只安装 marked 一项。两个 marked 的测试仍
+profile-refuse：两个 raw statements 精确匹配，environment/public-scope 检查失败，
+额外 temp 173，no-shadow 通过。这个真实限制属于语言实例，不能缩减验收。
+下一步用 actual declaration/symbol receipts 代替全 symbol-map equality，扩展局部
+frame 到 actual public temps，并在同一 compiler 上验收多标记安装。随后补对应 dynamic
+baseline／完整成本、其他原案例、BT、tiling/ISS 等 sequential routes。当前七次 wall
+samples 只提供小输入完整调用诊断，const guard 已折叠，没有单独 guard 成本或
+profitability 结论。Evidence 共绑定13,468文件；旧失败 checkpoint 保留。
+
+下面记录此前阶段的能力边界，历史“下一步”不覆盖本节。
+
 2026-10-09 [raw source 执行运输后继](original-matmul-raw-transport.md)已补上
 下述诊断中的 finite source/guarded correspondence：真实 skip-prefix 与旧
 canonical source 保持全部有限 trace、memory、temporaries 和控制出口，raw
