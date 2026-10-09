@@ -3663,6 +3663,78 @@
         "build/original-matmul/candidate-progress-native-check-v1/report.json"
       ],
       "scope": "Conditional finite final-generated-model progress at actual captured parameters, with actual extracted final-checker receipts; no candidate Clight lowering or complete-program installation."
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Signed-range evidence is retained through nested lowering; exact I32-to-I64 casts and arbitrary-rank global double tensor execution preserve the original IEEE operation tree. Actual matmul capture, final generated body, candidate lowering, public I64 exit restoration and original fallback compose into finite guarded Clight execution with original final memory and public temps, under static bindings and pipeline/lowering receipts. Six native modes accept identity/real Pluto i/k/j and emit actual Clight ASTs, or refuse invalid proposals. They execute no Clight statement or C/Asm program. Static entry production, source-total progress/divergence and selected installation remain incomplete; no new optimized benchmark or cost result.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryRangedNested.v",
+          "name": "compile_operands_ranged"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryRangedNested.v",
+          "name": "compile_nested_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleAffineLong.v",
+          "name": "double_long_operand_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleAffineLong.v",
+          "name": "double_long_affine_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTensorBackend.v",
+          "name": "double_tensor_size"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTensorBackend.v",
+          "name": "double_tensor_lvalue_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTensorBackend.v",
+          "name": "double_lower_access_receipt"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTensorBackend.v",
+          "name": "double_tensor_instruction_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleNestedBackend.v",
+          "name": "compile_double_tensor_loop_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulExit.v",
+          "name": "double_matmul_exit_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleMatmulExit.v",
+          "name": "double_matmul_exit_frame"
+        }
+      ],
+      "external_theorems": [
+        {
+          "source": "build/original-matmul/source-double-lowering-v1/OriginalMatmulDoubleLowering.v",
+          "name": "original_matmul_lowered_candidate_execution",
+          "source_sha256": "de9a2778866463ad573fe95b9a9ab6e117d3f873f814a11d264929200c16ace6"
+        },
+        {
+          "source": "build/original-matmul/source-double-lowering-v1/OriginalMatmulDoubleLowering.v",
+          "name": "original_matmul_guarded_candidate_execution",
+          "source_sha256": "de9a2778866463ad573fe95b9a9ab6e117d3f873f814a11d264929200c16ace6"
+        }
+      ],
+      "documents": [
+        "docs/original-matmul-double-lowering.md",
+        "docs/original-matmul-double-lowering.json"
+      ],
+      "artifacts": [
+        "build/original-matmul/double-lowering-proof-v1/report.json",
+        "build/original-matmul/source-double-lowering-v1/report.json",
+        "build/original-matmul/double-lowering-native-check-v1/report.json"
+      ],
+      "scope": "Actual finite local guarded Clight execution and native AST emission, under static bindings and checked receipts; no source-total/divergence or complete-program installation."
     }
   ],
   "bibliography_evidence": [
@@ -10537,6 +10609,61 @@
     "selected_compiler_connected": false,
     "new_Csem_to_Asm_endpoint": false,
     "native_source_or_candidate_model_execution": false,
+    "new_cost_results": false,
+    "original_corpus_requested_optimized_cases": 0,
+    "full_goal_complete": false
+  },
+  "original_matmul_double_lowering": {
+    "status": "audited_actual_guarded_double_Clight_finite_execution_not_whole_program_installed",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "proof_report": {
+      "path": "build/original-matmul/double-lowering-proof-v1/report.json",
+      "sha256": "92db15d8ad694869cf4a1cb4c0cd2043d715e5ca6b7b72c9f80a77b4f6bdcdbd"
+    },
+    "source_report": {
+      "path": "build/original-matmul/source-double-lowering-v1/report.json",
+      "sha256": "414209198e508cc9651e6f936db38c78be20942353a3663c71f33e410aae2da1"
+    },
+    "native_report": {
+      "path": "build/original-matmul/double-lowering-native-check-v1/report.json",
+      "sha256": "e240b871c2e2aa1e2f1dd88f2489e6d79003eef52729a28be83dde0db8592ebc"
+    },
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryRangedNested.v",
+      "adapters/compcert-memory/GuardMemoryDoubleAffineLong.v",
+      "adapters/compcert-memory/GuardMemoryDoubleTensorBackend.v",
+      "adapters/compcert-memory/GuardMemoryDoubleNestedBackend.v",
+      "adapters/compcert-memory/GuardMemoryDoubleMatmulExit.v"
+    ],
+    "new_source_lines": 713,
+    "endpoints": 21,
+    "closed_endpoints": 4,
+    "maximum_endpoint_globals": 14,
+    "additional_global_axioms": [],
+    "reachable_sources": 269,
+    "proof_bindings": 7557,
+    "successful_proof_attempts": 6,
+    "rejected_proof_attempts": 22,
+    "native_bindings": 8328,
+    "native_checks": 6,
+    "ranged_I32_operands_and_exact_I64_casts": true,
+    "arbitrary_rank_global_double_tensor_backend": true,
+    "original_IEEE_operation_tree_and_I64_public_exits_preserved": true,
+    "source_and_target_parameter_environment": "the same actual captured [M;N;K]",
+    "actual_final_generated_body_checked_and_lowered": true,
+    "actual_capture_candidate_exit_and_original_fallback_execution": true,
+    "original_source_fallback_runs_from_actual_checked_state": true,
+    "header_load_or_numeric_range_premises": false,
+    "static_layout_bindings_and_finite_normal_source_execution_still_required": true,
+    "proof_direction": "finite original source execution implies actual guarded Clight execution with the same final memory and public exits, under static bindings and actual pipeline/lowering receipts",
+    "original_optimizer_and_kernel_unchanged": true,
+    "candidate_Clight_lowering_complete": true,
+    "candidate_model_forward_progress_proved": true,
+    "source_total_progress_or_divergence_proved": false,
+    "selected_compiler_connected": false,
+    "new_Csem_to_Asm_endpoint": false,
+    "native_candidate_and_guarded_Clight_ASTs_emitted": true,
+    "native_Clight_statement_or_C_Asm_execution": false,
     "new_cost_results": false,
     "original_corpus_requested_optimized_cases": 0,
     "full_goal_complete": false

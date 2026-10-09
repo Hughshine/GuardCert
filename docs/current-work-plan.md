@@ -132,22 +132,44 @@ Native 不执行 source/candidate model 或完整 C/Asm，无成本／收益结�
 这是 conditional finite model progress；double Clight lowering、static
 producer、source-total／divergence 和 selected 安装仍缺，新优化案例仍为零。
 
-下一实现继续该原 matmul 的整条链：source/site metadata、完整入口前提
-producer，生成候选的实际 Clight 降低与进展，guard／factory／
-public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
+2026-10-09 再次完整核对 narrative 与 context-lifting：刷新全部 origin refs 后
+最新仍为 `topdown/research-positioning@8ce9c8b`，两份正文与 main 一致，
+没有发现更新的远端澄清。继续采用三层责任与 source/model 方向约束。
+本次实际 lowering 暴露一个语言接口缺口：旧 operand view 仅保留 I32
+evaluation，丢失 affine compiler 已证的 signed range；后继接口携带该证据，
+支持精确 I32→I64 cast。该修补属于 language lowering 服务，不扩 kernel，
+也不由源码用户提供范围证明。
+
+最新后继[原 matmul 实际 double Clight lowering](original-matmul-double-lowering.md)
+复用既有 nested lowering 和同一 Loop AST，提供任意 rank 的 global double
+tensor backend，保持原 IEEE expression tree。实际 source 的有限正常执行，
+经真实 capture 和 final pipeline/lowering receipts，现已接到实际
+`capture; if flag then candidate; restore else source` 的有限 Clight 执行；
+最终 memory 和所有公开 temps 与原执行对应，M=0／N=0 的 i/j/k 出口精确。
+五模块713行、21端点／4 closed，269 reachable sources／7,557 bindings，
+至多14 inherited globals，无新增公理；6成功／22拒绝或中断尝试保留。
+Native 六项验收接受 identity 和 real Pluto i/k/j，实际输出 candidate／
+guarded AST；其余错误 proposals 拒绝，绑定8,328文件。它不执行 Clight
+statement 或完整 C/Asm，没有新收益／成本结果。这个 local forward 结果仍消费 static/layout/
+bindings 与 finite normal source execution；没有自动 metadata producer、
+source-total/divergence 或 selected Csem→Asm，也没有新已安装 benchmark。
+
+下一实现继续该原 matmul 的整条链：source/site metadata、完整静态入口
+producer，实际 guard／candidate／fallback 与 factory／selected Csem→Asm
+接入，交付所需 typing／placement／progress；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture
 已消费 reached-header license 并生产范围／精确转换和 source state transport。
 固定参数 backward 对应已消费真实 scheduler／codegen receipt；最终
 candidate forward／progress 证书继续作用于同一 captured M/N/K，不能用
 wrapped semantics 中仅长度匹配的存在参数替代，并交付 host 安装。
 
-下一实现已定位可复用的具体服务：`FramedNestedClightFor(I)(M)` 对任意
-instruction backend 提供已检查 nested lowering 的执行／private frame，
-不需要为 double 再造 host。Double backend 仍须把 I32 私有坐标精确转换
-成原 global-array 地址表达式并消费真实 reads/stores。Candidate model progress
+后继已复用 `FramedNestedClightFor(I)(M)` 的结构证明，在 ranged operand
+接口下交付 double nested lowering 的执行／private frame，不需要为 double
+再造 host。Double backend 已把 I32 私有坐标精确转换为 I64 global-array
+地址表达式并消费真实 reads/stores。Candidate model progress
 已沿 final candidate extraction／双向 validation／固定参数 reconstruction
 闭合，source Loop→point-list 的 forward producer 已通用化并实际复用；
-仍不能由它推断 candidate Clight lowering 或 host progress 完成。
+Clight lowering 由后继独立证明，host progress 与安装仍缺。
 带 min/max/floordiv 的实际输出仍要覆盖，
 不能因 final extractor 目前只接受 affine bounds 将这些路线移出目标。
 

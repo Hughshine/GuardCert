@@ -1,0 +1,55 @@
+{
+  "status": "audited_actual_guarded_double_Clight_finite_execution_not_whole_program_installed",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "proof_report": {
+    "path": "build/original-matmul/double-lowering-proof-v1/report.json",
+    "sha256": "92db15d8ad694869cf4a1cb4c0cd2043d715e5ca6b7b72c9f80a77b4f6bdcdbd"
+  },
+  "source_report": {
+    "path": "build/original-matmul/source-double-lowering-v1/report.json",
+    "sha256": "414209198e508cc9651e6f936db38c78be20942353a3663c71f33e410aae2da1"
+  },
+  "native_report": {
+    "path": "build/original-matmul/double-lowering-native-check-v1/report.json",
+    "sha256": "e240b871c2e2aa1e2f1dd88f2489e6d79003eef52729a28be83dde0db8592ebc"
+  },
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryRangedNested.v",
+    "adapters/compcert-memory/GuardMemoryDoubleAffineLong.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTensorBackend.v",
+    "adapters/compcert-memory/GuardMemoryDoubleNestedBackend.v",
+    "adapters/compcert-memory/GuardMemoryDoubleMatmulExit.v"
+  ],
+  "new_source_lines": 713,
+  "endpoints": 21,
+  "closed_endpoints": 4,
+  "maximum_endpoint_globals": 14,
+  "additional_global_axioms": [],
+  "reachable_sources": 269,
+  "proof_bindings": 7557,
+  "successful_proof_attempts": 6,
+  "rejected_proof_attempts": 22,
+  "native_bindings": 8328,
+  "native_checks": 6,
+  "ranged_I32_operands_and_exact_I64_casts": true,
+  "arbitrary_rank_global_double_tensor_backend": true,
+  "original_IEEE_operation_tree_and_I64_public_exits_preserved": true,
+  "source_and_target_parameter_environment": "the same actual captured [M;N;K]",
+  "actual_final_generated_body_checked_and_lowered": true,
+  "actual_capture_candidate_exit_and_original_fallback_execution": true,
+  "original_source_fallback_runs_from_actual_checked_state": true,
+  "header_load_or_numeric_range_premises": false,
+  "static_layout_bindings_and_finite_normal_source_execution_still_required": true,
+  "proof_direction": "finite original source execution implies actual guarded Clight execution with the same final memory and public exits, under static bindings and actual pipeline/lowering receipts",
+  "original_optimizer_and_kernel_unchanged": true,
+  "candidate_Clight_lowering_complete": true,
+  "candidate_model_forward_progress_proved": true,
+  "source_total_progress_or_divergence_proved": false,
+  "selected_compiler_connected": false,
+  "new_Csem_to_Asm_endpoint": false,
+  "native_candidate_and_guarded_Clight_ASTs_emitted": true,
+  "native_Clight_statement_or_C_Asm_execution": false,
+  "new_cost_results": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "full_goal_complete": false
+}

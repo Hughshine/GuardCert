@@ -204,6 +204,20 @@ same final memory. Static bindings/layout, candidate Clight lowering and
 selected installation remain obligations. This result supplies conditional
 finite model progress, not source-total or divergence preservation.
 
+A double lowering successor retains the signed range already proved by affine
+compilation. The earlier operand view kept only I32 expression evaluation;
+exact I32-to-I64 casts require the range as well. The successor reuses the same
+Loop AST and nested lowering structure, with an arbitrary-rank global double
+tensor backend. Modular I64 address calculations correspond to pointer offsets;
+tensor indices and static layout spans supply the separate access constraints.
+It preserves the original IEEE expression tree and restores the source's public
+I64 exits, including untouched child counters on empty paths. Actual source
+capture, final-candidate progress and successful lowering now compose into
+finite execution of the concrete guarded statement with the original final
+memory and public temporary exits. Static binding production, source-total
+progress/divergence and selected installation remain open. This forward local
+execution theorem does not add a whole-program result or an optimized benchmark.
+
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,
 assumptions and candidate validation. The site producer must discharge the

@@ -91,6 +91,16 @@ These native runs check certificates; they execute no source/candidate model
 or whole C/Asm program. Candidate Clight lowering, static premise production
 and selected installation remain incomplete; installed optimized cases stay zero.
 
+The [double Clight lowering successor](../docs/original-matmul-double-lowering.md)
+retains signed-range evidence through the existing nested lowering interface,
+proves exact I32-to-I64 casts, and supplies an arbitrary-rank global double
+tensor backend. Actual capture, generated candidate, public-exit restoration
+and original fallback now compose into finite Clight execution with the original
+final memory and public temporary exits. Static binding production, source-total
+progress/divergence and selected installation remain open. Native probes emit
+candidate and guarded Clight ASTs; they execute no Clight statement or C/Asm
+program. The original corpus still has zero new installed optimized cases.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

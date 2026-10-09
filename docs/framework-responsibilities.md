@@ -165,6 +165,20 @@ captured M/N/K 下候选的有限 model execution 和相同 final memory。
 producer、source-total progress／divergence 或 selected host installation。
 实际 C 用户不因此新增语义 callback 或局部证明责任。
 
+最新[实际 double Clight lowering](original-matmul-double-lowering.md)复用
+nested lowering 的结构证明，保留 affine compiler 的 signed-range 证据，
+由 language 服务证明精确 I32→I64 casts、任意 rank global double tensor
+lvalues、实际 reads/stores、private frame 与公开 I64 出口恢复。Domain
+实际 matmul 实例消费 final generated body、safe capture、同参数 model
+progress 与 lowering receipt，交付整个 guarded statement 的有限执行，
+最终 memory／公开 temps 对应原 source。Kernel 和 optimizer 不改。
+
+这是 local execution 组成部分。Static registry/bindings 的自动生产、
+source-total progress／divergence、实际 site placement／typing 和 selected
+host 安装仍由 factory/language 分别交付。给定原 source finite execution
+不能代替这些 host 前提，也不是运行时 pre-execution；native AST emission
+不能作为 source/candidate C 或 Asm 已执行的证据。
+
 ### Guard library 的契约责任
 
 [原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了
