@@ -7,6 +7,10 @@ source Loop 语义；拒绝后的原 source 可从实际 checked state 执行。
 candidate Clight、progress 和 selected Csem→Asm 尚未接通，原 corpus 新
 optimized cases 仍为零。** 本阶段没有完成整个编译路径。
 
+本页保留 capture 检查点。[固定参数 pipeline 后继](original-matmul-prepared-parameters.md)
+已关闭 generated-model→原 source 的同参数有限 backward 连接；forward
+progress、实际 candidate Clight 与整程序安装仍未完成。
+
 ## 发出的检查是什么
 
 原 global headers 和 i/j/k controls 保持 signed I64。私有模型参数使用 I32，

@@ -70,6 +70,15 @@ AST interpreter. Static layout/bindings and finite normal source execution remai
 premises; generated candidate parameters, progress, lowering and selected
 installation remain pending. No new installed optimized benchmark is claimed.
 
+The [fixed-parameter successor](../docs/original-matmul-prepared-parameters.md)
+now composes actual prepared generation, cleanup, validation and extraction at
+the same captured parameters. Generated-model execution implies original
+Clight source execution from the checked entry with exact public exits.
+A generic POLIRS adapter and its double instance add 409 lines and ten audited
+endpoints, with no added axioms. This is finite backward correspondence;
+candidate forward execution/progress, Clight lowering and selected installation
+remain incomplete. No new native, cost or optimized-benchmark result is added.
+
 The [runtime alternative](../docs/affine-empty-runtime-installation.md) connects
 the empty condition to previously installed targets. Its language proof supplies
 exact source-prefix replay and the refused entry relation to the old small-step

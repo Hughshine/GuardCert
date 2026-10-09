@@ -143,6 +143,16 @@ bindings 和给定 finite normal source execution 仍需 host/factory 处理；
 candidate 固定参数、progress、lowering 和 selected Csem→Asm 尚未闭合。
 Kernel 没有修改，也没有把这些责任移交 marked C 用户。
 
+后继[固定参数生成执行桥](original-matmul-prepared-parameters.md)已闭合
+prepared collection／raw generation／实际 cleanup／extractor 的同参数
+backward 组合。通用 POLIRS 库不需要具体 Clight semantics；double domain
+复用 validator，实际 matmul registry 生产 NonAlias。Actual AST 实例将
+captured values 与 generated-model receipt 接回 checked-entry 的原 Clight
+执行及精确公开出口。10端点、最多14 inherited globals、无新增公理。
+这是 `C_opt` 的有限 backward 组成部分，forward candidate execution／
+progress、actual Clight lowering 与 installation 仍未交付；不由 wrapped
+theorem 或本次参数桥推断这些责任完成。
+
 ### Guard library 的契约责任
 
 [原 double prepared pipeline](original-matmul-prepared-pipeline.md)后继交付了

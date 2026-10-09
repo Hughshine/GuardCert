@@ -108,14 +108,33 @@ CompCert Cop／Mem，global lookup 与 AST interpreter 由 harness 提供，
 finite normal source execution 仍是逻辑前提；generated candidate 的固定
 参数桥、progress 和 selected 安装未完成，新 optimized cases 仍为零。
 
+最新[固定参数 generated→source 后继](original-matmul-prepared-parameters.md)
+已将实际 generator 在 captured M/N/K 下的有限执行接回同参数 source
+Loop 和原 Clight，恢复精确 public exit；验证保持 named context，实际
+cleanup 不更换参数。通用 `POLIRS` adapter 与 double 实例两模块409行，
+10端点、249 reachable sources／7,387 bindings，至多14 inherited globals，
+无新增公理；3成功／11失败证明尝试保留。Kernel 和冻结 optimizer 未改，
+没有新 native／cost 结果。这关闭固定参数的 backward 对应，不能证明
+候选一定能执行。Forward execution／progress、double Clight lowering、
+static metadata producer 与 selected Csem→Asm 仍缺，新优化案例仍为零。
+
 下一实现继续该原 matmul 的整条链：source/site metadata、完整入口前提
-producer，生成候选的固定参数证书与 Clight 降低，安全 guard／factory／
+producer，生成候选的 forward execution／progress 与 Clight 降低，guard／factory／
 public exit／selected Csem→Asm 同步接入；随后扩 fusion、multi-stmt-stencil-seq、
 BT。特殊 fixture、局部证明或仅实例化 checker 不替代完整链。Capture
 已消费 reached-header license 并生产范围／精确转换和 source state transport。
-最终 candidate 证书必须作用于同一实际 captured M/N/K，
-不能用 wrapped semantics 中仅长度匹配的存在参数替代；同时消费真实
-scheduler／codegen 输出并交付 host 所需 progress 和安装。
+固定参数 backward 对应已消费真实 scheduler／codegen receipt；最终
+candidate forward／progress 证书继续作用于同一 captured M/N/K，不能用
+wrapped semantics 中仅长度匹配的存在参数替代，并交付 host 安装。
+
+下一实现已定位可复用的具体服务：`FramedNestedClightFor(I)(M)` 对任意
+instruction backend 提供已检查 nested lowering 的执行／private frame，
+不需要为 double 再造 host。Double backend 仍须把 I32 私有坐标精确转换
+成原 global-array 地址表达式并消费真实 reads/stores。Candidate progress
+可沿 final candidate extraction／双向 validation／固定参数 reconstruction
+推进；source Loop→point-list 的 forward producer 尚缺，原 codegen 的
+backward theorem 不能代替它。带 min/max/floordiv 的实际输出仍要覆盖，
+不能因 final extractor 目前只接受 affine bounds 将这些路线移出目标。
 
 此前响应 narrative 分支澄清，重新 fetch 并完整核对 `8ce9c8b` 的
 `paper-narrative.md` 与 `context-lifting.md`；两份正文与 main 一致。

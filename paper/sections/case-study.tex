@@ -175,9 +175,19 @@ Source execution is transported to the checked entry, including fallback and
 public exits. Acceptance supplies source Loop semantics at the actual captured
 M/N/K, without entry-load or numeric-range premises. Static layout, global
 bindings and a given finite normal source execution still remain premises.
-This closes the source parameter bridge, not the generated candidate bridge:
-fixed-parameter candidate correspondence, progress, lowering and selected
-installation remain incomplete.
+That checkpoint closes the source parameter bridge; generated candidate
+correspondence, progress, lowering and installation are separate obligations.
+
+A further optimizer adapter retains explicit parameters through prepared
+collection, raw generation, actual cleanup and source extraction. It is a
+\code{POLIRS} functor and adds no concrete-language semantics. The double
+instance composes the actual pipeline receipt with dependence validation;
+successful validation preserves the named parameter context. At the same
+captured M/N/K, finite generated Loop execution now implies original source
+Loop execution and concrete Clight execution from the checked entry with exact
+public exits. The original optimizer and kernel remain unchanged. This is a
+backward correspondence result: it supplies neither forward candidate execution
+nor progress, Clight lowering or selected installation.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,

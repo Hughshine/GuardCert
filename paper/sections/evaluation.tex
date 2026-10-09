@@ -121,10 +121,21 @@ refusal, zero-path bypass and header read counts. Native receipts bind 7,625
 files. No source body, candidate, fallback C or Asm executes in these probes,
 and no new optimized benchmark, whole-program endpoint or cost result is added.
 
+The fixed-parameter successor adds two modules totaling 409 lines and ten
+audited endpoints, none closed, with at most fourteen inherited globals and
+no added axioms. Its audit follows 249 sources and binds 7,387 files, retaining
+three successful and eleven failed proof attempts. Actual generated-model
+execution at the captured parameters now connects back to original Clight
+execution from the checked entry, with exact public exits. The generic adapter
+is audited through the double instance. This is finite backward correspondence;
+no candidate progress, lowered Clight, installed whole-program result or new
+native/cost experiment is supplied.
+
 \pending{Full alignment of input tiers, sequential routes, retained
 transformations and costs remains incomplete. Next, connect the generated
-matmul candidate to the captured parameters, complete the static entry producer,
-and connect Clight lowering, candidate progress and the selected compiler theorem.
+matmul candidate's forward execution and progress at the captured parameters,
+complete the static entry producer, and connect Clight lowering and the selected
+compiler theorem.
 Other PolCert cases, original NPB programs, LLVM Test Suite inputs and
 unavailable SPEC sources remain targets.}
 

@@ -1,0 +1,44 @@
+{
+  "status": "audited_same_captured_parameter_generated_backward_source_not_installed_candidate",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "proof_report": {
+    "path": "build/original-matmul/prepared-parameter-proof-v1/report.json",
+    "sha256": "c9502f90c7ef3ed1f6e52ef6b55fc627898332c50769c603161f2a808952abea"
+  },
+  "source_report": {
+    "path": "build/original-matmul/source-prepared-parameters-v1/report.json",
+    "sha256": "d97f52eb782654fbe57486313734ed408d9d2a8f729a567567090e5049648fa8"
+  },
+  "new_modules": [
+    "theories/PolCertPreparedParameters.v",
+    "adapters/compcert-memory/GuardMemoryDoublePreparedAt.v"
+  ],
+  "new_source_lines": 409,
+  "endpoints": 10,
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 14,
+  "additional_global_axioms": [],
+  "reachable_sources": 249,
+  "proof_bindings": 7387,
+  "successful_proof_attempts": 3,
+  "rejected_proof_attempts": 11,
+  "generic_POLIRS_fixed_parameter_composition": true,
+  "source_and_target_parameter_environment": "the same actual captured [M;N;K]; named polyhedral environment is its reverse",
+  "parameter_context_preserved_by_validation": true,
+  "raw_codegen_and_actual_cleanup_connected": true,
+  "actual_checked_double_pipeline_consumed": true,
+  "actual_capture_to_generated_backward_source_bridge": true,
+  "original_source_fallback_and_public_exits_connected": true,
+  "header_load_or_numeric_range_premises": false,
+  "static_layout_bindings_and_finite_normal_source_execution_still_required": true,
+  "proof_direction": "finite generated Loop execution implies original concrete source execution at the same captured parameters",
+  "original_optimizer_and_kernel_unchanged": true,
+  "candidate_Clight_lowering_complete": false,
+  "candidate_forward_progress_proved": false,
+  "source_total_progress_or_divergence_proved": false,
+  "selected_compiler_connected": false,
+  "new_Csem_to_Asm_endpoint": false,
+  "new_native_or_cost_results": false,
+  "original_corpus_requested_optimized_cases": 0,
+  "full_goal_complete": false
+}
