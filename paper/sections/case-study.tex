@@ -1915,3 +1915,36 @@ structural comparison failed when Pluto removed zero schedule components;
 that counterexample remains separate from the repaired policy. This policy is
 untrusted and does not decide arbitrary schedule equivalence. It establishes
 neither mixed-statement region support nor additional original source coverage.
+
+\paragraph{Verified recovery of runtime tile bounds.}
+The tiled independent-bound adapter uses constant-cap affine enclosures with
+membership predicates. Directly retaining a division bound fails the final
+extractor's affine syntax check, although the machine expression service already
+supports positive divisors and nonnegative numerators. A verified Loop postpass
+therefore runs after the final check of the affine reference. It recognizes a
+conjunct of the form $d(t+1)\leq e$, with $d>0$ and $e$ independent of the current
+iterator, and proposes $\lfloor e/d\rfloor$ as the upper bound. The I32 interval
+service checks the expression and its intermediates and requires the proposed
+upper maximum to be no larger than the original upper minimum. Unsupported or
+unsafe proposals retain the reference bound.
+
+The domain theorem proves that a finite execution of the reference has an
+execution of the tightened Loop with the same final memory. Iterations beyond
+the new bound fail the retained membership guard and leave memory unchanged.
+The theorem applies recursively to nested loops and statement sequences; it
+does not prove arbitrary divergence preservation or source support for arbitrary
+statement sequences. An interval-interface adapter and a new candidate theorem
+consume this result in actual Clight lowering. The generated tile bounds use
+captured parameters, such as $(N+31)/32$, rather than cap constants. The membership
+guards remain; general point-loop min/max lowering and guard residualization
+are separate unfinished services.
+
+A new factory and complete compiler theorem consume the new lowering, reusing
+source-licensed capture, public-exit restoration, independent source progress,
+the current-program host and the CompCert backend. The actual division Loop is
+authorized by the checked affine reference and the postpass theorem, not by a
+claim that the affine extractor accepts division. Kernel and host laws are
+unchanged, with no new global assumptions or source-user semantic callbacks.
+This is a domain service instantiated with a language range and lowering
+interface, rather than a new universal kernel rule or compact entry-condition
+derivation algorithm.

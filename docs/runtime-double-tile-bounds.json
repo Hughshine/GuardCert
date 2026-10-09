@@ -1,0 +1,114 @@
+{
+  "status": "validated",
+  "whole_program_entrypoint": "TightenedRectangularHeaderLiteralQuotientCompiler.compile_selected_tightened_rectangular_header_literal_quotient_tiled_stable_program",
+  "whole_program_theorem": "TightenedRectangularHeaderLiteralQuotientCompiler.compile_selected_tightened_rectangular_header_literal_quotient_tiled_stable_program_correct",
+  "proof": {
+    "modules": 7,
+    "source_lines": 770,
+    "queried_endpoints": 24,
+    "closed_endpoints": 15,
+    "maximum_inherited_globals": 42,
+    "additional_global_axioms": []
+  },
+  "compiler": {
+    "path": "build/runtime-double-tile-bounds/compiler-attempts/native-v1/ccomp",
+    "bindings": 9681
+  },
+  "native": {
+    "rank_two_and_phase_contexts": 39,
+    "rank_three_contexts": 23,
+    "capture_and_fallback_paths": 10,
+    "unchanged_assembly_iteration_observations": 5,
+    "same_source_tile_comparisons_parent": [
+      4,
+      4
+    ],
+    "same_source_tile_comparisons_current": [
+      2,
+      2
+    ]
+  },
+  "corpus": {
+    "originals_attempted": 62,
+    "raw_original_matches": 60,
+    "disclosed_adapted_matches": 2,
+    "frontend_refusals": [
+      "corcol3",
+      "pca"
+    ],
+    "timeouts": 0,
+    "mismatches": 0,
+    "originals_with_installed_sites": 22,
+    "original_sites": 39,
+    "rectangular_sites": 7,
+    "rectangular_cases": [
+      "fdtd-2d",
+      "intratileopt1",
+      "intratileopt2",
+      "intratileopt3",
+      "intratileopt4",
+      "matmul",
+      "spatial"
+    ],
+    "source_coverage_increased": false
+  },
+  "cost": {
+    "scope": "complete process including startup, one initialization, repeated original regions and digest",
+    "repetitions": 200,
+    "trials": 7,
+    "wall_medians_seconds": {
+      "unmarked": 0.479005164001137,
+      "cap-tiled": 0.2349556380067952,
+      "dynamic-tiled": 0.23468012502416968,
+      "untiled": 0.20877745002508163
+    },
+    "over_unmarked_ratios": {
+      "cap-tiled": {
+        "wall_seconds": 0.490507526149003,
+        "child_cpu_seconds": 0.4890813142629846
+      },
+      "dynamic-tiled": {
+        "wall_seconds": 0.4899323486700712,
+        "child_cpu_seconds": 0.48808451825016325
+      },
+      "untiled": {
+        "wall_seconds": 0.4358563658920931,
+        "child_cpu_seconds": 0.4339538877138654
+      }
+    },
+    "dynamic_over_parent_cap_ratios": {
+      "wall_seconds": 0.9988273829691308,
+      "child_cpu_seconds": 0.9979619012549611
+    },
+    "cpu_affinity_fixed": true,
+    "external_host_load_controlled": false,
+    "guard_cost_isolated": false,
+    "same_compiler_for_unmarked_dynamic_tiled_and_untiled": true,
+    "parent_cap_is_separate_preceding_compiler": true,
+    "same_pinned_backend_and_flags": true,
+    "source_variant_not_original_corpus": true,
+    "benchmark_wide_profitability_claimed": false
+  },
+  "verified_postpass_consumed_after_affine_reference_check": true,
+  "machine_range_checks_and_actual_division_lowering_consumed": true,
+  "tightening_is_finite_execution_preservation": true,
+  "source_progress_and_installation_remain_host_obligations": true,
+  "kernel_changed": false,
+  "new_host_contract": false,
+  "source_users_supply_semantic_callbacks": false,
+  "general_or_optimal_condition_derivation_claimed": false,
+  "compact_OLO_entry_condition_derivation_completed": false,
+  "proof_burden_reduction_established": false,
+  "initial_observer_failure": "parent backend removes initial constant-true comparison; first four current observations passed, parent recognition failed",
+  "full_goal_complete": false,
+  "reports": {
+    "proof": "build/runtime-double-tile-bounds/proof-v1/report.json",
+    "compiler": "build/runtime-double-tile-bounds/compiler-attempts/native-v1/report.json",
+    "contexts": "build/runtime-double-tile-bounds/context-attempts/contexts-v1/report.json",
+    "rank_three": "build/runtime-double-tile-bounds/rank-three-context-attempts/contexts-v1/report.json",
+    "paths": "build/runtime-double-tile-bounds/path-attempts/paths-v1/report.json",
+    "iterations": "build/runtime-double-tile-bounds/iteration-attempts/iterations-v2/report.json",
+    "corpus": "build/benchmark-alignment/adaptive-tiled-attempts/runtime-bounds-full-corpus-v1/report.json",
+    "cost": "build/runtime-double-tile-bounds/cost-attempts/repeated-matmul-v1/report.json"
+  }
+}

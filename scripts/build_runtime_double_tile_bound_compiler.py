@@ -1,0 +1,261 @@
+"""Build mixed tiled/untiled proposals through the checked complete compiler.
+
+The normalization theorem is composed on the actual intermediate Clight program.
+The existing quotient producer, final checker, host and backend remain in the path.
+"""
+
+import argparse
+import json
+from pathlib import Path
+import shutil
+import subprocess
+
+import audit_runtime_double_tile_bounds as audit
+from audit_compiler import names
+import build_compiler
+import prove_original_matmul_double_lowering as proof
+from audit_interface_clight import ROOT, sha
+from audit_word_store_sequence import permitted
+
+UPSTREAM = ROOT / "vendor/CompCert"
+ENTRY = audit.ENTRY
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--attempt", required=True)
+    args = parser.parse_args()
+    if not args.attempt or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in args.attempt):
+        raise ValueError("Use a simple attempt name")
+    baseline = audit.validate()
+    trace_source = ROOT / "adapters/compcert-memory/GuardMemoryDoubleTiledPhaseTrace.v"
+    trace_object = trace_source.with_suffix(".vo")
+    trace_attempt = ROOT / "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTiledPhaseTrace-v1"
+    trace_files = [trace_source, trace_object, *[trace_attempt.with_suffix(suffix) for suffix in [".v", ".json", ".log"]]]
+    metadata = json.loads(permitted(trace_attempt.with_suffix(".json")).read_text())
+    if metadata["returncode"] or metadata["source_sha256"] != sha(permitted(trace_source)):
+        raise ValueError("Compiled trace equality source required")
+    trace_log = permitted(trace_attempt.with_suffix(".log")).read_text()
+    trace_globals = sorted(names(trace_log))
+    if trace_log.count("Closed under the global context") != 1 or not set(trace_globals) <= set(baseline["allowed_parent_globals"]):
+        raise ValueError("Trace endpoints add no global beyond the inherited baseline")
+    for stem, attempt in [("GuardMemoryDoubleCodegenTrace", "v2"), ("GuardMemoryDoubleTiledCodegenTrace", "v2")]:
+        source = permitted(ROOT / "adapters/compcert-memory" / (stem + ".v"))
+        base = ROOT / "build/original-matmul/installation-attempts-v1" / (stem + "-" + attempt)
+        metadata = json.loads(permitted(base.with_suffix(".json")).read_text())
+        globals_ = names(permitted(base.with_suffix(".log")).read_text())
+        if metadata["returncode"] or metadata["source_sha256"] != sha(source):
+            raise ValueError("Compiled codegen trace equality required: " + stem)
+        if not globals_ <= set(baseline["allowed_parent_globals"]):
+            raise ValueError("Codegen trace adds inherited globals: " + stem)
+        trace_globals = sorted(set(trace_globals) | globals_)
+        trace_files += [source, permitted(source.with_suffix(".vo")),
+                        *[permitted(base.with_suffix(suffix)) for suffix in [".v", ".json", ".log"]]]
+    quotient_trace = permitted(ROOT / "adapters/compcert-memory/GuardMemoryDoubleQuotientTrace.v")
+    quotient_base = ROOT / "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleQuotientTrace-v2"
+    item = json.loads(permitted(quotient_base.with_suffix(".json")).read_text())
+    quotient_log = permitted(quotient_base.with_suffix(".log")).read_text()
+    quotient_globals = names(quotient_log)
+    if (item["returncode"] or item["source_sha256"] != sha(quotient_trace)
+            or quotient_log.count("Closed under the global context") != 0
+            or not quotient_globals <= set(baseline["allowed_parent_globals"])):
+        raise ValueError("Exact quotient stage traces required")
+    trace_files += [quotient_trace,permitted(quotient_trace.with_suffix(".vo"))]
+    for quotient_attempt in ["v1","v2"]:
+        base = ROOT / "build/original-matmul/installation-attempts-v1" / ("GuardMemoryDoubleQuotientTrace-"+quotient_attempt)
+        trace_files += [permitted(base.with_suffix(suffix)) for suffix in [".v",".json",".log"]]
+    factory_trace = permitted(ROOT / "prototype/interface/ReductionDoubleQuotientFactoryTrace.v")
+    factory_base = ROOT / "build/original-matmul/installation-attempts-v1/ReductionDoubleQuotientFactoryTrace-v3"
+    item = json.loads(permitted(factory_base.with_suffix(".json")).read_text())
+    factory_log = permitted(factory_base.with_suffix(".log")).read_text()
+    factory_globals = names(factory_log)
+    if (item["returncode"] or item["source_sha256"] != sha(factory_trace)
+            or not factory_globals <= set(baseline["allowed_parent_globals"])):
+        raise ValueError("Exact factory stage trace required")
+    trace_files += [factory_trace,permitted(factory_trace.with_suffix(".vo"))]
+    for factory_attempt in ["v1","v2","v3"]:
+        base = ROOT / "build/original-matmul/installation-attempts-v1" / ("ReductionDoubleQuotientFactoryTrace-"+factory_attempt)
+        trace_files += [permitted(base.with_suffix(suffix)) for suffix in [".v",".json",".log"]]
+    header_trace = permitted(ROOT / "prototype/interface/HeaderDoubleQuotientFactoryTraceDirect.v")
+    header_trace_base = ROOT / "build/original-matmul/installation-attempts-v1/HeaderDoubleQuotientFactoryTraceDirect-v1"
+    header_trace_metadata = json.loads(permitted(header_trace_base.with_suffix(".json")).read_text())
+    header_trace_globals = names(permitted(header_trace_base.with_suffix(".log")).read_text())
+    if (header_trace_metadata["returncode"] or header_trace_metadata["source_sha256"] != sha(header_trace)
+            or not header_trace_globals <= set(baseline["allowed_parent_globals"])):
+        raise ValueError("Exact header factory trace required")
+    trace_files += [header_trace,permitted(header_trace.with_suffix(".vo")),
+                    *[permitted(header_trace_base.with_suffix(suffix)) for suffix in [".v",".json",".log"]]]
+    work = ROOT / "build/runtime-double-tile-bounds/compiler-attempts" / args.attempt
+    work.mkdir(parents=True, exist_ok=False)
+    native = [ROOT / "adapters/compcert-memory/native" / name for name in
+              ["GuardMemoryNumbersCompCert.ml", "GuardMemoryOracle.ml", "GuardMemoryRayOracle.ml", "GuardMemoryPhaseTrace.ml", "GuardMemoryTimedOracle.ml", "GuardMemoryTopo.ml", "GuardOriginalMatmulRawCandidate.ml", "GuardSelectedDoubleCandidate.ml", "GuardSelectedReductionCandidate.ml", "GuardSelectedDoubleChoicesCandidate.ml", "GuardSelectedDoubleWitnessPolicy.ml", "GuardSelectedDoubleTiledCandidate.ml", "GuardSelectedDoubleTiledCoordinates.ml", "GuardSelectedDoubleAffineTiledCandidate.ml", "GuardSelectedDoubleReindexedTiledCandidate.ml", "GuardSelectedDoubleAdaptiveTiledCandidate.ml", "GuardSelectedDoublePointCoordinates.ml", "GuardSelectedDoubleBoundedPointCoordinatesV2.ml", "GuardSelectedDoublePrunedPointCoordinates.ml", "GuardSelectedDoublePrunedUnitCoordinates.ml", "GuardSelectedDoubleVerifiedPrefixCoordinates.ml", "GuardSelectedDoubleQuotientCoordinates.ml", "GuardSelectedDoubleQuotientPartitioned.ml", "GuardSelectedDoubleHeaderQuotient.ml", "GuardSelectedDoubleHeaderQuotientV2.ml", "GuardSelectedDoubleRectangular.ml", "GuardSelectedDoubleMixedPhase.ml", "GuardSelectedDoubleMixedPolicies.ml", "GuardSelectedDoubleMixedPhaseV2.ml", "GuardSelectedDoubleMixedPoliciesV2.ml", "GuardSelectedDoubleMixedAdapter.ml", "GuardSelectedDoubleMixedPhaseV3.ml", "GuardSelectedDoubleMixedPoliciesV3.ml", "GuardSelectedDoubleRuntimeBounds.ml"]]
+    native += [ROOT / "prototype/annotated-polyhedral/native" / name for name in
+               ["GuardOpenScopIO.ml", "GuardOpenScopDoubleIO.ml", "GuardScopFrontend.ml"]]
+    snapshots = work / "inputs"
+    snapshots.mkdir()
+    for source in [Path(__file__), *native, *trace_files]:
+        shutil.copy2(permitted(source), snapshots / source.name)
+    shutil.copy2(permitted(audit.WORK / "report.json"), snapshots / "proof-report.json")
+    semantic_parent = permitted(ROOT / "build/quotient-double-tiling/compiler-attempts/native-v5/report.json")
+    parent_report = json.loads(semantic_parent.read_text())
+    if parent_report["status"] != "built" or parent_report["whole_program_entrypoint"] != "PartitionedQuotientDoubleTiledCompiler.compile_selected_partitioned_quotient_tiled_stable_program":
+        raise ValueError("Wrong semantic compiler parent")
+    for name, digest in parent_report["bindings"].items():
+        if sha(permitted(ROOT / name)) != digest:
+            raise ValueError("Changed semantic compiler parent input: " + name)
+    shutil.copy2(semantic_parent, snapshots / "semantic-parent-report.json")
+    commands = []
+    def run(argv):
+        commands.append(argv)
+        subprocess.run(argv, cwd=work, stdout=log, stderr=subprocess.STDOUT, check=True)
+    with (work / "build.log").open("x") as log:
+        try:
+            shutil.copytree(UPSTREAM, work, dirs_exist_ok=True, copy_function=build_compiler.copy_source,
+                           ignore=shutil.ignore_patterns("*.vo", "*.vos", "*.vok", "*.glob", ".*.aux",
+                               "*.cmi", "*.cmx", "*.cmo", "*.o", "*.a", ".depend*", "STAMP"))
+            for pattern in ["*.ml", "*.mli"]:
+                for path in (work / "extraction").glob(pattern):
+                    path.unlink()
+            driver = permitted(UPSTREAM / "driver/Driver.ml").read_text()
+            needle = "(Compiler.transf_c_program csyntax)"
+            assert driver.count(needle) == 1
+            invocation = "(GuardScopFrontend.trace (); GuardSelectedDoubleQuotientPartitioned.configure csyntax; " + ENTRY + " (GuardScopFrontend.chosen_labels ()) (GuardSelectedDoubleQuotientPartitioned.private_count ()) GuardSelectedDoubleMixedPoliciesV3.phase GuardSelectedDoubleRuntimeBounds.adapt GuardSelectedDoubleRectangular.caps_proposal GuardSelectedDoubleMixedPoliciesV3.phase GuardSelectedDoubleHeaderQuotientV2.header_adapt GuardSelectedDoubleMixedPoliciesV3.quotient_phase GuardSelectedDoubleHeaderQuotient.quotient_adapt (GuardSelectedDoubleHeaderQuotient.divisor ()) GuardSelectedDoubleMixedPoliciesV3.fallback_phase GuardSelectedDoubleQuotientPartitioned.fallback_adapt GuardSelectedDoubleQuotientPartitioned.legacy_schedule (GuardSelectedDoubleCandidate.swaps ()) (GuardSelectedDoubleQuotientPartitioned.choices ()) csyntax)"
+            replacement = """(let outcome = ref None in
+      ImpureConfig.Core.Base.bind INVOCATION
+        (fun (result, alarm_free) -> outcome := Some (result, alarm_free); ());
+      match !outcome with
+      | Some (result, true) -> result
+      | _ -> invalid_arg "GuardCert dependence checker raised an alarm")""".replace("INVOCATION", invocation)
+            (work / "driver/Driver.ml").write_text(driver.replace(needle, replacement))
+            parser_source = permitted(UPSTREAM / "cparser/Parse.ml").read_text()
+            needle = '  |> Timing.time "Elaboration" Elab.elab_file'
+            assert parser_source.count(needle) == 1
+            (work / "cparser/Parse.ml").write_text(parser_source.replace(needle,
+                '  |> GuardScopFrontend.program\n'+needle))
+            extraction_text = permitted(UPSTREAM / "extraction/extraction.v").read_text()
+            assert extraction_text.count("Separate Extraction\n") == 1
+            extraction_text = extraction_text.replace('Extract Constant Compiler.print_Clight => "PrintClight.print_if".',
+                'Extract Constant Compiler.print_Clight => "(fun p -> GuardSelectedDoubleRectangular.trace_clight p; PrintClight.print_if p)".')
+            mappings = r'''
+Extract Inlined Constant CoqAddOn.posPr => "(fun value -> Z.to_string (GuardMemoryNumbers.export_positive value))".
+Extract Inlined Constant CoqAddOn.posPrRaw => "(fun value -> Z.to_string (GuardMemoryNumbers.export_positive value))".
+Extract Inlined Constant CoqAddOn.zPr => "(fun value -> Z.to_string (GuardMemoryNumbers.export_integer value))".
+Extract Inlined Constant CoqAddOn.zPrRaw => "(fun value -> Z.to_string (GuardMemoryNumbers.export_integer value))".
+Extract Inlined Constant Debugging.failwith => "(fun _ _ default -> default)".
+Extract Constant PedraQBackend.t => "unit".
+Extract Constant PedraQBackend.top => "()".
+Extract Constant PedraQBackend.pr => "(fun _ -> String.empty)".
+Extract Constant PedraQBackend.isEmpty => "GuardMemoryTimedOracle.is_empty".
+Extract Constant PedraQBackend.add => "GuardMemoryRayOracle.add".
+Extract Constant TopoSort.topo_sort_untrusted => "GuardMemoryTopo.sort".
+Extract Constant Debugging.trace => "GuardMemoryPhaseTrace.trace".
+Extract Constant GuardMemoryDoubleTiledPrepared.checked_double_tiled_prepared_phase => "GuardMemoryDoubleTiledCodegenTrace.traced_double_tiled_codegen_phase".
+Extract Constant ReductionDoubleQuotientFactory.check_quotient_reduction_double_region => "ReductionDoubleQuotientFactoryTrace.traced_check_quotient_reduction_double_region".
+Extract Constant HeaderDoubleQuotientFactory.check_quotient_header_double_region => "HeaderDoubleQuotientFactoryTraceDirect.traced_check_quotient_header_double_region".
+Extraction Inline Core.Base.pure Core.Base.imp CoreAlarmed.Base.pure CoreAlarmed.Base.imp.
+'''
+            roots = ENTRY + " initialized_double_limit checked_double_initialized_raw_nest double_initialized_exit_code reduction_double_limit checked_double_reduction_raw_nest double_reduction_exit_code memory_long_range_capture Float.to_bits Int64.signed LinTerm.LinQ.export CstrC.Cstr.isContrad traced_double_tiled_prepared_phase traced_double_tiled_codegen_phase traced_double_prepared_codegen GuardMemoryDoubleFloorMembership.DoubleFloorMembership.lower_membership GuardMemoryDoubleFloorMembership.DoubleFloorMembership.upper_membership compile_double_ceil_capture traced_check_quotient_reduction_double_region checked_double_header_raw_nest header_double_limit traced_check_quotient_header_double_region checked_double_rectangular_raw_nest double_rectangular_entry_bounds_check double_rectangular_capture_steps rectangular_capture_code double_rectangular_exit_code double_rectangular_tightened_loop"
+            extraction = work / "ExtractSelectedDouble.v"
+            extraction.write_text("From compcert.lib Require Import Integers Floats.\nFrom GuardInterface Require Import InitializedDoubleRegionFactory InitializedDoubleSelectedCompiler ReductionDoubleRegionFactory ReductionDoubleSelectedCompiler ReductionDoubleChoicesCompiler DoubleReindexedTiledChoicesCompiler InitializedDoubleTiledChoicesCompiler InitializedDoubleTiledStableCompiler BoundedDoubleTiledStableCompiler QuotientDoubleTiledStableCompiler PartitionedQuotientDoubleTiledCompiler ReductionDoubleQuotientFactoryTrace DoubleLiteralSelectedNormalization LiteralQuotientDoubleTiledCompiler HeaderLiteralQuotientTiledCompiler HeaderDoubleQuotientFactory HeaderDoubleQuotientFactoryTraceDirect TightenedRectangularHeaderLiteralQuotientCompiler.\nFrom GuardMemory Require Import GuardMemoryDoubleInitializedRawNest GuardMemoryDoubleInitializedExitCode GuardMemoryDoubleReductionNestData GuardMemoryDoubleReductionNestExitCode GuardMemoryLongRangeCapture GuardMemoryDoubleTiledPhaseTrace GuardMemoryDoubleCodegenTrace GuardMemoryDoubleTiledCodegenTrace GuardMemoryDoubleFloorMembership GuardMemoryDoubleQuotientLowering GuardMemoryDoubleQuotientTrace GuardMemoryDoubleLiteralOperands GuardMemoryDoubleHeaderNestData GuardMemoryDoubleRectangularNestDecoder GuardMemoryDoubleRectangularNestEntry GuardMemoryDoubleRectangularNestCapture GuardMemoryDoubleRectangularExitCode GuardMemoryRectangularCapture GuardMemoryDoubleTightenedCandidate.\n"
+                "From polcert.lib Require Import ImpureAlarmConfig TopoSort.\n"
+                "From Vpl Require Import CoqAddOn Debugging PedraQBackend CstrC LinTerm.\n"
+                +extraction_text.replace("Separate Extraction\n",mappings+"\nSeparate Extraction "+roots+"\n"))
+            flags = proof.flags()
+            for name in ["cparser", "export", "MenhirLib"]:
+                flags += ["-R",str(UPSTREAM / name),"MenhirLib" if name == "MenhirLib" else "compcert."+name]
+            run(["rocq","compile",*flags,str(extraction)])
+            # Infer equations between unchanged extracted functors and alarm
+            # monads; generated signatures can conceal these equations.
+            inferred = []
+            for interface in sorted((work / "extraction").glob("*.mli")):
+                module = interface.stem
+                if (ROOT / "vendor/CompCert/extraction" / interface.name).exists():
+                    continue
+                inferred.append(module)
+                interface.unlink()
+            for source in (work / "extraction").glob("*.ml"):
+                if "AXIOM TO BE REALIZED" in permitted(source).read_text():
+                    raise ValueError("Unrealized extraction axiom: "+source.name)
+            for source in native:
+                name = "GuardMemoryNumbers.ml" if source.name == "GuardMemoryNumbersCompCert.ml" else source.name
+                shutil.copy2(source,work / "extraction" / name)
+            zarith = subprocess.check_output(["ocamlfind","query","zarith"],text=True).strip()
+            makefile = work / "Makefile.extr"
+            makefile.write_text(makefile.read_text()+f'\nCOMPFLAGS += -I "{zarith}"\nLIBS += zarith.cmxa\n'
+                +"".join(f"extraction/{module}.cmi: extraction/{module}.cmx\n" for module in inferred))
+            run(["make","tools/modorder","driver/Version.ml","compcert.ini"])
+            run(["make","-f","Makefile.extr","depend"])
+            run(["make","-j4","-f","Makefile.extr","ccomp"])
+        except Exception as error:
+            bindings = {str(path.relative_to(ROOT)):sha(path) for path in [*snapshots.iterdir(),work / "build.log"]}
+            (work / "rejection.json").write_text(json.dumps({"status":"rejected","error":str(error),
+                "commands":commands,"bindings":bindings},indent=2)+"\n")
+            print(json.dumps({"status":"rejected","attempt":args.attempt,"log":str((work / "build.log").relative_to(ROOT))}),flush=True)
+            raise
+    bindings = dict(baseline["bindings"])
+    bindings[str(semantic_parent.relative_to(ROOT))] = sha(semantic_parent)
+    bindings[str((audit.WORK / "report.json").relative_to(ROOT))] = sha(audit.WORK / "report.json")
+    for source in [Path(__file__),*native,*trace_files,*snapshots.iterdir(),work / "ExtractSelectedDouble.v",
+                   work / "driver/Driver.ml",work / "cparser/Parse.ml",work / "Makefile.extr",work / "build.log",work / "ccomp"]:
+        bindings[str(source.relative_to(ROOT))] = sha(permitted(source))
+    report = {
+        "status": "built", "whole_program_entrypoint": ENTRY,
+        "compiler": str((work / "ccomp").relative_to(ROOT)), "compiler_sha256": sha(work / "ccomp"),
+        "commands": commands, "bindings": bindings,
+        "actual_source_Csem_to_Asm_theorem": ENTRY + "_correct",
+        "actual_original_double_pipeline_and_final_generated_checker_extracted": True,
+        "selected_actual_Clight_literal_normalization_extracted_and_called": True,
+        "guarded_optimizer_receives_actual_normalized_current_program": True,
+        "actual_independent_header_captures_extracted": True,
+        "cap_vector_and_candidate_proposals_are_untrusted": True,
+        "independent_parameters_preserved_in_native_candidate": True,
+        "actual_public_iterator_exit_restoration_extracted": True,
+        "one_unused_private_declaration_may_be_discarded_before_pair_parsing": True,
+        "runtime_nonpositive_axis_refusal_short_circuits": True,
+        "actual_final_candidate_checked_under_per_axis_ranges": True,
+        "external_Pluto_connected": True,
+        "zero_link_untiled_phase_proposals_enabled": True,
+        "automatic_untiled_invocation_explicitly_disables_Pluto_default_tiling": True,
+        "zero_link_rectangular_affine_bounds_retained_as_checked_proposals": True,
+        "manual_affine_order_is_untrusted_data": True,
+        "unchanged_untiled_schedule_declined_before_guard_installation": True,
+        "existing_arbitrary_phase_complete_compiler_theorem_reused": False,
+        "existing_clight_host_and_backend_reused": True,
+        "new_complete_compiler_consumes_certified_tightening": True,
+        "new_runtime_dependent_quotient_bounds_for_rectangular_family": True,
+        "actual_proved_postpass_runs_after_affine_reference_validation": True,
+        "generated_candidate_is_not_directly_extracted_with_division_bounds": True,
+        "runtime_tightening_receipt_is_not_final_acceptance": True,
+        "rectangular_installation_observed_separately": True,
+        "quotient_installation_separately_observed": True,
+        "established_header_and_quotient_routes_retained": True,
+        "fallback_phase_resolver_reads_actual_intermediate_program": True,
+        "verified_membership_constructors_extracted_and_called": True,
+        "untrusted_prefix_placement_and_pure_hoisting": True,
+        "untrusted_permuted_nonunit_point_completion": True,
+        "empty_tiling_tables_preserve_program_exactly": True,
+        "actual_raw_loop_and_point_normalized_proposal_saved_separately": True,
+        "source_users_supply_semantic_callbacks": False,
+        "originals_native_acceptance_established_by_build": False,
+        "controlled_cost_evidence_added_by_build": False,
+        "kernel_changed": False, "new_host_contract": False,
+        "additional_global_axioms": baseline["additional_global_axioms"],
+        "proof_report_sha256": sha(audit.WORK / "report.json"),
+        "semantic_parent_compiler_report": str(semantic_parent.relative_to(ROOT)),
+        "semantic_parent_compiler_report_sha256": sha(semantic_parent),
+        "phase_trace_equality_theorem": "GuardMemoryDoubleTiledCodegenTrace.traced_double_tiled_codegen_phase_exact",
+        "codegen_trace_equality_theorem": "GuardMemoryDoubleCodegenTrace.traced_double_prepared_codegen_exact",
+        "trace_endpoints": 11, "header_factory_trace_endpoints": 1,
+        "header_factory_trace_inherited_globals": sorted(header_trace_globals),
+        "quotient_factory_trace_endpoints": 2, "quotient_factory_trace_inherited_globals": sorted(factory_globals),
+        "quotient_trace_inherited_globals": sorted(quotient_globals),
+        "phase_trace_inherited_globals": trace_globals,
+        "phase_trace_additional_globals": [],
+        "compilation_diagnostics_not_target_instrumentation": True,
+        "full_goal_complete": False}
+    (work / "report.json").write_text(json.dumps(report,indent=2)+"\n")
+    print(json.dumps({"status":"built","compiler":report["compiler"],"bindings":len(bindings)}),flush=True)
+
+
+if __name__ == "__main__":
+    main()

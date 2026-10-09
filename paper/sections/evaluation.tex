@@ -2292,3 +2292,44 @@ Calls include startup, one initialization, repeated regions and the digest.
 This longer measurement records useful effects for that context, while external
 host load remains uncontrolled and guard cost is not isolated. It neither
 relabels original-corpus costs nor establishes benchmark-wide profitability.
+
+\paragraph{Runtime tile-bound successor.}
+Seven new Rocq modules add 770 lines and 24 queried endpoints. Fifteen endpoints
+are closed; the largest assumption set contains 42 inherited compiler globals,
+with no added global assumptions. The audit follows 550 reachable sources.
+The extracted compiler uses the new complete theorem and actual tightened
+Clight lowering after affine reference validation. All 39 two-axis/phase and
+23 three-axis contexts pass, including independent counts, tile-boundary cases,
+empty and negative axes, per-axis refusal, invalid proposals and public exits.
+Generated Clight contains parameter-dependent division bounds on both two- and
+three-axis examples. Ten observations on unchanged assembly confirm captures
+and fallback; five further observations count actual tile comparisons.
+For identical source with $N=23,M=31$, each of two tile loops performs four
+comparisons in the preceding cap build and two in the successor. The first
+observer failed to recognize that the parent backend had removed an initially
+constant-true comparison and moved the remaining comparisons to backedges.
+Its failed inputs and the repaired observer's successful results are retained
+separately. These counts measure neither elapsed time nor isolated guard cost.
+
+The successor independently replays all 62 originals and both disclosed
+initializer adaptations. Sixty raw and two adapted outputs match, the two
+frontend refusals remain, and there is no timeout or mismatch. Installation
+remains at 22 originals and 39 sites. All seven independent-bound sites use
+the new runtime bounds; this stage improves generated bounds without adding
+original source coverage. The default replay does not cover all sequential
+configurations. Eight reports and retained observer failures bind 17,660 files.
+
+The same disclosed 200-region matmul context is measured in four variants:
+unmarked, preceding cap-tiled, runtime-tiled and untiled interchange. The cap
+variant uses the preceding compiler; the other three use the successor, with
+the same pinned CompCert backend and flags throughout. All complete outputs
+match the repeated GCC reference. Two warmups precede seven rotated trials
+on one fixed allowed CPU, after other project experiments terminate. Wall
+medians are 0.479005, 0.234956, 0.234680 and 0.208777 seconds. Runtime-tiled and
+untiled ratios to unmarked are 0.490 and 0.436. Runtime-tiled over cap-tiled is
+0.998827 (child CPU 0.997962), establishing no clear additional speedup from
+this bound change. Calls include startup, initialization, repeated regions and
+the digest; external host load remains uncontrolled and guard cost is not
+isolated. Reduced inactive enumeration and useful complete-call effects are
+recorded separately. Neither implies broad profitability, compact OLO
+entry-condition derivation, or reduced proof effort for new clients.

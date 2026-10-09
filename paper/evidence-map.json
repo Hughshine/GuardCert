@@ -17493,5 +17493,108 @@
     "v4_contexts": 33,
     "v4_actual_paths": 6,
     "automatic_notile_configuration_counterexample_retained": true
+  },
+  "runtime_double_tile_bound_successor": {
+    "stage": "affine-reference-validation-then-verified-runtime-tile-bound-postpass-and-actual-Clight-lowering",
+    "summary": "docs/runtime-double-tile-bounds.json",
+    "proof_report": "build/runtime-double-tile-bounds/proof-v1/report.json",
+    "compiler": "build/runtime-double-tile-bounds/compiler-attempts/native-v1/report.json",
+    "contexts": [
+      "build/runtime-double-tile-bounds/context-attempts/contexts-v1/report.json",
+      "build/runtime-double-tile-bounds/rank-three-context-attempts/contexts-v1/report.json"
+    ],
+    "actual_paths": "build/runtime-double-tile-bounds/path-attempts/paths-v1/report.json",
+    "actual_tile_comparisons": "build/runtime-double-tile-bounds/iteration-attempts/iterations-v2/report.json",
+    "retained_observer_failure": "build/runtime-double-tile-bounds/iteration-attempts/iterations-v1/rejection.json",
+    "full_corpus": "build/benchmark-alignment/adaptive-tiled-attempts/runtime-bounds-full-corpus-v1/report.json",
+    "cost": "build/runtime-double-tile-bounds/cost-attempts/repeated-matmul-v1/report.json",
+    "aggregate": "build/runtime-double-tile-bounds/summary-v1/report.json",
+    "kernel_or_host_laws_changed": false,
+    "additional_global_axioms": [],
+    "old_complete_compiler_theorem_directly_reused": false,
+    "old_host_and_backend_reused": true,
+    "actual_division_Loop_checked_directly_by_affine_extractor": false,
+    "affine_reference_checked_before_verified_postpass": true,
+    "finite_execution_preservation_proved": true,
+    "source_progress_constructed_independently": true,
+    "source_users_supply_semantic_callbacks": false,
+    "new_Rocq_modules": 7,
+    "new_source_lines": 770,
+    "queried_endpoints": 24,
+    "closed_endpoints": 15,
+    "maximum_inherited_globals": 42,
+    "reachable_sources": 550,
+    "aggregate_bindings": 17660,
+    "two_axis_phase_contexts": 39,
+    "three_axis_contexts": 23,
+    "actual_path_observations": 10,
+    "actual_comparison_observations": 5,
+    "same_source_parent_tile_comparisons": [
+      4,
+      4
+    ],
+    "same_source_current_tile_comparisons": [
+      2,
+      2
+    ],
+    "raw_original_matches": 60,
+    "disclosed_adapted_matches": 2,
+    "frontend_refusals": [
+      "corcol3",
+      "pca"
+    ],
+    "timeouts": 0,
+    "mismatches": 0,
+    "original_installed_cases": 22,
+    "original_installed_sites": 39,
+    "rectangular_sites_using_runtime_bounds": 7,
+    "new_original_source_coverage_claimed": false,
+    "repeated_original_matmul_regions_per_call": 200,
+    "trials_per_variant": 7,
+    "cpu_affinity_fixed": true,
+    "external_host_load_controlled": false,
+    "guard_cost_isolated": false,
+    "cap_variant_uses_preceding_compiler": true,
+    "other_variants_use_successor": true,
+    "same_pinned_backend_and_flags": true,
+    "wall_medians_seconds": {
+      "unmarked": 0.479005164001137,
+      "cap_tiled": 0.2349556380067952,
+      "runtime_tiled": 0.23468012502416968,
+      "untiled": 0.20877745002508163
+    },
+    "runtime_tiled_over_unmarked_wall_ratio": 0.4899323486700712,
+    "untiled_over_unmarked_wall_ratio": 0.4358563658920931,
+    "runtime_tiled_over_cap_wall_ratio": 0.9988273829691308,
+    "runtime_tiled_over_cap_child_CPU_ratio": 0.9979619012549611,
+    "clear_additional_bound_speedup_established": false,
+    "benchmark_wide_profitability_claimed": false,
+    "general_minmax_point_lowering_completed": false,
+    "guard_residualization_completed": false,
+    "compact_OLO_entry_condition_derivation_completed": false,
+    "proof_burden_reduction_established": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "theories/PolCertGuardedLoopTightening.v",
+        "name": "tighten_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTightenedCandidate.v",
+        "name": "compiled_tightened_double_rectangular_candidate_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTightenedLowering.v",
+        "name": "checked_tightened_double_rectangular_guarded_execution"
+      },
+      {
+        "source": "prototype/interface/TightenedRectangularDoubleFactory.v",
+        "name": "check_tightened_rectangular_tiled_double_region_sound"
+      },
+      {
+        "source": "prototype/interface/TightenedRectangularHeaderLiteralQuotientCompiler.v",
+        "name": "compile_selected_tightened_rectangular_header_literal_quotient_tiled_stable_program_correct"
+      }
+    ]
   }
 }

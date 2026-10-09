@@ -2,6 +2,48 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 动态 tile bounds：实际裁剪、lowering 与完整程序已接线
+
+[新后继](runtime-double-tile-bounds.md)关闭直接保留Div遇到的extractor语法限制：
+最终checker仍验证仿射reference／membership，已证明服务恢复运行时上界并
+裁去inactive suffix，实际nested Clight lowering消费新Loop。新完整compiler
+theorem复用source/capture、公开出口、独立progress、当前程序host与backend；
+没有新增kernel／host定律，也没有将reference后的native提议直接视为正确。
+源码用户仍不给语义callbacks。
+
+七模块770行、24端点（15closed、最多继承42globals）、提取与39二维/phase＋
+23三维contexts通过，十次actual接受／fallback观察通过。五次未改assembly的
+tile comparison观察中，同源N=23/M=31从父版本各4次降到各2次；首观察器因
+父backend消除初始常真比较而失败，修正与失败inputs分别固定。完整62＋两
+adaptations为60raw＋2adapted匹配、两既知frontend拒绝、零timeout/mismatch；
+仍22原例39sites，七处rectangular sites实际使用动态bounds，没有新增source覆盖。
+
+固定CPU、200次原matmul区域的七组完整调用wall medians为unmarked0.479005、
+父cap-tiled0.234956、动态tiled0.234680、untiled0.208777秒。动态tiled／unmarked
+为0.489932，相对父cap为0.998827；未建立动态bounds的明确额外speedup。
+父版是前一compiler，其他三版用本次compiler，backend／flags相同。External
+load未控制、guard未隔离；按[新摘要](runtime-double-tile-bounds.json)分别记账。
+
+**后续以剩余原source功能和完整效果为先：**
+
+1. 真正mixed／异深度多statement region仍未交付。以原fusion1、
+   multi-stmt-stencil-seq、tricky3等未安装源为依据，扩展实际decoder、body
+   effects／scalar数据流、source-model、读序／progress和phase/candidate shape；
+   保留原浮点计算，立即接当前程序host与Csem→Asm。
+2. 扩展非零strict starts及affine／inclusive headers。尤其inclusive上界可能
+   使原counter回绕，不能用guard接受后的事实证明fallback独立progress；按实际
+   源语义复用或扩展合适host，不凭有限正常执行对应主张任意divergence。
+3. 一般min/max point bounds与guard factor residualization仍未接入机器执行。
+   本服务保留membership、使用充分interval规则；下一服务需实际消费证明并
+   测同源完整成本，不以这次比较次数降低替代收益或继续缩小source目标。
+4. OLO compact entry-condition derivation与有效接受域／checking工作独立验收。
+   本次candidate bounds改善不是该算法完成。其余sequential phases／configs、
+   原BT／LLVM／SPEC／larger tiers及同例proof-burden比较继续在完整goal。
+
+## 前序阶段记录
+
+以下保留各阶段当时的计划和独立证据；当前执行顺序以上节为准。
+
 ### 未分块 phase 与实际参数 bounds
 
 [未分块后继](mixed-double-phases.md)复用已量化 arbitrary phases／adapters 的

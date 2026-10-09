@@ -2,6 +2,23 @@
 
 ## 持续适用的责任表
 
+[动态bounds后继](runtime-double-tile-bounds.md)把新服务真正接入完整compiler：
+domain checker先验证仿射reference，Loop库证明guard恢复的上界可以裁掉无effect
+后缀；language的区间转换、实际division lowering及public/private frame消费
+裁剪定理，source/capture/exit与独立progress、当前site host和backend组成新
+Csem→Asm端点。最小kernel／host定律不改；不是未经验证的native后处理，也
+不声称最终extractor直接接受带Div的实际Loop。新完整theorem被证明，旧host与
+backend复用；不能把它记为旧完整compiler theorem直接授权新lowering。
+
+39二维/phase＋23三维contexts、十次capture/fallback和五次actual比较观察通过。
+同源比较从各4次到各2次；首observer的parent backedge识别失败保留。完整原
+语料仍22例39sites、60raw＋2adapted匹配；新增的是运行边界，不是source覆盖。
+七组完整调用的dynamic／cap比值0.998827没有建立明确额外speedup。Kernel不变、
+库被消费和code工作减少也不自动证明作者负担收益。多statement、nonzero/
+inclusive headers、一般min/max以及OLO entry-condition算法与广泛tiers仍未完成。
+
+### 前序未分块 phase
+
 [未分块phase后继](mixed-double-phases.md)只增加untrusted策略：既有完整theorem
 量化arbitrary phases／adapters，source/model、safe capture、逐轴ranges、实际
 candidate checker、machine lowering和current-program host继续消费实际提议。
@@ -9,8 +26,9 @@ candidate checker、machine lowering和current-program host继续消费实际提
 自动／手工interchange可以安装，IEEE累加的非法interchange由dependence验证
 拒绝。原样结果由保守policy拒绝，不计作优化。V3手工未分块adapter保留实际参数
 bounds；V4修复自动CLI默认tiling，并另通过33完整contexts、六次actual paths
-和完整62＋两adaptations。两个policy counterexamples与各build成本分别固定。真正mixed多statement source／
-候选、动态独立tile bounds与其余完整goal仍未交付。
+和完整62＋两adaptations。两个policy counterexamples与各build成本分别固定。
+当时真正mixed多statement source／候选和动态独立tile bounds尚未交付；后者的
+新接线、证据及剩余限制见上节。
 
 2026-10-09 [独立边界安装](rectangular-double-installation.md)落实同一三层
 责任：domain的actual source decoder／独立参数模型／逐轴footprint范围与

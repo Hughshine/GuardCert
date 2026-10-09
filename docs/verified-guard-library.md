@@ -1,5 +1,14 @@
 # Verified guard library：服务分类与依赖契约
 
+[动态bound裁剪](runtime-double-tile-bounds.md)是membership事实的实际使用者。
+它在Loop domain库中识别合取的positive-factor上界，消费floor定律和充分I32
+interval条件，证明去掉越界后缀保持有限执行。实际lowering消费新Loop；原
+source-licensed capture、accepted参数关系、entry/refusal运输、public exits
+和language host保持。没有新增runtime entry test／alias服务或kernel定律。
+不支持的形状／算术保持reference，实际machine lowering仍可能静态拒绝。
+本次没有消除全部membership或实现一般min/max、OLO compact条件推导；比较
+次数降低与完整成本、接受域及作者负担分别验收。
+
 2026-10-09 [未分块phase](mixed-double-phases.md)复用独立header的安全capture与
 范围服务，没有新增guard类别。接受receipt提供实际I32参数，untiled机器bound
 直接消费实际参数；最终checker证明提议的完整Loop，不因少了tile link而跳过
