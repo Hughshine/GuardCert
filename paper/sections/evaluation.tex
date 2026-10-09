@@ -19,10 +19,47 @@ candidate and fallback to the corresponding Csem-to-Asm theorem. Static
 refusal, identity and all-fallback execution do not establish support for the
 requested optimization. Comparisons must preserve numeric types and report
 source adaptations and complete-call costs with comparable sequential backends.
-\pending{The corpus inventory has been checked, but this full comparison has
-not run. Original serial NPB, including BT's floating-point computation, must
-not be replaced by word-copy fixtures; LLVM Test Suite input identification
-and unavailable SPEC sources remain unresolved items.}
+
+\paragraph{First original-source attempt.}
+All 62 upstream baseline C harnesses were generated at the pinned smoke tier
+and compiled in disabled, scheduling and tiling modes. The initial 186 attempts
+produced 180 matching native state digests. CompCert rejected the static
+\code{float\_n = (double)n} initializer in \code{corcol3} and \code{pca}; GCC
+accepted the original harnesses. Explicitly replacing that initializer with
+the same typed literal retained the original kernel and initialization routine,
+matched the original GCC digest in the adapted GCC harness, and passed the six
+new compiler/native comparisons. The digest observes every modeled scalar and
+array element, not all C machine state. Original types and literal dimensions
+were retained, including the $10000\times10000$ fusion case.
+All 124 active case/configuration pairs emitted Clight identical to disabled
+and made no pipeline call. Requested optimized-case support is therefore zero
+in this batch.
+
+Original serial NPB BT Class S was also built through the same selected
+compiler in all three modes. Each mode compiled all 17 C units and ran the
+original $12\times12\times12$, 60-iteration program. All passed the NPB
+self-check, and the ten numerical verification rows matched the GCC baseline.
+Eleven top-level \code{compute\_rhs} loops were annotated; removing those
+markers recovers the original source byte for byte. Their active Clight
+remained unchanged, with no pipeline call. This establishes a baseline
+full-context run, not BT optimization support or exhaustive state comparison.
+A later script reproduction is the same coverage, not a second benchmark
+result. Single-run durations are diagnostic and supply no speedup conclusion.
+
+The typed data foundation in Section~\ref{sec:original-source-boundary} adds
+two modules totaling 259 lines. An independent audit queries five endpoints,
+binds 114 reachable sources and 256 files, and finds no new axioms beyond the
+inherited baseline; each endpoint uses at most five existing globals. Three
+rejected proof attempts and two successful attempts are retained. The
+expression theorem is model-to-Clight only. No source decoder, Mfloat64 guard
+or installed double optimizer is claimed.
+
+\pending{Full input-tier, applicable sequential-route, retained-transformation
+and cost alignment remains incomplete. The next implementation chain is the
+original matmul double/global-memory/I64 source, typed validation/codegen,
+safe guard and selected Csem-to-Asm installation. Other PolCert cases, original
+NPB programs, LLVM Test Suite input identification and unavailable SPEC sources
+remain targets.}
 
 The shared selected compiler adds four Rocq modules totaling 208 lines and nine
 audited endpoints, with no axioms beyond the inherited 42-global CompCert

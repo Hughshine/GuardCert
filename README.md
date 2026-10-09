@@ -5,9 +5,15 @@ narrative `8ce9c8b`: PolCert and CGO 2017 functionality, sequential optimization
 effects and original programs, with Csem-to-Asm correctness for each supported
 configuration. The pinned inventory retains all 62 PolCert cases, including
 19 whose saved best route used concurrency, and locates ten serial NPB source
-groups. This is an inventory, not an optimization result. Original-case
-comparisons now determine implementation priority; existing fixtures remain
-regressions. The complete goal stays active.
+groups. The [first original-case attempt](docs/original-benchmark-first-attempt.md)
+runs all 62 upstream C harnesses in three modes: 180 initial native digest
+matches plus six after disclosed constant-initializer adaptations. All 124
+active outputs remain unchanged. Original BT Class S builds all 17 units and
+passes its self-check in three modes, also without optimization. A new IEEE
+double instruction instance and forward expression bridge audit five endpoints
+without added axioms; source decode, Mfloat64 guard and compiler installation
+remain open. Original-case gaps determine implementation priority; existing
+fixtures remain regressions. The complete goal stays active.
 
 2026-10-08: [Runtime empty alternatives](docs/affine-empty-runtime-installation.md)
 reuse existing candidate certificates after proving the refused entry relation

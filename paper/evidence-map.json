@@ -3156,6 +3156,48 @@
         "build/affine-empty-runtime/regression-v1/report.json"
       ],
       "evidence_stage": "affine_empty_runtime_installation_stage"
+    },
+    {
+      "section": "case-study, evaluation",
+      "claim": "All 62 pinned upstream baseline C harnesses attempted in three modes: 180 initial native digest matches plus six after two disclosed initializer adaptations. All 124 active Clight outputs unchanged, no pipeline calls, zero requested optimizations. Original serial BT Class S builds 17 units per mode, passes its self-check and ten numerical-row comparisons, but retains unchanged rhs Clight. Generic memory value instruction and IEEE double forward expression bridge audit five endpoints without added axioms; original source decode, Mfloat64 guard and selected installation remain open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleValue.v",
+          "name": "double_binary_operation_correspondence"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleValue.v",
+          "name": "double_value_code_type"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleValue.v",
+          "name": "double_value_code_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryValueInstr.v",
+          "name": "access_function_checker_correct",
+          "instantiated_endpoint": "GuardMemoryDoubleValue.GuardDoubleMemoryInstr.access_function_checker_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryValueInstr.v",
+          "name": "bc_condition_implie_permutbility",
+          "instantiated_endpoint": "GuardMemoryDoubleValue.GuardDoubleMemoryInstr.bc_condition_implie_permutbility"
+        }
+      ],
+      "documents": [
+        "docs/original-benchmark-first-attempt.md",
+        "docs/original-benchmark-first-attempt.json"
+      ],
+      "artifacts": [
+        "build/benchmark-alignment/probe-v1/report.json",
+        "build/benchmark-alignment/probe-analysis-v1/report.json",
+        "build/benchmark-alignment/harness-compat-v1/report.json",
+        "build/benchmark-alignment/floating-proof-v1/report.json",
+        "build/benchmark-alignment/source-materialization.json",
+        "build/benchmark-alignment/bt-probe-v3/report.json",
+        "build/benchmark-alignment/stage-v2/report.json"
+      ],
+      "scope": "Original-case source acceptance and IEEE local proof foundation, not installed double optimization, complete corpus configuration comparison, exhaustive BT state equality or performance evidence."
     }
   ],
   "bibliography_evidence": [
@@ -9430,10 +9472,12 @@
     "regression_report_sha256": "31f6bc18cface8762f2dbfc71988083a7331f75e051ac496618eaa155c5323b6"
   },
   "benchmark_alignment_acceptance": {
-    "status": "pinned_inventory_verified; full_original_case_comparison_not_run",
+    "status": "first_original_source_attempts_run; requested_optimizations_zero; full_configuration_effect_alignment_open",
     "documents": [
       "docs/benchmark-alignment.md",
-      "docs/benchmark-alignment-inventory.json"
+      "docs/benchmark-alignment-inventory.json",
+      "docs/original-benchmark-first-attempt.md",
+      "docs/original-benchmark-first-attempt.json"
     ],
     "inventory_generator": "scripts/benchmark_alignment_inventory.py",
     "inventory_sha256": "412647895f925daba25c56fc0ce36da8421bbc161a25c6baa7a81414c1b5c4c6",
@@ -9449,13 +9493,119 @@
       "installed source-specific Csem-to-Asm endpoint per supported configuration",
       "complete-call sequential cost including guards/fallback/public exits"
     ],
-    "new_proof_or_native_optimization_results": false,
     "pending": [
-      "materialize and compare pinned PolCert C/source tiers and phase configurations",
-      "original serial NPB including BT compute_rhs",
+      "original matmul double/global-array/I64 source decode, safe Mfloat64 guard, typed candidate and selected Csem-to-Asm installation",
+      "all applicable saved sequential routes and tiers across 62 PolCert cases, actual candidate effects and full costs",
+      "original BT optimization and other serial NPB programs",
       "full LLVM Test Suite revision and inputs",
       "SPEC availability and C/C++ frontend coverage",
-      "actual retained transformation and complete-call effects"
-    ]
+      "SIMD source annotations and actual lowering investigation"
+    ],
+    "new_proof_foundation_and_baseline_native_results": true,
+    "new_installed_optimization_or_speedup_results": false
+  },
+  "original_benchmark_first_attempt": {
+    "status": "validated_partial_progress",
+    "kind": "original-benchmark-baseline-and-double-data-foundation",
+    "case_attempts": 62,
+    "initial_configuration_attempts": 186,
+    "initial_native_matches": 180,
+    "initial_frontend_refused_cases": [
+      "corcol3",
+      "pca"
+    ],
+    "explicit_constant_initializer_repairs": 2,
+    "repaired_native_comparisons": 6,
+    "corpus_cases_with_matching_modeled_state_after_disclosed_adaptation": 62,
+    "active_corpus_Clight_unchanged": 124,
+    "requested_optimized_corpus_cases": 0,
+    "corpus_input_tier": "pinned smoke; literal sizes retained including 10000-by-10000 fusion3",
+    "corpus_observation": "digest of every modeled scalar and array element; not all C machine state and not a universal proof",
+    "compatibility_environment_metadata": "parent records inherited environment; helper overrides GUARDCERT_PIPELINE_DUMP to its new per-mode phases directory",
+    "BT_configurations": [
+      {
+        "mode": "disabled",
+        "compiled_units": 17,
+        "NPB_verification_passed": true,
+        "ten_numerical_rows_match_GCC_baseline": true,
+        "rhs_Clight_unchanged": true,
+        "selected_rhs_regions": 11,
+        "phase_artifact_count": 0
+      },
+      {
+        "mode": "schedule",
+        "compiled_units": 17,
+        "NPB_verification_passed": true,
+        "ten_numerical_rows_match_GCC_baseline": true,
+        "rhs_Clight_unchanged": true,
+        "selected_rhs_regions": 11,
+        "phase_artifact_count": 0
+      },
+      {
+        "mode": "tile",
+        "compiled_units": 17,
+        "NPB_verification_passed": true,
+        "ten_numerical_rows_match_GCC_baseline": true,
+        "rhs_Clight_unchanged": true,
+        "selected_rhs_regions": 11,
+        "phase_artifact_count": 0
+      }
+    ],
+    "BT_source_tier": "original serial NPB Class S, double, 12x12x12,60iterations",
+    "BT_observation": "original NPB self-check and ten numerical rows; no exhaustive state comparison",
+    "BT_optimized": false,
+    "BT_reproducer_repeat_is_new_coverage": false,
+    "BT_rejected_reproducer": "bt-probe-v2 omitted subprocess environment; archived and corrected in bt-probe-v3",
+    "double_instruction_source_lines": 259,
+    "double_instruction_endpoints": 5,
+    "double_instruction_max_inherited_globals": 5,
+    "double_instruction_union_inherited_globals": [
+      "Axioms.proof_irr",
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "double_instruction_additional_global_axioms": [],
+    "double_instruction_bound_files": 256,
+    "double_instruction_expression_direction": "model evaluation and licensed operand receipts imply actual Clight expression evaluation",
+    "double_instruction_original_source_decode_installed": false,
+    "double_instruction_Mfloat64_address_guard_installed": false,
+    "double_instruction_selected_compiler_installed": false,
+    "reported_compiler_version": "3.17 (upstream v3.18 VERSION metadata)",
+    "next_required_chain": "actual matmul double body decode and Mfloat64/global view; int64 controls; typed validators/codegen/guard/factory/host/native together",
+    "guard_cost_or_profitability_measured": false,
+    "full_goal_complete": false,
+    "reports": {
+      "corpus_raw": {
+        "path": "build/benchmark-alignment/probe-v1/report.json",
+        "sha256": "d9ee8c94b08a7dd7c9e976bb55f66e4d80f744df6f347567229a9d45eaedbebf"
+      },
+      "corpus_analysis": {
+        "path": "build/benchmark-alignment/probe-analysis-v1/report.json",
+        "sha256": "d51488f68c3e20c50773bd7125c99fefe143690c42f53ce11aae998514cfd15d"
+      },
+      "harness_compatibility": {
+        "path": "build/benchmark-alignment/harness-compat-v1/report.json",
+        "sha256": "1d4bc80d7d53d61468ffd49353293157bf24ee83bd28fa9f85441c70a82b0195"
+      },
+      "double_value_proof": {
+        "path": "build/benchmark-alignment/floating-proof-v1/report.json",
+        "sha256": "7bb5f0c0b75af703bb0c3b7210b7e975ae41c56048243331b5e6917904099225"
+      },
+      "source_materialization": {
+        "path": "build/benchmark-alignment/source-materialization.json",
+        "sha256": "8b4fbab90415f74006f6a79582e53e6d09fb53ffbe90d5c360fc1b1e36007119"
+      },
+      "BT_reproducer": {
+        "path": "build/benchmark-alignment/bt-probe-v3/report.json",
+        "sha256": "4e1ea50a0f8fc734c54842900a7a0f1330c233d6e97ae33e58fa98156e1b6a24"
+      }
+    },
+    "stage_report": {
+      "path": "build/benchmark-alignment/stage-v2/report.json",
+      "sha256": "0598d459e2badca6e2fb585516db538cb614138f8b7008f33ae40c92d310826a",
+      "bound_files": 3284
+    }
   }
 }

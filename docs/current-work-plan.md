@@ -19,7 +19,22 @@ lowering 限制移出目标。支持范围是第一优先级，未支持项须�
 saved-best 的顺序配置，并定位 CGO artifact 的十组 serial NPB 与 BT 原
 `rhs.c`。七条缺少 execution metadata 的上游候选记录也保留。来源、复现
 命令与逐配置证据字段见[原程序对齐计划](benchmark-alignment.md)。这是清单
-核对，完整 corpus/configuration 比较尚未运行，不计新优化或性能结果。
+核对。随后已完成[首轮原案例尝试](original-benchmark-first-attempt.md)：62 项、
+三配置共 186 次初始编译，180 次 native state digest 匹配；`corcol3`／`pca`
+的六次初始化拒绝在显式常量折叠适配后匹配原 GCC digest。Active 124 对
+Clight 全部与 disabled 相同，无 pipeline 调用，所请求优化支持仍为零。
+原 BT Class S 的三配置各 17 个单元完成编译并通过 NPB 自检，十行数值结果
+与 GCC 一致；11 个 marked rhs loops 仍未优化。这是原程序 baseline 与
+缺口定位，完整 tiers／顺序路线／效果和成本对齐尚未完成。
+
+针对实际数据类型差距，新增 generic value instruction／IEEE double 实例
+两模块 259 行、五端点独立审计，114 reachable sources／256 bindings，
+最多五个继承 globals，无新增公理。复用既有任意 chunk 的独立 footprint
+交换，保持表达式运算顺序。现有表达式证明仅是 model→Clight；尚未有原源
+decode、Mfloat64 地址 guard、I64 控制与安装，不算 F64 优化支持。
+下一实现链先接原 matmul 的 double body／global arrays／I64 controls，并
+同步 typed validator／codegen／guard／factory／Csem→Asm，随后扩 fusion、
+multi-stmt-stencil-seq、BT。特殊 fixture 或未安装 helper 不替代该链。
 
 两个 signed-child 草稿尚未成功编译／审计／安装，不算新支持；其后续投入
 按下面的实际 case/configuration 阻塞或主要成本安排。特殊 fixture 保持回归。

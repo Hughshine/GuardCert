@@ -31,6 +31,23 @@ python3 scripts/benchmark_alignment_inventory.py --fetch
 固定来源缓存于 `build/benchmark-alignment/source-pins/`。已有缓存可不带
 `--fetch`；该命令只生成 inventory，不运行编译器或测量速度。
 
+## 首轮实际尝试：baseline 通过，所请求优化仍为零
+
+[详细记录](original-benchmark-first-attempt.md)与[机器可读摘要](original-benchmark-first-attempt.json)
+绑定首轮原案例运行和新增浮点证明。62 项三配置有 180 次初始 native digest
+匹配；另外六次在两个 harness 的显式常量初始化适配后匹配原 GCC 结果。
+Active 124 对 Clight 均与 disabled 相同，没有 pipeline 调用。原 serial BT
+Class S 的三配置各 17 个单元完成构建并通过原 NPB 自检，十行数值结果匹配，
+但 11 个 rhs regions 也没有优化。完整 tiers、适用顺序配置及效果／成本比较
+尚未完成，不能把这些原程序编译结果算成所要求的优化支持。
+
+本轮 source/model 缺口具体包括原 harness 的 I64 controls、global array
+地址和 F64／scalar 运算，以及 BT 的 inclusive／非零 starts、loaded globals
+与公共 scalar exits。新增 generic memory value instruction 与 IEEE double
+表达式后继已经独立审计，但只有 model→Clight 方向；原源 decode、Mfloat64
+guard 和完整 compiler 安装仍缺。后续先走原 matmul 的完整链，再扩 fusion、
+multi-stmt-stencil-seq 和 BT；其余 corpus 与配置继续保留。
+
 ## 必须分别完成的五项验收
 
 1. **实际源码。** 保留 numeric types、原运算、loaded bounds、驱动及周围

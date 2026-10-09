@@ -16,6 +16,15 @@ callbacks。已有有限／open host 和 backend 可复用，按真实 progress 
 选择；不能从终止执行的证据推出可能发散的替换正确。安装随每条功能扩展
 交付，不能以 clause factoring 仍是设计问题为由延期。
 
+[首轮原案例尝试](original-benchmark-first-attempt.md)进一步定位这条责任链：
+原 62 项 harness 与 BT 能通过 baseline 编译／运行，但没有新 optimized target。
+新增 double value instance 复用语言 memory footprint 的独立交换，optimizer
+仍须保持真实访问依赖和每个 IEEE 表达式树。现有 forward expression bridge
+消费 typed operand receipts；原源 decode、Mfloat64 地址／alignment／权限、
+I64 控制与公开出口的实际 producer 尚缺。不能把这些前提移交给 marked C
+用户，也不能用 generic `INSTR` 的实例化代替完整 source/candidate／guard／
+factory 安装。本轮 kernel 与现有 host 不变；下一项验收是原 matmul 的整条链。
+
 | 证明或证据 | 提供者 | 当前接口与验收含义 |
 | --- | --- | --- |
 | 局部 guarded 正确性 | Kernel | `guardify_refinement` / `guardify_preservation` 消费证书；refinement、preservation、equivalence 保留各自方向 |

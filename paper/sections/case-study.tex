@@ -86,6 +86,39 @@ output; the installed candidate obtains forward execution and public-exit
 restoration from its own checked certificate. The same guard encoding and
 selected-region language host are reused, with an unchanged generic kernel.
 
+\subsection{Original Sources and Typed Data: Current Boundary}
+\label{sec:original-source-boundary}
+
+The pinned PolCert C harnesses use double arrays and scalars, long-long loop
+controls, and global multidimensional arrays. The original serial BT source
+adds loaded global dimensions, inclusive tests, nonzero starts, scalar
+temporaries and multiple loop regions. These are implementation targets; the
+installed signed32 memory families do not cover them merely because ordinary
+CompCert compilation succeeds. The first original-source attempts in
+Section~\ref{sec:evaluation} expose this boundary without replacing those
+computations with integer fixtures.
+
+A new memory instruction functor separates explicit access footprints from
+value computation. The closed double instance evaluates bit constants,
+loaded operands, addition, subtraction, multiplication, division and negation
+using CompCert's IEEE operations. It reuses the existing independent-footprint
+exchange proof for arbitrary memory chunks: independent actions observe the
+same operands and retain each expression's operation tree. No floating-point
+associativity or real-number model is assumed. For matrix multiplication,
+dependencies on each output still constrain traversal order; this foundation
+does not authorize reassociation or parallel reduction.
+
+The current expression bridge is forward: typed operand-evaluation receipts,
+emitted expression code and model evaluation imply actual Clight expression
+evaluation. It is not an original-source decoder or a bidirectional equivalence
+result. Original Clight-to-model correspondence, eight-byte Mfloat64 addressing
+and checks, Int64 control correspondence, typed candidate lowering and selected
+factory installation remain open. The kernel is unchanged. The language
+instance supplies concrete value/memory/control and entry/exit proofs; the
+optimizer supplies source modeling, assumptions and candidate validation.
+The eventual site producer must discharge these obligations from the checked
+source rather than require semantic callbacks from a C programmer.
+
 \subsection{Nested Loaded Bounds and Actual Candidate Execution}
 
 An adapted Figure~2 source from OLO~\cite{olo2017} supplies the concrete

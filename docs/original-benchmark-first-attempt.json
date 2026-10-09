@@ -1,0 +1,112 @@
+{
+  "status": "validated_partial_progress",
+  "kind": "original-benchmark-baseline-and-double-data-foundation",
+  "case_attempts": 62,
+  "initial_configuration_attempts": 186,
+  "initial_native_matches": 180,
+  "initial_frontend_refused_cases": [
+    "corcol3",
+    "pca"
+  ],
+  "explicit_constant_initializer_repairs": 2,
+  "repaired_native_comparisons": 6,
+  "corpus_cases_with_matching_modeled_state_after_disclosed_adaptation": 62,
+  "active_corpus_Clight_unchanged": 124,
+  "requested_optimized_corpus_cases": 0,
+  "corpus_input_tier": "pinned smoke; literal sizes retained including 10000-by-10000 fusion3",
+  "corpus_observation": "digest of every modeled scalar and array element; not all C machine state and not a universal proof",
+  "compatibility_environment_metadata": "parent records inherited environment; helper overrides GUARDCERT_PIPELINE_DUMP to its new per-mode phases directory",
+  "BT_configurations": [
+    {
+      "mode": "disabled",
+      "compiled_units": 17,
+      "NPB_verification_passed": true,
+      "ten_numerical_rows_match_GCC_baseline": true,
+      "rhs_Clight_unchanged": true,
+      "selected_rhs_regions": 11,
+      "phase_artifact_count": 0
+    },
+    {
+      "mode": "schedule",
+      "compiled_units": 17,
+      "NPB_verification_passed": true,
+      "ten_numerical_rows_match_GCC_baseline": true,
+      "rhs_Clight_unchanged": true,
+      "selected_rhs_regions": 11,
+      "phase_artifact_count": 0
+    },
+    {
+      "mode": "tile",
+      "compiled_units": 17,
+      "NPB_verification_passed": true,
+      "ten_numerical_rows_match_GCC_baseline": true,
+      "rhs_Clight_unchanged": true,
+      "selected_rhs_regions": 11,
+      "phase_artifact_count": 0
+    }
+  ],
+  "BT_source_tier": "original serial NPB Class S, double, 12x12x12,60iterations",
+  "BT_observation": "original NPB self-check and ten numerical rows; no exhaustive state comparison",
+  "BT_optimized": false,
+  "BT_reproducer_repeat_is_new_coverage": false,
+  "BT_rejected_reproducer": "bt-probe-v2 omitted subprocess environment; archived and corrected in bt-probe-v3",
+  "double_instruction_source_lines": 259,
+  "double_instruction_endpoints": 5,
+  "double_instruction_max_inherited_globals": 5,
+  "double_instruction_union_inherited_globals": [
+    "Axioms.proof_irr",
+    "ClassicalDedekindReals.sig_forall_dec",
+    "ClassicalDedekindReals.sig_not_dec",
+    "Classical_Prop.classic",
+    "FunctionalExtensionality.functional_extensionality_dep"
+  ],
+  "double_instruction_additional_global_axioms": [],
+  "double_instruction_bound_files": 256,
+  "double_instruction_expression_direction": "model evaluation and licensed operand receipts imply actual Clight expression evaluation",
+  "double_instruction_original_source_decode_installed": false,
+  "double_instruction_Mfloat64_address_guard_installed": false,
+  "double_instruction_selected_compiler_installed": false,
+  "actual_toolchain_source_pin": {
+    "tag": "v3.18",
+    "commit": "14d616046360a0b2611ebdfc2f98368af402e1f7",
+    "archive_url": "https://codeload.github.com/AbsInt/CompCert/tar.gz/refs/tags/v3.18",
+    "archive_sha256": "564b312b3ed3162f02605f0108feb555bd28fe7a80b97ea269c546bcc60c1cf0",
+    "target": "x86_64-linux",
+    "version_file_value": "3.17"
+  },
+  "reported_compiler_version": "3.17 (upstream v3.18 VERSION metadata)",
+  "next_required_chain": "actual matmul double body decode and Mfloat64/global view; int64 controls; typed validators/codegen/guard/factory/host/native together",
+  "guard_cost_or_profitability_measured": false,
+  "full_goal_complete": false,
+  "reports": {
+    "corpus_raw": {
+      "path": "build/benchmark-alignment/probe-v1/report.json",
+      "sha256": "d9ee8c94b08a7dd7c9e976bb55f66e4d80f744df6f347567229a9d45eaedbebf"
+    },
+    "corpus_analysis": {
+      "path": "build/benchmark-alignment/probe-analysis-v1/report.json",
+      "sha256": "d51488f68c3e20c50773bd7125c99fefe143690c42f53ce11aae998514cfd15d"
+    },
+    "harness_compatibility": {
+      "path": "build/benchmark-alignment/harness-compat-v1/report.json",
+      "sha256": "1d4bc80d7d53d61468ffd49353293157bf24ee83bd28fa9f85441c70a82b0195"
+    },
+    "double_value_proof": {
+      "path": "build/benchmark-alignment/floating-proof-v1/report.json",
+      "sha256": "7bb5f0c0b75af703bb0c3b7210b7e975ae41c56048243331b5e6917904099225"
+    },
+    "source_materialization": {
+      "path": "build/benchmark-alignment/source-materialization.json",
+      "sha256": "8b4fbab90415f74006f6a79582e53e6d09fb53ffbe90d5c360fc1b1e36007119"
+    },
+    "BT_reproducer": {
+      "path": "build/benchmark-alignment/bt-probe-v3/report.json",
+      "sha256": "4e1ea50a0f8fc734c54842900a7a0f1330c233d6e97ae33e58fa98156e1b6a24"
+    }
+  },
+  "stage_report": {
+    "path": "build/benchmark-alignment/stage-v2/report.json",
+    "sha256": "0598d459e2badca6e2fb585516db538cb614138f8b7008f33ae40c92d310826a",
+    "bound_files": 3284
+  }
+}

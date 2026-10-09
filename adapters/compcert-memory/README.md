@@ -1,5 +1,13 @@
 # 基于 CompCert Mem 的具体多面体指令实例
 
+2026-10-08：[原 benchmark 接入记录](../../docs/original-benchmark-first-attempt.md)
+新增 `GuardMemoryValueInstr` 的显式 reads／write value functor 和闭合 IEEE
+double 实例 `GuardMemoryDoubleValue`。它复用真实 memory 的独立 footprint
+交换，保持浮点表达式顺序；五端点独立审计无新增公理。当前只有 model→Clight
+表达式桥，原源 decode、Mfloat64 地址 guard、I64 control 与 selected compiler
+安装仍缺。原 62 项 C harness／BT 的 baseline 运行通过，但没有 F64 optimized
+case。下述既有完整编译器记录保持各自整数源族范围。
+
 这个适配实例将一般多面体 validator 的 `INSTR` 参数具体化为实际 CompCert 内存。`GuardMemoryCompiler.compile_memory_regions` 已将真实源循环、实际多面体依赖检查、guard、候选循环与原片段回退接到完整 Csem→Asm 定理。完整 C 输入的交换路径支持三种矩形循环体；`GuardMemoryTiledCompiler.compile_memory_tiled_regions` 另支持矩形纯写、原地更新和行前缀读取的二维分块、尾块和公开 iterator 出口修复。`GuardMemoryCutCompiler.compile_memory_cut_regions` 支持仿射叶子条件选择出的三角形、斜切等迭代域，并已接通完整定理和实际分块。`GuardMemorySequenceCompiler.compile_memory_sequence_regions` 已支持同布局数组上的非空纯写语句列表，保留每条语句的编号与先后顺序并接通完整 C 分块定理。`GuardMemoryOperationsCompiler.compile_memory_operations_regions` 进一步支持同数组的非空混合纯写／原地更新／行首读取列表，获得完整 Csem→Asm 分块定理。独立 IR 检查器支持更一般的仿射提案与二维 tiling。支持范围分别记录。
 
 ## 已证明的接口
