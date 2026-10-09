@@ -98,10 +98,9 @@ CompCert compilation succeeds. The first original-source attempts in
 Section~\ref{sec:evaluation} expose this boundary without replacing those
 computations with integer fixtures.
 
-A new memory instruction functor separates access footprints from value
-computation. Its closed double instance supports bit constants and loaded
-operands. Addition, subtraction, multiplication, division and negation use
-CompCert's IEEE operations.
+A memory instruction functor separates accesses from value computation.
+Its double instance supports bit constants and loaded values. The four
+arithmetic operations and negation use CompCert's IEEE semantics.
 
 The instance reuses the existing exchange proof for independent memory
 footprints, which applies to arbitrary chunks. Independent actions read the
