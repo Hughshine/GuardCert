@@ -2,6 +2,14 @@
 
 ## 持续适用的责任表
 
+2026-10-09 [initialized double factory 后继](initialized-double-installation.md)已内部
+组合 actual source metadata、footprint 条件、安全 capture、source/model/candidate、
+公共出口、独立 progress 和 scoped 安装，完成新 Csem→Asm 端点。原 mxv／matmul-init
+真实调度已 native 安装，改名／改维度与多 site 通过。这是具体 language/domain
+服务消除源码用户义务的实例；没有更改 minimal kernel 或把 assumption extraction
+归给 generic framework。充分范围 checker 与提议算法分开，检查安全／接受事实／
+拒绝运输仍分开。完整62案例、其他顺序阶段和成本验收未完成。
+
 2026-10-08 对照 narrative 新版本 `8ce9c8b`，已同步 PolCert／CGO 2017
 原案例、顺序功能／效果与逐配置 whole-program delivery 要求；此前 guard library 的
 分类／依赖契约与 source/model 方向和前提来源澄清继续适用。本表约束后续阶段，下面的日期记录保留各阶段当时的

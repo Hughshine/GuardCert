@@ -309,7 +309,7 @@ for both inputs, so installed coverage remains one of 62 and no program or
 guard performance conclusion follows.
 
 \pending{Generalize typed source extraction beyond the fixed matmul template,
-including private resources and initialized-family whole-program installation. Complete input
+including automatic candidate resource sizing and additional source families. Complete input
 tiers, sequential phases and cost comparisons, including real tiling and ISS
 routes and original BT. Other PolCert cases, original NPB programs, LLVM Test
 Suite inputs and unavailable SPEC sources remain targets.}
@@ -1806,3 +1806,31 @@ resource refusal retain the standalone empty path; unmarked and disabled
 configurations install neither alternative. The regression report references
 the 816/816 normal RMW calls already counted above. Refusal can repeat source
 reads and capture; this stage supplies no cost or profitability result.
+
+
+\paragraph{Initialized-family whole-program successor.}
+Seven new modules total 839 lines with 29 audited endpoints, eight closed,
+and a closure of 478 sources. No endpoint adds axioms beyond the inherited
+42-global compiler baseline. Twenty-three attempts include seven successful
+and sixteen failed compilations; the first native extraction rejection is
+retained before the successful second build.
+
+Seventeen original-source checks, twenty context checks and seven public-exit
+or legacy regressions all meet installation expectations and match the
+corresponding GCC modeled-state digests. Real mxv fission and matmul-init
+fission with i/k/j order now execute through assembly. Both marked sites
+install independently; an identical unmarked neighbor remains. Renamed globals
+and dimension-104 sources also install. Type and resource mismatches refuse.
+Public empty exits preserve unreached controls: initial $(17,23,29)$ becomes
+$(0,23,29)$. Six debugger runs on unchanged assembly observe candidate entry
+for ordinary and zero bounds and source fallback for negative bounds. The
+aggregate binds 10,315 files. Nonidentity original-corpus coverage is now
+three of 62 cases, including the retained original matmul.
+
+Seven complete-call wall samples per dynamic configuration include initialization
+and digest. Unmarked/accepted medians are 0.001765/0.001855 seconds for mxv
+and 0.006396/0.005101 seconds for matmul-init. Corresponding compilation walls
+are 0.057108/0.576038 and 0.059793/1.837756 seconds. These are small-input
+diagnostics, with no isolated checking cost or profitability conclusion.
+Real tiling/ISS configurations, additional source families, original BT,
+resource sizing and larger tiers remain unfinished acceptance work.

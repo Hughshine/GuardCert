@@ -1,5 +1,8 @@
 # 原始初始化循环：安全入口与真实候选 pipeline
 
+本页保留 standalone checkpoint；后继的[实际 factory 与整程序安装](initialized-double-installation.md)
+已完成两例 lowering／public restore／Csem→Asm 和原 C native 验收。
+
 2026-10-09。本阶段将原 `mxv`、`matmul-init` 的完整 literal Clight source
 接到实际 header capture、范围条件和真实 PolCert/Pluto pipeline。原执行在证明中
 许可 header 读取；检查接受后产生 count 与 source/model 所需数值事实。实际

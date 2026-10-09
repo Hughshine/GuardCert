@@ -2,6 +2,23 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-09 [initialized double 整程序后继](initialized-double-installation.md)已将
+原 `mxv`／`matmul-init` 接到 actual typed source/data factory、真实 pipeline、
+compact capture、candidate lowering、public I64 exits 和 scoped Csem→Asm。
+七模块839行／29端点、8 closed、最大42 inherited globals，无新增公理。
+Actual source/decls/footprints 生产充分界限，原两例为98、extent104变体为102；
+源码用户不补内部 semantic callbacks。Private IDs 自动提议／检查，scratch 数量
+仍是资源参数。Kernel 和 host 不改。
+
+原输入17项、context20项、public exits／legacy7项均符合安装预期并匹配 GCC；
+六次 unchanged assembly 观测确认普通／零接受、负数回退。改名／改维度、多
+marked 和 identical unmarked 排除通过。新编译器保留旧 matmul 路线，corpus
+nonidentity 支持为3/62。完整调用成本仅小输入诊断，未证明收益或分离 guard 成本。
+下一项是相继 nests、真实 tiling／ISS 与其余 sequential configs，每项携带
+whole-program delivery。BT、LLVM/SPEC、资源自动计数和 larger tiers／完整成本仍必需。
+
+以下记录保留各前序阶段当时的边界。
+
 2026-10-09 [actual-program matmul 后继](original-matmul-actual-installation.md)已关闭
 下述双标记 environment/public-scope profile 失败。四模块447行、13端点／1closed，
 最大42 inherited globals、无新增公理；actual declarations/no-shadow/private separation

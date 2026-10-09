@@ -4066,7 +4066,7 @@
     },
     {
       "section": "case-study and evaluation",
-      "claim": "Actual original mxv and matmul-init finite normal execution licenses compact header capture; acceptance produces the numeric source/candidate entry facts and refusal preserves public source execution. Uniform OpenScop coordinates connect real Pluto to final checked typed Loop candidates, including fission and i/k/j; candidate lowering, public restoration and scoped Csem-to-Asm installation remain pending for these inputs.",
+      "claim": "At the safe-entry/pipeline checkpoint, actual original mxv and matmul-init connect source capture to final checked typed Loop candidates, including fission and i/k/j. The later initialized-family installation claim records its completed lowering and Csem-to-Asm successor.",
       "theorems": [
         {
           "source": "adapters/compcert-memory/GuardMemoryDoublePipelineTransport.v",
@@ -4117,6 +4117,51 @@
         "build/double-initialized-nests/pipeline-audit-v1/report.json",
         "build/double-initialized-nests/uniform-audit-v1/report.json",
         "build/double-initialized-nests/uniform-native-check-v1/report.json"
+      ]
+    },
+    {
+      "section": "case-study and evaluation",
+      "claim": "Actual-source initialized-double factory produces footprint conditions, safe capture, checked candidate lowering, public exits and scoped Csem-to-Asm installation. Original mxv and matmul-init optimize through assembly; 44 compiler checks and six branch observations pass. Coverage is 3/62, with remaining sequential phases and cost work open.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedBounds.v",
+          "name": "double_initialized_entry_bounds_check_ready"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedCaptureModel.v",
+          "name": "checked_double_initialized_capture_model"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedExitCode.v",
+          "name": "double_initialized_exit_code_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleInitializedLowering.v",
+          "name": "checked_double_initialized_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleRegionFactory.v",
+          "name": "check_initialized_double_region_sound"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleSelectedCompiler.v",
+          "name": "checked_selected_initialized_double_program_correct"
+        },
+        {
+          "source": "prototype/interface/InitializedDoubleSelectedCompiler.v",
+          "name": "compile_selected_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/initialized-double-installation.md",
+        "docs/initialized-double-installation.json"
+      ],
+      "artifacts": [
+        "build/double-initialized-nests/installation-proof-v1/report.json",
+        "build/double-initialized-nests/compiler-native-checks/original-v1/report.json",
+        "build/double-initialized-nests/compiler-native-checks/contexts-v1/report.json",
+        "build/double-initialized-nests/compiler-native-checks/public-v1/report.json",
+        "build/double-initialized-nests/guard-path-attempts/paths-v1/report.json"
       ]
     }
   ],
@@ -13738,6 +13783,157 @@
     "original_corpus_nonidentity_optimized_cases": 1,
     "original_corpus_total_cases": 62,
     "kernel_or_language_host_changed": false,
+    "full_goal_complete": false
+  },
+  "initialized_double_installation": {
+    "status": "validated",
+    "kind": "actual-initialized-double-factory-csem-to-asm-native-installation",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedExitCode.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedBounds.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedLayout.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedCaptureModel.v",
+      "adapters/compcert-memory/GuardMemoryDoubleInitializedLowering.v",
+      "prototype/interface/InitializedDoubleRegionFactory.v",
+      "prototype/interface/InitializedDoubleSelectedCompiler.v"
+    ],
+    "source_lines": 839,
+    "audited_endpoints": 29,
+    "closed_endpoints": 8,
+    "maximum_endpoint_globals": 42,
+    "reachable_sources": 478,
+    "additional_global_axioms": [],
+    "proof_attempts": {
+      "successful": 7,
+      "failed": 16
+    },
+    "compiler_entrypoint": "InitializedDoubleSelectedCompiler.compile_selected_double_program",
+    "compiler_theorem": "InitializedDoubleSelectedCompiler.compile_selected_double_program_correct",
+    "reports": [
+      {
+        "path": "build/double-initialized-nests/installation-proof-v1/report.json",
+        "sha256": "32cb53f5f4dc34dd2008db1c895542788a9e1d16cf34c0646f2f56d52b87dc49",
+        "bound_files": 8491
+      },
+      {
+        "path": "build/double-initialized-nests/compiler-attempts/native-v2/report.json",
+        "sha256": "bcc694da376803954933fb89852abc44abe9a394fdfbb3c98117061df034ff29",
+        "bound_files": 8517
+      },
+      {
+        "path": "build/double-initialized-nests/compiler-native-checks/original-v1/report.json",
+        "sha256": "431e4d476405ba7a37c88a81815287052ccd4da3861a288a49283d9f214f9ec8",
+        "bound_files": 9174
+      },
+      {
+        "path": "build/double-initialized-nests/compiler-native-checks/contexts-v1/report.json",
+        "sha256": "eba69eea74df99cf5f21da385df98db4191db6b221b292e3ce9b312af2b6278a",
+        "bound_files": 9297
+      },
+      {
+        "path": "build/double-initialized-nests/compiler-native-checks/public-v1/report.json",
+        "sha256": "63944840f271c970248f2498e50c4323a5d28b6612483231f15a18949f917838",
+        "bound_files": 8808
+      },
+      {
+        "path": "build/double-initialized-nests/guard-path-attempts/paths-v1/report.json",
+        "sha256": "878a0b649ea3cd5f6b4e93de515b83a6ca3d0730a8129b23ed12ba192e7062c1",
+        "bound_files": 9354
+      }
+    ],
+    "failed_extraction_attempts_preserved": 1,
+    "actual_original_cases": [
+      "mxv",
+      "matmul-init"
+    ],
+    "condition": {
+      "family": "one common global I64 bound with checked affine footprints",
+      "original_range": [
+        0,
+        98
+      ],
+      "extent_104_range": [
+        0,
+        102
+      ],
+      "algorithm": "32-step bound proposal followed by verified sufficient-condition checker",
+      "optimality_or_weakest_precondition_claimed": false,
+      "runtime_work": "two ordered I64 comparisons, accepted I32 capture and private dispatch"
+    },
+    "factory": {
+      "actual_source_declarations_layouts_and_affine_accesses": true,
+      "fixed_benchmark_identifiers_layout_or_private_identifiers": false,
+      "scratch_count_is_checked_resource_parameter": true,
+      "source_model_guard_and_host_premises_discharged_internally": true,
+      "source_user_supplies_semantic_callbacks": false,
+      "independent_source_progress_and_public_exit_restoration": true,
+      "kernel_or_host_changed": false
+    },
+    "native": {
+      "original_checks": 17,
+      "context_checks": 20,
+      "public_and_legacy_checks": 7,
+      "guard_path_observations": 6,
+      "all_passed": true,
+      "changes": {
+        "mxv": "initialization/reduction fission",
+        "matmul-init": "initialization/reduction fission and i/k/j reduction order"
+      },
+      "public_empty_exit": [
+        0,
+        23,
+        29
+      ],
+      "path_counts": {
+        "ordinary": [
+          1,
+          0
+        ],
+        "zero": [
+          1,
+          0
+        ],
+        "negative": [
+          0,
+          1
+        ]
+      },
+      "dynamic_complete_call_diagnostics": [
+        {
+          "case": "mxv-dynamic-unmarked",
+          "compile_wall_seconds": 0.05710838601225987,
+          "native_wall_median_seconds": 0.0017652050009928644
+        },
+        {
+          "case": "mxv-dynamic-accept",
+          "compile_wall_seconds": 0.5760381810250692,
+          "native_wall_median_seconds": 0.0018545379862189293
+        },
+        {
+          "case": "matmul-init-dynamic-unmarked",
+          "compile_wall_seconds": 0.05979294498683885,
+          "native_wall_median_seconds": 0.0063957329839468
+        },
+        {
+          "case": "matmul-init-dynamic-accept",
+          "compile_wall_seconds": 1.837755949003622,
+          "native_wall_median_seconds": 0.005101206013932824
+        }
+      ],
+      "cost_includes_initialization_and_digest": true,
+      "isolated_guard_cost_or_profitability_established": false
+    },
+    "new_installed_nonidentity_original_cases": 2,
+    "original_corpus_nonidentity_optimized_cases": 3,
+    "original_corpus_total_cases": 62,
+    "pending": [
+      "other original source families and sequential transformations",
+      "tiling and ISS through original typed source path",
+      "BT and LLVM/SPEC investigation",
+      "private scratch count derived from actual candidate",
+      "larger tiers and full cost comparisons"
+    ],
     "full_goal_complete": false
   }
 }
