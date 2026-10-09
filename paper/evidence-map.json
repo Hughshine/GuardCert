@@ -3956,6 +3956,36 @@
         "docs/double-assignment-source-factory.md",
         "docs/double-assignment-source-factory.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Actual I64 affine expressions and global tensor lvalues generate checked access, layout and typed instruction data. Four original assignment nodes have finite source/INSTR correspondence under host-state and point-resolution premises, without new complete-loop, runtime-guard, compiler or native coverage.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLongSourceAffine.v",
+          "name": "decoded_long_source_index_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleSourceAccess.v",
+          "name": "double_source_access_static_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleAffineSourceAccess.v",
+          "name": "checked_double_affine_source_access_receipt"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleSourceInstruction.v",
+          "name": "checked_double_source_instruction_execution_iff"
+        }
+      ],
+      "documents": [
+        "docs/double-source-instruction-factory.md",
+        "docs/double-source-instruction-factory.json"
+      ],
+      "artifacts": [
+        "build/double-source-instructions/proof-v1/report.json",
+        "build/double-source-instructions/source-proof-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -11915,5 +11945,417 @@
       "sha256": "40d6e5ea375c1a7c9568d59886b37271071f221a3c2992db9e8d05410b628793"
     },
     "bound_files": 7911
+  },
+  "double_source_instruction_factory": {
+    "status": "compiled",
+    "kind": "actual-double-source-instruction-data-compiler",
+    "new_modules": [
+      "adapters/compcert-memory/GuardMemoryLongSourceAffine.v",
+      "adapters/compcert-memory/GuardMemoryDoubleSourceAccess.v",
+      "adapters/compcert-memory/GuardMemoryDoubleAffineSourceAccess.v",
+      "adapters/compcert-memory/GuardMemoryDoubleSourceInstruction.v",
+      "build/double-source-instructions/source-proof-v1/OriginalDoubleSourceInstructions.v"
+    ],
+    "new_source_lines": 776,
+    "endpoints": [
+      "GuardMemoryLongSourceAffine.long_source_affine_execution",
+      "GuardMemoryLongSourceAffine.describe_long_source_affine_exact",
+      "GuardMemoryLongSourceAffine.decoded_long_source_index_execution",
+      "GuardMemoryLongSourceAffine.decoded_long_source_indices_execution",
+      "GuardMemoryDoubleSourceAccess.describe_double_source_access_exact",
+      "GuardMemoryDoubleSourceAccess.double_source_access_receipt",
+      "GuardMemoryDoubleSourceAccess.double_source_access_static_sound",
+      "GuardMemoryDoubleAffineSourceAccess.checked_double_affine_source_access_sound",
+      "GuardMemoryDoubleAffineSourceAccess.checked_double_affine_source_access_receipt",
+      "GuardMemoryDoubleAffineSourceAccess.checked_double_affine_source_reads_receipts",
+      "GuardMemoryDoubleSourceInstruction.double_source_layout_check_sound",
+      "GuardMemoryDoubleSourceInstruction.checked_double_source_instruction_sound",
+      "GuardMemoryDoubleSourceInstruction.checked_double_source_instruction_receipts",
+      "GuardMemoryDoubleSourceInstruction.checked_double_source_instruction_execution_iff",
+      "OriginalDoubleSourceInstructions.mxv_initializer_compiles",
+      "OriginalDoubleSourceInstructions.mxv_initializer_access_data",
+      "OriginalDoubleSourceInstructions.mxv_initializer_function_scope",
+      "OriginalDoubleSourceInstructions.mxv_initializer_execution",
+      "OriginalDoubleSourceInstructions.mxv_reduction_compiles",
+      "OriginalDoubleSourceInstructions.mxv_reduction_access_data",
+      "OriginalDoubleSourceInstructions.mxv_reduction_function_scope",
+      "OriginalDoubleSourceInstructions.mxv_reduction_execution",
+      "OriginalDoubleSourceInstructions.matmul_initializer_compiles",
+      "OriginalDoubleSourceInstructions.matmul_initializer_access_data",
+      "OriginalDoubleSourceInstructions.matmul_initializer_function_scope",
+      "OriginalDoubleSourceInstructions.matmul_initializer_execution",
+      "OriginalDoubleSourceInstructions.matmul_reduction_compiles",
+      "OriginalDoubleSourceInstructions.matmul_reduction_access_data",
+      "OriginalDoubleSourceInstructions.matmul_reduction_function_scope",
+      "OriginalDoubleSourceInstructions.matmul_reduction_execution"
+    ],
+    "endpoint_assumptions": {
+      "GuardMemoryLongSourceAffine.long_source_affine_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryLongSourceAffine.describe_long_source_affine_exact": [],
+      "GuardMemoryLongSourceAffine.decoded_long_source_index_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryLongSourceAffine.decoded_long_source_indices_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleSourceAccess.describe_double_source_access_exact": [],
+      "GuardMemoryDoubleSourceAccess.double_source_access_receipt": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleSourceAccess.double_source_access_static_sound": [],
+      "GuardMemoryDoubleAffineSourceAccess.checked_double_affine_source_access_sound": [],
+      "GuardMemoryDoubleAffineSourceAccess.checked_double_affine_source_access_receipt": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleAffineSourceAccess.checked_double_affine_source_reads_receipts": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleSourceInstruction.double_source_layout_check_sound": [],
+      "GuardMemoryDoubleSourceInstruction.checked_double_source_instruction_sound": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleSourceInstruction.checked_double_source_instruction_receipts": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "GuardMemoryDoubleSourceInstruction.checked_double_source_instruction_execution_iff": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.mxv_initializer_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.mxv_initializer_access_data": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.mxv_initializer_function_scope": [],
+      "OriginalDoubleSourceInstructions.mxv_initializer_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.mxv_reduction_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.mxv_reduction_access_data": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.mxv_reduction_function_scope": [],
+      "OriginalDoubleSourceInstructions.mxv_reduction_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.matmul_initializer_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.matmul_initializer_access_data": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.matmul_initializer_function_scope": [],
+      "OriginalDoubleSourceInstructions.matmul_initializer_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.matmul_reduction_compiles": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.matmul_reduction_access_data": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ],
+      "OriginalDoubleSourceInstructions.matmul_reduction_function_scope": [],
+      "OriginalDoubleSourceInstructions.matmul_reduction_execution": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "Events.external_functions_sem",
+        "Events.inline_assembly_sem",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "additional_global_axioms": [],
+    "allowed_parent_globals": [
+      "Allocation.regalloc",
+      "Archi.win64",
+      "Axioms.proof_irr",
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "Compiler.print_Clight",
+      "Compiler.print_Cminor",
+      "Compiler.print_LTL",
+      "Compiler.print_Mach",
+      "Compiler.print_RTL",
+      "Compopts.debug",
+      "Compopts.generate_float_constants",
+      "Compopts.optim_CSE",
+      "Compopts.optim_constprop",
+      "Compopts.optim_for_size",
+      "Compopts.optim_redundancy",
+      "Compopts.optim_tailcalls",
+      "Compopts.propagate_float_constants",
+      "Compopts.va_strict",
+      "CoqAddOn.posPr",
+      "CoqAddOn.zPr",
+      "Eqdep.Eq_rect_eq.eq_rect_eq",
+      "Events.external_functions_properties",
+      "Events.external_functions_sem",
+      "Events.inline_assembly_properties",
+      "Events.inline_assembly_sem",
+      "FunctionalExtensionality.functional_extensionality_dep",
+      "Inlining.inlining_analysis",
+      "Inlining.inlining_info",
+      "Inlining.should_inline",
+      "Linearize.enumerate_aux",
+      "PedraQBackend.add",
+      "PedraQBackend.isEmpty",
+      "PedraQBackend.pr",
+      "PedraQBackend.t",
+      "PedraQBackend.top",
+      "RTLgen.more_likely",
+      "SelectOp.symbol_is_relocatable",
+      "Selection.compile_switch",
+      "Selection.if_conversion_heuristic",
+      "SimplExpr.first_unused_ident"
+    ],
+    "closed_endpoints": 9,
+    "maximum_endpoint_globals": 6,
+    "reachable_source_count": 231,
+    "attempts": [
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineSourceAccess-v3.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceAccess-v3.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v3.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v4.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v4.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v4.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v5.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v5.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v5.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v6.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v6.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceInstruction-v6.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v1.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v1.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v1.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v10.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v10.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v10.json",
+        "returncode": 0
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v2.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v2.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v2.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v3.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v3.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v3.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v4.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v4.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v4.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v5.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v5.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v5.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v6.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v6.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v6.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v7.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v7.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v7.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v8.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v8.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v8.json",
+        "returncode": 1
+      },
+      {
+        "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v9.v",
+        "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v9.log",
+        "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongSourceAffine-v9.json",
+        "returncode": 1
+      }
+    ],
+    "actual_original_case_bindings": [
+      "mxv",
+      "matmul-init"
+    ],
+    "actual_assignment_nodes_compiled": 4,
+    "source_control_dimensions": [
+      1,
+      2,
+      2,
+      3
+    ],
+    "source_read_counts": [
+      0,
+      3,
+      0,
+      3
+    ],
+    "source_and_model_directions_proved": true,
+    "I64_affine_source_preserves_actual_tree_and_signed_I32_literals": true,
+    "tensor_rank_or_source_global_identifiers_hardcoded_in_generic_library": false,
+    "layouts_and_accesses_generated_from_actual_AST": true,
+    "read_address_receipts_produced_under_checked_metadata_and_dynamic_resolution": true,
+    "modular_correspondence_is_a_no_wrap_certificate": false,
+    "destination_store_permission_inferred_from_metadata": false,
+    "point_bounds_resolution_still_required": true,
+    "source_user_supplies_semantic_callbacks": false,
+    "generic_kernel_or_host_changed": false,
+    "new_runtime_condition_generated": false,
+    "new_complete_source_loop_or_compiler_endpoint": false,
+    "original_corpus_nonidentity_optimized_cases": 1,
+    "new_native_or_cost_evidence": false,
+    "full_goal_complete": false,
+    "toolchain": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.1",
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "proof_report": {
+      "path": "build/double-source-instructions/proof-v1/report.json",
+      "sha256": "4c4ed1c12bc9597a81bf339cf75d554d09e3e959daa4df2385c149f5f42d4e2f"
+    },
+    "bound_files": 8010
   }
 }

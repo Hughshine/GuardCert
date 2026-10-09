@@ -147,6 +147,13 @@ refused 两种实际出口。不能默认前一个检查完成后完整 state �
 或 no-wrap 检查。此次没有 runtime condition，属于 source/model 库的语言
 算术服务；两个 actual initializer 的有限对应不提供 loop progress 或安装。
 
+[Actual instruction producer](double-source-instruction-factory.md)现已从真实 tensor
+lvalue、声明与 I64 affine indices 生成 access/layout/instruction 数据，在 checked
+metadata、host state 和动态 point bounds 下建立地址 receipts。原两例的四条
+assignments 均有 typed INSTR 双向有限对应。它仍属于 source/model 库，不是新的
+guard：`Int64.repr` 计算对应不等于 no-wrap，地址 bounds 不等于 load/store permission。
+完整循环 producer 必须把这些前提接到安全 entry 条件和 reached-state invariant。
+
 ### 现有契约能复用到哪里
 
 | 契约 | Safe invocation 的来源 | 实际出口与成功事实 |

@@ -295,9 +295,16 @@ A typed assignment decoder starts this extension from actual source syntax.
 It combines the existing double operation-tree decoder with a language proof
 for signed integer literal conversion at assignment. Original mxv and
 matmul-init initialization nodes retain their integer-zero RHS and have finite
-execution correspondence with memory actions. Address receipts, complete loop
-bridges and installation for these programs remain to be supplied by the source
-factory; the C user supplies no semantic callbacks.
+execution correspondence with memory actions. A successor derives affine
+accesses, layouts and typed instructions from actual global tensor lvalues and
+I64 indices, checking source reconstruction and program declarations. It binds
+both initialization and reduction assignments in these inputs to finite typed
+instruction execution in both directions. Address receipts follow from checked
+metadata, the host state and resolved point bounds; declarations do not imply
+load/store permissions. I64 modular correspondence is distinct from no-wrap.
+Complete loop bridges, entry conditions, progress and installation for these
+programs remain source-factory obligations; the C user supplies no semantic
+callbacks.
 
 The kernel is unchanged. The language instance supplies concrete value,
 memory, control and entry/exit proofs; the optimizer supplies source modeling,

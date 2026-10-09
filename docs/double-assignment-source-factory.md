@@ -1,5 +1,9 @@
 # Double 赋值：从实际语法生产局部模型数据
 
+本页记录 assignment checkpoint；[actual instruction 后继](double-source-instruction-factory.md)
+已增加通用 tensor/I64 access producer 和四个实际赋值节点的 typed INSTR 对应。
+下文的地址／循环缺口描述属于本 checkpoint。
+
 2026-10-09，再次 fetch 核对 narrative 分支 `8ce9c8b`，正文与 main 一致。
 本阶段沿其责任划分处理原 `mxv`、`matmul-init` 暴露的赋值表示缺口。
 两者都把整数常量 `0` 赋给 double 数组元素；实际导出的 Clight 保留

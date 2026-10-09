@@ -34,12 +34,22 @@ Static syntax/metadata、runtime conditions 和原执行 receipts 分别生产�
 两库与 wrapper 共319行／17端点，无新增公理；没有新 loop/compiler/native 覆盖。
 这属于 language/domain 服务，kernel 和 host 不改，也没有新增 runtime condition。
 
+[Actual instruction 数据后继](double-source-instruction-factory.md)已从任意 rank global
+tensor lvalue、实际声明和源 I64 affine indices 生成 access、layout registry 及 typed
+instruction，并在 checked metadata、host state 和动态 point resolution 下生产地址
+receipts。原两例的四条 initializer/reduction assignments 全部绑定双向有限执行；
+controls 分别为1／2／2／3维，不要求 initializer 读取未初始化的内层 iterator。
+四库与 wrapper 共776行／30端点，9 closed，最多6 inherited globals，无新增公理。
+该库闭合逐 leaf 地址的组合义务；整个 loop 的 point bounds、header stability、入口
+条件和 progress 尚需 source factory discharge，不能把这些内部接口交给 C 用户。
+未新增 runtime guard、compiler/native 或 corpus optimized case；最小 kernel／host 不改。
+
 后续以真实输入推动以下衔接，而不是继续加入按 benchmark 名字固定的证明包装：
 
-1. 从 actual global tensor lvalue、声明与 I64 affine index 生产普通 access/layout
-   数据及地址 receipts。AST decode 不推断 allocation／load safety；拒绝无法建立
-   receipts 的 temp/cast/地址结构。
-2. 组合 assignment、nested loops 和 sequence source grammar。原 `mxv` 与
+1. 将已通过的 actual instruction/data producer 组合到 loop/sequence source grammar，
+   在 reached point 内部建立 I64 controls 和 cell resolution。AST decode 仍不推断
+   allocation／load safety；不支持的 temp/cast/地址结构必须安全拒绝。
+2. 完成 nested loops 和 sequence 的实际执行桥。原 `mxv` 与
    `matmul-init` 需要初始化＋reduction；`mvt` 需要两个相继 nests。建立实际
    intermediate-memory 语义、公开 I64 exits 与 source progress，不能只收集叶子。
 3. 从 actual program 和候选 rank 分配并核对 typed captures/scratch，移除固定 IDs、

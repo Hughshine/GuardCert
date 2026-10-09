@@ -255,6 +255,15 @@ with seventeen audited endpoints, two closed and at most six inherited globals.
 The audit binds 7,911 files and adds no axioms. It supplies no new complete-loop,
 native or performance result, so original-corpus coverage remains unchanged.
 
+The access/instruction successor automatically encodes all four actual
+initialization and reduction nodes. Four library modules and the source wrapper
+total 776 lines and thirty audited endpoints, nine closed and at most six
+inherited globals. The audit covers 231 reachable sources and binds 8,010 files,
+with no new axioms. Control dimensions are one, two, two and three; initialization
+contracts avoid uninitialized inner counters. These are local source/model
+results under host-state and point-resolution premises. They add no complete
+loop, runtime guard, native or performance result; corpus coverage is unchanged.
+
 \pending{Generalize typed source extraction beyond the fixed matmul template,
 including layouts, control, instructions and private resources. Complete input
 tiers, sequential phases and cost comparisons, including real tiling and ISS

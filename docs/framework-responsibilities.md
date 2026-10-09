@@ -95,6 +95,15 @@ entailment。先证明实际复用再更改 API。
 下一项须生产实际 tensor/I64 access 数据并组合 initialization／reduction／sequence
 source 到既有 pipeline、progress 和 Csem→Asm。
 
+[Actual instruction 后继](double-source-instruction-factory.md)已生产实际 access、layout
+registry 和 typed instruction，并把 checked declarations/span、host global/no-shadow
+及动态 point resolution 组合成逐 leaf 地址 receipts。原两例四个实际 assignments
+有 typed INSTR 双向有限对应；776行／30端点，无新增公理。Language 提供实际
+I64 modular expression、tensor address 和 assignment 定律；domain decoder 消费这些
+定律生成数学 access；host state、loop bounds/header stability 和入口许可仍须由
+完整 source factory 内部建立。这里没有新 runtime condition 或 whole-loop/compiler
+endpoint；不能将 repr 对应叫 no-wrap，也不能从地址 metadata 推断读写权限。
+
 ### 原 matmul 入口事实的生产责任
 
 本次重新 fetch 核对 narrative `8ce9c8b`；main 的 narrative 和
