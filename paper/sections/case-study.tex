@@ -2078,3 +2078,31 @@ minimal kernel or host laws; source users supply no dynamic model callbacks.
 Bounds currently depend on global headers rather than ancestor iterators.
 Specific optimized-source coverage still requires successful actual phase,
 codegen, final-candidate, machine-lowering and native-run evidence.
+
+\paragraph{Statement-specific point origins and complete fusion.}
+The final candidate checker now accepts constant point-coordinate translations
+that differ by statement. The representation proof retains parameters,
+timestamps and actual IEEE/Mem instruction execution. Translating a domain
+constraint adjusts its bound; translating an affine expression adjusts its bias
+with the opposite sign. Numerical shift tables remain untrusted and the final
+checker still validates domains, typed instruction correspondence and
+dependences. This service belongs to the polyhedral instance, above the semantic
+kernel, and does not establish check-read safety or machine no-wrap facts.
+
+For the original fusion1, prepared codegen proposes a peeled producer prefix
+followed by a fused producer/consumer loop. An untrusted coalescer proposes one
+producer loop with the consumer guarded by counter $\geq 3$, using the original
+consumer coordinate minus one. The shift table is $[0,-1]$. The checked factory
+now installs this complete marked-region replacement, retains the original
+floating expression trees, and restores both public source counters. Original
+loops form the fallback branch. The new current-program compiler proves
+Csem-to-Asm backward simulation using the existing capture, machine lowering
+and language host laws. No dynamic source/model callback is supplied by a C user.
+
+The remaining correspondence limits are concrete. Positional tiling attachment
+requires equal source/candidate statement counts, so it cannot directly justify
+the copies introduced by peeling or general domain partitioning. Constant shifts
+do not remove that restriction. Whole stencil additionally exposes a source-order
+inversion in exported schedule coordinates; whole tricky3 retains multiple
+candidate copies. These obligations require domain-specific producer and
+correspondence work, without enlarging the minimal semantic kernel.

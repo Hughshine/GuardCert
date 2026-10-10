@@ -1,0 +1,140 @@
+{
+  "status": "compiled",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoubleTreeTrace.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTilingCardinality.v",
+    "adapters/compcert-memory/GuardMemoryAffinePointShift.v",
+    "adapters/compcert-memory/GuardMemoryDoublePointShift.v",
+    "adapters/compcert-memory/GuardMemoryDoubleShiftedTiling.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeShiftedPrepared.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeShiftedGuarded.v",
+    "prototype/interface/DoubleTreeShiftedFactory.v",
+    "prototype/interface/DoubleTreeShiftedCompiler.v"
+  ],
+  "new_source_lines": 859,
+  "endpoints": [
+    "GuardMemoryDoubleTreeTrace.traced_double_tree_tiled_prepared_loop_progress_exact",
+    "GuardMemoryDoubleTreeTrace.traced_compile_double_tree_candidate_exact",
+    "GuardMemoryDoubleTilingCardinality.double_tiling_attachment_cardinality",
+    "GuardMemoryDoubleTilingCardinality.double_tiling_attachment_refuses_split",
+    "GuardMemoryAffinePointShift.affine_point_shift_length",
+    "GuardMemoryAffinePointShift.affine_point_shift_inverse",
+    "GuardMemoryAffinePointShift.affine_point_shift_prefix",
+    "GuardMemoryAffinePointShift.affine_point_shift_dot",
+    "GuardMemoryAffinePointShift.affine_point_shift_row_inverse",
+    "GuardMemoryAffinePointShift.affine_point_shift_constraint_inverse",
+    "GuardMemoryAffinePointShift.affine_point_shift_product",
+    "GuardMemoryAffinePointShift.affine_point_shift_domain",
+    "GuardMemoryDoublePointShift.double_shift_instruction_inverse",
+    "GuardMemoryDoublePointShift.double_shift_instructions_inverse",
+    "GuardMemoryDoublePointShift.double_shift_valid_point",
+    "GuardMemoryDoublePointShift.double_point_shift_execution",
+    "GuardMemoryDoubleShiftedTiling.validated_double_shifted_tiling_loops_at",
+    "GuardMemoryDoubleShiftedTiling.checked_double_shifted_tiling_choices_sound",
+    "GuardMemoryDoubleTreeShiftedPrepared.checked_double_tree_shifted_prepared_loop_progress_at",
+    "GuardMemoryDoubleTreeShiftedGuarded.checked_double_tree_shifted_guarded_execution",
+    "DoubleTreeShiftedFactory.double_tree_shifted_region_contract",
+    "DoubleTreeShiftedFactory.check_double_tree_shifted_region_sound",
+    "DoubleTreeShiftedCompiler.checked_shifted_double_tree_regions_sound",
+    "DoubleTreeShiftedCompiler.checked_selected_shifted_double_tree_program_correct",
+    "DoubleTreeShiftedCompiler.selected_shifted_double_tree_cstrategy_forward",
+    "DoubleTreeShiftedCompiler.compile_selected_shifted_double_tree_program_correct"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 13,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 565,
+  "attempts": [
+    {
+      "module": "GuardMemoryDoubleTreeTrace",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeTrace-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeTrace",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeTrace-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeTrace",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeTrace-v3.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTilingCardinality",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTilingCardinality-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTilingCardinality",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTilingCardinality-v2.json"
+    },
+    {
+      "module": "GuardMemoryAffinePointShift",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffinePointShift-v1.json"
+    },
+    {
+      "module": "GuardMemoryAffinePointShift",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffinePointShift-v2.json"
+    },
+    {
+      "module": "GuardMemoryAffinePointShift",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffinePointShift-v3.json"
+    },
+    {
+      "module": "GuardMemoryDoublePointShift",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePointShift-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePointShift",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePointShift-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleShiftedTiling",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleShiftedTiling-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleShiftedTiling",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleShiftedTiling-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeShiftedPrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeShiftedPrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeShiftedGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeShiftedGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreeShiftedFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeShiftedFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreeShiftedCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeShiftedCompiler-v1.json"
+    }
+  ],
+  "complete_compiler_endpoint": "DoubleTreeShiftedCompiler.compile_selected_shifted_double_tree_program_correct",
+  "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+  "per_statement_constant_point_shifts_preserve_actual_execution": true,
+  "actual_final_checker_consumes_shifted_representation": true,
+  "factory_and_current_program_host_consume_new_checker": true,
+  "domain_partition_or_many_to_one_point_matching_added": false,
+  "new_native_acceptance_established_by_proof_audit": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/double-tree-shifted/proof-v2/report.json"
+}

@@ -18044,5 +18044,103 @@
       "multi-stmt-stencil-seq": "whole phase returns a proposal but stops before adaptation; affine validation, tiled import/validation or prepared codegen not yet separately observed",
       "tricky3": "whole transformed proposal reaches adaptation; final checking or machine lowering not yet separately observed"
     }
+  },
+  "whole_tree_shifted_fusion_successor": {
+    "summary": "docs/double-tree-shifted.json",
+    "native_summary": "docs/double-tree-shifted-native.json",
+    "proof_report": {
+      "path": "build/double-tree-shifted/proof-v2/report.json",
+      "sha256": "7aaff478fb8503d0272d5cf13653d4086a42917cf601fb818dc51cb525bf33bb"
+    },
+    "native_summary_sha256": "b08f84464df4b1cd794b7ae5ae60f8da31bdf2b07fbbe2699f5678f3d756c5b6",
+    "new_Rocq_modules": 9,
+    "new_source_lines": 859,
+    "queried_endpoints": 26,
+    "closed_endpoints": 13,
+    "maximum_inherited_globals": 42,
+    "additional_global_axioms": [],
+    "reachable_sources": 565,
+    "bindings": 10405,
+    "proof_attempts": 16,
+    "new_complete_compiler_endpoint": "DoubleTreeShiftedCompiler.compile_selected_shifted_double_tree_program_correct",
+    "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+    "complete_marked_tree_fusion_cases": [
+      "fusion1"
+    ],
+    "native_cases": 3,
+    "native_configurations": 15,
+    "native_matches": 15,
+    "actual_tiling_coverage_established": false,
+    "actual_guard_path_observation_added": false,
+    "tight_profile_refusal_inferred_from_emitted_checks_and_fixed_input": true,
+    "new_cost_evidence": false,
+    "aggregate_full_corpus_coverage_recomputed": false,
+    "domain_partition_checker_added": false,
+    "kernel_or_host_laws_changed": false,
+    "full_goal_complete": false,
+    "reports": {
+      "diagnostic_build": {
+        "path": "build/double-tree-model/compiler-attempts/native-trace-v4/report.json",
+        "sha256": "3e2e0aae887064117621b4829b0c095d9d6177c4201f83b2c2bd6e1f98eca4a7"
+      },
+      "diagnostic_old": {
+        "path": "build/double-tree-model/trace-attempts/phase-v1/report.json",
+        "sha256": "106d9f45e2e5add94669dc006f45439135aaae7ab25fbe9592bdcf9b672dfe06"
+      },
+      "diagnostic_final": {
+        "path": "build/double-tree-model/trace-attempts/phase-v2/report.json",
+        "sha256": "92b7207b765f9539dab21e898e26483f4418ffb1e5d1a3c61e7b6c3483db4745"
+      },
+      "compiler": {
+        "path": "build/double-tree-model/compiler-attempts/native-shifted-v1/report.json",
+        "sha256": "d4928732c5a0b991a0139b6f6c4d6bf2ce20d86b7d020a1afff6d6a40bc02583"
+      },
+      "diagnostic_shifted": {
+        "path": "build/double-tree-model/trace-attempts/phase-shifted-v1/report.json",
+        "sha256": "27c3b506c08b09eb7fae875f61ac4670225ea7a4067eb40f5c2f0fd14459a320"
+      },
+      "native": {
+        "path": "build/double-tree-shifted/native-attempts/original-v1/report.json",
+        "sha256": "9824f4a25b2bc30966881b7b382cef21038744f51b4567024fd72eaef763d4c2"
+      }
+    },
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeTrace.v",
+        "name": "traced_double_tree_tiled_prepared_loop_progress_exact"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTilingCardinality.v",
+        "name": "double_tiling_attachment_cardinality"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryAffinePointShift.v",
+        "name": "affine_point_shift_domain"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoublePointShift.v",
+        "name": "double_point_shift_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleShiftedTiling.v",
+        "name": "validated_double_shifted_tiling_loops_at"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeShiftedPrepared.v",
+        "name": "checked_double_tree_shifted_prepared_loop_progress_at"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeShiftedGuarded.v",
+        "name": "checked_double_tree_shifted_guarded_execution"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeShiftedFactory.v",
+        "name": "check_double_tree_shifted_region_sound"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeShiftedCompiler.v",
+        "name": "compile_selected_shifted_double_tree_program_correct"
+      }
+    ]
   }
 }

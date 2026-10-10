@@ -107,6 +107,10 @@ Shared header 仍逐 reached range recapture。压缩检查成本、作者证明
 
 ## 独立 native 后续结果与拒绝边界
 
+本节记录 `native-v2` 的冻结结果。后续已定位拒绝阶段、增加逐语句坐标平移，
+并实际安装完整fusion1，见 [shifted后继](double-tree-shifted.md)。下述旧结果
+不回写为新compiler的覆盖。
+
 已提取并构建 `native-v2`，Driver 实际调用新的
 `DoubleTreeSelectedCompiler.compile_selected_double_tree_program`；原编译器 root
 仅为共享 native helper 提供 extraction dependencies。首 `native-v1` 因漏

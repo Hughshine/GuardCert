@@ -1,5 +1,15 @@
 # Verified guard library：服务分类与依赖契约
 
+[坐标平移后继](double-tree-shifted.md)增加domain表示服务，已被新factory与
+Csem→Asm compiler消费。它requires原point representation和未移动的parameter
+prefix，ensures逐语句常数平移保留domain、timestamps及实际IEEE/Mem执行。
+最终validator消费数值shift表及domain/dependence证据；它不提供read许可、
+machine no-wrap、alias稳定性或general domain partition。Safe capture、cache
+encoding、machine lowering和public exits继续复用已有language库。
+原fusion1整段实际安装，三个原程序15配置匹配；没有新kernel/host laws、
+compact条件算法或guard成本结论。该服务不能挪入最小kernel，也不能替代
+条件处理库；剩余piece correspondence属于优化domain责任。
+
 [整树模型与安装](double-tree-model.md)新增服务已经被同一factory消费。
 Cache服务 requires static allocation/freshness 与前序source-licensed receipt，
 ensures 全槽typed intervals和accepted active valuation对应；未到达槽为zero。

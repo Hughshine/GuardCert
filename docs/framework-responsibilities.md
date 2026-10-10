@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+[逐语句坐标平移后继](double-tree-shifted.md)已接入实际候选检查、guarded factory
+和当前Csyntax→Asm证明，并在原fusion1安装完整融合。Domain负责常数点平移的
+执行对应和实际domain/dependence检查；language复用安全capture、参数与机器
+编码、公开出口；site/host复用scope、progress、private pool与program lifting。
+Kernel没有新增语义维度。Coalescer和shift表只是untrusted data，C用户不给
+动态model callback。15/15原程序配置输出匹配不表示三个完整region成功，
+也不表示作者负担/guard成本降低。最难的下一步是共同source schedule坐标、
+一源多piece的覆盖/互斥/执行对应，以及OLO compact条件的实际成本。
+
 [整树模型与安装](double-tree-model.md)已经实际闭合三方交接：language提供
 source-licensed capture、准确private cache和出口代码；domain提供signed affine
 footprint、accepted model facts及实际candidate验证；site/host生产scope、typed

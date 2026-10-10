@@ -2424,3 +2424,29 @@ to distinguish. These attempts exercise the new complete compiler without
 establishing whole-tree fusion, useful reordering or actual tiling coverage.
 No aggregate corpus replay, guard-path observation or cost result is added.
 The first build's missing helper extraction dependency is retained separately.
+
+\paragraph{Complete fusion and point-origin successor.}
+Nine modules add 859 lines and 26 queried endpoints, thirteen closed. The audit
+follows 565 reachable sources and binds 10,405 files, retaining sixteen module
+compilation attempts. The complete compiler uses at most the same 42 inherited
+globals, with no added assumptions. Proved compilation diagnostics separate
+the previous whole-stencil affine-validation refusal from fusion1/tricky3
+final-candidate refusals; the latter occur before machine lowering.
+
+The extracted successor runs the same three frozen C programs in five
+configurations each: unmarked, requested untiled, requested tiled, wrong point
+shift and a tightened profile. All fifteen complete outputs match same-source
+GCC references. Unmarked and wrong-shift configurations install no region.
+Both ordinary marked fusion1 configurations install one complete fused region;
+emitted Clight contains one candidate loop and both original fallback loops.
+The requested tiled configuration has the same unblocked fused shape. Stencil
+and tricky3 still lack complete marked-region optimization; their four and two
+installed internal regions are not counted as complete-tree success.
+
+The tightened fusion1 profile installs the same complete guard with upper cap
+4 against the original fixed $N=4096$. Emitted checks and the fixed input imply
+refusal and fallback, and its output matches. This inference is separate from
+runtime branch observation; the backend may fold checks on constant inputs.
+No new timing, dynamic guard-cost measurement, full-corpus replay or compact OLO
+condition result is reported. An exported source-order counterexample for
+stencil and the candidate-copy mismatch for tricky3 define the next work.

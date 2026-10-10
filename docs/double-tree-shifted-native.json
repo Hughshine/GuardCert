@@ -1,0 +1,225 @@
+{
+  "status": "checked",
+  "reports": {
+    "diagnostic_build": {
+      "path": "build/double-tree-model/compiler-attempts/native-trace-v4/report.json",
+      "sha256": "3e2e0aae887064117621b4829b0c095d9d6177c4201f83b2c2bd6e1f98eca4a7"
+    },
+    "diagnostic_old": {
+      "path": "build/double-tree-model/trace-attempts/phase-v1/report.json",
+      "sha256": "106d9f45e2e5add94669dc006f45439135aaae7ab25fbe9592bdcf9b672dfe06"
+    },
+    "diagnostic_final": {
+      "path": "build/double-tree-model/trace-attempts/phase-v2/report.json",
+      "sha256": "92b7207b765f9539dab21e898e26483f4418ffb1e5d1a3c61e7b6c3483db4745"
+    },
+    "compiler": {
+      "path": "build/double-tree-model/compiler-attempts/native-shifted-v1/report.json",
+      "sha256": "d4928732c5a0b991a0139b6f6c4d6bf2ce20d86b7d020a1afff6d6a40bc02583"
+    },
+    "diagnostic_shifted": {
+      "path": "build/double-tree-model/trace-attempts/phase-shifted-v1/report.json",
+      "sha256": "27c3b506c08b09eb7fae875f61ac4670225ea7a4067eb40f5c2f0fd14459a320"
+    },
+    "native": {
+      "path": "build/double-tree-shifted/native-attempts/original-v1/report.json",
+      "sha256": "9824f4a25b2bc30966881b7b382cef21038744f51b4567024fd72eaef763d4c2"
+    }
+  },
+  "compiler": "build/double-tree-model/compiler-attempts/native-shifted-v1/ccomp",
+  "compiler_sha256": "c779ade61c70cb89d27a596d77ba15e99dad1f30caa88321845f00b771369dc0",
+  "whole_program_theorem": "DoubleTreeShiftedCompiler.compile_selected_shifted_double_tree_program_correct",
+  "native_cases": 3,
+  "native_configurations": 15,
+  "native_matches": 15,
+  "cases": [
+    {
+      "case": "fusion1",
+      "input": "build/double-source-tree/source-attempts/source-v2/fusion1/marked.c",
+      "input_sha256": "a77d05fc15bdf8112f9b492dc15acb3256e56cee6a2456175afadd1c15a449eb",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            13,
+            3
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "case": "multi-stmt-stencil-seq",
+      "input": "build/double-source-tree/source-attempts/source-v2/multi-stmt-stencil-seq/marked.c",
+      "input_sha256": "6835bdb8ff9f0b859d56719245d0143b3c619e28aadf9604fcaadabd1e311c51",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            4,
+            34,
+            6
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            4,
+            34,
+            6
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            34,
+            6
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            2,
+            34,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "case": "tricky3",
+      "input": "build/double-source-tree/source-attempts/source-v2/tricky3/marked.c",
+      "input_sha256": "2448472faff16424a0c5e5c320fbf148bb04df0b2eb9a3f3aba7bafe94eef573",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            2,
+            30,
+            4
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            2,
+            30,
+            4
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            30,
+            4
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            2,
+            30,
+            4
+          ]
+        }
+      }
+    }
+  ],
+  "complete_marked_tree_fusion_cases": [
+    "fusion1"
+  ],
+  "fusion_requested_untiled_and_tiled_generate_the_same_fused_unblocked_shape": true,
+  "fusion_point_shifts": [
+    0,
+    -1
+  ],
+  "fusion_lowering_reached_and_accepted": true,
+  "wrong_shift_controls_install_no_regions": true,
+  "tight_profile_original_N": 4096,
+  "tight_profile_cap": 4,
+  "tight_profile_fusion_guard_installed": true,
+  "tight_profile_refusal_inferred_from_emitted_checks_and_fixed_input": true,
+  "actual_runtime_guard_branch_observation_added": false,
+  "new_cost_evidence": false,
+  "stencil_exported_order_counterexample": {
+    "parameter_N": 16,
+    "statement_2_index": 2,
+    "statement_3_index": 3,
+    "statement_2_timestamp": [
+      1,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "statement_3_timestamp": [
+      1,
+      1,
+      3,
+      1,
+      0,
+      0
+    ],
+    "statement_3_exported_before_statement_2": true,
+    "original_C_executes_the_second_range_before_the_third": true
+  },
+  "remaining_complete_marked_tree_cases": [
+    "multi-stmt-stencil-seq",
+    "tricky3"
+  ],
+  "domain_partition_checker_added": false,
+  "OLO_compact_condition_algorithm_complete": false,
+  "aggregate_full_corpus_coverage_recomputed": false,
+  "full_goal_complete": false
+}

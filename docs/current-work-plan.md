@@ -2,6 +2,33 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 逐语句坐标平移已接完整 compiler；fusion1 整段已实际接受
+
+[Shifted 后继](double-tree-shifted.md)增加已证明的逐语句常数点平移；实际 final
+domain/dependence checker、guarded factory 和新 Csem→Asm backward simulation
+消费它。Untrusted coalescer 合并 fusion1 的 peeled prefix，shift 表 `[0,-1]`；
+emitted Clight 有一个 fused loop、Out 的条件执行、两个原 fallback loops
+与准确公开出口。Kernel／host laws 保持，C用户不提供动态model callbacks。
+九模块859行／26端点（13closed、最多42原globals），565 reachable sources／
+10,405 bindings审计无新增globals。三原程序五配置15/15完整输出匹配。
+错误shift三个case均零安装；cap4/fixed N4096 的fusion guard保留，可从实际
+checks推出refusal；未新增机器guard-branch观察或成本结论。
+
+**当前下一步是 whole stencil 与 tricky3 的对应/producer 缺口：** whole stencil
+在 affine validation 拒绝；已固定 exported source-order 反例，修复 common
+schedule coordinates 并重新检查原 source。Whole tricky3 的4个source assignments
+有19个generated copies；positional attachment要求相同数量，需要完整
+piece mapping、覆盖/互斥和执行对应。不能绕过validator或以内部regions代替
+整段验收。Shifted checker当前只处理一个点坐标上的常数平移，不是任意
+affine isomorphism／domain-partition checker。
+
+继续原62例/configurations、真实tiling／其他域变换、OLO compact entry
+conditions、CGO17原程序/tiers与完整成本，复用当前program host。新native batch
+没有重算aggregate coverage，requested tiled不等于实际tiling。目标不缩为
+fusion1或本checkpoint。Narrative 最新 `8ce9c8b` 已重新拉取并核对正文一致。
+
+### 前序完整模型与安装 checkpoint
+
 ### 整树 factory 与当前程序证明已闭合；下一步实际 native 接受
 
 [整树模型与安装后继](double-tree-model.md)闭合 final cache vector、未读取槽、
