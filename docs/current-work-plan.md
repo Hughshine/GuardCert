@@ -24,10 +24,14 @@ Csem→Asm 均已编译、审计、提取；没有新 kernel/host law 或 source
 各计数 400 次原 update、所有 indices 恰好一次，tiled 更新对应 13 个 witness
 tile groups。两个前序 fallback 和一个 observer 失败均保留。
 
-**下一验收是同 compiler 的完整 62 例／两 adaptations 对照**，已启动
-`current-declared-literal-combined-attempts/corpus-v1`；terminal report 出现前不计
-完成。继续逐配置检查实际 candidate、requested transformations 和完整成本，
-目前先关闭[两个 tiled 编译 blocker](literal-tiled-codegen-blockers.json)：
+**同 compiler 的完整 62 例／两 adaptations 对照已完成**：
+[192 配置摘要](declared-literal-double-corpus.json)有 184 个完整输出匹配，其中
+原例 178/186、adaptations 6/6；六个旧 frontend 拒绝和两个新 tiled 编译失败。
+所有输入 hashes 保持，只有后两项 status 相对 quiet baseline 改变；没有 native
+output mismatch／link failure。旧诊断的 untiled tree 八例／typed 十五例，并集
+23，不统计新 literal 路线，也不作为 requested transformation 支持计数。
+继续逐配置检查 actual candidates 与完整成本；下一实施先关闭
+[两个 tiled 编译 blocker](literal-tiled-codegen-blockers.json)：
 `fusion10` 的实际 phase 后栈溢出，64 MiB stack 重试仍失败；`fusion2` 为 180 秒
 timeout。旧同源 baseline 三配置均成功，它们是新增路线的 operational regressions，
 不是 successful fallback。先定位并控制候选准备／后续验证的增长，再推进

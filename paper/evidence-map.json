@@ -5029,7 +5029,7 @@
     },
     {
       "section": "evaluation",
-      "claim": "Terminal fusion10 and fusion2 tiled compiler failures are retained while the full replay is ongoing. The same pinned sources had three matching configurations on the earlier quiet compiler; the new untiled/unmarked configurations match, but tiled stack overflow/180-second timeout are operational regressions after real proposals. A recorded 64-MiB stack retry does not resolve fusion10. This is not successful fallback or a complete corpus result.",
+      "claim": "Terminal fusion10 and fusion2 tiled compiler failures are retained as a terminal case checkpoint before completion of the full replay. The same pinned sources had three matching configurations on the earlier quiet compiler; the new untiled/unmarked configurations match, but tiled stack overflow/180-second timeout are operational regressions after real proposals. A recorded 64-MiB stack retry does not resolve fusion10. This is not successful fallback or a complete corpus result.",
       "documents": [
         "docs/declared-literal-double.md",
         "docs/literal-tiled-codegen-blockers.json"
@@ -5038,6 +5038,21 @@
         "build/declared-literal-double/codegen-blockers-v1/report.json",
         "build/declared-literal-double/resource-attempts/fusion10-stack-v1/report.json"
       ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "The declared-literal compiler completed 192 configurations from 62 pinned originals and two disclosed initializer adaptations, with 184 matching complete outputs: original 178/186 and adapted 6/6. Six known frontend refusals remain; only fusion10/fusion2 tiled statuses regress against the quiet baseline. No native mismatch or link failure occurs and input hashes are preserved. Old shape diagnostics omit literal paths and are not transformation coverage; controlled cost and two operational regressions remain open.",
+      "theorems": [
+        {
+          "source": "prototype/interface/DeclaredLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_declared_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/declared-literal-double.md",
+        "docs/declared-literal-double-corpus.json"
+      ],
+      "validation": "build/declared-literal-double/corpus-summary-v1/report.json"
     }
   ],
   "bibliography_evidence": [

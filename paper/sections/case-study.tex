@@ -2243,11 +2243,15 @@ each configuration. Tiled updates agree with the two size-32 witness coordinates
 and occupy 13 tile groups. The two earlier all-fallback runs and one failed
 observer selection remain recorded. This is a single-program functionality
 result; update order is the same for this input, and the tiled Clight has 72
-conditions compared with two in source. Full-corpus replay and controlled cost
-are separate checks. During the ongoing replay, two original tiled
-configurations expose operational regressions: fusion10 overflows the native
+conditions compared with two in source. The completed 192-configuration replay
+has 184 matching complete outputs: 178 of 186 original configurations and all
+six configurations of the two disclosed adaptations. Six known frontend
+refusals remain. Two original tiled configurations expose operational
+regressions: fusion10 overflows the native
 stack and fusion2 exceeds 180 seconds after obtaining real phase proposals.
 Increasing fusion10's stack limit to 64 MiB does not resolve it. These failures
-remain open and are distinct from successful fallback. An
+are the only status changes from the quiet baseline; no native output mismatch
+or link failure is observed. They remain open and are distinct from successful
+fallback. Controlled cost and actual transformation support are separate checks. An
 outer-control initializer such as \texttt{k=j}, mixed loaded bounds, and OLO's
 dynamic compact entry-condition construction remain separate obligations.

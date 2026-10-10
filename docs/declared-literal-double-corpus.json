@@ -1,0 +1,125 @@
+{
+  "status": "diagnostic_complete",
+  "original_cases": 62,
+  "disclosed_adaptations": 2,
+  "configurations": 192,
+  "matching_complete_outputs": 184,
+  "matching_original_configurations": 178,
+  "matching_adapted_configurations": 6,
+  "baseline_matching_complete_outputs": 186,
+  "refusals": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "compiler_returncode": 2,
+      "timeout": false
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "compiler_returncode": 2,
+      "timeout": false
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler_returncode": 2,
+      "timeout": false
+    },
+    {
+      "case": "fusion10",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler_returncode": 2,
+      "timeout": false
+    },
+    {
+      "case": "fusion2",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler_returncode": null,
+      "timeout": true
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "compiler_returncode": 2,
+      "timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "compiler_returncode": 2,
+      "timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler_returncode": 2,
+      "timeout": false
+    }
+  ],
+  "status_changes": [
+    {
+      "case": "fusion10",
+      "variant": "original",
+      "mode": "tiled",
+      "previous": "native_match",
+      "current": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "fusion2",
+      "variant": "original",
+      "mode": "tiled",
+      "previous": "native_match",
+      "current": "frontend_or_compiler_refusal"
+    }
+  ],
+  "all_source_hashes_preserved": true,
+  "native_output_mismatches": 0,
+  "link_failures": 0,
+  "old_shape_tree_untiled_cases": [
+    "fusion1",
+    "fusion6",
+    "fusion7",
+    "jacobi-1d-imper",
+    "multi-loop-param",
+    "multi-stmt-stencil-seq",
+    "tricky2",
+    "tricky3"
+  ],
+  "old_shape_typed_untiled_cases": [
+    "dct",
+    "gemver",
+    "intratileopt1",
+    "intratileopt2",
+    "intratileopt3",
+    "intratileopt4",
+    "matmul",
+    "matmul-init",
+    "matmul-seq",
+    "matmul-seq3",
+    "mvt",
+    "mxv",
+    "polynomial",
+    "spatial",
+    "tce"
+  ],
+  "old_shape_untiled_union": 23,
+  "literal_installations_not_counted_by_old_shape_diagnostic": true,
+  "all_requested_transformations_verified_by_replay": false,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "reports": {
+    "current": "build/benchmark-alignment/current-declared-literal-combined-attempts/corpus-v1/report.json",
+    "baseline": "build/benchmark-alignment/current-double-combined-residual-quiet-attempts/corpus-v1/report.json",
+    "blockers": "build/declared-literal-double/codegen-blockers-v1/report.json"
+  },
+  "report": "build/declared-literal-double/corpus-summary-v1/report.json"
+}
