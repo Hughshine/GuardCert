@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+[2026-10-10 narrative 复核](narrative-condition-boundary-review-2026-10-10.md)明确：
+kernel 消费证书证明局部 correctness；条件库提供带调用前提的可复用处理；语言
+host 提供机器安全、frame、control／progress 和全程序安装；domain 提供实际
+模型、候选正确性及局部义务到入口前提的推导。Generic context 的 lifting 字段
+需要 host 证明。当前候选体 membership 简化不等于 OLO 入口条件 synthesis，
+未编译的新 residual factory／compiler 不计交付。支持族的 C 使用者不给语义
+callbacks；扩展作者和 factory 必须证明并 discharge 相应义务。
+
 [Body-pruning 后继](double-tree-pruned.md)明确reference与actual target的交接：
 domain先验证affine reference，再用quiet-suffix／runtime最大上界证明将其变为
 实际target；语言复用machine lowering、safe captures和public exits；新factory

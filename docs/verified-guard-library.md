@@ -1,5 +1,12 @@
 # Verified guard library：服务分类与依赖契约
 
+[2026-10-10 条件边界复核](narrative-condition-boundary-review-2026-10-10.md)将通用
+formula residualization、Loop/domain 的事实与执行证明、Clight 的安全求值及
+frame 分开验收。候选体 tests 的消除不替代局部义务到紧凑入口条件的推导，
+也不自动保持一般 dependent check 的读取许可和 refusal 行为。现有五类服务
+及 requires／accepted facts／reads／private writes／public frame／refusal 契约
+继续适用；新的 residual 实例尚未完成安装，不增加 guard 表达能力声明。
+
 [Body-pruning 后继](double-tree-pruned.md)是domain条件事实的消费者：guard
 upper与sequence义务证明quiet suffix，private cached参数和typed intervals许可
 runtime最大上界的machine降低；不新增entry test或首次读取许可。新factory／

@@ -2,6 +2,13 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+2026-10-10 [narrative／条件边界复核](narrative-condition-boundary-review-2026-10-10.md)
+重新 fetch 并核对远端；可见最新仍为 `8ce9c8b`，正文与 main 一致。继续按下述
+实际成本 blocker 推进；区分候选体 residualization 与 OLO 紧凑入口条件推导，
+二者分别交付执行、机器安全与当前程序接入证明。Contract clauses 仍是待实际
+需要检验的设计提案。当前 residual Loop 实例编译尚未通过，新 factory／compiler
+未编译，不增加已交付能力计数；长期 goal 和完整验收范围保持。
+
 ### Runtime max pruning 已接完整 compiler；成本指出下一 blocker
 
 [Body-pruning 后继](double-tree-pruned.md)由各guarded body导出quiet suffix，
