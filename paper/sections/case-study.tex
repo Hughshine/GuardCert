@@ -2183,3 +2183,12 @@ both services after affine reference validation; a new factory and selected
 program theorem establish Csem-to-Asm backward simulation. The generic kernel
 and host laws remain unchanged. Simplifying candidate predicates does not
 supply OLO's derivation of compact entry conditions or safe dependent reads.
+
+\paragraph{Composition on the Actual Intermediate Program.}
+The source-tree pass and the established typed-double passes now run in
+sequence. The second pass checks and transforms the actual Clight program
+returned by the first. Their forward simulations compose with normalization
+and the backend into a Csem-to-Asm backward simulation. This is a concrete
+use of finite rewrite composition: each host installation supplies evidence
+for its current input program. The kernel gains no language law, and the
+composition does not infer model assumptions or context closure.

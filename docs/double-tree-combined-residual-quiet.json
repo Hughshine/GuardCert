@@ -1,0 +1,58 @@
+{
+  "status": "identity-trace-erased-and-original-replays-match",
+  "compiler_entrypoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program",
+  "whole_program_theorem": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "compiler": "build/double-tree-model/compiler-attempts/native-combined-residual-quiet-v1/ccomp",
+  "compiler_sha256": "d9c35d795ffd7eae795ba27a768a0c70b4073ee78711b712a43aec8e476a7fda",
+  "Rocq_semantic_and_proof_inputs_unchanged": true,
+  "trace_identity_probe_closed": true,
+  "trace_message_evaluation_erased_by_standard_extraction": true,
+  "extracted_and_native_modules_bound": 444,
+  "fine_grained_VPL_phase_trace_available": false,
+  "original_timeout_replays": [
+    {
+      "case": "jacobi-1d-imper",
+      "source_sha256": "7af11452caae6104ba2ccc5ebbb9e86313340a987c0b83724d3e9421651c36be",
+      "status": "native_match",
+      "compiler_seconds": 86.62823734397534,
+      "prior_timeout_seconds": 180.0976651959936,
+      "tree_installed": [
+        2,
+        18,
+        4
+      ],
+      "typed_installed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "case": "tce",
+      "source_sha256": "57629773c620af2d593312be2bc227c2e164cbfad69406d2a3e429d87a6a76ca",
+      "status": "native_match",
+      "compiler_seconds": 117.49326893599937,
+      "prior_timeout_seconds": 180.04326904204208,
+      "tree_installed": [
+        0,
+        88,
+        4
+      ],
+      "typed_installed": [
+        0,
+        0,
+        4,
+        0,
+        4
+      ]
+    }
+  ],
+  "prior_timeouts_retained": true,
+  "compiler_cost_controlled_or_exact_speedup_established": false,
+  "runtime_guard_cost_measured": false,
+  "requested_tiling_support_established_by_replays": false,
+  "complete_quiet_corpus_results_added_by_this_report": false,
+  "full_goal_complete": false
+}

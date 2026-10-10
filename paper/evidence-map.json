@@ -4835,6 +4835,28 @@
         "docs/double-tree-residual-native.json"
       ],
       "validation": "build/double-tree-residual/native-summary-v1/report.json"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Source-tree and established typed-double passes compose on the actual intermediate Clight program through the current Csem-to-Asm theorem. Complete corpus observations separate original/adapted outputs, guarded shapes and refusals. Standard extraction erases identity trace messages and two exact original timeout replays match, without establishing requested-transformation support, precise compiler speedups or guard runtime costs.",
+      "theorems": [
+        {
+          "source": "prototype/interface/CombinedDoubleTreeResidualCompiler.v",
+          "name": "checked_selected_combined_residual_double_program_correct"
+        },
+        {
+          "source": "prototype/interface/CombinedDoubleTreeResidualCompiler.v",
+          "name": "compile_selected_combined_residual_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-tree-combined-residual.md",
+        "docs/double-tree-combined-residual.json",
+        "docs/double-tree-combined-residual-corpus.json",
+        "docs/double-tree-combined-residual-quiet.json",
+        "docs/double-tree-combined-residual-quiet-corpus.json"
+      ],
+      "validation": "build/double-tree-combined-residual/quiet-corpus-summary-v1/report.json"
     }
   ],
   "bibliography_evidence": [

@@ -5,7 +5,10 @@
 Kernel／host laws保持，数学Boolean equality不代替安全dependent reads。完整同源
 成本在满域案例改善为source的配对0.754；这不完成OLO入口条件或广泛效果验收。
 新组合compiler消费tree pass产出的actual intermediate Clight，再复用旧typed
-passes证明并接backend；编译证明不等于native或完整corpus覆盖，后两项仍在验收。
+passes证明并接backend。[完整后继对照](double-tree-combined-residual.md)有186/192
+输出匹配，只剩六项initializer frontend拒绝；untiled观察到22、requested tiled
+26原例安装形状。最终变换支持、guard接受路径与成本分别验收。日志后继内联
+Rocq identity trace，未改domain检查或host语义；相同源码全语料已运行。
 
 [2026-10-10 narrative 复核](narrative-condition-boundary-review-2026-10-10.md)明确：
 kernel 消费证书证明局部 correctness；条件库提供带调用前提的可复用处理；语言

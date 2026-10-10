@@ -22,10 +22,25 @@ initializer拒绝和jacobi requested-tiled的180秒compiler timeout单独保留�
 与新source-tree路线必须组合，不能用三例收益替代覆盖。
 新 `CombinedDoubleTreeResidualCompiler` 已证明先tree再旧typed passes，
 每项消费actual intermediate program，再接Csem→Asm；81行／两端点、最多42原
-globals，audit10,646 bindings。两个native builds已完成，第二个分别诊断tree和
-typed安装；完整对照仍在运行，不计新覆盖或组合路线成本收益。
+globals，audit10,646 bindings。[组合路线完整对照](double-tree-combined-residual.md)
+已完成192项，185完整输出匹配，六initializer拒绝与jacobi tiled timeout保留；
+无native mismatch／link failure。Untiled观察到tree七例／typed十五例，并集22；
+requested tiled并集25。这些是安装形状，不是requested transformations支持。
+第一次未记录typed counter的运行有额外tce timeout，亦保留。
 
-**接下来先完成实际组合路线和完整corpus对照，并修复暴露的具体缺口。** 保留
+Jacobi采样停在VPL约束字符串／GC。已构建standard-extraction后继，将原
+identity `Debugging.trace` 内联以消去diagnostic message构造，数学checker与
+compiler定义保持。原jacobi tiled约86.6秒完成、输出匹配，不能单凭此建立精确
+compile speedup或分块支持。专项原jacobi／tce两个输入均匹配，后者约117.5秒；
+444个提取／native modules及相同Rocq语义／证明inputs已绑定到
+[日志后继摘要](double-tree-combined-residual-quiet.json)。
+[完整后继对照](double-tree-combined-residual-quiet-corpus.json)192项已完成，186输出
+匹配，其中原例180/186、adaptations6/6；只剩六initializer frontend拒绝，无
+compiler timeout／native mismatch／link failure。输入hashes逐项保持，唯一状态
+变化为jacobi tiled由timeout到match；untiled安装形状并集22、tiled26，仍须核对
+实际retained transformations与accepted paths。
+
+**接下来核对各配置实际候选／guard接受路径，并修复具体功能缺口。** 保留
 真实tiling／general pieces／ISS forward-progress、OLO compact入口条件、安全
 machine execution与entry transport、shared-check memoization及CGO17原程序／
 contexts／tiers。Body residualization不是入口condition synthesis；完整goal保持。

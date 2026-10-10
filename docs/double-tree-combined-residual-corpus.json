@@ -1,0 +1,328 @@
+{
+  "status": "incomplete-functional-coverage",
+  "source_report": "build/benchmark-alignment/current-double-combined-residual-attempts/corpus-v2/report.json",
+  "source_report_sha256": "109521e89bab603ffe993de7318f160a63146624148b1e02f10660193279dff9",
+  "compiler_entrypoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program",
+  "whole_program_theorem": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "source_revision": "ca1ae3199c816594bab9d51eb77309a0d17527aa",
+  "original_cases_attempted": 62,
+  "disclosed_adaptations": 2,
+  "configurations_attempted": 192,
+  "original_configuration_matches": 179,
+  "adaptation_configuration_matches": 6,
+  "native_configuration_matches": 185,
+  "native_mismatches_or_link_failures": [],
+  "refusals": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.026574196992442012
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.025266323005780578
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.0260433999937959
+    },
+    {
+      "case": "jacobi-1d-imper",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": null,
+      "compiler_timeout": true,
+      "compiler_seconds": 180.01336993899895
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.02698552794754505
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027573793020565063
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027487400046084076
+    }
+  ],
+  "observed_guarded_shapes_by_mode": {
+    "unmarked": {
+      "statuses_including_separate_adaptations": {
+        "native_match": 62,
+        "frontend_or_compiler_refusal": 2
+      },
+      "tree_cases": [],
+      "typed_cases": [],
+      "overlap_cases": [],
+      "union_cases": [],
+      "union_count": 0
+    },
+    "untiled": {
+      "statuses_including_separate_adaptations": {
+        "native_match": 62,
+        "frontend_or_compiler_refusal": 2
+      },
+      "tree_cases": [
+        "fusion1",
+        "fusion6",
+        "fusion7",
+        "jacobi-1d-imper",
+        "multi-loop-param",
+        "multi-stmt-stencil-seq",
+        "tricky3"
+      ],
+      "typed_cases": [
+        "dct",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "mvt",
+        "mxv",
+        "polynomial",
+        "spatial",
+        "tce"
+      ],
+      "overlap_cases": [],
+      "union_cases": [
+        "dct",
+        "fusion1",
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "jacobi-1d-imper",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "multi-stmt-stencil-seq",
+        "mvt",
+        "mxv",
+        "polynomial",
+        "spatial",
+        "tce",
+        "tricky3"
+      ],
+      "union_count": 22
+    },
+    "tiled": {
+      "statuses_including_separate_adaptations": {
+        "native_match": 61,
+        "frontend_or_compiler_refusal": 3
+      },
+      "tree_cases": [
+        "fusion1",
+        "multi-stmt-stencil-seq",
+        "tricky3"
+      ],
+      "typed_cases": [
+        "dct",
+        "fdtd-2d",
+        "fusion5",
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "mvt",
+        "mxv",
+        "mxv-seq",
+        "mxv-seq3",
+        "polynomial",
+        "spatial",
+        "tce"
+      ],
+      "overlap_cases": [],
+      "union_cases": [
+        "dct",
+        "fdtd-2d",
+        "fusion1",
+        "fusion5",
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "multi-stmt-stencil-seq",
+        "mvt",
+        "mxv",
+        "mxv-seq",
+        "mxv-seq3",
+        "polynomial",
+        "spatial",
+        "tce",
+        "tricky3"
+      ],
+      "union_count": 25
+    }
+  },
+  "standalone_residual_untiled_cases": [
+    "fusion1",
+    "fusion6",
+    "fusion7",
+    "jacobi-1d-imper",
+    "multi-loop-param",
+    "multi-stmt-stencil-seq",
+    "polynomial",
+    "tricky3"
+  ],
+  "additional_untiled_guarded_shape_cases": [
+    "dct",
+    "gemver",
+    "intratileopt1",
+    "intratileopt2",
+    "intratileopt3",
+    "intratileopt4",
+    "matmul",
+    "matmul-init",
+    "matmul-seq",
+    "matmul-seq3",
+    "mvt",
+    "mxv",
+    "spatial",
+    "tce"
+  ],
+  "earlier_run": {
+    "source_report": "build/benchmark-alignment/current-double-combined-residual-attempts/corpus-v1/report.json",
+    "matches": 184,
+    "refusals": [
+      {
+        "case": "corcol3",
+        "variant": "original",
+        "mode": "unmarked",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": 2,
+        "compiler_timeout": false,
+        "compiler_seconds": 0.02648673701332882
+      },
+      {
+        "case": "corcol3",
+        "variant": "original",
+        "mode": "untiled",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": 2,
+        "compiler_timeout": false,
+        "compiler_seconds": 0.025723372003994882
+      },
+      {
+        "case": "corcol3",
+        "variant": "original",
+        "mode": "tiled",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": 2,
+        "compiler_timeout": false,
+        "compiler_seconds": 0.026436740008648485
+      },
+      {
+        "case": "jacobi-1d-imper",
+        "variant": "original",
+        "mode": "tiled",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": null,
+        "compiler_timeout": true,
+        "compiler_seconds": 180.0976651959936
+      },
+      {
+        "case": "pca",
+        "variant": "original",
+        "mode": "unmarked",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": 2,
+        "compiler_timeout": false,
+        "compiler_seconds": 0.02815143298357725
+      },
+      {
+        "case": "pca",
+        "variant": "original",
+        "mode": "untiled",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": 2,
+        "compiler_timeout": false,
+        "compiler_seconds": 0.027643851994071156
+      },
+      {
+        "case": "pca",
+        "variant": "original",
+        "mode": "tiled",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": 2,
+        "compiler_timeout": false,
+        "compiler_seconds": 0.027812212996650487
+      },
+      {
+        "case": "tce",
+        "variant": "original",
+        "mode": "tiled",
+        "status": "frontend_or_compiler_refusal",
+        "compiler_returncode": null,
+        "compiler_timeout": true,
+        "compiler_seconds": 180.04326904204208
+      }
+    ],
+    "typed_installation_counter_available": false
+  },
+  "tree_and_typed_counts_are_not_summed": true,
+  "original_numeric_types_and_computations_preserved": true,
+  "initializer_adaptations_are_separate_sources": true,
+  "guarded_shapes_do_not_establish_nonidentity_or_requested_tiling": true,
+  "scheduler_model_and_final_candidate_analysis_still_required": true,
+  "controlled_cost_comparison": false,
+  "standalone_residual_cost_ratio_transferred_to_combined_compiler": false,
+  "full_goal_complete": false
+}

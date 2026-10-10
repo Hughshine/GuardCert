@@ -6,6 +6,12 @@
 [paper-narrative.md](topdown/paper-narrative.md) 与 main 正文一致。
 本次是结合当前实现重读已可见的澄清，不声称取得另一份新提交。
 
+本页保留复核时的 proof／测量状态。此后的
+[residual 交付](double-tree-residual.md)已闭合 Loop、factory 和 compiler，
+[组合路线对照](double-tree-combined-residual.md)已完成 192 项，并记录实际中间
+Clight 的顺序证明组合。下文的“尚未编译”和约 1.837 比值是前序状态；当前
+责任边界与 OLO 单独验收要求仍适用。
+
 ## 固定的责任边界
 
 | 层次 | 应交付的证明 | 不能由这个层次的接口本身代替的工作 |

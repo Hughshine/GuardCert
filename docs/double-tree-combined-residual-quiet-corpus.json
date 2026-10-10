@@ -1,0 +1,288 @@
+{
+  "status": "incomplete-functional-coverage",
+  "source_report": "build/benchmark-alignment/current-double-combined-residual-quiet-attempts/corpus-v1/report.json",
+  "source_report_sha256": "a8464f6b835259108d6405ad379dee559c972cac76bf2d7f7080dd90254c8016",
+  "prior_report": "build/benchmark-alignment/current-double-combined-residual-attempts/corpus-v2/report.json",
+  "compiler_entrypoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program",
+  "whole_program_theorem": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "source_revision": "ca1ae3199c816594bab9d51eb77309a0d17527aa",
+  "original_cases_attempted": 62,
+  "disclosed_adaptations": 2,
+  "configurations_attempted": 192,
+  "native_configuration_matches": 186,
+  "original_configuration_matches": 180,
+  "adaptation_configuration_matches": 6,
+  "native_mismatches_or_link_failures": [],
+  "refusals": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.026736981002613902
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027731873036827892
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027922844979912043
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.026604261016473174
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.0267322679865174
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027607122960034758
+    }
+  ],
+  "prior_refusals_retained": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.026574196992442012
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.025266323005780578
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.0260433999937959
+    },
+    {
+      "case": "jacobi-1d-imper",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": null,
+      "compiler_timeout": true,
+      "compiler_seconds": 180.01336993899895
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.02698552794754505
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027573793020565063
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_returncode": 2,
+      "compiler_timeout": false,
+      "compiler_seconds": 0.027487400046084076
+    }
+  ],
+  "status_changes": [
+    {
+      "case": "jacobi-1d-imper",
+      "variant": "original",
+      "mode": "tiled",
+      "before": "frontend_or_compiler_refusal",
+      "after": "native_match",
+      "previous_compiler_timeout": true,
+      "current_compiler_timeout": false
+    }
+  ],
+  "observed_guarded_shapes_by_mode": {
+    "unmarked": {
+      "statuses_including_separate_adaptations": {
+        "native_match": 62,
+        "frontend_or_compiler_refusal": 2
+      },
+      "tree_cases": [],
+      "typed_cases": [],
+      "union_cases": [],
+      "union_count": 0
+    },
+    "untiled": {
+      "statuses_including_separate_adaptations": {
+        "native_match": 62,
+        "frontend_or_compiler_refusal": 2
+      },
+      "tree_cases": [
+        "fusion1",
+        "fusion6",
+        "fusion7",
+        "jacobi-1d-imper",
+        "multi-loop-param",
+        "multi-stmt-stencil-seq",
+        "tricky3"
+      ],
+      "typed_cases": [
+        "dct",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "mvt",
+        "mxv",
+        "polynomial",
+        "spatial",
+        "tce"
+      ],
+      "union_cases": [
+        "dct",
+        "fusion1",
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "jacobi-1d-imper",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "multi-stmt-stencil-seq",
+        "mvt",
+        "mxv",
+        "polynomial",
+        "spatial",
+        "tce",
+        "tricky3"
+      ],
+      "union_count": 22
+    },
+    "tiled": {
+      "statuses_including_separate_adaptations": {
+        "native_match": 62,
+        "frontend_or_compiler_refusal": 2
+      },
+      "tree_cases": [
+        "fusion1",
+        "jacobi-1d-imper",
+        "multi-stmt-stencil-seq",
+        "tricky3"
+      ],
+      "typed_cases": [
+        "dct",
+        "fdtd-2d",
+        "fusion5",
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "mvt",
+        "mxv",
+        "mxv-seq",
+        "mxv-seq3",
+        "polynomial",
+        "spatial",
+        "tce"
+      ],
+      "union_cases": [
+        "dct",
+        "fdtd-2d",
+        "fusion1",
+        "fusion5",
+        "fusion6",
+        "fusion7",
+        "gemver",
+        "intratileopt1",
+        "intratileopt2",
+        "intratileopt3",
+        "intratileopt4",
+        "jacobi-1d-imper",
+        "matmul",
+        "matmul-init",
+        "matmul-seq",
+        "matmul-seq3",
+        "multi-loop-param",
+        "multi-stmt-stencil-seq",
+        "mvt",
+        "mxv",
+        "mxv-seq",
+        "mxv-seq3",
+        "polynomial",
+        "spatial",
+        "tce",
+        "tricky3"
+      ],
+      "union_count": 26
+    }
+  },
+  "source_bytes_types_and_computations_unchanged": true,
+  "identity_trace_erased_by_standard_extraction": true,
+  "requested_transformations_and_accepted_paths_require_analysis": true,
+  "controlled_compiler_or_guard_cost_comparison": false,
+  "new_optimization_or_condition_derivation_algorithm_added": false,
+  "full_goal_complete": false
+}

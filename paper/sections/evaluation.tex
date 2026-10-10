@@ -2544,3 +2544,20 @@ checks, candidate/fallback, public exits, digest and printing, without CPU
 pinning or frequency control. This is not kernel-only or isolated guard-cost
 evidence. General piece correspondence, actual new tiling and compact OLO
 entry-condition construction remain open.
+
+\paragraph{Combined Compiler Corpus.}
+The combined compiler attempts all 62 pinned originals and two separately
+disclosed initializer adaptations in three configurations, totaling 192.
+Complete outputs match in 186 attempts: 180 original configurations and all
+six adapted configurations. The original corcol3 and pca inputs incur six
+frontend refusals. No compiler timeout, native mismatch or link failure is
+observed. Final Clight diagnostics
+identify guarded shapes in 22 original untiled cases and 26 requested-tiled
+cases, using the union of tree and typed counters. These counts require
+candidate and accepted-path analysis before they establish transformation
+support. The previous residual/source cost ratio does not transfer to this
+combined compiler. This run uses standard extraction to inline the identity
+VPL trace, erasing diagnostic message construction. Earlier jacobi and tce
+compiler timeouts remain recorded, and both exact original inputs also match
+in separate replays. These runs establish neither exact compiler speedups
+nor guard runtime costs.

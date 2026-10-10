@@ -125,6 +125,10 @@ jacobi-1d-imper、multi-loop-param、multi-stmt-stencil-seq、polynomial、trick
 新 [CombinedDoubleTreeResidualCompiler](../prototype/interface/CombinedDoubleTreeResidualCompiler.v)
 先运行 tree pass，再让旧 typed-double passes 消费实际 intermediate Clight program，
 组成完整 Csem→Asm theorem。81 行／两端点审计无新增 globals，两个 native builds
-已完成；第二个分别输出 tree 与 typed installation 诊断。完整 native 对照仍在
-运行，其覆盖与成本尚未验收。本后继的 0.754 成本结果属于单独 residual 路线，
+已完成；第二个分别输出 tree 与 typed installation 诊断。
+[组合路线完整对照](double-tree-combined-residual.md)已完成 192 项，185 输出匹配，
+七项 frontend／timeout 拒绝；untiled 观察到 22 原例安装形状。这不完成 requested
+transformations 或成本验收。其日志后继已完成相同 192 项，186 输出匹配，保留
+六 initializer frontend 拒绝；输入 hashes、数学 checker 与 compiler 定义保持。
+本后继的 0.754 成本结果属于单独 residual 路线，
 不能自动转给组合路线。
