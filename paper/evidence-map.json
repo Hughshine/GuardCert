@@ -5153,6 +5153,53 @@
         "docs/piece-family-results.json",
         "docs/piece-mutations.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Typed piece instructions and affine arguments, parameter prefixes, finite selection/recovery, and retimed timestamps are proved; a retained actual phase has source-to-model forward execution. Established parameter facts can restrict actual model execution without changing it. Native diagnostics accept actual fusion2 checks but do not install whole fusion.",
+      "theorems": [
+        {
+          "source": "theories/PolCertPieceActions.v",
+          "name": "check_piece_actions_sound"
+        },
+        {
+          "source": "theories/PolCertPieceActions.v",
+          "name": "piece_canonical_action_iff"
+        },
+        {
+          "source": "theories/PolCertPieceActions.v",
+          "name": "piece_retimed_timestamp"
+        },
+        {
+          "source": "theories/PolCertPieceSelection.v",
+          "name": "piece_selected_instance"
+        },
+        {
+          "source": "theories/PolCertPieceSelection.v",
+          "name": "piece_selection_recovers"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleRetainedPhase.v",
+          "name": "checked_double_retained_phase_forward_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleRetainedPhase.v",
+          "name": "checked_double_retained_phase_raw_backward"
+        },
+        {
+          "source": "theories/PolCertPieceParameterDomains.v",
+          "name": "piece_restriction_execution"
+        }
+      ],
+      "documents": [
+        "docs/piece-actions-and-execution.md",
+        "docs/polyhedral-piece-contract.md"
+      ],
+      "artifacts": [
+        "docs/piece-actions.json",
+        "docs/piece-parameter-domains.json",
+        "docs/piece-action-results.json"
+      ]
     }
   ],
   "bibliography_evidence": [

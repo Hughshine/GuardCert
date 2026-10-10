@@ -1,0 +1,87 @@
+{
+  "status": "checked",
+  "case": "fusion2-original",
+  "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "scope": "typed-actions-parameter-prefixes-and-model-dependence",
+  "source_numeric_types_and_computation_preserved": true,
+  "native_complete_output_matches": 3,
+  "actual_configurations": [
+    {
+      "mode": "untiled",
+      "actual_candidate_piece_count": 6,
+      "retained_checked_phase_accepted": true,
+      "action_and_parameter_checks_passed": 6,
+      "retimed_to_actual_dependence_check_accepted": true,
+      "wrong_instruction_refused": true,
+      "wrong_arguments_refused": true,
+      "wrong_parameter_prefix_refused": true,
+      "reversed_dependence_refused": true,
+      "selected_Clight_shape": {
+        "for_loops": 4,
+        "maximum_nested_for_loops": 2,
+        "if_statements": 8
+      },
+      "previous_selected_Clight_shape": {
+        "for_loops": 4,
+        "maximum_nested_for_loops": 2,
+        "if_statements": 8
+      },
+      "whole_fusion_installed": false,
+      "actual_action_receipts": [
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-action-0.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-action-1.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-action-2.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-action-3.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-action-4.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-action-5.json"
+      ]
+    },
+    {
+      "mode": "tiled",
+      "actual_candidate_piece_count": 7,
+      "retained_checked_phase_accepted": true,
+      "action_and_parameter_checks_passed": 7,
+      "retimed_to_actual_dependence_check_accepted": true,
+      "wrong_instruction_refused": true,
+      "wrong_arguments_refused": true,
+      "wrong_parameter_prefix_refused": true,
+      "reversed_dependence_refused": true,
+      "selected_Clight_shape": {
+        "for_loops": 8,
+        "maximum_nested_for_loops": 4,
+        "if_statements": 16
+      },
+      "previous_selected_Clight_shape": {
+        "for_loops": 8,
+        "maximum_nested_for_loops": 4,
+        "if_statements": 16
+      },
+      "whole_fusion_installed": false,
+      "actual_action_receipts": [
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-0.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-1.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-2.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-3.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-4.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-5.json",
+        "build/benchmark-alignment/current-piece-action-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-action-6.json"
+      ]
+    }
+  ],
+  "typed_action_parameter_checks_passed": 13,
+  "retained_forward_phase_checks_passed": 2,
+  "retimed_dependence_checks_passed": 2,
+  "mutated_refusals": 8,
+  "conditional_parameter_domain_execution_proved_separately": true,
+  "parameter_restriction_proof_consumed_by_native_installation": false,
+  "concrete_iteration_enumeration_used": false,
+  "complete_multi_instruction_point_isomorphism_constructed": false,
+  "actual_candidate_Loop_execution_bridge_added": false,
+  "new_complete_compiler_endpoint": false,
+  "whole_fusion_installed": false,
+  "dynamic_OLO_entry_condition_algorithm_added": false,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "retained_summary_rejection": "build/piece-actions/results-rejected-v1/rejection.json",
+  "report": "build/piece-actions/results-v2/report.json"
+}

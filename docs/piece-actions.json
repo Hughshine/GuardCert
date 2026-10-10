@@ -1,0 +1,95 @@
+{
+  "status": "compiled",
+  "kind": "typed-piece-actions-parameters-selection-and-retained-phase",
+  "new_modules": [
+    "theories/PolCertPieceActions.v",
+    "theories/PolCertPieceSelection.v",
+    "adapters/compcert-memory/GuardMemoryDoublePieceActions.v",
+    "adapters/compcert-memory/GuardMemoryDoubleRetainedPhase.v"
+  ],
+  "new_source_lines": 348,
+  "endpoints": [
+    "PolCertPieceSelection.piece_find_image_sound",
+    "PolCertPieceSelection.piece_find_image_complete",
+    "GuardMemoryDoublePieceActions.DoublePieceActions.check_piece_actions_sound",
+    "GuardMemoryDoublePieceActions.DoublePieceActions.piece_canonical_action_iff",
+    "GuardMemoryDoublePieceActions.DoublePieceActions.piece_retimed_timestamp",
+    "GuardMemoryDoublePieceActions.DoublePieceSelection.piece_selected_instance",
+    "GuardMemoryDoublePieceActions.DoublePieceSelection.piece_selection_recovers",
+    "GuardMemoryDoubleRetainedPhase.checked_double_retained_phase_sound",
+    "GuardMemoryDoubleRetainedPhase.checked_double_retained_phase_forward_at",
+    "GuardMemoryDoubleRetainedPhase.checked_double_retained_phase_raw_backward"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoublePieceActions.DoublePieceActions.check_piece_actions_sound",
+    "GuardMemoryDoublePieceActions.DoublePieceActions.piece_canonical_action_iff",
+    "GuardMemoryDoublePieceActions.DoublePieceActions.piece_retimed_timestamp",
+    "GuardMemoryDoublePieceActions.DoublePieceSelection.piece_selected_instance",
+    "GuardMemoryDoublePieceActions.DoublePieceSelection.piece_selection_recovers"
+  ],
+  "new_endpoint_count": 10,
+  "additional_global_axioms": [],
+  "closed_endpoints": 2,
+  "maximum_endpoint_globals": 12,
+  "reachable_source_count": 182,
+  "attempts": [
+    {
+      "module": "PolCertPieceActions",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceActions-v1.json"
+    },
+    {
+      "module": "PolCertPieceActions",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceActions-v2.json"
+    },
+    {
+      "module": "PolCertPieceSelection",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSelection-v1.json"
+    },
+    {
+      "module": "PolCertPieceSelection",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSelection-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceActions",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceActions-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleRetainedPhase",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRetainedPhase-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleRetainedPhase",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRetainedPhase-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleRetainedPhase",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRetainedPhase-v3.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "domain_restricted_typed_instruction_and_arguments_proved_equal": true,
+  "parameter_prefix_correspondence_proved": true,
+  "retimed_timestamp_matches_checked_model": true,
+  "finite_piece_selector_and_unique_recovery_proved": true,
+  "retained_checked_phase_has_source_to_model_forward_execution": true,
+  "raw_codegen_backward_theorem_kept_separate": true,
+  "conditional_parameter_restriction_execution_bridge_added": false,
+  "complete_multi_instruction_point_isomorphism_constructed": false,
+  "actual_candidate_Loop_execution_bridge_added": false,
+  "candidate_final_checker_remains_authoritative": true,
+  "new_whole_program_compiler_definition": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-actions/proof-v1/report.json"
+}

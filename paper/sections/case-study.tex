@@ -2321,3 +2321,29 @@ obligations. The planned connection retains the checked tiled model, retimes
 pieces to its common schedule, and uses the existing dependence validator to
 justify the actual candidate order. Domain diagnostics in the existing compiler
 do not authorize installation or establish whole fusion.
+
+\paragraph{Typed Actions and Conditional Model Domains.}
+A further service checks the full typed instruction, affine arguments and
+parameter prefix for each proposed piece. Its accepted certificate relates
+the actual instruction semantics at the two coordinate representations,
+preserving initial and final memory and the read/write positions. It retimes
+each piece to the checked model's schedule and proves timestamp correspondence.
+The existing dependence validator then checks the transition from that retimed
+model to the candidate's actual order. Coordinate representation and legal
+reordering have separate proofs.
+
+The phase interface now retains the actual scheduled and tiled model and
+witnesses. Additional checked directions establish source-to-model
+instance-list execution; the raw-codegen backward theorem remains separate.
+An independently proved service restricts model domains by established
+parameter facts without changing execution at the current parameter values.
+It supplies an identity point isomorphism, rather than a new runtime guard.
+The instance must justify those facts through static evidence or certified
+guard/capture/state transport. Source execution is the proof's starting point,
+not a test that runs the source before choosing a version.
+
+These domain services leave the semantic kernel and host laws unchanged.
+The remaining connection must construct the complete point isomorphism for
+multiple source instructions, connect it to actual candidate Loop execution
+and progress, and reuse machine lowering and current-program installation.
+The new native checks are diagnostic and do not replace that proof chain.

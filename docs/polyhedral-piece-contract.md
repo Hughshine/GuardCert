@@ -1,5 +1,11 @@
 # 下一项 domain 接口：一源多 piece 的执行对应
 
+后继[动作／参数／执行服务](piece-actions-and-execution.md)已证明 typed action、
+参数前缀、retimed timestamp、有限 piece 选择，以及 retained phase 的模型 forward
+执行和已成立参数事实下的域 restriction iff。实际原 fusion2 的13项动作／参数
+和两次 retimed-to-actual 依赖检查通过，但完整 point isomorphism／actual Loop／
+progress／安装仍在推进；下文是接口设计与剩余验收，不是完成声明。
+
 这是基于原 `fusion2` scheduler/codegen receipts 的实施设计。新的
 [域／坐标服务](piece-domain-services.md)已实现覆盖、互斥和唯一 instance 对应，
 尚未接动作、参数前缀、次序及真实执行桥。它位于 [narrative](topdown/paper-narrative.md) 的 optimizer/domain 层，

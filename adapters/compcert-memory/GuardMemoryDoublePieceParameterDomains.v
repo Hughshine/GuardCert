@@ -1,0 +1,6 @@
+From Guard Require Import PolCertPieceParameterDomains.
+From GuardMemory Require Import GuardMemoryDoubleAssignment GuardMemoryDoublePolyhedral.
+Module DoublePieceParameterDomains := PolCertPieceParameterDomainsFor DoubleAssignmentIRs.
+Print Assumptions DoublePieceParameterDomains.piece_restricted_valid.
+Print Assumptions DoublePieceParameterDomains.piece_restriction_isomorphism.
+Print Assumptions DoublePieceParameterDomains.piece_restriction_execution.

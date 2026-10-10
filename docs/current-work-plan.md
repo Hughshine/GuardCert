@@ -2,6 +2,27 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Typed piece actions 与参数域执行已证明；构造完整对应
+
+已读远端 narrative `8ce9c8b` 的澄清，正文与 main 相同。仍明确区分静态
+check、runtime accepted facts／entry transport 与证明起点的 source execution；
+源执行不是动态检查。Kernel 截止于局部 guarded correctness；domain 服务与
+语言 host 分别 discharge 模型与机器／全程序义务，不要求普通 C 用户 callbacks。
+
+新的[动作／参数／执行服务](piece-actions-and-execution.md)已证明完整 typed
+instruction／affine arguments、参数前缀、retimed timestamp、有限 piece 选择与
+恢复，及 retained checked phase 的 source-to-model forward 执行；四模块348行／
+十端点，无新增 globals。参数域 restriction 的独立执行 iff 两模块103行／六
+端点同样无新增，要求已建立参数 facts，不产生 safe machine guard。
+
+原 fusion2 的13项 action/prefix、两次 retained phase、两次 retimed-to-actual
+dependence 均通过，八项错误提案拒绝；三配置完整输出匹配。Selected Clight
+仍是前序两单独 nests，整体 fusion 未安装。下一证明构造 one-to-many family 的
+完整 point isomorphism，并组合多个源 instructions，再接 actual candidate
+Loop／progress／factory 和当前程序 host；不能把诊断或数学模型 iff 当作安装。
+OLO compact 条件、safe checks／state transport、实际 contexts／tiers／完整成本
+及其他顺序能力仍是独立验收。下段保留前序域服务的 checkpoint。
+
 ### 已证明分片域服务；继续实际候选的执行接线
 
 远端 narrative 再核对仍为 `8ce9c8b`，正文与 main 相同。新的

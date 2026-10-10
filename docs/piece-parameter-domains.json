@@ -1,0 +1,68 @@
+{
+  "status": "compiled",
+  "kind": "established-parameter-domain-execution-restriction",
+  "new_modules": [
+    "theories/PolCertPieceParameterDomains.v",
+    "adapters/compcert-memory/GuardMemoryDoublePieceParameterDomains.v"
+  ],
+  "new_source_lines": 103,
+  "endpoints": [
+    "PolCertPieceParameterDomains.piece_dot_prefix",
+    "PolCertPieceParameterDomains.piece_domain_prefix",
+    "PolCertPieceParameterDomains.piece_resize_guards_correct",
+    "GuardMemoryDoublePieceParameterDomains.DoublePieceParameterDomains.piece_restricted_valid",
+    "GuardMemoryDoublePieceParameterDomains.DoublePieceParameterDomains.piece_restriction_isomorphism",
+    "GuardMemoryDoublePieceParameterDomains.DoublePieceParameterDomains.piece_restriction_execution"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoublePieceParameterDomains.DoublePieceParameterDomains.piece_restricted_valid",
+    "GuardMemoryDoublePieceParameterDomains.DoublePieceParameterDomains.piece_restriction_execution",
+    "GuardMemoryDoublePieceParameterDomains.DoublePieceParameterDomains.piece_restriction_isomorphism"
+  ],
+  "new_endpoint_count": 6,
+  "additional_global_axioms": [],
+  "closed_endpoints": 4,
+  "maximum_endpoint_globals": 4,
+  "reachable_source_count": 160,
+  "attempts": [
+    {
+      "module": "PolCertPieceParameterDomains",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceParameterDomains-v1.json"
+    },
+    {
+      "module": "PolCertPieceParameterDomains",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceParameterDomains-v2.json"
+    },
+    {
+      "module": "PolCertPieceParameterDomains",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceParameterDomains-v3.json"
+    },
+    {
+      "module": "PolCertPieceParameterDomains",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceParameterDomains-v4.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceParameterDomains",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceParameterDomains-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "conditional_parameter_restriction_execution_bridge_added": true,
+  "restriction_proved_for_actual_poly_instance_list_semantics": true,
+  "established_parameter_facts_required": true,
+  "safe_machine_guard_implementation_added": false,
+  "complete_multi_instruction_point_isomorphism_constructed": false,
+  "actual_candidate_Loop_execution_bridge_added": false,
+  "new_whole_program_compiler_definition": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-parameter-domains/proof-v1/report.json"
+}

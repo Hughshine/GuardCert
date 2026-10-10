@@ -1,5 +1,19 @@
 # 验证责任、证书边界与最难的验收
 
+当前的[动作／参数／执行连接](piece-actions-and-execution.md)继续按 narrative
+`8ce9c8b` 分工：domain 证明 typed instruction／arguments、参数前缀、piece
+选择和 retimed timestamp，并保留 checked phase 的源模型 forward 执行。已成立
+参数条件下的域 restriction 已证明实际 instance-list 执行 iff；它消费模型事实，
+不产生机器 guard。Kernel 和语言 host laws 不变，普通 C 用户不提供语义 callbacks。
+**当前最难的接线是检查结果生产完整多 instruction point isomorphism，再接
+actual candidate Loop／progress／factory／当前程序安装**。
+
+静态语法与资源事实、动态 guard/capture/entry facts、证明起点的源执行分别记录；
+没有一 premise 一 runtime test 的要求，源执行也不是 runtime pre-execution。
+原 fusion2 的动作／参数和实际次序检查通过，仍只作诊断，整体 fusion 未安装。
+OLO 入口条件推导、safe checks／state transport 与实际成本继续独立验收。
+以下保留前序 proof boundary，不把旧 checkpoint 的未完成项当作当前能力结论。
+
 新的 [piece domain 服务](piece-domain-services.md)建立不同深度 pieces 的坐标
 恢复、整数域覆盖／互斥及唯一 instance 对应；五模块443行／13端点，无新增
 globals。它消费模型 facts，不产生机器 guard，也未证明 typed action、参数前缀、

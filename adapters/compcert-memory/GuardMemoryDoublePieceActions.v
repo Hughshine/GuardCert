@@ -1,0 +1,9 @@
+From Guard Require Import PolCertPieceActions PolCertPieceSelection.
+From GuardMemory Require Import GuardMemoryDoubleAssignment GuardMemoryDoublePolyhedral.
+Module DoublePieceActions := PolCertPieceActionsFor DoubleAssignmentIRs.
+Module DoublePieceSelection := PolCertPieceSelectionFor DoubleAssignmentIRs.
+Print Assumptions DoublePieceActions.check_piece_actions_sound.
+Print Assumptions DoublePieceActions.piece_canonical_action_iff.
+Print Assumptions DoublePieceActions.piece_retimed_timestamp.
+Print Assumptions DoublePieceSelection.piece_selected_instance.
+Print Assumptions DoublePieceSelection.piece_selection_recovers.
