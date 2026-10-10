@@ -1,3 +1,9 @@
+# 后继状态
+
+[Body-pruning 后继](double-tree-pruned.md)已移除 tricky3 的固定 inner-cap 空转，
+接到新的完整 compiler，并加入实际迭代与同源 source 成本对照。以下保留本
+checkpoint 当时的边界；完整目标与满域性能问题仍未完成。
+
 # 实际 source Loop 接口与整段 tricky3 融合
 
 读者是新增 conditional transformation 的语言／优化库作者。

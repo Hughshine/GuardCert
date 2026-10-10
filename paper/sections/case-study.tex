@@ -2147,3 +2147,20 @@ preserve the mixed-depth scheduled codegen shape. It therefore establishes
 checked installation of this proposal, leaving general piece correspondence
 and requested tiling unresolved. The inner bound remains a constant profile
 enclosure rather than the maximum of runtime child bounds.
+
+\paragraph{Body-Derived Runtime Bound Selection.}
+A proved domain postpass derives a quiet suffix from each guarded body,
+combines sequence obligations and removes duplicate bounds. Checked interval
+facts establish that the proposals stay below the original enclosure.
+Complementary guards select the largest runtime bound. The machine compiler
+consumes this postpass after validation of the affine reference; the actual
+result is justified by the new preservation theorem rather than by another
+affine extraction. Existing lowering supports these guards and bounds.
+
+For tricky3, the actual target selects between loops bounded by the two child
+counts. Only one branch executes. The factory restores the same public exits
+and composes through the current-program Csem-to-Asm theorem. No kernel or
+host law changes. General finite bound lists are supported mathematically,
+although the current branch construction can grow exponentially. Body
+membership guards remain, and this service does not supply general piece
+correspondence or compact optimistic entry conditions.

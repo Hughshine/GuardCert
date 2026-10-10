@@ -2496,3 +2496,26 @@ compiler output. For a positive outer count, two enclosure comparisons each
 execute 32 times per outer iteration, even with zero child counts. No runtime
 maximum pruning, CPU cost result, aggregate corpus replay or compact OLO
 condition result is added.
+
+\paragraph{Runtime Pruning and Original-Source Cost.}
+Five modules add 603 lines and twelve queried endpoints, one closed. Ten
+module attempts are retained, five successful and five failed. The audit binds
+10,547 files and adds no global assumption; the complete endpoint retains at
+most 42 inherited globals. Fifteen original configurations and twenty-one
+runtime inputs match. Eleven GDB paths confirm actual runtime bounds, store
+counts and capture/fallback behavior. Input $(2,3,5)$ reduces inner body
+iterations from 64 to 10, while $(1,0,0)$ reduces them from 32 to zero.
+
+A separate same-computation comparison uses profile $[0,4096]$ and three
+variants: the previous cap, the pruned compiler and the same-backend unmarked
+source. Six inputs, three variants and seven randomized batches yield 126
+matching complete outputs. Child-process user and system CPU time includes
+startup, argv parsing, initialization, checking, candidate/fallback execution,
+public exits, digest and printing. CPU pinning and frequency control are not
+used; this is not a kernel-only timer or isolated guard-cost measurement.
+At full child counts, median process times are 26.900 ms for pruning and
+14.772 ms for source, with median paired ratio 1.837. Small child counts remove
+the cap overhead but do not establish a general gain over source. The full
+domain slowdown remains an acceptance gap; repeated body membership tests
+motivate proved residualization under loop and branch facts. No new tiling,
+general piece correspondence or aggregate corpus replay is established.

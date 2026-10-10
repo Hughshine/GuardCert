@@ -1,5 +1,13 @@
 # Verified guard library：服务分类与依赖契约
 
+[Body-pruning 后继](double-tree-pruned.md)是domain条件事实的消费者：guard
+upper与sequence义务证明quiet suffix，private cached参数和typed intervals许可
+runtime最大上界的machine降低；不新增entry test或首次读取许可。新factory／
+Csem→Asm实际消费了postpass，十一条路径观察确认迭代降低且原检查行为保持。
+Requires／accepted facts／frame继续分开；保留在body中的membership成本现在有
+source基线对照。下一步的residualization应证明loop／branch事实推出被删tests，
+复用现有candidate／host链，不替代OLO compact entry-condition推导或memoization。
+
 [Source-aware 整段后继](double-tree-source.md)复用现有capture／range／frame和
 public-exit服务；新接口只给untrusted proposer原source数据，不增加guard表达
 能力。Safe invocation来自原first comparison／raw effects；accepted intervals

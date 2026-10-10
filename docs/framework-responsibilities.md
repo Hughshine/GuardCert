@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+[Body-pruning 后继](double-tree-pruned.md)明确reference与actual target的交接：
+domain先验证affine reference，再用quiet-suffix／runtime最大上界证明将其变为
+实际target；语言复用machine lowering、safe captures和public exits；新factory
+及current-program host接Csem→Asm。实际target含互补Not guards，不能借旧affine
+checker直接授权。Kernel／host laws不变，诊断adapter不覆盖semantic extraction。
+完整source基线成本显示满domain仍约慢1.84倍；下一难点是从loop／branch事实
+导出可删membership义务并证明其安全消费，仍须继续general pieces／tiling和
+OLO condition construction，不能把比cap版快当成整体验收完成。
+
 [Source-aware 整段后继](double-tree-source.md)将原实际source Loop交给untrusted
 candidate proposer，既有最终domain/dependence checker仍裁决实际候选；没有
 新增kernel／host laws。Language继续生产safe capture、IEEE/Mem lowering与

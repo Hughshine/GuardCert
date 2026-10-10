@@ -1,0 +1,97 @@
+{
+  "status": "compiled",
+  "new_modules": [
+    "theories/PolCertGuardedBodyPruning.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreePrunedCandidate.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreePrunedGuarded.v",
+    "prototype/interface/DoubleTreePrunedFactory.v",
+    "prototype/interface/DoubleTreePrunedCompiler.v"
+  ],
+  "new_source_lines": 603,
+  "endpoints": [
+    "GuardMemoryDoubleTreePrunedCandidate.double_body_quiet_bounds_sound",
+    "GuardMemoryDoubleTreePrunedCandidate.double_body_bound_selection_sound",
+    "GuardMemoryDoubleTreePrunedCandidate.double_body_pruning_sound",
+    "GuardMemoryDoubleTreePrunedCandidate.double_tree_cache_within_pruning_intervals",
+    "GuardMemoryDoubleTreePrunedCandidate.compiled_pruned_double_tree_candidate_execution",
+    "GuardMemoryDoubleTreePrunedGuarded.checked_double_tree_pruned_guarded_execution",
+    "DoubleTreePrunedFactory.double_tree_pruned_region_contract",
+    "DoubleTreePrunedFactory.check_double_tree_pruned_region_sound",
+    "DoubleTreePrunedCompiler.checked_pruned_double_tree_regions_sound",
+    "DoubleTreePrunedCompiler.checked_selected_pruned_double_tree_program_correct",
+    "DoubleTreePrunedCompiler.selected_pruned_double_tree_cstrategy_forward",
+    "DoubleTreePrunedCompiler.compile_selected_pruned_double_tree_program_correct"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 1,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 565,
+  "attempts": [
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v1.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v2.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v3.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v4.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v5.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreePrunedCandidate",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreePrunedCandidate-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreePrunedCandidate",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreePrunedCandidate-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreePrunedGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreePrunedGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreePrunedFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreePrunedFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreePrunedCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreePrunedCompiler-v1.json"
+    }
+  ],
+  "complete_compiler_endpoint": "DoubleTreePrunedCompiler.compile_selected_pruned_double_tree_program_correct",
+  "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+  "actual_source_loop_passed_to_untrusted_adapter": true,
+  "common_original_schedule_coordinates_reused": true,
+  "per_statement_constant_point_shifts_reused": true,
+  "affine_reference_is_checked_before_proved_postpass": true,
+  "actual_pruned_loop_is_lowered_through_proved_machine_compiler": true,
+  "actual_pruned_loop_revalidated_by_polyhedral_checker": false,
+  "runtime_maximum_bound_selected_by_complementary_guards": true,
+  "factory_and_current_program_host_consume_new_checker": true,
+  "domain_partition_or_many_to_one_point_matching_added": false,
+  "new_native_acceptance_established_by_proof_audit": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/double-tree-pruned/proof-v1/report.json"
+}

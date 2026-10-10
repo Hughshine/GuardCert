@@ -2,6 +2,34 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Runtime max pruning 已接完整 compiler；成本指出下一 blocker
+
+[Body-pruning 后继](double-tree-pruned.md)由各guarded body导出quiet suffix，
+去重上界后用互补guards选择运行时最大值。先检查affine reference，再消费新
+有限执行保持证明并lower实际pruned Loop；新factory及当前program Csem→Asm
+backward simulation已接。五模块603行／12端点（1closed、最多42原globals），
+10,547 proof bindings；十attempts五成功五失败均保留，无新增globals。
+Kernel／host laws不变；没有semantic extraction override或C用户callback。
+
+三原程序五配置15/15 outputs匹配，runtime21/21 inputs匹配；十一条未改assembly
+观察确认max-bound loop、safe conditional capture与fallback。(2,3,5)的实际body
+iterations64→10，(1,0,0)32→0，原stores／出口保持。Reference4positions，实际
+target因互补branches有7positions，由postpass theorem授权而非general piece
+checker。Requested tiled仍未分块；多个不同上界的当前选择AST可能指数增长。
+
+同源profile[0,4096]比较cap／pruned／同backend unmarked source，七随机batches
+126次输出全匹配。全子进程CPU包括startup／argv／initialization／checks／退出／
+digest与printing；未做pinning，不是kernel-only成本。低child counts消除了cap
+空转；满domain pruned/source配对ratio median约1.837，性能验收尚未通过。
+
+**下一步优先关闭这个实际成本blocker：** 在loop／branch事实下证明residual
+membership简化并让actual compiler消费，然后重新与original source比较。
+这类服务属于domain library；safe arithmetic／private/public frames仍由语言
+提供。不把迭代次数降低或比前序cap快当作相对source的有用优化。继续general
+piece／ISS forward/progress、真实tiling／域变换、OLO compact入口条件与shared
+memoization，以及完整62例sequential configurations／CGO17原程序与tiers；每项
+扩展立即接current host／backend。完整goal保持active。
+
 ### Narrative 澄清复核与 source-aware 整段接入
 
 再次 fetch／远端 refs 核对：`topdown/research-positioning` 最新为

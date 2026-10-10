@@ -1,0 +1,1229 @@
+{
+  "status": "checked",
+  "reports": {
+    "compiler": {
+      "path": "build/double-tree-model/compiler-attempts/native-pruned-v1/report.json",
+      "sha256": "d0a09d4f692643950d953f854807d458b05b9d99fe85593ab8ca4c5fdf00e6a6"
+    },
+    "native": {
+      "path": "build/double-tree-pruned/native-attempts/original-v1/report.json",
+      "sha256": "7e3c2e42f3c66693c7a1266eb60d8a8fcf28ed257e56aad6bb86923fe305d93a"
+    },
+    "runtime": {
+      "path": "build/double-tree-pruned/runtime-attempts/argv-v1/report.json",
+      "sha256": "3c39d7a46cccbf920ccf2d8f682c9f1a61de19d73ec5b8ce8a831bebafa6b1e3"
+    },
+    "paths": {
+      "path": "build/double-tree-pruned/path-attempts/branch-v1/report.json",
+      "sha256": "5e45bb266fa0f82f87106d1390788a4e1f84aa2b4887324e8207e5079ce8d358"
+    },
+    "previous_paths": {
+      "path": "build/double-tree-source/path-attempts/branch-v3/report.json",
+      "sha256": "660e4a44cc4bb98bde30512ef49cf1172dee65a76f4e53f1348f93b740d4c610"
+    },
+    "cap_only_cost": {
+      "path": "build/double-tree-pruned/cost-attempts/process-v1/report.json",
+      "sha256": "df3f74364fa440fb67c12543f62334c8a221dedfeffa2cafc207fe0a53f1e2f1"
+    },
+    "cost": {
+      "path": "build/double-tree-pruned/cost-attempts/source-process-v1/report.json",
+      "sha256": "d99dc1f237ef554499639a661886b810b642d0b2e3318cd084cb19a1a6d82d1a"
+    }
+  },
+  "proof_report": "build/double-tree-pruned/proof-v1/report.json",
+  "new_modules": 5,
+  "new_source_lines": 603,
+  "queried_endpoints": 12,
+  "closed_endpoints": 1,
+  "maximum_inherited_globals": 42,
+  "additional_global_axioms": [],
+  "reachable_sources": 565,
+  "proof_bindings": 10547,
+  "proof_attempts": [
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v1.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v2.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v3.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v4.json"
+    },
+    {
+      "module": "PolCertGuardedBodyPruning",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardedBodyPruning-v5.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreePrunedCandidate",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreePrunedCandidate-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreePrunedCandidate",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreePrunedCandidate-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreePrunedGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreePrunedGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreePrunedFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreePrunedFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreePrunedCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreePrunedCompiler-v1.json"
+    }
+  ],
+  "compiler": "build/double-tree-model/compiler-attempts/native-pruned-v1/ccomp",
+  "compiler_sha256": "1b6bddd222e67e1df5d5dccf34a8d7f71178188133df54fffc0c5f98a15ef619",
+  "whole_program_theorem": "DoubleTreePrunedCompiler.compile_selected_pruned_double_tree_program_correct",
+  "actual_final_checker_validates_affine_reference": true,
+  "verified_postpass_after_final_checker": true,
+  "actual_machine_lowering_consumes_proved_pruned_loop": true,
+  "actual_pruned_loop_revalidated_by_polyhedral_extractor": false,
+  "runtime_maximum_selected_by_complementary_guards": true,
+  "native_cases": 3,
+  "native_configurations": 15,
+  "native_matches": 15,
+  "cases": [
+    {
+      "case": "fusion1",
+      "input": "build/double-source-tree/source-attempts/source-v2/fusion1/marked.c",
+      "input_sha256": "a77d05fc15bdf8112f9b492dc15acb3256e56cee6a2456175afadd1c15a449eb",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            13,
+            3
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "case": "multi-stmt-stencil-seq",
+      "input": "build/double-source-tree/source-attempts/source-v2/multi-stmt-stencil-seq/marked.c",
+      "input_sha256": "6835bdb8ff9f0b859d56719245d0143b3c619e28aadf9604fcaadabd1e311c51",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            34,
+            9
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "case": "tricky3",
+      "input": "build/double-source-tree/source-attempts/source-v2/tricky3/marked.c",
+      "input_sha256": "2448472faff16424a0c5e5c320fbf148bb04df0b2eb9a3f3aba7bafe94eef573",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            30,
+            4
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            30,
+            4
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            30,
+            4
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            30,
+            4
+          ]
+        }
+      }
+    }
+  ],
+  "runtime_header_variant": {
+    "original": "build/double-source-tree/source-attempts/source-v2/tricky3/marked.c",
+    "adaptation": "three constant globals become argv inputs; marked calculation unchanged",
+    "calculation_byte_identical": true,
+    "profile": [
+      0,
+      32
+    ],
+    "native_matches": 21,
+    "values": [
+      [
+        -1,
+        2,
+        3
+      ],
+      [
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        9223372036854775807,
+        -9223372036854775808
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        7
+      ],
+      [
+        1,
+        7,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        3,
+        5,
+        2
+      ],
+      [
+        2,
+        31,
+        32
+      ],
+      [
+        1,
+        32,
+        31
+      ],
+      [
+        32,
+        1,
+        1
+      ],
+      [
+        33,
+        1,
+        1
+      ],
+      [
+        1,
+        33,
+        1
+      ],
+      [
+        1,
+        1,
+        33
+      ],
+      [
+        1,
+        -1,
+        7
+      ],
+      [
+        1,
+        7,
+        -1
+      ],
+      [
+        1,
+        32,
+        32
+      ],
+      [
+        4096,
+        3,
+        5
+      ],
+      [
+        1,
+        4096,
+        4096
+      ],
+      [
+        4096,
+        4096,
+        4096
+      ]
+    ]
+  },
+  "actual_paths": [
+    {
+      "values": [
+        -1,
+        2,
+        3
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": []
+    },
+    {
+      "values": [
+        0,
+        9223372036854775807,
+        -9223372036854775808
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": []
+    },
+    {
+      "values": [
+        1,
+        0,
+        0
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min"
+      ]
+    },
+    {
+      "values": [
+        1,
+        0,
+        7
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        8,
+        0,
+        7,
+        1,
+        0,
+        0,
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        8,
+        0,
+        7,
+        1,
+        0,
+        0,
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv"
+      ]
+    },
+    {
+      "values": [
+        1,
+        7,
+        0
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        8,
+        7,
+        1,
+        7,
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        8,
+        7,
+        1,
+        7,
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_dist",
+        "target_kmin",
+        "target_dist",
+        "target_kmin",
+        "target_dist",
+        "target_kmin",
+        "target_dist"
+      ]
+    },
+    {
+      "values": [
+        1,
+        1,
+        1
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv"
+      ]
+    },
+    {
+      "values": [
+        2,
+        3,
+        5
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        12,
+        0,
+        10,
+        2,
+        6,
+        6,
+        10,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        12,
+        0,
+        10,
+        2,
+        6,
+        6,
+        10,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv"
+      ]
+    },
+    {
+      "values": [
+        3,
+        5,
+        2
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        18,
+        15,
+        3,
+        15,
+        15,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        18,
+        15,
+        3,
+        15,
+        15,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_dist"
+      ]
+    },
+    {
+      "values": [
+        33,
+        1,
+        1
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33,
+        33,
+        33,
+        33
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33,
+        33,
+        33,
+        33
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_clusterv",
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_clusterv",
+        "fallback_dist_min",
+        "fallback_dist"
+      ]
+    },
+    {
+      "values": [
+        1,
+        33,
+        1
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        33,
+        33,
+        1
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        33,
+        33,
+        1
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist"
+      ]
+    },
+    {
+      "values": [
+        1,
+        1,
+        33
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        33
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        33
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv"
+      ]
+    }
+  ],
+  "actual_iteration_comparisons": [
+    {
+      "values": [
+        -1,
+        2,
+        3
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        0,
+        9223372036854775807,
+        -9223372036854775808
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        0,
+        0
+      ],
+      "old_body_iterations": 32,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        0,
+        7
+      ],
+      "old_body_iterations": 32,
+      "new_body_iterations": 7
+    },
+    {
+      "values": [
+        2,
+        3,
+        5
+      ],
+      "old_body_iterations": 64,
+      "new_body_iterations": 10
+    },
+    {
+      "values": [
+        3,
+        5,
+        2
+      ],
+      "old_body_iterations": 96,
+      "new_body_iterations": 15
+    },
+    {
+      "values": [
+        33,
+        1,
+        1
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        33,
+        1
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        1,
+        33
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    }
+  ],
+  "actual_scalar_stores_and_changed_order": {
+    "values": [
+      2,
+      3,
+      5
+    ],
+    "source_events": [
+      "source_dist_min",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_dist_min",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv"
+    ],
+    "fused_events": [
+      "target_dist_min",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_clusterv",
+      "target_clusterv",
+      "target_dist_min",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_clusterv",
+      "target_clusterv"
+    ],
+    "source_counts": [
+      2,
+      6,
+      6,
+      10
+    ],
+    "passed": true
+  },
+  "same_source_cost_comparison": {
+    "profile": [
+      0,
+      4096
+    ],
+    "cases": [
+      {
+        "values": [
+          0,
+          9223372036854775807,
+          -9223372036854775808
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "cap": 0.0005310000000000037,
+          "pruned": 0.000570999999998989,
+          "source": 0.0005220000000001335
+        },
+        "median_paired_pruned_over_cap_ratio": 0.9617706237389813,
+        "median_paired_pruned_over_source_ratio": 0.959839357427699
+      },
+      {
+        "values": [
+          4096,
+          0,
+          0
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "cap": 0.02706300000000006,
+          "pruned": 0.0005089999999992045,
+          "source": 0.0005819999999996384
+        },
+        "median_paired_pruned_over_cap_ratio": 0.0176761207684953,
+        "median_paired_pruned_over_source_ratio": 0.9948453608255446
+      },
+      {
+        "values": [
+          4096,
+          3,
+          5
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "cap": 0.026997999999998967,
+          "pruned": 0.000676000000000343,
+          "source": 0.0005310000000000037
+        },
+        "median_paired_pruned_over_cap_ratio": 0.02448015461149134,
+        "median_paired_pruned_over_source_ratio": 1.157407407407773
+      },
+      {
+        "values": [
+          4096,
+          4096,
+          4096
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "cap": 0.02663800000000016,
+          "pruned": 0.02689999999999948,
+          "source": 0.014772000000000673
+        },
+        "median_paired_pruned_over_cap_ratio": 1.0186200165177584,
+        "median_paired_pruned_over_source_ratio": 1.8368535066341034
+      },
+      {
+        "values": [
+          4097,
+          3,
+          5
+        ],
+        "expected_acceptance_from_emitted_capture": false,
+        "median_process_cpu_seconds": {
+          "cap": 0.000558999999999088,
+          "pruned": 0.0006090000000007478,
+          "source": 0.0006479999999999819
+        },
+        "median_paired_pruned_over_cap_ratio": 1.0287162162156789,
+        "median_paired_pruned_over_source_ratio": 0.9573770491801942
+      },
+      {
+        "values": [
+          1,
+          4097,
+          3
+        ],
+        "expected_acceptance_from_emitted_capture": false,
+        "median_process_cpu_seconds": {
+          "cap": 0.000610999999999251,
+          "pruned": 0.0006050000000001887,
+          "source": 0.0005900000000007566
+        },
+        "median_paired_pruned_over_cap_ratio": 0.9307359307365077,
+        "median_paired_pruned_over_source_ratio": 0.9959758551302166
+      }
+    ],
+    "samples_per_variant_and_input": 7,
+    "complete_measured_outputs_matched": 126,
+    "timing_scope": "Child process user+system CPU; includes executable startup, argv parsing, initialization, checks, candidate/fallback, public exits, complete-state digest and printing.",
+    "unmarked_variant_only_removes_selection_markers": true,
+    "kernel_only_call_timing": false,
+    "separate_guard_cpu_cost": false,
+    "CPU_pinning_or_frequency_control": false
+  },
+  "full_domain_input_slower_than_unmarked_source": true,
+  "redundant_body_membership_remains": true,
+  "condition_memoization_added": false,
+  "general_piece_correspondence_added": false,
+  "actual_tiling_added": false,
+  "OLO_compact_condition_algorithm_complete": false,
+  "aggregate_full_corpus_replayed": false,
+  "kernel_or_host_laws_changed": false,
+  "full_goal_complete": false
+}

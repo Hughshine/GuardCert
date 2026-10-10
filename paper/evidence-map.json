@@ -4771,6 +4771,38 @@
         "docs/double-tree-source-native.json"
       ],
       "validation": "build/double-tree-source/native-summary-v1/report.json"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "A proved quiet-suffix and runtime bound-selection postpass is consumed after affine reference validation by actual machine lowering and the current Csem-to-Asm compiler; runtime iterations are reduced, while same-backend original-source process cost exposes the remaining full-domain slowdown.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreePrunedCandidate.v",
+          "name": "double_body_pruning_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreePrunedCandidate.v",
+          "name": "compiled_pruned_double_tree_candidate_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreePrunedGuarded.v",
+          "name": "checked_double_tree_pruned_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/DoubleTreePrunedFactory.v",
+          "name": "check_double_tree_pruned_region_sound"
+        },
+        {
+          "source": "prototype/interface/DoubleTreePrunedCompiler.v",
+          "name": "compile_selected_pruned_double_tree_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-tree-pruned.md",
+        "docs/double-tree-pruned.json",
+        "docs/double-tree-pruned-native.json"
+      ],
+      "validation": "build/double-tree-pruned/native-summary-v1/report.json"
     }
   ],
   "bibliography_evidence": [
