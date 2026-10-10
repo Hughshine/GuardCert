@@ -2,6 +2,30 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 非零 strict／共享 affine source：已证明服务，尚待 tree 安装
+
+[新 source checkpoint](signed-range-source.md)补 initializer、实际首次比较许可、
+read-footprint entry transport、readonly I64 expression capture、准确 signed I32
+cache，以及接受 `N-c` 后的 I64 无回绕推导。真实 checked floating assignment
+连接非零／负起点、空区间 Loop；公开 iterator 出口是 `max(lower,upper)`。
+共享模型仍用原 `N` 表达 `N-2`／`N-3`，不是相互独立的 upper parameters。
+Strict raw progress 复用原协议且独立于 guard acceptance；inclusive 不套用此结果。
+
+九模块919行／42端点（19closed、最多继承六globals）、252 reachable sources／
+9650 bindings 已审计，十项 arithmetic／guard examples/lemmas 通过。20次proof
+attempts 与首空-import audit wrapper 失败固定，成功proof-v2单独保存。
+这不是新的 native factory／Csem→Asm 端点；现有22原例39sites不增加。
+Source/model 的 scope、point resolution、no-wrap 与参数编码仍要由新 factory
+实际闭合，库服务存在不等于已被完整compiler消费。
+
+**当前下一步是整个 marked source tree：** 原fusion1需要两个source loops、
+起点1/2和同一`N-2`／`N-3`；multi-stmt-stencil-seq继续该结构；tricky3则是
+不同深度的scalar assignments和loops。递归decoder／source-model要保留共享
+registry、参数关系、body effects、safe capture读序与准确public exits，随后
+接actual phases/final candidate、机器lowering与current-program host。
+不以把两个loops单独优化替代fusion，也不把proposal或safe fallback算作覆盖。
+原`N`的机器编码不由`N-c`落在I32自动推出。其余完整目标沿下列优先项继续。
+
 ### 动态 tile bounds：实际裁剪、lowering 与完整程序已接线
 
 [新后继](runtime-double-tile-bounds.md)关闭直接保留Div遇到的extractor语法限制：

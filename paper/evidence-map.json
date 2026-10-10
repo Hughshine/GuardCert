@@ -17596,5 +17596,73 @@
         "name": "compile_selected_tightened_rectangular_header_literal_quotient_tiled_stable_program_correct"
       }
     ]
+  },
+  "signed_range_source_checkpoint": {
+    "stage": "strict-signed-source-invocation-actual-expression-capture-and-shared-header-Loop-model",
+    "summary": "docs/signed-range-source.json",
+    "proof_report": "build/signed-range-source/proof-v2/report.json",
+    "first_audit_failure": "build/signed-range-source/proof-v1/rejection.json",
+    "new_Rocq_modules": 9,
+    "new_source_lines": 919,
+    "queried_endpoints": 42,
+    "closed_endpoints": 19,
+    "maximum_inherited_globals": 6,
+    "reachable_sources": 252,
+    "bindings": 9650,
+    "proof_attempts": 20,
+    "additional_global_axioms": [],
+    "kernel_or_host_laws_changed": false,
+    "actual_source_first_comparison_licenses_capture": true,
+    "read_footprint_entry_transport_proved": true,
+    "signed_I32_cache_including_negative_values_proved": true,
+    "accepted_subtraction_no_wrap_proved": true,
+    "actual_float_assignment_and_Mem_actions_retained": true,
+    "original_shared_N_parameter_retained": true,
+    "strict_progress_independent_of_guard_acceptance": true,
+    "raw_frontend_skip_transport_proved": true,
+    "factory_constructs_all_new_source_model_premises": false,
+    "actual_new_candidate_installed": false,
+    "new_complete_compiler_endpoint_added": false,
+    "native_source_coverage_added": false,
+    "native_or_cost_evidence_added": false,
+    "inclusive_progress_proved": false,
+    "general_affine_multiplication_no_wrap_claimed": false,
+    "multiplication_counterexample_retained": true,
+    "initial_audit_wrapper_failure_retained": true,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryLongRangeSource.v",
+        "name": "memory_long_from_range_equivalence"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryLongRangeSource.v",
+        "name": "long_raw_from_region_progress"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryLongExpressionCapture.v",
+        "name": "memory_long_expression_capture_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryLongRangeHeader.v",
+        "name": "long_sub_i32_accepted_no_wrap"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryLongRangeCaptureSource.v",
+        "name": "memory_long_offset_source_capture"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSignedRangeSource.v",
+        "name": "checked_double_signed_offset_source_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSharedHeaderRangeSource.v",
+        "name": "checked_double_shared_header_offset_source_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemorySignedRangeExamples.v",
+        "name": "multiplication_can_wrap_into_an_accepted_i32_result"
+      }
+    ]
   }
 }

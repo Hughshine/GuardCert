@@ -1,0 +1,210 @@
+{
+  "status": "compiled",
+  "kind": "strict-signed-source-capture-shared-header-model-checkpoint",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryLongRangeSource.v",
+    "adapters/compcert-memory/GuardMemoryLongRangeHeader.v",
+    "adapters/compcert-memory/GuardMemoryLongExpressionCapture.v",
+    "adapters/compcert-memory/GuardMemoryLongRangeCaptureSource.v",
+    "adapters/compcert-memory/GuardMemoryDoubleRangeModel.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSignedRangeSource.v",
+    "adapters/compcert-memory/GuardMemoryDoubleAffineRangeModel.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSharedHeaderRangeSource.v",
+    "adapters/compcert-memory/GuardMemorySignedRangeExamples.v"
+  ],
+  "new_source_lines": 919,
+  "endpoints": [
+    "GuardMemoryLongRangeSource.memory_long_range_end",
+    "GuardMemoryLongRangeSource.memory_long_range_test",
+    "GuardMemoryLongRangeSource.memory_long_from_loop_decode",
+    "GuardMemoryLongRangeSource.memory_long_from_range_equivalence",
+    "GuardMemoryLongRangeSource.long_raw_from_framed_progress",
+    "GuardMemoryLongRangeSource.long_raw_from_region_progress",
+    "GuardMemoryLongRangeHeader.memory_long_from_first_header",
+    "GuardMemoryLongRangeHeader.memory_long_strict_bound_license",
+    "GuardMemoryLongRangeHeader.memory_long_from_bound_license",
+    "GuardMemoryLongRangeHeader.long_sub_i32_accepted_no_wrap",
+    "GuardMemoryLongExpressionCapture.memory_long_expression_accept_spec",
+    "GuardMemoryLongExpressionCapture.memory_long_expression_tree_execution",
+    "GuardMemoryLongExpressionCapture.memory_long_loword_signed",
+    "GuardMemoryLongExpressionCapture.memory_long_expression_accepted_i32",
+    "GuardMemoryLongExpressionCapture.memory_long_expression_capture_execution",
+    "GuardMemoryLongExpressionCapture.memory_long_expression_capture_writes",
+    "GuardMemoryLongExpressionCapture.memory_long_expression_captured_frame",
+    "GuardMemoryLongRangeCaptureSource.memory_long_source_bound_capture",
+    "GuardMemoryLongRangeCaptureSource.memory_long_i32_initial_execution",
+    "GuardMemoryLongRangeCaptureSource.memory_long_offset_bound_execution",
+    "GuardMemoryLongRangeCaptureSource.memory_long_offset_bound_decode",
+    "GuardMemoryLongRangeCaptureSource.memory_long_offset_source_capture",
+    "GuardMemoryDoubleRangeModel.double_signed_range_domain",
+    "GuardMemoryDoubleRangeModel.double_signed_range_model_iterations",
+    "GuardMemoryDoubleRangeModel.double_signed_range_model_memory",
+    "GuardMemoryDoubleRangeModel.memory_long_range_identity_exit",
+    "GuardMemoryDoubleSignedRangeSource.checked_double_signed_offset_source_model",
+    "GuardMemoryDoubleSignedRangeSource.long_raw_from_execution",
+    "GuardMemoryDoubleAffineRangeModel.double_signed_affine_range_model_memory",
+    "GuardMemoryDoubleAffineRangeModel.double_shared_header_offset_model_memory",
+    "GuardMemoryDoubleSharedHeaderRangeSource.checked_double_shared_header_offset_source_model",
+    "GuardMemoryDoubleSharedHeaderRangeSource.long_raw_from_point_execution",
+    "GuardMemorySignedRangeExamples.original_fusion1_interval_counts",
+    "GuardMemorySignedRangeExamples.empty_nonzero_interval_preserves_start",
+    "GuardMemorySignedRangeExamples.negative_interval_is_nonempty",
+    "GuardMemorySignedRangeExamples.negative_expression_is_accepted_exactly",
+    "GuardMemorySignedRangeExamples.common_offset_bound_is_accepted",
+    "GuardMemorySignedRangeExamples.subtraction_underflow_refuses_i32_encoding",
+    "GuardMemorySignedRangeExamples.subtraction_overflow_refuses_i32_encoding",
+    "GuardMemorySignedRangeExamples.multiplication_can_wrap_into_an_accepted_i32_result",
+    "GuardMemorySignedRangeExamples.contradictory_expression_interval_refuses",
+    "GuardMemorySignedRangeExamples.contradictory_guard_has_actual_readonly_execution"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 19,
+  "maximum_endpoint_globals": 6,
+  "reachable_source_count": 252,
+  "attempts": [
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineRangeModel-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineRangeModel-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineRangeModel-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineRangeModel-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineRangeModel-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleAffineRangeModel-v2.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRangeModel-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRangeModel-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRangeModel-v1.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSharedHeaderRangeSource-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSharedHeaderRangeSource-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSharedHeaderRangeSource-v1.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v2.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v3.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v4.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v4.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSignedRangeSource-v4.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongExpressionCapture-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongExpressionCapture-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongExpressionCapture-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongExpressionCapture-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongExpressionCapture-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongExpressionCapture-v2.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v2.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeCaptureSource-v3.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeHeader-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeHeader-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeHeader-v1.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v2.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v3.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v4.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v4.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLongRangeSource-v4.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemorySignedRangeExamples-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemorySignedRangeExamples-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemorySignedRangeExamples-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemorySignedRangeExamples-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemorySignedRangeExamples-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemorySignedRangeExamples-v2.json",
+      "compiled": true
+    }
+  ],
+  "kernel_changed": false,
+  "new_host_contract": false,
+  "finite_signed_source_interval_equivalence": true,
+  "actual_expression_capture_and_i32_cache_proved": true,
+  "source_first_comparison_licenses_bound_evaluation": true,
+  "read_footprint_transports_receipt_to_check_entry": true,
+  "accepted_subtraction_no_wrap_receipt": true,
+  "original_shared_header_parameter_preserved": true,
+  "actual_float_assignment_and_Mem_actions_retained": true,
+  "strict_source_progress_independent_of_guard_acceptance": true,
+  "raw_frontend_skip_transport_proved": true,
+  "installed_factory_consumes_new_source_model": false,
+  "all_source_model_premises_closed_by_new_factory": false,
+  "new_complete_compiler_endpoint_added": false,
+  "native_source_coverage_added": false,
+  "native_or_cost_evidence_added_by_audit": false,
+  "inclusive_source_progress_proved": false,
+  "arbitrary_affine_multiplication_no_wrap_claimed": false,
+  "mixed_statement_region_installed": false,
+  "initial_audit_wrapper_failure_retained": true,
+  "full_goal_complete": false,
+  "toolchain": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.1",
+  "report": "build/signed-range-source/proof-v2/report.json",
+  "report_bindings_before_portable": 9649
+}

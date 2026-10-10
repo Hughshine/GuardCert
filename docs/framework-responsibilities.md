@@ -2,6 +2,15 @@
 
 ## 持续适用的责任表
 
+[非零/shared source服务](signed-range-source.md)把三方责任用于实际证明：language
+生产initializer／首次比较许可、read-footprint运输、实际signed expression
+capture、准确I32 cache、strict独立progress和public exits；domain提供`N-c`
+接受后的无回绕服务、真实IEEE/Mem point对应及保留共享原`N`的Loop模型。
+Kernel／host定律不变。九模块919行／42端点无新增globals，但新tree／factory、
+点resolution和参数编码前提的实际闭合、phase/candidate、entry/refusal运输及
+完整compiler尚未交付。原覆盖不增加，不能把library存在写成installation或
+作者负担收益。对乘法，实际结果落在I32仍可能由I64回绕产生，已有反例。
+
 [动态bounds后继](runtime-double-tile-bounds.md)把新服务真正接入完整compiler：
 domain checker先验证仿射reference，Loop库证明guard恢复的上界可以裁掉无effect
 后缀；language的区间转换、实际division lowering及public/private frame消费

@@ -1,5 +1,13 @@
 # Verified guard library：服务分类与依赖契约
 
+[Signed expression capture](signed-range-source.md)新增实际I64 expression服务。
+Safe requires是type与安全`eval_expr`，由源首次比较和read-footprint运输提供；
+accepted ensures是signed interval与准确I32 cache，含负值。检查保持memory并
+写private cache／flag；site需运输entry/refusal、frame公开状态。`N-c`的实际
+结果在I32时，可由新封闭算术定理推出该I64减法无回绕；不能推广到乘法。
+共享`N` source/model和strict独立progress已有证明，但新的source tree、factory
+与完整compiler还没有实际消费这些服务，不能计作native覆盖或OLO算法完成。
+
 [动态bound裁剪](runtime-double-tile-bounds.md)是membership事实的实际使用者。
 它在Loop domain库中识别合取的positive-factor上界，消费floor定律和充分I32
 interval条件，证明去掉越界后缀保持有限执行。实际lowering消费新Loop；原
