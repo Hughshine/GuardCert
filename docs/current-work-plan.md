@@ -19,8 +19,17 @@
 [仿射端点服务](affine-long-endpoints.md)已闭合 modular 求值、最终表示区间和
 actual capture：252 行／十端点，六 closed、最多六既有 globals，无新增公理。
 输入区间事实仍由 domain／host 建立；区间 checker 不是已发射的 runtime guard。
-**下一步将它们接入实际 source grammar／Loop model、factory 与当前 Csem→Asm，
-再运行对应原例。** 当前尚无这两个新源族的 native 安装，不把局部服务当成完成。
+[常量上界后继](fixed-double-source-trees.md)已消费 actual affine endpoint execution，
+证明 checked 原 AST、有限正常 source Clight／Loop iff、准确公开出口、独立
+progress、static footprint→point resolution 和 private constant parameter encoding。
+七模块702行；27新端点＋一个复用端点，九 closed、最多六既有 globals，无新增。
+常量 parameter names 是数学模型数据，不是 C globals／header reads。
+
+**下一交付是新 factory、projected region contract 与 actual-current-program
+Csem→Asm，再运行原 `nodep`。** Factory 要从真正 array globals 生产 scope／
+layout，discharge footprint／fresh slots，消费实际 phase／candidate 与 exit；
+C 源使用者不给语义 callbacks。此路径的常量 facts 静态建立，不算 OLO 动态
+紧凑入口条件。`k=j` 与混合端点继续未支持，两新源族均尚无 native 安装。
 
 ### Fact residualization 已接 compiler，完整语料暴露路线组合缺口
 

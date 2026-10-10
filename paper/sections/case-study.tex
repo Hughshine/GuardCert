@@ -2208,5 +2208,23 @@ $4x$ is zero and passes a small-range test. The new fixtures prove that result
 and the corresponding interval check's refusal. The interval checker is a
 mathematical service, not a newly emitted runtime guard, and final-value
 representability is not a per-operator overflow or poison theorem. The services
-have not yet entered the source-tree factory or added native source families;
-the source/model, exit and host connections remain required.
+have not yet entered the source-tree factory or added native source families.
+
+\paragraph{Literal-Bound Source Correspondence.}
+A source-tree extension now consumes the affine endpoint execution service for
+constant bounds. It retains the actual Clight bound expression and checks the
+full reconstructed source AST. A projection gives the existing Loop model
+mathematical constant parameters; these parameter names introduce no C globals
+or header loads. Private I32 constant assignments materialize their values with
+proved execution and frame properties.
+
+Under checked syntax, shared layout, scope, point-resolution facts and control
+entry words, the source theorem proves an iff for finite normal Clight and
+source Loop executions, including exact source exits. A separate progress
+protocol covers the source control. Static affine footprint checks produce the
+point-resolution facts given the actual globals, scope and coordinate box.
+These are language and domain services above the unchanged kernel. The new
+factory and current-program compiler have not yet consumed them; original
+nodep installation and native coverage remain pending. An outer-control
+initializer such as \texttt{k=j}, mixed loaded bounds, and OLO's dynamic compact
+entry-condition construction are still separate obligations.

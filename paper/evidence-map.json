@@ -4895,6 +4895,43 @@
         "docs/double-tree-combined-matmul-execution.json"
       ],
       "validation": "build/double-tree-combined-residual/matmul-execution-summary-v1/report.json"
+    },
+    {
+      "section": "case-study",
+      "claim": "Literal-bound checked source trees consume affine endpoint execution and prove finite normal Clight/source-Loop correspondence with exact exits, independent source progress, static footprint-to-point facts and private constant parameter execution/frame. Mathematical parameter names do not introduce C globals. New factory, current-program compiler and original nodep native installation remain pending; this does not add dynamic OLO condition construction.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeDecode.v",
+          "name": "checked_fixed_double_source_tree_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeSource.v",
+          "name": "fixed_double_source_tree_source_Loop"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeProgress.v",
+          "name": "fixed_double_source_tree_region_progress"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeFacts.v",
+          "name": "fixed_double_tree_footprint_model_facts"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeCache.v",
+          "name": "fixed_double_cache_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeCache.v",
+          "name": "fixed_double_cache_frame"
+        }
+      ],
+      "documents": [
+        "docs/fixed-double-source-trees.md",
+        "docs/fixed-double-source-trees.json"
+      ],
+      "artifacts": [
+        "build/fixed-double-source-trees/proof-v1/report.json"
+      ]
     }
   ],
   "bibliography_evidence": [

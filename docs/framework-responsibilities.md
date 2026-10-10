@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+[常量上界 source 后继](fixed-double-source-trees.md)按 narrative 逐项交付：domain
+checked AST／数学常量参数与 static footprint→point facts，language 的真实
+source/Loop 有限正常 iff／准确 exits、独立progress和private words／frame。
+Kernel、host laws不变；synthetic parameter names不成为C global读取或scope义务。
+局部theorem仍要求真实globals／scope／入口facts，新factory与whole-program
+compiler尚未消费。下一验收必须自动discharge并接实际candidate／当前program，
+再运行原nodep；不增加native覆盖或OLO动态condition能力。
+
 [仿射端点服务](affine-long-endpoints.md)进一步落实当前三方责任：数学库只证明
 给定输入区间覆盖 affine 值；语言库证明 actual modular 求值、safe capture 和
 frame；优化实例必须从真实源和已认证 facts 建立输入区间，并接 source/model、
