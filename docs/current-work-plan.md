@@ -47,13 +47,37 @@ registry／header vector 上递归证明 source/Loop 对应和准确 public exit
 
 **近期最难的义务是第二项，而不是证书的最后一次组合。** 对 sequence 后部
 或 nested child，源 header receipt 可能出现在实际 source stores 之后。
-下一步先检查并补足从原 Clight assignment/store 得到的 header-load／权限保持
-服务，使其调用前提不借用 guard 接受后的数学 point resolution；再按真实路径
-运输读取许可并生成 captures。现有 source/model 中使用 model point resolution
-的 header-preservation 证明不能直接充当这条 pre-guard 服务。
+`0345056` 已证明不借用 accepted point resolution／no-wrap 的 raw header-load
+及权限保持服务；当前要闭合的是它们对实际路径、首次观察与 captures 的支持。
+整树 frame 定理要求 header 属于所检查树的参数。运输后部／child 的 header
+跨先前 subtree 时，该 header 未必属于先前 subtree 的参数，不能直接套用该
+定理。应从整段 checked tree 的 write exclusions 构造先前 subtree 的 frame，
+再消费 language structured-frame 定理；如需新封装，只增加对应的后继服务。
 空 outer 不许可预读 child；`N-c` 接受也不自动给出原 `N` 的 I32 编码。
 拒绝分支和 source progress 继续独立于接受事实，有限正常对应不扩大成任意
-入口安全或 divergence 定理。
+入口安全或 divergence 定理。Source execution 是证明中取得 receipt 的起点，
+不是运行时先执行原片段来许可检查。
+
+**后续产出按以下闭合边界验收：**
+
+1. 整树 source/Loop 对应保留一个 shared layout registry 和原 header vector，
+   按每个 leaf 的实际深度编码 controls 与参数位置；`N-2`／`N-3`仍引用同一个
+   `N`。准确公开出口包括：空循环仍执行自身 initializer、未到达 child 保留其
+   入口 temporaries、兄弟循环重用 iterator 时按 sequence 顺序决定最终值。
+   Domain 的模型和范围事实与 language 的实际 IEEE／Mem 执行桥分别提供证据。
+2. Path-sensitive capture 从真实 reached comparison 取得读取许可，经先前
+   source effects 和 temp-read footprint 运输到入口；安全调用、接受后的数学
+   事实及 private cache 编码分别闭合。完成源执行对应不自动完成这项服务。
+3. 对原 fusion1／multi-stmt-stencil-seq／tricky3 的整段 region，factory 实际
+   消费上述证据，接 phases/codegen、最终 candidate checker、机器 lowering、
+   公开出口与当前 intermediate program 的 host／Csem→Asm。单独处理兄弟循环
+   不替代整段 fusion，多次安装不能复用过时的 site 证据。原源 decode 通过、
+   library import、identity 或全 fallback 都不增加优化覆盖。
+4. OLO 条件工作另记 generated size、动态 checking 工作和有用接受域，并测
+   包含 guard／fallback／出口恢复的完整调用。Cursor scan、参数 bounds 裁剪
+   或 proof endpoint 本身不等于 compact entry-condition derivation；原 IEEE／
+   scalar 计算、PolCert sequential configurations 和 CGO 原 benchmark tiers
+   继续作为验收对象。每项能力分别报告 source、变换、条件、完整证明及效果。
 
 Guard library 继续按[已有服务契约](verified-guard-library.md)记录 requires、
 accepted facts、reads、private writes、public frame 和 refusal。当前使用 generated
