@@ -2,6 +2,41 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Narrative 澄清复核与 source-aware 整段接入
+
+再次 fetch／远端 refs 核对：`topdown/research-positioning` 最新为
+`8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`，`paper-narrative.md` 与 main 相同。
+持续按三方责任验收：kernel 只组合局部 guarded correctness；语言／IR host
+提供 safe invocation、private/public frame、control／progress 和完整程序接入；
+优化器提供模型、局部义务到入口前提的推导和实际候选正确性。
+Static facts、runtime accepted facts 和证明中的 source execution 分开记录，
+source/model 单向或有限正常对应不扩大为无条件完整等价。
+
+[Source-aware 后继](double-tree-source.md)给 untrusted proposer 增加原实际
+source Loop 数据，由既有最终 checker 验证将被降低的 candidate；新 factory
+与当前程序 Csem→Asm backward simulation 已消费。四模块389行／八端点，
+563 reachable sources／10,490 bindings；无新增 globals，kernel／host laws不变。
+原 tricky3 完整标注区现在安装两个 candidate loops，保留三个原 fallback loops。
+其四个原 scalar instructions 和实际 affine rows 由 source extractor 取得。
+该 source-derived proposal 替换十九 raw copies，不证明一般 codegen-piece
+对应，也不保留 mixed-depth raw scheduled shape；requested tiled仍未分块。
+
+三原程序五配置15/15 outputs匹配，三个完整marked regions已安装；unmarked与
+wrong-shift零安装。Tricky3 runtime adaptation保持原计算区域，21/21 inputs匹配。
+九路径观察确认 conditional child reads与refusal短路，源／融合24stores计数
+相同而次序不同。两个observer失败和原box拒绝保留；unsupported true test有
+实际extractor依据，未证实参数坐标错误。没有新timing或完整corpus replay。
+
+**接下来的实现顺序：** 先关闭实际constant inner cap的无效尾段与machine
+lowering；继续general piece／ISS forward/progress和真正tiling／域变换。
+OLO compact-entry construction、safe machine checks、simplification／shared-check
+memoization和完整调用成本仍需交付。沿完整62例sequential configurations和
+CGO17原程序／tiers核对功能效果，每项扩展立即接同一host／backend。
+Framework接口可表达证书不等于库已自动生产证书；一次phase执行不等于支持
+所请求变换，输出匹配不等于cost／proof-burden收益。完整goal保持active。
+
+以下各checkpoint保留当时的验收边界。
+
 
 ### Common source coordinates 与五阶段 stencil 整段融合已接线
 

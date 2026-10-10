@@ -1,0 +1,59 @@
+{
+  "status": "compiled",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoubleTreeSourcePrepared.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeSourceGuarded.v",
+    "prototype/interface/DoubleTreeSourceFactory.v",
+    "prototype/interface/DoubleTreeSourceCompiler.v"
+  ],
+  "new_source_lines": 389,
+  "endpoints": [
+    "GuardMemoryDoubleTreeSourcePrepared.checked_double_tree_source_prepared_loop_progress_at",
+    "GuardMemoryDoubleTreeSourceGuarded.checked_double_tree_source_guarded_execution",
+    "DoubleTreeSourceFactory.double_tree_source_region_contract",
+    "DoubleTreeSourceFactory.check_double_tree_source_region_sound",
+    "DoubleTreeSourceCompiler.checked_source_double_tree_regions_sound",
+    "DoubleTreeSourceCompiler.checked_selected_source_double_tree_program_correct",
+    "DoubleTreeSourceCompiler.selected_source_double_tree_cstrategy_forward",
+    "DoubleTreeSourceCompiler.compile_selected_source_double_tree_program_correct"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 563,
+  "attempts": [
+    {
+      "module": "GuardMemoryDoubleTreeSourcePrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeSourcePrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeSourceGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeSourceGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreeSourceFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeSourceFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreeSourceCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeSourceCompiler-v1.json"
+    }
+  ],
+  "complete_compiler_endpoint": "DoubleTreeSourceCompiler.compile_selected_source_double_tree_program_correct",
+  "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+  "actual_source_loop_passed_to_untrusted_adapter": true,
+  "common_original_schedule_coordinates_reused": true,
+  "per_statement_constant_point_shifts_reused": true,
+  "actual_final_checker_consumes_shifted_representation": true,
+  "factory_and_current_program_host_consume_new_checker": true,
+  "domain_partition_or_many_to_one_point_matching_added": false,
+  "new_native_acceptance_established_by_proof_audit": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/double-tree-source/proof-v1/report.json"
+}

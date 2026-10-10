@@ -1,5 +1,14 @@
 # Verified guard library：服务分类与依赖契约
 
+[Source-aware 整段后继](double-tree-source.md)复用现有capture／range／frame和
+public-exit服务；新接口只给untrusted proposer原source数据，不增加guard表达
+能力。Safe invocation来自原first comparison／raw effects；accepted intervals
+来自实际checks；最终checker消费这些facts而不反向授权首次读取。九次runtime
+观察确认空outer跳过child headers、拒绝短路；(1,0,0)仍扫描32次inner enclosure，
+故局部安装通过不能作为条件算法或成本验收。接下来服务扩展应针对实际blocker：
+去掉无效tail、构造compact充分入口条件、安全lowering及重复probe消除；每个
+服务继续分别记录requires、accepted facts、reads/private writes、frame与refusal。
+
 
 [Common-coordinate／stencil后继](double-tree-common.md)复用已有safe capture、
 cache encoding、constant point-shift与machine/public-exit服务，接新factory和

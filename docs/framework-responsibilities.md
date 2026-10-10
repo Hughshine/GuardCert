@@ -1,5 +1,16 @@
 # 验证责任、证书边界与最难的验收
 
+[Source-aware 整段后继](double-tree-source.md)将原实际source Loop交给untrusted
+candidate proposer，既有最终domain/dependence checker仍裁决实际候选；没有
+新增kernel／host laws。Language继续生产safe capture、IEEE/Mem lowering与
+公开出口，factory消费source/model和动态facts，当前program host接Csem→Asm。
+C用户不给semantic callback。新增接口是proposal data，不是新增语义假设。
+原tricky3整段已安装，21runtime inputs与九路径／实际store顺序观察通过。
+Mixed-depth提案从source重建而不保留raw scheduled shape；general piece forward
+对应和真正tiling尚待完成。最难的剩余环节是将紧凑入口条件推导、安全machine
+执行及state transport接成可用服务，并取得功能、接受域与完整成本证据。
+本次narrative远端复核仍为`8ce9c8b`，正文与main一致；三方责任继续适用。
+
 
 [Common-coordinate／stencil后继](double-tree-common.md)实际关闭共同source
 schedule的producer缺口，并由最终domain/dependence检查消费通用prefix-chain

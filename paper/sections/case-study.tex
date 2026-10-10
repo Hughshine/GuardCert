@@ -2127,3 +2127,23 @@ original loops as fallback and exact public source exits. The new current-progra
 compiler again proves Csem-to-Asm backward simulation, without kernel or host-law
 changes. Whole tricky3 still needs mixed-depth piece correspondence; this
 instruction-only prefix proposal does not implement general partition validation.
+
+\paragraph{Source-Aware Proposal and Complete Mixed-Depth Installation.}
+A successor passes the actual source Loop to an untrusted adapter alongside
+parameter intervals and raw codegen output. The final checker still validates
+the candidate that machine lowering consumes. For original tricky3, the adapter
+uses the source extractor's four typed scalar assignments, domains and affine
+argument rows to propose a common outer loop and one fused inner loop. Source
+membership guards select the two former child bodies. The first box proposal
+included a constant-true test unsupported by the actual affine extractor;
+the successor constructs conjunctions from their first affine test.
+
+The accepted candidate has four positions and two loops, with all three
+original loops retained as fallback. Existing captures and exit restoration
+feed a new factory and the same current-program host, establishing another
+Csem-to-Asm backward simulation without kernel or host-law changes. This
+source-derived reconstruction replaces nineteen raw copies and does not
+preserve the mixed-depth scheduled codegen shape. It therefore establishes
+checked installation of this proposal, leaving general piece correspondence
+and requested tiling unresolved. The inner bound remains a constant profile
+enclosure rather than the maximum of runtime child bounds.

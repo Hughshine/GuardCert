@@ -1,3 +1,9 @@
+# 后继状态
+
+[Source-aware 后继](double-tree-source.md)已安装完整原 tricky3 区域，并新增
+21 个 runtime inputs 和九次实际路径／store 顺序观察。以下保留本 checkpoint
+当时的证据；general piece correspondence、真实 tiling 和 OLO 成本仍待完成。
+
 # Common source coordinates and complete five-stage stencil fusion
 
 This successor closes the complete marked-region stencil refusal recorded in

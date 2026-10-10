@@ -4743,6 +4743,34 @@
         "docs/double-header-access.md",
         "docs/double-header-access.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Source-aware untrusted proposal is checked under accepted intervals and installed through the current Csem-to-Asm compiler; complete original tricky3 and changed scalar store order are observed, while general pieces, raw scheduled-shape correspondence, runtime maximum pruning and actual new tiling remain unresolved.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeSourcePrepared.v",
+          "name": "checked_double_tree_source_prepared_loop_progress_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeSourceGuarded.v",
+          "name": "checked_double_tree_source_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/DoubleTreeSourceFactory.v",
+          "name": "check_double_tree_source_region_sound"
+        },
+        {
+          "source": "prototype/interface/DoubleTreeSourceCompiler.v",
+          "name": "compile_selected_source_double_tree_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-tree-source.md",
+        "docs/double-tree-source.json",
+        "docs/double-tree-source-native.json"
+      ],
+      "validation": "build/double-tree-source/native-summary-v1/report.json"
     }
   ],
   "bibliography_evidence": [
