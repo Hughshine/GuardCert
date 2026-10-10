@@ -1,5 +1,11 @@
 # Verified guard library：服务分类与依赖契约
 
+[仿射端点服务](affine-long-endpoints.md)属于 arithmetic/representation 与 ranges
+两类：输入区间及 WORDS 是 requires；表示 checker 加上这些事实才得到最终
+数学值不回绕；actual Clight capture 接受再提供范围和精确 I32 cache。纯数学
+interval checker 尚未降低为新 runtime guard。Frame 另需 fresh cache/flag；
+它没有提供 loads／alias 许可、source-tree 安装或 OLO compact-entry 算法。
+
 [Residual 后继](double-tree-residual.md)现在实际消费 generic formula residualization：
 Loop/domain证明binder／branch／interval facts和求值／执行保持，language降低实际
 target并保持private/public frame；factory和当前程序Csem→Asm接线。Math tests

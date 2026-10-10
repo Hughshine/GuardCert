@@ -109,6 +109,13 @@ corpus 摘要不把 requested-tiled 的 26 个安装形状当作 26 个已支持
 
 ## 接下来的验收
 
+首个逐例后继见[原始 matmul 路径与成本](double-tree-combined-matmul-execution.md)：
+未改 assembly 中观察到全部 27 个 tile entries 和匹配的完整输出。新的同 backend
+21 次完整调用诊断匹配，untiled／tiled CPU 配对 ratios 约 0.783／0.820；未 pinning，
+未隔离 guard。它确认此原例的分块路径，不扩大 26 个安装形状的支持范围。
+[仿射端点证明](affine-long-endpoints.md)开始处理常量上界和外层 initializer 缺口，
+尚未接新的 source grammar、factory 或 native 源族。
+
 完整 identity-trace 对照已闭合，接下来追踪实际候选。对缺失的 source／target
 结构、general pieces／ISS forward-progress 和真正的 tiling／域变换继续修复。
 OLO compact entry-condition derivation、安全机器检查及 entry transport、重复

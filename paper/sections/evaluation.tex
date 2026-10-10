@@ -2561,3 +2561,27 @@ VPL trace, erasing diagnostic message construction. Earlier jacobi and tce
 compiler timeouts remain recorded, and both exact original inputs also match
 in separate replays. These runs establish neither exact compiler speedups
 nor guard runtime costs.
+
+\paragraph{Observed Original-Matmul Execution and Process Cost.}
+A focused observation of the combined compiler's original matmul assembly
+records all 27 tile entries at size 32 for its $96^3$ domain, in tile order
+$(i,k,j)$. The first candidate update has source coordinates $(0,0,0)$, and
+complete output matches in the debugger. Assembly is unchanged and no target
+counter code is inserted. The observation does not count every update or test
+runtime refusal on this constant input.
+
+Seven randomized batches compare the three saved corpus binaries, yielding 21
+matching complete outputs. Median child-process CPU times are 6.088 ms for
+unmarked source through the same backend, 4.765 ms for untiled, and 5.244 ms for
+tiled; within-batch ratio medians are 0.783 and 0.820. Calls include startup,
+initialization, kernel, digest and printing. CPU pinning is absent, and guard
+cost is not isolated. These small-input diagnostics neither establish effects
+for other corpus configurations nor gains at larger input tiers. An earlier
+one-off diagnostic remains recorded separately and supplies none of these
+cost numbers.
+
+The affine endpoint services add 252 lines across three proof modules and ten
+queried endpoints, six closed. Each uses at most six inherited globals, with no
+added global assumption. Three successful and eight failed compilation attempts
+are retained. This local proof stage adds neither an installed source family
+nor a new complete compiler endpoint.

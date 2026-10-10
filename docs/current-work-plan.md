@@ -2,6 +2,26 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Narrative 的责任边界继续约束具体功能扩展
+
+2026-10-10 本次 fetch 再确认 `topdown/research-positioning` 为 `8ce9c8b`，正文
+与 main 一致。按澄清分别交付 actual source/model 桥、入口义务推导、安全机器
+检查与 state transport、host 安装；保留 static facts、runtime accepted facts
+与证明中 source execution 的区别。Kernel 保持局部 guarded correctness 的截止。
+
+[原始 matmul 路径](double-tree-combined-matmul-execution.md)已在未改 assembly 上
+观察全部 27 个 32-size tile entries、首次候选 update 及匹配的完整输出。
+同 backend 七随机 batches／21 调用全匹配；untiled/source 与 tiled/source 的
+进程 CPU 配对 ratio medians 为 0.783／0.820，未 pinning、未隔离 guard。
+这个常量 96 tier 不测试动态拒绝，也不扩大其他配置的实际分块支持计数。
+
+完整语料的下一具体源族缺口是 `nodep` 常量上界和 `dsyrk` 的 `k=j` initializer。
+[仿射端点服务](affine-long-endpoints.md)已闭合 modular 求值、最终表示区间和
+actual capture：252 行／十端点，六 closed、最多六既有 globals，无新增公理。
+输入区间事实仍由 domain／host 建立；区间 checker 不是已发射的 runtime guard。
+**下一步将它们接入实际 source grammar／Loop model、factory 与当前 Csem→Asm，
+再运行对应原例。** 当前尚无这两个新源族的 native 安装，不把局部服务当成完成。
+
 ### Fact residualization 已接 compiler，完整语料暴露路线组合缺口
 
 [Residual 后继](double-tree-residual.md)从实际 loop bounds／进入的 guards 推导事实，

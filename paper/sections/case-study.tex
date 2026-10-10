@@ -2192,3 +2192,21 @@ and the backend into a Csem-to-Asm backward simulation. This is a concrete
 use of finite rewrite composition: each host installation supplies evidence
 for its current input program. The kernel gains no language law, and the
 composition does not infer model assumptions or context closure.
+
+\paragraph{Affine Endpoint Services and Remaining Source Extensions.}
+The corpus exposes literal upper bounds and a child initializer that reads an
+outer control. New local services reuse the checked affine decoder to prove
+actual modular I64 evaluation. A separate mathematical interval service handles
+signed coefficients and, given certified input intervals, establishes final
+endpoint representability. The Clight capture theorem then supplies safe actual
+execution, accepted mathematical bounds and an exact I32 cache. Fresh cache and
+flag identifiers preserve the controls.
+
+These premises belong to the source/domain instance. A final machine-range test
+alone does not establish representability: for $x=2^{62}$, the actual word for
+$4x$ is zero and passes a small-range test. The new fixtures prove that result
+and the corresponding interval check's refusal. The interval checker is a
+mathematical service, not a newly emitted runtime guard, and final-value
+representability is not a per-operator overflow or poison theorem. The services
+have not yet entered the source-tree factory or added native source families;
+the source/model, exit and host connections remain required.

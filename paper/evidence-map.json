@@ -4857,6 +4857,44 @@
         "docs/double-tree-combined-residual-quiet-corpus.json"
       ],
       "validation": "build/double-tree-combined-residual/quiet-corpus-summary-v1/report.json"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Checked affine endpoints connect modular I64 execution to mathematical values only with separate final representability evidence. Certified input intervals suffice for that evidence and actual safe captures, but no new source-tree factory, native family or complete compiler endpoint is installed.",
+      "theorems": [
+        {
+          "source": "theories/AffineIntegerIntervals.v",
+          "name": "affine_integer_interval_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAffineLongEndpoint.v",
+          "name": "decoded_affine_long_endpoint_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryAffineLongEndpointRange.v",
+          "name": "checked_affine_long_endpoint_capture"
+        }
+      ],
+      "documents": [
+        "docs/affine-long-endpoints.md",
+        "docs/affine-long-endpoints.json"
+      ],
+      "validation": "build/affine-long-endpoints/proof-v1/report.json"
+    },
+    {
+      "section": "evaluation",
+      "claim": "The combined compiler original-matmul run observes all 27 tile entries in unchanged assembly and matching complete output. Seven randomized batches have 21 matching complete calls with same-backend process-CPU paired ratios 0.783 untiled and 0.820 tiled. This constant tier does not exercise guard refusal, isolate guard costs or establish broader speedups.",
+      "theorems": [
+        {
+          "source": "prototype/interface/CombinedDoubleTreeResidualCompiler.v",
+          "name": "compile_selected_combined_residual_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-tree-combined-matmul-execution.md",
+        "docs/double-tree-combined-matmul-execution.json"
+      ],
+      "validation": "build/double-tree-combined-residual/matmul-execution-summary-v1/report.json"
     }
   ],
   "bibliography_evidence": [

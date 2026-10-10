@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+[仿射端点服务](affine-long-endpoints.md)进一步落实当前三方责任：数学库只证明
+给定输入区间覆盖 affine 值；语言库证明 actual modular 求值、safe capture 和
+frame；优化实例必须从真实源和已认证 facts 建立输入区间，并接 source/model、
+factory 与 host。最终 word range 接受不推出数学 nonwrap，已证明的回绕 fixture
+明确这个区别。新服务尚未接 source-tree compiler，不增加源族支持计数。
+[原始 matmul 路径观察](double-tree-combined-matmul-execution.md)确认一个已有候选
+确实运行分块；运行观察不替代 compiler 证明或动态 guard 拒绝验收。
+
 [Residual 后继](double-tree-residual.md)已闭合 domain facts → generic formula
 处理 → Loop执行保持 → 实际machine lowering → factory／current-program compiler。
 Kernel／host laws保持，数学Boolean equality不代替安全dependent reads。完整同源

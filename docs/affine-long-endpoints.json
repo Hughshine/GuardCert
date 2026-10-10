@@ -1,0 +1,99 @@
+{
+  "status": "compiled",
+  "kind": "affine-long-source-endpoint-and-interval-capture-services",
+  "new_modules": [
+    "theories/AffineIntegerIntervals.v",
+    "adapters/compcert-memory/GuardMemoryAffineLongEndpoint.v",
+    "adapters/compcert-memory/GuardMemoryAffineLongEndpointRange.v"
+  ],
+  "new_source_lines": 252,
+  "endpoints": [
+    "AffineIntegerIntervals.integer_interval_scale_sound",
+    "AffineIntegerIntervals.affine_dot_interval_sound",
+    "AffineIntegerIntervals.affine_integer_interval_sound",
+    "GuardMemoryAffineLongEndpoint.decoded_affine_long_endpoint_execution",
+    "GuardMemoryAffineLongEndpoint.decoded_affine_long_endpoint_signed",
+    "GuardMemoryAffineLongEndpoint.affine_long_endpoint_accepted_math",
+    "GuardMemoryAffineLongEndpoint.decoded_affine_long_endpoint_capture",
+    "GuardMemoryAffineLongEndpoint.affine_long_endpoint_capture_preserves_inputs",
+    "GuardMemoryAffineLongEndpointRange.affine_long_endpoint_interval_nonwrap",
+    "GuardMemoryAffineLongEndpointRange.checked_affine_long_endpoint_capture"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 6,
+  "maximum_endpoint_globals": 6,
+  "reachable_source_count": 221,
+  "attempts": [
+    {
+      "module": "AffineIntegerIntervals",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/AffineIntegerIntervals-v1.json"
+    },
+    {
+      "module": "AffineIntegerIntervals",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/AffineIntegerIntervals-v2.json"
+    },
+    {
+      "module": "AffineIntegerIntervals",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/AffineIntegerIntervals-v3.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpoint",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpoint-v1.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpoint",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpoint-v2.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpoint",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpoint-v3.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpoint",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpoint-v4.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpoint",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpoint-v5.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpoint",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpoint-v6.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpointRange",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpointRange-v1.json"
+    },
+    {
+      "module": "GuardMemoryAffineLongEndpointRange",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryAffineLongEndpointRange-v2.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "new_complete_compiler_endpoint": null,
+  "modular_source_execution_is_proved": true,
+  "final_endpoint_nonwrap_is_a_separate_obligation": true,
+  "interval_propagation_has_signed_coefficients": true,
+  "interval_facts_are_required_from_domain_or_host": true,
+  "actual_safe_capture_and_accepted_mathematical_range_are_proved": true,
+  "actual_I64_wrapped_small_result_fixture_is_proved": true,
+  "per_operator_no_overflow_or_poison_theorem_added": false,
+  "source_tree_factory_consumes_endpoint_services": false,
+  "new_native_source_family_added": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/affine-long-endpoints/proof-v1/report.json"
+}
