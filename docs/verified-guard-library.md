@@ -1,5 +1,13 @@
 # Verified guard library：服务分类与依赖契约
 
+[整树观察服务后继](double-tree-correspondence.md)复用raw effects，支持保持subtree
+自身未使用的later header。Requires是checked source、实际globals／scope和
+enclosing write exclusions；有限完成execution保持指定loads／permissions，不
+消费accepted point facts。Source entry只要求活动路径的header words，空outer
+实际执行不要求child读取。条件source/Loop bridge已消费这些服务；动态capture
+生成、接受范围／参数编码与factory仍待接入。这个active-header谓词不是已发射
+的check，也不等于安全读取许可、callable C library或OLO compact算法完成。
+
 [Source-tree raw effects](double-source-tree.md)补 pre-guard observation-preservation
 服务：实际成功 assignment 的 global write block 由原 Clight lvalue 反推，
 不消费 accepted point resolution／no-wrap；structured execution 沿 sequence、

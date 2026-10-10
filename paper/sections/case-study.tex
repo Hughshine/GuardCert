@@ -1992,5 +1992,35 @@ permissions. This service belongs above the minimal kernel. Its finite-execution
 result still needs to transport concrete reached-header receipts to capture
 entries; it does not authorize speculative child reads. The checked strict
 source protocol supplies separate progress, including possible stuck execution.
-Whole-tree source/Loop correspondence, path-sensitive captures, actual candidate
-validation and program installation remain unfinished for this source family.
+At this checkpoint, whole-tree source/Loop correspondence, path-sensitive
+captures, actual candidate validation and program installation remain unfinished
+for this source family.
+
+\paragraph{Conditional whole-tree execution correspondence.}
+The successor proves bidirectional finite normal execution correspondence between
+the complete source tree and its Loop model, retaining final memory and public
+temporaries. Each leaf uses its actual control depth and the same layout registry
+and original header vector. Sequences retain intermediate memory and shared
+parameter relations such as $N-2$ and $N-3$. Siblings may reuse an iterator:
+the later loop determines its final value. An empty loop initializes its own
+iterator but leaves unreached child temporaries unchanged. Bounds in this family
+depend on global headers rather than ancestor iterators; the proof of a fixed
+child exit relies on that restriction.
+
+The entry relation requires observations only for active headers. A generalized
+raw subtree frame preserves later header observations even when the subtree does
+not use that header. It consumes enclosing write exclusions and actual Clight
+store effects, independently of accepted point resolution. The execution bridge
+uses these state services, concrete IEEE/Mem assignment correspondence and loop
+control proofs. Decoder acceptance supplies source reconstruction, shared layouts
+and header exclusions. Dynamic bound ranges, resolved point locations, scope
+and actual header words remain factory obligations. A proved raw empty-outer
+execution needs only the outer header's load receipt, retaining child temporaries
+without a child header load. This does not yet generate path-sensitive captures.
+
+The three original exported source trees instantiate the conditional theorem.
+Its applicable dynamic premises still need safe capture and guard production,
+parameter encoding, candidate validation and installation in the current program.
+The previous independent strict progress protocol remains separate. No kernel or
+host laws change, and this checkpoint adds no complete compiler endpoint or native
+optimization coverage.

@@ -2,6 +2,38 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 整树 source/Loop 对应与公开出口已证明，capture／factory 尚待消费
+
+[整树对应后继](double-tree-correspondence.md)将原 sequence、不同深度的真实
+IEEE assignments、strict signed starts 与共享 `N`／`N-c` 接到完整 Loop memory
+relation；有限正常执行双向对应保留 final memory 和准确 public temps。
+兄弟循环可重用 iterator，后执行者决定最终值；空循环设置自身 counter，
+未到达 child 保留入口 temporaries。Child bounds 目前只依赖 global headers，
+固定 setter 证明不直接推广到 iterator-dependent bounds。
+
+State 接口只要求活动路径上的 header receipts；新 raw subtree frame 也能
+保持其自身未使用的后部 header，消费整段 write exclusions 而非 accepted
+point facts。Checked decoder 自动闭合原 statement、layouts 和 header exclusions。
+原 fusion1／multi-stmt-stencil-seq／tricky3 的冻结 Clight 已实例化该条件 theorem；
+scope、范围、point resolution 与 reached header words 仍要由 factory 实际生产。
+空 outer 的实际 raw execution 已证明不需要 child load，独立 progress 继续
+复用前序服务；有限对应不扩大成任意入口安全或 divergence 保持。
+
+八模块858行／36端点（16closed、最多六原globals）、270 reachable sources／
+9979 bindings已审计；21 proof attempts及Events短名probe拒绝、symbolic PTree
+计算的stack overflow分别保留。没有新capture算法、candidate／compiler安装
+或native覆盖；原22例39sites不变。
+
+**当前下一步是按路径生成 capture 并闭合动态 model facts：** 用首次真实
+comparison 和新 raw effects／temp-read transport 生产安全调用许可；empty
+outer 不读 child，缺席的 private parameter slots 按模型所需安全填充。接受
+后分别建立所需 bound／point ranges、原 header vector 的机器编码及 entry／
+refusal 运输，立即在同一整段 factory 消费本次 bridge，接实际 phases/codegen、
+最终candidate、公开出口及当前程序 host／Csem→Asm。OLO compact conditions、
+其余原source／sequential configurations与完整成本目标保持。
+
+### 前序静态 source-tree checkpoint
+
 ### 整段 source tree：原源识别、raw effects 与独立 progress 已闭合
 
 [Source-tree checkpoint](double-source-tree.md)从原 Clight 自动取得整段 sequence、
@@ -19,7 +51,7 @@ reachable sources／9858 bindings 已审计；29 proof attempts 与首次缺失 
 import 的原源 probe 失败固定，成功 source-v2 单独保存。尚无整树 source/Loop
 执行桥、path-sensitive capture、候选／factory／新完整compiler 或 native覆盖。
 
-**当前下一步是这些服务的实际 source/model 和 capture 消费：** 同一 shared
+**当时下一步是这些服务的实际 source/model 和 capture 消费：** 同一 shared
 registry／header vector 上递归证明 source/Loop 对应和准确 public exits；闭合
 参数编码、控制与 point ranges。用新 raw effects 将 reached header receipt
 按实际路径运输到 guard 入口，empty outer 不预读 child。随后立即接真实 phases、

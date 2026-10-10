@@ -17768,5 +17768,76 @@
         "name": "checked_double_source_tree_layout_certificate"
       }
     ]
+  },
+  "whole_tree_correspondence_checkpoint": {
+    "stage": "conditional-whole-source-tree-execution-correspondence-checkpoint",
+    "summary": "docs/double-tree-correspondence.json",
+    "proof_report": "build/double-tree-correspondence/proof-v1/report.json",
+    "proof_report_sha256": "bf8702584d3d4aff7490e52db44f17397ee7e4cfc1c662913d30a319f6eb913a",
+    "source_check_report": "build/double-tree-correspondence/source-attempts/source-v2/report.json",
+    "new_Rocq_modules": 8,
+    "new_source_lines": 858,
+    "queried_endpoints": 36,
+    "closed_endpoints": 16,
+    "maximum_inherited_globals": 6,
+    "reachable_sources": 270,
+    "bindings": 9979,
+    "proof_attempts": 21,
+    "additional_global_axioms": [],
+    "kernel_or_host_laws_changed": false,
+    "conditional_original_Clight_to_shared_Loop_and_public_exits_proved": true,
+    "only_active_headers_require_entry_receipts": true,
+    "raw_subtree_observer_transport_independent_of_accepted_point_facts": true,
+    "original_source_conditional_correspondence_instances": [
+      "fusion1",
+      "multi-stmt-stencil-seq",
+      "tricky3"
+    ],
+    "actual_empty_outer_execution_without_child_receipt_proved": true,
+    "installed_factory_closes_dynamic_model_facts": false,
+    "path_sensitive_captures_installed": false,
+    "actual_new_candidate_installed": false,
+    "new_complete_compiler_endpoint_added": false,
+    "native_source_coverage_added": false,
+    "new_cost_evidence": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeModelData.v",
+        "name": "double_tree_bound_model_value"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeExit.v",
+        "name": "double_source_tree_range_settled_exit"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeModel.v",
+        "name": "double_source_tree_shared_memory"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeState.v",
+        "name": "double_source_subtree_raw_header_frame"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeState.v",
+        "name": "double_source_tree_entry_preserved"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeSource.v",
+        "name": "double_source_tree_execution_memory"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeSource.v",
+        "name": "double_source_tree_source_Loop"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeCorrespondence.v",
+        "name": "checked_double_source_tree_source_Loop"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeBoundaryCases.v",
+        "name": "tree_empty_outer_actual_execution"
+      }
+    ]
   }
 }

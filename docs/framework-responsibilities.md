@@ -2,6 +2,15 @@
 
 ## 持续适用的责任表
 
+[整树对应后继](double-tree-correspondence.md)明确实际交接：domain 的 shared
+模型／范围／cell resolution 与 language 的 IEEE／Mem、control、raw effects／
+active observations／准确public exits组成条件执行双向对应；decoder自动生产
+静态证据，source用户没有逐leaf执行callback。八模块已编译且无新增globals，
+原三例冻结Clight已实例化条件theorem。Language/site仍须生产scope与安全按路径
+capture，domain/factory闭合accepted model facts与参数编码，然后实际消费候选、
+lowering和当前程序host／backend。Kernel／host laws不变；本阶段不增加native
+覆盖或proof-burden收益证据。有限对应与独立progress继续分开。
+
 [Source-tree 后继](double-source-tree.md)关闭 pre-guard effects 的语言服务：
 实际 source lvalue／store 提供 global block 和其他 header load 保持，不用
 accepted mathematical cells；structured language 服务组合整个 tree 的 effects
