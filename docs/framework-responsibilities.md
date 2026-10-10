@@ -1,5 +1,15 @@
 # 验证责任、证书边界与最难的验收
 
+[常量接线](declared-literal-double.md)已具体落实三方责任：domain 在数学模型中
+声明常量参数，language／host 的 scope 仅要求真实数组 globals。实际 I64/I32
+comparison 和独立 progress、source/Loop iff、static footprint、private caches、
+candidate lowering／公开出口由语言和优化实例证明，新 factory discharge 义务，
+current-program host 接完整 Csem→Asm；kernel／host laws 未改变。C 用户不提供
+语义 callbacks。原 `nodep` 的真实 size-32 tiling 和 400 次 actual updates 已观察，
+前两次 all-fallback 与 observer 失败均保留；没有新动态 compact-condition 算法、
+成本结果或完整语料完成声明。最难的剩余工作仍是 local obligations 到有用入口
+条件的推导、safe machine checks／entry/refusal transport 与实际成本验收。
+
 [常量上界 source 后继](fixed-double-source-trees.md)按 narrative 逐项交付：domain
 checked AST／数学常量参数与 static footprint→point facts，language 的真实
 source/Loop 有限正常 iff／准确 exits、独立progress和private words／frame。

@@ -1,0 +1,76 @@
+{
+  "status": "diagnostic_complete",
+  "cases": [
+    {
+      "case": "fusion10",
+      "source_sha256": "7cf6e33260ad5ffd1beae645786095dce39cc03d97022e59f16b677e21031ae1",
+      "baseline_all_three_outputs_match": true,
+      "current_unmarked_and_untiled_match": true,
+      "tiled_compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-declared-literal-combined-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-declared-literal-combined-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-declared-literal-combined-attempts/corpus-v1/fusion10-original/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-declared-literal-combined-attempts/corpus-v1/fusion10-original/tiled/program.c"
+        ],
+        "elapsed_seconds": 24.262130692019127
+      },
+      "real_phase_added_dimensions": [
+        2,
+        2
+      ],
+      "source_aware_adapter_receipt_present": false,
+      "native_output_mismatch_observed": false
+    },
+    {
+      "case": "fusion2",
+      "source_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "baseline_all_three_outputs_match": true,
+      "current_unmarked_and_untiled_match": true,
+      "tiled_compiler": {
+        "returncode": null,
+        "timeout": true,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-declared-literal-combined-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-declared-literal-combined-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-declared-literal-combined-attempts/corpus-v1/fusion2-original/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-declared-literal-combined-attempts/corpus-v1/fusion2-original/tiled/program.c"
+        ],
+        "elapsed_seconds": 180.1035316089983
+      },
+      "real_phase_added_dimensions": [
+        2,
+        2
+      ],
+      "source_aware_adapter_receipt_present": false,
+      "native_output_mismatch_observed": false
+    }
+  ],
+  "complete_corpus_result_claimed": false,
+  "compiler_algorithmic_stage_fully_localized": false,
+  "fusion10_stack_retry_mib": 64,
+  "fusion10_stack_retry_solved": false,
+  "compiler_semantic_inputs_changed_for_retry": false,
+  "source_adaptations_used": false,
+  "failure_is_not_successful_fallback": true,
+  "tiled_support_established_for_these_cases": false,
+  "full_goal_complete": false,
+  "reports": {
+    "baseline": "build/benchmark-alignment/current-double-combined-residual-quiet-attempts/corpus-v1/report.json",
+    "stack": "build/declared-literal-double/resource-attempts/fusion10-stack-v1/report.json",
+    "retry": "build/benchmark-alignment/current-declared-literal-combined-attempts/fusion10-stack-v1/report.json"
+  },
+  "report": "build/declared-literal-double/codegen-blockers-v1/report.json"
+}

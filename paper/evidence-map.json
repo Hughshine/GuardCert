@@ -4898,7 +4898,7 @@
     },
     {
       "section": "case-study",
-      "claim": "Literal-bound checked source trees consume affine endpoint execution and prove finite normal Clight/source-Loop correspondence with exact exits, independent source progress, static footprint-to-point facts and private constant parameter execution/frame. Mathematical parameter names do not introduce C globals. New factory, current-program compiler and original nodep native installation remain pending; this does not add dynamic OLO condition construction.",
+      "claim": "Literal-bound checked source trees consume affine endpoint execution and prove finite normal Clight/source-Loop correspondence with exact exits, independent source progress, static footprint-to-point facts and private constant parameter execution/frame. Mathematical parameter names do not introduce C globals. At this local-proof checkpoint the factory and native installation were pending; subsequent installation evidence is recorded separately; this does not add dynamic OLO condition construction.",
       "theorems": [
         {
           "source": "adapters/compcert-memory/GuardMemoryFixedDoubleTreeDecode.v",
@@ -4931,6 +4931,112 @@
       ],
       "artifacts": [
         "build/fixed-double-source-trees/proof-v1/report.json"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "The literal-bound factory consumes actual array-global scope, private constants, the final candidate checker, real lowering and public exits. A selected normalization/literal/combined pipeline proves original Csem-to-Asm correctness. Its first original-nodep native run is all-fallback, retained as a failed functionality attempt.",
+      "theorems": [
+        {
+          "source": "prototype/interface/FixedDoubleTreeFactory.v",
+          "name": "check_fixed_double_tree_region_sound"
+        },
+        {
+          "source": "prototype/interface/LiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/fixed-double-installation.md",
+        "docs/fixed-double-installation.json"
+      ],
+      "artifacts": [
+        "build/fixed-double-installation/proof-v1/report.json",
+        "build/benchmark-alignment/current-literal-combined-attempts/nodep-v1/report.json"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual signed I32 literals compared with I64 counters are proved using Clight arithmetic conversion and independent progress, finite source/Loop correspondence and an actual-current-program Csem-to-Asm compiler. The first typed native run still falls back because the mathematical model omitted parameter declarations; it is not counted as installation.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemorySignedLongBoundControl.v",
+          "name": "signed_long_bound_condition_active"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeData.v",
+          "name": "literal_double_bound_test_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeSource.v",
+          "name": "literal_double_source_tree_source_Loop"
+        },
+        {
+          "source": "prototype/interface/TypedLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_typed_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/typed-literal-double.md",
+        "docs/typed-literal-double.json"
+      ],
+      "artifacts": [
+        "build/typed-literal-double/proof-v1/report.json",
+        "build/benchmark-alignment/current-typed-literal-combined-attempts/nodep-v1/report.json"
+      ]
+    },
+    {
+      "section": "case-study",
+      "claim": "A declared-literal successor includes parameters in mathematical model declarations while restricting host scope to real array globals. Its factory and actual-current-program Csem-to-Asm endpoint reuse existing source, candidate and host proofs with no new global assumptions or source-user semantic callbacks.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDeclaredLiteralDoubleTreeExecution.v",
+          "name": "checked_declared_literal_double_tree_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/DeclaredLiteralDoubleTreeFactory.v",
+          "name": "check_declared_literal_double_tree_region_sound"
+        },
+        {
+          "source": "prototype/interface/DeclaredLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_declared_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/declared-literal-double.md",
+        "docs/declared-literal-double.json"
+      ],
+      "artifacts": [
+        "build/declared-literal-double/proof-v1/report.json"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Original nodep has real untiled/tiled candidate installation and three matching complete outputs. Unchanged-assembly observations count all 400 original updates exactly once per configuration; tiled update registers agree with size-32 witness coordinates in 13 updating tile groups. Earlier all-fallback runs and an observer-selection failure are retained. This single-program result adds no controlled cost, complete-corpus or OLO compact-condition claim.",
+      "theorems": [
+        {
+          "source": "prototype/interface/DeclaredLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_declared_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/declared-literal-double.md",
+        "docs/declared-literal-nodep-execution.json"
+      ],
+      "artifacts": [
+        "build/declared-literal-double/execution-attempts/original-v2/report.json"
+      ]
+    },
+    {
+      "section": "evaluation",
+      "claim": "Terminal fusion10 and fusion2 tiled compiler failures are retained while the full replay is ongoing. The same pinned sources had three matching configurations on the earlier quiet compiler; the new untiled/unmarked configurations match, but tiled stack overflow/180-second timeout are operational regressions after real proposals. A recorded 64-MiB stack retry does not resolve fusion10. This is not successful fallback or a complete corpus result.",
+      "documents": [
+        "docs/declared-literal-double.md",
+        "docs/literal-tiled-codegen-blockers.json"
+      ],
+      "artifacts": [
+        "build/declared-literal-double/codegen-blockers-v1/report.json",
+        "build/declared-literal-double/resource-attempts/fusion10-stack-v1/report.json"
       ]
     }
   ],

@@ -2208,7 +2208,8 @@ $4x$ is zero and passes a small-range test. The new fixtures prove that result
 and the corresponding interval check's refusal. The interval checker is a
 mathematical service, not a newly emitted runtime guard, and final-value
 representability is not a per-operator overflow or poison theorem. The services
-have not yet entered the source-tree factory or added native source families.
+are now consumed by the literal source-tree instance; the interval checker is
+still distinct from an emitted dynamic entry guard.
 
 \paragraph{Literal-Bound Source Correspondence.}
 A source-tree extension now consumes the affine endpoint execution service for
@@ -2223,8 +2224,30 @@ entry words, the source theorem proves an iff for finite normal Clight and
 source Loop executions, including exact source exits. A separate progress
 protocol covers the source control. Static affine footprint checks produce the
 point-resolution facts given the actual globals, scope and coordinate box.
-These are language and domain services above the unchanged kernel. The new
-factory and current-program compiler have not yet consumed them; original
-nodep installation and native coverage remain pending. An outer-control
-initializer such as \texttt{k=j}, mixed loaded bounds, and OLO's dynamic compact
-entry-condition construction are still separate obligations.
+These are language and domain services above the unchanged kernel. The factory
+and current-program compiler now consume them. The first native run retained
+the original nodep loops: its actual I64 counters compare against signed I32
+literals, whereas the initial decoder accepted I64 bound expressions. A typed
+successor proves the actual arithmetic conversion and independent source
+progress. Its first native run exposed a second refusal: the mathematical model
+declared an array but omitted its two context parameters. A subsequent instance
+declares both parameters and arrays in the model while keeping the host's C
+global scope restricted to actual arrays. Neither change introduces a C global,
+speculative read, host law, or source-user semantic callback.
+
+The resulting compiler installs actual untiled and tiled candidates for the
+original nodep computation and proves Csem-to-Asm backward simulation. All three
+configurations, including unmarked source, match the original complete output.
+Observations of unchanged assembly count all 400 real updates exactly once in
+each configuration. Tiled updates agree with the two size-32 witness coordinates
+and occupy 13 tile groups. The two earlier all-fallback runs and one failed
+observer selection remain recorded. This is a single-program functionality
+result; update order is the same for this input, and the tiled Clight has 72
+conditions compared with two in source. Full-corpus replay and controlled cost
+are separate checks. During the ongoing replay, two original tiled
+configurations expose operational regressions: fusion10 overflows the native
+stack and fusion2 exceeds 180 seconds after obtaining real phase proposals.
+Increasing fusion10's stack limit to 64 MiB does not resolve it. These failures
+remain open and are distinct from successful fallback. An
+outer-control initializer such as \texttt{k=j}, mixed loaded bounds, and OLO's
+dynamic compact entry-condition construction remain separate obligations.

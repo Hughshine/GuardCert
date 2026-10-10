@@ -1,0 +1,186 @@
+{
+  "status": "compiled",
+  "kind": "actual-I32-or-I64-literal-bound-current-program-csem-to-asm",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemorySignedLongBoundControl.v",
+    "adapters/compcert-memory/GuardMemorySignedBoundLoadedProgress.v",
+    "adapters/compcert-memory/GuardMemorySignedBoundRawProgress.v",
+    "adapters/compcert-memory/GuardMemorySignedBoundRangeProgress.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeData.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeSyntax.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeDecode.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeCache.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeSource.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeProgress.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeFacts.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeScope.v",
+    "adapters/compcert-memory/GuardMemoryLiteralDoubleTreeExecution.v",
+    "prototype/interface/LiteralDoubleTreeFactory.v",
+    "prototype/interface/LiteralDoubleTreeCompiler.v",
+    "prototype/interface/TypedLiteralCombinedDoubleCompiler.v"
+  ],
+  "new_source_lines": 1974,
+  "endpoints": [
+    "GuardMemorySignedLongBoundControl.signed_long_bound_condition_active",
+    "GuardMemorySignedBoundLoadedProgress.signed_bound_loaded_framed_progress",
+    "GuardMemorySignedBoundLoadedProgress.signed_bound_initialized_framed_progress",
+    "GuardMemorySignedBoundLoadedProgress.signed_bound_initialized_region_progress",
+    "GuardMemorySignedBoundRawProgress.signed_bound_raw_loaded_framed_progress",
+    "GuardMemorySignedBoundRawProgress.signed_bound_raw_initialized_framed_progress",
+    "GuardMemorySignedBoundRawProgress.signed_bound_raw_initialized_region_progress",
+    "GuardMemorySignedBoundRangeProgress.signed_bound_from_framed_progress",
+    "GuardMemorySignedBoundRangeProgress.signed_bound_from_region_progress",
+    "GuardMemorySignedBoundRangeProgress.signed_bound_raw_from_framed_progress",
+    "GuardMemorySignedBoundRangeProgress.signed_bound_raw_from_region_progress",
+    "GuardMemoryLiteralDoubleTreeData.literal_double_parameter_roundtrip",
+    "GuardMemoryLiteralDoubleTreeData.literal_double_bound_execution",
+    "GuardMemoryLiteralDoubleTreeData.literal_double_skeleton_bound",
+    "GuardMemoryLiteralDoubleTreeData.literal_double_bound_type",
+    "GuardMemoryLiteralDoubleTreeData.literal_double_bound_test_execution",
+    "GuardMemoryLiteralDoubleTreeData.literal_double_source_writes_avoid",
+    "GuardMemoryLiteralDoubleTreeSyntax.literal_double_source_tree_quiet",
+    "GuardMemoryLiteralDoubleTreeSyntax.literal_double_source_tree_normal",
+    "GuardMemoryLiteralDoubleTreeSyntax.literal_double_source_tree_writes_only",
+    "GuardMemoryLiteralDoubleTreeSyntax.literal_double_source_tree_completed_normal",
+    "GuardMemoryLiteralDoubleTreeDecode.literal_double_source_tree_decode_step_sound",
+    "GuardMemoryLiteralDoubleTreeDecode.literal_double_source_tree_decode_fuel_sound",
+    "GuardMemoryLiteralDoubleTreeDecode.checked_literal_double_source_tree_sound",
+    "GuardMemoryLiteralDoubleTreeCache.literal_double_cache_execution",
+    "GuardMemoryLiteralDoubleTreeCache.literal_double_cache_frame",
+    "GuardMemoryLiteralDoubleTreeCache.literal_double_cache_words",
+    "GuardMemoryLiteralDoubleTreeCache.literal_double_cache_environment",
+    "GuardMemoryLiteralDoubleTreeCache.literal_double_cache_values",
+    "GuardMemoryLiteralDoubleTreeSource.literal_double_tree_entry_preserved",
+    "GuardMemoryLiteralDoubleTreeSource.literal_double_tree_entry_child",
+    "GuardMemoryLiteralDoubleTreeSource.literal_double_tree_entry_parent",
+    "GuardMemoryLiteralDoubleTreeSource.literal_double_source_tree_execution_memory",
+    "GuardMemoryLiteralDoubleTreeSource.literal_double_source_tree_source_Loop",
+    "GuardMemoryLiteralDoubleTreeProgress.literal_double_source_tree_framed_progress",
+    "GuardMemoryLiteralDoubleTreeProgress.literal_double_source_tree_region_progress",
+    "GuardMemoryLiteralDoubleTreeFacts.literal_double_tree_header_ranges",
+    "GuardMemoryLiteralDoubleTreeFacts.checked_literal_double_tree_shared_layout",
+    "GuardMemoryLiteralDoubleTreeFacts.literal_double_tree_footprint_model_facts",
+    "GuardMemoryLiteralDoubleTreeScope.literal_double_tree_layout_span_sound",
+    "GuardMemoryLiteralDoubleTreeScope.checked_literal_double_tree_public_scope",
+    "GuardMemoryLiteralDoubleTreeScope.literal_double_tree_progress_supported_sound",
+    "GuardMemoryLiteralDoubleTreeExecution.checked_literal_double_tree_candidate_execution",
+    "LiteralDoubleTreeFactory.literal_double_tree_region_contract",
+    "LiteralDoubleTreeFactory.check_literal_double_tree_region_sound",
+    "LiteralDoubleTreeCompiler.checked_literal_double_tree_regions_sound",
+    "LiteralDoubleTreeCompiler.checked_selected_literal_double_tree_program_correct",
+    "LiteralDoubleTreeCompiler.selected_literal_double_tree_cstrategy_forward",
+    "LiteralDoubleTreeCompiler.compile_selected_literal_double_tree_program_correct",
+    "TypedLiteralCombinedDoubleCompiler.checked_selected_typed_literal_combined_double_program_correct",
+    "TypedLiteralCombinedDoubleCompiler.compile_selected_typed_literal_combined_double_program_correct"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 51,
+  "additional_global_axioms": [],
+  "closed_endpoints": 10,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 623,
+  "attempts": [
+    {
+      "module": "GuardMemorySignedLongBoundControl",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemorySignedLongBoundControl-v1.json"
+    },
+    {
+      "module": "GuardMemorySignedBoundLoadedProgress",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemorySignedBoundLoadedProgress-v1.json"
+    },
+    {
+      "module": "GuardMemorySignedBoundRawProgress",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemorySignedBoundRawProgress-v1.json"
+    },
+    {
+      "module": "GuardMemorySignedBoundRangeProgress",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemorySignedBoundRangeProgress-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeData",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeData-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeData",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeData-v2.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeSyntax",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeSyntax-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeDecode",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeDecode-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeCache",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeCache-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeSource",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeSource-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeProgress",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeProgress-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeFacts",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeFacts-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeScope",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeScope-v1.json"
+    },
+    {
+      "module": "GuardMemoryLiteralDoubleTreeExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryLiteralDoubleTreeExecution-v1.json"
+    },
+    {
+      "module": "LiteralDoubleTreeFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/LiteralDoubleTreeFactory-v1.json"
+    },
+    {
+      "module": "LiteralDoubleTreeCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/LiteralDoubleTreeCompiler-v1.json"
+    },
+    {
+      "module": "TypedLiteralCombinedDoubleCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/TypedLiteralCombinedDoubleCompiler-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "new_complete_compiler_endpoint": "TypedLiteralCombinedDoubleCompiler.compile_selected_typed_literal_combined_double_program_correct",
+  "new_source_tree_factory_installed": true,
+  "factory_discharges_source_model_and_entry_obligations": true,
+  "literal_model_parameters_are_actual_C_globals": false,
+  "constant_path_requires_dynamic_header_reads": false,
+  "actual_I32_source_literals_and_I64_bounds_supported": true,
+  "implicit_signed_arithmetic_conversion_and_progress_proved": true,
+  "static_refusal_retains_original_source": true,
+  "normalization_and_all_passes_use_actual_intermediate_program": true,
+  "new_native_source_family_added": false,
+  "dynamic_bound_source_family_extended": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/typed-literal-double/proof-v1/report.json"
+}

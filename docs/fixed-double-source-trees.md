@@ -1,5 +1,10 @@
 # 常量上界：源／模型桥已证明，安装继续交付
 
+本页保留局部 source 证明 checkpoint。[Factory／完整程序后继](fixed-double-installation.md)
+已闭合该阶段的安装证明，第一次原 `nodep` 运行仍走 fallback；
+[I32／I64 literal 后继](typed-literal-double.md)按其实际 AST 类型补充语言服务。
+后续功能与 native 验收以这两页为准。
+
 本页供 framework／语言／优化实例的实现者阅读。新服务处理实际 Clight 中的
 常量上界循环树，复用已有多面体模型和候选 pipeline；目前完成局部源证明，
 尚未安装到 native compiler。[证明摘要](fixed-double-source-trees.json)记录这个边界。

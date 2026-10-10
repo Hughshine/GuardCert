@@ -1,0 +1,69 @@
+{
+  "status": "compiled",
+  "kind": "declared-literal-model-current-program-csem-to-asm",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDeclaredLiteralDoubleTreeExecution.v",
+    "prototype/interface/DeclaredLiteralDoubleTreeFactory.v",
+    "prototype/interface/DeclaredLiteralDoubleTreeCompiler.v",
+    "prototype/interface/DeclaredLiteralCombinedDoubleCompiler.v"
+  ],
+  "new_source_lines": 449,
+  "endpoints": [
+    "GuardMemoryDeclaredLiteralDoubleTreeExecution.checked_declared_literal_double_tree_candidate_execution",
+    "DeclaredLiteralDoubleTreeFactory.declared_literal_double_tree_region_contract",
+    "DeclaredLiteralDoubleTreeFactory.check_declared_literal_double_tree_region_sound",
+    "DeclaredLiteralDoubleTreeCompiler.checked_declared_literal_double_tree_regions_sound",
+    "DeclaredLiteralDoubleTreeCompiler.checked_selected_declared_literal_double_tree_program_correct",
+    "DeclaredLiteralDoubleTreeCompiler.selected_declared_literal_double_tree_cstrategy_forward",
+    "DeclaredLiteralDoubleTreeCompiler.compile_selected_declared_literal_double_tree_program_correct",
+    "DeclaredLiteralCombinedDoubleCompiler.checked_selected_declared_literal_combined_double_program_correct",
+    "DeclaredLiteralCombinedDoubleCompiler.compile_selected_declared_literal_combined_double_program_correct"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 9,
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 624,
+  "attempts": [
+    {
+      "module": "GuardMemoryDeclaredLiteralDoubleTreeExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDeclaredLiteralDoubleTreeExecution-v1.json"
+    },
+    {
+      "module": "DeclaredLiteralDoubleTreeFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DeclaredLiteralDoubleTreeFactory-v1.json"
+    },
+    {
+      "module": "DeclaredLiteralDoubleTreeCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DeclaredLiteralDoubleTreeCompiler-v1.json"
+    },
+    {
+      "module": "DeclaredLiteralCombinedDoubleCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DeclaredLiteralCombinedDoubleCompiler-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "new_complete_compiler_endpoint": "DeclaredLiteralCombinedDoubleCompiler.compile_selected_declared_literal_combined_double_program_correct",
+  "new_source_tree_factory_installed": true,
+  "factory_discharges_source_model_and_entry_obligations": true,
+  "literal_model_parameters_are_actual_C_globals": false,
+  "mathematical_model_parameters_declared_for_extractor": true,
+  "host_public_scope_contains_only_actual_array_globals": true,
+  "constant_path_requires_dynamic_header_reads": false,
+  "actual_I32_source_literals_and_I64_bounds_supported": true,
+  "implicit_signed_arithmetic_conversion_and_progress_proved": true,
+  "static_refusal_retains_original_source": true,
+  "normalization_and_all_passes_use_actual_intermediate_program": true,
+  "new_native_source_family_added": false,
+  "dynamic_bound_source_family_extended": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/declared-literal-double/proof-v1/report.json"
+}

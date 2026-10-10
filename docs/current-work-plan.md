@@ -2,6 +2,41 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 常量源族已接完整程序；继续实际语料与条件验收
+
+再次核对远端 narrative：仍为 `8ce9c8b`，`paper-narrative.md` 与 main 相同。
+本次按其澄清继续实际交付，没有声称收到另一份新提交：kernel 止于局部 guarded
+correctness；domain 生产 source/model、数学义务与条件推导；language／host
+提供机器执行、安全读取、state/frame/control/progress 和当前程序安装。
+
+[常量 factory 后继](fixed-double-installation.md)已证明 projected contract 和
+actual-current-program Csem→Asm，508 行／12 端点，无新增 globals。第一次原
+`nodep` native 虽匹配输出，实际 fallback；原 AST 的 I32 upper bound 拒绝暴露
+了语言类型缺口。[Typed literal 后继](typed-literal-double.md)补实际 I64/I32
+conversion、source iff 与独立 progress，1,974 行／51 端点，无新增 globals。
+其第一次 native 仍 fallback：数学 context 有两参数，但模型 vars 仅含一个数组。
+
+[模型声明后继](declared-literal-double.md)将 mathematical parameter declarations
+与 actual C-global scope 分开。449 行／九端点、新 factory 和 current-program
+Csem→Asm 均已编译、审计、提取；没有新 kernel/host law 或 source-user callbacks。
+原 `nodep` 现有实际 untiled 与 tiled candidate，后者增加两个 size-32 tile 维度。
+三配置完整输出匹配；[未改 assembly 的观察](declared-literal-nodep-execution.json)
+各计数 400 次原 update、所有 indices 恰好一次，tiled 更新对应 13 个 witness
+tile groups。两个前序 fallback 和一个 observer 失败均保留。
+
+**下一验收是同 compiler 的完整 62 例／两 adaptations 对照**，已启动
+`current-declared-literal-combined-attempts/corpus-v1`；terminal report 出现前不计
+完成。继续逐配置检查实际 candidate、requested transformations 和完整成本，
+目前先关闭[两个 tiled 编译 blocker](literal-tiled-codegen-blockers.json)：
+`fusion10` 的实际 phase 后栈溢出，64 MiB stack 重试仍失败；`fusion2` 为 180 秒
+timeout。旧同源 baseline 三配置均成功，它们是新增路线的 operational regressions，
+不是 successful fallback。先定位并控制候选准备／后续验证的增长，再推进
+`dsyrk` 的 `k=j` initializer、混合端点、general pieces／ISS 和真实域变换。
+常量 facts 是静态证据；OLO local obligations→compact entry condition→safe
+machine check／accepted/refused state transport、共享检查与 CGO17 原 contexts／
+tiers 仍单独交付。候选 body residualization 也不替代入口条件 synthesis。
+完整 goal 保持 active。下列段落保留前序 checkpoint 的边界。
+
 ### Narrative 的责任边界继续约束具体功能扩展
 
 2026-10-10 本次 fetch 再确认 `topdown/research-positioning` 为 `8ce9c8b`，正文

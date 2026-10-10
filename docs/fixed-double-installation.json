@@ -1,0 +1,104 @@
+{
+  "status": "compiled",
+  "kind": "literal-bound-factory-current-program-csem-to-asm-installation",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryFixedDoubleTreeScope.v",
+    "adapters/compcert-memory/GuardMemoryFixedDoubleTreeExecution.v",
+    "prototype/interface/FixedDoubleTreeFactory.v",
+    "prototype/interface/FixedDoubleTreeCompiler.v",
+    "prototype/interface/LiteralCombinedDoubleCompiler.v"
+  ],
+  "new_source_lines": 508,
+  "endpoints": [
+    "GuardMemoryFixedDoubleTreeScope.fixed_double_tree_layout_span_sound",
+    "GuardMemoryFixedDoubleTreeScope.checked_fixed_double_tree_public_scope",
+    "GuardMemoryFixedDoubleTreeScope.fixed_double_tree_progress_supported_sound",
+    "GuardMemoryFixedDoubleTreeExecution.checked_fixed_double_tree_candidate_execution",
+    "FixedDoubleTreeFactory.fixed_double_tree_region_contract",
+    "FixedDoubleTreeFactory.check_fixed_double_tree_region_sound",
+    "FixedDoubleTreeCompiler.checked_fixed_double_tree_regions_sound",
+    "FixedDoubleTreeCompiler.checked_selected_fixed_double_tree_program_correct",
+    "FixedDoubleTreeCompiler.selected_fixed_double_tree_cstrategy_forward",
+    "FixedDoubleTreeCompiler.compile_selected_fixed_double_tree_program_correct",
+    "LiteralCombinedDoubleCompiler.checked_selected_literal_combined_double_program_correct",
+    "LiteralCombinedDoubleCompiler.compile_selected_literal_combined_double_program_correct"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 12,
+  "additional_global_axioms": [],
+  "closed_endpoints": 1,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 618,
+  "attempts": [
+    {
+      "module": "GuardMemoryFixedDoubleTreeScope",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeScope-v1.json"
+    },
+    {
+      "module": "GuardMemoryFixedDoubleTreeScope",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeScope-v2.json"
+    },
+    {
+      "module": "GuardMemoryFixedDoubleTreeExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeExecution-v1.json"
+    },
+    {
+      "module": "GuardMemoryFixedDoubleTreeExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeExecution-v2.json"
+    },
+    {
+      "module": "GuardMemoryFixedDoubleTreeExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeExecution-v3.json"
+    },
+    {
+      "module": "GuardMemoryFixedDoubleTreeExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeExecution-v4.json"
+    },
+    {
+      "module": "GuardMemoryFixedDoubleTreeExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryFixedDoubleTreeExecution-v5.json"
+    },
+    {
+      "module": "FixedDoubleTreeFactory",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/FixedDoubleTreeFactory-v1.json"
+    },
+    {
+      "module": "FixedDoubleTreeFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/FixedDoubleTreeFactory-v2.json"
+    },
+    {
+      "module": "FixedDoubleTreeCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/FixedDoubleTreeCompiler-v1.json"
+    },
+    {
+      "module": "LiteralCombinedDoubleCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/LiteralCombinedDoubleCompiler-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "new_complete_compiler_endpoint": "LiteralCombinedDoubleCompiler.compile_selected_literal_combined_double_program_correct",
+  "new_source_tree_factory_installed": true,
+  "factory_discharges_source_model_and_entry_obligations": true,
+  "literal_model_parameters_are_actual_C_globals": false,
+  "constant_path_requires_dynamic_header_reads": false,
+  "static_refusal_retains_original_source": true,
+  "normalization_and_all_passes_use_actual_intermediate_program": true,
+  "new_native_source_family_added": false,
+  "dynamic_bound_source_family_extended": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/fixed-double-installation/proof-v1/report.json"
+}
