@@ -1,5 +1,14 @@
 # 验证责任、证书边界与最难的验收
 
+[最新汇总](dynamic-piece-integer-results.json)现已完成同组合 compiler 的 12
+contexts／84 次运行、192 配置／186 次语料输出回归，以及六组输入／162 次成本
+运行。已有全程序契约覆盖实际 source/guard/candidate/fallback；数据选择作用于
+当前程序。Kernel／host laws 没有新增，language 与 domain 的义务没有转嫁给 C
+使用者。成本验收未通过：(100,100) 的两个目标墙钟时间为源的 1.480／1.457 倍。
+下一最难工作是定位执行与编译期瓶颈、扩展 PolCert/CGO17 功能，以及有用 compact
+入口条件、安全求值和入口运输；现有正确安装不能替代这些要求。以下保留历史
+checkpoint，其中的 pending contexts/corpus/cost 已由本节结果更新。
+
 2026-10-10 的[后继复核](narrative-integer-cover-check-2026-10-10.md)将三个责任层
 落实到同一动态分块实例：domain 的整数 coverage tree 是数据，既有总 checker
 和 actual Loop bridge 建立候选正确性；language/host 复用安全 conditional

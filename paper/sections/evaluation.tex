@@ -2831,3 +2831,25 @@ read observations. Its first attempt is retained as a sandbox ptrace refusal;
 the successful retry observes the already-generated binaries. Multiple-site
 contexts, final corpus regression and complete-process cost remain separate
 acceptance steps.
+
+These steps have now completed for the selective combined compiler. Six
+disclosed dynamic context variants pass twelve configurations and 84 complete
+runtime outputs, including both marked sites, unmarked exclusion, caller stack
+outputs, continuation reads and insufficient private resources. Their compiler
+budget is 600 seconds; the two-site tiled compile takes about 375 seconds.
+The final complete corpus again matches 186 of 192 outputs, retaining the six
+preceding frontend refusals, all input/configuration hashes and statuses, whole
+fusion2, and the fusion10/nodep tiled shapes.
+
+A disclosed wrapper repeats the dynamic region across an opaque boundary
+compiled separately without LTO. After the other goal commands finish, six
+input pairs are sampled on one fixed CPU with rotated order, two warmups and
+seven measured trials per configuration. All 162 sampled complete outputs
+match. The wall-clock target/source median ratios are 1.480/1.457 for untiled/
+tiled at (100,100), and 1.185/1.187 at (33,31). The two outside-profile pairs
+range from 1.026 to 1.035. Positive-work inputs use 1,000 repetitions; empty
+inputs use one million. The measurement includes startup, initialization,
+guard, candidate-or-fallback, public exits, boundary and digest; external host
+load is uncontrolled and guard cost is not isolated. Functional installation
+has passed, while useful speedup has not. Further work must locate and reduce
+the measured overhead without dropping the original computation or proof path.

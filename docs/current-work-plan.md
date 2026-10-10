@@ -2,6 +2,43 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 动态整体分块的功能验收已通过；成本未通过
+
+[本轮汇总](dynamic-piece-integer-results.json)绑定 fresh proof/build、成功运行、
+完整 contexts/corpus/cost 及保留的失败。当前生产入口是
+`SelectivePieceCombinedDoubleCompilerV3`：87 行、三个新端点、无新增 globals，
+继承现有 kernel／host 和实际 Csem→Asm 契约。Coverage cuts 和 current-program
+selection 都是数据提案，不授权具体候选，也不向普通 C 使用者索要语义 callbacks。
+
+同一个披露的独立 N/M 源在 standalone 与新组合入口各有 123 次输出／出口匹配，
+untiled 六片、tiled 八片都整体安装；两入口各有 21 次机器观察。
+[动态 contexts](dynamic-piece-selective-contexts.json)的 12 配置／84 次运行全部
+通过，多标注、未标注排除、halo/continuation、外层条件、caller/stack exits 及
+资源拒绝分别核对。[完整语料回归](dynamic-piece-selective-corpus.json)的 192
+配置有 186 次输出匹配，原输入和配置 hashes／status 保持；原 fusion2 整体候选
+与 fusion10/nodep tiled 形状保留，六个既有 frontend 拒绝仍开放。
+
+[成本测量](dynamic-piece-selective-cost.json)在本轮其他 goal 命令结束后，单 CPU
+固定 affinity、交错顺序、两次 warmup 和七次采样，六组输入共 162 次完整输出
+匹配。它测量带重复区域和 opaque boundary 的披露 variant，包含完整进程及
+guard／candidate-or-fallback／公开出口；没有隔离 guard，也未控制外部 host load。
+在 (100,100) 上 untiled/tiled 墙钟比为 1.480／1.457，(33,31) 为 1.185／1.187；
+有实际工作量的接受案例没有加速。不能把“功能安装通过”说成性能验收通过。
+
+下一步按已证实的缺口推进：
+
+1. 区分并定位 compiler checker、入口 capture/check、候选 body membership 和
+   machine lowering 的实际工作；不把总调用慢直接归因于 guard。保留原正确路径，
+   在同一源上用 fresh attempts 检验能减少候选执行成本的改进，再重测完整调用。
+2. 继续落实 PolCert 顺序功能和 CGO17 原源／上下文，优先补 benchmark 已暴露的
+   source/target/phase 缺口；当前 source class 或 witness 拒绝不缩减总体验收。
+3. 推进入口条件 `B⇒A`、safe `G accepts⇒B`、状态运输、共享检查与有用接受范围。
+   Coverage 搜索是编译时 domain 服务；这次成功不替代 OLO condition synthesis。
+
+Narrative `8ce9c8b` 的三方责任、源码执行作为证明起点、语言负责全程序安装及
+五类 guard 服务契约继续适用。Context clauses 是待实例验证的设计问题；没有
+因这次数据算法新增 kernel/host law。完整 goal 保持 active。以下是历史 checkpoints。
+
 ### 整数 coverage 已接到动态整体分块；验收组合入口
 
 本轮重新 fetch narrative，仍为 `8ce9c8b`，与 main 正文一致。

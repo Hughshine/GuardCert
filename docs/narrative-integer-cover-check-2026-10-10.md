@@ -1,5 +1,10 @@
 # Narrative 澄清的复核与本轮验证边界
 
+本轮后继结果见[绑定汇总](dynamic-piece-integer-results.json)：新组合入口的
+动态 contexts 全部通过，最终语料 status／source hashes 保持，完整成本已测量。
+接受且有实际工作量的两个输入没有加速，不能宣称性能验收完成。下文保留本轮
+接线与责任分析；后续以当前工作计划首节和绑定报告为准。
+
 2026-10-10 重新 `git fetch origin topdown/research-positioning`。可见最新提交仍为
 `8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`；本次比较的
 `docs/topdown/paper-narrative.md` 与 main 无正文差异。本页记录实施如何响应已可见

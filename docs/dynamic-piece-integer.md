@@ -2,6 +2,8 @@
 
 本页是 2026-10-10 的实现 checkpoint；完整 PolCert 顺序功能和 CGO17 对齐仍未完成。
 [Narrative 复核](narrative-integer-cover-check-2026-10-10.md)记录三方责任与验收顺序。
+[绑定汇总](dynamic-piece-integer-results.json)保存证明、成功运行、contexts、语料、
+成本和本轮失败。以下接线事实继续适用；后继验收结果见末节。
 
 ## 实际编译路径
 
@@ -74,3 +76,35 @@ vector oracle、pruning 和阶段诊断变体不作为本页已验收的默认�
 OLO 的紧凑充分入口条件 `B⇒A`、safe `G accepts⇒B`、状态运输、共享检查、有用
 接受范围和完整成本仍分别验收。条件库按调用前提、成功事实、读取/private
 effects、public frame 和拒绝契约组织；本例没有增加 guard 原子表达能力。
+
+## 后继完整验收结果
+
+[动态 contexts](dynamic-piece-selective-contexts.json)的六类／12 配置、84 次完整
+运行均通过，包含多标注与未标注排除、caller 栈上输出和 live temporary、halo／
+continuation、外层条件及 private pool 不足的拒绝。Compiler budget 是 600 秒；
+两标注的 tiled 编译约 375 秒，不能据此说编译期成本已实用。
+[完整语料](dynamic-piece-selective-corpus.json)核对 62 原例、两份披露 adaptations、
+192 配置：180 原输出和六 adaptation 输出匹配，六个既有 frontend 拒绝保留。
+输入／配置 hashes 和 status 没有变化；原 fusion2 整体融合及 fusion10/nodep
+tiled 形状保留。这些计数不等于支持 62 例的全部请求变换。
+
+[完整进程成本](dynamic-piece-selective-cost.json)先编译重复区域 variant，再等
+本轮其他 goal 命令结束后采样；固定单 CPU、轮换顺序，每组两个 warmups 和七次
+正式采样。六组输入的 162 次完整输出都匹配。Source baseline 与两个目标使用
+同一 CompCert compiler/flags；GCC reference 用于核对输出。独立编译的 opaque
+boundary 阻止跨重复调用删除 stores，其开销与初始化、startup、digest、guard、
+candidate-or-fallback 和公开出口全部包含。外部 host load 未控制，不隔离 guard。
+
+| N | M | Untiled/source 墙钟比 | Tiled/source 墙钟比 |
+| ---: | ---: | ---: | ---: |
+| 100 | 100 | 1.480 | 1.457 |
+| 33 | 31 | 1.185 | 1.187 |
+| 101 | 100 | 1.035 | 1.026 |
+| 100 | 101 | 1.032 | 1.033 |
+| 0 | I64_MAX | 1.271 | 1.785 |
+| 2 | 0 | 0.915 | 1.331 |
+
+正工作量输入各重复 1,000 次，空输入重复 1,000,000 次；这些是完整进程中位数
+之比。大于一表示目标较慢。本例已通过正确安装／行为验收，**没有通过有用加速
+验收**。下一步定位 compiler checking、body membership、机器转换及 capture/check
+工作，保留原正确路径并用 fresh attempts 改进；不把总 slowdown 直接归因于 guard。

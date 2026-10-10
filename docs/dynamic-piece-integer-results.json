@@ -1,0 +1,515 @@
+{
+  "status": "accepted-dynamic-integer-piece-checkpoint",
+  "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+  "compiler_entrypoint": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program",
+  "whole_program_theorem": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
+  "new_selective_source_lines": 87,
+  "new_selective_endpoints": 3,
+  "maximum_inherited_globals": 42,
+  "additional_globals": [],
+  "kernel_or_host_laws_changed": false,
+  "source_users_supply_semantic_callbacks": false,
+  "integer_cover_is_untrusted_data_existing_total_checker_authoritative": true,
+  "original_arrays_and_IEEE_kernel_retained_in_disclosed_variant": true,
+  "independent_N_M_runtime_inputs": 41,
+  "same_variant_and_runtime_values_retained": true,
+  "complete_native_matches_per_runtime_replay": 123,
+  "untiled_whole_pieces": 6,
+  "tiled_whole_pieces": 8,
+  "current_program_remaining_selections": {
+    "unmarked": [
+      {
+        "chosen": 0,
+        "protected": 0,
+        "remaining": 0
+      }
+    ],
+    "untiled": [
+      {
+        "chosen": 1,
+        "protected": 1,
+        "remaining": 0
+      }
+    ],
+    "tiled": [
+      {
+        "chosen": 1,
+        "protected": 1,
+        "remaining": 0
+      }
+    ]
+  },
+  "standalone_build_metadata_calibrated_to_actual_call_graph": true,
+  "write_observations_per_compiler": 9,
+  "conditional_read_observations_per_compiler": 12,
+  "two_sampled_store_locations_not_all_updates": true,
+  "private_guard_flag_directly_sampled": false,
+  "contexts": {
+    "configurations": 12,
+    "actual_native_matches": 84,
+    "compiler_budget_seconds": 600,
+    "caller_stack_and_public_exits_exercised": true
+  },
+  "old_contexts": {
+    "actual_native_calls": 56,
+    "original_nominal_field": 84,
+    "passed_configurations": 8,
+    "compiler_budget_seconds": 180,
+    "failed_compilations": [
+      {
+        "case": "multiple-marked",
+        "mode": "tiled",
+        "compiler": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/multiple-marked/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/multiple-marked/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.0032623700099
+        }
+      },
+      {
+        "case": "marked-and-unmarked",
+        "mode": "tiled",
+        "compiler": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/marked-and-unmarked/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/marked-and-unmarked/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.00240757502615
+        }
+      },
+      {
+        "case": "enclosing-conditional",
+        "mode": "tiled",
+        "compiler": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/enclosing-conditional/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/enclosing-conditional/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.10071571503067
+        }
+      },
+      {
+        "case": "caller-live-temp-and-stack-exits",
+        "mode": "tiled",
+        "compiler": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v2/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/caller-live-temp-and-stack-exits/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/caller-live-temp-and-stack-exits/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.09741530701285
+        }
+      }
+    ]
+  },
+  "corpus": {
+    "configurations": 192,
+    "complete_native_matches": 186,
+    "configuration_status_changes": 0,
+    "original_and_configuration_hashes_unchanged": true,
+    "focused_whole_fusion_and_tiled_shapes_retained": true,
+    "requested_transformations_supported_is_not_native_match_count": true
+  },
+  "cost": {
+    "measurement_scope": "complete process: initialization, repeated guard/candidate-or-fallback/public-exit/boundary, digest and startup",
+    "trials_per_configuration_and_input": 7,
+    "warmups_per_configuration_and_input": 2,
+    "complete_native_matches_including_warmups": 162,
+    "cpu_affinity": 0,
+    "external_host_load_controlled": false,
+    "guard_cost_isolated": false,
+    "other_goal_commands_running_during_samples": false
+  },
+  "cost_ratios": [
+    {
+      "N": 100,
+      "M": 100,
+      "repetitions": 1000,
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.479928262672149,
+          "child_cpu_seconds": 1.532071189679886
+        },
+        "tiled": {
+          "wall_seconds": 1.456529266554829,
+          "child_cpu_seconds": 1.5146321070234143
+        }
+      }
+    },
+    {
+      "N": 33,
+      "M": 31,
+      "repetitions": 1000,
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.185304549179357,
+          "child_cpu_seconds": 1.218886198547221
+        },
+        "tiled": {
+          "wall_seconds": 1.187233128771699,
+          "child_cpu_seconds": 1.2409200968523213
+        }
+      }
+    },
+    {
+      "N": 101,
+      "M": 100,
+      "repetitions": 1000,
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.0346525290691015,
+          "child_cpu_seconds": 1.0340743440233255
+        },
+        "tiled": {
+          "wall_seconds": 1.0263609030744938,
+          "child_cpu_seconds": 1.0307337220602462
+        }
+      }
+    },
+    {
+      "N": 100,
+      "M": 101,
+      "repetitions": 1000,
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.032292307061189,
+          "child_cpu_seconds": 1.0331501831501946
+        },
+        "tiled": {
+          "wall_seconds": 1.0330445689473184,
+          "child_cpu_seconds": 1.0386446886446954
+        }
+      }
+    },
+    {
+      "N": 0,
+      "M": 9223372036854775807,
+      "repetitions": 1000000,
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.2705796852775288,
+          "child_cpu_seconds": 1.3532608695652122
+        },
+        "tiled": {
+          "wall_seconds": 1.7852703250069424,
+          "child_cpu_seconds": 2.03048204158786
+        }
+      }
+    },
+    {
+      "N": 2,
+      "M": 0,
+      "repetitions": 1000000,
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 0.9152681563032486,
+          "child_cpu_seconds": 0.9079077429983602
+        },
+        "tiled": {
+          "wall_seconds": 1.3314949235672722,
+          "child_cpu_seconds": 1.4197693574957906
+        }
+      }
+    }
+  ],
+  "failed_proof_inputs": [
+    {
+      "metadata": "build/original-matmul/installation-attempts-v1/SelectivePieceCombinedDoubleCompiler-v1.json",
+      "source": "prototype/interface/SelectivePieceCombinedDoubleCompiler.v",
+      "returncode": 1
+    },
+    {
+      "metadata": "build/original-matmul/installation-attempts-v1/SelectivePieceCombinedDoubleCompilerV2-v1.json",
+      "source": "prototype/interface/SelectivePieceCombinedDoubleCompilerV2.v",
+      "returncode": 1
+    }
+  ],
+  "historical_attempts": [
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-v3/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 123,
+      "original_nominal_field": 123,
+      "actual_complete_matches": 123,
+      "failed_compilations": {}
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-v4/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 123,
+      "original_nominal_field": 123,
+      "actual_complete_matches": 123,
+      "failed_compilations": {}
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-v6/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 82,
+      "original_nominal_field": 123,
+      "actual_complete_matches": 82,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v6/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v6/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-v6/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-v6/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.00234852498397
+        }
+      }
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-integer-diagnostic-v1/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 82,
+      "original_nominal_field": 82,
+      "actual_complete_matches": 82,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-diagnostic-v2/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-diagnostic-v2/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-diagnostic-v1/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-diagnostic-v1/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.10199096496217
+        }
+      }
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-integer-pruned-v1/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 82,
+      "original_nominal_field": 82,
+      "actual_complete_matches": 82,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": 2,
+          "timeout": false,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-pruned-v2/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-pruned-v2/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-pruned-v1/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-pruned-v1/tiled/program.c"
+          ],
+          "elapsed_seconds": 24.509025375999045
+        }
+      }
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-integer-pruned-v2/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 82,
+      "original_nominal_field": 82,
+      "actual_complete_matches": 82,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": 2,
+          "timeout": false,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-pruned-v3/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-pruned-v3/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-pruned-v2/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-pruned-v2/tiled/program.c"
+          ],
+          "elapsed_seconds": 24.06017527898075
+        }
+      }
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-integer-cleaned-v1/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 82,
+      "original_nominal_field": 82,
+      "actual_complete_matches": 82,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-cleaned-v1/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-cleaned-v1/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-cleaned-v1/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-cleaned-v1/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.01464187703095
+        }
+      }
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-integer-traced-v1/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 0,
+      "original_nominal_field": 0,
+      "actual_complete_matches": 0,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": 2,
+          "timeout": false,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v6/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v6/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-traced-v1/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-integer-traced-v1/tiled/program.c"
+          ],
+          "elapsed_seconds": 268.4192589240265
+        }
+      }
+    },
+    {
+      "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-vector-v1/rejection.json",
+      "status": "rejected",
+      "actual_native_calls": 82,
+      "original_nominal_field": 82,
+      "actual_complete_matches": 82,
+      "failed_compilations": {
+        "tiled": {
+          "returncode": null,
+          "timeout": true,
+          "argv": [
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-vector-v1/ccomp",
+            "-fall",
+            "-stdlib",
+            "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-vector-v1/runtime",
+            "-dclight",
+            "-S",
+            "-o",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-vector-v1/tiled/program.s",
+            "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-vector-v1/tiled/program.c"
+          ],
+          "elapsed_seconds": 180.10229413898196
+        }
+      }
+    },
+    {
+      "report": "build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v1/rejection.json",
+      "status": "rejected",
+      "error": "Command '['make', '-j4', '-f', 'Makefile.extr', 'ccomp']' returned non-zero exit status 2.",
+      "actual_native_calls": 0
+    },
+    {
+      "report": "build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v3/rejection.json",
+      "status": "rejected",
+      "error": null,
+      "actual_native_calls": 0
+    },
+    {
+      "report": "build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v5/rejection.json",
+      "status": "rejected",
+      "error": null,
+      "actual_native_calls": 0
+    },
+    {
+      "report": "build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-diagnostic-v1/rejection.json",
+      "status": "rejected",
+      "error": null,
+      "actual_native_calls": 0
+    },
+    {
+      "report": "build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-pruned-v1/rejection.json",
+      "status": "rejected",
+      "error": null,
+      "actual_native_calls": 0
+    },
+    {
+      "report": "build/double-tree-model/compiler-attempts/native-dynamic-piece-standalone-v1/preflight-rejection.json",
+      "status": "rejected",
+      "error": "FileExistsError: successor-snapshots copied from parent already exists",
+      "actual_native_calls": 0
+    }
+  ],
+  "compile_before_sampling_separated": true,
+  "benchmark_wide_profitability_claimed": false,
+  "OLO_compact_entry_condition_complete": false,
+  "all_requested_sequential_transformations_supported": false,
+  "full_goal_complete": false,
+  "reports": {
+    "parent_proof": "build/dynamic-piece-factory/proof-v1/report.json",
+    "selective_proof": "build/dynamic-piece-factory/selective-proof-v1/report.json",
+    "standalone_build": "build/dynamic-piece-factory/standalone-build-v1/report.json",
+    "standalone_runtime": "build/dynamic-piece-factory/runtime-attempts/symbolic-standalone-v1/report.json",
+    "standalone_observer": "build/dynamic-piece-factory/execution-attempts/symbolic-integer-v1/report.json",
+    "selective_build": "build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/report.json",
+    "selective_runtime": "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/report.json",
+    "selective_observer": "build/dynamic-piece-factory/execution-attempts/symbolic-selective-v2/report.json",
+    "selective_contexts": "build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/report.json",
+    "selective_corpus": "build/dynamic-piece-factory/selective-corpus-summary-v1/report.json",
+    "cost_build": "build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/report.json",
+    "cost": "build/dynamic-piece-factory/cost-attempts/repeat-selective-samples-v1/report.json",
+    "old_contexts": "build/dynamic-piece-factory/context-attempts/symbolic-integer-v1/rejection.json",
+    "sandbox_observer": "build/dynamic-piece-factory/execution-attempts/symbolic-selective-v1/rejection.json",
+    "intermediate_corpus": "build/benchmark-alignment/current-dynamic-piece-attempts/integer-corpus-v1/report.json"
+  },
+  "report": "build/dynamic-piece-factory/integer-results-v1/report.json"
+}

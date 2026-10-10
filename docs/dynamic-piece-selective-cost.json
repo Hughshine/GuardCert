@@ -1,0 +1,2028 @@
+{
+  "status": "measured",
+  "compiler_entrypoint": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program",
+  "whole_program_theorem": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
+  "prepared_build_report": "build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/report.json",
+  "results": [
+    {
+      "N": 100,
+      "M": 100,
+      "repetitions": 1000,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/reference",
+          "100",
+          "100",
+          "1000"
+        ],
+        "elapsed_seconds": 0.10465398500673473
+      },
+      "samples": {
+        "unmarked": [
+          {
+            "wall_seconds": 0.018955785024445504,
+            "child_cpu_seconds": 0.017517999999999978
+          },
+          {
+            "wall_seconds": 0.017679153999779373,
+            "child_cpu_seconds": 0.016186000000000034
+          },
+          {
+            "wall_seconds": 0.018407969968393445,
+            "child_cpu_seconds": 0.017030999999999963
+          },
+          {
+            "wall_seconds": 0.018072306993417442,
+            "child_cpu_seconds": 0.016639000000000015
+          },
+          {
+            "wall_seconds": 0.01782823499524966,
+            "child_cpu_seconds": 0.01644000000000001
+          },
+          {
+            "wall_seconds": 0.018815083021763712,
+            "child_cpu_seconds": 0.017360000000000042
+          },
+          {
+            "wall_seconds": 0.019194033986423165,
+            "child_cpu_seconds": 0.01674399999999998
+          }
+        ],
+        "untiled": [
+          {
+            "wall_seconds": 0.027973260963335633,
+            "child_cpu_seconds": 0.02653899999999998
+          },
+          {
+            "wall_seconds": 0.027470945031382143,
+            "child_cpu_seconds": 0.025944999999999996
+          },
+          {
+            "wall_seconds": 0.027242475014645606,
+            "child_cpu_seconds": 0.02565299999999998
+          },
+          {
+            "wall_seconds": 0.028898941003717482,
+            "child_cpu_seconds": 0.02735599999999999
+          },
+          {
+            "wall_seconds": 0.02658910700120032,
+            "child_cpu_seconds": 0.025167999999999968
+          },
+          {
+            "wall_seconds": 0.02693566301604733,
+            "child_cpu_seconds": 0.025467999999999935
+          },
+          {
+            "wall_seconds": 0.02706887200474739,
+            "child_cpu_seconds": 0.025464000000000042
+          }
+        ],
+        "tiled": [
+          {
+            "wall_seconds": 0.029876100015826523,
+            "child_cpu_seconds": 0.02836700000000003
+          },
+          {
+            "wall_seconds": 0.026724593015387654,
+            "child_cpu_seconds": 0.025316000000000005
+          },
+          {
+            "wall_seconds": 0.026811746996827424,
+            "child_cpu_seconds": 0.025361000000000022
+          },
+          {
+            "wall_seconds": 0.026675337983760983,
+            "child_cpu_seconds": 0.02528199999999997
+          },
+          {
+            "wall_seconds": 0.027900789980776608,
+            "child_cpu_seconds": 0.026239000000000012
+          },
+          {
+            "wall_seconds": 0.026435830979608,
+            "child_cpu_seconds": 0.025023000000000017
+          },
+          {
+            "wall_seconds": 0.027399455022532493,
+            "child_cpu_seconds": 0.025912000000000046
+          }
+        ]
+      },
+      "order": [
+        {
+          "trial": 1,
+          "mode": "tiled",
+          "wall_seconds": 0.029876100015826523,
+          "child_cpu_seconds": 0.02836700000000003
+        },
+        {
+          "trial": 1,
+          "mode": "unmarked",
+          "wall_seconds": 0.018955785024445504,
+          "child_cpu_seconds": 0.017517999999999978
+        },
+        {
+          "trial": 1,
+          "mode": "untiled",
+          "wall_seconds": 0.027973260963335633,
+          "child_cpu_seconds": 0.02653899999999998
+        },
+        {
+          "trial": 2,
+          "mode": "tiled",
+          "wall_seconds": 0.026724593015387654,
+          "child_cpu_seconds": 0.025316000000000005
+        },
+        {
+          "trial": 2,
+          "mode": "untiled",
+          "wall_seconds": 0.027470945031382143,
+          "child_cpu_seconds": 0.025944999999999996
+        },
+        {
+          "trial": 2,
+          "mode": "unmarked",
+          "wall_seconds": 0.017679153999779373,
+          "child_cpu_seconds": 0.016186000000000034
+        },
+        {
+          "trial": 3,
+          "mode": "untiled",
+          "wall_seconds": 0.027242475014645606,
+          "child_cpu_seconds": 0.02565299999999998
+        },
+        {
+          "trial": 3,
+          "mode": "tiled",
+          "wall_seconds": 0.026811746996827424,
+          "child_cpu_seconds": 0.025361000000000022
+        },
+        {
+          "trial": 3,
+          "mode": "unmarked",
+          "wall_seconds": 0.018407969968393445,
+          "child_cpu_seconds": 0.017030999999999963
+        },
+        {
+          "trial": 4,
+          "mode": "untiled",
+          "wall_seconds": 0.028898941003717482,
+          "child_cpu_seconds": 0.02735599999999999
+        },
+        {
+          "trial": 4,
+          "mode": "unmarked",
+          "wall_seconds": 0.018072306993417442,
+          "child_cpu_seconds": 0.016639000000000015
+        },
+        {
+          "trial": 4,
+          "mode": "tiled",
+          "wall_seconds": 0.026675337983760983,
+          "child_cpu_seconds": 0.02528199999999997
+        },
+        {
+          "trial": 5,
+          "mode": "unmarked",
+          "wall_seconds": 0.01782823499524966,
+          "child_cpu_seconds": 0.01644000000000001
+        },
+        {
+          "trial": 5,
+          "mode": "untiled",
+          "wall_seconds": 0.02658910700120032,
+          "child_cpu_seconds": 0.025167999999999968
+        },
+        {
+          "trial": 5,
+          "mode": "tiled",
+          "wall_seconds": 0.027900789980776608,
+          "child_cpu_seconds": 0.026239000000000012
+        },
+        {
+          "trial": 6,
+          "mode": "unmarked",
+          "wall_seconds": 0.018815083021763712,
+          "child_cpu_seconds": 0.017360000000000042
+        },
+        {
+          "trial": 6,
+          "mode": "tiled",
+          "wall_seconds": 0.026435830979608,
+          "child_cpu_seconds": 0.025023000000000017
+        },
+        {
+          "trial": 6,
+          "mode": "untiled",
+          "wall_seconds": 0.02693566301604733,
+          "child_cpu_seconds": 0.025467999999999935
+        },
+        {
+          "trial": 7,
+          "mode": "tiled",
+          "wall_seconds": 0.027399455022532493,
+          "child_cpu_seconds": 0.025912000000000046
+        },
+        {
+          "trial": 7,
+          "mode": "unmarked",
+          "wall_seconds": 0.019194033986423165,
+          "child_cpu_seconds": 0.01674399999999998
+        },
+        {
+          "trial": 7,
+          "mode": "untiled",
+          "wall_seconds": 0.02706887200474739,
+          "child_cpu_seconds": 0.025464000000000042
+        }
+      ],
+      "medians": {
+        "unmarked": {
+          "wall_seconds": 0.018407969968393445,
+          "child_cpu_seconds": 0.01674399999999998
+        },
+        "untiled": {
+          "wall_seconds": 0.027242475014645606,
+          "child_cpu_seconds": 0.02565299999999998
+        },
+        "tiled": {
+          "wall_seconds": 0.026811746996827424,
+          "child_cpu_seconds": 0.025361000000000022
+        }
+      },
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.479928262672149,
+          "child_cpu_seconds": 1.532071189679886
+        },
+        "tiled": {
+          "wall_seconds": 1.456529266554829,
+          "child_cpu_seconds": 1.5146321070234143
+        }
+      },
+      "all_complete_outputs_match": true
+    },
+    {
+      "N": 33,
+      "M": 31,
+      "repetitions": 1000,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/reference",
+          "33",
+          "31",
+          "1000"
+        ],
+        "elapsed_seconds": 0.01704059902112931
+      },
+      "samples": {
+        "unmarked": [
+          {
+            "wall_seconds": 0.005494171986356378,
+            "child_cpu_seconds": 0.004129999999999967
+          },
+          {
+            "wall_seconds": 0.005539372039493173,
+            "child_cpu_seconds": 0.004141999999999979
+          },
+          {
+            "wall_seconds": 0.005468362011015415,
+            "child_cpu_seconds": 0.004097999999999935
+          },
+          {
+            "wall_seconds": 0.0054657879518345,
+            "child_cpu_seconds": 0.004115000000000091
+          },
+          {
+            "wall_seconds": 0.005555421987082809,
+            "child_cpu_seconds": 0.004157000000000077
+          },
+          {
+            "wall_seconds": 0.005468742980156094,
+            "child_cpu_seconds": 0.004117000000000037
+          },
+          {
+            "wall_seconds": 0.006045659014489502,
+            "child_cpu_seconds": 0.004569999999999963
+          }
+        ],
+        "untiled": [
+          {
+            "wall_seconds": 0.0063454280025325716,
+            "child_cpu_seconds": 0.004940999999999973
+          },
+          {
+            "wall_seconds": 0.0077074660221114755,
+            "child_cpu_seconds": 0.006240000000000023
+          },
+          {
+            "wall_seconds": 0.006308677024208009,
+            "child_cpu_seconds": 0.0048839999999999995
+          },
+          {
+            "wall_seconds": 0.006726819963660091,
+            "child_cpu_seconds": 0.005338999999999983
+          },
+          {
+            "wall_seconds": 0.006093628006055951,
+            "child_cpu_seconds": 0.004712999999999967
+          },
+          {
+            "wall_seconds": 0.0065122670494019985,
+            "child_cpu_seconds": 0.005033999999999983
+          },
+          {
+            "wall_seconds": 0.00672610301990062,
+            "child_cpu_seconds": 0.005256000000000038
+          }
+        ],
+        "tiled": [
+          {
+            "wall_seconds": 0.006522862997371703,
+            "child_cpu_seconds": 0.00515
+          },
+          {
+            "wall_seconds": 0.006508343969471753,
+            "child_cpu_seconds": 0.005125000000000046
+          },
+          {
+            "wall_seconds": 0.00648752402048558,
+            "child_cpu_seconds": 0.00510900000000003
+          },
+          {
+            "wall_seconds": 0.006986825028434396,
+            "child_cpu_seconds": 0.005536999999999903
+          },
+          {
+            "wall_seconds": 0.006628657982219011,
+            "child_cpu_seconds": 0.005222999999999978
+          },
+          {
+            "wall_seconds": 0.006537517998367548,
+            "child_cpu_seconds": 0.005051000000000028
+          },
+          {
+            "wall_seconds": 0.006498154019936919,
+            "child_cpu_seconds": 0.005083999999999977
+          }
+        ]
+      },
+      "order": [
+        {
+          "trial": 1,
+          "mode": "tiled",
+          "wall_seconds": 0.006522862997371703,
+          "child_cpu_seconds": 0.00515
+        },
+        {
+          "trial": 1,
+          "mode": "unmarked",
+          "wall_seconds": 0.005494171986356378,
+          "child_cpu_seconds": 0.004129999999999967
+        },
+        {
+          "trial": 1,
+          "mode": "untiled",
+          "wall_seconds": 0.0063454280025325716,
+          "child_cpu_seconds": 0.004940999999999973
+        },
+        {
+          "trial": 2,
+          "mode": "tiled",
+          "wall_seconds": 0.006508343969471753,
+          "child_cpu_seconds": 0.005125000000000046
+        },
+        {
+          "trial": 2,
+          "mode": "untiled",
+          "wall_seconds": 0.0077074660221114755,
+          "child_cpu_seconds": 0.006240000000000023
+        },
+        {
+          "trial": 2,
+          "mode": "unmarked",
+          "wall_seconds": 0.005539372039493173,
+          "child_cpu_seconds": 0.004141999999999979
+        },
+        {
+          "trial": 3,
+          "mode": "untiled",
+          "wall_seconds": 0.006308677024208009,
+          "child_cpu_seconds": 0.0048839999999999995
+        },
+        {
+          "trial": 3,
+          "mode": "tiled",
+          "wall_seconds": 0.00648752402048558,
+          "child_cpu_seconds": 0.00510900000000003
+        },
+        {
+          "trial": 3,
+          "mode": "unmarked",
+          "wall_seconds": 0.005468362011015415,
+          "child_cpu_seconds": 0.004097999999999935
+        },
+        {
+          "trial": 4,
+          "mode": "untiled",
+          "wall_seconds": 0.006726819963660091,
+          "child_cpu_seconds": 0.005338999999999983
+        },
+        {
+          "trial": 4,
+          "mode": "unmarked",
+          "wall_seconds": 0.0054657879518345,
+          "child_cpu_seconds": 0.004115000000000091
+        },
+        {
+          "trial": 4,
+          "mode": "tiled",
+          "wall_seconds": 0.006986825028434396,
+          "child_cpu_seconds": 0.005536999999999903
+        },
+        {
+          "trial": 5,
+          "mode": "unmarked",
+          "wall_seconds": 0.005555421987082809,
+          "child_cpu_seconds": 0.004157000000000077
+        },
+        {
+          "trial": 5,
+          "mode": "untiled",
+          "wall_seconds": 0.006093628006055951,
+          "child_cpu_seconds": 0.004712999999999967
+        },
+        {
+          "trial": 5,
+          "mode": "tiled",
+          "wall_seconds": 0.006628657982219011,
+          "child_cpu_seconds": 0.005222999999999978
+        },
+        {
+          "trial": 6,
+          "mode": "unmarked",
+          "wall_seconds": 0.005468742980156094,
+          "child_cpu_seconds": 0.004117000000000037
+        },
+        {
+          "trial": 6,
+          "mode": "tiled",
+          "wall_seconds": 0.006537517998367548,
+          "child_cpu_seconds": 0.005051000000000028
+        },
+        {
+          "trial": 6,
+          "mode": "untiled",
+          "wall_seconds": 0.0065122670494019985,
+          "child_cpu_seconds": 0.005033999999999983
+        },
+        {
+          "trial": 7,
+          "mode": "tiled",
+          "wall_seconds": 0.006498154019936919,
+          "child_cpu_seconds": 0.005083999999999977
+        },
+        {
+          "trial": 7,
+          "mode": "unmarked",
+          "wall_seconds": 0.006045659014489502,
+          "child_cpu_seconds": 0.004569999999999963
+        },
+        {
+          "trial": 7,
+          "mode": "untiled",
+          "wall_seconds": 0.00672610301990062,
+          "child_cpu_seconds": 0.005256000000000038
+        }
+      ],
+      "medians": {
+        "unmarked": {
+          "wall_seconds": 0.005494171986356378,
+          "child_cpu_seconds": 0.004129999999999967
+        },
+        "untiled": {
+          "wall_seconds": 0.0065122670494019985,
+          "child_cpu_seconds": 0.005033999999999983
+        },
+        "tiled": {
+          "wall_seconds": 0.006522862997371703,
+          "child_cpu_seconds": 0.005125000000000046
+        }
+      },
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.185304549179357,
+          "child_cpu_seconds": 1.218886198547221
+        },
+        "tiled": {
+          "wall_seconds": 1.187233128771699,
+          "child_cpu_seconds": 1.2409200968523213
+        }
+      },
+      "all_complete_outputs_match": true
+    },
+    {
+      "N": 101,
+      "M": 100,
+      "repetitions": 1000,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/reference",
+          "101",
+          "100",
+          "1000"
+        ],
+        "elapsed_seconds": 0.10683189000701532
+      },
+      "samples": {
+        "unmarked": [
+          {
+            "wall_seconds": 0.01763911498710513,
+            "child_cpu_seconds": 0.01622599999999985
+          },
+          {
+            "wall_seconds": 0.017896124976687133,
+            "child_cpu_seconds": 0.016464000000000034
+          },
+          {
+            "wall_seconds": 0.018800807010848075,
+            "child_cpu_seconds": 0.017250999999999905
+          },
+          {
+            "wall_seconds": 0.018100385030265898,
+            "child_cpu_seconds": 0.016669999999999963
+          },
+          {
+            "wall_seconds": 0.017321590974461287,
+            "child_cpu_seconds": 0.015878999999999976
+          },
+          {
+            "wall_seconds": 0.018207389977760613,
+            "child_cpu_seconds": 0.01681399999999983
+          },
+          {
+            "wall_seconds": 0.017798354965634644,
+            "child_cpu_seconds": 0.01642100000000002
+          }
+        ],
+        "untiled": [
+          {
+            "wall_seconds": 0.018738074984867126,
+            "child_cpu_seconds": 0.01727500000000015
+          },
+          {
+            "wall_seconds": 0.018129712028894573,
+            "child_cpu_seconds": 0.016734000000000027
+          },
+          {
+            "wall_seconds": 0.020590861968230456,
+            "child_cpu_seconds": 0.019180999999999893
+          },
+          {
+            "wall_seconds": 0.01851627096766606,
+            "child_cpu_seconds": 0.017025000000000068
+          },
+          {
+            "wall_seconds": 0.018572581000626087,
+            "child_cpu_seconds": 0.017126999999999892
+          },
+          {
+            "wall_seconds": 0.018277896975632757,
+            "child_cpu_seconds": 0.01691599999999993
+          },
+          {
+            "wall_seconds": 0.018301967007573694,
+            "child_cpu_seconds": 0.016880999999999924
+          }
+        ],
+        "tiled": [
+          {
+            "wall_seconds": 0.018439489998854697,
+            "child_cpu_seconds": 0.01699000000000006
+          },
+          {
+            "wall_seconds": 0.01836788299260661,
+            "child_cpu_seconds": 0.01696999999999993
+          },
+          {
+            "wall_seconds": 0.019558642990887165,
+            "child_cpu_seconds": 0.01803700000000008
+          },
+          {
+            "wall_seconds": 0.01888752297963947,
+            "child_cpu_seconds": 0.01750000000000007
+          },
+          {
+            "wall_seconds": 0.01824037596816197,
+            "child_cpu_seconds": 0.016824000000000172
+          },
+          {
+            "wall_seconds": 0.01823911495739594,
+            "child_cpu_seconds": 0.01687700000000003
+          },
+          {
+            "wall_seconds": 0.018227101012598723,
+            "child_cpu_seconds": 0.016833000000000098
+          }
+        ]
+      },
+      "order": [
+        {
+          "trial": 1,
+          "mode": "tiled",
+          "wall_seconds": 0.018439489998854697,
+          "child_cpu_seconds": 0.01699000000000006
+        },
+        {
+          "trial": 1,
+          "mode": "unmarked",
+          "wall_seconds": 0.01763911498710513,
+          "child_cpu_seconds": 0.01622599999999985
+        },
+        {
+          "trial": 1,
+          "mode": "untiled",
+          "wall_seconds": 0.018738074984867126,
+          "child_cpu_seconds": 0.01727500000000015
+        },
+        {
+          "trial": 2,
+          "mode": "tiled",
+          "wall_seconds": 0.01836788299260661,
+          "child_cpu_seconds": 0.01696999999999993
+        },
+        {
+          "trial": 2,
+          "mode": "untiled",
+          "wall_seconds": 0.018129712028894573,
+          "child_cpu_seconds": 0.016734000000000027
+        },
+        {
+          "trial": 2,
+          "mode": "unmarked",
+          "wall_seconds": 0.017896124976687133,
+          "child_cpu_seconds": 0.016464000000000034
+        },
+        {
+          "trial": 3,
+          "mode": "untiled",
+          "wall_seconds": 0.020590861968230456,
+          "child_cpu_seconds": 0.019180999999999893
+        },
+        {
+          "trial": 3,
+          "mode": "tiled",
+          "wall_seconds": 0.019558642990887165,
+          "child_cpu_seconds": 0.01803700000000008
+        },
+        {
+          "trial": 3,
+          "mode": "unmarked",
+          "wall_seconds": 0.018800807010848075,
+          "child_cpu_seconds": 0.017250999999999905
+        },
+        {
+          "trial": 4,
+          "mode": "untiled",
+          "wall_seconds": 0.01851627096766606,
+          "child_cpu_seconds": 0.017025000000000068
+        },
+        {
+          "trial": 4,
+          "mode": "unmarked",
+          "wall_seconds": 0.018100385030265898,
+          "child_cpu_seconds": 0.016669999999999963
+        },
+        {
+          "trial": 4,
+          "mode": "tiled",
+          "wall_seconds": 0.01888752297963947,
+          "child_cpu_seconds": 0.01750000000000007
+        },
+        {
+          "trial": 5,
+          "mode": "unmarked",
+          "wall_seconds": 0.017321590974461287,
+          "child_cpu_seconds": 0.015878999999999976
+        },
+        {
+          "trial": 5,
+          "mode": "untiled",
+          "wall_seconds": 0.018572581000626087,
+          "child_cpu_seconds": 0.017126999999999892
+        },
+        {
+          "trial": 5,
+          "mode": "tiled",
+          "wall_seconds": 0.01824037596816197,
+          "child_cpu_seconds": 0.016824000000000172
+        },
+        {
+          "trial": 6,
+          "mode": "unmarked",
+          "wall_seconds": 0.018207389977760613,
+          "child_cpu_seconds": 0.01681399999999983
+        },
+        {
+          "trial": 6,
+          "mode": "tiled",
+          "wall_seconds": 0.01823911495739594,
+          "child_cpu_seconds": 0.01687700000000003
+        },
+        {
+          "trial": 6,
+          "mode": "untiled",
+          "wall_seconds": 0.018277896975632757,
+          "child_cpu_seconds": 0.01691599999999993
+        },
+        {
+          "trial": 7,
+          "mode": "tiled",
+          "wall_seconds": 0.018227101012598723,
+          "child_cpu_seconds": 0.016833000000000098
+        },
+        {
+          "trial": 7,
+          "mode": "unmarked",
+          "wall_seconds": 0.017798354965634644,
+          "child_cpu_seconds": 0.01642100000000002
+        },
+        {
+          "trial": 7,
+          "mode": "untiled",
+          "wall_seconds": 0.018301967007573694,
+          "child_cpu_seconds": 0.016880999999999924
+        }
+      ],
+      "medians": {
+        "unmarked": {
+          "wall_seconds": 0.017896124976687133,
+          "child_cpu_seconds": 0.016464000000000034
+        },
+        "untiled": {
+          "wall_seconds": 0.01851627096766606,
+          "child_cpu_seconds": 0.017025000000000068
+        },
+        "tiled": {
+          "wall_seconds": 0.01836788299260661,
+          "child_cpu_seconds": 0.01696999999999993
+        }
+      },
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.0346525290691015,
+          "child_cpu_seconds": 1.0340743440233255
+        },
+        "tiled": {
+          "wall_seconds": 1.0263609030744938,
+          "child_cpu_seconds": 1.0307337220602462
+        }
+      },
+      "all_complete_outputs_match": true
+    },
+    {
+      "N": 100,
+      "M": 101,
+      "repetitions": 1000,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/reference",
+          "100",
+          "101",
+          "1000"
+        ],
+        "elapsed_seconds": 0.10435834102099761
+      },
+      "samples": {
+        "unmarked": [
+          {
+            "wall_seconds": 0.017716303002089262,
+            "child_cpu_seconds": 0.01622099999999982
+          },
+          {
+            "wall_seconds": 0.017395956034306437,
+            "child_cpu_seconds": 0.016028000000000153
+          },
+          {
+            "wall_seconds": 0.018646760028786957,
+            "child_cpu_seconds": 0.01722099999999993
+          },
+          {
+            "wall_seconds": 0.018118027015589178,
+            "child_cpu_seconds": 0.016655000000000086
+          },
+          {
+            "wall_seconds": 0.017811611003708094,
+            "child_cpu_seconds": 0.01637999999999984
+          },
+          {
+            "wall_seconds": 0.01773252902785316,
+            "child_cpu_seconds": 0.016366000000000103
+          },
+          {
+            "wall_seconds": 0.018461316998582333,
+            "child_cpu_seconds": 0.0169229999999998
+          }
+        ],
+        "untiled": [
+          {
+            "wall_seconds": 0.018386789015494287,
+            "child_cpu_seconds": 0.017019000000000117
+          },
+          {
+            "wall_seconds": 0.01829308201558888,
+            "child_cpu_seconds": 0.016907999999999923
+          },
+          {
+            "wall_seconds": 0.018188282963819802,
+            "child_cpu_seconds": 0.01683100000000004
+          },
+          {
+            "wall_seconds": 0.01819884602446109,
+            "child_cpu_seconds": 0.016787000000000107
+          },
+          {
+            "wall_seconds": 0.018868429004214704,
+            "child_cpu_seconds": 0.017492000000000063
+          },
+          {
+            "wall_seconds": 0.018417857005260885,
+            "child_cpu_seconds": 0.01692300000000002
+          },
+          {
+            "wall_seconds": 0.01863617403432727,
+            "child_cpu_seconds": 0.017240000000000144
+          }
+        ],
+        "tiled": [
+          {
+            "wall_seconds": 0.01810430601472035,
+            "child_cpu_seconds": 0.016593999999999998
+          },
+          {
+            "wall_seconds": 0.018213239032775164,
+            "child_cpu_seconds": 0.016764
+          },
+          {
+            "wall_seconds": 0.01898462901590392,
+            "child_cpu_seconds": 0.017444999999999933
+          },
+          {
+            "wall_seconds": 0.01840018801158294,
+            "child_cpu_seconds": 0.017012999999999945
+          },
+          {
+            "wall_seconds": 0.01823543495265767,
+            "child_cpu_seconds": 0.01675699999999991
+          },
+          {
+            "wall_seconds": 0.01858612202340737,
+            "child_cpu_seconds": 0.017139000000000015
+          },
+          {
+            "wall_seconds": 0.018555036978796124,
+            "child_cpu_seconds": 0.017080999999999992
+          }
+        ]
+      },
+      "order": [
+        {
+          "trial": 1,
+          "mode": "tiled",
+          "wall_seconds": 0.01810430601472035,
+          "child_cpu_seconds": 0.016593999999999998
+        },
+        {
+          "trial": 1,
+          "mode": "unmarked",
+          "wall_seconds": 0.017716303002089262,
+          "child_cpu_seconds": 0.01622099999999982
+        },
+        {
+          "trial": 1,
+          "mode": "untiled",
+          "wall_seconds": 0.018386789015494287,
+          "child_cpu_seconds": 0.017019000000000117
+        },
+        {
+          "trial": 2,
+          "mode": "tiled",
+          "wall_seconds": 0.018213239032775164,
+          "child_cpu_seconds": 0.016764
+        },
+        {
+          "trial": 2,
+          "mode": "untiled",
+          "wall_seconds": 0.01829308201558888,
+          "child_cpu_seconds": 0.016907999999999923
+        },
+        {
+          "trial": 2,
+          "mode": "unmarked",
+          "wall_seconds": 0.017395956034306437,
+          "child_cpu_seconds": 0.016028000000000153
+        },
+        {
+          "trial": 3,
+          "mode": "untiled",
+          "wall_seconds": 0.018188282963819802,
+          "child_cpu_seconds": 0.01683100000000004
+        },
+        {
+          "trial": 3,
+          "mode": "tiled",
+          "wall_seconds": 0.01898462901590392,
+          "child_cpu_seconds": 0.017444999999999933
+        },
+        {
+          "trial": 3,
+          "mode": "unmarked",
+          "wall_seconds": 0.018646760028786957,
+          "child_cpu_seconds": 0.01722099999999993
+        },
+        {
+          "trial": 4,
+          "mode": "untiled",
+          "wall_seconds": 0.01819884602446109,
+          "child_cpu_seconds": 0.016787000000000107
+        },
+        {
+          "trial": 4,
+          "mode": "unmarked",
+          "wall_seconds": 0.018118027015589178,
+          "child_cpu_seconds": 0.016655000000000086
+        },
+        {
+          "trial": 4,
+          "mode": "tiled",
+          "wall_seconds": 0.01840018801158294,
+          "child_cpu_seconds": 0.017012999999999945
+        },
+        {
+          "trial": 5,
+          "mode": "unmarked",
+          "wall_seconds": 0.017811611003708094,
+          "child_cpu_seconds": 0.01637999999999984
+        },
+        {
+          "trial": 5,
+          "mode": "untiled",
+          "wall_seconds": 0.018868429004214704,
+          "child_cpu_seconds": 0.017492000000000063
+        },
+        {
+          "trial": 5,
+          "mode": "tiled",
+          "wall_seconds": 0.01823543495265767,
+          "child_cpu_seconds": 0.01675699999999991
+        },
+        {
+          "trial": 6,
+          "mode": "unmarked",
+          "wall_seconds": 0.01773252902785316,
+          "child_cpu_seconds": 0.016366000000000103
+        },
+        {
+          "trial": 6,
+          "mode": "tiled",
+          "wall_seconds": 0.01858612202340737,
+          "child_cpu_seconds": 0.017139000000000015
+        },
+        {
+          "trial": 6,
+          "mode": "untiled",
+          "wall_seconds": 0.018417857005260885,
+          "child_cpu_seconds": 0.01692300000000002
+        },
+        {
+          "trial": 7,
+          "mode": "tiled",
+          "wall_seconds": 0.018555036978796124,
+          "child_cpu_seconds": 0.017080999999999992
+        },
+        {
+          "trial": 7,
+          "mode": "unmarked",
+          "wall_seconds": 0.018461316998582333,
+          "child_cpu_seconds": 0.0169229999999998
+        },
+        {
+          "trial": 7,
+          "mode": "untiled",
+          "wall_seconds": 0.01863617403432727,
+          "child_cpu_seconds": 0.017240000000000144
+        }
+      ],
+      "medians": {
+        "unmarked": {
+          "wall_seconds": 0.017811611003708094,
+          "child_cpu_seconds": 0.01637999999999984
+        },
+        "untiled": {
+          "wall_seconds": 0.018386789015494287,
+          "child_cpu_seconds": 0.01692300000000002
+        },
+        "tiled": {
+          "wall_seconds": 0.01840018801158294,
+          "child_cpu_seconds": 0.017012999999999945
+        }
+      },
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.032292307061189,
+          "child_cpu_seconds": 1.0331501831501946
+        },
+        "tiled": {
+          "wall_seconds": 1.0330445689473184,
+          "child_cpu_seconds": 1.0386446886446954
+        }
+      },
+      "all_complete_outputs_match": true
+    },
+    {
+      "N": 0,
+      "M": 9223372036854775807,
+      "repetitions": 1000000,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/reference",
+          "0",
+          "9223372036854775807",
+          "1000000"
+        ],
+        "elapsed_seconds": 0.008018630964215845
+      },
+      "samples": {
+        "unmarked": [
+          {
+            "wall_seconds": 0.005729453987441957,
+            "child_cpu_seconds": 0.0042959999999998555
+          },
+          {
+            "wall_seconds": 0.005437157000415027,
+            "child_cpu_seconds": 0.004040000000000266
+          },
+          {
+            "wall_seconds": 0.005903750017751008,
+            "child_cpu_seconds": 0.004401999999999795
+          },
+          {
+            "wall_seconds": 0.005329793028067797,
+            "child_cpu_seconds": 0.003945000000000309
+          },
+          {
+            "wall_seconds": 0.005495526012964547,
+            "child_cpu_seconds": 0.004068000000000183
+          },
+          {
+            "wall_seconds": 0.0058474590186960995,
+            "child_cpu_seconds": 0.0044789999999999
+          },
+          {
+            "wall_seconds": 0.005639103997964412,
+            "child_cpu_seconds": 0.0042320000000000135
+          }
+        ],
+        "untiled": [
+          {
+            "wall_seconds": 0.007139782013837248,
+            "child_cpu_seconds": 0.005614999999999926
+          },
+          {
+            "wall_seconds": 0.007474763959180564,
+            "child_cpu_seconds": 0.006049999999999667
+          },
+          {
+            "wall_seconds": 0.007095836976077408,
+            "child_cpu_seconds": 0.005703999999999709
+          },
+          {
+            "wall_seconds": 0.007034387963358313,
+            "child_cpu_seconds": 0.005660999999999916
+          },
+          {
+            "wall_seconds": 0.00764356303261593,
+            "child_cpu_seconds": 0.006248999999999949
+          },
+          {
+            "wall_seconds": 0.007965507975313812,
+            "child_cpu_seconds": 0.006547999999999998
+          },
+          {
+            "wall_seconds": 0.007164930982980877,
+            "child_cpu_seconds": 0.005726999999999996
+          }
+        ],
+        "tiled": [
+          {
+            "wall_seconds": 0.010415054974146187,
+            "child_cpu_seconds": 0.008930000000000105
+          },
+          {
+            "wall_seconds": 0.009887651016470045,
+            "child_cpu_seconds": 0.008387000000000366
+          },
+          {
+            "wall_seconds": 0.010918018000666052,
+            "child_cpu_seconds": 0.009473000000000287
+          },
+          {
+            "wall_seconds": 0.010360303043853492,
+            "child_cpu_seconds": 0.008975999999999651
+          },
+          {
+            "wall_seconds": 0.009964463009964675,
+            "child_cpu_seconds": 0.008539999999999992
+          },
+          {
+            "wall_seconds": 0.00978897203458473,
+            "child_cpu_seconds": 0.008386000000000227
+          },
+          {
+            "wall_seconds": 0.010067325027193874,
+            "child_cpu_seconds": 0.00859299999999985
+          }
+        ]
+      },
+      "order": [
+        {
+          "trial": 1,
+          "mode": "tiled",
+          "wall_seconds": 0.010415054974146187,
+          "child_cpu_seconds": 0.008930000000000105
+        },
+        {
+          "trial": 1,
+          "mode": "unmarked",
+          "wall_seconds": 0.005729453987441957,
+          "child_cpu_seconds": 0.0042959999999998555
+        },
+        {
+          "trial": 1,
+          "mode": "untiled",
+          "wall_seconds": 0.007139782013837248,
+          "child_cpu_seconds": 0.005614999999999926
+        },
+        {
+          "trial": 2,
+          "mode": "tiled",
+          "wall_seconds": 0.009887651016470045,
+          "child_cpu_seconds": 0.008387000000000366
+        },
+        {
+          "trial": 2,
+          "mode": "untiled",
+          "wall_seconds": 0.007474763959180564,
+          "child_cpu_seconds": 0.006049999999999667
+        },
+        {
+          "trial": 2,
+          "mode": "unmarked",
+          "wall_seconds": 0.005437157000415027,
+          "child_cpu_seconds": 0.004040000000000266
+        },
+        {
+          "trial": 3,
+          "mode": "untiled",
+          "wall_seconds": 0.007095836976077408,
+          "child_cpu_seconds": 0.005703999999999709
+        },
+        {
+          "trial": 3,
+          "mode": "tiled",
+          "wall_seconds": 0.010918018000666052,
+          "child_cpu_seconds": 0.009473000000000287
+        },
+        {
+          "trial": 3,
+          "mode": "unmarked",
+          "wall_seconds": 0.005903750017751008,
+          "child_cpu_seconds": 0.004401999999999795
+        },
+        {
+          "trial": 4,
+          "mode": "untiled",
+          "wall_seconds": 0.007034387963358313,
+          "child_cpu_seconds": 0.005660999999999916
+        },
+        {
+          "trial": 4,
+          "mode": "unmarked",
+          "wall_seconds": 0.005329793028067797,
+          "child_cpu_seconds": 0.003945000000000309
+        },
+        {
+          "trial": 4,
+          "mode": "tiled",
+          "wall_seconds": 0.010360303043853492,
+          "child_cpu_seconds": 0.008975999999999651
+        },
+        {
+          "trial": 5,
+          "mode": "unmarked",
+          "wall_seconds": 0.005495526012964547,
+          "child_cpu_seconds": 0.004068000000000183
+        },
+        {
+          "trial": 5,
+          "mode": "untiled",
+          "wall_seconds": 0.00764356303261593,
+          "child_cpu_seconds": 0.006248999999999949
+        },
+        {
+          "trial": 5,
+          "mode": "tiled",
+          "wall_seconds": 0.009964463009964675,
+          "child_cpu_seconds": 0.008539999999999992
+        },
+        {
+          "trial": 6,
+          "mode": "unmarked",
+          "wall_seconds": 0.0058474590186960995,
+          "child_cpu_seconds": 0.0044789999999999
+        },
+        {
+          "trial": 6,
+          "mode": "tiled",
+          "wall_seconds": 0.00978897203458473,
+          "child_cpu_seconds": 0.008386000000000227
+        },
+        {
+          "trial": 6,
+          "mode": "untiled",
+          "wall_seconds": 0.007965507975313812,
+          "child_cpu_seconds": 0.006547999999999998
+        },
+        {
+          "trial": 7,
+          "mode": "tiled",
+          "wall_seconds": 0.010067325027193874,
+          "child_cpu_seconds": 0.00859299999999985
+        },
+        {
+          "trial": 7,
+          "mode": "unmarked",
+          "wall_seconds": 0.005639103997964412,
+          "child_cpu_seconds": 0.0042320000000000135
+        },
+        {
+          "trial": 7,
+          "mode": "untiled",
+          "wall_seconds": 0.007164930982980877,
+          "child_cpu_seconds": 0.005726999999999996
+        }
+      ],
+      "medians": {
+        "unmarked": {
+          "wall_seconds": 0.005639103997964412,
+          "child_cpu_seconds": 0.0042320000000000135
+        },
+        "untiled": {
+          "wall_seconds": 0.007164930982980877,
+          "child_cpu_seconds": 0.005726999999999996
+        },
+        "tiled": {
+          "wall_seconds": 0.010067325027193874,
+          "child_cpu_seconds": 0.00859299999999985
+        }
+      },
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 1.2705796852775288,
+          "child_cpu_seconds": 1.3532608695652122
+        },
+        "tiled": {
+          "wall_seconds": 1.7852703250069424,
+          "child_cpu_seconds": 2.03048204158786
+        }
+      },
+      "all_complete_outputs_match": true
+    },
+    {
+      "N": 2,
+      "M": 0,
+      "repetitions": 1000000,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/reference",
+          "2",
+          "0",
+          "1000000"
+        ],
+        "elapsed_seconds": 0.011087376973591745
+      },
+      "samples": {
+        "unmarked": [
+          {
+            "wall_seconds": 0.007669220969546586,
+            "child_cpu_seconds": 0.006224999999999703
+          },
+          {
+            "wall_seconds": 0.007777813007123768,
+            "child_cpu_seconds": 0.006329999999999725
+          },
+          {
+            "wall_seconds": 0.007718166976701468,
+            "child_cpu_seconds": 0.006324999999999914
+          },
+          {
+            "wall_seconds": 0.007573953014798462,
+            "child_cpu_seconds": 0.006070000000000242
+          },
+          {
+            "wall_seconds": 0.007064656005240977,
+            "child_cpu_seconds": 0.005670000000000286
+          },
+          {
+            "wall_seconds": 0.007156856008805335,
+            "child_cpu_seconds": 0.005724000000000284
+          },
+          {
+            "wall_seconds": 0.007036401017103344,
+            "child_cpu_seconds": 0.005633999999999695
+          }
+        ],
+        "untiled": [
+          {
+            "wall_seconds": 0.007192677003331482,
+            "child_cpu_seconds": 0.005721000000000309
+          },
+          {
+            "wall_seconds": 0.006884164991788566,
+            "child_cpu_seconds": 0.005511000000000266
+          },
+          {
+            "wall_seconds": 0.006919895007740706,
+            "child_cpu_seconds": 0.00549500000000025
+          },
+          {
+            "wall_seconds": 0.0074110800051130354,
+            "child_cpu_seconds": 0.005986000000000047
+          },
+          {
+            "wall_seconds": 0.00693219801178202,
+            "child_cpu_seconds": 0.005544999999999689
+          },
+          {
+            "wall_seconds": 0.006865278002806008,
+            "child_cpu_seconds": 0.005506000000000011
+          },
+          {
+            "wall_seconds": 0.006942549021914601,
+            "child_cpu_seconds": 0.005511000000000266
+          }
+        ],
+        "tiled": [
+          {
+            "wall_seconds": 0.00993864401243627,
+            "child_cpu_seconds": 0.008507000000000264
+          },
+          {
+            "wall_seconds": 0.01072042400483042,
+            "child_cpu_seconds": 0.009306999999999732
+          },
+          {
+            "wall_seconds": 0.01008467999054119,
+            "child_cpu_seconds": 0.008617999999999792
+          },
+          {
+            "wall_seconds": 0.010614875005558133,
+            "child_cpu_seconds": 0.009179999999999744
+          },
+          {
+            "wall_seconds": 0.009872875991277397,
+            "child_cpu_seconds": 0.008467000000000002
+          },
+          {
+            "wall_seconds": 0.010141299979295582,
+            "child_cpu_seconds": 0.008775999999999673
+          },
+          {
+            "wall_seconds": 0.009538495971355587,
+            "child_cpu_seconds": 0.008174000000000348
+          }
+        ]
+      },
+      "order": [
+        {
+          "trial": 1,
+          "mode": "tiled",
+          "wall_seconds": 0.00993864401243627,
+          "child_cpu_seconds": 0.008507000000000264
+        },
+        {
+          "trial": 1,
+          "mode": "unmarked",
+          "wall_seconds": 0.007669220969546586,
+          "child_cpu_seconds": 0.006224999999999703
+        },
+        {
+          "trial": 1,
+          "mode": "untiled",
+          "wall_seconds": 0.007192677003331482,
+          "child_cpu_seconds": 0.005721000000000309
+        },
+        {
+          "trial": 2,
+          "mode": "tiled",
+          "wall_seconds": 0.01072042400483042,
+          "child_cpu_seconds": 0.009306999999999732
+        },
+        {
+          "trial": 2,
+          "mode": "untiled",
+          "wall_seconds": 0.006884164991788566,
+          "child_cpu_seconds": 0.005511000000000266
+        },
+        {
+          "trial": 2,
+          "mode": "unmarked",
+          "wall_seconds": 0.007777813007123768,
+          "child_cpu_seconds": 0.006329999999999725
+        },
+        {
+          "trial": 3,
+          "mode": "untiled",
+          "wall_seconds": 0.006919895007740706,
+          "child_cpu_seconds": 0.00549500000000025
+        },
+        {
+          "trial": 3,
+          "mode": "tiled",
+          "wall_seconds": 0.01008467999054119,
+          "child_cpu_seconds": 0.008617999999999792
+        },
+        {
+          "trial": 3,
+          "mode": "unmarked",
+          "wall_seconds": 0.007718166976701468,
+          "child_cpu_seconds": 0.006324999999999914
+        },
+        {
+          "trial": 4,
+          "mode": "untiled",
+          "wall_seconds": 0.0074110800051130354,
+          "child_cpu_seconds": 0.005986000000000047
+        },
+        {
+          "trial": 4,
+          "mode": "unmarked",
+          "wall_seconds": 0.007573953014798462,
+          "child_cpu_seconds": 0.006070000000000242
+        },
+        {
+          "trial": 4,
+          "mode": "tiled",
+          "wall_seconds": 0.010614875005558133,
+          "child_cpu_seconds": 0.009179999999999744
+        },
+        {
+          "trial": 5,
+          "mode": "unmarked",
+          "wall_seconds": 0.007064656005240977,
+          "child_cpu_seconds": 0.005670000000000286
+        },
+        {
+          "trial": 5,
+          "mode": "untiled",
+          "wall_seconds": 0.00693219801178202,
+          "child_cpu_seconds": 0.005544999999999689
+        },
+        {
+          "trial": 5,
+          "mode": "tiled",
+          "wall_seconds": 0.009872875991277397,
+          "child_cpu_seconds": 0.008467000000000002
+        },
+        {
+          "trial": 6,
+          "mode": "unmarked",
+          "wall_seconds": 0.007156856008805335,
+          "child_cpu_seconds": 0.005724000000000284
+        },
+        {
+          "trial": 6,
+          "mode": "tiled",
+          "wall_seconds": 0.010141299979295582,
+          "child_cpu_seconds": 0.008775999999999673
+        },
+        {
+          "trial": 6,
+          "mode": "untiled",
+          "wall_seconds": 0.006865278002806008,
+          "child_cpu_seconds": 0.005506000000000011
+        },
+        {
+          "trial": 7,
+          "mode": "tiled",
+          "wall_seconds": 0.009538495971355587,
+          "child_cpu_seconds": 0.008174000000000348
+        },
+        {
+          "trial": 7,
+          "mode": "unmarked",
+          "wall_seconds": 0.007036401017103344,
+          "child_cpu_seconds": 0.005633999999999695
+        },
+        {
+          "trial": 7,
+          "mode": "untiled",
+          "wall_seconds": 0.006942549021914601,
+          "child_cpu_seconds": 0.005511000000000266
+        }
+      ],
+      "medians": {
+        "unmarked": {
+          "wall_seconds": 0.007573953014798462,
+          "child_cpu_seconds": 0.006070000000000242
+        },
+        "untiled": {
+          "wall_seconds": 0.00693219801178202,
+          "child_cpu_seconds": 0.005511000000000266
+        },
+        "tiled": {
+          "wall_seconds": 0.01008467999054119,
+          "child_cpu_seconds": 0.008617999999999792
+        }
+      },
+      "over_source_ratios": {
+        "untiled": {
+          "wall_seconds": 0.9152681563032486,
+          "child_cpu_seconds": 0.9079077429983602
+        },
+        "tiled": {
+          "wall_seconds": 1.3314949235672722,
+          "child_cpu_seconds": 1.4197693574957906
+        }
+      },
+      "all_complete_outputs_match": true
+    }
+  ],
+  "configurations": {
+    "unmarked": {
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/unmarked/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/unmarked/program.c"
+        ],
+        "elapsed_seconds": 0.060641350981313735
+      },
+      "source_sha256": "5b4ce624a6ec25c072ffc64365f807c51b1e02ca3d7afdb74c11750b304fc752",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/unmarked/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/boundary.o",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/unmarked/program"
+        ],
+        "elapsed_seconds": 0.03743956296239048
+      }
+    },
+    "untiled": {
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/untiled/program.c"
+        ],
+        "elapsed_seconds": 6.090503868996166
+      },
+      "source_sha256": "2f0257eaa9d8b6fb94126472ec7d5841add755d7690d0bc7484266d6db7b8e96",
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $180 = $180 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $180 = $180 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $182 = $182 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $180 = $180 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 4,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 5,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 6,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 7,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              3
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              4,
+              5
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              6,
+              7
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          1,
+          2
+        ]
+      },
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/boundary.o",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/untiled/program"
+        ],
+        "elapsed_seconds": 0.035313035012222826
+      }
+    },
+    "tiled": {
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/tiled/program.c"
+        ],
+        "elapsed_seconds": 189.90708078898024
+      },
+      "source_sha256": "2f0257eaa9d8b6fb94126472ec7d5841add755d7690d0bc7484266d6db7b8e96",
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $180 = $180 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $182 = $182 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $184 = $184 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $184 = $184 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 4,
+            "header": "for (; 1; $186 = $186 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 5,
+            "header": "for (; 1; $184 = $184 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 6,
+            "header": "for (; 1; $182 = $182 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 7,
+            "header": "for (; 1; $184 = $184 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 8,
+            "header": "for (; 1; $186 = $186 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 9,
+            "header": "for (; 1; $180 = $180 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 10,
+            "header": "for (; 1; $182 = $182 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 11,
+            "header": "for (; 1; $184 = $184 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 12,
+            "header": "for (; 1; $186 = $186 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 13,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 14,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 15,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 16,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              5
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              6,
+              7,
+              8
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              9,
+              10,
+              11,
+              12
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              13,
+              14
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              15,
+              16
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          0,
+          1,
+          3,
+          4
+        ]
+      },
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/boundary.o",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/cost-attempts/repeat-selective-build-v1/tiled/program"
+        ],
+        "elapsed_seconds": 0.03727087896550074
+      }
+    }
+  },
+  "cpu_affinity": 0,
+  "trials_per_configuration_and_input": 7,
+  "warmups_per_configuration_and_input": 2,
+  "complete_native_matches_including_warmups": 162,
+  "disclosed_repeated_dynamic_context_variant": true,
+  "original_arrays_and_IEEE_kernel_retained": true,
+  "boundary_separately_compiled_without_LTO": true,
+  "boundary_cost_included": true,
+  "measurement_scope": "complete process: initialization, repeated guard/candidate-or-fallback/public-exit/boundary, digest and startup",
+  "same_CompCert_compiler_and_flags": true,
+  "external_host_load_controlled": false,
+  "other_goal_commands_running_during_samples": false,
+  "guard_cost_isolated": false,
+  "benchmark_wide_profitability_claimed": false,
+  "full_goal_complete": false,
+  "report": "build/dynamic-piece-factory/cost-attempts/repeat-selective-samples-v1/report.json"
+}

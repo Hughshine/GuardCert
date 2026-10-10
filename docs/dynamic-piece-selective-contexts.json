@@ -1,0 +1,4313 @@
+{
+  "status": "passed",
+  "compiler_entrypoint": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program",
+  "whole_program_theorem": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
+  "all_sources_are_disclosed_dynamic_context_variants": true,
+  "original_arrays_and_IEEE_kernel_retained": true,
+  "cases": [
+    {
+      "case": "multiple-marked",
+      "mode": "untiled",
+      "input_sha256": "d8308be7e7e4a1d1f73ed77b8b8d6f486b95cc41e03357609d562fe6b506c6d8",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/reference"
+        ],
+        "elapsed_seconds": 0.0647007169900462
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program.c"
+        ],
+        "elapsed_seconds": 11.756827541976236
+      },
+      "expected_whole_fusions": 2,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.003547601983882487
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003258545999415219
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003589649044442922
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.00323098199442029
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0031512159621343017
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0030451049678958952
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0032252250239253044
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/untiled/program"
+        ],
+        "elapsed_seconds": 0.04400300799170509
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  4,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "continuation_tag": 2,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  4,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 2,
+      "passed": true
+    },
+    {
+      "case": "multiple-marked",
+      "mode": "tiled",
+      "input_sha256": "d8308be7e7e4a1d1f73ed77b8b8d6f486b95cc41e03357609d562fe6b506c6d8",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/reference"
+        ],
+        "elapsed_seconds": 0.0647007169900462
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program.c"
+        ],
+        "elapsed_seconds": 375.4895563360187
+      },
+      "expected_whole_fusions": 2,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.003506316978018731
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003199560975190252
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003131668025162071
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.003076891996897757
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.003990826022345573
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003969968995079398
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003958652960136533
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/multiple-marked/tiled/program"
+        ],
+        "elapsed_seconds": 0.04631673195399344
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 8,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 9,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 10,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 11,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 12,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 13,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 14,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 15,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 16,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  13,
+                  14
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  15,
+                  16
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "continuation_tag": 2,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 8,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 9,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 10,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 11,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 12,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 13,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 14,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 15,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 16,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  13,
+                  14
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  15,
+                  16
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 2,
+      "passed": true
+    },
+    {
+      "case": "marked-and-unmarked",
+      "mode": "untiled",
+      "input_sha256": "cfd3258d7b88adee156715032eaadcaa76637e312ff12288708e66c575a331b0",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/reference"
+        ],
+        "elapsed_seconds": 0.06954365997808054
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program.c"
+        ],
+        "elapsed_seconds": 5.740351672982797
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0033783629769459367
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.0034627169952727854
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.00317998300306499
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.00307112600421533
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.003289320971816778
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0032367039821110666
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003149939002469182
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/untiled/program"
+        ],
+        "elapsed_seconds": 0.04447099403478205
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  4,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "marked-and-unmarked",
+      "mode": "tiled",
+      "input_sha256": "cfd3258d7b88adee156715032eaadcaa76637e312ff12288708e66c575a331b0",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/reference"
+        ],
+        "elapsed_seconds": 0.06954365997808054
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program.c"
+        ],
+        "elapsed_seconds": 180.1487621330307
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.003929175029043108
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003596972965169698
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003494074975606054
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.0035788140376098454
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0034730429761111736
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0035885790130123496
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0036725359968841076
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/marked-and-unmarked/tiled/program"
+        ],
+        "elapsed_seconds": 0.04451930901268497
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $186 = $186 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 8,
+                "header": "for (; 1; $186 = $186 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 9,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 10,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 11,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 12,
+                "header": "for (; 1; $186 = $186 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 13,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 14,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 15,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 16,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  13,
+                  14
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  15,
+                  16
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "halo-continuation",
+      "mode": "untiled",
+      "input_sha256": "015a9c4f492b251a0149e226a032de31c702c54569e089f7ed396e115160a58c",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/reference"
+        ],
+        "elapsed_seconds": 0.0675869369879365
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program.c"
+        ],
+        "elapsed_seconds": 5.5355546490172856
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0036375970230437815
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.0033077659900300205
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.0031356809777207673
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.0031218130025081336
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0035982709960080683
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003007947001606226
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0033122189925052226
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/untiled/program"
+        ],
+        "elapsed_seconds": 0.04391051200218499
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  4,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "halo-continuation",
+      "mode": "tiled",
+      "input_sha256": "015a9c4f492b251a0149e226a032de31c702c54569e089f7ed396e115160a58c",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/reference"
+        ],
+        "elapsed_seconds": 0.0675869369879365
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program.c"
+        ],
+        "elapsed_seconds": 179.28555235196836
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0034511100384406745
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003074216016102582
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003137249033898115
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.0031523980433121324
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0035286640049889684
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003561826015356928
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003180628002155572
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/halo-continuation/tiled/program"
+        ],
+        "elapsed_seconds": 0.04436580103356391
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 8,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 9,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 10,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 11,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 12,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 13,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 14,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 15,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 16,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  13,
+                  14
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  15,
+                  16
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "enclosing-conditional",
+      "mode": "untiled",
+      "input_sha256": "c765a16da4b4588c8633c2baa240f3fb6ac447694d1c34b9e946aa5bf843b5c4",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/reference"
+        ],
+        "elapsed_seconds": 0.06647710799006745
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program.c"
+        ],
+        "elapsed_seconds": 5.524161542998627
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0034457810106687248
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003067892976105213
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.0032428120030090213
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.0032404030207544565
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.003304382029455155
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0030152780236676335
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003389913006685674
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/untiled/program"
+        ],
+        "elapsed_seconds": 0.04546393395867199
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  4,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "enclosing-conditional",
+      "mode": "tiled",
+      "input_sha256": "c765a16da4b4588c8633c2baa240f3fb6ac447694d1c34b9e946aa5bf843b5c4",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/reference"
+        ],
+        "elapsed_seconds": 0.06647710799006745
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program.c"
+        ],
+        "elapsed_seconds": 179.42702586902305
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0035755829885601997
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003496629011351615
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.0031120729981921613
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.0034258069936186075
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0031185250263661146
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003097819979302585
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0034964599763043225
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/enclosing-conditional/tiled/program"
+        ],
+        "elapsed_seconds": 0.04473420599242672
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $186 = $186 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 8,
+                "header": "for (; 1; $186 = $186 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 9,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 10,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 11,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 12,
+                "header": "for (; 1; $186 = $186 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 13,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 14,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 15,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 16,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  13,
+                  14
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  15,
+                  16
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "private-pool-refusal",
+      "mode": "untiled",
+      "input_sha256": "243b24ec37e3faa1f1ab0a29b9869771c795d30744219369a2253e3b702bee07",
+      "options": {
+        "GUARDCERT_DOUBLE_PRIVATE_COUNT": "1"
+      },
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/reference"
+        ],
+        "elapsed_seconds": 0.06810253800358623
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program.c"
+        ],
+        "elapsed_seconds": 0.47674510296201333
+      },
+      "expected_whole_fusions": 0,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.003683359012939036
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003185748995747417
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003199221973773092
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.003066002973355353
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.003292832989245653
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0031209089793264866
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0034066300140693784
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/untiled/program"
+        ],
+        "elapsed_seconds": 0.04335620399797335
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  2,
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": []
+          }
+        }
+      ],
+      "actual_whole_fusions": 0,
+      "passed": true
+    },
+    {
+      "case": "private-pool-refusal",
+      "mode": "tiled",
+      "input_sha256": "243b24ec37e3faa1f1ab0a29b9869771c795d30744219369a2253e3b702bee07",
+      "options": {
+        "GUARDCERT_DOUBLE_PRIVATE_COUNT": "1"
+      },
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/reference"
+        ],
+        "elapsed_seconds": 0.06810253800358623
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program.c"
+        ],
+        "elapsed_seconds": 0.4904586559860036
+      },
+      "expected_whole_fusions": 0,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0031281879637390375
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.0030199239845387638
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.0030647089588455856
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.003410071018151939
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0033134639961645007
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003257405012845993
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0032072379835881293
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/private-pool-refusal/tiled/program"
+        ],
+        "elapsed_seconds": 0.04406906699296087
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  2,
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": []
+          }
+        }
+      ],
+      "actual_whole_fusions": 0,
+      "passed": true
+    },
+    {
+      "case": "caller-live-temp-and-stack-exits",
+      "mode": "untiled",
+      "input_sha256": "088d822ede862328fff1b73f105ad8ebcb935a55696f68a66b7aa524a0e1c4bc",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/reference"
+        ],
+        "elapsed_seconds": 0.06631160795222968
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program.c"
+        ],
+        "elapsed_seconds": 5.542854966013692
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.003576754010282457
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.00308607000624761
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.0035488089779391885
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.003127620031591505
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.002994200971443206
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003968334000092
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003955851017963141
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/untiled/program"
+        ],
+        "elapsed_seconds": 0.04343134502414614
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  4,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    },
+    {
+      "case": "caller-live-temp-and-stack-exits",
+      "mode": "tiled",
+      "input_sha256": "088d822ede862328fff1b73f105ad8ebcb935a55696f68a66b7aa524a0e1c4bc",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/reference"
+        ],
+        "elapsed_seconds": 0.06631160795222968
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program.c"
+        ],
+        "elapsed_seconds": 179.4258227319806
+      },
+      "expected_whole_fusions": 1,
+      "runs": [
+        {
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0038606799789704382
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003619881987106055
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.0035872780135832727
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.003061154973693192
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0035905350232496858
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003233024966903031
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        },
+        {
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.00303178298054263
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true,
+          "caller_line_present": true
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/caller-live-temp-and-stack-exits/tiled/program"
+        ],
+        "elapsed_seconds": 0.04275285400217399
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $189 = $189 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $189 = $189 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $191 = $191 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $189 = $189 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $189 = $189 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 8,
+                "header": "for (; 1; $191 = $191 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 9,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 10,
+                "header": "for (; 1; $187 = $187 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 11,
+                "header": "for (; 1; $189 = $189 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 12,
+                "header": "for (; 1; $191 = $191 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 13,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 14,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 15,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 16,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  13,
+                  14
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  15,
+                  16
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "passed": true
+    }
+  ],
+  "configuration_count": 12,
+  "runtime_inputs": [
+    [
+      100,
+      100
+    ],
+    [
+      101,
+      100
+    ],
+    [
+      100,
+      101
+    ],
+    [
+      33,
+      31
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      9223372036854775807
+    ],
+    [
+      -1,
+      9223372036854775807
+    ]
+  ],
+  "complete_native_calls": 84,
+  "compile_once_per_configuration": true,
+  "caller_stack_iterator_exits_exercised": true,
+  "runtime_guard_refusal_inputs_included": true,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "report": "build/dynamic-piece-factory/context-attempts/symbolic-selective-v1/report.json"
+}

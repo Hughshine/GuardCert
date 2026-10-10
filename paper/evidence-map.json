@@ -18950,13 +18950,17 @@
     "kernel_or_host_laws_changed": false
   },
   "dynamic_integer_coverage_checkpoint": {
-    "stage": "dynamic tiled whole installation accepted through standalone and selective combined roots; contexts, corpus and cost pending",
+    "stage": "dynamic whole installation, full contexts/corpus regression and complete cost measured; useful speedup not established",
     "reports": {
       "docs/dynamic-piece-runtime.json": "5a279e4c72f0ce5708d3e3dbe1a2414604d423dc55f714275d9f455940c94885",
       "docs/dynamic-piece-integer-observation.json": "e821f3fc5717e9e75059b1f64e9dd1a13e6ecc50cb621935e337818118733989",
       "docs/dynamic-piece-selective-proof.json": "3fb4b0af409b9a85df8fe9b795b77cd01a236912653a120128b1a49ef2c9c537",
       "docs/dynamic-piece-selective-runtime.json": "5f37815887e383f42bbc5c2a123ff3fe76b236231fdc4eeb1db6ff47809d7564",
-      "docs/dynamic-piece-selective-observation.json": "e80a501b6ff957679c0dd96f2368cbd3211bec57cade1ea48da87b27c3f15151"
+      "docs/dynamic-piece-selective-observation.json": "e80a501b6ff957679c0dd96f2368cbd3211bec57cade1ea48da87b27c3f15151",
+      "docs/dynamic-piece-selective-contexts.json": "9d13c63eecd0ee60fe979dee9972c1fd051cec206111d25c547168c9b2f24574",
+      "docs/dynamic-piece-selective-corpus.json": "446cfbfae0d4a42091c0c0a903e51e84176395b0713b2f28cf2d8566ca96e7ac",
+      "docs/dynamic-piece-selective-cost.json": "fdf699eb3e4df830a7ff3da6989b01974f6ea2c868b6a25c51f0a1f568888754",
+      "docs/dynamic-piece-integer-results.json": "55ac5dcec37d6ad87fc7751b7e270d34d4f79733b1bdcfd951044cb1121b1ec7"
     },
     "existing_standalone_whole_program_theorem": "DoublePieceTreeCompiler.compile_selected_piece_double_tree_program_correct",
     "new_selective_whole_program_theorem": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
@@ -18974,7 +18978,7 @@
     "kernel_or_host_laws_changed": false,
     "source_users_supply_semantic_callbacks": false,
     "selective_combined_native_acceptance_complete": true,
-    "controlled_cost_comparison": false,
+    "controlled_cost_comparison": true,
     "OLO_compact_entry_condition_complete": false,
     "full_goal_complete": false,
     "selective_complete_native_matches": 123,
@@ -18984,6 +18988,23 @@
       "chosen": 1,
       "protected": 1,
       "remaining": 0
-    }
+    },
+    "dynamic_context_configurations": 12,
+    "dynamic_context_complete_native_matches": 84,
+    "context_compiler_budget_seconds": 600,
+    "corpus_configurations": 192,
+    "corpus_complete_output_matches": 186,
+    "corpus_status_changes": 0,
+    "corpus_input_and_configuration_hashes_unchanged": true,
+    "focused_whole_and_tiled_shapes_retained": true,
+    "external_host_load_controlled": false,
+    "guard_cost_isolated": false,
+    "cost_complete_native_matches_including_warmups": 162,
+    "cost_wall_ratios_100_100": {
+      "untiled": 1.479928262672149,
+      "tiled": 1.456529266554829
+    },
+    "positive_workload_speedup_acceptance_passed": false,
+    "all_requested_sequential_transformations_supported": false
   }
 }

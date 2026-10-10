@@ -1,5 +1,12 @@
 # Verified guard library：服务分类与依赖契约
 
+[完整测量](dynamic-piece-selective-cost.json)已包含现有 capture/check、实际候选
+或 fallback 和出口；接受且有实际工作量的两个输入没有加速。这个测量没有隔离
+guard，不能把 slowdown 归因于入口条件或认为 shared-check 服务能独自消除它。
+继续分别记录 safe invocation、成功 facts、reads/private effects、public frame
+和拒绝行为，并区分入口条件构造与候选 body 的 membership/residualization。
+本轮完整接线没有新增 guard 原子或 kernel law。
+
 本轮[整数 coverage 后继](narrative-integer-cover-check-2026-10-10.md)没有增加
 runtime guard 原子：编译时 domain 切分证书交由既有总 checker；语言实例仍消费
 conditional observation、typed cache 和公开出口服务。Standalone tiled 实际
