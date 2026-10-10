@@ -1,5 +1,15 @@
 # Verified guard library：服务分类与依赖契约
 
+[整树路径 capture](double-tree-capture.md)实际生成 readonly preparation：
+用原 first comparison 和 raw effects 运输 source-licensed reads，按缓存后的
+比较进入child，refusal短路后续headers。Requires仍是checked源、globals／
+scope／enclosing exclusions、有效profiles及private ids；源execution只在
+证明中使用。Ensures分为安全的actual check execution／private frame，和
+accepted active header words／I64 ranges。初始化与fallback public exits已
+证明；最终shared cache参数编码、point／candidate范围及factory／完整compiler
+仍未接入。共享header会重复capture，尚无OLO compact-condition或cost结论。
+以下前序checkpoint保留当时的服务与消费边界。
+
 [整树观察服务后继](double-tree-correspondence.md)复用raw effects，支持保持subtree
 自身未使用的later header。Requires是checked source、实际globals／scope和
 enclosing write exclusions；有限完成execution保持指定loads／permissions，不

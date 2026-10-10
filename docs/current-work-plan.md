@@ -2,6 +2,34 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 整树路径 capture 已生成并证明；下一步闭合参数和 factory
+
+[路径 capture 后继](double-tree-capture.md)生成实际 Clight preparation：初始化
+private parameter caches／flag，按原 sequence 和 reached ranges 检查原 I64
+headers，接受后用准确 I32 cache 的 widened comparison 决定是否进入 child。
+空 outer 不读 child；refusal 后不读后部 header；memory 不变，仅写 private
+caches／flag。首次原 comparison 与 raw subtree effects 实际用于调用许可，
+不借用 accepted point resolution／no-wrap，也不 runtime 预执行 source。
+
+接受 receipt 已推出原模型活动 header words 与所需 I64 bound ranges；原
+fusion1／multi-stmt-stencil-seq／tricky3 冻结 Clight 已实例化初始化、check
+及 source replay／public exits。八模块761行／31端点（11 closed、最多六
+原 globals）、270 reachable sources／10106 bindings 已审计；25 attempts
+（8成功、17失败）均保存。没有新 kernel／host laws 或 native 优化安装，
+原22例39sites保持。共享 header 目前每次 reached range 都 recapture，
+不计 OLO compact-condition 完成；输入在I32不推出 N-c 自身也在I32。
+
+**当前下一步是同一个 whole-region factory 的参数与动态义务闭合：** 证明
+initialized/final caches 与 shared header vector 的准确编码（含 allocator
+injectivity、重复 capture 同值、未到达 slots），生产 actual leaf point
+resolution 与 candidate machine ranges。然后消费整树 source/Loop bridge、
+真实 phases／最终candidate validation／lowering／public exits，立即接
+当前程序 host 与同一原 Csyntax 的 Csem→Asm backward simulation。继续
+OLO compact conditions、其余原 source／sequential configurations 及完整成本；
+scope／private freshness要由实际语言/site/allocator生产，不转交C用户。
+
+### 前序条件 source/Loop checkpoint
+
 ### 整树 source/Loop 对应与公开出口已证明，capture／factory 尚待消费
 
 [整树对应后继](double-tree-correspondence.md)将原 sequence、不同深度的真实
@@ -24,7 +52,7 @@ scope、范围、point resolution 与 reached header words 仍要由 factory 实
 计算的stack overflow分别保留。没有新capture算法、candidate／compiler安装
 或native覆盖；原22例39sites不变。
 
-**当前下一步是按路径生成 capture 并闭合动态 model facts：** 用首次真实
+**当时下一步是按路径生成 capture 并闭合动态 model facts：** 用首次真实
 comparison 和新 raw effects／temp-read transport 生产安全调用许可；empty
 outer 不读 child，缺席的 private parameter slots 按模型所需安全填充。接受
 后分别建立所需 bound／point ranges、原 header vector 的机器编码及 entry／

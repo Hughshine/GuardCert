@@ -2,6 +2,15 @@
 
 ## 持续适用的责任表
 
+[路径 capture 后继](double-tree-capture.md)把上述责任落实到 emitted check：
+language 从实际 first comparison／raw effects 生产读取许可与 memory/private
+frame，domain 生产 accepted active header words／I64 ranges，checked decoder
+闭合 header exclusions，site 提供 scope／profiles／private freshness。初始化、
+整树 check 及 fallback replay 已在原三例冻结Clight实例化；C用户没有执行
+callback。八模块31端点无新增globals。最终 shared cache encoding、point／
+candidate ranges、同一factory及current-program host／backend消费仍待完成；
+没有新增native覆盖或proof-burden收益。以下前序checkpoint各保留当时边界。
+
 [整树对应后继](double-tree-correspondence.md)明确实际交接：domain 的 shared
 模型／范围／cell resolution 与 language 的 IEEE／Mem、control、raw effects／
 active observations／准确public exits组成条件执行双向对应；decoder自动生产

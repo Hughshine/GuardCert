@@ -17839,5 +17839,83 @@
         "name": "tree_empty_outer_actual_execution"
       }
     ]
+  },
+  "whole_tree_capture_checkpoint": {
+    "stage": "generated-path-sensitive-whole-source-tree-capture-checkpoint",
+    "summary": "docs/double-tree-capture.json",
+    "proof_report": "build/double-tree-capture/proof-v1/report.json",
+    "proof_report_sha256": "5168c9568c9bac48db6e5e4cbe9537665c10b50954c08064fe42df90cb541787",
+    "source_check_report": "build/double-tree-capture/source-attempts/source-v1/report.json",
+    "new_Rocq_modules": 8,
+    "new_source_lines": 761,
+    "queried_endpoints": 31,
+    "closed_endpoints": 11,
+    "maximum_inherited_globals": 6,
+    "reachable_sources": 270,
+    "bindings": 10106,
+    "proof_attempts": 25,
+    "additional_global_axioms": [],
+    "kernel_or_host_laws_changed": false,
+    "generated_source_licensed_capture_execution_proved": true,
+    "raw_later_sibling_frame_consumed": true,
+    "unreached_children_and_refused_suffixes_skip_header_reads": true,
+    "accepted_active_header_words_and_I64_bound_ranges_proved": true,
+    "initialization_and_fallback_public_exits_proved": true,
+    "shared_headers_recaptured": true,
+    "original_capture_instances": [
+      "fusion1",
+      "multi-stmt-stencil-seq",
+      "tricky3"
+    ],
+    "final_shared_cache_parameter_vector_correspondence_proved": false,
+    "installed_factory_closes_dynamic_model_facts": false,
+    "OLO_compact_condition_algorithm_complete": false,
+    "actual_new_candidate_installed": false,
+    "new_complete_compiler_endpoint_added": false,
+    "native_source_coverage_added": false,
+    "new_cost_evidence": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureLicense.v",
+        "name": "double_tree_range_first_load"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureLicense.v",
+        "name": "double_tree_header_loads_after_source"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureData.v",
+        "name": "double_tree_capture_writes"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureControl.v",
+        "name": "double_tree_cached_active_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureReceipt.v",
+        "name": "double_tree_capture_receipt_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureSource.v",
+        "name": "double_tree_capture_source_licensed"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureFacts.v",
+        "name": "double_tree_capture_accepted_headers"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCapturePrepared.v",
+        "name": "checked_double_tree_capture_prepare"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureBoundaryCases.v",
+        "name": "tree_capture_empty_outer_no_child_load"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCaptureBoundaryCases.v",
+        "name": "tree_capture_refusal_skips_later_headers"
+      }
+    ]
   }
 }
