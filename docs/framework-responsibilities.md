@@ -1,5 +1,17 @@
 # 验证责任、证书边界与最难的验收
 
+当前的[分片 factory](piece-factory.md)已实际安装原 fusion2 的六／七片整体
+候选，并接实际当前程序的 Csem→Asm。Domain checker 提供完整 point/action/order
+对应；同参数 tiling/phase 与 actual finite Loop iff 另已证明。语言实例复用既有
+source-region progress、machine lowering、private frame／公开 exits，factory
+自动 discharge site 义务。Kernel／host laws 未扩展，C 使用者不给语义 callbacks。
+
+最难的剩余交付转为 OLO 有用入口条件 `B⇒A`、safe `G accepts⇒B` 与真实状态
+transport／成本，以及其他源族和变换的功能覆盖。数学参数域和静态精确常量 facts
+不能冒充动态条件合成。新实际安装入口已拒绝 None 和五种错误数据且七完整输出
+匹配；这验证编译期拒绝，尚未验证该本例的 runtime guard-false。
+完整语料回归正在进行。以下段落记录前序 checkpoint，当前以本节和工作计划为准。
+
 新的[完整 piece 模型执行服务](piece-execution.md)从 checked 一源多片数据构造
 完整 point isomorphism，证明静态 ordinal 拼接，组合参数条件下的 restriction
 与实际调度验证。它交付模型层 `C_opt`，五模块642行／八端点、无新增 globals。

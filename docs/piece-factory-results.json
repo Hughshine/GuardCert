@@ -1,0 +1,84 @@
+{
+  "status": "checked",
+  "case": "fusion2-original",
+  "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "compiler_entrypoint": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program",
+  "whole_program_theorem": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct",
+  "actual_configurations": [
+    {
+      "mode": "untiled",
+      "source_instruction_count": 2,
+      "actual_candidate_piece_count": 6,
+      "whole_fusion_installed": true,
+      "shared_A_B_loops": [
+        1,
+        2
+      ],
+      "sampled_optimization_write_order": [
+        "B[2][2]",
+        "A[101][101]"
+      ],
+      "proposal_receipts": [
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-proposal-0.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-proposal-1.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-proposal-2.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-proposal-3.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-proposal-4.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/untiled/tiling-pipeline-1/piece-proposal-5.json"
+      ]
+    },
+    {
+      "mode": "tiled",
+      "source_instruction_count": 2,
+      "actual_candidate_piece_count": 7,
+      "whole_fusion_installed": true,
+      "shared_A_B_loops": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "sampled_optimization_write_order": [
+        "B[2][2]",
+        "A[101][101]"
+      ],
+      "proposal_receipts": [
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-0.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-1.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-2.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-3.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-4.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-5.json",
+        "build/benchmark-alignment/current-piece-factory-attempts/fusion2-v1/fusion2-original/tiled/tiling-pipeline-1/piece-proposal-6.json"
+      ]
+    }
+  ],
+  "native_complete_output_matches": 3,
+  "factory_policy_complete_output_matches": 7,
+  "valid_fusion_acceptances": 1,
+  "explicit_proposer_refusals": 1,
+  "mutated_data_refusals": 5,
+  "actual_source_candidate_finite_Loop_execution_iff_proved": true,
+  "retained_phase_iff_at_same_captured_parameters_proved": true,
+  "current_program_Csem_to_Asm_endpoint_proved_and_extracted": true,
+  "factory_consumes_data_only_proposals_and_actual_model_checker": true,
+  "parameter_conditions_encoded_by_proved_Loop_guard_and_extractor": true,
+  "source_licensed_machine_lowering_frame_and_public_exits_reused": true,
+  "existing_source_independent_Clight_progress_protocol_reused": true,
+  "new_independent_Clight_progress_proof_required": false,
+  "full_local_iff_is_separate_from_forward_installation_proof": true,
+  "unchanged_assembly_sampled_execution_observation": true,
+  "two_sampled_locations_not_all_updates": true,
+  "whole_fusion_installed": true,
+  "source_numeric_types_and_computation_preserved": true,
+  "old_shape_counters_measure_new_piece_pass": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "runtime_guard_refusal_exercised": false,
+  "full_corpus_replayed_by_this_report": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "report": "build/piece-factory/results-v1/report.json"
+}

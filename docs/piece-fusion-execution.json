@@ -1,0 +1,352 @@
+{
+  "status": "passed",
+  "error": null,
+  "case": "fusion2-original",
+  "compiler_entrypoint": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program",
+  "whole_program_theorem": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct",
+  "original_input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "observations": {
+    "unmarked": {
+      "complete_output_matches": true,
+      "sampled_writes": [
+        {
+          "location": "A[101][101]",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B[2][2]",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A[101][101]",
+          "value": 1.0
+        },
+        {
+          "location": "B[2][2]",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A[101][101]",
+        "B[2][2]"
+      ],
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $x__1 = $x__1 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $y__1 = $y__1 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false
+    },
+    "untiled": {
+      "complete_output_matches": true,
+      "sampled_writes": [
+        {
+          "location": "A[101][101]",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B[2][2]",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "B[2][2]",
+          "value": 2.0
+        },
+        {
+          "location": "A[101][101]",
+          "value": 1.0
+        }
+      ],
+      "optimization_write_order": [
+        "B[2][2]",
+        "A[101][101]"
+      ],
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          1,
+          2
+        ],
+        "previous_shared_A_B_loops": []
+      },
+      "whole_fusion_installed": true
+    },
+    "tiled": {
+      "complete_output_matches": true,
+      "sampled_writes": [
+        {
+          "location": "A[101][101]",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B[2][2]",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "B[2][2]",
+          "value": 2.0
+        },
+        {
+          "location": "A[101][101]",
+          "value": 1.0
+        }
+      ],
+      "optimization_write_order": [
+        "B[2][2]",
+        "A[101][101]"
+      ],
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $175 = $175 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $175 = $175 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 4,
+            "header": "for (; 1; $177 = $177 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 5,
+            "header": "for (; 1; $175 = $175 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 6,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 7,
+            "header": "for (; 1; $175 = $175 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              5
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              6,
+              7
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "previous_shared_A_B_loops": []
+      },
+      "whole_fusion_installed": true
+    }
+  },
+  "unchanged_assembly_and_program": true,
+  "two_sampled_locations_not_all_updates": true,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "report": "build/piece-factory/execution-attempts/original-v1/report.json"
+}

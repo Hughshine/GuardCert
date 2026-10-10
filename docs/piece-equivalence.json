@@ -1,0 +1,71 @@
+{
+  "status": "compiled",
+  "kind": "complete-tiling-and-actual-piece-loop-equivalence-at-captured-parameters",
+  "new_modules": [
+    "theories/PolCertTilingExecution.v",
+    "theories/PolCertTilingExecutionOn.v",
+    "adapters/compcert-memory/GuardMemoryDoublePieceEquivalence.v"
+  ],
+  "new_source_lines": 317,
+  "endpoints": [
+    "GuardMemoryDoublePieceEquivalence.double_piece_tiling_checker_exact",
+    "GuardMemoryDoublePieceEquivalence.DoubleTilingExecution.tiling_complete_isomorphism",
+    "GuardMemoryDoublePieceEquivalence.DoubleTilingExecution.validated_tiling_execution_at",
+    "GuardMemoryDoublePieceEquivalence.checked_double_retained_phase_equivalence_at",
+    "GuardMemoryDoublePieceEquivalence.checked_double_piece_actual_loops_equivalence_at"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoublePieceEquivalence.DoubleTilingExecution.tiling_complete_isomorphism",
+    "GuardMemoryDoublePieceEquivalence.DoubleTilingExecution.validated_tiling_execution_at"
+  ],
+  "new_endpoint_count": 5,
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 12,
+  "reachable_source_count": 192,
+  "attempts": [
+    {
+      "module": "PolCertTilingExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertTilingExecution-v1.json"
+    },
+    {
+      "module": "PolCertTilingExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertTilingExecution-v2.json"
+    },
+    {
+      "module": "PolCertTilingExecutionOn",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertTilingExecutionOn-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceEquivalence",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceEquivalence-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceEquivalence",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceEquivalence-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceEquivalence",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceEquivalence-v3.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "current_compiler_endpoint": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct",
+  "complete_tiling_point_isomorphism_produced": true,
+  "retained_phase_execution_iff_at_same_captured_parameters_proved": true,
+  "actual_source_candidate_Loop_execution_iff_proved": true,
+  "existing_checked_tiling_progress_module_consumed_without_reinstantiation": true,
+  "forward_only_whole_program_factory_path_remains_valid": true,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-equivalence/proof-v1/report.json"
+}

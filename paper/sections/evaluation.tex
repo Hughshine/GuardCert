@@ -2713,3 +2713,40 @@ bind actual phase and candidate data, and selected Clight still retains the
 preceding two separate nests. The native checks are diagnostic; the unchanged
 whole-program root still uses its old final checker. No whole fusion, new compact
 OLO guard or controlled cost comparison is established.
+
+\paragraph{Actual Whole-Fusion Installation.}
+The factory successor adds five modules, 525 lines and ten queried endpoints;
+at most 42 inherited globals are present, with no additions. Six compilation
+attempts retain one failure. Three further modules, 317 lines and five queried
+endpoints, establish complete tiling and actual source/candidate Loop finite
+execution equivalence at the same captured parameters. These have at most
+twelve inherited globals, no additions, and six attempts retaining three
+failures. Counts include module instantiation and repeated connections, rather
+than measuring author burden. A premature native preflight refusal is retained;
+that attempt did not start building the compiler.
+
+The extracted compiler consumes the actual factory and new Csem-to-Asm root.
+On unchanged original fusion2, unmarked, untiled and tiled configurations all
+match the complete original GCC output. The untiled and tiled candidates contain
+six and seven actual pieces, respectively. Unlike the preceding diagnostic
+compiler, both final Clight programs contain loops shared by A and B stores.
+The old shape counters do not count the new piece pass, so counter zero is not
+used as evidence of fallback.
+
+Hardware watchpoints observe two array locations in unchanged assembly and
+binaries. The source performs the final A update before the first B update;
+both targets reverse this order, with the expected resulting values. All three
+observed complete outputs match. This samples two locations, not every dynamic
+store, and does not measure performance benefit. The ordinary compile times
+are 0.09, 2.49 and 35.89 seconds in this single diagnostic run; they are not a
+controlled compiler-cost comparison.
+
+Seven further runs use the same formal compiler root with data-only proposer
+policies. The valid proposal installs whole untiled fusion; explicit None and
+five corrupted proposals do not. The mutations omit or duplicate a piece,
+change a parameter prefix or affine argument, or substitute a typed instruction.
+All seven complete outputs match. The subsequent existing passes may still
+optimize independent nests. These tests exercise compile-time proposal and
+checker refusal, not the emitted runtime guard's false path. The proof,
+installation, observation and policy summaries retain separate evidence scopes;
+compact OLO condition synthesis and controlled cost remain open.

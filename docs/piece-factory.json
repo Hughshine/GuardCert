@@ -1,0 +1,78 @@
+{
+  "status": "compiled",
+  "kind": "checked-piece-proposals-factory-and-current-program-compiler",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoublePiecePrepared.v",
+    "adapters/compcert-memory/GuardMemoryPieceLiteralDoubleTreeExecution.v",
+    "prototype/interface/PieceLiteralDoubleTreeFactory.v",
+    "prototype/interface/PieceLiteralDoubleTreeCompiler.v",
+    "prototype/interface/PieceLiteralCombinedDoubleCompiler.v"
+  ],
+  "new_source_lines": 525,
+  "endpoints": [
+    "GuardMemoryDoublePiecePrepared.checked_double_piece_prepared_loop_at",
+    "GuardMemoryPieceLiteralDoubleTreeExecution.checked_piece_literal_double_tree_candidate_execution",
+    "PieceLiteralDoubleTreeFactory.piece_literal_double_tree_region_contract",
+    "PieceLiteralDoubleTreeFactory.check_piece_literal_double_tree_region_sound",
+    "PieceLiteralDoubleTreeCompiler.checked_piece_literal_double_tree_regions_sound",
+    "PieceLiteralDoubleTreeCompiler.checked_selected_piece_literal_double_tree_program_correct",
+    "PieceLiteralDoubleTreeCompiler.selected_piece_literal_double_tree_cstrategy_forward",
+    "PieceLiteralDoubleTreeCompiler.compile_selected_piece_literal_double_tree_program_correct",
+    "PieceLiteralCombinedDoubleCompiler.checked_selected_piece_literal_combined_double_program_correct",
+    "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 10,
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 651,
+  "attempts": [
+    {
+      "module": "GuardMemoryDoublePiecePrepared",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePiecePrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePiecePrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePiecePrepared-v2.json"
+    },
+    {
+      "module": "GuardMemoryPieceLiteralDoubleTreeExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryPieceLiteralDoubleTreeExecution-v1.json"
+    },
+    {
+      "module": "PieceLiteralDoubleTreeFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PieceLiteralDoubleTreeFactory-v1.json"
+    },
+    {
+      "module": "PieceLiteralDoubleTreeCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PieceLiteralDoubleTreeCompiler-v1.json"
+    },
+    {
+      "module": "PieceLiteralCombinedDoubleCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PieceLiteralCombinedDoubleCompiler-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "current_compiler_endpoint": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct",
+  "data_only_piece_proposer_consumed_by_actual_factory": true,
+  "actual_source_and_candidate_extracted_inside_checked_producer": true,
+  "parameter_conditions_encoded_by_proved_Loop_guard_and_extractor": true,
+  "source_licensed_machine_lowering_frame_and_public_exits_connected": true,
+  "existing_source_independent_Clight_progress_protocol_reused": true,
+  "new_current_program_Csem_to_Asm_endpoint_proved": true,
+  "full_actual_Loop_execution_iff_added": false,
+  "original_whole_fusion_installation_established_by_proof_only": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-factory/proof-v1/report.json"
+}

@@ -2,6 +2,30 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 原 fusion2 整体候选已安装；扩展语料与条件验收
+
+新的[分片 factory 与完整程序接线](piece-factory.md)已消费 data-only
+`adapt/propose`、实际 source/phase/candidate 与总 checker。原 fusion2 的 untiled
+六片、tiled 七片整体候选均安装；最终 Clight 的 A/B stores 共享循环。未修改
+assembly/binary 的两位置观察确认真实写次序交错，三完整输出匹配原 GCC reference。
+[实际安装拒绝测试](piece-policy-results.json)的正确提案接受，None 与五种错误数据
+不安装整体 fusion，七完整输出匹配；这是编译期拒绝，不算 runtime guard-false。
+
+新 factory/current-program compiler 五模块525行／十端点，最多42项既有 globals、
+无新增；另三模块317行／五端点完成同 captured parameters 上的 tiling/phase
+双向执行与 actual source/candidate finite Loop iff，最多十二项既有 globals、无新增。
+全程序安装复用既有独立 source-region progress、machine lowering、frame/出口与
+host，已接新的实际 Csem→Asm endpoint，不新增 kernel/host laws 或 C 用户 callbacks。
+源执行仍只是证明起点，参数数学 guard 经实际 extractor 编码，不自动成为 runtime
+check。[结果摘要](piece-factory-results.json)绑定证明、原始输入与实际执行。
+
+正在运行同新 compiler 的完整62例／两 adaptations／192配置回归。随后检查实际
+contexts、重复替换与其他顺序 PolCert 能力；不能以当前两轴 proposer 代表任意
+pieces/ISS 支持。另一条重点仍是 OLO local obligations 到 compact `B⇒A`、安全
+`G accepts⇒B`、accepted/refused entry transport、共享检查和完整成本。整体 fusion
+的本例验收完成，完整 goal 保持 active。以下为前序 checkpoint，不能当作当前
+安装能力的结论。
+
 ### 完整 grouped piece 模型执行已证明；接实际候选 Loop
 
 [模型执行接口](piece-execution.md)已从 checked 单组数据构造完整 point

@@ -1,0 +1,706 @@
+{
+  "status": "passed",
+  "compiler_entrypoint": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program",
+  "whole_program_theorem": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct",
+  "original_input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "configurations": [
+    {
+      "policy": "valid",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/valid/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/valid/program.c"
+        ],
+        "elapsed_seconds": 2.508874212973751
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/valid/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/valid/program"
+        ],
+        "elapsed_seconds": 0.039438000007066876
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/valid/program"
+        ],
+        "elapsed_seconds": 0.003588673018384725
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          1,
+          2
+        ]
+      },
+      "whole_fusion_installed": true,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    },
+    {
+      "policy": "refuse",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/refuse/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/refuse/program.c"
+        ],
+        "elapsed_seconds": 0.761085415026173
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/refuse/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/refuse/program"
+        ],
+        "elapsed_seconds": 0.0433422329952009
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/refuse/program"
+        ],
+        "elapsed_seconds": 0.003056938003282994
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    },
+    {
+      "policy": "omit",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/omit/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/omit/program.c"
+        ],
+        "elapsed_seconds": 0.7390014320262708
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/omit/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/omit/program"
+        ],
+        "elapsed_seconds": 0.03517115395516157
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/omit/program"
+        ],
+        "elapsed_seconds": 0.0037410090444609523
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    },
+    {
+      "policy": "duplicate",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/duplicate/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/duplicate/program.c"
+        ],
+        "elapsed_seconds": 0.7507529229624197
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/duplicate/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/duplicate/program"
+        ],
+        "elapsed_seconds": 0.04346901399549097
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/duplicate/program"
+        ],
+        "elapsed_seconds": 0.003571610024664551
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    },
+    {
+      "policy": "prefix",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/prefix/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/prefix/program.c"
+        ],
+        "elapsed_seconds": 0.7336295250570402
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/prefix/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/prefix/program"
+        ],
+        "elapsed_seconds": 0.04381964699132368
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/prefix/program"
+        ],
+        "elapsed_seconds": 0.003120091976597905
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    },
+    {
+      "policy": "arguments",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/arguments/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/arguments/program.c"
+        ],
+        "elapsed_seconds": 0.7334430330083705
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/arguments/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/arguments/program"
+        ],
+        "elapsed_seconds": 0.04371133603854105
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/arguments/program"
+        ],
+        "elapsed_seconds": 0.0035235369578003883
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    },
+    {
+      "policy": "instruction",
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-policy-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/instruction/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/instruction/program.c"
+        ],
+        "elapsed_seconds": 0.7310483800247312
+      },
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/instruction/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/instruction/program"
+        ],
+        "elapsed_seconds": 0.03682376100914553
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/policy-attempts/original-v1/instruction/program"
+        ],
+        "elapsed_seconds": 0.0029450819711200893
+      },
+      "complete_output_matches": true,
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $171 = $171 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $173 = $173 + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              2,
+              3
+            ]
+          }
+        ],
+        "shared_A_B_loops": []
+      },
+      "whole_fusion_installed": false,
+      "expected_acceptance_or_refusal": true,
+      "passed": true
+    }
+  ],
+  "actual_factory_policies": 7,
+  "valid_fusion_acceptances": 1,
+  "explicit_proposer_refusal": 1,
+  "mutated_data_refusals": 5,
+  "source_and_numeric_computation_preserved": true,
+  "complete_program_outputs_checked": true,
+  "data_policies_do_not_authorize_installation": true,
+  "runtime_guard_refusal_exercised": false,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "report": "build/piece-factory/policy-attempts/original-v1/report.json"
+}

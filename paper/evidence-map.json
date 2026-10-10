@@ -5236,6 +5236,40 @@
         "docs/piece-loop-bridge.json",
         "docs/piece-execution-results.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Actual data-only piece factory binds checked phase and actual candidate models, reuses source progress and machine/frame/exits, installs original whole fusion and connects the actual current-program compiler to Csem-to-Asm; complete local Loop iff is separately proved at the same parameters.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePiecePrepared.v",
+          "name": "checked_double_piece_prepared_loop_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryPieceLiteralDoubleTreeExecution.v",
+          "name": "checked_piece_literal_double_tree_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/PieceLiteralDoubleTreeFactory.v",
+          "name": "check_piece_literal_double_tree_region_sound"
+        },
+        {
+          "source": "prototype/interface/PieceLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_piece_literal_combined_double_program_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePieceEquivalence.v",
+          "name": "checked_double_piece_actual_loops_equivalence_at"
+        }
+      ],
+      "documents": [
+        "docs/piece-factory.md",
+        "docs/piece-factory.json",
+        "docs/piece-equivalence.json",
+        "docs/piece-factory-results.json",
+        "docs/piece-fusion-execution.json",
+        "docs/piece-policy-results.json"
+      ]
     }
   ],
   "bibliography_evidence": [

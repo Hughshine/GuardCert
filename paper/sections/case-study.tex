@@ -2298,8 +2298,8 @@ cleanup after specialization deletes tile coordinates in the small fusion10
 input; output still matches, but the requested tiled installation is lost.
 A successor performs the original cleanup before specialization and retains
 newly singleton tile binders for the existing witness checker. The prior tiled
-installation is restored. Original fusion2 now passes whole-candidate bound
-adaptation and extracts seven pieces for two source instructions. The current
+installation is restored. Original fusion2 then passes whole-candidate bound
+adaptation and extracts seven pieces for two source instructions. At that stage the
 final checker attaches instructions positionally and requires equal list
 lengths, so that whole candidate still cannot be installed. A checked piece
 mapping must establish coverage, uniqueness, action correspondence, order and
@@ -2365,9 +2365,50 @@ source Loop execution, the retained checked phase and the piece-model checker
 to obtain source-to-candidate finite execution preservation. It does not
 derive forward execution from the raw-codegen backward theorem. The phase's
 reverse direction at the same captured parameters still needs to be connected
-before claiming an iff for the two actual Loops.
+before these endpoints alone establish an iff for the two actual Loops.
 
 These services leave the semantic kernel and host laws unchanged. Independent
 Clight progress, machine lowering, public exits and current-program installation
 remain separate obligations. The factory must consume checked piece data and
 actual checker evidence; native diagnostics do not authorize whole fusion.
+
+\paragraph{Actual Piece Factory and Whole Fusion.}
+A new producer closes this installation path. Its adapter proposes a candidate
+Loop and its piece proposer returns only groups and coverage trees. The producer
+extracts the actual source under established parameter intervals, retains the
+checked phase model, and extracts the actual candidate using the source's context
+and variable declarations. It then runs the total piece-model checker on those
+actual models. A proposal is available data, not an installation certificate;
+extraction, adaptation, proposal or checker refusal returns no candidate.
+
+Parameter intervals enter both models through the existing proved Loop guard
+and extractor. This handles the reversal between the Loop environment and
+polyhedral parameter vector. The mathematical guard does not itself generate
+an executable runtime condition. The literal instance establishes exact
+parameter values by its existing unconditional private-cache initialization;
+conditional loaded-bound contracts remain unchanged.
+
+The new execution producer connects accepted candidates to the existing actual
+machine lowering, residualization, private-state frame and public iterator
+exits. The factory discharges the projected region contract, and the selected
+host reuses the source family's independently proved region progress. No new
+progress law or semantic callback is required of the source user. The combined
+compiler normalizes selected literals, installs checked pieces, and applies the
+preceding combined passes to the actual resulting program. Its new endpoint,
+\code{compile_selected_piece_literal_combined_double_program_correct}, proves
+a Csem-to-Asm backward simulation.
+
+A separate service now establishes complete tiling correspondence and retained
+phase equivalence at the same captured parameters. It takes the actual existing
+checked progress module as an argument, avoiding a fresh checker instance with
+different type brands. Composing it with the extractor and piece-model result
+gives finite execution equivalence for the actual source and candidate Loops.
+This local iff is separate from the forward execution proof consumed by the
+factory and does not assert equivalence of all Clight divergence behavior.
+
+Original fusion2's two sequential nests now produce six untiled or seven tiled
+pieces in an installed whole candidate. The final Clight places A and B stores
+in shared loops, and native observation confirms their interleaving. The kernel
+and host laws remain unchanged. Compact OLO entry derivation, safe executable
+checking, state transport, broader sequential transformation coverage and cost
+remain independent acceptance requirements.

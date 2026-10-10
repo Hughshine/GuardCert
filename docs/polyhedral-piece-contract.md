@@ -1,4 +1,12 @@
-# 下一项 domain 接口：一源多 piece 的执行对应
+# 一源多 piece 的执行对应与安装接口
+
+本接口已由[checked piece factory](piece-factory.md)消费实际提案与 checker
+结果，完成原 fusion2 的整体 untiled/tiled 安装及当前程序 Csem→Asm。
+同 captured parameters 上的 retained phase 和 actual finite Loop iff 已证明；
+独立 source-region progress 与 machine/frame/exit/host 证明复用既有源族协议。
+Data-only adapt/propose 的实用接口与三方责任见新文档；源用户不补语义 callbacks。
+下文保留此前的设计动机和必要义务，首项整体 fusion 验收现已完成，完整语料、
+其他顺序变换、OLO 条件与成本继续验收。
 
 新的[checked 模型执行接口](piece-execution.md)已落实完整 one-to-many point
 isomorphism、静态 ordinal 拼接和多 instruction 的实际 instance-list 执行 iff。

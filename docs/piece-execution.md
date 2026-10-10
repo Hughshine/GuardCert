@@ -1,5 +1,10 @@
 # 已检查的一源多片：模型执行接口
 
+后继[实际分片 factory](piece-factory.md)已消费本页总检查器并安装原 fusion2
+的六／七片整体候选，接当前程序 Csem→Asm；同参数 actual finite Loop iff 已
+另行证明，语言 source-region progress 直接复用既有协议。本页记录模型／首版
+Loop bridge 的历史 scope，旧 JSON 和诊断结果保持冻结，不作为当前未安装的结论。
+
 本页继续落实 [narrative](topdown/paper-narrative.md) 的责任划分。它补上
 [piece 接口设计](polyhedral-piece-contract.md)中的完整 point isomorphism 和模型
 执行组合，并连接实际候选 Loop 的有限执行。独立 Clight progress 和整体 fusion
