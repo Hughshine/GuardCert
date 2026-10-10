@@ -2,6 +2,43 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Narrative 复核：下一 source tree 的证明交接
+
+2026-10-09 已重新 fetch 并核对 `origin/topdown/research-positioning`
+`8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`。Main 的
+[paper-narrative](topdown/paper-narrative.md) 和
+[context-lifting](topdown/context-lifting.md) 与该分支逐文件相同。
+最新澄清是 guard 服务分类／依赖契约（`5ba223d`）、source/model 桥及
+前提来源（`c4b1395`），以及 PolCert／CGO17 功能和完整程序验收（`8ce9c8b`）。
+它们已进入当前方向；本次把下一 source tree 的交接义务固定如下。
+
+| 交接 | 实际生产责任与下一验收 |
+| --- | --- |
+| 原 Clight → checked source tree | Domain matcher 保留原 sequence、不同深度、IEEE expressions 和共享 registry；language 服务证明实际语法运输、临时变量 frame 与独立 progress。语法识别不是执行/model 对应。 |
+| 原路径上的 header → guard 入口读取许可 | Language 从实际到达的比较取得读取 receipt，证明 initializer／先前 source statements 的状态运输；domain/site 提供 checked effects 和路径信息。未到达的 child header 必须条件读取或跳过，不能仅因有声明就预读。 |
+| 安全 guard → 接受入口事实 | Language 提供实际求值、private writes、短路及拒绝运输；domain 的 `C_derive` 建立所需数学事实和参数编码。Safe invocation 不依赖本检查接受后才成立的 no-wrap、point resolution 或 stability。 |
+| 接受的原 source → source Loop | Domain/factory 实际闭合每个 leaf 的位置 resolution、控制范围、header stability 和共享参数对应；language 的 IEEE／Mem bridge 保留真实执行及公开出口。单向 theorem 与有限双向对应各按其原范围陈述。 |
+| source Loop → phase/codegen → candidate | 执行真实调度／域变换，保留中间产物并由 checker 验证实际最终候选；随后 language lowering 消费机器表达式证明和 public-exit restoration。身份、未安装提议或全回退不计覆盖。 |
+| 局部候选 → 当前完整程序 | Language host/site 生产 scope、资源、placement、continuation 和独立 progress，实际安装到当前 intermediate program，再接对应原 Csyntax 输入的 Csem→Asm backward simulation。源码使用者不给语义 callbacks。 |
+
+**近期最难的义务是第二项，而不是证书的最后一次组合。** 对 sequence 后部
+或 nested child，源 header receipt 可能出现在实际 source stores 之后。
+下一步先检查并补足从原 Clight assignment/store 得到的 header-load／权限保持
+服务，使其调用前提不借用 guard 接受后的数学 point resolution；再按真实路径
+运输读取许可并生成 captures。现有 source/model 中使用 model point resolution
+的 header-preservation 证明不能直接充当这条 pre-guard 服务。
+空 outer 不许可预读 child；`N-c` 接受也不自动给出原 `N` 的 I32 编码。
+拒绝分支和 source progress 继续独立于接受事实，有限正常对应不扩大成任意
+入口安全或 divergence 定理。
+
+Guard library 继续按[已有服务契约](verified-guard-library.md)记录 requires、
+accepted facts、reads、private writes、public frame 和 refusal。当前使用 generated
+Clight statements，不把它们称作已验证 callable C runtime library。接口抽取、
+新 context algebra 或第二 IR 都不作为当前功能交付的前置任务。每项新服务须
+明确被哪个 factory／compiler 消费；库存在和 import 本身不构成 proof-burden
+收益证据。完整 goal 仍 active，后面的 source coverage、OLO compact conditions、
+sequential configurations、完整程序与实际成本验收保持。
+
 ### 非零 strict／共享 affine source：已证明服务，尚待 tree 安装
 
 [新 source checkpoint](signed-range-source.md)补 initializer、实际首次比较许可、
