@@ -10,7 +10,11 @@ source-region progress、machine lowering、private frame／公开 exits，facto
 transport／成本，以及其他源族和变换的功能覆盖。数学参数域和静态精确常量 facts
 不能冒充动态条件合成。新实际安装入口已拒绝 None 和五种错误数据且七完整输出
 匹配；这验证编译期拒绝，尚未验证该本例的 runtime guard-false。
-完整语料回归正在进行。以下段落记录前序 checkpoint，当前以本节和工作计划为准。
+完整语料回归已完成186/192输出匹配，只保留六旧frontend拒绝；七类上下文的14
+配置也全部通过，包括多标注安装、caller live temp／public exits 和资源拒绝。
+下一接线将同一 data-only piece 服务交给动态 loaded-bound tree 的既有语言协议，
+分别验收模型证明、实际输入相关 guard 和状态运输。以下段落记录前序 checkpoint，
+当前以本节和工作计划为准。
 
 新的[完整 piece 模型执行服务](piece-execution.md)从 checked 一源多片数据构造
 完整 point isomorphism，证明静态 ordinal 拼接，组合参数条件下的 restriction

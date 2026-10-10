@@ -1,0 +1,2644 @@
+{
+  "status": "passed",
+  "compiler_entrypoint": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program",
+  "whole_program_theorem": "PieceLiteralCombinedDoubleCompiler.compile_selected_piece_literal_combined_double_program_correct",
+  "original_case": "fusion2",
+  "original_input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "all_sources_are_disclosed_context_variants": true,
+  "original_arrays_and_numeric_kernel_retained": true,
+  "cases": [
+    {
+      "case": "multiple-marked",
+      "mode": "untiled",
+      "input_sha256": "4ac3f7987a8fee3466637a6ff8f458cc87bc1e22f0943761c1bd6c7030bf0eb9",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/reference"
+        ],
+        "elapsed_seconds": 0.12548332900041714
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/reference"
+        ],
+        "elapsed_seconds": 0.0058825729647651315
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/untiled/program.c"
+        ],
+        "elapsed_seconds": 4.622367520001717
+      },
+      "expected_whole_fusions": 2,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/untiled/program"
+        ],
+        "elapsed_seconds": 0.04446432099211961
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/untiled/program"
+        ],
+        "elapsed_seconds": 0.003765903995372355
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "continuation_tag": 2,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 2,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "multiple-marked",
+      "mode": "tiled",
+      "input_sha256": "4ac3f7987a8fee3466637a6ff8f458cc87bc1e22f0943761c1bd6c7030bf0eb9",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/reference"
+        ],
+        "elapsed_seconds": 0.12548332900041714
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/reference"
+        ],
+        "elapsed_seconds": 0.0058825729647651315
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/tiled/program.c"
+        ],
+        "elapsed_seconds": 72.55424543196568
+      },
+      "expected_whole_fusions": 2,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/tiled/program"
+        ],
+        "elapsed_seconds": 0.045186449016910046
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/multiple-marked/tiled/program"
+        ],
+        "elapsed_seconds": 0.003223652020096779
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "continuation_tag": 2,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $185 = $185 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 2,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "marked-and-unmarked",
+      "mode": "untiled",
+      "input_sha256": "07573eaf4b8c78f38d8eb4615728243d9b351c4700839775f500d9fe8852a90c",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/reference"
+        ],
+        "elapsed_seconds": 0.06908338097855449
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/reference"
+        ],
+        "elapsed_seconds": 0.006471925007645041
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/untiled/program.c"
+        ],
+        "elapsed_seconds": 2.3877112170448527
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/untiled/program"
+        ],
+        "elapsed_seconds": 0.04412926797522232
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/untiled/program"
+        ],
+        "elapsed_seconds": 0.0031525010126642883
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "marked-and-unmarked",
+      "mode": "tiled",
+      "input_sha256": "07573eaf4b8c78f38d8eb4615728243d9b351c4700839775f500d9fe8852a90c",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/reference"
+        ],
+        "elapsed_seconds": 0.06908338097855449
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/reference"
+        ],
+        "elapsed_seconds": 0.006471925007645041
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/tiled/program.c"
+        ],
+        "elapsed_seconds": 36.381618143990636
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/tiled/program"
+        ],
+        "elapsed_seconds": 0.04691202100366354
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/marked-and-unmarked/tiled/program"
+        ],
+        "elapsed_seconds": 0.003145783965010196
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $184 = $184 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $182 = $182 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "halo-continuation",
+      "mode": "untiled",
+      "input_sha256": "9dc1388f0ab4f477df84babb6135cb3b60596c0fdce9f92f3aa24995752d6fdc",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/reference"
+        ],
+        "elapsed_seconds": 0.06938461301615462
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/reference"
+        ],
+        "elapsed_seconds": 0.005784312030300498
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/untiled/program.c"
+        ],
+        "elapsed_seconds": 2.4119606550084427
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/untiled/program"
+        ],
+        "elapsed_seconds": 0.04503468901384622
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/untiled/program"
+        ],
+        "elapsed_seconds": 0.0033035629894584417
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "halo-continuation",
+      "mode": "tiled",
+      "input_sha256": "9dc1388f0ab4f477df84babb6135cb3b60596c0fdce9f92f3aa24995752d6fdc",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/reference"
+        ],
+        "elapsed_seconds": 0.06938461301615462
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/reference"
+        ],
+        "elapsed_seconds": 0.005784312030300498
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/tiled/program.c"
+        ],
+        "elapsed_seconds": 36.15193753602216
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/tiled/program"
+        ],
+        "elapsed_seconds": 0.03759794303914532
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/halo-continuation/tiled/program"
+        ],
+        "elapsed_seconds": 0.0032795920269563794
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "enclosing-conditional",
+      "mode": "untiled",
+      "input_sha256": "f4c14ba754632a9776de3025f10303cf9d9dd685c9e2923a36be9219ffd2788f",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/reference"
+        ],
+        "elapsed_seconds": 0.06805580499349162
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/reference"
+        ],
+        "elapsed_seconds": 0.006551882019266486
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/untiled/program.c"
+        ],
+        "elapsed_seconds": 2.4119042700040154
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/untiled/program"
+        ],
+        "elapsed_seconds": 0.0444791279733181
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/untiled/program"
+        ],
+        "elapsed_seconds": 0.003258531040046364
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $174 = $174 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $174 = $174 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $176 = $176 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $174 = $174 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "enclosing-conditional",
+      "mode": "tiled",
+      "input_sha256": "f4c14ba754632a9776de3025f10303cf9d9dd685c9e2923a36be9219ffd2788f",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/reference"
+        ],
+        "elapsed_seconds": 0.06805580499349162
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/reference"
+        ],
+        "elapsed_seconds": 0.006551882019266486
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/tiled/program.c"
+        ],
+        "elapsed_seconds": 36.401404468982946
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/tiled/program"
+        ],
+        "elapsed_seconds": 0.0451824470073916
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/enclosing-conditional/tiled/program"
+        ],
+        "elapsed_seconds": 0.00331849604845047
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $174 = $174 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $176 = $176 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $180 = $180 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $176 = $176 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $178 = $178 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "private-pool-refusal",
+      "mode": "untiled",
+      "input_sha256": "8ea7013a3f9d545be518b0321dad79b46755f4a5e488bc73816045a38aaafaf3",
+      "options": {
+        "GUARDCERT_DOUBLE_PRIVATE_COUNT": "1"
+      },
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/reference"
+        ],
+        "elapsed_seconds": 0.07709249603794888
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/reference"
+        ],
+        "elapsed_seconds": 0.005944174015894532
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/untiled/program.c"
+        ],
+        "elapsed_seconds": 0.2845596029656008
+      },
+      "expected_whole_fusions": 0,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/untiled/program"
+        ],
+        "elapsed_seconds": 0.04425825900398195
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/untiled/program"
+        ],
+        "elapsed_seconds": 0.003664207994006574
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $x__1 = $x__1 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $y__1 = $y__1 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  2,
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": []
+          }
+        }
+      ],
+      "actual_whole_fusions": 0,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "private-pool-refusal",
+      "mode": "tiled",
+      "input_sha256": "8ea7013a3f9d545be518b0321dad79b46755f4a5e488bc73816045a38aaafaf3",
+      "options": {
+        "GUARDCERT_DOUBLE_PRIVATE_COUNT": "1"
+      },
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/reference"
+        ],
+        "elapsed_seconds": 0.07709249603794888
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/reference"
+        ],
+        "elapsed_seconds": 0.005944174015894532
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/tiled/program.c"
+        ],
+        "elapsed_seconds": 0.30469276901567355
+      },
+      "expected_whole_fusions": 0,
+      "expected_observation_line": null,
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/tiled/program"
+        ],
+        "elapsed_seconds": 0.04561572801321745
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/private-pool-refusal/tiled/program"
+        ],
+        "elapsed_seconds": 0.0034160150098614395
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $x = $x + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $y = $y + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $x__1 = $x__1 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $y__1 = $y__1 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  2,
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": []
+          }
+        }
+      ],
+      "actual_whole_fusions": 0,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "public-iterators",
+      "mode": "untiled",
+      "input_sha256": "e86984f238a8eca669fd1b5dd9ceae08675282bafdc7dfd4799c3a233c0a093c",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/reference"
+        ],
+        "elapsed_seconds": 0.06838043098105118
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/reference"
+        ],
+        "elapsed_seconds": 0.005771722993813455
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/untiled/program.c"
+        ],
+        "elapsed_seconds": 2.2936750830267556
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": "controls=100,100",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/untiled/program"
+        ],
+        "elapsed_seconds": 0.042440587014425546
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/untiled/program"
+        ],
+        "elapsed_seconds": 0.0036278869956731796
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $173 = $173 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $173 = $173 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $173 = $173 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "public-iterators",
+      "mode": "tiled",
+      "input_sha256": "e86984f238a8eca669fd1b5dd9ceae08675282bafdc7dfd4799c3a233c0a093c",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/reference"
+        ],
+        "elapsed_seconds": 0.06838043098105118
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/reference"
+        ],
+        "elapsed_seconds": 0.005771722993813455
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/tiled/program.c"
+        ],
+        "elapsed_seconds": 34.72609204798937
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": "controls=100,100",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/tiled/program"
+        ],
+        "elapsed_seconds": 0.04703705699648708
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/public-iterators/tiled/program"
+        ],
+        "elapsed_seconds": 0.0032662319717928767
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $173 = $173 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $175 = $175 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "caller-live-temp",
+      "mode": "untiled",
+      "input_sha256": "b2348cb4828f2f4d157f1b0f89fd6ab1d766d6ed93a5206d02a45ae6e4d13023",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/reference"
+        ],
+        "elapsed_seconds": 0.07072911103023216
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/reference"
+        ],
+        "elapsed_seconds": 0.0061256009503267705
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/untiled/program.c"
+        ],
+        "elapsed_seconds": 2.3086605650023557
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": "cookie=71",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/untiled/program"
+        ],
+        "elapsed_seconds": 0.04325552104273811
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/untiled/program"
+        ],
+        "elapsed_seconds": 0.003859847958665341
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  1
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  3
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    },
+    {
+      "case": "caller-live-temp",
+      "mode": "tiled",
+      "input_sha256": "b2348cb4828f2f4d157f1b0f89fd6ab1d766d6ed93a5206d02a45ae6e4d13023",
+      "options": {},
+      "gcc": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-O0",
+          "-ffp-contract=off",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/variant.c",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/reference"
+        ],
+        "elapsed_seconds": 0.07072911103023216
+      },
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/reference"
+        ],
+        "elapsed_seconds": 0.0061256009503267705
+      },
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-piece-factory-v2/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/tiled/program.c"
+        ],
+        "elapsed_seconds": 35.37711830699118
+      },
+      "expected_whole_fusions": 1,
+      "expected_observation_line": "cookie=71",
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/tiled/program"
+        ],
+        "elapsed_seconds": 0.04367292596725747
+      },
+      "native": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/piece-factory/context-attempts/contexts-v1/caller-live-temp/tiled/program"
+        ],
+        "elapsed_seconds": 0.0038039180217310786
+      },
+      "selected_store_groups": [
+        {
+          "continuation_tag": 1,
+          "stores": {
+            "loops": [
+              {
+                "id": 0,
+                "header": "for (; 1; $177 = $177 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 1,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 2,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A"
+                ]
+              },
+              {
+                "id": 3,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 4,
+                "header": "for (; 1; $183 = $183 + 1)",
+                "stores": [
+                  "A",
+                  "B"
+                ]
+              },
+              {
+                "id": 5,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 6,
+                "header": "for (; 1; $179 = $179 + 1)",
+                "stores": [
+                  "B"
+                ]
+              },
+              {
+                "id": 7,
+                "header": "for (; 1; $181 = $181 + 1)",
+                "stores": [
+                  "B"
+                ]
+              }
+            ],
+            "static_stores": [
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "A",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3,
+                  4
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  3
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  1,
+                  5
+                ]
+              },
+              {
+                "array": "B",
+                "loops": [
+                  0,
+                  6,
+                  7
+                ]
+              }
+            ],
+            "shared_A_B_loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          }
+        }
+      ],
+      "actual_whole_fusions": 1,
+      "complete_output_matches": true,
+      "expected_line_present": true,
+      "passed": true
+    }
+  ],
+  "configuration_count": 14,
+  "runtime_guard_refusal_exercised": false,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "report": "build/piece-factory/context-attempts/contexts-v1/report.json"
+}

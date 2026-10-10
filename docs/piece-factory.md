@@ -116,8 +116,22 @@ kernel/host law 或 semantic extraction override。行数包括实例化与重�
 已覆盖全部顺序 PolCert 功能。旧 shape counters 没有计入新 pass；本例通过实际
 store ancestry 与执行次序确认安装。
 
-下一验收是同 compiler 的完整语料回归、真实 contexts／多次替换，再推进其他
-顺序变换。OLO 的 local obligations→有用入口条件 `B⇒A`、safe machine
+同 compiler 的[完整语料回归](piece-factory-corpus.json)已完成192配置：原例180/186、
+两 adaptations 6/6，合计186完整输出匹配。Source/configuration hashes 和 status
+与前序完全一致，仅六个既有 frontend 拒绝，无 compiler timeout、link failure
+或 native mismatch。独立核对保留本例整体 fusion、fusion10 和 nodep 的原 tiled
+形状；全语料输出匹配不作为全部 requested transformations 的支持率。
+
+[七类 contexts／14配置](piece-factory-contexts.json)也全部通过：两个标注位置、
+标注与未标注并存、halo 修改与后续读取、外层条件、private pool 不足、公开
+iterators、callee 与 caller 的 live temp。两配置各安装两个标注 fusion；混合例
+只在标注处安装；公开出口为`100,100`，caller cookie 保持71；private pool 不足
+不安装。完整输出分别与这些**已披露的上下文变体**自己的 GCC reference 比较。
+这些不替代未修改原始输入的验收，也不宣称支持任意 goto／exits 或 guard-false。
+
+下一具体接线是将 data-only piece producer 接到既有动态 loaded-bound tree 的
+capture／frame／progress／factory，验证随输入变化的实际 guard 接受与回退，随后
+扩展其他顺序变换。OLO 的 local obligations→有用入口条件 `B⇒A`、safe machine
 `G accepts⇒B`、accepted/refused state transport、共享检查与完整成本继续独立
 交付。常量源的 private caches 无条件初始化，动态 loaded-bound 的 source-read
 许可与 unreached-zero 契约保持原证明，不能套用本例静态精确区间。

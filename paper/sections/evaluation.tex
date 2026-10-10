@@ -2750,3 +2750,23 @@ optimize independent nests. These tests exercise compile-time proposal and
 checker refusal, not the emitted runtime guard's false path. The proof,
 installation, observation and policy summaries retain separate evidence scopes;
 compact OLO condition synthesis and controlled cost remain open.
+
+The same compiler completes the 62-case corpus and two disclosed adaptations
+in 192 configurations. Original cases match 180 of 186 outputs; the adaptations
+match all six, giving 186 matches overall. Only the six preceding frontend
+refusals remain. Input and configuration-source hashes and statuses agree with
+the preceding compiler; there is no compiler timeout, native mismatch or link
+failure. Separate Clight checks retain whole fusion2 and the previously installed
+fusion10 and nodep tiled shapes. These are regression and focused installation
+results, not a claim of supporting every requested corpus transformation.
+
+Seven disclosed context variants add fourteen matching configurations. They
+cover two marked sites, marked and unmarked code together, a halo modification
+with subsequent reads, an enclosing conditional, insufficient private resources,
+public iterators, and a callee with a live caller temporary. Both configurations
+install whole fusion at both marked sites in the repeated-site case and only at
+the marked site in the mixed case. Public iterator exits are 100,100; the caller
+temporary remains 71. Insufficient private resources install no fusion. Each
+complete output matches its variant's own GCC reference. These tests supplement
+the unchanged original and do not claim arbitrary control-placement support or
+runtime guard-false coverage.

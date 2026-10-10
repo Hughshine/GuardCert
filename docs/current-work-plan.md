@@ -19,9 +19,17 @@ host，已接新的实际 Csem→Asm endpoint，不新增 kernel/host laws 或 C
 源执行仍只是证明起点，参数数学 guard 经实际 extractor 编码，不自动成为 runtime
 check。[结果摘要](piece-factory-results.json)绑定证明、原始输入与实际执行。
 
-正在运行同新 compiler 的完整62例／两 adaptations／192配置回归。随后检查实际
-contexts、重复替换与其他顺序 PolCert 能力；不能以当前两轴 proposer 代表任意
-pieces/ISS 支持。另一条重点仍是 OLO local obligations 到 compact `B⇒A`、安全
+同新 compiler 的[完整62例／两 adaptations／192配置回归](piece-factory-corpus.json)
+已完成：186完整输出匹配，source/configuration hashes 与 status 保持，无新 timeout／
+native mismatch／link failure，仅六旧 frontend 拒绝。本例整体融合与旧 fusion10／
+nodep tiled 形状保留。[七类 contexts／14配置](piece-factory-contexts.json)全部通过，
+包括两标注位置的真实安装、标注/未标注并存、caller live temp、public iterator
+出口、halo/continuation、外层条件及 private pool 不足的拒绝。
+
+下一具体实施把 data-only piece producer 接到既有动态 loaded-bound tree 的
+capture／frame／progress／factory，测试输入变化时真实 guard 接受与回退，然后
+拓展其他顺序 PolCert 能力；不能以当前两轴 proposer 代表任意 pieces/ISS 支持。
+另一条重点仍是 OLO local obligations 到 compact `B⇒A`、安全
 `G accepts⇒B`、accepted/refused entry transport、共享检查和完整成本。整体 fusion
 的本例验收完成，完整 goal 保持 active。以下为前序 checkpoint，不能当作当前
 安装能力的结论。

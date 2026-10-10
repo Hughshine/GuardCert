@@ -5268,7 +5268,9 @@
         "docs/piece-equivalence.json",
         "docs/piece-factory-results.json",
         "docs/piece-fusion-execution.json",
-        "docs/piece-policy-results.json"
+        "docs/piece-policy-results.json",
+        "docs/piece-factory-corpus.json",
+        "docs/piece-factory-contexts.json"
       ]
     }
   ],
