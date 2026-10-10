@@ -1,5 +1,30 @@
 # 验证责任、证书边界与最难的验收
 
+
+2026-10-10 [参数 facts 后继](parameter-specialization.md)进一步落实 narrative
+`8ce9c8b` 的责任。Domain 的数学服务从 singleton intervals 取得 facts，证明
+expression/test 求值及有限正常 Loop iff；语言的既有无条件常量 cache 证明实际值，
+新 execution/factory 将精确 facts 接 source/model、final checker 与完整程序。
+动态 loaded bounds 的未到达零值、安全首次读取和 dependent capture 契约不变。
+Kernel／host laws 没有扩展；数学服务也没有提供机器 guard safety 或任意前提推断。
+两模块140行／四端点和四模块453行／十端点均已审计，无新增globals；代码行数
+包括重复接线，不计为作者负担减少。
+
+原生第一次 exact 接线虽输出匹配，却因 singleton 清理删 tile 维度而丢失
+fusion10 安装。坐标顺序后继已恢复；候选被静态拒绝仍可保持程序正确，但不完成
+该变换的功能验收。整体 fusion2 已成功提取七个 pieces，source 只有两语句；
+现有 positional attachment 的等长契约仍拒绝。**当前最难的 domain 接线是
+checked 一源多 piece 的覆盖／互斥、point 对应、执行次序及 progress**，随后复用
+language host 的全程序安装。这不是 kernel 消费的 conditional certificate
+自动给出的能力，也不能只改 list 长度检查。
+
+总体最难的另一条交付仍是 OLO 局部义务到有用入口条件的推导，以及 safe machine
+check／accepted-refused transport／完整成本。两条能力分别验收。[完整语料后继](exact-literal-parameter-results.json)
+已完成192项／186输出匹配，六旧frontend拒绝、source hashes与status保持，
+无compiler timeout／native mismatch／link failure；这不作为完整变换支持率。
+当前工作计划首节为准，下一 domain 接口的具体数据／证书和已有定理复用边界见
+[一源多 piece 执行对应](polyhedral-piece-contract.md)。以下保留前序责任记录。
+
 2026-10-10 [投影／codegen 后继](equality-reduced-codegen.md)按 narrative `8ce9c8b`
 落实三方责任。Domain 库证明等式消元后仍满足已有投影契约，并参数化生成器；原
 维度准备和 source instance-list 对应继续复用。新 factory 消费实际 final

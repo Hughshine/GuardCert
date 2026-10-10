@@ -1,0 +1,250 @@
+{
+  "status": "complete",
+  "compiler_entrypoint": "ExactLiteralCombinedDoubleCompiler.compile_selected_exact_literal_combined_double_program",
+  "whole_program_theorem": "ExactLiteralCombinedDoubleCompiler.compile_selected_exact_literal_combined_double_program_correct",
+  "original_cases": 62,
+  "disclosed_adaptations": 2,
+  "configurations": 192,
+  "native_configuration_matches": 186,
+  "original_configuration_matches": 180,
+  "nonmatching_configurations": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    }
+  ],
+  "configuration_status_changes": [],
+  "original_input_hashes_unchanged": true,
+  "focused_actual_candidates": [
+    {
+      "case": "fusion10",
+      "input_sha256": "7cf6e33260ad5ffd1beae645786095dce39cc03d97022e59f16b677e21031ae1",
+      "all_three_complete_outputs_match": true,
+      "configurations": {
+        "untiled": {
+          "selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 8
+          },
+          "prior_widened_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 10
+          },
+          "specialization": "changed=true\nproducer=extracted-verified-function\nknown-parameters=2\norder=original-singleton-cleanup-before-specialization\nfinal-check=pending",
+          "prior_widened_specialization": "changed=false\nproducer=extracted-verified-function\nknown-parameters=unknown\nfinal-check=pending",
+          "intermediate_exact_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 8
+          },
+          "whole_candidate_adaptation_refused": true,
+          "whole_candidate_adaptation_refusal": "Invalid_argument(\"verified floor-membership service refused unsupported bound\")",
+          "candidate_extraction": null,
+          "fused_candidate_installed_claimed": false,
+          "single_diagnostic_compiler_seconds": 0.4760391869931482
+        },
+        "tiled": {
+          "selected_Clight_shape": {
+            "for_loops": 8,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 12
+          },
+          "prior_widened_selected_Clight_shape": {
+            "for_loops": 8,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 28
+          },
+          "specialization": "changed=true\nproducer=extracted-verified-function\nknown-parameters=2\norder=original-singleton-cleanup-before-specialization\nfinal-check=pending",
+          "prior_widened_specialization": "changed=false\nproducer=extracted-verified-function\nknown-parameters=unknown\nfinal-check=pending",
+          "intermediate_exact_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 4
+          },
+          "whole_candidate_adaptation_refused": true,
+          "whole_candidate_adaptation_refusal": "Invalid_argument(\"verified floor-membership service refused unsupported bound\")",
+          "candidate_extraction": null,
+          "fused_candidate_installed_claimed": false,
+          "single_diagnostic_compiler_seconds": 3.0311471199966036
+        }
+      }
+    },
+    {
+      "case": "fusion2",
+      "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "all_three_complete_outputs_match": true,
+      "configurations": {
+        "untiled": {
+          "selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 8
+          },
+          "prior_widened_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 10
+          },
+          "specialization": "changed=true\nproducer=extracted-verified-function\nknown-parameters=100\norder=original-singleton-cleanup-before-specialization\nfinal-check=pending",
+          "prior_widened_specialization": "changed=false\nproducer=extracted-verified-function\nknown-parameters=unknown\nfinal-check=pending",
+          "intermediate_exact_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 8
+          },
+          "whole_candidate_adaptation_refused": false,
+          "whole_candidate_adaptation_refusal": null,
+          "candidate_extraction": "accepted points=6",
+          "fused_candidate_installed_claimed": false,
+          "single_diagnostic_compiler_seconds": 0.37507004698272794
+        },
+        "tiled": {
+          "selected_Clight_shape": {
+            "for_loops": 8,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 16
+          },
+          "prior_widened_selected_Clight_shape": {
+            "for_loops": 8,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 22
+          },
+          "specialization": "changed=true\nproducer=extracted-verified-function\nknown-parameters=100\norder=original-singleton-cleanup-before-specialization\nfinal-check=pending",
+          "prior_widened_specialization": "changed=false\nproducer=extracted-verified-function\nknown-parameters=unknown\nfinal-check=pending",
+          "intermediate_exact_selected_Clight_shape": {
+            "for_loops": 8,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 16
+          },
+          "whole_candidate_adaptation_refused": false,
+          "whole_candidate_adaptation_refusal": null,
+          "candidate_extraction": "accepted points=7",
+          "fused_candidate_installed_claimed": false,
+          "single_diagnostic_compiler_seconds": 2.1126693609985523
+        }
+      }
+    },
+    {
+      "case": "nodep",
+      "input_sha256": "f105bce1f7caf1cb5bcc24ff035c9e36daef8893bbb607f6b89460ebc811d992",
+      "all_three_complete_outputs_match": true,
+      "configurations": {
+        "untiled": {
+          "selected_Clight_shape": {
+            "for_loops": 2,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 4
+          },
+          "prior_widened_selected_Clight_shape": {
+            "for_loops": 2,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 5
+          },
+          "specialization": "changed=true\nproducer=extracted-verified-function\nknown-parameters=100,4\norder=original-singleton-cleanup-before-specialization\nfinal-check=pending",
+          "prior_widened_specialization": "changed=false\nproducer=extracted-verified-function\nknown-parameters=unknown,unknown\nfinal-check=pending",
+          "intermediate_exact_selected_Clight_shape": {
+            "for_loops": 2,
+            "maximum_nested_for_loops": 2,
+            "if_statements": 4
+          },
+          "whole_candidate_adaptation_refused": false,
+          "whole_candidate_adaptation_refusal": null,
+          "candidate_extraction": "accepted points=1",
+          "fused_candidate_installed_claimed": false,
+          "single_diagnostic_compiler_seconds": 0.3601717159617692
+        },
+        "tiled": {
+          "selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 13
+          },
+          "prior_widened_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 17
+          },
+          "specialization": "changed=true\nproducer=extracted-verified-function\nknown-parameters=100,4\norder=original-singleton-cleanup-before-specialization\nfinal-check=pending",
+          "prior_widened_specialization": "changed=false\nproducer=extracted-verified-function\nknown-parameters=unknown,unknown\nfinal-check=pending",
+          "intermediate_exact_selected_Clight_shape": {
+            "for_loops": 4,
+            "maximum_nested_for_loops": 4,
+            "if_statements": 13
+          },
+          "whole_candidate_adaptation_refused": false,
+          "whole_candidate_adaptation_refusal": null,
+          "candidate_extraction": "accepted points=1",
+          "fused_candidate_installed_claimed": false,
+          "single_diagnostic_compiler_seconds": 1.216105522995349
+        }
+      }
+    }
+  ],
+  "first_widened_interval_native_attempt_preserved": true,
+  "fusion2_tiled_whole_adaptation_and_extraction_passed": true,
+  "fusion2_source_instruction_count": 2,
+  "fusion2_tiled_candidate_piece_count": 7,
+  "positional_attachment_requires_equal_instruction_counts": true,
+  "positional_refusal_is_deduced_from_source_and_bound_extraction_receipts": true,
+  "fusion2_whole_fusion_installed": false,
+  "fusion10_remaining_iterator_floor_adaptation_refusal": true,
+  "intermediate_exact_policy_deleted_tile_coordinates_and_lost_installation": true,
+  "final_policy_retains_newly_singleton_tile_coordinates": true,
+  "fusion10_prior_tiled_installation_shape_restored": true,
+  "intermediate_exact_corpus_matches": 186,
+  "new_assembly_execution_observation_performed": false,
+  "runtime_guard_refusal_exercised": false,
+  "controlled_cost_comparison": false,
+  "all_62_requested_transformations_supported": false,
+  "OLO_compact_entry_condition_complete": false,
+  "full_goal_complete": false,
+  "reports": {
+    "current": "build/benchmark-alignment/current-exact-literal-coordinate-attempts/corpus-v1/report.json",
+    "focus": "build/benchmark-alignment/current-exact-literal-coordinate-attempts/blockers-v1/report.json",
+    "widened_interval_focus": "build/benchmark-alignment/current-specialized-reduced-literal-attempts/blockers-v1/report.json",
+    "previous": "build/benchmark-alignment/current-reduced-literal-combined-attempts/corpus-v1/report.json",
+    "intermediate_exact_focus": "build/benchmark-alignment/current-exact-literal-combined-attempts/blockers-v1/report.json",
+    "intermediate_exact_corpus": "build/benchmark-alignment/current-exact-literal-combined-attempts/corpus-v1/report.json"
+  },
+  "report": "build/exact-literal-parameters/results-v1/report.json"
+}

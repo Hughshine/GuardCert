@@ -1,0 +1,8 @@
+From Guard Require Import PolCertParameterSpecialization.
+From GuardMemory Require Import GuardMemoryDoubleAssignment GuardMemoryDoublePolyhedral.
+Module DoubleParameterSpecialization :=
+  PolCertParameterSpecializationFor DoubleAssignmentInstr DoubleAssignmentIRs.Loop.
+Print Assumptions DoubleParameterSpecialization.singleton_facts_hold.
+Print Assumptions DoubleParameterSpecialization.expression_correct.
+Print Assumptions DoubleParameterSpecialization.test_correct.
+Print Assumptions DoubleParameterSpecialization.statement_correct.

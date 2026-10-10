@@ -5085,6 +5085,39 @@
         "docs/equality-reduced-codegen-results.json",
         "docs/reduced-nodep-execution.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Exact literal parameter facts justify compilation-time specialization; retained tile coordinates restore the prior installation while a two-source/seven-piece positional contract remains a whole-fusion blocker.",
+      "theorems": [
+        {
+          "source": "theories/PolCertParameterSpecialization.v",
+          "name": "statement_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryExactLiteralDoubleTreeExecution.v",
+          "name": "literal_double_exact_parameter_ranges"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryExactLiteralDoubleTreeExecution.v",
+          "name": "checked_exact_literal_double_tree_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/ExactLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_exact_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/parameter-specialization.md",
+        "docs/polyhedral-piece-contract.md",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md"
+      ],
+      "artifacts": [
+        "docs/parameter-specialization.json",
+        "docs/exact-literal-parameters.json",
+        "docs/exact-literal-parameter-results.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -18726,5 +18759,15 @@
     "OLO_compact_entry_condition_complete": false,
     "controlled_cost_claimed": false,
     "full_goal_complete": false
+  },
+  "exact_literal_parameter_specialization": {
+    "mathematical_service_report": "docs/parameter-specialization.json",
+    "execution_factory_compiler_report": "docs/exact-literal-parameters.json",
+    "results_report": "docs/exact-literal-parameter-results.json",
+    "candidate_checker_remains_authoritative": true,
+    "whole_fusion2_installed": false,
+    "domain_piece_checker_implemented": false,
+    "OLO_compact_entry_condition_complete": false,
+    "kernel_or_host_laws_changed": false
   }
 }

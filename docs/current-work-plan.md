@@ -2,6 +2,51 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+
+### Narrative 澄清落实：前提精度与分片执行对应
+
+2026-10-10 再次 fetch／核对远端：`topdown/research-positioning` 可见最新仍为
+`8ce9c8b`，`paper-narrative.md` 与 main 正文一致。已按澄清继续区分 kernel、
+条件库、language／host 和 domain 的责任；context clauses 仍为设计提案，
+不作为本次新 API 或延期交付的条件。
+
+[参数特化与精确常量 facts](parameter-specialization.md)已接完整程序：数学服务
+两模块140行／四端点，三closed、最多四既有globals；exact-interval execution／
+factory／current-program compiler 四模块453行／十端点，一closed、最多42既有
+globals，两审计均无新增。常量 private caches 无条件初始化所有参数，所以
+constant100 可以使用 `[100,100]`；动态 loaded-bound 捕获仍用其原宽区间，
+保持 unreached zero 及读取许可契约。Kernel／host laws 不变，C 用户不补callbacks。
+
+新 adapter 在编译时消费已证明的特化函数；actual candidate/dependence/tiling
+checker 继续授权安装。首个宽区间构建无特化效果；首个 exact 构建暴露 singleton
+清理删 tile 坐标、fusion10 回到原 source 的变换回退，两者均保留。坐标后继先清理
+原 raw singletons 再特化，已恢复 fusion10 两个四层 tiled nests。重点九配置
+完整输出匹配，selected tiled 条件数 fusion10／fusion2／nodep 为12／16／13，
+前序为28／22／17；这些不是 OLO entry guard 数，也不证明运行收益。
+
+整体 fusion2 tiled 已越过 floor-bound adaptation 并提取七个 pieces，但 source
+只有两个 instructions，现有 positional attachment 要求等长，最终仍是两个分别
+分块的 nests。当前最难的具体 domain 接口是 **一源到多 piece 的 checked witness**：
+
+1. 对每个 candidate piece 提供源语句及 point/coordinate 对应，验证实际 source
+   instance coverage、互斥、无遗漏／额外执行；不能只改 positional list attachment。
+2. 将其 execution/order/dependence 及适用 progress 证明连接到 actual candidate，
+   复用现有 machine lowering、frame/control/public exits 和 current-program host。
+3. 首例验收使用原 fusion2 的真实 scheduler/codegen 输出；保持原数组与数值计算，
+   不能用手写目标或分别分块替代整体候选。
+
+继续支持 fusion10 的 iterator-dependent floor／Mod、dsyrk 的 `k=j`、混合端点、
+general pieces／ISS 及其他顺序域变换。OLO `B⇒A` 的 compact entry 推导、safe
+`G accepts⇒B`、accepted/refused state transport、共享检查、原 CGO17 contexts／
+tiers、完整成本及同例作者负担仍是独立验收；常量特化不替代这些工作。
+[完整后继对照](exact-literal-parameter-results.json)已完成192配置：186完整输出
+匹配，原例180/186、两adaptations6/6；只有六个既有frontend拒绝，source hashes
+全部保持，没有status变化／compiler timeout／native mismatch／link failure。
+第一次exact构建也完整输出匹配，但丢失fusion10 tiling的事实仍保留；最终坐标
+后继的恢复另由实际Clight核对。输出匹配不作为全语料transformation支持率。
+完整 goal active。下一 domain 接口的具体数据／证书和已有定理复用边界见
+[一源多 piece 执行对应](polyhedral-piece-contract.md)。下段保留前序 checkpoint。
+
 ### 投影后继已接完整程序；下一项是整体候选适配
 
 2026-10-10 对照 narrative `8ce9c8b` 的责任划分，新增

@@ -1,0 +1,71 @@
+{
+  "status": "compiled",
+  "kind": "exact-literal-parameters-current-program-csem-to-asm",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryExactLiteralDoubleTreeExecution.v",
+    "prototype/interface/ExactLiteralDoubleTreeFactory.v",
+    "prototype/interface/ExactLiteralDoubleTreeCompiler.v",
+    "prototype/interface/ExactLiteralCombinedDoubleCompiler.v"
+  ],
+  "new_source_lines": 453,
+  "endpoints": [
+    "GuardMemoryExactLiteralDoubleTreeExecution.literal_double_exact_parameter_ranges",
+    "GuardMemoryExactLiteralDoubleTreeExecution.checked_exact_literal_double_tree_candidate_execution",
+    "ExactLiteralDoubleTreeFactory.exact_literal_double_tree_region_contract",
+    "ExactLiteralDoubleTreeFactory.check_exact_literal_double_tree_region_sound",
+    "ExactLiteralDoubleTreeCompiler.checked_exact_literal_double_tree_regions_sound",
+    "ExactLiteralDoubleTreeCompiler.checked_selected_exact_literal_double_tree_program_correct",
+    "ExactLiteralDoubleTreeCompiler.selected_exact_literal_double_tree_cstrategy_forward",
+    "ExactLiteralDoubleTreeCompiler.compile_selected_exact_literal_double_tree_program_correct",
+    "ExactLiteralCombinedDoubleCompiler.checked_selected_exact_literal_combined_double_program_correct",
+    "ExactLiteralCombinedDoubleCompiler.compile_selected_exact_literal_combined_double_program_correct"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 10,
+  "additional_global_axioms": [],
+  "closed_endpoints": 1,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 631,
+  "attempts": [
+    {
+      "module": "GuardMemoryExactLiteralDoubleTreeExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryExactLiteralDoubleTreeExecution-v1.json"
+    },
+    {
+      "module": "GuardMemoryExactLiteralDoubleTreeExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryExactLiteralDoubleTreeExecution-v2.json"
+    },
+    {
+      "module": "ExactLiteralDoubleTreeFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ExactLiteralDoubleTreeFactory-v1.json"
+    },
+    {
+      "module": "ExactLiteralDoubleTreeCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ExactLiteralDoubleTreeCompiler-v1.json"
+    },
+    {
+      "module": "ExactLiteralCombinedDoubleCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ExactLiteralCombinedDoubleCompiler-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "new_complete_compiler_endpoint": "ExactLiteralCombinedDoubleCompiler.compile_selected_exact_literal_combined_double_program_correct",
+  "literal_parameter_intervals_are_exact": true,
+  "exact_facts_follow_from_unconditional_private_constant_initialization": true,
+  "dynamic_loaded_parameter_intervals_unchanged": true,
+  "candidate_final_checker_remains_authoritative": true,
+  "factory_discharges_source_model_and_entry_obligations": true,
+  "normalization_and_all_passes_use_actual_intermediate_program": true,
+  "source_users_supply_semantic_callbacks": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "extraction_semantic_override_required": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/exact-literal-parameters/proof-v1/report.json"
+}

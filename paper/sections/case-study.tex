@@ -2275,3 +2275,34 @@ kernel change. Focused compilation now completes for both failed original
 inputs, and final Clight contains two independently tiled nests. The overall
 fused proposals reach raw code generation but the existing floor-bound adapter
 refuses them. Supporting those bounds remains a concrete functionality gap.
+
+
+\paragraph{Parameter Fact Precision and Candidate Coordinates.}
+An extracted mathematical service specializes parameters only when their
+certified interval has equal endpoints. It folds arithmetic, floor, remainder,
+and min/max expressions, while preserving unknown iterators under binders.
+Expression and test evaluation, and finite normal Loop execution, are preserved.
+The service runs during compilation; it does not synthesize an additional
+runtime entry guard.
+
+Its first native use receives widened intervals and cannot specialize the
+original constant-bound inputs. Those intervals include zero to account for
+unreached conditional loaded-bound captures. A literal-source successor instead
+uses exact intervals, justified by the existing unconditional initialization
+of every private constant cache. Its factory discharges the source/model and
+entry facts and connects the actual candidate to a new Csem-to-Asm endpoint.
+Dynamic loaded-bound contracts and the generic kernel remain unchanged.
+
+Candidate adaptation also has a representation obligation. Applying singleton
+cleanup after specialization deletes tile coordinates in the small fusion10
+input; output still matches, but the requested tiled installation is lost.
+A successor performs the original cleanup before specialization and retains
+newly singleton tile binders for the existing witness checker. The prior tiled
+installation is restored. Original fusion2 now passes whole-candidate bound
+adaptation and extracts seven pieces for two source instructions. The current
+final checker attaches instructions positionally and requires equal list
+lengths, so that whole candidate still cannot be installed. A checked piece
+mapping must establish coverage, uniqueness, action correspondence, order and
+progress; changing attachment arity alone would provide none of those facts.
+This is a domain proof obligation above the kernel, with the existing machine
+lowering and whole-program host retained.

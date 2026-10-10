@@ -1,0 +1,57 @@
+{
+  "status": "compiled",
+  "kind": "verified-singleton-parameter-specialization",
+  "new_modules": [
+    "theories/PolCertParameterSpecialization.v",
+    "adapters/compcert-memory/GuardMemoryDoubleParameterSpecialization.v"
+  ],
+  "new_source_lines": 140,
+  "endpoints": [
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.singleton_facts_hold",
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.expression_correct",
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.test_correct",
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.statement_correct"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.expression_correct",
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.singleton_facts_hold",
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.statement_correct",
+    "GuardMemoryDoubleParameterSpecialization.DoubleParameterSpecialization.test_correct"
+  ],
+  "new_endpoint_count": 4,
+  "additional_global_axioms": [],
+  "closed_endpoints": 3,
+  "maximum_endpoint_globals": 4,
+  "reachable_source_count": 155,
+  "attempts": [
+    {
+      "module": "PolCertParameterSpecialization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertParameterSpecialization-v1.json"
+    },
+    {
+      "module": "PolCertParameterSpecialization",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertParameterSpecialization-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleParameterSpecialization",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleParameterSpecialization-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "mathematical_singleton_facts_derived_from_intervals": true,
+  "loop_binders_preserve_unknown_iterators": true,
+  "expression_and_test_evaluation_preserved": true,
+  "finite_normal_Loop_execution_iff": true,
+  "candidate_final_checker_remains_authoritative": true,
+  "machine_guard_safety_provided_by_this_module": false,
+  "new_whole_program_compiler_definition": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/parameter-specialization/proof-v1/report.json"
+}
