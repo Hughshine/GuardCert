@@ -1,5 +1,14 @@
 # Verified guard library：服务分类与依赖契约
 
+[整树模型与安装](double-tree-model.md)新增服务已经被同一factory消费。
+Cache服务 requires static allocation/freshness 与前序source-licensed receipt，
+ensures 全槽typed intervals和accepted active valuation对应；未到达槽为zero。
+Signed affine footprint服务requires检查成功、source shape/shared layouts和
+accepted profiles，ensures数学下标范围及实际leaf resolution，不提供Mem权限
+或首次read许可。Candidate lowering消费该typed参数环境；出口服务恢复原public
+state。当前program host和Csem→Asm也已接线；native接受及成本不由这些theorem
+自动建立。最小kernel与host定律不改，shared headers仍recapture。
+
 [整树路径 capture](double-tree-capture.md)实际生成 readonly preparation：
 用原 first comparison 和 raw effects 运输 source-licensed reads，按缓存后的
 比较进入child，refusal短路后续headers。Requires仍是checked源、globals／

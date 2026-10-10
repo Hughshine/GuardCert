@@ -2,6 +2,34 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 整树 factory 与当前程序证明已闭合；下一步实际 native 接受
+
+[整树模型与安装后继](double-tree-model.md)闭合 final cache vector、未读取槽、
+signed/nonzero affine footprint、actual leaf resolution 和 candidate machine
+ranges。Actual preparation、polyhedral phases／最终 adapted Loop checker、
+候选 lowering、public-exit restore 与 fallback 已被同一 factory 和当前程序
+host／backend 消费；新的 Csem→Asm backward simulation 已编译。Kernel／
+host laws保持，C用户不给动态语义callback，profiles／phases是untrusted data。
+
+十五模块1,382行／50端点（24closed、最多42原globals）、556 reachable sources／
+10,311 bindings审计无新增globals；36 proof attempts全部保存。原三例[0,16]
+footprint／prepared model已实例化；另一[0,4096] probe实际通过profile、footprint、
+span、progress、Loop extraction和OpenScop export。它未运行external phase或
+candidate codegen，不计新的优化覆盖。native-v2已build，三原程序9/9完整输出匹配GCC；
+unmarked零安装/phase。Marked安装的是2/5/2个内部ranges，whole marked
+候选仍拒绝，不计完整tree优化或有用schedule/tiling覆盖。详见
+[独立native摘要](double-tree-native.json)。
+
+**当前下一步是关闭整段候选拒绝：** 增加准确的phase/最终checker/lowerer
+receipt，定位whole fusion1与tricky3在adaptation后的拒绝，以及whole stencil
+在phase output后、adaptation前的拒绝；保存失败输入并实际修复，验收整段
+fusion/域变换、完整C上下文与native输出，不能用内部ranges代替。
+静态/refused/identity/all-fallback不计覆盖，问题留在对应stage并做具体修复。
+随每项扩展复用当前program host；继续原62例/configurations、OLO entry
+conditions、CGO17原程序/tiers与完整成本，目标不缩为本checkpoint。
+
+### 前序路径 capture checkpoint
+
 ### 整树路径 capture 已生成并证明；下一步闭合参数和 factory
 
 [路径 capture 后继](double-tree-capture.md)生成实际 Clight preparation：初始化

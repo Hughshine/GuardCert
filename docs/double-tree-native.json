@@ -1,0 +1,155 @@
+{
+  "status": "checked-native-subregion-installation-with-whole-tree-refusals",
+  "evidence_kind": "extracted diagnostics and manual emitted-Clight boundary inspection",
+  "compiler_entrypoint": "DoubleTreeSelectedCompiler.compile_selected_double_tree_program",
+  "compiler_sha256": "f9a40ade3e130141b8e9ddef4cccfbfe390bb7114b38c38953b18cd609578456",
+  "whole_program_theorem": "DoubleTreeSelectedCompiler.compile_selected_double_tree_program_correct",
+  "reports": {
+    "proof": {
+      "path": "build/double-tree-model/proof-v1/report.json",
+      "sha256": "4f03434b37fa1a63180fee8c7216ab5699a543ee1613661e3591728df1b0f10d"
+    },
+    "build": {
+      "path": "build/double-tree-model/compiler-attempts/native-v2/report.json",
+      "sha256": "d8fbacdb62312f918bb277fe1233398ea7e6874925217cb2381ac576ce58b42e"
+    },
+    "rejection": {
+      "path": "build/double-tree-model/compiler-attempts/native-v1/rejection.json",
+      "sha256": "15eeebe3a42a2bd9ab43baaf9c5c3db177c31e87756a2d6bf6e1b5eaaa175c47"
+    },
+    "run": {
+      "path": "build/double-tree-model/native-attempts/original-v1/report.json",
+      "sha256": "ce74c8dc819fdc9cb6dcad352f698e6ca3d6688f1c26557d466005a495605c3a"
+    }
+  },
+  "build_attempts": {
+    "failed": 1,
+    "successful": 1,
+    "first_failure": "missing earlier helper extraction root for shared native inspection dependency"
+  },
+  "source_cases": 3,
+  "native_configurations": 9,
+  "native_matches": 9,
+  "native_failures": [],
+  "cases": [
+    {
+      "case": "fusion1",
+      "source_sha256": "a77d05fc15bdf8112f9b492dc15acb3256e56cee6a2456175afadd1c15a449eb",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            0,
+            0,
+            0
+          ],
+          "native_digest_matches_reference": true
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            2,
+            13,
+            3
+          ],
+          "native_digest_matches_reference": true
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            2,
+            13,
+            3
+          ],
+          "native_digest_matches_reference": true
+        }
+      },
+      "installed_boundary_observation": "separate child ranges within the original marked region",
+      "complete_marked_tree_candidate_installed": false
+    },
+    {
+      "case": "multi-stmt-stencil-seq",
+      "source_sha256": "6835bdb8ff9f0b859d56719245d0143b3c619e28aadf9604fcaadabd1e311c51",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            0,
+            0,
+            0
+          ],
+          "native_digest_matches_reference": true
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            5,
+            34,
+            6
+          ],
+          "native_digest_matches_reference": true
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            5,
+            34,
+            6
+          ],
+          "native_digest_matches_reference": true
+        }
+      },
+      "installed_boundary_observation": "separate child ranges within the original marked region",
+      "complete_marked_tree_candidate_installed": false
+    },
+    {
+      "case": "tricky3",
+      "source_sha256": "2448472faff16424a0c5e5c320fbf148bb04df0b2eb9a3f3aba7bafe94eef573",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            0,
+            0,
+            0
+          ],
+          "native_digest_matches_reference": true
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            2,
+            30,
+            4
+          ],
+          "native_digest_matches_reference": true
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed_regions_phase_calls_adaptations": [
+            2,
+            30,
+            4
+          ],
+          "native_digest_matches_reference": true
+        }
+      },
+      "installed_boundary_observation": "separate child ranges within the original marked region",
+      "complete_marked_tree_candidate_installed": false
+    }
+  ],
+  "source_numeric_types_and_computations_preserved": true,
+  "unmarked_excluded_from_loop_pass": true,
+  "requested_tiled_and_untiled_are_separate_configurations": true,
+  "actual_tiling_and_useful_reordering_coverage_established": false,
+  "full_marked_tree_optimization_coverage_established": false,
+  "actual_guard_path_observation_added": false,
+  "controlled_cost_comparison": false,
+  "aggregate_full_corpus_coverage_recomputed": false,
+  "remaining_failure_boundaries": {
+    "fusion1": "whole fused proposal reaches adaptation; final checking or machine lowering not yet separately observed",
+    "multi-stmt-stencil-seq": "whole phase returns a proposal but stops before adaptation; affine validation, tiled import/validation or prepared codegen not yet separately observed",
+    "tricky3": "whole transformed proposal reaches adaptation; final checking or machine lowering not yet separately observed"
+  },
+  "full_goal_complete": false
+}

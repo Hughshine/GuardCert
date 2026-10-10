@@ -1,5 +1,13 @@
 # 验证责任、证书边界与最难的验收
 
+[整树模型与安装](double-tree-model.md)已经实际闭合三方交接：language提供
+source-licensed capture、准确private cache和出口代码；domain提供signed affine
+footprint、accepted model facts及实际candidate验证；site/host生产scope、typed
+private resources和独立progress。新factory和当前程序Csem→Asm proof消费这些
+服务，C用户没有动态model callback。原三例prepared模型及[0,4096] extraction/
+export probe通过；native phase/candidate/installation仍单独验收，不能把完整
+泛化theorem记为覆盖、成本或proof-burden收益。以下前序边界保留。
+
 ## 持续适用的责任表
 
 [路径 capture 后继](double-tree-capture.md)把上述责任落实到 emitted check：

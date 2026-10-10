@@ -17917,5 +17917,132 @@
         "name": "tree_capture_refusal_skips_later_headers"
       }
     ]
+  },
+  "whole_tree_model_installation_checkpoint": {
+    "stage": "closed-whole-source-tree-model-and-current-program-compiler-checkpoint",
+    "summary": "docs/double-tree-model.json",
+    "proof_report": "build/double-tree-model/proof-v1/report.json",
+    "proof_report_sha256": "4f03434b37fa1a63180fee8c7216ab5699a543ee1613661e3591728df1b0f10d",
+    "source_check_report": "build/double-tree-model/source-attempts/source-v2/report.json",
+    "pipeline_request_report": "build/double-tree-model/pipeline-attempts/request-v1/report.json",
+    "new_Rocq_modules": 15,
+    "new_source_lines": 1382,
+    "queried_endpoints": 50,
+    "closed_endpoints": 24,
+    "maximum_inherited_globals": 42,
+    "reachable_sources": 556,
+    "bindings": 10311,
+    "proof_attempts": 36,
+    "additional_global_axioms": [],
+    "kernel_or_host_laws_changed": false,
+    "dynamic_source_model_and_cache_premises_closed": true,
+    "actual_factory_and_current_program_host_consume_services": true,
+    "new_complete_compiler_endpoint": "DoubleTreeSelectedCompiler.compile_selected_double_tree_program_correct",
+    "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+    "original_model_instances": [
+      "fusion1",
+      "multi-stmt-stencil-seq",
+      "tricky3"
+    ],
+    "original_pure_extraction_and_export_probes_passed": true,
+    "native_evidence_included_in_this_proof_checkpoint": false,
+    "new_cost_evidence": false,
+    "OLO_compact_condition_algorithm_complete": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCacheFrame.v",
+        "name": "double_tree_capture_preserves_cache"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeActiveValuation.v",
+        "name": "double_tree_active_headers_agree"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCacheParameters.v",
+        "name": "double_tree_accepted_cached_headers"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleAffineBoxBounds.v",
+        "name": "double_affine_box_instruction_check_sound"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCacheEnvironment.v",
+        "name": "double_tree_capture_environment_preserved"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeFootprint.v",
+        "name": "double_tree_footprint_model_facts"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreePreparedModel.v",
+        "name": "checked_double_tree_prepared_model"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCandidate.v",
+        "name": "compiled_double_tree_candidate_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeExitCode.v",
+        "name": "double_tree_exit_code_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreePrepared.v",
+        "name": "checked_double_tree_tiled_prepared_loop_progress_at"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeGuarded.v",
+        "name": "checked_double_tree_guarded_execution"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeRegionFactory.v",
+        "name": "double_tree_region_contract"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeRegionFactory.v",
+        "name": "check_double_tree_region_sound"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeSelectedCompiler.v",
+        "name": "compile_selected_double_tree_program_correct"
+      }
+    ]
+  },
+  "whole_tree_native_attempt": {
+    "summary": "docs/double-tree-native.json",
+    "summary_sha256": "122d72fc2f063e3fd7d75a80e0f32d1b6272b2577178e217f006e27552aae3fa",
+    "compiler_report": {
+      "path": "build/double-tree-model/compiler-attempts/native-v2/report.json",
+      "sha256": "d8fbacdb62312f918bb277fe1233398ea7e6874925217cb2381ac576ce58b42e"
+    },
+    "native_report": {
+      "path": "build/double-tree-model/native-attempts/original-v1/report.json",
+      "sha256": "ce74c8dc819fdc9cb6dcad352f698e6ca3d6688f1c26557d466005a495605c3a"
+    },
+    "first_build_rejection": {
+      "path": "build/double-tree-model/compiler-attempts/native-v1/rejection.json",
+      "sha256": "15eeebe3a42a2bd9ab43baaf9c5c3db177c31e87756a2d6bf6e1b5eaaa175c47"
+    },
+    "whole_program_theorem": "DoubleTreeSelectedCompiler.compile_selected_double_tree_program_correct",
+    "native_cases": 3,
+    "native_configurations": 9,
+    "native_matches": 9,
+    "unmarked_installed_sites": 0,
+    "marked_internal_sites_per_configuration": [
+      2,
+      5,
+      2
+    ],
+    "complete_marked_tree_optimizations": 0,
+    "actual_tiling_and_useful_reordering_coverage_established": false,
+    "actual_guard_path_observation_added": false,
+    "new_cost_evidence": false,
+    "aggregate_full_corpus_coverage_recomputed": false,
+    "full_goal_complete": false,
+    "remaining_failure_boundaries": {
+      "fusion1": "whole fused proposal reaches adaptation; final checking or machine lowering not yet separately observed",
+      "multi-stmt-stencil-seq": "whole phase returns a proposal but stops before adaptation; affine validation, tiled import/validation or prepared codegen not yet separately observed",
+      "tricky3": "whole transformed proposal reaches adaptation; final checking or machine lowering not yet separately observed"
+    }
   }
 }
