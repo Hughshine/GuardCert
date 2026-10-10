@@ -17664,5 +17664,109 @@
         "name": "multiplication_can_wrap_into_an_accepted_i32_result"
       }
     ]
+  },
+  "whole_source_tree_checkpoint": {
+    "stage": "checked-whole-source-tree-and-actual-raw-header-effects",
+    "summary": "docs/double-source-tree.json",
+    "proof_report": "build/double-source-tree/proof-v1/report.json",
+    "proof_report_sha256": "54499f848d533eb17a4bad705ffcfb49b0a0a4da439c816d913707f0aee843cc",
+    "source_check_report": "build/double-source-tree/source-attempts/source-v2/report.json",
+    "initial_probe_failure": "build/double-source-tree/source-attempts/source-v1/report.json",
+    "new_Rocq_modules": 7,
+    "new_source_lines": 656,
+    "queried_endpoints": 25,
+    "closed_endpoints": 6,
+    "maximum_inherited_globals": 6,
+    "reachable_sources": 249,
+    "bindings": 9858,
+    "proof_attempts": 29,
+    "additional_global_axioms": [],
+    "kernel_or_host_laws_changed": false,
+    "new_Clight_structured_effect_service": true,
+    "checked_original_source_progress_header_and_layout_certificates": true,
+    "raw_header_loads_and_permissions_preserved_without_accepted_point_resolution": true,
+    "complete_original_source_checks": [
+      {
+        "case": "fusion1",
+        "source_tree_summaries": [
+          [
+            1,
+            2,
+            1,
+            2,
+            2
+          ]
+        ]
+      },
+      {
+        "case": "multi-stmt-stencil-seq",
+        "source_tree_summaries": [
+          [
+            1,
+            5,
+            1,
+            5,
+            5
+          ]
+        ]
+      },
+      {
+        "case": "tricky3",
+        "source_tree_summaries": [
+          [
+            1,
+            4,
+            3,
+            3,
+            3
+          ]
+        ]
+      }
+    ],
+    "tree_source_model_execution_correspondence_proved": false,
+    "path_sensitive_multi_header_captures_installed": false,
+    "actual_new_candidate_installed": false,
+    "new_complete_compiler_endpoint_added": false,
+    "native_source_coverage_added": false,
+    "native_or_cost_evidence_added": false,
+    "full_goal_complete": false,
+    "theorems": [
+      {
+        "source": "theories/ClightStructuredMemoryFrame.v",
+        "name": "structured_memory_frame_execution"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRawEffects.v",
+        "name": "checked_double_source_raw_store"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleRawEffects.v",
+        "name": "checked_double_source_raw_preserves_header"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeEffects.v",
+        "name": "checked_double_source_tree_raw_header_frame"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeDecode.v",
+        "name": "checked_double_source_tree_sound"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeProgress.v",
+        "name": "double_source_tree_region_progress"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeCertificates.v",
+        "name": "checked_double_source_tree_progress"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeCertificates.v",
+        "name": "checked_double_source_tree_header_certificate"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleSourceTreeCertificates.v",
+        "name": "checked_double_source_tree_layout_certificate"
+      }
+    ]
   }
 }

@@ -2,6 +2,16 @@
 
 ## 持续适用的责任表
 
+[Source-tree 后继](double-source-tree.md)关闭 pre-guard effects 的语言服务：
+实际 source lvalue／store 提供 global block 和其他 header load 保持，不用
+accepted mathematical cells；structured language 服务组合整个 tree 的 effects
+和 permissions。Domain decoder 保留原 sequence、不同深度与共享 registry，
+核对完整语法及静态 exclusions；checked certificate 接到原 source 的独立
+progress／header-frame／layout。最小 kernel 和 host laws 不变。原三例整段
+decoder 通过不是优化安装：source/model、路径许可 captures、参数编码、真实
+phase/candidate、公开出口和当前程序 Csem→Asm 仍须由 language/domain/site
+实际闭合。C 使用者不补 semantic callbacks，当前 native 覆盖不增加。
+
 [非零/shared source服务](signed-range-source.md)把三方责任用于实际证明：language
 生产initializer／首次比较许可、read-footprint运输、实际signed expression
 capture、准确I32 cache、strict独立progress和public exits；domain提供`N-c`

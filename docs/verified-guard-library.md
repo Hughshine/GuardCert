@@ -1,5 +1,14 @@
 # Verified guard library：服务分类与依赖契约
 
+[Source-tree raw effects](double-source-tree.md)补 pre-guard observation-preservation
+服务：实际成功 assignment 的 global write block 由原 Clight lvalue 反推，
+不消费 accepted point resolution／no-wrap；structured execution 沿 sequence、
+if／loop 组合，保持排除写入的 header loads 与全部 permissions。Static decoder
+和 site 的 globals／scope 证据是调用前提。Checked tree 自动构造这些效果证据
+并提供独立 strict progress／shared layouts；后继仍须用它们运输具体首次观察
+并生成 path-sensitive captures。这里不是新 runtime check、callable C library
+或 kernel API，三个原源整段识别不计 candidate／native installation。
+
 [Signed expression capture](signed-range-source.md)新增实际I64 expression服务。
 Safe requires是type与安全`eval_expr`，由源首次比较和read-footprint运输提供；
 accepted ensures是signed interval与准确I32 cache，含负值。检查保持memory并

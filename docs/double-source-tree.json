@@ -1,0 +1,285 @@
+{
+  "status": "compiled",
+  "kind": "checked-whole-source-tree-raw-effects-progress-checkpoint",
+  "new_modules": [
+    "theories/ClightStructuredMemoryFrame.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceTreeData.v",
+    "adapters/compcert-memory/GuardMemoryDoubleRawEffects.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceTreeEffects.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceTreeProgress.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceTreeDecode.v",
+    "adapters/compcert-memory/GuardMemoryDoubleSourceTreeCertificates.v"
+  ],
+  "new_source_lines": 656,
+  "endpoints": [
+    "ClightStructuredMemoryFrame.structured_memory_frame_execution",
+    "GuardMemoryDoubleSourceTreeData.double_tree_bound_type",
+    "GuardMemoryDoubleSourceTreeData.double_source_tree_header_writes_check_sound",
+    "GuardMemoryDoubleSourceTreeData.double_source_tree_parameter_membership",
+    "GuardMemoryDoubleSourceTreeData.double_source_tree_parameter_distinct",
+    "GuardMemoryDoubleSourceTreeData.double_source_tree_writes_avoid",
+    "GuardMemoryDoubleRawEffects.decoded_long_source_index_type",
+    "GuardMemoryDoubleRawEffects.decoded_long_source_indices_types",
+    "GuardMemoryDoubleRawEffects.double_raw_array_value",
+    "GuardMemoryDoubleRawEffects.double_raw_tensor_lvalue_origin",
+    "GuardMemoryDoubleRawEffects.decoded_double_affine_source_lvalue_origin",
+    "GuardMemoryDoubleRawEffects.checked_double_source_raw_store",
+    "GuardMemoryDoubleRawEffects.checked_double_source_raw_preserves_header",
+    "GuardMemoryDoubleSourceTreeEffects.double_source_tree_header_frame",
+    "GuardMemoryDoubleSourceTreeEffects.checked_double_source_raw_permissions",
+    "GuardMemoryDoubleSourceTreeEffects.checked_double_source_tree_raw_header_frame",
+    "GuardMemoryDoubleSourceTreeProgress.double_tree_canonical_range_progress",
+    "GuardMemoryDoubleSourceTreeProgress.double_source_tree_framed_progress",
+    "GuardMemoryDoubleSourceTreeProgress.double_source_tree_region_progress",
+    "GuardMemoryDoubleSourceTreeDecode.double_source_tree_decode_step_sound",
+    "GuardMemoryDoubleSourceTreeDecode.double_source_tree_decode_fuel_sound",
+    "GuardMemoryDoubleSourceTreeDecode.checked_double_source_tree_sound",
+    "GuardMemoryDoubleSourceTreeCertificates.checked_double_source_tree_progress",
+    "GuardMemoryDoubleSourceTreeCertificates.checked_double_source_tree_header_certificate",
+    "GuardMemoryDoubleSourceTreeCertificates.checked_double_source_tree_layout_certificate"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 6,
+  "maximum_endpoint_globals": 6,
+  "reachable_source_count": 249,
+  "attempts": [
+    {
+      "source": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v2.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/ClightStructuredMemoryFrame-v3.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v10.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v10.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v10.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v11.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v11.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v11.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v12.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v12.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v12.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v13.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v13.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v13.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v14.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v14.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v14.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v15.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v15.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v15.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v16.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v16.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v16.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v17.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v17.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v17.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v2.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v3.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v4.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v4.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v4.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v5.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v5.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v5.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v6.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v6.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v6.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v7.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v7.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v7.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v8.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v8.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v8.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v9.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v9.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleRawEffects-v9.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeCertificates-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeCertificates-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeCertificates-v1.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeData-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeData-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeData-v1.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeDecode-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeDecode-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeDecode-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeDecode-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeDecode-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeDecode-v2.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeEffects-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeEffects-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeEffects-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeEffects-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeEffects-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeEffects-v2.json",
+      "compiled": true
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v1.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v1.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v1.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v2.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v2.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v2.json",
+      "compiled": false
+    },
+    {
+      "source": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v3.v",
+      "log": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v3.log",
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleSourceTreeProgress-v3.json",
+      "compiled": true
+    }
+  ],
+  "kernel_changed": false,
+  "new_host_contract": false,
+  "checked_actual_statement_reconstruction": true,
+  "sequences_and_heterogeneous_loop_depth_preserved": true,
+  "shared_parameter_and_layout_registries_checked": true,
+  "raw_source_global_write_block_proved": true,
+  "header_loads_preserved_without_accepted_point_resolution": true,
+  "actual_source_store_permissions_preserved": true,
+  "strict_source_progress_independent_of_guard_acceptance": true,
+  "checked_decoder_produces_progress_header_and_layout_certificates": true,
+  "new_language_structured_effect_service": true,
+  "original_marked_source_checks": [
+    {
+      "case": "fusion1",
+      "source_tree_summaries": [
+        [
+          1,
+          2,
+          1,
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "case": "multi-stmt-stencil-seq",
+      "source_tree_summaries": [
+        [
+          1,
+          5,
+          1,
+          5,
+          5
+        ]
+      ]
+    },
+    {
+      "case": "tricky3",
+      "source_tree_summaries": [
+        [
+          1,
+          4,
+          3,
+          3,
+          3
+        ]
+      ]
+    }
+  ],
+  "source_check_report": "build/double-source-tree/source-attempts/source-v2/report.json",
+  "initial_missing_Pos_import_probe_failure_retained": true,
+  "installed_factory_consumes_new_source_tree": false,
+  "new_tree_source_model_execution_correspondence_proved": false,
+  "path_sensitive_multi_header_capture_installed": false,
+  "all_source_model_premises_closed_by_new_factory": false,
+  "new_complete_compiler_endpoint_added": false,
+  "native_source_coverage_added": false,
+  "native_or_cost_evidence_added_by_audit": false,
+  "inclusive_source_progress_proved": false,
+  "mixed_statement_region_optimization_installed": false,
+  "full_goal_complete": false,
+  "toolchain": "The Rocq Prover, version 9.2\ncompiled with OCaml 4.14.1",
+  "report": "build/double-source-tree/proof-v1/report.json",
+  "report_bindings_before_portable": 9857
+}

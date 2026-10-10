@@ -2348,3 +2348,18 @@ general affine no-wrap facts. Source/model services preserve IEEE assignments,
 public exits and the original shared header parameter. Their premises are not
 yet closed by a new source tree and factory. This stage adds no native source
 coverage, complete compiler endpoint or execution-cost evidence.
+
+\paragraph{Whole-source-tree checkpoint.}
+Seven modules add 656 lines and 25 queried endpoints: six closed, at most six
+inherited globals and no added global assumptions. The audit follows 249
+reachable sources and binds 9,858 files, retaining 29 proof attempts. Three
+original marked C regions pass complete source-tree decoding after the existing
+frontend exports their Clight. Fusion1 has two assignments and ranges with one
+shared header parameter; multi-stmt-stencil-seq has five of each with one
+parameter; tricky3 has four scalar assignments, three ranges of different
+depths and three parameters. No further source normalization or change to the
+computation is applied. The first probe lacks the Pos import and fails; its
+inputs and logs remain separate from the successful probe. These checks establish
+source recognition, static certificates and the new effect/progress services.
+They add no installed optimization, complete compiler endpoint, native source
+coverage or cost result.

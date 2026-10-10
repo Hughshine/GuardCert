@@ -2,6 +2,30 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 整段 source tree：原源识别、raw effects 与独立 progress 已闭合
+
+[Source-tree checkpoint](double-source-tree.md)从原 Clight 自动取得整段 sequence、
+不同深度、共享 header／layout registry 与实际 assignments。Decoder 对整个
+range statement 重建核对，不以 proposal 字段作 authority。新 language 服务
+从原 lvalue／store 证明 global block、header loads 和 permissions 保持，再沿
+实际结构组合；调用不借用 accepted point resolution／no-wrap。Checked 结果
+直接生产原 statement 的 region progress、header-frame 和 shared-layout 证据。
+Kernel／host 定律保持，strict progress 仍独立于接受且可表示 stuck source。
+
+原 fusion1、multi-stmt-stencil-seq、tricky3 的完整 marked C 区域分别识别到
+2／5／4 assignments、2／5／3 ranges、1／1／3 shared parameters；未另改计算
+或 normalization。七模块656行／25端点（6 closed、最多6原 globals）、249
+reachable sources／9858 bindings 已审计；29 proof attempts 与首次缺失 Pos
+import 的原源 probe 失败固定，成功 source-v2 单独保存。尚无整树 source/Loop
+执行桥、path-sensitive capture、候选／factory／新完整compiler 或 native覆盖。
+
+**当前下一步是这些服务的实际 source/model 和 capture 消费：** 同一 shared
+registry／header vector 上递归证明 source/Loop 对应和准确 public exits；闭合
+参数编码、控制与 point ranges。用新 raw effects 将 reached header receipt
+按实际路径运输到 guard 入口，empty outer 不预读 child。随后立即接真实 phases、
+最终candidate验证、机器lowering和current-program host／Csem→Asm，不把三个
+原源的静态识别计为已安装优化。其余完整目标保持，详见下列优先项。
+
 ### Narrative 复核：下一 source tree 的证明交接
 
 2026-10-09 已重新 fetch 并核对 `origin/topdown/research-positioning`
