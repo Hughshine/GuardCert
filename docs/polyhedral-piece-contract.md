@@ -1,10 +1,18 @@
 # 下一项 domain 接口：一源多 piece 的执行对应
 
+新的[checked 模型执行接口](piece-execution.md)已落实完整 one-to-many point
+isomorphism、静态 ordinal 拼接和多 instruction 的实际 instance-list 执行 iff。
+总检查器进一步组合已成立参数 facts 与实际依赖验证，连接真实 source／candidate
+models；五模块642行／八端点、无新增 globals。Actual Loop bridge 又复用既有
+extractor，给出 model/candidate 有限执行 iff 和 actual source-to-candidate forward；
+59行／两端点、无新增 globals。同参数 phase 反向执行、独立 Clight progress 和
+整体安装继续交付。以下保留设计与完整程序验收。
+
 后继[动作／参数／执行服务](piece-actions-and-execution.md)已证明 typed action、
 参数前缀、retimed timestamp、有限 piece 选择，以及 retained phase 的模型 forward
 执行和已成立参数事实下的域 restriction iff。实际原 fusion2 的13项动作／参数
-和两次 retimed-to-actual 依赖检查通过，但完整 point isomorphism／actual Loop／
-progress／安装仍在推进；下文是接口设计与剩余验收，不是完成声明。
+和两次 retimed-to-actual 依赖检查通过；actual Loop／progress／安装仍在推进。
+完整 point isomorphism 的后继实现见本页首段，下文保留接口设计与剩余验收。
 
 这是基于原 `fusion2` scheduler/codegen receipts 的实施设计。新的
 [域／坐标服务](piece-domain-services.md)已实现覆盖、互斥和唯一 instance 对应，

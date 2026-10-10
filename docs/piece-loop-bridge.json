@@ -1,0 +1,38 @@
+{
+  "status": "compiled",
+  "kind": "checked-piece-model-to-actual-finite-loop-execution",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoublePieceLoops.v"
+  ],
+  "new_source_lines": 59,
+  "endpoints": [
+    "GuardMemoryDoublePieceLoops.checked_double_piece_model_to_actual_loop_at",
+    "GuardMemoryDoublePieceLoops.checked_double_piece_actual_loops_forward_at"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 2,
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 12,
+  "reachable_source_count": 189,
+  "attempts": [
+    {
+      "module": "GuardMemoryDoublePieceLoops",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceLoops-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "actual_model_to_actual_candidate_Loop_execution_iff_proved": true,
+  "actual_source_phase_model_candidate_Loop_forward_proved": true,
+  "existing_bidirectional_actual_candidate_extractor_theorem_reused": true,
+  "independent_Clight_progress_proof_added": false,
+  "new_whole_program_compiler_definition": false,
+  "whole_fusion_installation_proved": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-loop-bridge/proof-v1/report.json"
+}

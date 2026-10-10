@@ -1,0 +1,10 @@
+From Guard Require Import PolCertPieceSequenceExecution.
+From GuardMemory Require Import GuardMemoryDoubleAssignment GuardMemoryDoublePolyhedral.
+Module DoublePieceSequence := PolCertPieceSequenceExecutionFor DoubleAssignmentIRs.
+Print Assumptions DoublePieceSequence.Single.check_single_family_sound.
+Print Assumptions DoublePieceSequence.Single.single_isomorphism.
+Print Assumptions DoublePieceSequence.Single.checked_single_family_execution.
+Print Assumptions DoublePieceSequence.Append.append_isomorphism.
+Print Assumptions DoublePieceSequence.check_sequence_families_sound.
+Print Assumptions DoublePieceSequence.sequence_has_isomorphism.
+Print Assumptions DoublePieceSequence.checked_sequence_families_execution.

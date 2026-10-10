@@ -1,5 +1,18 @@
 # 验证责任、证书边界与最难的验收
 
+新的[完整 piece 模型执行服务](piece-execution.md)从 checked 一源多片数据构造
+完整 point isomorphism，证明静态 ordinal 拼接，组合参数条件下的 restriction
+与实际调度验证。它交付模型层 `C_opt`，五模块642行／八端点、无新增 globals。
+已成立参数 facts 与 NonAlias 的来源仍由实例化说明；它不自动生产 safe guard，
+也不向普通 C 使用者索要语义 callbacks。Kernel 和语言 host laws 不变。
+后继已复用已有双向 extractor，证明 model/candidate Loop 有限执行 iff，以及
+actual source 经 phase 到 candidate 的 forward；59行／两端点、无新增 globals。
+**最难的剩余连接是同参数 phase 反向执行、独立 Clight progress 与真实 factory／
+当前程序安装**。Factory 必须消费 data-only groups／coverage 和真实 checker
+证据，不能把 adapter 诊断当安装授权。原 fusion2 两个总模型检查及八个负例拒绝
+已完成，整体 fusion 仍未安装。
+以下保留前序 checkpoint；当前计划首节为准。
+
 当前的[动作／参数／执行连接](piece-actions-and-execution.md)继续按 narrative
 `8ce9c8b` 分工：domain 证明 typed instruction／arguments、参数前缀、piece
 选择和 retimed timestamp，并保留 checked phase 的源模型 forward 执行。已成立

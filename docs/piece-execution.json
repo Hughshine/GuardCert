@@ -1,0 +1,179 @@
+{
+  "status": "compiled",
+  "kind": "checked-grouped-piece-point-isomorphism-and-execution",
+  "new_modules": [
+    "theories/PolCertPieceSingleExecution.v",
+    "theories/PolCertPointSequenceAppend.v",
+    "theories/PolCertPieceSequenceExecution.v",
+    "adapters/compcert-memory/GuardMemoryDoublePieceExecution.v",
+    "adapters/compcert-memory/GuardMemoryDoublePieceModel.v"
+  ],
+  "new_source_lines": 642,
+  "endpoints": [
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Single.check_single_family_sound",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Single.single_isomorphism",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Single.checked_single_family_execution",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Append.append_isomorphism",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.check_sequence_families_sound",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.sequence_has_isomorphism",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.checked_sequence_families_execution",
+    "GuardMemoryDoublePieceModel.checked_double_piece_model_equivalence_at"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Append.append_isomorphism",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Single.check_single_family_sound",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Single.checked_single_family_execution",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.Single.single_isomorphism",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.check_sequence_families_sound",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.checked_sequence_families_execution",
+    "GuardMemoryDoublePieceExecution.DoublePieceSequence.sequence_has_isomorphism"
+  ],
+  "new_endpoint_count": 8,
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 12,
+  "reachable_source_count": 171,
+  "attempts": [
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v1.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v10.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v11.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v12.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v13.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v14.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v2.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v3.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v4.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v5.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v6.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v7.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v8.json"
+    },
+    {
+      "module": "PolCertPieceSingleExecution",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSingleExecution-v9.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v1.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v2.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v3.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v4.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v5.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v6.json"
+    },
+    {
+      "module": "PolCertPointSequenceAppend",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPointSequenceAppend-v7.json"
+    },
+    {
+      "module": "PolCertPieceSequenceExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceSequenceExecution-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceExecution-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceModel",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceModel-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceModel",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceModel-v2.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "single_piece_family_checker_produces_full_point_isomorphism": true,
+  "coordinate_domains_bound_to_actual_candidate_domains": true,
+  "full_grouped_multi_instruction_point_isomorphism_constructed": true,
+  "instruction_ordinal_concatenation_proved": true,
+  "actual_poly_instance_list_execution_iff_proved": true,
+  "parameter_restriction_piece_mapping_and_order_combined_for_actual_models": true,
+  "piece_retiming_keeps_order_proof_separate": true,
+  "actual_candidate_Loop_execution_bridge_added": false,
+  "new_whole_program_compiler_definition": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-execution/proof-v1/report.json"
+}

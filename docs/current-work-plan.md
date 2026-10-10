@@ -2,6 +2,28 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 完整 grouped piece 模型执行已证明；接实际候选 Loop
+
+[模型执行接口](piece-execution.md)已从 checked 单组数据构造完整 point
+isomorphism，证明 ordinal 拼接与多 instruction 对应，并组合参数域 restriction
+和实际依赖验证。总检查器接受后，在已成立参数条件与适用 NonAlias 下，给出
+source／actual candidate 的 polyhedral instance-list 执行 iff。五模块642行／八
+端点、最多十二项既有 globals、无新增；25次编译保留20次失败。它是 domain
+`C_opt` 服务，不扩展 kernel／host laws，不让 C 使用者填写语义 callbacks。
+
+Actual Loop bridge 已复用既有双向 extractor，给出 model/candidate Loop 有限
+执行 iff，以及 actual source Loop 经 checked phase 到 candidate Loop 的 forward
+保持；59行／两端点、无新增 globals。原 fusion2 两个总模型检查通过，遗漏／
+重复／改坏实际 instruction／逆转依赖各在两配置拒绝，三完整输出匹配；整体
+fusion 仍未安装。静态 groups 按源 ordinal 拼接，动态重排另由依赖验证承担。
+
+下一具体接口是 data-only piece proposer 返回 groups／coverage，由新 factory
+对实际 source、phase、candidate 运行总检查器；不能用 adapter 的诊断 bool
+授权安装。还需在同一 captured parameters 上连接 phase 反向执行、独立 Clight
+progress、machine lowering、公开出口与当前程序 host。OLO compact 条件、safe
+guard／entry transport 和实际成本继续独立验收。
+以下保留前序 checkpoint。
+
 ### Typed piece actions 与参数域执行已证明；构造完整对应
 
 已读远端 narrative `8ce9c8b` 的澄清，正文与 main 相同。仍明确区分静态

@@ -68,10 +68,11 @@ actual/retimed/source schedules。Untiled 六 pieces、tiled 七 pieces 的13项
 安装路径消费。Summary 首次因 receipt 字段名错误拒绝，原 script 和拒绝记录
 保留；修正后的结果来自同一次已完成 replay，没有重跑候选。
 
-接下来先构造 checked family 到完整 point isomorphism 的生产证明，再组合各
-source instructions 的分片对应。静态 instruction ordinals 的组合必须有证明；
-源到目标执行次序的改变仍须过依赖验证。随后接 actual Loop、独立 progress、
-machine lowering、出口和当前程序 host。整体 fusion 安装通过才完成这项验收。
+后继[模型执行服务](piece-execution.md)已从 checked family 构造完整 point
+isomorphism，并证明静态 instruction ordinals 的拼接和多 instruction 对应，
+组合参数 restriction 与实际依赖验证。上述原生结果仍保留其诊断 scope，不改写
+历史报告。随后接 actual Loop、独立 progress、machine lowering、出口和当前
+程序 host；整体 fusion 安装通过才完成这项验收。
 
 OLO 的 compact `B ⇒ A`、safe `G accepts ⇒ B`、accepted/refused transport、
 共享检查与原 CGO17 contexts/tiers/成本，以及其他 PolCert 顺序变换能力继续

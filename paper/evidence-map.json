@@ -5200,6 +5200,42 @@
         "docs/piece-parameter-domains.json",
         "docs/piece-action-results.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Accepted grouped piece checks construct complete point isomorphisms; ordinal concatenation and parameter restriction combine with actual dependence validation to prove source/candidate model execution equivalence under established facts. Existing bidirectional extraction connects actual candidate finite Loop execution and source-to-candidate forward execution through the retained phase. Actual fusion2 diagnostics pass; same-parameter reverse phase, independent Clight progress and whole fusion installation remain separate obligations.",
+      "theorems": [
+        {
+          "source": "theories/PolCertPieceSingleExecution.v",
+          "name": "single_isomorphism"
+        },
+        {
+          "source": "theories/PolCertPointSequenceAppend.v",
+          "name": "append_isomorphism"
+        },
+        {
+          "source": "theories/PolCertPieceSequenceExecution.v",
+          "name": "checked_sequence_families_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePieceModel.v",
+          "name": "checked_double_piece_model_equivalence_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePieceLoops.v",
+          "name": "checked_double_piece_model_to_actual_loop_at"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePieceLoops.v",
+          "name": "checked_double_piece_actual_loops_forward_at"
+        }
+      ],
+      "documents": [
+        "docs/piece-execution.md",
+        "docs/piece-execution.json",
+        "docs/piece-loop-bridge.json",
+        "docs/piece-execution-results.json"
+      ]
     }
   ],
   "bibliography_evidence": [
