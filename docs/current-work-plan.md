@@ -2,6 +2,43 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 整数 coverage 已接到动态整体分块；验收组合入口
+
+本轮重新 fetch narrative，仍为 `8ce9c8b`，与 main 正文一致。
+[责任复核](narrative-integer-cover-check-2026-10-10.md)保留 kernel／language-host／
+domain 分工，不把源码执行当预检查，不把 compile-time coverage 当 runtime
+condition synthesis。五类 guard 服务继续按调用前提、成功事实、读取/private
+effects、public frame 和拒绝契约组织；context clauses 仍是开放设计问题。
+
+不受信任整数切分提案已由既有总 checker 消费，并在既有 standalone
+`DoublePieceTreeCompiler` 全程序入口实际安装动态整体候选：untiled 六片、tiled
+八片。原数组和 IEEE kernel 保持，独立 `N/M` 是披露的 adaptation；三配置各
+编译一次，41 组输入的 [123 次完整输出及公开出口](dynamic-piece-runtime.json)
+均匹配。[21 次机器观察](dynamic-piece-integer-observation.json)确认两位置
+写次序、profile 外回退和 conditional child 读取。Tiled 编译约 177 秒，是
+编译期成本问题；没有由这些观察推断 runtime 盈利或其他 PolCert 变换支持。
+
+旧组合路径在后续 passes 中 stack overflow，失败保留。新的
+`SelectivePieceCombinedDoubleCompilerV3` 允许数据策略在实际当前程序选择后续
+标注位置，完整已 versioned 的 tree 不重复交给旧 pass。三个证明已重新编译和
+[审计](dynamic-piece-selective-proof.json)：87 行、最多 42 项既有 globals、无
+新增。策略只影响搜索；每个接受位置仍消费既有 source/model、guard、frame、
+progress、placement 和 Csem→Asm 契约。普通 C 使用者不提供语义 callbacks。
+
+新组合入口的标准提取和[同源 123 次完整运行](dynamic-piece-selective-runtime.json)
+已通过；untiled/tiled 都报告 `chosen=1 protected=1 remaining=0`，并保留整体
+候选。[组合入口 21 次机器观察](dynamic-piece-selective-observation.json)也通过。
+接下来完成同 compiler 的多标注、caller/stack exits、continuation、资源拒绝
+及 62 原例／两 adaptations 回归。重复区域的成本目标先编译，所有本轮其他
+编译/回归结束后才采样完整进程成本。旧 180 秒 context budget 有四个 timeout，
+实际 native 调用为 56，不能采用原报告的名义 84；新 600 秒 budget 单独披露。
+未生成目标的配置不能计 native matches。
+
+后续继续处理 benchmark 暴露的 source/target/phase 缺口，并完成 OLO 局部义务
+到有用 compact `B⇒A`、safe `G accepts⇒B`、入口运输和共享检查。PolCert 顺序
+功能与 CGO17 原源／上下文仍是总体验收，完整 goal 保持 active。以下是历史
+checkpoint，其“tiled 未安装”不描述本节已通过的 standalone 结果。
+
 ### Narrative 复核与动态 piece 接线
 
 本次重新 fetch 并核对远端 heads，`topdown/research-positioning` 可见最新仍为

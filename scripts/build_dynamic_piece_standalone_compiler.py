@@ -1,0 +1,83 @@
+"""Select the existing audited standalone piece root to isolate installation.
+
+All extracted semantic ML sources are copied unchanged. The Driver changes only
+the two untrusted proposer arguments to the same universally proved root.
+"""
+import argparse
+import json
+from pathlib import Path
+import re
+import shutil
+import subprocess
+
+from audit_interface_clight import ROOT, sha
+from audit_word_store_sequence import permitted
+from probe_piece_models import checked
+
+PARENT = ROOT/'build/double-tree-model/compiler-attempts/native-dynamic-piece-integer-v6/report.json'
+MODULE = 'GuardSelectedDoublePieceIntegerCoverageV5'
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--attempt',required=True)
+    args = parser.parse_args()
+    if not re.fullmatch('[a-z0-9-]+',args.attempt):
+        raise ValueError('Use a fresh simple attempt')
+    bindings = {}
+    parent = checked(PARENT,bindings)
+    if parent['status']!='built' or not parent['integer_coverage_splits_are_untrusted_data_consumed_by_existing_checker']:
+        raise ValueError('Require the proved and extracted current compiler')
+    previous = PARENT.parent
+    work = previous.parent/args.attempt
+    if work.exists():
+        raise ValueError('Attempt already exists')
+    excluded = {'report.json','build.log','snapshots'}
+    shutil.copytree(previous,work,ignore=lambda directory,names:
+        list(excluded & set(names)) if Path(directory)==previous else [])
+    snapshots = work/'successor-snapshots'
+    snapshots.mkdir()
+    shutil.copy2(PARENT,snapshots/'parent-report.json')
+    shutil.copy2(Path(__file__),snapshots/'script.py')
+    native = permitted(ROOT/'adapters/compcert-memory/native'/(MODULE+'.ml'))
+    driver = work/'driver/Driver.ml'
+    old = permitted(previous/'driver/Driver.ml').read_text()
+    before='PieceCombinedDoubleCompiler.compile_selected_piece_combined_double_program '
+    start=old.index(before)
+    stop=old.index(' csyntax)',start)+len(' csyntax')
+    replacement='DoublePieceTreeCompiler.compile_selected_piece_double_tree_program (GuardScopFrontend.chosen_labels ()) (GuardSelectedDoubleQuotientPartitioned.private_count ()) GuardSelectedDoublePieceReceipts.phase GuardSelectedDoublePieceIntegerCoverageV5.adapt GuardSelectedDoublePieceIntegerCoverageV5.propose GuardSelectedDoubleTreePolicies.lower_proposal GuardSelectedDoubleTreePolicies.upper_proposal csyntax'
+    driver.write_text(old[:start]+replacement+old[stop:])
+    semantic_files = list((previous/'extraction').glob('*.ml'))+list((previous/'extraction').glob('*.mli'))
+    if any(sha(permitted(path))!=sha(permitted(work/path.relative_to(previous))) for path in semantic_files):
+        raise ValueError('An existing extracted semantic source changed')
+    commands=[]
+    with (work/'build.log').open('xb') as output:
+        for argv in [['make','-f','Makefile.extr','depend'],['make','-j4','-f','Makefile.extr','ccomp']]:
+            proc = subprocess.run(argv,cwd=work,stdout=output,stderr=subprocess.STDOUT)
+            commands.append({'argv':argv,'returncode':proc.returncode})
+            if proc.returncode:
+                break
+    for path in [Path(__file__),native,*[p for p in work.rglob('*') if p.is_file()]]:
+        bindings[str(path.relative_to(ROOT))] = sha(permitted(path))
+    report = {key:value for key,value in parent.items() if key not in ['bindings','commands','compiler','compiler_sha256']}
+    report.update(status='built' if proc.returncode==0 else 'rejected',
+                  compiler=str((work/'ccomp').relative_to(ROOT)),
+                  compiler_sha256=sha(work/'ccomp') if proc.returncode==0 else None,
+                  commands=commands,
+                  parent_report=str(PARENT.relative_to(ROOT)),
+                  semantic_extraction_reused_byte_for_byte=True,
+                  whole_program_entrypoint='DoublePieceTreeCompiler.compile_selected_piece_double_tree_program',
+                  actual_source_Csem_to_Asm_theorem='DoublePieceTreeCompiler.compile_selected_piece_double_tree_program_correct',
+                  no_legacy_passes_after_this_checked_piece_pass=True,
+                  Driver_selects_existing_audited_standalone_root=True,
+                  integer_cuts_use_equality_reduction_and_positive_constraint_combinations=True,
+                  bindings=bindings)
+    filename = 'report.json' if proc.returncode==0 else 'rejection.json'
+    (work/filename).write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps({'status':report['status'],'compiler':report['compiler'],'bindings':len(bindings)}),flush=True)
+    if proc.returncode:
+        raise SystemExit(proc.returncode)
+
+
+if __name__=='__main__':
+    main()

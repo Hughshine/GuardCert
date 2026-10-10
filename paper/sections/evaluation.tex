@@ -2803,3 +2803,31 @@ twice. All fourteen complete outputs match. The first observer's untyped-symbol
 failure is retained; its successor resolves the address from the actual bound
 store. These tests sample two store locations and do not directly observe the
 private guard flag, test invalid pointers, or measure controlled call cost.
+
+\paragraph{Dynamic Integer-Coverage Successor.}
+The standalone compiler now installs both whole candidates for the same
+disclosed independent N/M source and 41 runtime inputs. Untiled output has six
+pieces and tiled output eight; the emitted Clight puts A and B stores in shared
+loops. All 123 complete outputs and public exits match. The tiled compile took
+about 177 seconds in this replay, so functional acceptance does not imply a
+practical compiler cost. The preceding refusal and combined-route stack
+overflow are retained rather than overwritten.
+
+Nine hardware write observations cover accepted and outside-profile inputs in
+all three configurations. Twelve child-bound read observations cover zero,
+negative and positive outer bounds. Accepted targets interleave the sampled
+stores; outside-profile targets retain source order. Inactive children produce
+no M reads, and on (2,3) each target reads M twice compared with sixteen source
+reads. All 21 observed complete outputs match. The observation scope remains
+two store locations on unchanged binaries, with no private-flag or invalid
+pointer test. These results do not establish compact-condition synthesis,
+controlled runtime cost or general sequential corpus functionality.
+
+The new selective combined compiler also passes the same 123 complete outputs
+and public exits and retains both whole candidates. Each target reports one
+chosen label, one protected installed body and no remaining label for the old
+passes. A separate observation run adds nine matching write and twelve matching
+read observations. Its first attempt is retained as a sandbox ptrace refusal;
+the successful retry observes the already-generated binaries. Multiple-site
+contexts, final corpus regression and complete-process cost remain separate
+acceptance steps.

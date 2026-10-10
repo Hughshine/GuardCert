@@ -1,0 +1,3299 @@
+{
+  "status": "passed",
+  "compiler_entrypoint": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program",
+  "whole_program_theorem": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
+  "original_input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "all_sources_are_disclosed_dynamic_bound_variants": true,
+  "original_array_dimensions_and_IEEE_kernel_retained": true,
+  "gcc": {
+    "returncode": 0,
+    "timeout": false,
+    "argv": [
+      "gcc",
+      "-O0",
+      "-ffp-contract=off",
+      "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/variant.c",
+      "-lm",
+      "-o",
+      "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference"
+    ],
+    "elapsed_seconds": 0.0745389600051567
+  },
+  "runtime_inputs": [
+    {
+      "index": 0,
+      "N": -1,
+      "M": 9223372036854775807,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "-1",
+          "9223372036854775807"
+        ],
+        "elapsed_seconds": 0.0065693139913491905
+      },
+      "expected_controls": "controls=0,23",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 1,
+      "N": 0,
+      "M": 9223372036854775807,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "0",
+          "9223372036854775807"
+        ],
+        "elapsed_seconds": 0.005996140011120588
+      },
+      "expected_controls": "controls=0,23",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 2,
+      "N": 0,
+      "M": -9223372036854775808,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "0",
+          "-9223372036854775808"
+        ],
+        "elapsed_seconds": 0.00610583700472489
+      },
+      "expected_controls": "controls=0,23",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 3,
+      "N": 1,
+      "M": -1,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "1",
+          "-1"
+        ],
+        "elapsed_seconds": 0.005672320025041699
+      },
+      "expected_controls": "controls=1,0",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 4,
+      "N": 1,
+      "M": 0,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "1",
+          "0"
+        ],
+        "elapsed_seconds": 0.005699106026440859
+      },
+      "expected_controls": "controls=1,0",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 5,
+      "N": 1,
+      "M": 1,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "1",
+          "1"
+        ],
+        "elapsed_seconds": 0.006638353981543332
+      },
+      "expected_controls": "controls=1,1",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 6,
+      "N": 2,
+      "M": 3,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "2",
+          "3"
+        ],
+        "elapsed_seconds": 0.0060264740022830665
+      },
+      "expected_controls": "controls=2,3",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 7,
+      "N": 3,
+      "M": 2,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "3",
+          "2"
+        ],
+        "elapsed_seconds": 0.005925061006564647
+      },
+      "expected_controls": "controls=3,2",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 8,
+      "N": 31,
+      "M": 33,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "31",
+          "33"
+        ],
+        "elapsed_seconds": 0.006041472021024674
+      },
+      "expected_controls": "controls=31,33",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 9,
+      "N": 32,
+      "M": 32,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "32",
+          "32"
+        ],
+        "elapsed_seconds": 0.00572259200271219
+      },
+      "expected_controls": "controls=32,32",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 10,
+      "N": 33,
+      "M": 31,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "33",
+          "31"
+        ],
+        "elapsed_seconds": 0.005804852000437677
+      },
+      "expected_controls": "controls=33,31",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 11,
+      "N": 99,
+      "M": 100,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "99",
+          "100"
+        ],
+        "elapsed_seconds": 0.005748214025516063
+      },
+      "expected_controls": "controls=99,100",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 12,
+      "N": 100,
+      "M": 99,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "100",
+          "99"
+        ],
+        "elapsed_seconds": 0.005877741030417383
+      },
+      "expected_controls": "controls=100,99",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 13,
+      "N": 100,
+      "M": 100,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "100",
+          "100"
+        ],
+        "elapsed_seconds": 0.005758126964792609
+      },
+      "expected_controls": "controls=100,100",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 14,
+      "N": 101,
+      "M": 100,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "101",
+          "100"
+        ],
+        "elapsed_seconds": 0.005766362010035664
+      },
+      "expected_controls": "controls=101,100",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 15,
+      "N": 100,
+      "M": 101,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "100",
+          "101"
+        ],
+        "elapsed_seconds": 0.005812848045025021
+      },
+      "expected_controls": "controls=100,101",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 16,
+      "N": 102,
+      "M": 102,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "102",
+          "102"
+        ],
+        "elapsed_seconds": 0.005760868021752685
+      },
+      "expected_controls": "controls=102,102",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 17,
+      "N": 90,
+      "M": 25,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "90",
+          "25"
+        ],
+        "elapsed_seconds": 0.005697671032976359
+      },
+      "expected_controls": "controls=90,25",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 18,
+      "N": 77,
+      "M": 70,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "77",
+          "70"
+        ],
+        "elapsed_seconds": 0.005760211031883955
+      },
+      "expected_controls": "controls=77,70",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 19,
+      "N": 75,
+      "M": 16,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "75",
+          "16"
+        ],
+        "elapsed_seconds": 0.005643705022521317
+      },
+      "expected_controls": "controls=75,16",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 20,
+      "N": 101,
+      "M": 95,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "101",
+          "95"
+        ],
+        "elapsed_seconds": 0.005791676987428218
+      },
+      "expected_controls": "controls=101,95",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 21,
+      "N": 77,
+      "M": 46,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "77",
+          "46"
+        ],
+        "elapsed_seconds": 0.005788983020465821
+      },
+      "expected_controls": "controls=77,46",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 22,
+      "N": 54,
+      "M": 102,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "54",
+          "102"
+        ],
+        "elapsed_seconds": 0.006081567029468715
+      },
+      "expected_controls": "controls=54,102",
+      "expected_profile_acceptance": false
+    },
+    {
+      "index": 23,
+      "N": 58,
+      "M": 96,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "58",
+          "96"
+        ],
+        "elapsed_seconds": 0.005722603003960103
+      },
+      "expected_controls": "controls=58,96",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 24,
+      "N": 4,
+      "M": 91,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "4",
+          "91"
+        ],
+        "elapsed_seconds": 0.005726479983422905
+      },
+      "expected_controls": "controls=4,91",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 25,
+      "N": 77,
+      "M": 51,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "77",
+          "51"
+        ],
+        "elapsed_seconds": 0.005677661974914372
+      },
+      "expected_controls": "controls=77,51",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 26,
+      "N": 26,
+      "M": 50,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "26",
+          "50"
+        ],
+        "elapsed_seconds": 0.005943265976384282
+      },
+      "expected_controls": "controls=26,50",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 27,
+      "N": 32,
+      "M": 28,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "32",
+          "28"
+        ],
+        "elapsed_seconds": 0.005640428978949785
+      },
+      "expected_controls": "controls=32,28",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 28,
+      "N": 44,
+      "M": 82,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "44",
+          "82"
+        ],
+        "elapsed_seconds": 0.005715352948755026
+      },
+      "expected_controls": "controls=44,82",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 29,
+      "N": 66,
+      "M": 21,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "66",
+          "21"
+        ],
+        "elapsed_seconds": 0.005729462951421738
+      },
+      "expected_controls": "controls=66,21",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 30,
+      "N": 62,
+      "M": 19,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "62",
+          "19"
+        ],
+        "elapsed_seconds": 0.0057443619589321315
+      },
+      "expected_controls": "controls=62,19",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 31,
+      "N": 72,
+      "M": 83,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "72",
+          "83"
+        ],
+        "elapsed_seconds": 0.006312177982181311
+      },
+      "expected_controls": "controls=72,83",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 32,
+      "N": 54,
+      "M": 20,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "54",
+          "20"
+        ],
+        "elapsed_seconds": 0.005665200995281339
+      },
+      "expected_controls": "controls=54,20",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 33,
+      "N": 77,
+      "M": 93,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "77",
+          "93"
+        ],
+        "elapsed_seconds": 0.005742041044868529
+      },
+      "expected_controls": "controls=77,93",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 34,
+      "N": 51,
+      "M": 4,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "51",
+          "4"
+        ],
+        "elapsed_seconds": 0.005703647970221937
+      },
+      "expected_controls": "controls=51,4",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 35,
+      "N": 34,
+      "M": 86,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "34",
+          "86"
+        ],
+        "elapsed_seconds": 0.005738699983339757
+      },
+      "expected_controls": "controls=34,86",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 36,
+      "N": 84,
+      "M": 100,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "84",
+          "100"
+        ],
+        "elapsed_seconds": 0.005974678031634539
+      },
+      "expected_controls": "controls=84,100",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 37,
+      "N": 52,
+      "M": 94,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "52",
+          "94"
+        ],
+        "elapsed_seconds": 0.006000588007736951
+      },
+      "expected_controls": "controls=52,94",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 38,
+      "N": 33,
+      "M": 76,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "33",
+          "76"
+        ],
+        "elapsed_seconds": 0.007025508035439998
+      },
+      "expected_controls": "controls=33,76",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 39,
+      "N": 11,
+      "M": 9,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "11",
+          "9"
+        ],
+        "elapsed_seconds": 0.005975239968392998
+      },
+      "expected_controls": "controls=11,9",
+      "expected_profile_acceptance": true
+    },
+    {
+      "index": 40,
+      "N": 6,
+      "M": 6,
+      "reference": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/reference",
+          "6",
+          "6"
+        ],
+        "elapsed_seconds": 0.006010077020619065
+      },
+      "expected_controls": "controls=6,6",
+      "expected_profile_acceptance": true
+    }
+  ],
+  "configurations": {
+    "unmarked": {
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program.c"
+        ],
+        "elapsed_seconds": 0.062357624003198
+      },
+      "input_sha256": "480b2918833e2552e5060112a148a873a9f491a9917bcf9ea45e37c1601e8285",
+      "runs": [
+        {
+          "index": 0,
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0031444240012206137
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 1,
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.003055334964301437
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 2,
+          "N": 0,
+          "M": -9223372036854775808,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "0",
+              "-9223372036854775808"
+            ],
+            "elapsed_seconds": 0.003561047953553498
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 3,
+          "N": 1,
+          "M": -1,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "1",
+              "-1"
+            ],
+            "elapsed_seconds": 0.004651162016671151
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 4,
+          "N": 1,
+          "M": 0,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "1",
+              "0"
+            ],
+            "elapsed_seconds": 0.0031400250154547393
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 5,
+          "N": 1,
+          "M": 1,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "1",
+              "1"
+            ],
+            "elapsed_seconds": 0.0030310540460050106
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 6,
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.003076728025916964
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 7,
+          "N": 3,
+          "M": 2,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "3",
+              "2"
+            ],
+            "elapsed_seconds": 0.0055622769868932664
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 8,
+          "N": 31,
+          "M": 33,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "31",
+              "33"
+            ],
+            "elapsed_seconds": 0.003164188005030155
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 9,
+          "N": 32,
+          "M": 32,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "32",
+              "32"
+            ],
+            "elapsed_seconds": 0.0030279619968496263
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 10,
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.0034669500309973955
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 11,
+          "N": 99,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "99",
+              "100"
+            ],
+            "elapsed_seconds": 0.003244810039177537
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 12,
+          "N": 100,
+          "M": 99,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "100",
+              "99"
+            ],
+            "elapsed_seconds": 0.0030473010265268385
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 13,
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.003120723005849868
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 14,
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003958649991545826
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 15,
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003961942973546684
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 16,
+          "N": 102,
+          "M": 102,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "102",
+              "102"
+            ],
+            "elapsed_seconds": 0.003085085016209632
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 17,
+          "N": 90,
+          "M": 25,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "90",
+              "25"
+            ],
+            "elapsed_seconds": 0.0030620149918831885
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 18,
+          "N": 77,
+          "M": 70,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "77",
+              "70"
+            ],
+            "elapsed_seconds": 0.004060719977132976
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 19,
+          "N": 75,
+          "M": 16,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "75",
+              "16"
+            ],
+            "elapsed_seconds": 0.0031356330146081746
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 20,
+          "N": 101,
+          "M": 95,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "101",
+              "95"
+            ],
+            "elapsed_seconds": 0.0033379599917680025
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 21,
+          "N": 77,
+          "M": 46,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "77",
+              "46"
+            ],
+            "elapsed_seconds": 0.0030895480304025114
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 22,
+          "N": 54,
+          "M": 102,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "54",
+              "102"
+            ],
+            "elapsed_seconds": 0.0030265700188465416
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 23,
+          "N": 58,
+          "M": 96,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "58",
+              "96"
+            ],
+            "elapsed_seconds": 0.0031007350189611316
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 24,
+          "N": 4,
+          "M": 91,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "4",
+              "91"
+            ],
+            "elapsed_seconds": 0.003102232003584504
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 25,
+          "N": 77,
+          "M": 51,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "77",
+              "51"
+            ],
+            "elapsed_seconds": 0.003062720992602408
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 26,
+          "N": 26,
+          "M": 50,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "26",
+              "50"
+            ],
+            "elapsed_seconds": 0.00327802897663787
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 27,
+          "N": 32,
+          "M": 28,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "32",
+              "28"
+            ],
+            "elapsed_seconds": 0.0030498210107907653
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 28,
+          "N": 44,
+          "M": 82,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "44",
+              "82"
+            ],
+            "elapsed_seconds": 0.0033927959739230573
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 29,
+          "N": 66,
+          "M": 21,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "66",
+              "21"
+            ],
+            "elapsed_seconds": 0.003033018030691892
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 30,
+          "N": 62,
+          "M": 19,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "62",
+              "19"
+            ],
+            "elapsed_seconds": 0.0031295999651774764
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 31,
+          "N": 72,
+          "M": 83,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "72",
+              "83"
+            ],
+            "elapsed_seconds": 0.0031873330008238554
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 32,
+          "N": 54,
+          "M": 20,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "54",
+              "20"
+            ],
+            "elapsed_seconds": 0.0034039129968732595
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 33,
+          "N": 77,
+          "M": 93,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "77",
+              "93"
+            ],
+            "elapsed_seconds": 0.0033601030008867383
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 34,
+          "N": 51,
+          "M": 4,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "51",
+              "4"
+            ],
+            "elapsed_seconds": 0.0031168670393526554
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 35,
+          "N": 34,
+          "M": 86,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "34",
+              "86"
+            ],
+            "elapsed_seconds": 0.0031111909775063396
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 36,
+          "N": 84,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "84",
+              "100"
+            ],
+            "elapsed_seconds": 0.005407401011325419
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 37,
+          "N": 52,
+          "M": 94,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "52",
+              "94"
+            ],
+            "elapsed_seconds": 0.0032741909963078797
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 38,
+          "N": 33,
+          "M": 76,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "33",
+              "76"
+            ],
+            "elapsed_seconds": 0.0030564230401068926
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 39,
+          "N": 11,
+          "M": 9,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "11",
+              "9"
+            ],
+            "elapsed_seconds": 0.003089473000727594
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 40,
+          "N": 6,
+          "M": 6,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program",
+              "6",
+              "6"
+            ],
+            "elapsed_seconds": 0.003059729002416134
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        }
+      ],
+      "current_program_remaining_selection": [
+        {
+          "chosen": 0,
+          "protected": 0,
+          "remaining": 0
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/unmarked/program"
+        ],
+        "elapsed_seconds": 0.04610840301029384
+      },
+      "complete_outputs_match": true,
+      "passed": true
+    },
+    "untiled": {
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program.c"
+        ],
+        "elapsed_seconds": 5.9524888299638405
+      },
+      "input_sha256": "fc8d36c386d35c0e8f7f3c3458e83759a47679c2deeea842ca24329bbcdd71e8",
+      "runs": [
+        {
+          "index": 0,
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0033729569986462593
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 1,
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0032162810093723238
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 2,
+          "N": 0,
+          "M": -9223372036854775808,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "0",
+              "-9223372036854775808"
+            ],
+            "elapsed_seconds": 0.003361824026796967
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 3,
+          "N": 1,
+          "M": -1,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "1",
+              "-1"
+            ],
+            "elapsed_seconds": 0.0034094469738192856
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 4,
+          "N": 1,
+          "M": 0,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "1",
+              "0"
+            ],
+            "elapsed_seconds": 0.0036752650048583746
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 5,
+          "N": 1,
+          "M": 1,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "1",
+              "1"
+            ],
+            "elapsed_seconds": 0.0034391150111332536
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 6,
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.003079546964727342
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 7,
+          "N": 3,
+          "M": 2,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "3",
+              "2"
+            ],
+            "elapsed_seconds": 0.0030271539581008255
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 8,
+          "N": 31,
+          "M": 33,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "31",
+              "33"
+            ],
+            "elapsed_seconds": 0.0037964200018905103
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 9,
+          "N": 32,
+          "M": 32,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "32",
+              "32"
+            ],
+            "elapsed_seconds": 0.005205372988712043
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 10,
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.004196662979666144
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 11,
+          "N": 99,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "99",
+              "100"
+            ],
+            "elapsed_seconds": 0.004701138997916132
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 12,
+          "N": 100,
+          "M": 99,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "100",
+              "99"
+            ],
+            "elapsed_seconds": 0.004647019028197974
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 13,
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.0037195750046521425
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 14,
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003079360001720488
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 15,
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.003074240987189114
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 16,
+          "N": 102,
+          "M": 102,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "102",
+              "102"
+            ],
+            "elapsed_seconds": 0.003133344987872988
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 17,
+          "N": 90,
+          "M": 25,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "90",
+              "25"
+            ],
+            "elapsed_seconds": 0.005214952048845589
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 18,
+          "N": 77,
+          "M": 70,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "77",
+              "70"
+            ],
+            "elapsed_seconds": 0.0030969000072218478
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 19,
+          "N": 75,
+          "M": 16,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "75",
+              "16"
+            ],
+            "elapsed_seconds": 0.003030350955668837
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 20,
+          "N": 101,
+          "M": 95,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "101",
+              "95"
+            ],
+            "elapsed_seconds": 0.003674524021334946
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 21,
+          "N": 77,
+          "M": 46,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "77",
+              "46"
+            ],
+            "elapsed_seconds": 0.0030844350112602115
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 22,
+          "N": 54,
+          "M": 102,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "54",
+              "102"
+            ],
+            "elapsed_seconds": 0.0030503589659929276
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 23,
+          "N": 58,
+          "M": 96,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "58",
+              "96"
+            ],
+            "elapsed_seconds": 0.0030522429733537138
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 24,
+          "N": 4,
+          "M": 91,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "4",
+              "91"
+            ],
+            "elapsed_seconds": 0.0033555079717189074
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 25,
+          "N": 77,
+          "M": 51,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "77",
+              "51"
+            ],
+            "elapsed_seconds": 0.0031630630255676806
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 26,
+          "N": 26,
+          "M": 50,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "26",
+              "50"
+            ],
+            "elapsed_seconds": 0.0032291679526679218
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 27,
+          "N": 32,
+          "M": 28,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "32",
+              "28"
+            ],
+            "elapsed_seconds": 0.0031327189644798636
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 28,
+          "N": 44,
+          "M": 82,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "44",
+              "82"
+            ],
+            "elapsed_seconds": 0.0029952870099805295
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 29,
+          "N": 66,
+          "M": 21,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "66",
+              "21"
+            ],
+            "elapsed_seconds": 0.0030492980149574578
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 30,
+          "N": 62,
+          "M": 19,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "62",
+              "19"
+            ],
+            "elapsed_seconds": 0.00315851898631081
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 31,
+          "N": 72,
+          "M": 83,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "72",
+              "83"
+            ],
+            "elapsed_seconds": 0.003135895007289946
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 32,
+          "N": 54,
+          "M": 20,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "54",
+              "20"
+            ],
+            "elapsed_seconds": 0.003073053027037531
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 33,
+          "N": 77,
+          "M": 93,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "77",
+              "93"
+            ],
+            "elapsed_seconds": 0.0031712650088593364
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 34,
+          "N": 51,
+          "M": 4,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "51",
+              "4"
+            ],
+            "elapsed_seconds": 0.0032354299910366535
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 35,
+          "N": 34,
+          "M": 86,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "34",
+              "86"
+            ],
+            "elapsed_seconds": 0.005034953006543219
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 36,
+          "N": 84,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "84",
+              "100"
+            ],
+            "elapsed_seconds": 0.005128334974870086
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 37,
+          "N": 52,
+          "M": 94,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "52",
+              "94"
+            ],
+            "elapsed_seconds": 0.00601978600025177
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 38,
+          "N": 33,
+          "M": 76,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "33",
+              "76"
+            ],
+            "elapsed_seconds": 0.004661671002395451
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 39,
+          "N": 11,
+          "M": 9,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "11",
+              "9"
+            ],
+            "elapsed_seconds": 0.004552347993012518
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 40,
+          "N": 6,
+          "M": 6,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program",
+              "6",
+              "6"
+            ],
+            "elapsed_seconds": 0.004681891994550824
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        }
+      ],
+      "current_program_remaining_selection": [
+        {
+          "chosen": 1,
+          "protected": 1,
+          "remaining": 0
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/program"
+        ],
+        "elapsed_seconds": 0.049040673999115825
+      },
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $177 = $177 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $177 = $177 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $179 = $179 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $177 = $177 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 4,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 5,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 6,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 7,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1,
+              2
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              1
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              3
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              4,
+              5
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              6,
+              7
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          1,
+          2
+        ]
+      },
+      "whole_fusion_installed": true,
+      "piece_proposals": [
+        "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/tiling-pipeline-1/piece-proposal.txt",
+        "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/tiling-pipeline-12/piece-proposal.txt",
+        "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/untiled/tiling-pipeline-2/piece-proposal.txt"
+      ],
+      "complete_outputs_match": true,
+      "passed": true
+    },
+    "tiled": {
+      "compiler": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-dynamic-piece-selective-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program.c"
+        ],
+        "elapsed_seconds": 200.08910479902988
+      },
+      "input_sha256": "fc8d36c386d35c0e8f7f3c3458e83759a47679c2deeea842ca24329bbcdd71e8",
+      "runs": [
+        {
+          "index": 0,
+          "N": -1,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "-1",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0031137430341914296
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 1,
+          "N": 0,
+          "M": 9223372036854775807,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "0",
+              "9223372036854775807"
+            ],
+            "elapsed_seconds": 0.0034723790013231337
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 2,
+          "N": 0,
+          "M": -9223372036854775808,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "0",
+              "-9223372036854775808"
+            ],
+            "elapsed_seconds": 0.004679428006056696
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 3,
+          "N": 1,
+          "M": -1,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "1",
+              "-1"
+            ],
+            "elapsed_seconds": 0.003724651993252337
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 4,
+          "N": 1,
+          "M": 0,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "1",
+              "0"
+            ],
+            "elapsed_seconds": 0.003169531002640724
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 5,
+          "N": 1,
+          "M": 1,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "1",
+              "1"
+            ],
+            "elapsed_seconds": 0.003405825002118945
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 6,
+          "N": 2,
+          "M": 3,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "2",
+              "3"
+            ],
+            "elapsed_seconds": 0.0032435639877803624
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 7,
+          "N": 3,
+          "M": 2,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "3",
+              "2"
+            ],
+            "elapsed_seconds": 0.003957153996452689
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 8,
+          "N": 31,
+          "M": 33,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "31",
+              "33"
+            ],
+            "elapsed_seconds": 0.004443312005605549
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 9,
+          "N": 32,
+          "M": 32,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "32",
+              "32"
+            ],
+            "elapsed_seconds": 0.004526938020717353
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 10,
+          "N": 33,
+          "M": 31,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "33",
+              "31"
+            ],
+            "elapsed_seconds": 0.004280710010789335
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 11,
+          "N": 99,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "99",
+              "100"
+            ],
+            "elapsed_seconds": 0.003292163019068539
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 12,
+          "N": 100,
+          "M": 99,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "100",
+              "99"
+            ],
+            "elapsed_seconds": 0.0031792950467206538
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 13,
+          "N": 100,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "100",
+              "100"
+            ],
+            "elapsed_seconds": 0.00308801798382774
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 14,
+          "N": 101,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "101",
+              "100"
+            ],
+            "elapsed_seconds": 0.003455926023889333
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 15,
+          "N": 100,
+          "M": 101,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "100",
+              "101"
+            ],
+            "elapsed_seconds": 0.005306611012201756
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 16,
+          "N": 102,
+          "M": 102,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "102",
+              "102"
+            ],
+            "elapsed_seconds": 0.005909489991609007
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 17,
+          "N": 90,
+          "M": 25,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "90",
+              "25"
+            ],
+            "elapsed_seconds": 0.0034202520037069917
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 18,
+          "N": 77,
+          "M": 70,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "77",
+              "70"
+            ],
+            "elapsed_seconds": 0.00324470701161772
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 19,
+          "N": 75,
+          "M": 16,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "75",
+              "16"
+            ],
+            "elapsed_seconds": 0.0030928170308470726
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 20,
+          "N": 101,
+          "M": 95,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "101",
+              "95"
+            ],
+            "elapsed_seconds": 0.0035385669907554984
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 21,
+          "N": 77,
+          "M": 46,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "77",
+              "46"
+            ],
+            "elapsed_seconds": 0.00334229099098593
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 22,
+          "N": 54,
+          "M": 102,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "54",
+              "102"
+            ],
+            "elapsed_seconds": 0.003503273008391261
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 23,
+          "N": 58,
+          "M": 96,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "58",
+              "96"
+            ],
+            "elapsed_seconds": 0.003329555969685316
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 24,
+          "N": 4,
+          "M": 91,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "4",
+              "91"
+            ],
+            "elapsed_seconds": 0.0030379510135389864
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 25,
+          "N": 77,
+          "M": 51,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "77",
+              "51"
+            ],
+            "elapsed_seconds": 0.003079962043557316
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 26,
+          "N": 26,
+          "M": 50,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "26",
+              "50"
+            ],
+            "elapsed_seconds": 0.003178760001901537
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 27,
+          "N": 32,
+          "M": 28,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "32",
+              "28"
+            ],
+            "elapsed_seconds": 0.0032647959887981415
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 28,
+          "N": 44,
+          "M": 82,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "44",
+              "82"
+            ],
+            "elapsed_seconds": 0.0031487320084124804
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 29,
+          "N": 66,
+          "M": 21,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "66",
+              "21"
+            ],
+            "elapsed_seconds": 0.003737651975825429
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 30,
+          "N": 62,
+          "M": 19,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "62",
+              "19"
+            ],
+            "elapsed_seconds": 0.0032353639835491776
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 31,
+          "N": 72,
+          "M": 83,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "72",
+              "83"
+            ],
+            "elapsed_seconds": 0.0044363530469127
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 32,
+          "N": 54,
+          "M": 20,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "54",
+              "20"
+            ],
+            "elapsed_seconds": 0.0034163740347139537
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 33,
+          "N": 77,
+          "M": 93,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "77",
+              "93"
+            ],
+            "elapsed_seconds": 0.003750652016606182
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 34,
+          "N": 51,
+          "M": 4,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "51",
+              "4"
+            ],
+            "elapsed_seconds": 0.0031186069827526808
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 35,
+          "N": 34,
+          "M": 86,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "34",
+              "86"
+            ],
+            "elapsed_seconds": 0.003400799003429711
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 36,
+          "N": 84,
+          "M": 100,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "84",
+              "100"
+            ],
+            "elapsed_seconds": 0.0031721669947728515
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 37,
+          "N": 52,
+          "M": 94,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "52",
+              "94"
+            ],
+            "elapsed_seconds": 0.003094159997999668
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 38,
+          "N": 33,
+          "M": 76,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "33",
+              "76"
+            ],
+            "elapsed_seconds": 0.0038358339807018638
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 39,
+          "N": 11,
+          "M": 9,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "11",
+              "9"
+            ],
+            "elapsed_seconds": 0.0032593050273135304
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        },
+        {
+          "index": 40,
+          "N": 6,
+          "M": 6,
+          "native": {
+            "returncode": 0,
+            "timeout": false,
+            "argv": [
+              "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program",
+              "6",
+              "6"
+            ],
+            "elapsed_seconds": 0.003776472993195057
+          },
+          "complete_output_matches": true,
+          "public_controls_match": true
+        }
+      ],
+      "current_program_remaining_selection": [
+        {
+          "chosen": 1,
+          "protected": 1,
+          "remaining": 0
+        }
+      ],
+      "link": {
+        "returncode": 0,
+        "timeout": false,
+        "argv": [
+          "gcc",
+          "-no-pie",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program.s",
+          "-lm",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/program"
+        ],
+        "elapsed_seconds": 0.04442720499355346
+      },
+      "Clight_store_grouping": {
+        "loops": [
+          {
+            "id": 0,
+            "header": "for (; 1; $177 = $177 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 1,
+            "header": "for (; 1; $179 = $179 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 2,
+            "header": "for (; 1; $181 = $181 + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 3,
+            "header": "for (; 1; $181 = $181 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 4,
+            "header": "for (; 1; $183 = $183 + 1)",
+            "stores": [
+              "A",
+              "B"
+            ]
+          },
+          {
+            "id": 5,
+            "header": "for (; 1; $181 = $181 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 6,
+            "header": "for (; 1; $179 = $179 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 7,
+            "header": "for (; 1; $181 = $181 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 8,
+            "header": "for (; 1; $183 = $183 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 9,
+            "header": "for (; 1; $177 = $177 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 10,
+            "header": "for (; 1; $179 = $179 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 11,
+            "header": "for (; 1; $181 = $181 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 12,
+            "header": "for (; 1; $183 = $183 + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 13,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 14,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "A"
+            ]
+          },
+          {
+            "id": 15,
+            "header": "for (; 1; $x = $x + 1)",
+            "stores": [
+              "B"
+            ]
+          },
+          {
+            "id": 16,
+            "header": "for (; 1; $y = $y + 1)",
+            "stores": [
+              "B"
+            ]
+          }
+        ],
+        "static_stores": [
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              1,
+              5
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              0,
+              6,
+              7,
+              8
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              9,
+              10,
+              11,
+              12
+            ]
+          },
+          {
+            "array": "A",
+            "loops": [
+              13,
+              14
+            ]
+          },
+          {
+            "array": "B",
+            "loops": [
+              15,
+              16
+            ]
+          }
+        ],
+        "shared_A_B_loops": [
+          0,
+          1,
+          3,
+          4
+        ]
+      },
+      "whole_fusion_installed": true,
+      "piece_proposals": [
+        "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/tiling-pipeline-1/piece-proposal.txt",
+        "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/tiling-pipeline-12/piece-proposal.txt",
+        "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/tiled/tiling-pipeline-2/piece-proposal.txt"
+      ],
+      "complete_outputs_match": true,
+      "passed": true
+    }
+  },
+  "compile_once_per_configuration": true,
+  "complete_native_calls": 123,
+  "direct_guard_branch_observation_added": false,
+  "controlled_cost_comparison": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/dynamic-piece-factory/runtime-attempts/symbolic-selective-v1/report.json"
+}

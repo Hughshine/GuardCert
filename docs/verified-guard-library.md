@@ -1,5 +1,13 @@
 # Verified guard library：服务分类与依赖契约
 
+本轮[整数 coverage 后继](narrative-integer-cover-check-2026-10-10.md)没有增加
+runtime guard 原子：编译时 domain 切分证书交由既有总 checker；语言实例仍消费
+conditional observation、typed cache 和公开出口服务。Standalone tiled 实际
+安装和 [21 次机器观察](dynamic-piece-integer-observation.json)已通过；这解决
+候选覆盖问题，没有提供新的 compact `B⇒A` 或 shared-check memoization。
+后续组合入口和完整成本独立验收，服务的 safe requires 与 accepted facts 仍
+分开记录。下节中的“coverage 拒绝”是此前 checkpoint。
+
 [动态 piece 接线](dynamic-piece-factory.md)复用现有 arithmetic/range、conditional
 observation、private frame 和拒绝运输服务，没有新增 guard 原子或 kernel law。
 实际 capture facts 被 piece／phase checker 和 machine lowering 消费，factory

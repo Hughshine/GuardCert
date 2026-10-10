@@ -1,5 +1,20 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-10 的[后继复核](narrative-integer-cover-check-2026-10-10.md)将三个责任层
+落实到同一动态分块实例：domain 的整数 coverage tree 是数据，既有总 checker
+和 actual Loop bridge 建立候选正确性；language/host 复用安全 conditional
+capture、接受／拒绝状态运输、private/public frame、公开出口、独立 progress
+和全程序安装；kernel 不增加语言或 polyhedral 假设。
+
+Standalone 全程序入口现已实际安装 untiled 六片和 tiled 八片；[123 次完整
+运行](dynamic-piece-runtime.json)与 [21 次机器观察](dynamic-piece-integer-observation.json)
+分别记录输出／出口和接受／回退／读取行为。新 selective 组合入口的三个定理
+已审计；后续位置选择只是当前程序上的数据策略，不授权任何具体候选。新组合
+入口已通过同源 123 次运行及 21 次机器观察；多位置/caller contexts、最终语料
+和完整成本继续分别验收。当前最难的工作
+继续包括 OLO 有用入口条件、safe 求值及运输／成本和顺序功能覆盖；本例的整数
+coverage 不能算完成这些工作。以下保留前序 checkpoint。
+
 新[动态 piece factory](dynamic-piece-factory.json)把相同 data-only 服务交给
 既有 loaded-bound 语言协议：原源许可 capture、accepted/refused entry transport、
 private frame、公开出口与独立 progress 均复用；新当前程序 root 接 Csem→Asm。

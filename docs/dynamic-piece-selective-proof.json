@@ -1,0 +1,45 @@
+{
+  "status": "compiled",
+  "kind": "selective-current-program-piece-combined-compiler",
+  "new_modules": [
+    "prototype/interface/SelectivePieceCombinedDoubleCompilerV3.v"
+  ],
+  "new_source_lines": 87,
+  "endpoints": [
+    "SelectivePieceCombinedDoubleCompilerV3.checked_selected_selective_piece_combined_double_program_correct",
+    "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
+    "SelectivePieceCombinedDoubleCompilerV3.selected_selective_piece_combined_double_program_cstrategy_forward"
+  ],
+  "imported_endpoints": [],
+  "new_endpoint_count": 3,
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 656,
+  "attempts": [
+    {
+      "module": "SelectivePieceCombinedDoubleCompilerV3",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/SelectivePieceCombinedDoubleCompilerV3-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "current_compiler_endpoint": "SelectivePieceCombinedDoubleCompilerV3.compile_selected_selective_piece_combined_double_program_correct",
+  "data_only_piece_proposer_consumed_by_actual_factory": true,
+  "actual_source_and_candidate_extracted_inside_checked_producer": true,
+  "parameter_conditions_encoded_by_proved_Loop_guard_and_extractor": true,
+  "source_licensed_machine_lowering_frame_and_public_exits_connected": true,
+  "existing_source_independent_Clight_progress_protocol_reused": true,
+  "new_current_program_Csem_to_Asm_endpoint_proved": true,
+  "full_actual_Loop_execution_iff_reused": true,
+  "dynamic_source_licensed_capture_and_guard_consumed": true,
+  "accepted_and_refused_entry_transport_reused": true,
+  "pointwise_runtime_scan_added": false,
+  "original_whole_fusion_installation_established_by_proof_only": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/dynamic-piece-factory/selective-proof-v1/report.json"
+}

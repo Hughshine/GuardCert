@@ -1,0 +1,440 @@
+{
+  "status": "passed",
+  "error": null,
+  "compiler_entrypoint": "DoublePieceTreeCompiler.compile_selected_piece_double_tree_program",
+  "whole_program_theorem": "DoublePieceTreeCompiler.compile_selected_piece_double_tree_program_correct",
+  "disclosed_independent_N_M_variant": true,
+  "write_observations": [
+    {
+      "mode": "unmarked",
+      "N": 100,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": true,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 100,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": true,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        }
+      ],
+      "optimization_write_order": [
+        "B_first",
+        "A_last"
+      ]
+    },
+    {
+      "mode": "tiled",
+      "N": 100,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": true,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        }
+      ],
+      "optimization_write_order": [
+        "B_first",
+        "A_last"
+      ]
+    },
+    {
+      "mode": "unmarked",
+      "N": 101,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.3846153846153846
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 101,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.3846153846153846
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "tiled",
+      "N": 101,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.3846153846153846
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "unmarked",
+      "N": 100,
+      "M": 101,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.4615384615384615
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 100,
+      "M": 101,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.4615384615384615
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "tiled",
+      "N": 100,
+      "M": 101,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.4615384615384615
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    }
+  ],
+  "conditional_read_observations": [
+    {
+      "mode": "unmarked",
+      "N": 0,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "untiled",
+      "N": 0,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "tiled",
+      "N": 0,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "unmarked",
+      "N": 0,
+      "M": -9223372036854775808,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "untiled",
+      "N": 0,
+      "M": -9223372036854775808,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "tiled",
+      "N": 0,
+      "M": -9223372036854775808,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "unmarked",
+      "N": -1,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "untiled",
+      "N": -1,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "tiled",
+      "N": -1,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "unmarked",
+      "N": 2,
+      "M": 3,
+      "complete_output_matches": true,
+      "child_M_reads": 16,
+      "records": [
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        }
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 2,
+      "M": 3,
+      "complete_output_matches": true,
+      "child_M_reads": 2,
+      "records": [
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        }
+      ]
+    },
+    {
+      "mode": "tiled",
+      "N": 2,
+      "M": 3,
+      "complete_output_matches": true,
+      "child_M_reads": 2,
+      "records": [
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        }
+      ]
+    }
+  ],
+  "unchanged_assembly_and_binaries": true,
+  "watchpoints_start_after_argv_bound_initialization": true,
+  "two_sampled_store_locations_not_all_updates": true,
+  "guard_private_flag_directly_sampled": false,
+  "tiled_whole_candidate_installed": true,
+  "controlled_cost_comparison": false,
+  "invalid_child_pointer_test": false,
+  "full_goal_complete": false,
+  "report": "build/dynamic-piece-factory/execution-attempts/symbolic-integer-v1/report.json"
+}
