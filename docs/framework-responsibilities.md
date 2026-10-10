@@ -1,5 +1,22 @@
 # 验证责任、证书边界与最难的验收
 
+新[动态 piece factory](dynamic-piece-factory.json)把相同 data-only 服务交给
+既有 loaded-bound 语言协议：原源许可 capture、accepted/refused entry transport、
+private frame、公开出口与独立 progress 均复用；新当前程序 root 接 Csem→Asm。
+四模块413行／九端点，无新增 globals、kernel 或 host laws，普通 C 使用者不补
+语义 callbacks。数学 source／candidate checker 与实际动态 guard 是两段证据。
+
+本次 narrative 远端复核仍为 `8ce9c8b`，正文与 main 一致。最难的当前具体缺口
+是独立符号化 `N/M` 的 tiled 边界片：首轮123个完整输出和公开出口虽匹配，
+只有 untiled 整体候选安装，tiled floor-bound adaptation 拒绝后回退。修复应由
+domain adapter 提出可检查坐标，并保留实际 final checker；不能为绕过拒绝而
+添加 host 假设，或把正确 fallback 当作所请求优化的功能证据。Quotient 后继已
+提取八片，但 coverage proposer 返回 None，尚未运行总 checker；下一缺口是
+覆盖证书。[Untiled 实际观察](dynamic-piece-runtime-observation.json)的六次
+两位置写与八次读取观察确认接受／回退次序和条件式 child read；14完整输出均
+匹配。它不采样所有 stores／private flag，不提供完整成本。数学 `B⇒A`、safe
+`G accepts⇒B` 和 state transport 仍分别说明。以下为前序 checkpoint。
+
 当前的[分片 factory](piece-factory.md)已实际安装原 fusion2 的六／七片整体
 候选，并接实际当前程序的 Csem→Asm。Domain checker 提供完整 point/action/order
 对应；同参数 tiling/phase 与 actual finite Loop iff 另已证明。语言实例复用既有

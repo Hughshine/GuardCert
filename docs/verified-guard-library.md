@@ -1,5 +1,13 @@
 # Verified guard library：服务分类与依赖契约
 
+[动态 piece 接线](dynamic-piece-factory.md)复用现有 arithmetic/range、conditional
+observation、private frame 和拒绝运输服务，没有新增 guard 原子或 kernel law。
+实际 capture facts 被 piece／phase checker 和 machine lowering 消费，factory
+与当前程序 Csem→Asm discharge site 义务。空／负 outer 的 child 读取为零，
+正 outer 样例 target 读两次；这观察现有读取许可和 capture，不是 general alias
+condition synthesis 或 shared-check memoization。Tiled 的八片提取后 coverage
+提案仍拒绝；候选适配、compact 入口条件及完整成本继续分别验收。
+
 [仿射端点服务](affine-long-endpoints.md)属于 arithmetic/representation 与 ranges
 两类：输入区间及 WORDS 是 requires；表示 checker 加上这些事实才得到最终
 数学值不回绕；actual Clight capture 接受再提供范围和精确 I32 cache。纯数学

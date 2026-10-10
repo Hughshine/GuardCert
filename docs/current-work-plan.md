@@ -2,6 +2,47 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Narrative 复核与动态 piece 接线
+
+本次重新 fetch 并核对远端 heads，`topdown/research-positioning` 可见最新仍为
+`8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9`；`paper-narrative.md` 和
+`context-lifting.md` 与 main 正文一致。本次重读已可见的澄清，不声称收到新提交。
+继续按三方责任实施：kernel 组合局部证书；语言／host 提供实际检查求值、
+accepted/refused state transport、frame/control/progress 和当前程序安装；domain
+提供实际模型／候选对应、条件充分性及局部义务到入口条件的推导。原 source
+execution 只是证明起点；静态检查、动态接受 facts 和源码执行前提分别记录。
+五类 guard 服务的调用前提与成功事实分开；允许加强充分条件，不要求逐 premise
+发射一个 test。Context clauses 仍是设计问题，不作为本次新 kernel API。
+
+[动态 piece factory 证明](dynamic-piece-factory.json)已复用既有 loaded-bound
+capture、接受／拒绝运输、source-independent progress、machine lowering 和公开
+出口，接到实际当前程序 Csem→Asm：四模块413行／九端点，最多42项既有 globals，
+无新增。普通 C 使用者只给标注、选项和策略数据，不补语义 callbacks。
+
+首次 native 的独立 `N/M` fusion2 adaptation 保留原数组与 IEEE 计算，三配置
+各编译一次后运行41组输入，123个完整输出与公开控制出口均匹配。Untiled
+整体六片候选安装；tiled 整体候选被 floor-membership adapter 拒绝，随后旧路径
+保持输出。这次失败及其 inputs／compiler／receipts 冻结在
+`build/dynamic-piece-factory/runtime-attempts/symbolic-v1/rejection.json`，不能把
+fallback 计为动态整体分块完成。
+
+不受信任 adapter 的 quotient 后继已越过 floor／Mod 适配，实际提取八片 candidate；
+coverage proposer 随后报 `uncovered path` 并返回 None，总 piece-model checker
+尚未运行。第二次123个完整输出仍匹配；拒绝也冻结，不能计整体 tiled 支持。
+下一具体修复是 source point／tile 坐标和覆盖证书，仍由实际 checker 授权安装。
+
+[untiled 运行观察](dynamic-piece-runtime-observation.json)在未改 assembly/binary
+上完成六次两位置写观察与八次 child read 观察：接受时写次序交错，outside-profile
+时恢复原次序；空／负 outer 的 child `M` 读取为零，(2,3) source 读16次、target
+读两次。14个完整输出均匹配。它不直接采样 private flag，也不是全部动态 stores
+或受控成本测量。首次 combined compiler 的[192配置回归](dynamic-piece-factory-corpus.json)
+有186完整输出匹配，source hashes／status 与前序一致，实际 focused shapes 保留。
+[阶段摘要](dynamic-piece-results.json)绑定证明、native、两拒绝、观察及语料。
+
+仍需同一独立 `N/M` 源的实际 tiled 安装、完整成本及其他顺序功能。候选适配不是
+OLO compact 入口条件 synthesis；二者分别验收。完整 goal 保持 active。以下为
+前序 checkpoint。
+
 ### 原 fusion2 整体候选已安装；扩展语料与条件验收
 
 新的[分片 factory 与完整程序接线](piece-factory.md)已消费 data-only

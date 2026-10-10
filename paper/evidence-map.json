@@ -5272,6 +5272,31 @@
         "docs/piece-factory-corpus.json",
         "docs/piece-factory-contexts.json"
       ]
+    },
+    {
+      "section": "case-study",
+      "claim": "Dynamic loaded-bound piece factory reuses source-licensed capture, accepted/refused entry transport, source progress, machine/frame/exits and actual current-program Csem-to-Asm. Both independent N/M replays match 123 outputs; quotient adaptation extracts eight tiled pieces but coverage proposal returns None. Untiled accepted/fallback stores and conditional reads have fourteen matching observations; the first combined compiler completes the unchanged 192-configuration regression.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoublePieceGuarded.v",
+          "name": "checked_double_piece_guarded_execution"
+        },
+        {
+          "source": "prototype/interface/DoublePieceTreeFactory.v",
+          "name": "check_double_piece_tree_region_sound"
+        },
+        {
+          "source": "prototype/interface/PieceCombinedDoubleCompiler.v",
+          "name": "compile_selected_piece_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/dynamic-piece-factory.md",
+        "docs/dynamic-piece-factory.json",
+        "docs/dynamic-piece-factory-corpus.json",
+        "docs/dynamic-piece-runtime-observation.json",
+        "docs/dynamic-piece-results.json"
+      ]
     }
   ],
   "bibliography_evidence": [

@@ -1,0 +1,345 @@
+{
+  "status": "partial",
+  "compiler_entrypoint": "PieceCombinedDoubleCompiler.compile_selected_piece_combined_double_program",
+  "whole_program_theorem": "PieceCombinedDoubleCompiler.compile_selected_piece_combined_double_program_correct",
+  "new_modules": 4,
+  "new_source_lines": 413,
+  "audited_endpoints": 9,
+  "additional_globals": [],
+  "maximum_inherited_globals": 42,
+  "source_licensed_capture_and_entry_transport_reused": true,
+  "source_progress_machine_frame_public_exits_and_current_program_host_reused": true,
+  "kernel_or_host_laws_changed": false,
+  "source_users_supply_semantic_callbacks": false,
+  "original_arrays_and_IEEE_kernel_retained_in_disclosed_variant": true,
+  "independent_N_M_runtime_inputs": 41,
+  "complete_matches_per_replay": 123,
+  "untiled_whole_candidate_installed": true,
+  "tiled_whole_candidate_installed": false,
+  "first_tiled_failure": "floor-membership adapter refused unsupported bound",
+  "quotient_tiled_candidate_extracted_pieces": 8,
+  "quotient_tiled_failure": "coverage proposer found an uncovered path and returned None",
+  "quotient_final_piece_model_checker_reached": false,
+  "quotient_coordinate_algorithm_is_untrusted": true,
+  "same_variant_and_runtime_input_values_retained": true,
+  "write_observations": [
+    {
+      "mode": "unmarked",
+      "N": 100,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": true,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 100,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": true,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 0.07692307692307693
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        }
+      ],
+      "optimization_write_order": [
+        "B_first",
+        "A_last"
+      ]
+    },
+    {
+      "mode": "unmarked",
+      "N": 101,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.3846153846153846
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 101,
+      "M": 100,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.3846153846153846
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "unmarked",
+      "N": 100,
+      "M": 101,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.4615384615384615
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 100,
+      "M": 101,
+      "complete_output_matches": true,
+      "expected_profile_acceptance": false,
+      "sampled_writes": [
+        {
+          "location": "A_last",
+          "value": 1.4615384615384615
+        },
+        {
+          "location": "B_first",
+          "value": 2.230769230769231
+        },
+        {
+          "location": "A_last",
+          "value": 1.0
+        },
+        {
+          "location": "B_first",
+          "value": 2.0
+        }
+      ],
+      "optimization_write_order": [
+        "A_last",
+        "B_first"
+      ]
+    }
+  ],
+  "conditional_read_observations": [
+    {
+      "mode": "unmarked",
+      "N": 0,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "untiled",
+      "N": 0,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "unmarked",
+      "N": 0,
+      "M": -9223372036854775808,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "untiled",
+      "N": 0,
+      "M": -9223372036854775808,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "unmarked",
+      "N": -1,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "untiled",
+      "N": -1,
+      "M": 9223372036854775807,
+      "complete_output_matches": true,
+      "child_M_reads": 0,
+      "records": []
+    },
+    {
+      "mode": "unmarked",
+      "N": 2,
+      "M": 3,
+      "complete_output_matches": true,
+      "child_M_reads": 16,
+      "records": [
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        }
+      ]
+    },
+    {
+      "mode": "untiled",
+      "N": 2,
+      "M": 3,
+      "complete_output_matches": true,
+      "child_M_reads": 2,
+      "records": [
+        {
+          "value": 3
+        },
+        {
+          "value": 3
+        }
+      ]
+    }
+  ],
+  "unchanged_assembly_and_binaries_observed": true,
+  "two_sampled_store_locations_not_all_updates": true,
+  "private_guard_flag_directly_sampled": false,
+  "observer_symbol_failure_retained": true,
+  "corpus_configurations": 192,
+  "corpus_complete_output_matches": 186,
+  "corpus_configuration_status_changes": 0,
+  "controlled_cost_comparison": false,
+  "OLO_compact_entry_condition_complete": false,
+  "all_requested_sequential_transformations_supported": false,
+  "full_goal_complete": false,
+  "reports": {
+    "proof": "build/dynamic-piece-factory/proof-v1/report.json",
+    "first_build": "build/double-tree-model/compiler-attempts/native-dynamic-piece-v1/report.json",
+    "first_replay": "build/dynamic-piece-factory/runtime-attempts/symbolic-v1/rejection.json",
+    "quotient_build": "build/double-tree-model/compiler-attempts/native-dynamic-piece-quotients-v1/report.json",
+    "quotient_replay": "build/dynamic-piece-factory/runtime-attempts/symbolic-v2/rejection.json",
+    "first_observer": "build/dynamic-piece-factory/execution-attempts/symbolic-untiled-v1/rejection.json",
+    "observer": "build/dynamic-piece-factory/execution-attempts/symbolic-untiled-v2/report.json",
+    "corpus": "build/dynamic-piece-factory/corpus-summary-v1/report.json"
+  },
+  "report": "build/dynamic-piece-factory/results-v1/report.json"
+}

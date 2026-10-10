@@ -2770,3 +2770,36 @@ temporary remains 71. Insufficient private resources install no fusion. Each
 complete output matches its variant's own GCC reference. These tests supplement
 the unchanged original and do not claim arbitrary control-placement support or
 runtime guard-false coverage.
+
+
+\paragraph{Dynamic Piece Checkpoint.}
+The first dynamic/literal piece compiler completes the same 192 configurations
+with 186 matching outputs and no changed configuration status relative to the
+literal piece compiler. Separate Clight checks retain whole fusion2 and the
+previous fusion10 and nodep tiled shapes. This is regression evidence, not a
+count of all requested transformations supported.
+
+A disclosed fusion2 adaptation retains both original array dimensions and its
+IEEE computation, replacing bounds with independent runtime arguments N and M.
+Each of three configurations is compiled once and run on 41 inputs. All 123
+complete outputs and public iterator exits match the variant's GCC reference.
+Inputs include tile boundaries, negative and outside-profile values, and extreme
+inactive-child values. Whole untiled fusion is installed. The requested whole
+tiled candidate is refused by the floor-bound adapter and later existing passes
+preserve the output; this replay is therefore recorded as rejected. Output
+matching does not close its tiled functionality gap. A quotient-coordinate
+adapter subsequently enables extraction of eight actual tiled pieces, but its
+coverage proposer returns None on an uncovered path; the total piece-model
+checker is not reached. The second replay retains the input and all 123 output
+matches, with whole tiled installation still open.
+
+Six hardware write observations on unchanged assembly and binaries sample the
+last A and first B locations. The untiled target interleaves them on accepted
+input (100,100), and retains source order outside the profile at (101,100) and
+(100,101). Eight read observations begin after actual argv-bound initialization.
+Both source and target skip child M for zero or negative outer bounds, including
+extreme inactive-child values; on (2,3), source reads M sixteen times and target
+twice. All fourteen complete outputs match. The first observer's untyped-symbol
+failure is retained; its successor resolves the address from the actual bound
+store. These tests sample two store locations and do not directly observe the
+private guard flag, test invalid pointers, or measure controlled call cost.
