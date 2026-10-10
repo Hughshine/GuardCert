@@ -1,5 +1,22 @@
 # 验证责任、证书边界与最难的验收
 
+2026-10-10 [投影／codegen 后继](equality-reduced-codegen.md)按 narrative `8ce9c8b`
+落实三方责任。Domain 库证明等式消元后仍满足已有投影契约，并参数化生成器；原
+维度准备和 source instance-list 对应继续复用。新 factory 消费实际 final
+candidate checker，再交给已有语言 host 的 frame/control/progress／current-program
+安装。1,984 行／19 端点、无新增 globals；没有新增 kernel 或语言定律、semantic
+extraction override、source-user callback。此投影的 scaled exact 语义不等于整数
+Presburger QE；机器安全与 `guard accepts⇒B` 仍是另一条证书链。
+
+两个真实 tiled operational regressions 的重点重跑已恢复，最终安装的是两个
+分别分块的 nests；整体 raw codegen 虽完成，整体候选被现有 floor-bound adaptation
+拒绝。**下一最难的具体接线是整体候选的数学 floor／min/max 表达与已验证 machine
+lowering／final checker 的共同表达范围**；不能把整体调度丢失后的单 nest 分块称为
+完整 fusion。新 nodep 的 400 次真实更新及 13 tile groups 已观察，候选条件
+72→17，但它不完成 OLO compact entry synthesis。[同版完整语料](equality-reduced-codegen-results.json)
+现有 186/192 完整输出匹配，仅六个既有 frontend 拒绝；这不替代 actual transformation
+coverage、OLO 或完整成本验收。以下保留前序责任记录，当前顺序以工作计划首节为准。
+
 [常量接线](declared-literal-double.md)已具体落实三方责任：domain 在数学模型中
 声明常量参数，language／host 的 scope 仅要求真实数组 globals。实际 I64/I32
 comparison 和独立 progress、source/Loop iff、static footprint、private caches、

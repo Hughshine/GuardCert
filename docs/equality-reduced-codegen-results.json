@@ -1,0 +1,188 @@
+{
+  "status": "complete",
+  "compiler_entrypoint": "ReducedLiteralCombinedDoubleCompiler.compile_selected_reduced_literal_combined_double_program",
+  "whole_program_theorem": "ReducedLiteralCombinedDoubleCompiler.compile_selected_reduced_literal_combined_double_program_correct",
+  "original_cases": 62,
+  "disclosed_adaptations": 2,
+  "configurations": 192,
+  "native_configuration_matches": 186,
+  "original_configuration_matches": 180,
+  "nonmatching_configurations": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "status": "frontend_or_compiler_refusal",
+      "compiler_timeout": false
+    }
+  ],
+  "configuration_status_changes": [
+    {
+      "case": "fusion10",
+      "variant": "original",
+      "mode": "tiled",
+      "before": "frontend_or_compiler_refusal",
+      "after": "native_match",
+      "prior_compiler_seconds": 24.262130692019127,
+      "compiler_seconds": 3.068282435007859
+    },
+    {
+      "case": "fusion2",
+      "variant": "original",
+      "mode": "tiled",
+      "before": "frontend_or_compiler_refusal",
+      "after": "native_match",
+      "prior_compiler_seconds": 180.1035316089983,
+      "compiler_seconds": 1.9886534200049937
+    }
+  ],
+  "focused_actual_candidates": [
+    {
+      "case": "fusion10",
+      "source_sha256": "7cf6e33260ad5ffd1beae645786095dce39cc03d97022e59f16b677e21031ae1",
+      "all_three_complete_outputs_match": true,
+      "compiler_seconds_single_diagnostic": {
+        "unmarked": 0.10697500401875004,
+        "untiled": 0.6402448570006527,
+        "tiled": 3.1010261299670674
+      },
+      "selected_Clight_shapes": {
+        "untiled": {
+          "for_loops": 4,
+          "maximum_nested_for_loops": 2,
+          "if_statements": 10
+        },
+        "tiled": {
+          "for_loops": 8,
+          "maximum_nested_for_loops": 4,
+          "if_statements": 28
+        }
+      },
+      "actual_phase_shape": "added-dimensions=2,2\nschedule-unchanged=false",
+      "whole_source_raw_codegen_completed": true,
+      "whole_candidate_adaptation_refused": true,
+      "whole_candidate_adaptation_refusal": "Invalid_argument(\"verified floor-membership service refused unsupported bound\")",
+      "fused_candidate_installed_claimed": false,
+      "source_numeric_types_and_computation_preserved": true
+    },
+    {
+      "case": "fusion2",
+      "source_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+      "all_three_complete_outputs_match": true,
+      "compiler_seconds_single_diagnostic": {
+        "unmarked": 0.05550704902270809,
+        "untiled": 0.38057798298541456,
+        "tiled": 1.988743202004116
+      },
+      "selected_Clight_shapes": {
+        "untiled": {
+          "for_loops": 4,
+          "maximum_nested_for_loops": 2,
+          "if_statements": 10
+        },
+        "tiled": {
+          "for_loops": 8,
+          "maximum_nested_for_loops": 4,
+          "if_statements": 22
+        }
+      },
+      "actual_phase_shape": "added-dimensions=2,2\nschedule-unchanged=false",
+      "whole_source_raw_codegen_completed": true,
+      "whole_candidate_adaptation_refused": true,
+      "whole_candidate_adaptation_refusal": "Invalid_argument(\"verified floor-membership service refused unsupported bound\")",
+      "fused_candidate_installed_claimed": false,
+      "source_numeric_types_and_computation_preserved": true
+    },
+    {
+      "case": "nodep",
+      "source_sha256": "f105bce1f7caf1cb5bcc24ff035c9e36daef8893bbb607f6b89460ebc811d992",
+      "all_three_complete_outputs_match": true,
+      "compiler_seconds_single_diagnostic": {
+        "unmarked": 0.05514196102740243,
+        "untiled": 0.3401706789736636,
+        "tiled": 1.2111629939754494
+      },
+      "selected_Clight_shapes": {
+        "untiled": {
+          "for_loops": 2,
+          "maximum_nested_for_loops": 2,
+          "if_statements": 5
+        },
+        "tiled": {
+          "for_loops": 4,
+          "maximum_nested_for_loops": 4,
+          "if_statements": 17
+        }
+      },
+      "actual_phase_shape": "added-dimensions=2\nschedule-unchanged=false",
+      "whole_source_raw_codegen_completed": true,
+      "whole_candidate_adaptation_refused": false,
+      "whole_candidate_adaptation_refusal": null,
+      "fused_candidate_installed_claimed": false,
+      "source_numeric_types_and_computation_preserved": true,
+      "prior_selected_Clight_shapes": {
+        "untiled": {
+          "for_loops": 2,
+          "maximum_nested_for_loops": 2,
+          "if_statements": 10
+        },
+        "tiled": {
+          "for_loops": 2,
+          "maximum_nested_for_loops": 2,
+          "if_statements": 72
+        }
+      }
+    }
+  ],
+  "nodep_updates_per_configuration": 400,
+  "nodep_update_observation_passed": true,
+  "nodep_updating_tile_groups": 13,
+  "nodep_runtime_guard_refusal_exercised": false,
+  "original_input_hashes_unchanged": true,
+  "actual_tiling_support_for_all_62_cases_claimed": false,
+  "controlled_compiler_or_runtime_cost_comparison": false,
+  "OLO_compact_entry_condition_complete": false,
+  "full_goal_complete": false,
+  "reports": {
+    "current": "build/benchmark-alignment/current-reduced-literal-combined-attempts/corpus-v1/report.json",
+    "focus": "build/benchmark-alignment/current-reduced-literal-combined-attempts/blockers-v1/report.json",
+    "previous": "build/benchmark-alignment/current-declared-literal-combined-attempts/corpus-v1/report.json",
+    "observer": "build/equality-reduced-codegen/execution-attempts/original-v2/report.json"
+  },
+  "report": "build/equality-reduced-codegen/results-v1/report.json"
+}

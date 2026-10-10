@@ -1,0 +1,134 @@
+{
+  "status": "passed",
+  "case": "original-nodep",
+  "compiler_entrypoint": "ReducedLiteralCombinedDoubleCompiler.compile_selected_reduced_literal_combined_double_program",
+  "whole_program_theorem": "ReducedLiteralCombinedDoubleCompiler.compile_selected_reduced_literal_combined_double_program_correct",
+  "original_input": "build/benchmark-alignment/probe-v1/nodep/marked.c",
+  "original_input_sha256": "f105bce1f7caf1cb5bcc24ff035c9e36daef8893bbb607f6b89460ebc811d992",
+  "observations": {
+    "unmarked": {
+      "complete_output_matches": true,
+      "all_update_stores": 400,
+      "all_original_array_indexes_exactly_once": true,
+      "updating_tile_pairs": [],
+      "tile_register_matches_across_all_updates": [
+        [],
+        []
+      ],
+      "literal_candidate_installed": false,
+      "actual_source_header_retained": true,
+      "candidate_Loop_depth": 2,
+      "Clight_conditions": 2,
+      "Clight_lines": 55,
+      "actual_instruction_address": "0x40160e"
+    },
+    "untiled": {
+      "complete_output_matches": true,
+      "all_update_stores": 400,
+      "all_original_array_indexes_exactly_once": true,
+      "updating_tile_pairs": [],
+      "tile_register_matches_across_all_updates": [
+        [],
+        []
+      ],
+      "literal_candidate_installed": true,
+      "actual_source_header_retained": false,
+      "candidate_Loop_depth": 2,
+      "Clight_conditions": 5,
+      "Clight_lines": 100,
+      "actual_instruction_address": "0x401613"
+    },
+    "tiled": {
+      "complete_output_matches": true,
+      "all_update_stores": 400,
+      "all_original_array_indexes_exactly_once": true,
+      "updating_tile_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          11,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "tile_register_matches_across_all_updates": [
+        [
+          "ecx"
+        ],
+        [
+          "r11d"
+        ]
+      ],
+      "literal_candidate_installed": true,
+      "actual_source_header_retained": false,
+      "candidate_Loop_depth": 4,
+      "Clight_conditions": 17,
+      "Clight_lines": 140,
+      "actual_instruction_address": "0x4016d8"
+    }
+  },
+  "unchanged_source_computation": true,
+  "assembly_modified": false,
+  "runtime_guard_refusal_exercised": false,
+  "tile_size": 32,
+  "prior_all_fallback_runs_retained": true,
+  "prior_observer_failure_retained": true,
+  "controlled_cost_evidence": false,
+  "complete_62_case_replay": false,
+  "OLO_compact_entry_condition_complete": false,
+  "full_goal_complete": false,
+  "reports": {
+    "build": "build/double-tree-model/compiler-attempts/native-reduced-literal-combined-v1/report.json",
+    "replay": "build/benchmark-alignment/current-reduced-literal-combined-attempts/blockers-v1/report.json",
+    "earlier": [
+      "build/benchmark-alignment/current-literal-combined-attempts/nodep-v1/report.json",
+      "build/benchmark-alignment/current-typed-literal-combined-attempts/nodep-v1/report.json"
+    ]
+  },
+  "report": "build/equality-reduced-codegen/execution-attempts/original-v2/report.json"
+}

@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-09",
+  "date": "2026-10-10",
   "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
   "target": "CAV 2027, intended regular-paper working format; category not submitted",
   "venue_source": "https://conferences.i-cav.org/2027/cfp/",
@@ -5053,6 +5053,38 @@
         "docs/declared-literal-double-corpus.json"
       ],
       "validation": "build/declared-literal-double/corpus-summary-v1/report.json"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Verified equality reduction before projection is consumed by the actual compiler; two tiled compiler failures recover and complete output replay remains separate from transformation coverage and OLO condition synthesis.",
+      "theorems": [
+        {
+          "source": "theories/EqualityReducedProjection.v",
+          "name": "pure_project_exact"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryEqualityReducedPrepared.v",
+          "name": "checked_double_reduced_common_prepared_phase_correct"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeReducedPrepared.v",
+          "name": "checked_double_tree_reduced_prepared_loop_progress_at"
+        },
+        {
+          "source": "prototype/interface/ReducedLiteralCombinedDoubleCompiler.v",
+          "name": "compile_selected_reduced_literal_combined_double_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/equality-reduced-codegen.md",
+        "docs/current-work-plan.md",
+        "docs/framework-responsibilities.md"
+      ],
+      "artifacts": [
+        "docs/equality-reduced-codegen.json",
+        "docs/equality-reduced-codegen-results.json",
+        "docs/reduced-nodep-execution.json"
+      ]
     }
   ],
   "bibliography_evidence": [
@@ -18637,5 +18669,62 @@
         "name": "compile_selected_common_double_tree_program_correct"
       }
     ]
+  },
+  "equality_reduced_projection_codegen": {
+    "narrative_reference": "8ce9c8b4587eefd9169b8c9eaa49fdb068ace5c9",
+    "reports": {
+      "proof": {
+        "path": "build/equality-reduced-codegen/proof-v2/report.json",
+        "sha256": "89f4c9a06207f0e377641c0e166837bcae3d1da23fca35ae37673627e3b17c4c"
+      },
+      "native": {
+        "path": "build/double-tree-model/compiler-attempts/native-reduced-literal-combined-v1/report.json",
+        "sha256": "3cf046e70117b336a4f16c137e5e82d6b59d0732dea1ed9f976661226c08f465"
+      },
+      "focus": {
+        "path": "build/benchmark-alignment/current-reduced-literal-combined-attempts/blockers-v1/report.json",
+        "sha256": "80260223db67658576b4736390096ea1cd633071673ad6948cb4d0081e43392b"
+      },
+      "corpus": {
+        "path": "build/benchmark-alignment/current-reduced-literal-combined-attempts/corpus-v1/report.json",
+        "sha256": "d28f510b4e9d2fde65a22b80f230195379725a9fbeaa8a51c74cd7dae672b413"
+      },
+      "observer": {
+        "path": "build/equality-reduced-codegen/execution-attempts/original-v2/report.json",
+        "sha256": "69eb65e8d093ccc1615820cf5f9d98bad7ca134053655f635e468c0807f4c93f"
+      },
+      "summary": {
+        "path": "build/equality-reduced-codegen/results-v1/report.json",
+        "sha256": "8f45429e467d919efd488d67ed876dc7ffe40d2e20d1ae3543afae190fff33b3"
+      }
+    },
+    "theorems": [
+      {
+        "source": "theories/EqualityReducedProjection.v",
+        "name": "pure_project_exact"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryEqualityReducedPrepared.v",
+        "name": "checked_double_reduced_common_prepared_phase_correct"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeReducedPrepared.v",
+        "name": "checked_double_tree_reduced_prepared_loop_progress_at"
+      },
+      {
+        "source": "prototype/interface/ReducedLiteralCombinedDoubleCompiler.v",
+        "name": "compile_selected_reduced_literal_combined_double_program_correct"
+      }
+    ],
+    "new_source_lines": 1984,
+    "queried_endpoints": 19,
+    "added_globals": [],
+    "complete_configurations": 192,
+    "native_matches": 186,
+    "changed_statuses": 2,
+    "whole_fused_candidates_installed_claimed": false,
+    "OLO_compact_entry_condition_complete": false,
+    "controlled_cost_claimed": false,
+    "full_goal_complete": false
   }
 }

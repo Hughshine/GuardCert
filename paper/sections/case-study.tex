@@ -2251,7 +2251,27 @@ regressions: fusion10 overflows the native
 stack and fusion2 exceeds 180 seconds after obtaining real phase proposals.
 Increasing fusion10's stack limit to 64 MiB does not resolve it. These failures
 are the only status changes from the quiet baseline; no native output mismatch
-or link failure is observed. They remain open and are distinct from successful
-fallback. Controlled cost and actual transformation support are separate checks. An
+or link failure is observed. They motivate the projection successor below and
+are distinct from successful fallback. Controlled cost and actual transformation support are separate checks. An
 outer-control initializer such as \texttt{k=j}, mixed loaded bounds, and OLO's
 dynamic compact entry-condition construction remain separate obligations.
+
+\paragraph{Projection Service Substitution.}
+The fusion10 stack retry localizes failure to the constraint conversion after
+Fourier--Motzkin projection during AST generation. A successor reduces explicit
+equalities before forming positive/negative constraint pairs. It proves the
+existing projection interface: the selected variable disappears, absent
+variables remain absent, and scaled exact projection is preserved. This is
+the existing rational-witness contract, rather than integer quantifier
+elimination or a machine-guard safety theorem.
+
+AST generation and code generation now accept that projection service as a
+module argument. Dimension preparation and source instance-list proofs are
+reused. The literal-source instance consumes the new generator in its actual
+Rocq compiler definition, retaining the affine, tiling and final generated-Loop
+checkers, Clight lowering, public exits and current-program installation.
+Its new Csem-to-Asm endpoint and extraction introduce no semantic override or
+kernel change. Focused compilation now completes for both failed original
+inputs, and final Clight contains two independently tiled nests. The overall
+fused proposals reach raw code generation but the existing floor-bound adapter
+refuses them. Supporting those bounds remains a concrete functionality gap.

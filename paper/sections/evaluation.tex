@@ -2585,3 +2585,29 @@ queried endpoints, six closed. Each uses at most six inherited globals, with no
 added global assumption. Three successful and eight failed compilation attempts
 are retained. This local proof stage adds neither an installed source family
 nor a new complete compiler endpoint.
+
+\paragraph{Equality Reduction in Actual Code Generation.}
+The projection successor adds ten proof modules and 1,984 lines, including the
+parameterization of inherited generator proofs and repeated installation
+connections. Nineteen queried endpoints have five closed results and at most
+42 inherited globals, with no additions. These counts do not measure optimizer
+author effort saved. The actual new compiler is extracted without a semantic
+projection override.
+
+The three configurations of original fusion10, fusion2 and nodep all match
+complete output. The formerly failing tiled compilations finish in 3.10 and
+1.99 seconds in the focused run; these are single diagnostic times rather than
+a controlled compiler-cost comparison. Original fusion10 and fusion2 each
+emit two four-level tiled nests, while their whole fused candidates encounter
+an unsupported floor-bound adaptation. Nodep retains all 400 original updates
+in each unchanged binary; debugger observations match all 13 updating tile
+groups. Its selected tiled Clight has 17 conditions, compared with 72 in the
+prior generator. This code-generation result does not establish dynamic guard
+refusal, compact OLO entry conditions, or runtime profitability.
+
+The same compiler's complete replay attempts all 192 configurations: 180 of
+186 original configurations and all six disclosed adaptation configurations
+match output. The six known frontend refusals remain. Only fusion10 and
+fusion2 tiled status changes from the preceding literal compiler; no compiler
+timeout, native mismatch or link failure is observed. Input hashes are unchanged.
+This result does not count all matching configurations as supported tiling.

@@ -1,0 +1,152 @@
+{
+  "status": "compiled",
+  "kind": "equality-reduced-projection-current-program-csem-to-asm",
+  "new_modules": [
+    "theories/EqualityReducedProjection.v",
+    "theories/ProjectionASTGen.v",
+    "theories/ProjectionCodeGen.v",
+    "theories/ProjectionPreparedCodegen.v",
+    "adapters/compcert-memory/GuardMemoryEqualityReducedPrepared.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeReducedPrepared.v",
+    "adapters/compcert-memory/GuardMemoryReducedLiteralDoubleTreeExecution.v",
+    "prototype/interface/ReducedLiteralDoubleTreeFactory.v",
+    "prototype/interface/ReducedLiteralDoubleTreeCompiler.v",
+    "prototype/interface/ReducedLiteralCombinedDoubleCompiler.v"
+  ],
+  "new_source_lines": 1984,
+  "endpoints": [
+    "EqualityReducedProjection.EqualityReducedOperator.reduce_scaled_exact",
+    "EqualityReducedProjection.EqualityReducedOperator.pure_project_exact",
+    "EqualityReducedProjection.EqualityReducedOperator.project_projected",
+    "EqualityReducedProjection.EqualityReducedOperator.project_no_new_var",
+    "EqualityReducedProjection.EqualityReducedOperator.project_in_iff",
+    "GuardMemoryDoubleCommonPrepared.export_double_common_statement_payload",
+    "GuardMemoryEqualityReducedPrepared.checked_double_reduced_common_prepared_phase_correct",
+    "GuardMemoryEqualityReducedPrepared.checked_double_reduced_common_prepared_loop_correct",
+    "GuardMemoryEqualityReducedPrepared.DoubleEqualityReducedPrepare.prepared_codegen_correct_general",
+    "GuardMemoryDoubleTreeReducedPrepared.checked_double_tree_reduced_prepared_loop_progress_at",
+    "GuardMemoryReducedLiteralDoubleTreeExecution.checked_reduced_literal_double_tree_candidate_execution",
+    "ReducedLiteralDoubleTreeFactory.reduced_literal_double_tree_region_contract",
+    "ReducedLiteralDoubleTreeFactory.check_reduced_literal_double_tree_region_sound",
+    "ReducedLiteralDoubleTreeCompiler.checked_reduced_literal_double_tree_regions_sound",
+    "ReducedLiteralDoubleTreeCompiler.checked_selected_reduced_literal_double_tree_program_correct",
+    "ReducedLiteralDoubleTreeCompiler.selected_reduced_literal_double_tree_cstrategy_forward",
+    "ReducedLiteralDoubleTreeCompiler.compile_selected_reduced_literal_double_tree_program_correct",
+    "ReducedLiteralCombinedDoubleCompiler.checked_selected_reduced_literal_combined_double_program_correct",
+    "ReducedLiteralCombinedDoubleCompiler.compile_selected_reduced_literal_combined_double_program_correct"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoubleCommonPrepared.export_double_common_statement_payload",
+    "GuardMemoryEqualityReducedPrepared.DoubleEqualityReducedPrepare.prepared_codegen_correct_general"
+  ],
+  "new_endpoint_count": 17,
+  "additional_global_axioms": [],
+  "closed_endpoints": 5,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 631,
+  "attempts": [
+    {
+      "module": "EqualityReducedProjection",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/EqualityReducedProjection-v1.json"
+    },
+    {
+      "module": "EqualityReducedProjection",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/EqualityReducedProjection-v2.json"
+    },
+    {
+      "module": "EqualityReducedProjection",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/EqualityReducedProjection-v3.json"
+    },
+    {
+      "module": "EqualityReducedProjection",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/EqualityReducedProjection-v4.json"
+    },
+    {
+      "module": "ProjectionASTGen",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ProjectionASTGen-v1.json"
+    },
+    {
+      "module": "ProjectionCodeGen",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ProjectionCodeGen-v1.json"
+    },
+    {
+      "module": "ProjectionPreparedCodegen",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/ProjectionPreparedCodegen-v1.json"
+    },
+    {
+      "module": "ProjectionPreparedCodegen",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ProjectionPreparedCodegen-v2.json"
+    },
+    {
+      "module": "GuardMemoryEqualityReducedPrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryEqualityReducedPrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeReducedPrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeReducedPrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryReducedLiteralDoubleTreeExecution",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryReducedLiteralDoubleTreeExecution-v1.json"
+    },
+    {
+      "module": "ReducedLiteralDoubleTreeFactory",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/ReducedLiteralDoubleTreeFactory-v1.json"
+    },
+    {
+      "module": "ReducedLiteralDoubleTreeFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ReducedLiteralDoubleTreeFactory-v2.json"
+    },
+    {
+      "module": "ReducedLiteralDoubleTreeCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ReducedLiteralDoubleTreeCompiler-v1.json"
+    },
+    {
+      "module": "ReducedLiteralCombinedDoubleCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ReducedLiteralCombinedDoubleCompiler-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "new_complete_compiler_endpoint": "ReducedLiteralCombinedDoubleCompiler.compile_selected_reduced_literal_combined_double_program_correct",
+  "new_source_tree_factory_installed": true,
+  "factory_discharges_source_model_and_entry_obligations": true,
+  "literal_model_parameters_are_actual_C_globals": false,
+  "mathematical_model_parameters_declared_for_extractor": true,
+  "host_public_scope_contains_only_actual_array_globals": true,
+  "constant_path_requires_dynamic_header_reads": false,
+  "actual_I32_source_literals_and_I64_bounds_supported": true,
+  "implicit_signed_arithmetic_conversion_and_progress_proved": true,
+  "static_refusal_retains_original_source": true,
+  "normalization_and_all_passes_use_actual_intermediate_program": true,
+  "new_native_source_family_added": false,
+  "dynamic_bound_source_family_extended": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "equality_reduction_precedes_Fourier_Motzkin_pairs": true,
+  "projection_contract_is_scaled_exact_projection": true,
+  "integer_quantifier_elimination_claimed": false,
+  "machine_guard_safety_follows_from_projection_alone": false,
+  "prepared_source_semantics_proofs_reused": true,
+  "actual_reduced_projection_codegen_consumed": true,
+  "candidate_and_dependence_checkers_unchanged": true,
+  "extraction_semantic_override_required": false,
+  "native_regressions_repaired_by_proof_build": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/equality-reduced-codegen/proof-v2/report.json"
+}

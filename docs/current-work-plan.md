@@ -2,6 +2,37 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 投影后继已接完整程序；下一项是整体候选适配
+
+2026-10-10 对照 narrative `8ce9c8b` 的责任划分，新增
+[等式消元前置的投影服务](equality-reduced-codegen.md)。Kernel 保持局部 guarded
+correctness；domain 实例满足原 `ProjectOperator` 的 scaled exact projection，
+参数化 AST/codegen 并复用原维度准备与源执行证明；language／host 复用实际
+机器执行、frame/control/progress 与完整程序安装。数学投影不直接提供安全
+Clight check，也不改称整数 Presburger 量词消去。
+
+十个后继模块／1,984 行／19 端点的审计通过，五个 closed、最多 42 项既有 globals、
+无新增。新实际 compiler 定义消费该投影，接 Csem→Asm 并已提取；没有 semantic
+extraction override。`fusion10`、`fusion2`、`nodep` 的九个重点配置全部输出匹配；
+前两例 tiled 编译分别约 3.10／1.99 秒完成，关闭此前 stack overflow／180 秒
+timeout 的实际复现。时间是单次诊断，不主张受控编译加速或运行收益。
+
+实际 Clight 确认前两例各有两个四层 tiled nests；其整体 source 的 raw codegen
+现在完成，但整体候选因 unsupported floor bound 被 adaptation 拒绝，所以未验收
+fusion。新 `nodep` 候选由 72 条条件降到 17 条；[未改 assembly 的观察](reduced-nodep-execution.json)
+各计数 400 次原 update、所有 indices 恰好一次，tiled 更新对应 13 个 witness
+tile groups。这个常量例不测试动态 guard refusal，也不完成 OLO entry synthesis。
+
+同一新 compiler 的[完整 192 配置 replay](equality-reduced-codegen-results.json)已完成：
+186 个完整输出匹配，原例 180/186、两 adaptations 6/6。仅六个既有 frontend
+拒绝保留；相对前序只有上述两项 tiled status 从失败恢复，没有 compiler timeout、
+native mismatch 或 link failure。旧 shape counters 不作为新 literal 支持计数。
+下一实施按实际 blocker 排序：支持整体候选的 floor／min/max bound 及 multi-piece
+适配，然后处理 `dsyrk` 的 `k=j` initializer、混合端点、general pieces／ISS 和
+其他真实顺序域变换。OLO compact entry 条件、安全 check／state transport、原始
+CGO17 contexts／tiers、完整成本和同例人工责任比较继续单独验收。完整 goal active。
+下段是前序 compiler 的冻结 checkpoint。
+
 ### 常量源族已接完整程序；继续实际语料与条件验收
 
 再次核对远端 narrative：仍为 `8ce9c8b`，`paper-narrative.md` 与 main 相同。
