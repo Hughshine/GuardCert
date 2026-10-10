@@ -2,6 +2,28 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 已证明分片域服务；继续实际候选的执行接线
+
+远端 narrative 再核对仍为 `8ce9c8b`，正文与 main 相同。新的
+[piece domain 服务](piece-domain-services.md)已证明不同深度 pieces 的整数仿射
+拉回、双向坐标恢复、覆盖和互斥，得到有效 source instance 与唯一 candidate
+instance。五模块443行／13端点、四closed、最多八既有globals、无新增；失败
+编译保留。它是 domain 库，不是新 kernel 或 host law，也不要求 C 用户 callbacks。
+
+已从实际 source、phase 和 candidate 提取输入，[原 fusion2 检查](piece-family-results.json)
+通过 tiled 七 pieces、untiled 六 pieces 的坐标证书与四个 parent families，
+三配置完整输出匹配；16项错映射／遗漏／重复负例拒绝。selected Clight 保持前序
+两单独 nests，整体 fusion 未安装。首次 native 来源变化的拒绝、standalone
+配置缺失及单片／家族负例预期错误均保留。这些检查在现有完整 compiler 的
+untrusted adapter 中诊断，不能代替旧 final
+checker 或称为整体 fusion 安装。下一证明必须保留 checked phase 的 tiled model，
+检查参数前缀与实际 typed action，将 pieces 重定时到其共同 schedule，再用已有
+七对七依赖 validator 接实际次序与 Loop 执行／progress。不能以集合定理或完整
+输出匹配替代这些义务。其后的 machine／frame／出口与 current-program host 复用。
+
+OLO compact entry 推导、safe guard／entry transport、原 contexts／tiers、完整
+成本，以及其他顺序域能力继续按下列完整 goal 验收，未完成 milestone 不关闭 goal。
+
 
 ### Narrative 澄清落实：前提精度与分片执行对应
 

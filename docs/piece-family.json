@@ -1,0 +1,122 @@
+{
+  "status": "compiled",
+  "kind": "symbolic-integer-affine-piece-domain-bijection",
+  "new_modules": [
+    "theories/PolCertPieceAffineMaps.v",
+    "theories/PolCertPieceCoordinates.v",
+    "theories/PolCertPieceDomainCover.v",
+    "theories/PolCertPieceFamily.v",
+    "adapters/compcert-memory/GuardMemoryDoublePieceFamily.v"
+  ],
+  "new_source_lines": 443,
+  "endpoints": [
+    "PolCertPieceAffineMaps.piece_map_width_sound",
+    "PolCertPieceAffineMaps.piece_compose_row_correct",
+    "PolCertPieceAffineMaps.piece_pullback_poly_correct",
+    "PolCertPieceAffineMaps.piece_equal_maps_correct",
+    "PolCertPieceCoordinates.piece_identity_correct",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.D.check_cover_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.D.check_disjoint_family_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.K.check_piece_coordinates_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.K.piece_image_correct",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.K.piece_candidate_image",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.check_piece_family_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.family_instance_valid",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.family_exactly_one"
+  ],
+  "imported_endpoints": [
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.D.check_cover_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.D.check_disjoint_family_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.K.check_piece_coordinates_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.K.piece_candidate_image",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.K.piece_image_correct",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.check_piece_family_sound",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.family_exactly_one",
+    "GuardMemoryDoublePieceFamily.DoublePieceFamily.family_instance_valid"
+  ],
+  "new_endpoint_count": 13,
+  "additional_global_axioms": [],
+  "closed_endpoints": 4,
+  "maximum_endpoint_globals": 8,
+  "reachable_source_count": 163,
+  "attempts": [
+    {
+      "module": "PolCertPieceAffineMaps",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceAffineMaps-v1.json"
+    },
+    {
+      "module": "PolCertPieceAffineMaps",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceAffineMaps-v2.json"
+    },
+    {
+      "module": "PolCertPieceAffineMaps",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceAffineMaps-v3.json"
+    },
+    {
+      "module": "PolCertPieceCoordinates",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceCoordinates-v1.json"
+    },
+    {
+      "module": "PolCertPieceCoordinates",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceCoordinates-v2.json"
+    },
+    {
+      "module": "PolCertPieceCoordinates",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceCoordinates-v3.json"
+    },
+    {
+      "module": "PolCertPieceCoordinates",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceCoordinates-v4.json"
+    },
+    {
+      "module": "PolCertPieceDomainCover",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceDomainCover-v1.json"
+    },
+    {
+      "module": "PolCertPieceDomainCover",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceDomainCover-v2.json"
+    },
+    {
+      "module": "PolCertPieceDomainCover",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceDomainCover-v3.json"
+    },
+    {
+      "module": "PolCertPieceFamily",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertPieceFamily-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoublePieceFamily",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoublePieceFamily-v1.json"
+    }
+  ],
+  "baseline_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "integer_affine_pullback_and_equalities_proved": true,
+  "untrusted_finite_coverage_tree_checked": true,
+  "piece_depths_may_differ": true,
+  "valid_source_instance_has_unique_candidate_instance": true,
+  "candidate_instance_maps_to_valid_source_instance": true,
+  "concrete_iteration_enumeration_used": false,
+  "instruction_or_schedule_correspondence_provided": false,
+  "parameter_prefix_correspondence_provided": false,
+  "actual_Loop_execution_bridge_added": false,
+  "candidate_final_checker_remains_authoritative": true,
+  "new_whole_program_compiler_definition": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "source_users_supply_semantic_callbacks": false,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "full_goal_complete": false,
+  "report": "build/piece-family/proof-v1/report.json"
+}

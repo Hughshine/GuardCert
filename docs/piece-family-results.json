@@ -1,0 +1,169 @@
+{
+  "status": "checked",
+  "case": "fusion2-original",
+  "input_sha256": "a058f9fe5e8a7353b016784d59a80f011a57bd15cbd0adb04f9d3f1174054fbd",
+  "source_numeric_types_and_computation_preserved": true,
+  "scope": "integer-affine-domain-and-coordinate-certificates",
+  "native_complete_output_matches": 3,
+  "actual_configurations": [
+    {
+      "mode": "untiled",
+      "actual_piece_count": 6,
+      "actual_piece_depths": [
+        1,
+        1,
+        2,
+        2,
+        1,
+        1
+      ],
+      "coordinate_checks_passed": 6,
+      "parents": [
+        {
+          "parent": 0,
+          "pieces": 3,
+          "checked_family": true,
+          "coverage_tree": {
+            "splits": 3,
+            "piece_leaves": 4,
+            "empty_leaves": 0
+          }
+        },
+        {
+          "parent": 1,
+          "pieces": 3,
+          "checked_family": true,
+          "coverage_tree": {
+            "splits": 2,
+            "piece_leaves": 3,
+            "empty_leaves": 0
+          }
+        }
+      ],
+      "selected_Clight_shape": {
+        "for_loops": 4,
+        "maximum_nested_for_loops": 2,
+        "if_statements": 8
+      },
+      "previous_selected_Clight_shape": {
+        "for_loops": 4,
+        "maximum_nested_for_loops": 2,
+        "if_statements": 8
+      },
+      "whole_fusion_installed": false
+    },
+    {
+      "mode": "tiled",
+      "actual_piece_count": 7,
+      "actual_piece_depths": [
+        3,
+        3,
+        4,
+        4,
+        3,
+        3,
+        3
+      ],
+      "coordinate_checks_passed": 7,
+      "parents": [
+        {
+          "parent": 0,
+          "pieces": 3,
+          "checked_family": true,
+          "coverage_tree": {
+            "splits": 7,
+            "piece_leaves": 8,
+            "empty_leaves": 0
+          }
+        },
+        {
+          "parent": 1,
+          "pieces": 4,
+          "checked_family": true,
+          "coverage_tree": {
+            "splits": 2,
+            "piece_leaves": 3,
+            "empty_leaves": 0
+          }
+        }
+      ],
+      "selected_Clight_shape": {
+        "for_loops": 8,
+        "maximum_nested_for_loops": 4,
+        "if_statements": 16
+      },
+      "previous_selected_Clight_shape": {
+        "for_loops": 8,
+        "maximum_nested_for_loops": 4,
+        "if_statements": 16
+      },
+      "whole_fusion_installed": false
+    }
+  ],
+  "coordinate_checks_passed": 13,
+  "valid_family_checks": 4,
+  "mutated_refusals": 16,
+  "mutation_results": [
+    {
+      "mode": "untiled",
+      "parent": 0,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    },
+    {
+      "mode": "untiled",
+      "parent": 1,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    },
+    {
+      "mode": "tiled",
+      "parent": 0,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    },
+    {
+      "mode": "tiled",
+      "parent": 1,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    }
+  ],
+  "retained_rejections": [
+    {
+      "stage": "native-build-binding-validation-before-replay",
+      "reason": "The proposal source changed during its initial native build. The frozen report does not validate against its restored original source; this build is excluded from successful evidence. The receipt successor has separate source, build and replay.",
+      "record": "build/double-tree-model/compiler-attempts/native-piece-diagnostic-v1/binding-rejection.json"
+    },
+    {
+      "stage": "native-runtime-configuration",
+      "reason": "The linked checker includes CompCert configuration initialization. No compcert.ini was supplied to the standalone executable; no candidate test result was obtained.",
+      "record": "build/piece-family/mutations-v1/failure-bindings.json"
+    },
+    {
+      "stage": "test-expectation",
+      "reason": "A +1 shift of the omitted source coordinate can satisfy single-piece inclusion and candidate inverse. It changes the piece image and must be rejected by family coverage/disjointness, not assumed to fail the coordinate-only contract. The successor tests the family-level obligation. This is not an executable-action correctness test.",
+      "record": "build/piece-family/mutations-v2/failure-bindings.json"
+    }
+  ],
+  "concrete_iteration_enumeration_used": false,
+  "new_complete_compiler_endpoint": false,
+  "instruction_parameter_prefix_order_and_Loop_bridges_proved": false,
+  "whole_fusion_installed": false,
+  "dynamic_OLO_entry_condition_algorithm_added": false,
+  "controlled_cost_comparison": false,
+  "full_goal_complete": false,
+  "report": "build/piece-family/results-v1/report.json"
+}

@@ -1,5 +1,16 @@
 # 验证责任、证书边界与最难的验收
 
+新的 [piece domain 服务](piece-domain-services.md)建立不同深度 pieces 的坐标
+恢复、整数域覆盖／互斥及唯一 instance 对应；五模块443行／13端点，无新增
+globals。它消费模型 facts，不产生机器 guard，也未证明 typed action、参数前缀、
+实际调度或 Loop 执行。**当前最难的 domain 接线转为把这些域证据接到真实
+phase／candidate 的动作和次序，再交付 actual Loop／progress**。Kernel、语言
+host 定律和普通 C 使用者接口保持原边界。新的 native checker 仅作诊断，完整
+候选仍需通过安装 checker；整体 fusion 与 OLO 的条件／成本验收继续开放。
+实际 fusion2 的13个坐标检查、四个 parent families 已通过，16项错映射／遗漏／
+重复负例拒绝，三配置输出匹配；selected Clight 仍是两单独 nests。它支持域接口
+的可运行性，不提供动作或调度正确性的剩余证明。
+
 
 2026-10-10 [参数 facts 后继](parameter-specialization.md)进一步落实 narrative
 `8ce9c8b` 的责任。Domain 的数学服务从 singleton intervals 取得 facts，证明

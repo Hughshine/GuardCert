@@ -5118,6 +5118,41 @@
         "docs/exact-literal-parameters.json",
         "docs/exact-literal-parameter-results.json"
       ]
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Symbolic integer-affine piece coordinate inclusion, inverse recovery, checked union coverage and disjointness imply unique candidate instances; action, parameter, actual-order and Loop bridges remain pending. Diagnostic checks do not install whole fusion.",
+      "theorems": [
+        {
+          "source": "theories/PolCertPieceAffineMaps.v",
+          "name": "piece_pullback_poly_correct"
+        },
+        {
+          "source": "theories/PolCertPieceCoordinates.v",
+          "name": "check_piece_coordinates_sound"
+        },
+        {
+          "source": "theories/PolCertPieceFamily.v",
+          "name": "check_piece_family_sound"
+        },
+        {
+          "source": "theories/PolCertPieceFamily.v",
+          "name": "family_exactly_one"
+        },
+        {
+          "source": "theories/PolCertPieceFamily.v",
+          "name": "family_instance_valid"
+        }
+      ],
+      "documents": [
+        "docs/piece-domain-services.md",
+        "docs/polyhedral-piece-contract.md"
+      ],
+      "artifacts": [
+        "docs/piece-family.json",
+        "docs/piece-family-results.json",
+        "docs/piece-mutations.json"
+      ]
     }
   ],
   "bibliography_evidence": [

@@ -1,0 +1,51 @@
+{
+  "status": "checked",
+  "actual_source_case": "fusion2-original",
+  "original_source_and_numeric_types_unchanged": true,
+  "actual_extracted_piece_witnesses_reused": true,
+  "outcomes": [
+    {
+      "mode": "untiled",
+      "parent": 0,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    },
+    {
+      "mode": "untiled",
+      "parent": 1,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    },
+    {
+      "mode": "tiled",
+      "parent": 0,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    },
+    {
+      "mode": "tiled",
+      "parent": 1,
+      "valid": true,
+      "wrong_project_refused": true,
+      "wrong_embed_refused": true,
+      "missing_piece_refused": true,
+      "duplicate_piece_refused": true
+    }
+  ],
+  "valid_family_checks": 4,
+  "mutated_refusals": 16,
+  "checker_semantics_overridden": false,
+  "whole_fusion_installed": false,
+  "instruction_order_and_Loop_bridge_proved": false,
+  "full_goal_complete": false,
+  "report": "build/piece-family/mutations-v3/report.json"
+}

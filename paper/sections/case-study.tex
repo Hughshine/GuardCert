@@ -2306,3 +2306,18 @@ mapping must establish coverage, uniqueness, action correspondence, order and
 progress; changing attachment arity alone would provide none of those facts.
 This is a domain proof obligation above the kernel, with the existing machine
 lowering and whole-program host retained.
+
+\paragraph{Checked Piece Domains.}
+A domain service now checks integer-affine coordinate proposals for pieces of
+different depths. It checks candidate-to-model inclusion and inverse recovery,
+constructs mapped domains, and validates an untrusted finite coverage tree and
+pairwise disjointness. Its theorem gives exactly one candidate instance for
+each valid model instance and excludes extra candidate instances. The result
+is symbolic over integer vectors; it does not enumerate concrete iterations.
+
+This certificate establishes domain and coordinate correspondence. Parameter
+prefixes, typed actions, actual order and Loop execution remain separate
+obligations. The planned connection retains the checked tiled model, retimes
+pieces to its common schedule, and uses the existing dependence validator to
+justify the actual candidate order. Domain diagnostics in the existing compiler
+do not authorize installation or establish whole fusion.

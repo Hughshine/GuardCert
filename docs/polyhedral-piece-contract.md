@@ -1,7 +1,8 @@
 # 下一项 domain 接口：一源多 piece 的执行对应
 
-这是基于原 `fusion2` scheduler/codegen receipts 的实施设计，尚未实现新的 piece
-checker。它位于 [narrative](topdown/paper-narrative.md) 的 optimizer/domain 层，
+这是基于原 `fusion2` scheduler/codegen receipts 的实施设计。新的
+[域／坐标服务](piece-domain-services.md)已实现覆盖、互斥和唯一 instance 对应，
+尚未接动作、参数前缀、次序及真实执行桥。它位于 [narrative](topdown/paper-narrative.md) 的 optimizer/domain 层，
 不改变语言无关 kernel，也不把数学 domain 事实作为 C 使用者的 callbacks。
 当前证据与接线见 [参数特化](parameter-specialization.md)。
 

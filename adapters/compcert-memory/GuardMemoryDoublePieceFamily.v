@@ -1,0 +1,11 @@
+From Guard Require Import PolCertPieceFamily.
+From GuardMemory Require Import GuardMemoryDoubleAssignment GuardMemoryDoublePolyhedral.
+Module DoublePieceFamily := PolCertPieceFamilyFor DoubleAssignmentIRs.
+Print Assumptions DoublePieceFamily.D.check_cover_sound.
+Print Assumptions DoublePieceFamily.D.check_disjoint_family_sound.
+Print Assumptions DoublePieceFamily.K.check_piece_coordinates_sound.
+Print Assumptions DoublePieceFamily.K.piece_image_correct.
+Print Assumptions DoublePieceFamily.K.piece_candidate_image.
+Print Assumptions DoublePieceFamily.check_piece_family_sound.
+Print Assumptions DoublePieceFamily.family_instance_valid.
+Print Assumptions DoublePieceFamily.family_exactly_one.
