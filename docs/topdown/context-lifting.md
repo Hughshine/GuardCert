@@ -33,6 +33,29 @@ the whole compiler per benchmark, a new generic context algebra, a second IR,
 or new axioms. The factoring questions below remain design questions, not a
 reason to defer or assume the installation proof.
 
+### Direct codegen delivery (2026-10-10)
+
+The main polyhedral route connects the actual selected Clight source to its
+PolCert model, validated model transformations, original codegen/cleanup and
+proved Clight lowering, then consumes the existing region contract and
+Csem-to-Asm installation. Candidate execution must be constructed at the same
+captured parameters. Forward execution/existence and progress for generated
+code, machine floor/min/max bounds, private-state transport and public exits
+are concrete domain/language obligations; the host does not infer them.
+
+Native semantic adaptation followed by re-extraction and matching against a
+source statement list is no longer the default installation gate. Model-level
+optimization validation remains required. A necessary post-generation change
+must have a separate general execution-preservation proof; its actual output
+must be consumed by lowering and the region contract. Existing static site,
+scope, resource and placement checks still supply their language obligations.
+
+The complete direct compiler is pending. Keep previous compiler definitions,
+checks and reports as evidence for their own routes. Deleting a final check
+does not complete candidate progress or installation. Reuse the current finite
+or open host as required by the source and continuation, without inventing a
+new host interface or postponing whole-program correctness to evaluation.
+
 ## 1. What must be lifted
 
 GuardCert's most language-independent result is local:

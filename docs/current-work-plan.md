@@ -2,6 +2,52 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### 当前主路线：直接复用 PolCert codegen／cleanup 证明
+
+本次只修订指引，不修改实现，也不增加已完成成果。主路线为：pragma 标注的
+原 Clight 代码 → 通用且已证明正确的 source extraction → PolCert 模型层优化
+与验证 → codegen／cleanup 的执行证明 → 通用且已证明正确的 Loop→Clight
+翻译 → 安全 guard、原代码 fallback 和公开出口恢复 → 既有 host 与 Csem→Asm。
+
+不再把 native 对 generated Loop 的语义改写、重新 extract、按 source statement
+列表匹配的最终检查作为默认安装 gate。调度、域和依赖等优化在模型层验证。
+必要的生成后处理应有单独、通用的执行保持证明，并与原 codegen／cleanup、
+language lowering 组合；未证明的适配不能代替这条链。不能只删除旧最终检查，
+再把未闭合的直接 compiler 写成已交付。
+
+**完整 direct path 尚未完成。当前依次闭合以下实际义务：**
+
+1. 补通用的代码生成执行证明：从原模型的有限执行，构造实际生成代码的执行，
+   保证迭代点完整、不重复，原指令及参数对应准确，执行顺序符合已验证的调度。
+   复用 PolCert 下层双向定理、依赖验证和 cleanup 证明；处理相同调度时间的
+   语句顺序。仅 generated→source 的定理不足以给当前 host 构造候选执行。
+   同时复用 main 已证明的等式消元投影和参数特化服务，不退回已出现爆栈／
+   超时的实现；这些服务不授权对生成循环作未证明的语义改写。
+2. 直接翻译实际生成结果：在 `PolCertAffineClight`／`PolCertNestedClight` 的
+   通用实现中补 floor（含负分子）、Min／Max 及其所有中间值的机器范围证明，
+   支持多片域、生成的指令副本与不同嵌套深度；检查参数、私有计数器／缓存及
+   公开出口。不能靠恢复原 source 循环或重新抽取生成代码来绕过这些义务。
+3. 在现有 factory 和完整程序编译入口内组合上述证明，自动生产 source/model、
+   入口条件、安全 guard、接受／拒绝后的状态关系和原代码可运行性证据；复用
+   scope／resources／placement、continuation 与 host/backend。用户只提供
+   pragma 与策略，不逐程序编写 extraction 等价证明或 semantic callbacks；
+   不新增 IR、kernel laws 或 context-lifting 接口。替代路径真正接通前保留旧
+   路线的检查；只删检查不能视作完成迁移。
+4. 对完整 pragma region 验收真实优化、guard 接受／回退、公开出口和 Csem→Asm。
+   对齐 PolCert 原例的适用顺序配置与 CGO17 原 source／contexts／tiers，保留
+   原数值类型、计算和输入。并发可排除；其余失败逐项记录尝试、原因和修复，
+   不未经详尽尝试便缩减支持范围，也不以分开优化各个 nest 冒充整段 fusion。
+5. 用同源、对应输入和可比后端比较原源、PolCert／Polly 适用顺序目标与 GuardCert
+   完整调用，计入 guard／candidate／fallback／出口恢复。新直接 compiler 再做
+   全语料联合重放、完整成本与干净源码树全链复现；输出匹配、shape counters
+   或旧路线报告不替代新路线的变换效果、证明和性能验收。只记录任务／子任务、
+   实际完成状态与证据，不给日历时间估计。
+
+以下保留 legacy compiler 的定义、最终检查、失败／成功输入和冻结证明／运行
+报告。它们是各阶段自己的结果，不改标为 direct codegen 的覆盖或成本成果。
+
+## 前序阶段记录（保留当时路线与证据）
+
 ### 动态整体分块的功能验收已通过；成本未通过
 
 [本轮汇总](dynamic-piece-integer-results.json)绑定 fresh proof/build、成功运行、
@@ -215,7 +261,7 @@ OLO compact entry 推导、safe guard／entry transport、原 contexts／tiers�
 成本，以及其他顺序域能力继续按下列完整 goal 验收，未完成 milestone 不关闭 goal。
 
 
-### Narrative 澄清落实：前提精度与分片执行对应
+### 参数特化 checkpoint：前提精度与旧路线的分片限制
 
 2026-10-10 再次 fetch／核对远端：`topdown/research-positioning` 可见最新仍为
 `8ce9c8b`，`paper-narrative.md` 与 main 正文一致。已按澄清继续区分 kernel、
@@ -259,7 +305,7 @@ tiers、完整成本及同例作者负担仍是独立验收；常量特化不替
 完整 goal active。下一 domain 接口的具体数据／证书和已有定理复用边界见
 [一源多 piece 执行对应](polyhedral-piece-contract.md)。下段保留前序 checkpoint。
 
-### 投影后继已接完整程序；下一项是整体候选适配
+### 投影后继 checkpoint：整体 raw codegen 完成，旧适配仍拒绝
 
 2026-10-10 对照 narrative `8ce9c8b` 的责任划分，新增
 [等式消元前置的投影服务](equality-reduced-codegen.md)。Kernel 保持局部 guarded
