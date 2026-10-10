@@ -1,0 +1,131 @@
+{
+  "status": "compiled",
+  "new_modules": [
+    "theories/ResidualGuardCurrent.v",
+    "theories/PolCertGuardResidualization.v",
+    "theories/PolCertAdjacentGuards.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeResidualCandidate.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeResidualGuarded.v",
+    "prototype/interface/DoubleTreeResidualFactory.v",
+    "prototype/interface/DoubleTreeResidualCompiler.v"
+  ],
+  "new_source_lines": 834,
+  "endpoints": [
+    "ResidualGuardCurrent.residualize_property",
+    "ResidualGuardCurrent.residual_guard_preservation",
+    "GuardMemoryDoubleTreeResidualCandidate.double_residual_test_sound",
+    "GuardMemoryDoubleTreeResidualCandidate.double_residual_execution",
+    "GuardMemoryDoubleTreeResidualCandidate.double_adjacent_guard_execution",
+    "GuardMemoryDoubleTreeResidualCandidate.double_tree_cache_within_residual_intervals",
+    "GuardMemoryDoubleTreeResidualCandidate.compiled_residual_double_tree_candidate_execution",
+    "GuardMemoryDoubleTreeResidualGuarded.checked_double_tree_residual_guarded_execution",
+    "DoubleTreeResidualFactory.double_tree_residual_region_contract",
+    "DoubleTreeResidualFactory.check_double_tree_residual_region_sound",
+    "DoubleTreeResidualCompiler.checked_residual_double_tree_regions_sound",
+    "DoubleTreeResidualCompiler.checked_selected_residual_double_tree_program_correct",
+    "DoubleTreeResidualCompiler.selected_residual_double_tree_cstrategy_forward",
+    "DoubleTreeResidualCompiler.compile_selected_residual_double_tree_program_correct"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 4,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 569,
+  "attempts": [
+    {
+      "module": "ResidualGuardCurrent",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ResidualGuardCurrent-v1.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v1.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v2.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v3.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v4.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v5.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v6.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v7.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v8.json"
+    },
+    {
+      "module": "PolCertAdjacentGuards",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertAdjacentGuards-v1.json"
+    },
+    {
+      "module": "PolCertAdjacentGuards",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertAdjacentGuards-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeResidualCandidate",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeResidualCandidate-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeResidualGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeResidualGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreeResidualFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeResidualFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreeResidualCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeResidualCompiler-v1.json"
+    }
+  ],
+  "complete_compiler_endpoint": "DoubleTreeResidualCompiler.compile_selected_residual_double_tree_program_correct",
+  "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+  "actual_source_loop_passed_to_untrusted_adapter": true,
+  "common_original_schedule_coordinates_reused": true,
+  "per_statement_constant_point_shifts_reused": true,
+  "affine_reference_is_checked_before_proved_postpass": true,
+  "actual_residual_loop_is_lowered_through_proved_machine_compiler": true,
+  "loop_binder_branch_and_interval_facts_are_proved": true,
+  "generic_formula_residualization_reused": true,
+  "generic_library_successor_byte_identical": true,
+  "adjacent_equal_guards_factored_under_immutable_model_environment": true,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "actual_pruned_loop_revalidated_by_polyhedral_checker": false,
+  "runtime_maximum_bound_selected_by_complementary_guards": true,
+  "factory_and_current_program_host_consume_new_checker": true,
+  "domain_partition_or_many_to_one_point_matching_added": false,
+  "new_native_acceptance_established_by_proof_audit": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/double-tree-residual/proof-v1/report.json"
+}

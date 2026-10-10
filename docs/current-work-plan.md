@@ -2,12 +2,40 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+### Fact residualization 已接 compiler，完整语料暴露路线组合缺口
+
+[Residual 后继](double-tree-residual.md)从实际 loop bounds／进入的 guards 推导事实，
+复用 generic formula residualization，证明 Boolean 求值与有限执行保持；相邻相同
+guards 在 immutable Loop environment 下合并。Actual lowering、factory 与当前程序
+Csem→Asm 已消费。七模块834行／14端点（4closed、最多42原globals），15 attempts
+七成功八失败，569 reachable sources／10,624 bindings，无新增globals或host laws。
+
+三原程序五配置15/15匹配、21runtime inputs及十一条未改assembly路径通过；原
+stores／次序和captures保持。Candidate guards12→4，实际selected cmp21→7、
+instructions112→38。同源三版本六输入七随机batches共126输出匹配。满域进程CPU
+median residual11.243／pruned27.432／source15.043ms，配对residual/source约0.754。
+包含startup／argv／完整调用／digest／printing，未pin；小输入未建立一般收益。
+
+完整62例＋两disclosed adaptations的新对照已完成192项，185输出匹配；六项原
+initializer拒绝和jacobi requested-tiled的180秒compiler timeout单独保留。Untiled
+八原例有guarded installation，仍有大量零安装和空model phase拒绝。旧typed-double
+与新source-tree路线必须组合，不能用三例收益替代覆盖。
+新 `CombinedDoubleTreeResidualCompiler` 已证明先tree再旧typed passes，
+每项消费actual intermediate program，再接Csem→Asm；81行／两端点、最多42原
+globals，audit10,646 bindings。两个native builds已完成，第二个分别诊断tree和
+typed安装；完整对照仍在运行，不计新覆盖或组合路线成本收益。
+
+**接下来先完成实际组合路线和完整corpus对照，并修复暴露的具体缺口。** 保留
+真实tiling／general pieces／ISS forward-progress、OLO compact入口条件、安全
+machine execution与entry transport、shared-check memoization及CGO17原程序／
+contexts／tiers。Body residualization不是入口condition synthesis；完整goal保持。
+
 2026-10-10 [narrative／条件边界复核](narrative-condition-boundary-review-2026-10-10.md)
 重新 fetch 并核对远端；可见最新仍为 `8ce9c8b`，正文与 main 一致。继续按下述
 实际成本 blocker 推进；区分候选体 residualization 与 OLO 紧凑入口条件推导，
 二者分别交付执行、机器安全与当前程序接入证明。Contract clauses 仍是待实际
-需要检验的设计提案。当前 residual Loop 实例编译尚未通过，新 factory／compiler
-未编译，不增加已交付能力计数；长期 goal 和完整验收范围保持。
+需要检验的设计提案。复核时 residual Loop／factory／compiler 尚未编译；其后继
+证明、native与成本结果见上节，长期 goal 和完整验收范围保持。
 
 ### Runtime max pruning 已接完整 compiler；成本指出下一 blocker
 

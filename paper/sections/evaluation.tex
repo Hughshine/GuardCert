@@ -2519,3 +2519,28 @@ the cap overhead but do not establish a general gain over source. The full
 domain slowdown remains an acceptance gap; repeated body membership tests
 motivate proved residualization under loop and branch facts. No new tiling,
 general piece correspondence or aggregate corpus replay is established.
+
+
+\paragraph{Residual Conditions and Same-Source Cost.}
+Seven modules contain 834 lines, including a byte-identical 108-line rebuild
+of the existing generic residualization library. Four of fourteen queried
+endpoints are closed. Fifteen proof attempts include seven successes and
+eight failures; no global assumption is added, and the compiler endpoint
+retains at most 42 inherited globals. Fifteen original configurations and
+twenty-one runtime inputs match. Eleven observations on unchanged assembly
+confirm captures, fallback, iterations and source stores. The accepted model
+has four guards instead of twelve; its selected machine path has seven
+comparison instructions instead of twenty-one, and 38 instructions instead
+of 112. Input $(2,3,5)$ retains ten inner iterations and 24 scalar stores.
+
+A separate comparison again uses the original marked computation, profile
+$[0,4096]$, the prior pruned compiler and a same-backend unmarked source.
+Six inputs and seven randomized batches yield 126 matching complete outputs.
+The full-domain input $(4096,4096,4096)$ has median process CPU times of
+11.243 ms for residualization, 27.432 ms for pruning and 15.043 ms for source.
+The median within-batch residual/source ratio is 0.754. Small inputs do not
+establish a general gain. Timing includes startup, argv parsing, initialization,
+checks, candidate/fallback, public exits, digest and printing, without CPU
+pinning or frequency control. This is not kernel-only or isolated guard-cost
+evidence. General piece correspondence, actual new tiling and compact OLO
+entry-condition construction remain open.

@@ -1,0 +1,1310 @@
+{
+  "status": "checked",
+  "reports": {
+    "compiler": {
+      "path": "build/double-tree-model/compiler-attempts/native-residual-v1/report.json",
+      "sha256": "7b362200ea42e1c0dbb880f79e6c7f2db0a2ee49cb286f64f22e5e366297b983"
+    },
+    "native": {
+      "path": "build/double-tree-residual/native-attempts/original-v1/report.json",
+      "sha256": "08b43d1e79dba0b270e2a81a02ec2e6a01744f3ed586b3ed2f5d22328fbb71b5"
+    },
+    "runtime": {
+      "path": "build/double-tree-residual/runtime-attempts/argv-v1/report.json",
+      "sha256": "98b9d465b46b36c66295a1a8581f4e964ca8b849841d15779fe85ff84fb1e2f8"
+    },
+    "paths": {
+      "path": "build/double-tree-residual/path-attempts/branch-v1/report.json",
+      "sha256": "d319f4f5837579791b5be57e4d60b289cec0e58bc0278b8b7b8576d2082c63ec"
+    },
+    "previous_paths": {
+      "path": "build/double-tree-pruned/path-attempts/branch-v1/report.json",
+      "sha256": "5e45bb266fa0f82f87106d1390788a4e1f84aa2b4887324e8207e5079ce8d358"
+    },
+    "cost": {
+      "path": "build/double-tree-residual/cost-attempts/source-process-v1/report.json",
+      "sha256": "2f482761e0634ef7abd9a293218d0511e42d7f362f355c7760394da7cd38cea0"
+    }
+  },
+  "proof_report": "build/double-tree-residual/proof-v1/report.json",
+  "new_modules": 7,
+  "new_source_lines": 834,
+  "queried_endpoints": 14,
+  "closed_endpoints": 4,
+  "maximum_inherited_globals": 42,
+  "additional_global_axioms": [],
+  "reachable_sources": 569,
+  "proof_bindings": 10624,
+  "proof_attempts": [
+    {
+      "module": "ResidualGuardCurrent",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/ResidualGuardCurrent-v1.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v1.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v2.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v3.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v4.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v5.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v6.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v7.json"
+    },
+    {
+      "module": "PolCertGuardResidualization",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertGuardResidualization-v8.json"
+    },
+    {
+      "module": "PolCertAdjacentGuards",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertAdjacentGuards-v1.json"
+    },
+    {
+      "module": "PolCertAdjacentGuards",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/PolCertAdjacentGuards-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeResidualCandidate",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeResidualCandidate-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeResidualGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeResidualGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreeResidualFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeResidualFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreeResidualCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeResidualCompiler-v1.json"
+    }
+  ],
+  "compiler": "build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+  "compiler_sha256": "ecde01e14dfdaa890317d1aa735d8070ce9818e0cbef9739ed92a2f465aa5165",
+  "whole_program_theorem": "DoubleTreeResidualCompiler.compile_selected_residual_double_tree_program_correct",
+  "actual_final_checker_validates_affine_reference": true,
+  "verified_postpass_after_final_checker": true,
+  "actual_machine_lowering_consumes_proved_residual_loop": true,
+  "generic_formula_residualization_reused": true,
+  "library_successor_byte_identical": true,
+  "actual_pruned_loop_revalidated_by_polyhedral_extractor": false,
+  "runtime_maximum_selected_by_complementary_guards": true,
+  "native_cases": 3,
+  "native_configurations": 15,
+  "native_matches": 15,
+  "cases": [
+    {
+      "case": "fusion1",
+      "input": "build/double-source-tree/source-attempts/source-v2/fusion1/marked.c",
+      "input_sha256": "a77d05fc15bdf8112f9b492dc15acb3256e56cee6a2456175afadd1c15a449eb",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            13,
+            3
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "case": "multi-stmt-stencil-seq",
+      "input": "build/double-source-tree/source-attempts/source-v2/multi-stmt-stencil-seq/marked.c",
+      "input_sha256": "6835bdb8ff9f0b859d56719245d0143b3c619e28aadf9604fcaadabd1e311c51",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            34,
+            9
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "case": "tricky3",
+      "input": "build/double-source-tree/source-attempts/source-v2/tricky3/marked.c",
+      "input_sha256": "2448472faff16424a0c5e5c320fbf148bb04df0b2eb9a3f3aba7bafe94eef573",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            30,
+            4
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            30,
+            4
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            30,
+            4
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            30,
+            4
+          ]
+        }
+      }
+    }
+  ],
+  "runtime_header_variant": {
+    "original": "build/double-source-tree/source-attempts/source-v2/tricky3/marked.c",
+    "adaptation": "three constant globals become argv inputs; marked calculation unchanged",
+    "calculation_byte_identical": true,
+    "profile": [
+      0,
+      32
+    ],
+    "native_matches": 21,
+    "values": [
+      [
+        -1,
+        2,
+        3
+      ],
+      [
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        9223372036854775807,
+        -9223372036854775808
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        7
+      ],
+      [
+        1,
+        7,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        3,
+        5,
+        2
+      ],
+      [
+        2,
+        31,
+        32
+      ],
+      [
+        1,
+        32,
+        31
+      ],
+      [
+        32,
+        1,
+        1
+      ],
+      [
+        33,
+        1,
+        1
+      ],
+      [
+        1,
+        33,
+        1
+      ],
+      [
+        1,
+        1,
+        33
+      ],
+      [
+        1,
+        -1,
+        7
+      ],
+      [
+        1,
+        7,
+        -1
+      ],
+      [
+        1,
+        32,
+        32
+      ],
+      [
+        4096,
+        3,
+        5
+      ],
+      [
+        1,
+        4096,
+        4096
+      ],
+      [
+        4096,
+        4096,
+        4096
+      ]
+    ]
+  },
+  "actual_paths": [
+    {
+      "values": [
+        -1,
+        2,
+        3
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": []
+    },
+    {
+      "values": [
+        0,
+        9223372036854775807,
+        -9223372036854775808
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": []
+    },
+    {
+      "values": [
+        1,
+        0,
+        0
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min"
+      ]
+    },
+    {
+      "values": [
+        1,
+        0,
+        7
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        8,
+        0,
+        7,
+        7,
+        1,
+        0,
+        0,
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        8,
+        0,
+        7,
+        7,
+        1,
+        0,
+        0,
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv",
+        "target_clusterv"
+      ]
+    },
+    {
+      "values": [
+        1,
+        7,
+        0
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        8,
+        7,
+        7,
+        1,
+        7,
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        8,
+        7,
+        7,
+        1,
+        7,
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_dist",
+        "target_kmin",
+        "target_dist",
+        "target_kmin",
+        "target_dist",
+        "target_kmin",
+        "target_dist"
+      ]
+    },
+    {
+      "values": [
+        1,
+        1,
+        1
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv"
+      ]
+    },
+    {
+      "values": [
+        2,
+        3,
+        5
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        12,
+        0,
+        10,
+        10,
+        2,
+        6,
+        6,
+        10,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        12,
+        0,
+        10,
+        10,
+        2,
+        6,
+        6,
+        10,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv"
+      ]
+    },
+    {
+      "values": [
+        3,
+        5,
+        2
+      ],
+      "actual": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        18,
+        15,
+        15,
+        3,
+        15,
+        15,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        18,
+        15,
+        15,
+        3,
+        15,
+        15,
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "target_dist_min",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_clusterv",
+        "target_dist",
+        "target_kmin",
+        "target_dist"
+      ]
+    },
+    {
+      "values": [
+        33,
+        1,
+        1
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33,
+        33,
+        33,
+        33
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        33,
+        33,
+        33,
+        33
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_clusterv",
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_clusterv",
+        "fallback_dist_min",
+        "fallback_dist"
+      ]
+    },
+    {
+      "values": [
+        1,
+        33,
+        1
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        33,
+        33,
+        1
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        33,
+        33,
+        1
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_dist"
+      ]
+    },
+    {
+      "values": [
+        1,
+        1,
+        33
+      ],
+      "actual": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        33
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        33
+      ],
+      "debugger_returncode": 0,
+      "complete_output_matches": true,
+      "passed": true,
+      "event_prefix": [
+        "fallback_dist_min",
+        "fallback_dist",
+        "fallback_kmin",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv",
+        "fallback_clusterv"
+      ]
+    }
+  ],
+  "actual_code_comparison": {
+    "pruned": {
+      "model_guards": 12,
+      "selected_cmp_instructions": 21,
+      "selected_instructions": 112
+    },
+    "residual": {
+      "model_guards": 4,
+      "selected_cmp_instructions": 7,
+      "selected_instructions": 38
+    }
+  },
+  "actual_iteration_comparisons": [
+    {
+      "values": [
+        -1,
+        2,
+        3
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        0,
+        9223372036854775807,
+        -9223372036854775808
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        0,
+        0
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        0,
+        7
+      ],
+      "old_body_iterations": 7,
+      "new_body_iterations": 7
+    },
+    {
+      "values": [
+        1,
+        7,
+        0
+      ],
+      "old_body_iterations": 7,
+      "new_body_iterations": 7
+    },
+    {
+      "values": [
+        1,
+        1,
+        1
+      ],
+      "old_body_iterations": 1,
+      "new_body_iterations": 1
+    },
+    {
+      "values": [
+        2,
+        3,
+        5
+      ],
+      "old_body_iterations": 10,
+      "new_body_iterations": 10
+    },
+    {
+      "values": [
+        3,
+        5,
+        2
+      ],
+      "old_body_iterations": 15,
+      "new_body_iterations": 15
+    },
+    {
+      "values": [
+        33,
+        1,
+        1
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        33,
+        1
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    },
+    {
+      "values": [
+        1,
+        1,
+        33
+      ],
+      "old_body_iterations": 0,
+      "new_body_iterations": 0
+    }
+  ],
+  "actual_scalar_stores_and_changed_order": {
+    "values": [
+      2,
+      3,
+      5
+    ],
+    "source_events": [
+      "source_dist_min",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_dist_min",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_dist",
+      "source_kmin",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv",
+      "source_clusterv"
+    ],
+    "fused_events": [
+      "target_dist_min",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_clusterv",
+      "target_clusterv",
+      "target_dist_min",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_dist",
+      "target_kmin",
+      "target_clusterv",
+      "target_clusterv",
+      "target_clusterv"
+    ],
+    "source_counts": [
+      2,
+      6,
+      6,
+      10
+    ],
+    "passed": true
+  },
+  "same_source_cost_comparison": {
+    "profile": [
+      0,
+      4096
+    ],
+    "cases": [
+      {
+        "values": [
+          0,
+          9223372036854775807,
+          -9223372036854775808
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "residual": 0.0005740000000002965,
+          "pruned": 0.0005910000000000082,
+          "source": 0.0005870000000000042
+        },
+        "median_paired_residual_over_pruned_ratio": 0.9813874788483092,
+        "median_paired_residual_over_source_ratio": 0.9614767255191934,
+        "median_paired_pruned_over_source_ratio": 1.003395585739016
+      },
+      {
+        "values": [
+          4096,
+          0,
+          0
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "residual": 0.0005679999999994578,
+          "pruned": 0.0005430000000004043,
+          "source": 0.0004839999999983746
+        },
+        "median_paired_residual_over_pruned_ratio": 0.9912739965099178,
+        "median_paired_residual_over_source_ratio": 0.9930069930060157,
+        "median_paired_pruned_over_source_ratio": 1.0103305785157104
+      },
+      {
+        "values": [
+          4096,
+          3,
+          5
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "residual": 0.0005920000000010361,
+          "pruned": 0.0006090000000007478,
+          "source": 0.0005129999999997636
+        },
+        "median_paired_residual_over_pruned_ratio": 0.9673202614391606,
+        "median_paired_residual_over_source_ratio": 1.0415944540724595,
+        "median_paired_pruned_over_source_ratio": 1.0582191780812127
+      },
+      {
+        "values": [
+          4096,
+          4096,
+          4096
+        ],
+        "expected_acceptance_from_emitted_capture": true,
+        "median_process_cpu_seconds": {
+          "residual": 0.011243000000000336,
+          "pruned": 0.02743200000000101,
+          "source": 0.015043000000000362
+        },
+        "median_paired_residual_over_pruned_ratio": 0.4117194088958808,
+        "median_paired_residual_over_source_ratio": 0.7543612453033178,
+        "median_paired_pruned_over_source_ratio": 1.8235724257129795
+      },
+      {
+        "values": [
+          4097,
+          3,
+          5
+        ],
+        "expected_acceptance_from_emitted_capture": false,
+        "median_process_cpu_seconds": {
+          "residual": 0.0005849999999991695,
+          "pruned": 0.0005290000000002237,
+          "source": 0.0005919999999992598
+        },
+        "median_paired_residual_over_pruned_ratio": 1.0133779264232725,
+        "median_paired_residual_over_source_ratio": 0.9837662337697073,
+        "median_paired_pruned_over_source_ratio": 0.9707792207808592
+      },
+      {
+        "values": [
+          1,
+          4097,
+          3
+        ],
+        "expected_acceptance_from_emitted_capture": false,
+        "median_process_cpu_seconds": {
+          "residual": 0.0005740000000002965,
+          "pruned": 0.0004919999999994928,
+          "source": 0.0005800000000011352
+        },
+        "median_paired_residual_over_pruned_ratio": 0.9939024390253369,
+        "median_paired_residual_over_source_ratio": 0.9630872483229378,
+        "median_paired_pruned_over_source_ratio": 0.9576988155684378
+      }
+    ],
+    "samples_per_variant_and_input": 7,
+    "complete_measured_outputs_matched": 126,
+    "timing_scope": "Child process user+system CPU; includes executable startup, argv parsing, initialization, checks, candidate/fallback, public exits, complete-state digest and printing.",
+    "unmarked_variant_only_removes_selection_markers": true,
+    "kernel_only_call_timing": false,
+    "separate_guard_cpu_cost": false,
+    "CPU_pinning_or_frequency_control": false
+  },
+  "full_domain_median_paired_residual_over_source_ratio": 0.7543612453033178,
+  "some_residual_child_membership_remains": true,
+  "condition_memoization_added": false,
+  "general_piece_correspondence_added": false,
+  "actual_tiling_added": false,
+  "OLO_compact_condition_algorithm_complete": false,
+  "aggregate_full_corpus_replayed": false,
+  "kernel_or_host_laws_changed": false,
+  "full_goal_complete": false
+}

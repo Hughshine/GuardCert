@@ -2164,3 +2164,22 @@ host law changes. General finite bound lists are supported mathematically,
 although the current branch construction can grow exponentially. Body
 membership guards remain, and this service does not supply general piece
 correspondence or compact optimistic entry conditions.
+
+
+\paragraph{Fact-Scoped Body Condition Simplification.}
+The next domain service obtains facts from actual loop bounds and entered
+guards, transports variable indices under binders, and uses interval analysis
+for additional atomic decisions. It instantiates the generic formula
+residualization theorem and proves Boolean evaluation equality and finite
+statement execution preservation. Unknown atoms remain; an unanalyzable loop
+is retained. A separate proved pass merges adjacent equal guards, whose
+predicates observe the immutable Loop environment. Actual Clight lowering
+supplies the private cached-parameter frame.
+
+For tricky3, loop facts remove outer and cap membership, while each selected
+child loop still checks membership of the other child. The two adjacent
+cluster assignments share that check. The actual machine compiler consumes
+both services after affine reference validation; a new factory and selected
+program theorem establish Csem-to-Asm backward simulation. The generic kernel
+and host laws remain unchanged. Simplifying candidate predicates does not
+supply OLO's derivation of compact entry conditions or safe dependent reads.

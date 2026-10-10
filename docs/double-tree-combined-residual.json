@@ -1,0 +1,44 @@
+{
+  "status": "compiled",
+  "new_modules": [
+    "prototype/interface/CombinedDoubleTreeResidualCompiler.v"
+  ],
+  "new_source_lines": 81,
+  "endpoints": [
+    "CombinedDoubleTreeResidualCompiler.checked_selected_combined_residual_double_program_correct",
+    "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 605,
+  "attempts": [
+    {
+      "module": "CombinedDoubleTreeResidualCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/CombinedDoubleTreeResidualCompiler-v1.json"
+    }
+  ],
+  "complete_compiler_endpoint": "CombinedDoubleTreeResidualCompiler.compile_selected_combined_residual_double_program_correct",
+  "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+  "actual_source_loop_passed_to_untrusted_adapter": true,
+  "common_original_schedule_coordinates_reused": true,
+  "per_statement_constant_point_shifts_reused": true,
+  "affine_reference_is_checked_before_proved_postpass": true,
+  "actual_residual_loop_is_lowered_through_proved_machine_compiler": true,
+  "loop_binder_branch_and_interval_facts_are_proved": true,
+  "established_typed_double_pipeline_runs_on_actual_intermediate_program": true,
+  "generic_formula_residualization_reused": true,
+  "generic_library_successor_byte_identical": true,
+  "adjacent_equal_guards_factored_under_immutable_model_environment": true,
+  "OLO_compact_entry_condition_algorithm_complete": false,
+  "actual_pruned_loop_revalidated_by_polyhedral_checker": false,
+  "runtime_maximum_bound_selected_by_complementary_guards": true,
+  "factory_and_current_program_host_consume_new_checker": true,
+  "domain_partition_or_many_to_one_point_matching_added": false,
+  "new_native_acceptance_established_by_proof_audit": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/double-tree-combined-residual/proof-v1/report.json"
+}

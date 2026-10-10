@@ -4803,6 +4803,38 @@
         "docs/double-tree-pruned-native.json"
       ],
       "validation": "build/double-tree-pruned/native-summary-v1/report.json"
+    },
+    {
+      "section": "case-study/evaluation",
+      "claim": "Fact-scoped Loop residualization reuses generic formula preservation, removes proved redundant membership checks and factors adjacent equal guards; actual Clight lowering and the current Csem-to-Asm compiler consume it. Eleven machine paths preserve captures and stores; same-computation process costs improve the full-domain case without establishing broader performance or OLO entry-condition synthesis.",
+      "theorems": [
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeResidualCandidate.v",
+          "name": "double_residual_test_sound"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeResidualCandidate.v",
+          "name": "double_residual_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeResidualCandidate.v",
+          "name": "double_adjacent_guard_execution"
+        },
+        {
+          "source": "adapters/compcert-memory/GuardMemoryDoubleTreeResidualCandidate.v",
+          "name": "compiled_residual_double_tree_candidate_execution"
+        },
+        {
+          "source": "prototype/interface/DoubleTreeResidualCompiler.v",
+          "name": "compile_selected_residual_double_tree_program_correct"
+        }
+      ],
+      "documents": [
+        "docs/double-tree-residual.md",
+        "docs/double-tree-residual.json",
+        "docs/double-tree-residual-native.json"
+      ],
+      "validation": "build/double-tree-residual/native-summary-v1/report.json"
     }
   ],
   "bibliography_evidence": [

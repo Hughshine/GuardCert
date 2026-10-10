@@ -1,0 +1,191 @@
+{
+  "status": "incomplete-functional-coverage",
+  "source_report": "build/benchmark-alignment/current-double-residual-attempts/corpus-v2/report.json",
+  "source_report_sha256": "7f7a8fc6f75c7728c58a8a792b5124d2fd76a7482844c18627e65e18175ac5fa",
+  "compiler_entrypoint": "DoubleTreeResidualCompiler.compile_selected_residual_double_tree_program",
+  "whole_program_theorem": "DoubleTreeResidualCompiler.compile_selected_residual_double_tree_program_correct",
+  "source_revision": "ca1ae3199c816594bab9d51eb77309a0d17527aa",
+  "original_cases_attempted": 62,
+  "disclosed_adaptations": 2,
+  "modes": [
+    "unmarked",
+    "untiled",
+    "tiled"
+  ],
+  "configurations_attempted": 192,
+  "native_configuration_matches": 185,
+  "native_mismatches_or_link_failures": [],
+  "refusals": [
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "unmarked",
+      "compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/corcol3-original/unmarked/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/corcol3-original/unmarked/program.c"
+        ],
+        "elapsed_seconds": 0.026531515992246568
+      },
+      "status": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "untiled",
+      "compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/corcol3-original/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/corcol3-original/untiled/program.c"
+        ],
+        "elapsed_seconds": 0.025902997993398458
+      },
+      "status": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "corcol3",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/corcol3-original/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/corcol3-original/tiled/program.c"
+        ],
+        "elapsed_seconds": 0.026271101960446686
+      },
+      "status": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "jacobi-1d-imper",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler": {
+        "returncode": null,
+        "timeout": true,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/jacobi-1d-imper-original/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/jacobi-1d-imper-original/tiled/program.c"
+        ],
+        "elapsed_seconds": 180.09482697199564
+      },
+      "status": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "unmarked",
+      "compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/pca-original/unmarked/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/pca-original/unmarked/program.c"
+        ],
+        "elapsed_seconds": 0.027812187967356294
+      },
+      "status": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "untiled",
+      "compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/pca-original/untiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/pca-original/untiled/program.c"
+        ],
+        "elapsed_seconds": 0.027738962962757796
+      },
+      "status": "frontend_or_compiler_refusal"
+    },
+    {
+      "case": "pca",
+      "variant": "original",
+      "mode": "tiled",
+      "compiler": {
+        "returncode": 2,
+        "timeout": false,
+        "argv": [
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/ccomp",
+          "-fall",
+          "-stdlib",
+          "/home/hugh/research/polyhedral/guard/build/double-tree-model/compiler-attempts/native-residual-v1/runtime",
+          "-dclight",
+          "-S",
+          "-o",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/pca-original/tiled/program.s",
+          "/home/hugh/research/polyhedral/guard/build/benchmark-alignment/current-double-residual-attempts/corpus-v2/pca-original/tiled/program.c"
+        ],
+        "elapsed_seconds": 0.028093250992242247
+      },
+      "status": "frontend_or_compiler_refusal"
+    }
+  ],
+  "guarded_installation_cases": [
+    "fusion1",
+    "fusion6",
+    "fusion7",
+    "jacobi-1d-imper",
+    "multi-loop-param",
+    "multi-stmt-stencil-seq",
+    "polynomial",
+    "tricky3"
+  ],
+  "installed_cases_do_not_prove_nonidentity_or_requested_tiling": true,
+  "original_numeric_types_and_computations_preserved": true,
+  "initializer_adaptations_are_separate_sources": true,
+  "empty_phase_models_observed_but_source_model_cause_unresolved": true,
+  "setup_failure_retained": "build/double-tree-residual/corpus-setup-v1/failure.json",
+  "new_combined_pipeline_coverage_established": false,
+  "full_goal_complete": false
+}

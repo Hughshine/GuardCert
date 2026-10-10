@@ -1,11 +1,18 @@
 # 验证责任、证书边界与最难的验收
 
+[Residual 后继](double-tree-residual.md)已闭合 domain facts → generic formula
+处理 → Loop执行保持 → 实际machine lowering → factory／current-program compiler。
+Kernel／host laws保持，数学Boolean equality不代替安全dependent reads。完整同源
+成本在满域案例改善为source的配对0.754；这不完成OLO入口条件或广泛效果验收。
+新组合compiler消费tree pass产出的actual intermediate Clight，再复用旧typed
+passes证明并接backend；编译证明不等于native或完整corpus覆盖，后两项仍在验收。
+
 [2026-10-10 narrative 复核](narrative-condition-boundary-review-2026-10-10.md)明确：
 kernel 消费证书证明局部 correctness；条件库提供带调用前提的可复用处理；语言
 host 提供机器安全、frame、control／progress 和全程序安装；domain 提供实际
 模型、候选正确性及局部义务到入口前提的推导。Generic context 的 lifting 字段
 需要 host 证明。当前候选体 membership 简化不等于 OLO 入口条件 synthesis，
-未编译的新 residual factory／compiler 不计交付。支持族的 C 使用者不给语义
+复核时未编译的 residual factory／compiler 当时不计交付。支持族的 C 使用者不给语义
 callbacks；扩展作者和 factory 必须证明并 discharge 相应义务。
 
 [Body-pruning 后继](double-tree-pruned.md)明确reference与actual target的交接：
