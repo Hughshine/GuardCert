@@ -2450,3 +2450,25 @@ runtime branch observation; the backend may fold checks on constant inputs.
 No new timing, dynamic guard-cost measurement, full-corpus replay or compact OLO
 condition result is reported. An exported source-order counterexample for
 stencil and the candidate-copy mismatch for tricky3 define the next work.
+
+\paragraph{Common-coordinate stencil and actual runtime paths.}
+Five successor modules add 517 lines and eleven queried endpoints, none closed.
+The audit traverses 563 reachable sources, binds 10,453 files and retains seven
+module attempts, five successful and two failed. No global assumption is added;
+the complete compiler still uses at most 42 inherited globals. The same three
+original programs run in five configurations each and all fifteen complete
+outputs match same-source GCC. Fusion1 and the five-stage stencil now install
+complete fused regions. Tricky3 still installs only two internal ranges.
+Wrong shifts and unmarked controls install none. Requested tiled stencil code
+has the same unblocked fused shape, rather than new tiling coverage.
+
+A separate stencil adaptation supplies global $n$ from argv while keeping the
+marked computation byte-identical. One compiled binary with profile $[0,32]$
+matches all seventeen inputs, including empty ranges, dispatch boundaries and
+profile refusal. Seven GDB runs on unchanged linked assembly observe accepted
+entry for 0/3/9/32 with five shared-header checks each, and fallback for
+$-1$/33/4096 with one check each; complete outputs also match. The initial
+sandboxed ptrace refusal is retained separately. These counts show that repeated
+captures remain; they are not CPU timings or a compact OLO condition result.
+This stage adds no full-corpus replay, controlled cost result or benchmark-tier
+completion claim.

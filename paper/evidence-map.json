@@ -18142,5 +18142,190 @@
         "name": "compile_selected_shifted_double_tree_program_correct"
       }
     ]
+  },
+  "whole_tree_common_stencil_successor": {
+    "new_modules": 5,
+    "new_source_lines": 517,
+    "queried_endpoints": 11,
+    "closed_endpoints": 0,
+    "maximum_inherited_globals": 42,
+    "additional_global_axioms": [],
+    "reachable_sources": 563,
+    "proof_bindings": 10453,
+    "proof_attempts": 7,
+    "complete_marked_tree_fusion_cases": [
+      "fusion1",
+      "multi-stmt-stencil-seq"
+    ],
+    "native_cases": 3,
+    "native_configurations": 15,
+    "native_matches": 15,
+    "remaining_complete_marked_tree_cases": [
+      "tricky3"
+    ],
+    "actual_tiling_added": false,
+    "OLO_compact_condition_algorithm_complete": false,
+    "domain_partition_checker_added": false,
+    "kernel_or_host_laws_changed": false,
+    "full_goal_complete": false,
+    "summary": "docs/double-tree-common.json",
+    "native_summary": "docs/double-tree-common-native.json",
+    "native_summary_sha256": "598cedb6fb4559366aa9bcfbfe62d8aa57722818d3c7ac0118247603feb61460",
+    "proof_report": {
+      "path": "build/double-tree-common/proof-v1/report.json",
+      "sha256": "ea4e918d69851cc4523c34801f4bef28dc0576fc5cb08c6eb8732ff3242359f3"
+    },
+    "new_complete_compiler_endpoint": "DoubleTreeCommonCompiler.compile_selected_common_double_tree_program_correct",
+    "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+    "runtime_header_variant": {
+      "original": "build/double-source-tree/source-attempts/source-v2/multi-stmt-stencil-seq/marked.c",
+      "adaptation": "global n becomes argv input; region unchanged",
+      "region_calculation_byte_identical": true,
+      "raw_original_coverage_added": false,
+      "profile": [
+        0,
+        32
+      ],
+      "values": [
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        16,
+        31,
+        32,
+        33,
+        4096
+      ],
+      "native_matches": 17
+    },
+    "actual_runtime_path_observations": [
+      {
+        "value": -1,
+        "actual": [
+          0,
+          1,
+          1
+        ],
+        "passed": true
+      },
+      {
+        "value": 0,
+        "actual": [
+          1,
+          0,
+          5
+        ],
+        "passed": true
+      },
+      {
+        "value": 3,
+        "actual": [
+          1,
+          0,
+          5
+        ],
+        "passed": true
+      },
+      {
+        "value": 9,
+        "actual": [
+          1,
+          0,
+          5
+        ],
+        "passed": true
+      },
+      {
+        "value": 32,
+        "actual": [
+          1,
+          0,
+          5
+        ],
+        "passed": true
+      },
+      {
+        "value": 33,
+        "actual": [
+          0,
+          1,
+          1
+        ],
+        "passed": true
+      },
+      {
+        "value": 4096,
+        "actual": [
+          0,
+          1,
+          1
+        ],
+        "passed": true
+      }
+    ],
+    "accepted_shared_header_checks": 5,
+    "refused_shared_header_checks": 1,
+    "new_timing_or_guard_CPU_cost": false,
+    "reports": {
+      "compiler_before_coalescing": {
+        "path": "build/double-tree-model/compiler-attempts/native-common-v1/report.json",
+        "sha256": "d7fb4e7a270ea98b4801cef75d19831ba18591116bf047491a904f6ef5ac3c38"
+      },
+      "phase_before_coalescing": {
+        "path": "build/double-tree-model/trace-attempts/phase-common-v1/report.json",
+        "sha256": "7c5cec1aa4db60f3cb0566a43d260e70416361110f9682758880d4c8d361f768"
+      },
+      "compiler": {
+        "path": "build/double-tree-model/compiler-attempts/native-common-prefix-v1/report.json",
+        "sha256": "3339f681c603f9c28b73fb408c5a3f968a356e0ab7777eefbce0f0d8d3c4d751"
+      },
+      "native": {
+        "path": "build/double-tree-common/native-attempts/original-v1/report.json",
+        "sha256": "cd0ade1fd785567f2f71e47f46c02318bca1fc5196d8117b1e8373053f4aa5f9"
+      },
+      "runtime": {
+        "path": "build/double-tree-common/runtime-attempts/argv-v1/report.json",
+        "sha256": "f801b18616b1274f4cff03eec011e5df1ea2889ceaf21d9f0feb101f7a2e096b"
+      },
+      "path_permission_failure": {
+        "path": "build/double-tree-common/path-attempts/branch-v1/report.json",
+        "sha256": "18757fc59b8fd7e4b1a429eb131520076bebf24b3066c2436d1398201a96f2e8"
+      },
+      "paths": {
+        "path": "build/double-tree-common/path-attempts/branch-v2/report.json",
+        "sha256": "fe0ab265ce4d0c2e332fd6e0f1d411538799f76cb79a7dd7f3ac63436a1a4ac3"
+      }
+    },
+    "theorems": [
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleCommonPrepared.v",
+        "name": "checked_double_common_prepared_phase_correct"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCommonPrepared.v",
+        "name": "checked_double_tree_common_prepared_loop_progress_at"
+      },
+      {
+        "source": "adapters/compcert-memory/GuardMemoryDoubleTreeCommonGuarded.v",
+        "name": "checked_double_tree_common_guarded_execution"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeCommonFactory.v",
+        "name": "check_double_tree_common_region_sound"
+      },
+      {
+        "source": "prototype/interface/DoubleTreeCommonCompiler.v",
+        "name": "compile_selected_common_double_tree_program_correct"
+      }
+    ]
   }
 }

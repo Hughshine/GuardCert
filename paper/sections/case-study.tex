@@ -2099,10 +2099,31 @@ loops form the fallback branch. The new current-program compiler proves
 Csem-to-Asm backward simulation using the existing capture, machine lowering
 and language host laws. No dynamic source/model callback is supplied by a C user.
 
-The remaining correspondence limits are concrete. Positional tiling attachment
+At the point-origin checkpoint, the remaining correspondence limits were concrete.
+Positional tiling attachment
 requires equal source/candidate statement counts, so it cannot directly justify
 the copies introduced by peeling or general domain partitioning. Constant shifts
 do not remove that restriction. Whole stencil additionally exposes a source-order
 inversion in exported schedule coordinates; whole tricky3 retains multiple
 candidate copies. These obligations require domain-specific producer and
 correspondence work, without enlarging the minimal semantic kernel.
+
+\paragraph{Common source coordinates and five-stage stencil fusion.}
+The successor exporter retains the extracted statements' common hierarchical
+schedule coordinates. Per-statement zero removal had inverted two sibling
+ranges in the source schedule sent to the external optimizer. The exporter is
+proposal construction; original PolyLang semantics and actual source/candidate
+validators remain authoritative. After the repair, the whole original stencil
+passes affine and tiling validation and reaches prepared codegen.
+
+Codegen emits five growing peeled prefixes, containing fifteen copies of five
+source assignments. An untrusted coalescer proposes one loop when adjacent
+prefixes share a final upper bound and each point list extends the preceding
+list. Newly introduced points receive first-boundary guards. The actual final
+checker accepts the five original instruction positions with shifts
+$[0,-1,-2,-3,-4]$, preserving original IEEE operand trees and dependencies.
+The factory installs one fused loop with dispatch thresholds 3/5/7/9, the five
+original loops as fallback and exact public source exits. The new current-program
+compiler again proves Csem-to-Asm backward simulation, without kernel or host-law
+changes. Whole tricky3 still needs mixed-depth piece correspondence; this
+instruction-only prefix proposal does not implement general partition validation.

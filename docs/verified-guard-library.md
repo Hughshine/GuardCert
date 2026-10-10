@@ -1,5 +1,15 @@
 # Verified guard library：服务分类与依赖契约
 
+
+[Common-coordinate／stencil后继](double-tree-common.md)复用已有safe capture、
+cache encoding、constant point-shift与machine/public-exit服务，接新factory和
+Csem→Asm。保留共同schedule／prefix coalescing是优化提案，不是guard库新
+表达能力；原source/final validators实际消费对应证据。Runtime n adaptation
+的七次未改assembly观察显示接受五次读取/检查shared n、拒绝一次，证明原
+recapture仍发生；guard库尚未提供OLO shared-check memoization或compact
+condition construction完成结果。Scope/read许可、accepted事实、private/public
+frame与refusal责任继续分开，kernel和host定律不变。以下保留前序状态。
+
 [坐标平移后继](double-tree-shifted.md)增加domain表示服务，已被新factory与
 Csem→Asm compiler消费。它requires原point representation和未移动的parameter
 prefix，ensures逐语句常数平移保留domain、timestamps及实际IEEE/Mem执行。

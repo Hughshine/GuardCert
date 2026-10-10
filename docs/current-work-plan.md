@@ -2,6 +2,35 @@
 
 ## 当前执行顺序与责任（以本节为准）
 
+
+### Common source coordinates 与五阶段 stencil 整段融合已接线
+
+[Common 后继](double-tree-common.md)保留原 extracted schedules 的共同坐标，
+关闭 whole stencil 的 source-order producer 缺口。原source PolyLang不变，
+导出和prefix coalescing仍是untrusted提案；实际affine/tiling及最终candidate
+检查继续裁决。通用递增prefix-chain合并把15copies转为5个候选位置，shift表
+`[0,-1,-2,-3,-4]`；原stencil emitted Clight有一个fused loop、3/5/7/9 dispatch、
+五个fallback loops与五个准确公开counter exits。新factory与current-program
+Csem→Asm backward simulation已消费；kernel／host laws不变。
+
+五模块517行／11端点（0closed、最多42原globals），563 reachable sources／
+10,453 proof bindings；七module attempts全部保留，无新增globals。三原程序
+五配置15/15匹配；fusion1与stencil是完整region成功，tricky3仍仅两个内部ranges。
+运行时n adaptation保留原计算区域，profile[0,32]同一binary十七输入17/17匹配。
+七次GDB观察在未改assembly上确认四次接受各五个shared-header checks，三次
+拒绝各一个check；首sandbox ptrace拒绝已保留。计数不等于CPU成本；共享
+条件memoization仍未完成。Requested tiled仍是同一未分块fused shape。
+
+**下一步是 whole tricky3 的mixed-depth／piece correspondence：** 四个源
+assignments和十九个raw copies；当前仅处理instruction-only一维prefix chains，
+需要多piece覆盖/互斥与forward执行构造，或被实际checker接受的通用候选恢复。
+现有PolCert ISS backward theorem不替代本compiler的forward/progress责任。
+继续完整sequential corpus/configurations、真实tiling/域变换、OLO compact
+entry-condition construction／simplification／memoization和完整调用成本、原CGO17
+程序与更大tiers。此结果未重算aggregate coverage或计时，完整goal保持。
+
+以下各checkpoint保留当时的验收边界。
+
 ### 逐语句坐标平移已接完整 compiler；fusion1 整段已实际接受
 
 [Shifted 后继](double-tree-shifted.md)增加已证明的逐语句常数点平移；实际 final

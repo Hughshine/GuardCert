@@ -1,5 +1,17 @@
 # 验证责任、证书边界与最难的验收
 
+
+[Common-coordinate／stencil后继](double-tree-common.md)实际关闭共同source
+schedule的producer缺口，并由最终domain/dependence检查消费通用prefix-chain
+提案，原五阶段stencil整段已安装。导出器和coalescer属于untrusted domain
+提案，不是新增kernel法则；原source model、representation证明和actual candidate
+checker保持authority。Language继续提供安全capture／private/public frame、
+机器lowering与出口，site/host复用scope、progress和当前program安装。新
+Csem→Asm endpoint和17个runtime inputs、七个实际branch观察共同验证消费。
+接受时原n被检查五次、拒绝时一次；尚无compact condition或成本收益。
+最难的剩余项是mixed-depth多piece forward对应、OLO条件推导及完整成本。
+以下是前序checkpoint的责任与限制。
+
 [逐语句坐标平移后继](double-tree-shifted.md)已接入实际候选检查、guarded factory
 和当前Csyntax→Asm证明，并在原fusion1安装完整融合。Domain负责常数点平移的
 执行对应和实际domain/dependence检查；language复用安全capture、参数与机器

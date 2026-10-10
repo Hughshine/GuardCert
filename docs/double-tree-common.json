@@ -1,0 +1,77 @@
+{
+  "status": "compiled",
+  "new_modules": [
+    "adapters/compcert-memory/GuardMemoryDoubleCommonPrepared.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeCommonPrepared.v",
+    "adapters/compcert-memory/GuardMemoryDoubleTreeCommonGuarded.v",
+    "prototype/interface/DoubleTreeCommonFactory.v",
+    "prototype/interface/DoubleTreeCommonCompiler.v"
+  ],
+  "new_source_lines": 517,
+  "endpoints": [
+    "GuardMemoryDoubleCommonPrepared.export_double_common_statement_payload",
+    "GuardMemoryDoubleCommonPrepared.checked_double_common_prepared_phase_correct",
+    "GuardMemoryDoubleCommonPrepared.checked_double_common_prepared_loop_correct",
+    "GuardMemoryDoubleTreeCommonPrepared.checked_double_tree_common_prepared_loop_progress_at",
+    "GuardMemoryDoubleTreeCommonGuarded.checked_double_tree_common_guarded_execution",
+    "DoubleTreeCommonFactory.double_tree_common_region_contract",
+    "DoubleTreeCommonFactory.check_double_tree_common_region_sound",
+    "DoubleTreeCommonCompiler.checked_common_double_tree_regions_sound",
+    "DoubleTreeCommonCompiler.checked_selected_common_double_tree_program_correct",
+    "DoubleTreeCommonCompiler.selected_common_double_tree_cstrategy_forward",
+    "DoubleTreeCommonCompiler.compile_selected_common_double_tree_program_correct"
+  ],
+  "additional_global_axioms": [],
+  "closed_endpoints": 0,
+  "maximum_endpoint_globals": 42,
+  "reachable_source_count": 563,
+  "attempts": [
+    {
+      "module": "GuardMemoryDoubleCommonPrepared",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleCommonPrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleCommonPrepared",
+      "compiled": false,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleCommonPrepared-v2.json"
+    },
+    {
+      "module": "GuardMemoryDoubleCommonPrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleCommonPrepared-v3.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeCommonPrepared",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeCommonPrepared-v1.json"
+    },
+    {
+      "module": "GuardMemoryDoubleTreeCommonGuarded",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/GuardMemoryDoubleTreeCommonGuarded-v1.json"
+    },
+    {
+      "module": "DoubleTreeCommonFactory",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeCommonFactory-v1.json"
+    },
+    {
+      "module": "DoubleTreeCommonCompiler",
+      "compiled": true,
+      "metadata": "build/original-matmul/installation-attempts-v1/DoubleTreeCommonCompiler-v1.json"
+    }
+  ],
+  "complete_compiler_endpoint": "DoubleTreeCommonCompiler.compile_selected_common_double_tree_program_correct",
+  "complete_compiler_direction": "Csem-to-Asm-backward-simulation",
+  "common_original_schedule_coordinates_exported": true,
+  "per_statement_constant_point_shifts_reused": true,
+  "actual_final_checker_consumes_shifted_representation": true,
+  "factory_and_current_program_host_consume_new_checker": true,
+  "domain_partition_or_many_to_one_point_matching_added": false,
+  "new_native_acceptance_established_by_proof_audit": false,
+  "kernel_changed": false,
+  "additional_host_laws": false,
+  "full_goal_complete": false,
+  "report": "build/double-tree-common/proof-v1/report.json"
+}

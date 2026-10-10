@@ -1,5 +1,8 @@
 # 逐语句坐标平移：完整 fusion1 已安装并执行
 
+
+本页保留point-origin checkpoint当时的结果。后续[共同坐标与stencil整段融合](double-tree-common.md)已关闭本页stencil拒绝；tricky3、general piece correspondence和OLO条件工作仍未完成。
+
 原 `fusion1` 的两个 marked 兄弟循环现在被同一个 guarded replacement 替换。
 候选有一个循环，第二个 assignment 在 counter 至少为 3 时执行，并使用
 counter 减一后的原坐标。原 `0.33` IEEE 运算树和数组声明保留；接受分支

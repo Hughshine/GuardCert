@@ -1,0 +1,430 @@
+{
+  "status": "checked",
+  "reports": {
+    "compiler_before_coalescing": {
+      "path": "build/double-tree-model/compiler-attempts/native-common-v1/report.json",
+      "sha256": "d7fb4e7a270ea98b4801cef75d19831ba18591116bf047491a904f6ef5ac3c38"
+    },
+    "phase_before_coalescing": {
+      "path": "build/double-tree-model/trace-attempts/phase-common-v1/report.json",
+      "sha256": "7c5cec1aa4db60f3cb0566a43d260e70416361110f9682758880d4c8d361f768"
+    },
+    "compiler": {
+      "path": "build/double-tree-model/compiler-attempts/native-common-prefix-v1/report.json",
+      "sha256": "3339f681c603f9c28b73fb408c5a3f968a356e0ab7777eefbce0f0d8d3c4d751"
+    },
+    "native": {
+      "path": "build/double-tree-common/native-attempts/original-v1/report.json",
+      "sha256": "cd0ade1fd785567f2f71e47f46c02318bca1fc5196d8117b1e8373053f4aa5f9"
+    },
+    "runtime": {
+      "path": "build/double-tree-common/runtime-attempts/argv-v1/report.json",
+      "sha256": "f801b18616b1274f4cff03eec011e5df1ea2889ceaf21d9f0feb101f7a2e096b"
+    },
+    "path_permission_failure": {
+      "path": "build/double-tree-common/path-attempts/branch-v1/report.json",
+      "sha256": "18757fc59b8fd7e4b1a429eb131520076bebf24b3066c2436d1398201a96f2e8"
+    },
+    "paths": {
+      "path": "build/double-tree-common/path-attempts/branch-v2/report.json",
+      "sha256": "fe0ab265ce4d0c2e332fd6e0f1d411538799f76cb79a7dd7f3ac63436a1a4ac3"
+    }
+  },
+  "proof_report": "build/double-tree-common/proof-v1/report.json",
+  "proof_report_sha256": "ea4e918d69851cc4523c34801f4bef28dc0576fc5cb08c6eb8732ff3242359f3",
+  "compiler": "build/double-tree-model/compiler-attempts/native-common-prefix-v1/ccomp",
+  "compiler_sha256": "10b2b75f5bb68d373e18d7995df125273a69c5de72a89db92004d5cdf15f9d11",
+  "whole_program_theorem": "DoubleTreeCommonCompiler.compile_selected_common_double_tree_program_correct",
+  "new_modules": 5,
+  "new_source_lines": 517,
+  "queried_endpoints": 11,
+  "closed_endpoints": 0,
+  "maximum_inherited_globals": 42,
+  "additional_global_axioms": [],
+  "reachable_sources": 563,
+  "proof_bindings": 10453,
+  "proof_attempts": 7,
+  "native_cases": 3,
+  "native_configurations": 15,
+  "native_matches": 15,
+  "cases": [
+    {
+      "case": "fusion1",
+      "input": "build/double-source-tree/source-attempts/source-v2/fusion1/marked.c",
+      "input_sha256": "a77d05fc15bdf8112f9b492dc15acb3256e56cee6a2456175afadd1c15a449eb",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            13,
+            3
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            13,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "case": "multi-stmt-stencil-seq",
+      "input": "build/double-source-tree/source-attempts/source-v2/multi-stmt-stencil-seq/marked.c",
+      "input_sha256": "6835bdb8ff9f0b859d56719245d0143b3c619e28aadf9604fcaadabd1e311c51",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            34,
+            9
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            1,
+            34,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "case": "tricky3",
+      "input": "build/double-source-tree/source-attempts/source-v2/tricky3/marked.c",
+      "input_sha256": "2448472faff16424a0c5e5c320fbf148bb04df0b2eb9a3f3aba7bafe94eef573",
+      "configurations": {
+        "unmarked": {
+          "status": "native_match",
+          "installed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "untiled": {
+          "status": "native_match",
+          "installed": [
+            2,
+            30,
+            4
+          ]
+        },
+        "tiled": {
+          "status": "native_match",
+          "installed": [
+            2,
+            30,
+            4
+          ]
+        },
+        "wrong-shift": {
+          "status": "native_match",
+          "installed": [
+            0,
+            30,
+            4
+          ]
+        },
+        "refuse-profile": {
+          "status": "native_match",
+          "installed": [
+            2,
+            30,
+            4
+          ]
+        }
+      }
+    }
+  ],
+  "complete_marked_tree_fusion_cases": [
+    "fusion1",
+    "multi-stmt-stencil-seq"
+  ],
+  "stencil_point_shifts": [
+    0,
+    -1,
+    -2,
+    -3,
+    -4
+  ],
+  "stencil_dispatch_thresholds": [
+    3,
+    5,
+    7,
+    9
+  ],
+  "stencil_candidate_loops": 1,
+  "stencil_fallback_loops": 5,
+  "requested_tiled_stencil_has_same_unblocked_fused_shape": true,
+  "actual_tiling_added": false,
+  "common_exporter_is_proposal_construction": true,
+  "actual_source_validator_and_final_candidate_checker_authoritative": true,
+  "source_order_check": {
+    "parameter_n": 16,
+    "old_statement2_time": [
+      1,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "old_statement3_time": [
+      1,
+      1,
+      3,
+      1,
+      0,
+      0
+    ],
+    "new_first_times": [
+      [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        3,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        4,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        5,
+        1
+      ]
+    ],
+    "new_last_times": [
+      [
+        0,
+        14,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        13,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        12,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        11,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        10,
+        1
+      ]
+    ],
+    "new_exported_sibling_ranges_are_source_ordered": true,
+    "this_numeric_receipt_is_not_a_general_export_semantics_theorem": true
+  },
+  "runtime_header_variant": {
+    "original": "build/double-source-tree/source-attempts/source-v2/multi-stmt-stencil-seq/marked.c",
+    "adaptation": "global n becomes argv input; region unchanged",
+    "region_calculation_byte_identical": true,
+    "raw_original_coverage_added": false,
+    "profile": [
+      0,
+      32
+    ],
+    "values": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      31,
+      32,
+      33,
+      4096
+    ],
+    "native_matches": 17
+  },
+  "actual_runtime_path_observations": [
+    {
+      "value": -1,
+      "actual": [
+        0,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "value": 0,
+      "actual": [
+        1,
+        0,
+        5
+      ],
+      "passed": true
+    },
+    {
+      "value": 3,
+      "actual": [
+        1,
+        0,
+        5
+      ],
+      "passed": true
+    },
+    {
+      "value": 9,
+      "actual": [
+        1,
+        0,
+        5
+      ],
+      "passed": true
+    },
+    {
+      "value": 32,
+      "actual": [
+        1,
+        0,
+        5
+      ],
+      "passed": true
+    },
+    {
+      "value": 33,
+      "actual": [
+        0,
+        1,
+        1
+      ],
+      "passed": true
+    },
+    {
+      "value": 4096,
+      "actual": [
+        0,
+        1,
+        1
+      ],
+      "passed": true
+    }
+  ],
+  "accepted_shared_header_checks": 5,
+  "refused_shared_header_checks": 1,
+  "target_not_instrumented": true,
+  "observation_assembly_unchanged": true,
+  "failed_sandbox_ptrace_attempt_retained": true,
+  "new_timing_or_guard_CPU_cost": false,
+  "OLO_compact_condition_algorithm_complete": false,
+  "domain_partition_checker_added": false,
+  "remaining_complete_marked_tree_cases": [
+    "tricky3"
+  ],
+  "aggregate_full_corpus_replayed": false,
+  "kernel_or_host_laws_changed": false,
+  "full_goal_complete": false
+}
