@@ -1,5 +1,29 @@
 # 验证责任、证书边界与最难的验收
 
+## 当前主路线的责任（2026-10-10）
+
+主线直接组合：原 selected Clight → PolCert source model → 模型层已验证优化
+→ 原 codegen／cleanup 的执行证明 → 已证明 Clight lowering → 安全 guard、原
+fallback 和公开出口 → 当前程序的既有 host／Csem→Asm。Kernel 仍止于局部
+guarded correctness；不新增 IR、kernel laws 或 host 接口。
+
+Domain 负责实际 source/model、充分入口义务及模型层优化验证，并补成功
+codegen／cleanup 在同一 captured parameters 上的 forward execution／existence／
+progress，复用已有下层双向服务。Language 负责生成结果中 floor／min/max 等
+机器表达式的定义性／范围、真实指令执行、safe guard／state transport 和公开
+出口；factory/site 生产并消费适用证据，host 复用 scope／resources／placement、
+continuation 与当前程序安装。支持族 C 用户不补逐 site semantic callbacks。
+
+Native semantic rewrite 后重新 extract 并按 source statement list 匹配，不再是
+默认生成／安装架构。优化在模型层验证；必要的生成后处理应是有通用执行保持
+证明的独立 pass。原 raw codegen 的 backward theorem、删除旧最终检查或少量
+输出匹配，都不能代替直接候选的执行、progress、lowering 和完整程序证明。
+
+完整 direct path 尚未交付。其原 benchmark 整段变换、guard 接受／回退、实际
+完整程序及成本仍要独立验收；并发之外的 PolCert／CGO17 目标不缩小。下面的
+legacy 责任记录和冻结报告保留当时定义、检查与证据，不改称 direct-path 成果。
+
+## 前序责任记录
 
 2026-10-10 [参数 facts 后继](parameter-specialization.md)进一步落实 narrative
 `8ce9c8b` 的责任。Domain 的数学服务从 singleton intervals 取得 facts，证明
