@@ -6,6 +6,63 @@ This note records the intended top-down presentation.  It deliberately separates
 the small language-independent semantic kernel from the language- and
 optimizer-specific work that gives the abstraction substance.
 
+## Current implementation decision (2026-10-10)
+
+The polyhedral case study must use the following proof chain as its main route:
+
+```
+original selected Clight region
+  -> conditionally valid PolCert source model
+  -> model-level optimization and its verified validation
+  -> original codegen and cleanup, with their execution proofs
+  -> proved Clight lowering of that generated result
+  -> safe guard, original fallback and public-exit restoration
+  -> existing language host and Csem-to-Asm
+```
+
+Validate schedules, domains, dependences and other optimization proposals in
+the model where those transformations belong. The default delivery route must
+not semantically rewrite the generated Loop in native code, re-extract that
+replacement and authorize installation by matching it back to a source
+statement list. Such a second validation route can reject valid codegen output
+because of its representation, and does not replace direct reuse of the
+generator's proof. Any necessary change after generation must instead be a
+separate general pass with its own execution-preservation proof, composed with
+codegen, cleanup and lowering.
+
+This revision changes guidance only; it adds no implementation or completed
+results. The complete direct route is not yet delivered. Establish forward
+execution, existence and progress for actual successful codegen/cleanup at the
+captured parameters, reusing the lower-level bidirectional services and
+validated dependence properties. Account for complete iteration coverage,
+instruction/argument correspondence and order, including tied timestamps.
+A backward generated-to-source theorem alone does not construct a runnable
+candidate. Reuse main's proved equality-reduced projection and parameter
+specialization services; they do not authorize unproved loop adaptation.
+Preserve floor, min/max, multi-piece domains
+and the actual instruction/parameter correspondence through proved machine
+lowering; discharge its arithmetic ranges and private/public state obligations.
+Safe guard execution and accepted/refused entry transport remain separate
+obligations. Reuse the existing host; no new IR, kernel law or host interface is
+required by this decision.
+
+The prior adapted-candidate compiler results remain historical evidence for
+their own definitions and builds. Do not remove their final checks and present
+the resulting unchecked program as a completed direct compiler. Claim direct
+integration only when the actual codegen result is consumed through this chain
+to whole-program correctness and native execution.
+
+Acceptance still requires useful transformations of the entire marked region,
+the original numeric types, computations, inputs and surrounding context, and
+functionality/effects aligned with the PolCert and CGO 2017 sequential cases.
+Concurrent execution may be excluded. Other unsupported source families and
+sequential configurations remain implementation targets; record concrete
+attempts and remedies without removing them from acceptance.
+Record source/model, actual optimized model, codegen/cleanup result, lowering,
+guard/fallback, retained transformation, full-program endpoint and complete
+cost separately. The earlier dated implementation directives below retain
+their checkpoint scope; this decision determines the current route.
+
 ## 1. Central framing
 
 The paper should be framed as **verified optimistic transformation** rather than
@@ -400,9 +457,10 @@ through normalization. This is an implementation requirement, not a claim that
 pragma support is already installed.
 
 Keep the intended polyhedral optimization pipeline explicit: selected Clight
-region -> conditionally valid Loop/model extraction -> polyhedral representation
--> scheduling/transformation phases and their validation -> generated candidate
-Loop/Clight -> certified guard and fallback installation. Document the actual
+region -> conditionally valid PolCert model -> scheduling/transformation phases
+and their validation -> proved original codegen/cleanup -> proved Clight
+lowering -> certified guard and fallback installation. This is the required
+chain, not a claim that the direct route is already complete. Document the actual
 intermediate representations and calls rather than treating all of this as one
 opaque "rewrite".
 
